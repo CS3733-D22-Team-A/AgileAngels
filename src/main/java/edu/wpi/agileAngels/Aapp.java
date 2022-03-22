@@ -5,7 +5,7 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class App extends Application {
+public class Aapp extends Application {
 
   @Override
   public void init() {
