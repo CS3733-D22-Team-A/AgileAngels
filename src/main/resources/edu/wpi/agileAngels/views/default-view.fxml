@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Acontroller">
+   <children>
+      <Label layoutX="36.0" layoutY="47.0" text="Please select the service you would like to request:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="181.0" layoutY="121.0" mnemonicParsing="false" text="Equipment Request">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="219.0" layoutY="206.0" mnemonicParsing="false" text="Lab Request">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
