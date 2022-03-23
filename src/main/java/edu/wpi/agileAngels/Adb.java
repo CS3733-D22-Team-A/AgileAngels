@@ -15,7 +15,6 @@ public class Adb {
   //Makes a Location object and reads through CSV FILE
   public static class Location {
     public void read() throws IOException {
-      System.out.println(("In Location File"));
       try (Reader reader = Files.newBufferedReader(Paths.get(CSV_FILE_PATH));
           CSVParser csvParser =
               new CSVParser(
@@ -57,8 +56,7 @@ public class Adb {
 
   public void main(String[] args) throws IOException {
     Location location = new Location();
-    System.out.println("Get here in Adb");
     location.read();
-    System.out.println("Get here after");
+
   }
 }
