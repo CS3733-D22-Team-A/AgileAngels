@@ -1,20 +1,17 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 
 public class Acontroller {
 
-  @FXML private Button equipmentButton, labButton, homeButton;
+  @FXML private Button equipmentButton, labButton, sanitationButton, giftButton, homeButton;
 
   // Switches to a new scene depending on which button is pressed
   @FXML
@@ -33,6 +30,12 @@ public class Acontroller {
     else if (event.getSource() == labButton) {
       stage = (Stage) equipmentButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("views/lab-view.fxml"));
+    }
+    // If the sanitation request button on the default scene is pressed,
+    // switch to the sanitation scene
+    else if (event.getSource() == sanitationButton) {
+      stage = (Stage) sanitationButton.getScene().getWindow();
+      root = FXMLLoader.load(getClass().getResource("views/sanitation-view.fxml"));
     }
     // If the home button is pressed, switch to the default scene
     else {
