@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class Acontroller {
 
-  @FXML private Button equipmentButton, labButton;
+  @FXML private Button equipmentButton, labButton, homeButton;
 
   // Switches to a new scene depending on which button is pressed
   @FXML
@@ -27,9 +27,14 @@ public class Acontroller {
     }
     // If the lab request button on the default scene is pressed,
     // switch to the lab scene
-    else {
+    else if (event.getSource() == labButton) {
       stage = (Stage) equipmentButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("views/lab-view.fxml"));
+    }
+    // If the home button is pressed, switch to the default scene
+    else {
+      stage = (Stage) homeButton.getScene().getWindow();
+      root = FXMLLoader.load(getClass().getResource("views/default-view.fxml"));
     }
 
     Scene scene = new Scene(root);
