@@ -1,60 +1,13 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.*;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
+import javax.swing.*;
 
 public class Adb {
 
-  private static final String CSV_FILE_PATH = "./TowerLocations.csv";
-
-  // Makes a Location object and reads through CSV FILE and makes table
-  public static class Location {
-    public void read(Connection connection) throws IOException {
-
-      try (Reader reader = Files.newBufferedReader(Paths.get(CSV_FILE_PATH));
-          CSVParser csvParser =
-              new CSVParser(
-                  reader,
-                  CSVFormat.DEFAULT
-                      .withHeader(
-                          "NodeID",
-                          "xcoord",
-                          "ycoord",
-                          "floor",
-                          "building",
-                          "nodeType",
-                          "longName",
-                          "shortName")
-                      .withIgnoreHeaderCase()
-                      .withTrim())) {
-
-        for (CSVRecord csvRecord : csvParser) {
-          Statement statement =
-              connection.prepareStatement(
-                  "INSERT INTO Locations(NodeID, xcoord, ycoord, Floor, building, nodeType, longName, shortName)values(?,?,?,?,?,?,?,?)");
-
-          // Accessing values by the names assigned to each column
-
-          for (int i = 1; i < 9; i++) {
-            ((PreparedStatement) statement).setString(i, csvRecord.get(i - 1));
-          }
-
-        
-          ((PreparedStatement) statement).execute();
-        }
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    }
-  }
-
-  public void main(String[] args) throws IOException {
+  public void main(String[] args) throws IOException, InterruptedException {
+    // Apache Derby and table creation
     System.out.println("-------Embedded Apache Derby Connection Testing --------");
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -78,17 +31,11 @@ public class Adb {
       // substitute your database name for myDB
       connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
       statement = connection.createStatement();
-      String query =
-          "CREATE TABLE Locations( "
-              + "NodeID VARCHAR(50),"
-              + "xcoord VARCHAR(50),"
-              + "ycoord VARCHAR(50),"
-              + "Floor VARCHAR(50),"
-              + "building VARCHAR(50),"
-              + "NodeType VARCHAR(50),"
-              + "longName VARCHAR(50),"
-              + "shortName VARCHAR(50))";
-      statement.execute(query);
+
+       String query = "CREATE TABLE Locations( " + "NodeID VARCHAR(50)," + "xcoord VARCHAR(50)," +
+       "ycoord VARCHAR(50)," + "Floor VARCHAR(50)," + "building VARCHAR(50)," + "NodeType VARCHAR(50)," + "longName VARCHAR(50)," + "shortName VARCHAR(50))";
+       statement.execute(query);
+
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
       e.printStackTrace();
@@ -98,5 +45,56 @@ public class Adb {
     Location location = new Location();
 
     location.read(connection);
+    //menu();
+  }
+
+  /** Menu Creation for User* */
+  private void menu() {
+
+
+    // Scanner myObj = new Scanner(System.in); // Create a Scanner object
+    System.out.println("1 - Location Information");
+    System.out.println("2 - Change Floor and Type");
+    System.out.println("3 - Enter Location");
+    System.out.println("4 - Delete Location");
+    System.out.println("5 - Save Locations to CSV File");
+    System.out.println("6 - Exit Program");
+
+    String select = "None";
+    //TODO: make a selection
+
+    if (select.equals("1")) {
+      System.out.println("Location Information");
+      // TODO call location information function
+
+    }
+    if (select.equals("2")) {
+      System.out.println("Change Floor and Type");
+      // TODO call change floor and type function
+
+    }
+    if (select.equals("3")) {
+      System.out.println("Enter Location");
+      // TODO call adding location function
+
+    }
+    if (select.equals("4")) {
+      System.out.println("Delete Location");
+      // TODO call delete location function
+
+    }
+    if (select.equals("5")) {
+      System.out.println("Save Locations to CSV File");
+      // TODO call save locations to csv file function
+
+    }
+    if (select.equals("6")) {
+      System.out.println("Exit Program");
+      // TODO call exit program function
+
+    } else {
+      System.out.println("Wrong Input, Select From Menu");
+    }
+    menu();
   }
 }
