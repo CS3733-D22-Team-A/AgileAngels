@@ -90,7 +90,7 @@ public class Adb {
     Statement statement;
     try {
       // substitute your database name for myDB
-      connection = DriverManager.getConnection("jdbc:derby://localhost:1527/db");
+      connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
       statement = connection.createStatement();
       String query =
           "CREATE TABLE Locations( "
