@@ -6,8 +6,11 @@ import java.util.Scanner;
 import javax.swing.*;
 
 public class Adb {
-
+  private HashMap<String, Location> data;
+  public Connection connection = null;
   public void main(String[] args) throws IOException, InterruptedException {
+    
+    
     //menu();
     // Apache Derby and table creation
     System.out.println("-------Embedded Apache Derby Connection Testing --------");
@@ -53,8 +56,10 @@ public class Adb {
     }
     System.out.println("Apache Derby connection established!");
     Location location = new Location();
-
     location.read(connection);
+    Parser parser = new Parser();
+    parser.createTable(connection);
+    data = parser.locationData; //Updates the big hashmap
 
   }
 
