@@ -16,12 +16,11 @@ public class Aapp extends Application {
     log.info("Starting Up");
   }
 
+  // Creates and displays default scene
   @Override
   public void start(Stage primaryStage) throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("views/default-view.fxml"));
-
     Scene defaultScene = new Scene(root);
-
     primaryStage.setScene(defaultScene);
     primaryStage.show();
   }

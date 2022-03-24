@@ -13,15 +13,21 @@ public class Acontroller {
 
   @FXML private Button equipmentButton, labButton;
 
+  // Switches to a new scene depending on which button is pressed
   @FXML
   private void openScene(ActionEvent event) throws IOException {
     Stage stage;
     Parent root;
 
+    // If the equipment request button on the default scene is pressed,
+    // switch to the equipment scene
     if (event.getSource() == equipmentButton) {
       stage = (Stage) equipmentButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("views/equipment-view.fxml"));
-    } else {
+    }
+    // If the lab request button on the default scene is pressed,
+    // switch to the lab scene
+    else {
       stage = (Stage) equipmentButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("views/lab-view.fxml"));
     }
