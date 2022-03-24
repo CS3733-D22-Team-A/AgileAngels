@@ -19,12 +19,8 @@ public class Aapp extends Application {
   @Override
   public void start(Stage primaryStage) throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("views/default-view.fxml"));
-    Parent equipment = FXMLLoader.load(getClass().getResource("views/equipment-view.fxml"));
-    Parent lab = FXMLLoader.load(getClass().getResource("views/lab-view.fxml"));
 
     Scene defaultScene = new Scene(root);
-    Scene equipmentScene = new Scene(equipment);
-    Scene labScene = new Scene(lab);
 
     primaryStage.setScene(defaultScene);
     primaryStage.show();

@@ -12,12 +12,12 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="181.0" layoutY="121.0" mnemonicParsing="false" onAction="#openEquipmentScene" text="Equipment Request">
+      <Button fx:id="equipmentButton" layoutX="181.0" layoutY="121.0" mnemonicParsing="false" onAction="#openScene" text="Equipment Request">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="219.0" layoutY="206.0" mnemonicParsing="false" onAction="#openLabScene" text="Lab Request">
+      <Button fx:id="labButton" layoutX="219.0" layoutY="206.0" mnemonicParsing="false" onAction="#openScene" text="Lab Request">
          <font>
             <Font size="24.0" />
          </font>
