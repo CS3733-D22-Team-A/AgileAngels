@@ -1,3 +1,12 @@
 package edu.wpi.agileAngels;
 
-public class Acontroller {}
+import javafx.fxml.FXML;
+
+public class Acontroller {
+
+  @FXML
+  void openEquipmentScene() {}
+
+  @FXML
+  void openLabScene() {}
+}
