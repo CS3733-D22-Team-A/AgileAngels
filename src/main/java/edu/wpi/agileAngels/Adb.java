@@ -45,21 +45,7 @@ public class Adb {
             ((PreparedStatement) statement).setString(i, csvRecord.get(i - 1));
           }
 
-          /**
-           * String nodeID = csvRecord.get("NodeID"); String xcoord = csvRecord.get("xcoord");
-           * String ycoord = csvRecord.get("ycoord"); String floor = csvRecord.get("floor"); String
-           * building = csvRecord.get("building"); String nodeType = csvRecord.get("nodeType");
-           * String longName = csvRecord.get("longName"); String shortName =
-           * csvRecord.get("shortName");*
-           */
-
-          /**
-           * System.out.println("Record No - " + csvRecord.getRecordNumber());
-           * System.out.println("---------------"); System.out.println("NodeId : " + nodeID);
-           * System.out.println("floor : " + floor); System.out.println("nodeType : " + nodeType);
-           * System.out.println("longName : " + longName);
-           * System.out.println("---------------\n\n");*
-           */
+        
           ((PreparedStatement) statement).execute();
         }
       } catch (SQLException e) {
