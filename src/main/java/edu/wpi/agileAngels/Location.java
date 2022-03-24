@@ -21,18 +21,43 @@ public class Location {
     this.data = dataIn;
   }
 
-  public String getNodeID(){}
-  public String getXCoord(){}
-  public String getYCoord(){}
-  public String getFloor(){}
-  public String getNodeType(){}
-  public String getLongName(){}
-  public String getShortName(){}
-  public String setNodeID(){}
-  public String setXCoord(){}
-  public String setYCoord(){}
-  public String setFloor(){}
-  public String setNodeType(){}
-  public String setLongName(){}
-  public String setShortName(){}
+  public String getNodeID(){
+    return NodeID;
+  }
+  public String getXCoord(){
+    return data.get("xCoord");
+  }
+  public String getYCoord(){
+    return data.get("yCoord");
+  }
+  public String getFloor(){
+    return data.get("Floor");
+  }
+  public String getNodeType(){
+    return data.get("NodeType");
+  }
+  public String getLongName(){
+    return data.get("LongName");
+  }
+  public String getShortName(){
+    return data.get("ShortName");
+  }
+  public void setXCoord(String xCoordIn){
+    data.put("xCoord", xCoordIn);
+  }
+  public void setYCoord(String yCoordIn){
+    data.put("yCoord", yCoordIn);
+  }
+  public void setFloor(String FloorIn){
+    data.put("Floor", FloorIn);
+  }
+  public void setNodeType(String NodeTypeIn){
+    data.put("NodeType", NodeTypeIn);
+  }
+  public void setLongName(String LongNameIn){
+    data.put("LongName", LongNameIn);
+  }
+  public void setShortName(String ShortNameIn){
+    data.put("ShortName", ShortNameIn);
+  }
 }
