@@ -1,5 +1,6 @@
 package edu.wpi.agileAngels;
 
+import java.awt.*;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,4 +48,13 @@ public class Acontroller {
     stage.setScene(scene);
     stage.show();
   }
+  /*
+   @FXML
+   public void initialize() {
+     System.out.println(labBox);
+     System.out.println(labBox.getItems());
+     labBox.getItems().addAll("Blood Test", "Urine Test", "Tumor Marker");
+   }
+
+  */
 }
