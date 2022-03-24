@@ -12,10 +12,10 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 public class Location {
-  // Makes a Location object and reads through CSV FILE and makes table
-  private String NodeID;
-  private HashMap<String, String> data;
+  private String NodeID; //Unique for every location
+  private HashMap<String, String> data; //Stores a location's values, except for nodeID
 
+  //Sets initial location values.
   public Location(String nodeID, HashMap<String, String> dataIn){
     this.NodeID = nodeID;
     this.data = dataIn;
