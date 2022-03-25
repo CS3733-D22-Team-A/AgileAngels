@@ -1,8 +1,6 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +15,8 @@ import javafx.stage.Stage;
 
 public class Acontroller {
 
-  @FXML private Button equipmentButton, labButton, sanitationButton, homeButton, giftButton, homeButton, foodButton;
+  @FXML
+  private Button equipmentButton, labButton, sanitationButton, homeButton, giftButton, foodButton;
   @FXML private MenuButton mealDropdown;
   @FXML private TextField roomInput;
   @FXML private TextArea restrictions;
@@ -88,7 +87,7 @@ public class Acontroller {
             + " for "
             + meal
             + "\n"
-            + " Special Instructions: "
+            + "Special Instructions: "
             + restrictions.getText());
   }
 }

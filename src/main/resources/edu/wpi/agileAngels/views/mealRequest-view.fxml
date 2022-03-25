@@ -31,5 +31,6 @@
       <Button fx:id="order" layoutX="521.0" layoutY="354.0" mnemonicParsing="false" onAction="#placeOrder" text="Order" />
       <Label layoutX="59.0" layoutY="125.0" text="Room Number:" />
       <Label fx:id="confirm" layoutX="321.0" layoutY="255.0" text="order:" />
+      <Button fx:id="homeButton" layoutX="258.0" layoutY="357.0" mnemonicParsing="false" onAction="#openScene" text="Return to Home" />
    </children>
 </AnchorPane>
