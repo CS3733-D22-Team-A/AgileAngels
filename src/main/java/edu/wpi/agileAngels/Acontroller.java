@@ -23,7 +23,7 @@ public class Acontroller {
       giftButton,
       foodButton,
       submitSanitation;
-  @FXML private MenuButton mealDropdown;
+  @FXML private MenuButton mealDropdown, eqptDropdown;
   @FXML private TextField roomInput, sanIssue, sanLocation;
   @FXML private TextArea restrictions;
   @FXML private Label confirm, sanitationConfermation;
@@ -108,5 +108,15 @@ public class Acontroller {
             + sanLocation.getText()
             + " to sanitize "
             + sanIssue.getText());
+  }
+
+  @FXML
+  private void setBed() {
+    eqptDropdown.setText("Bed");
+  }
+
+  @FXML
+  private void setMachine() {
+    eqptDropdown.setText("Machine");
   }
 }
