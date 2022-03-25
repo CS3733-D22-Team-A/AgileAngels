@@ -2,34 +2,41 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Acontroller">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: F;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Acontroller">
    <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="334.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../logo.png" />
+         </image>
+      </ImageView>
       <Label layoutX="36.0" layoutY="47.0" text="Please select the service you would like to request:">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="equipmentButton" layoutX="183.0" layoutY="100.0" mnemonicParsing="false" onAction="#openScene" text="Equipment Request">
+      <Button fx:id="equipmentButton" layoutX="82.0" layoutY="125.0" mnemonicParsing="false" onAction="#openScene" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: AQUAMARINE;" text="Equipment Request">
          <font>
-            <Font size="24.0" />
+            <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="labButton" layoutX="221.0" layoutY="174.0" mnemonicParsing="false" onAction="#openScene" text="Lab Request">
+      <Button fx:id="labButton" layoutX="82.0" layoutY="171.0" mnemonicParsing="false" onAction="#openScene" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: AQUAMARINE;" text="Lab Request">
          <font>
-            <Font size="24.0" />
+            <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="sanitationButton" layoutX="187.0" layoutY="246.0" mnemonicParsing="false" onAction="#openScene" text="Sanitation Request">
+      <Button fx:id="sanitationButton" layoutX="82.0" layoutY="220.0" mnemonicParsing="false" onAction="#openScene" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: AQUAMARINE;" text="Sanitation Request">
          <font>
-            <Font size="24.0" />
+            <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="foodButton" layoutX="213.0" layoutY="288.0" mnemonicParsing="false" onAction="#openScene" text="Meal Request">
+      <Button fx:id="foodButton" layoutX="82.0" layoutY="267.0" mnemonicParsing="false" onAction="#openScene" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: AQUAMARINE;" text="Meal Request">
          <font>
-            <Font size="24.0" />
+            <Font size="16.0" />
          </font>
       </Button>
    </children>
