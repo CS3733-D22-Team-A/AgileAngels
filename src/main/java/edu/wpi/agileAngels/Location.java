@@ -18,15 +18,15 @@ public class Location {
   }
 
   public String getXCoord() {
-    return data.get("xCoord");
+    return data.get("xcoord");
   }
 
   public String getYCoord() {
-    return data.get("yCoord");
+    return data.get("ycoord");
   }
 
   public String getFloor() {
-    return data.get("Floor");
+    return data.get("floor");
   }
 
   public String getBuilding() {
@@ -34,38 +34,38 @@ public class Location {
   }
 
   public String getNodeType() {
-    return data.get("NodeType");
+    return data.get("nodeType");
   }
 
   public String getLongName() {
-    return data.get("LongName");
+    return data.get("longName");
   }
 
   public String getShortName() {
-    return data.get("ShortName");
+    return data.get("shortName");
   }
 
   public void setXCoord(String xCoordIn) {
-    data.put("xCoord", xCoordIn);
+    data.put("xcoord", xCoordIn);
   }
 
   public void setYCoord(String yCoordIn) {
-    data.put("yCoord", yCoordIn);
+    data.put("ycoord", yCoordIn);
   }
 
   public void setFloor(String FloorIn) {
-    data.put("Floor", FloorIn);
+    data.put("floor", FloorIn);
   }
 
   public void setNodeType(String NodeTypeIn) {
-    data.put("NodeType", NodeTypeIn);
+    data.put("nodeType", NodeTypeIn);
   }
 
   public void setLongName(String LongNameIn) {
-    data.put("LongName", LongNameIn);
+    data.put("longName", LongNameIn);
   }
 
   public void setShortName(String ShortNameIn) {
-    data.put("ShortName", ShortNameIn);
+    data.put("shortName", ShortNameIn);
   }
 }
