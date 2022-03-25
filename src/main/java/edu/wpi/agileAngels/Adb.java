@@ -36,7 +36,7 @@ public class Adb {
       // substitute your database name for myDB
       connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
       statement = connection.createStatement();
-      // String query2 = "DROP TABLE Locations";
+
       String query =
           "CREATE TABLE Locations( "
               + "NodeID VARCHAR(50),"
@@ -47,7 +47,6 @@ public class Adb {
               + "NodeType VARCHAR(50),"
               + "longName VARCHAR(50),"
               + "shortName VARCHAR(50))";
-      // statement.execute(query2);
       statement.execute(query);
 
     } catch (SQLException e) {
@@ -56,6 +55,7 @@ public class Adb {
       return;
     }
     System.out.println("Apache Derby connection established!");
+
 
     Parser parser = new Parser();
     parser.createTable(connection);
@@ -154,5 +154,46 @@ public class Adb {
 
     // Deleting from hashmap
     data.remove(node);
+  }
+
+  public void changeType(String NodeID) {
+    Location l = new Location(NodeID, data.get(NodeID));
+    Scanner myObj = new Scanner(System.in); // Create a Scanner object
+    System.out.println("What is the NodeID of the location that you want to change?");
+    String select = myObj.nextLine();
+    // see if it exists
+    System.out.println("The current floor is :" + l.getFloor());
+    System.out.println("The current type is: " + l.getNodeType());
+    System.out.println(
+        "Do you want to change the floor or type?\nClick 1 for floor and 2 for type: ");
+    String choice = myObj.nextLine();
+    if (choice.equals("1")) {
+      System.out.println("What do you want to change the floor to?");
+      String newFloor = myObj.nextLine();
+      l.setFloor(newFloor);
+      System.out.println("Do you also want to change the type?\nSelect 1 for Yes and 0 for No");
+      String choice2 = myObj.nextLine();
+      if (choice2.equals("1")) {
+        System.out.println("What do you want to change the type to?");
+        String newType = myObj.nextLine();
+        l.setNodeType(newType);
+      } else {
+      }
+    }
+    if (choice.equals("2")) {
+      System.out.println("What do you want to change the type to?");
+      String newType = myObj.nextLine();
+      l.setNodeType(newType);
+      System.out.println("Do you also want to change the floor?\nSelect 1 for Yes and 0 for No");
+      int choice2 = myObj.nextInt();
+      if (choice2.equals("1")) {
+        System.out.println("What do you want to change the floor to?");
+        String newFloor = myObj.nextLine();
+        l.setFloor(newFloor);
+      } else {
+      }
+    } else {
+      throw exception();
+    }
   }
 }
