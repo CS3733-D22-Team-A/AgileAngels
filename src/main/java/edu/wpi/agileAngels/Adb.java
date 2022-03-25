@@ -30,7 +30,6 @@ public class Adb {
     }
 
     System.out.println("Apache Derby driver registered!");
-    
 
     Statement statement;
     try {
@@ -113,7 +112,7 @@ public class Adb {
   }
 
   public void changeType(String NodeID) {
-    Location l = new Location(NodeID, null);
+    Location l = new Location(NodeID, data.get(NodeID));
     Scanner myObj = new Scanner(System.in); // Create a Scanner object
     System.out.println("What is the NodeID of the location that you want to change?");
     String select = myObj.nextLine();
@@ -122,27 +121,27 @@ public class Adb {
     System.out.println("The current type is: " + l.getNodeType());
     System.out.println(
         "Do you want to change the floor or type?\nClick 1 for floor and 2 for type: ");
-    int choice = myObj.nextInt();
-    if (choice == 1) {
+    String choice = myObj.nextLine();
+    if (choice.equals("1")) {
       System.out.println("What do you want to change the floor to?");
       String newFloor = myObj.nextLine();
       l.setFloor(newFloor);
       System.out.println("Do you also want to change the type?\nSelect 1 for Yes and 0 for No");
-      int choice2 = myObj.nextInt();
-      if (choice2 == 1) {
+      String choice2 = myObj.nextLine();
+      if (choice2.equals("1")) {
         System.out.println("What do you want to change the type to?");
         String newType = myObj.nextLine();
         l.setNodeType(newType);
       } else {
       }
     }
-    if (choice == 2) {
+    if (choice.equals("2")) {
       System.out.println("What do you want to change the type to?");
       String newType = myObj.nextLine();
       l.setNodeType(newType);
       System.out.println("Do you also want to change the floor?\nSelect 1 for Yes and 0 for No");
       int choice2 = myObj.nextInt();
-      if (choice2 == 1) {
+      if (choice2.equals("1")) {
         System.out.println("What do you want to change the floor to?");
         String newFloor = myObj.nextLine();
         l.setFloor(newFloor);
