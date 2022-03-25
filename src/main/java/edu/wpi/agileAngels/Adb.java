@@ -60,9 +60,7 @@ public class Adb {
     Parser parser = new Parser();
     parser.createTable(connection);
     data = parser.locationData; // Updates the big hashmap
-    for (int i = 0; i < 1; i++) {
-      menu();
-    }
+    menu();
   }
 
   /** Menu Creation for User* */
@@ -119,8 +117,8 @@ public class Adb {
     } else {
       System.out.println("Wrong Input, Select From Menu");
     }
-    myObj.close();
-    // menu();
+
+    menu();
   }
 
   /**
