@@ -16,14 +16,14 @@
          </font>
       </Label>
       <Button fx:id="homeButton" layoutX="248.0" layoutY="347.0" mnemonicParsing="false" onAction="#openScene" text="Return to Home" />
-      <Button layoutX="247.0" layoutY="264.0" mnemonicParsing="false" text="Submit">
+      <Button layoutX="199.0" layoutY="231.0" mnemonicParsing="false" onAction="#submitEquipment" text="Submit Request">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
       <Label layoutX="68.0" layoutY="143.0" text="Select the type of equipment needed:" />
       <Label layoutX="326.0" layoutY="143.0" text="Enter the location for equipment delivery:" />
-      <TextField layoutX="361.0" layoutY="187.0" />
+      <TextField fx:id="equipLocation" layoutX="361.0" layoutY="187.0" />
       <Label layoutX="44.0" layoutY="77.0" prefHeight="20.0" prefWidth="510.0" text="Please fill out the information below and then press the &quot;Submit Request&quot; button.">
          <font>
             <Font size="14.0" />
@@ -32,9 +32,16 @@
       <MenuButton fx:id="eqptDropdown" layoutX="84.0" layoutY="187.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#setBed" text="Bed" />
-          <MenuItem mnemonicParsing="false" onAction="#setMachine" text="Machine" />
+          <MenuItem mnemonicParsing="false" onAction="#setRecliner" text="Recliner" />
+           <MenuItem mnemonicParsing="false" onAction="#setXray" text="X-Ray Machine" />
+           <MenuItem mnemonicParsing="false" onAction="#setInfusion" text="Infusion Pump" />
         </items>
       </MenuButton>
+      <Label fx:id="equipmentConfirmation" layoutX="8.0" layoutY="302.0" prefHeight="20.0" prefWidth="583.0" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
 
    </children>
 </AnchorPane>
