@@ -19,19 +19,25 @@ import javafx.stage.Stage;
 public class Acontroller {
 
   @FXML
-  private Button equipmentButton,
+  private Button openScene,
+      equipmentButton,
       labButton,
       sanitationButton,
       homeButton,
       foodButton,
-      submitSanitation;
+      giftButton,
+      submitSanitation,
       submitGift;
-  @FXML private MenuButton mealDropdown, eqptDropdown;
-<<<<<<< HEAD
-  @FXML private TextField roomInput, sanIssue, sanLocation, giftSender, giftRecipient, giftMessage, giftType;
-=======
-  @FXML private TextField roomInput, sanIssue, sanLocation, equipLocation;
->>>>>>> e78678a9371b20c93f47210d2af4dc7593531cdb
+  @FXML private MenuButton mealDropdown, eqptDropdown, giftType;
+  @FXML
+  private TextField roomInput,
+      sanIssue,
+      sanLocation,
+      giftSender,
+      giftRecipient,
+      giftMessage,
+      equipLocation,
+      giftConfirm;
   @FXML private TextArea restrictions;
   @FXML private Label confirm, sanitationConfermation, equipmentConfirmation;
   private String meal = "null";
@@ -132,16 +138,14 @@ public class Acontroller {
             + sanIssue.getText());
   }
 
-
   @FXML
   private void submitGift() {
     giftConfirm.setText(
-
-            "Thank you, "
-                    + giftSender.getText()
-                    +",\n "
-                    + giftRecipient.getText()
-                    + " will recive their gift soon. "
+        "Thank you, "
+            + giftSender.getText()
+            + ",\n "
+            + giftRecipient.getText()
+            + " will recive their gift soon. ");
   }
 
   @FXML

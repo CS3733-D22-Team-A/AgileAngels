@@ -39,7 +39,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="foodButton1" layoutX="82.0" layoutY="316.0" mnemonicParsing="false" onAction="#openScene" prefHeight="30.0" prefWidth="160.0" text="Gift Request">
+      <Button fx:id="giftButton" layoutX="82.0" layoutY="316.0" mnemonicParsing="false" onAction="#openScene" prefHeight="30.0" prefWidth="160.0" text="Gift Request">
          <font>
             <Font size="16.0" />
          </font>
