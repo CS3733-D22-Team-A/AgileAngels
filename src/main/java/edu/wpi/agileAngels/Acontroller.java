@@ -131,7 +131,7 @@ public class Acontroller {
   @FXML
   private void submitSanitation() {
     sanitationConfermation.setText(
-        "thank you someone will be sent to "
+        "Thank you someone will be sent to "
             + sanLocation.getText()
             + " to sanitize "
             + sanIssue.getText());
@@ -187,12 +187,15 @@ public class Acontroller {
   private void setLabType(ActionEvent event) throws IOException {
     if (event.getSource() == blood) {
       labDropdown.setText("Blood");
+      labTest = "Blood Test";
     }
     if (event.getSource() == urine) {
       labDropdown.setText("Urine");
+      labTest = "Urine Test";
     }
     if (event.getSource() == tumor) {
       labDropdown.setText("Tumor");
+      labTest = "Tumor Markup";
     }
   }
 
