@@ -26,8 +26,8 @@ public class Acontroller {
       homeButton,
       foodButton,
       giftButton,
-      submitSanitation,
-      submitGift;
+      submitGift,
+      submitSanitation;
   @FXML private MenuButton mealDropdown, eqptDropdown, giftType;
   @FXML
   private TextField roomInput,
@@ -36,10 +36,9 @@ public class Acontroller {
       giftSender,
       giftRecipient,
       giftMessage,
-      equipLocation,
-      giftConfirm;
+      equipLocation;
   @FXML private TextArea restrictions;
-  @FXML private Label confirm, sanitationConfermation, equipmentConfirmation;
+  @FXML private Label confirm, sanitationConfermation, equipmentConfirmation, giftConfirm;
   private String meal = "null";
   private String equipment = "";
 
@@ -145,7 +144,7 @@ public class Acontroller {
             + giftSender.getText()
             + ",\n "
             + giftRecipient.getText()
-            + " will recive their gift soon. ");
+            + " will receive their gift soon. ");
   }
 
   @FXML
