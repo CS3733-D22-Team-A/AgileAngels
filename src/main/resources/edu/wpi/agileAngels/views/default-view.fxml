@@ -22,5 +22,10 @@
             <Font size="24.0" />
          </font>
       </Button>
+      <Button fx:id="foodButton" layoutX="213.0" layoutY="288.0" mnemonicParsing="false" onAction="#openScene" text="Meal Request">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
