@@ -56,8 +56,7 @@ public class Adb {
       return;
     }
     System.out.println("Apache Derby connection established!");
-    Location location = new Location();
-    location.read(connection);
+    
     Parser parser = new Parser();
     parser.createTable(connection);
     data = parser.locationData; // Updates the big hashmap
