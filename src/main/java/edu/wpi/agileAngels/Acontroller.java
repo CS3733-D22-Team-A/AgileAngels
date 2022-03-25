@@ -142,11 +142,11 @@ public class Acontroller {
     giftConfirm.setText(
         "Thank you, "
             + giftSender.getText()
-            + ",\n "
+            + ", "
             + giftRecipient.getText()
-            + " will receive "
-            + "\n "
-            + "their gift soon. ");
+            + " will receive their "
+            + giftType.getText()
+            + " soon. ");
   }
 
   @FXML

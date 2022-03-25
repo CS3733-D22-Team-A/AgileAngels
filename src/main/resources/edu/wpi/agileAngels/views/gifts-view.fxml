@@ -50,6 +50,6 @@
         </items>
       </MenuButton>
       <Button fx:id="homeButton" layoutX="249.0" layoutY="353.0" mnemonicParsing="false" onAction="#openScene" text="Return to Home" />
-      <Label fx:id="giftConfirm" layoutX="392.0" layoutY="270.0" prefHeight="78.0" prefWidth="162.0" />
+      <Label fx:id="giftConfirm" layoutX="392.0" layoutY="270.0" prefHeight="78.0" prefWidth="162.0" wrapText="true" />
    </children>
 </AnchorPane>
