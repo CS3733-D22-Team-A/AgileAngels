@@ -8,6 +8,16 @@ plugins {
 }
 mainClassName = 'edu.wpi.agileAngels.Main'
 
+jar {
+    manifest {
+        attributes "Main-Class": "$mainClassName"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
 repositories {
     mavenCentral()
     jcenter()

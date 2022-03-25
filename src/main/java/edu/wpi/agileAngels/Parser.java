@@ -48,26 +48,29 @@ public class Parser {
 
       for (CSVRecord csvRecord : csvParser) { // each row has a dictionary
         HashMap<String, String> data = new HashMap<>();
+
         String nodeID = csvRecord.get(0);
+        if (!nodeID.equals("nodeID")) {
 
-        Statement statement =
-            connection.prepareStatement(
-                "INSERT INTO Locations(NodeID, xcoord, ycoord, Floor, building, nodeType, longName, shortName)values(?,?,?,?,?,?,?,?)");
+          Statement statement =
+              connection.prepareStatement(
+                  "INSERT INTO Locations(NodeID, xcoord, ycoord, Floor, building, nodeType, longName, shortName)values(?,?,?,?,?,?,?,?)");
 
-        // Accessing values by the names assigned to each column
+          // Accessing values by the names assigned to each column
 
-        for (int i = 1; i < 9; i++) { // each item in the row
-          ((PreparedStatement) statement)
-              .setString(
-                  i, csvRecord.get(i - 1)); // to access the first value for table it starts at 1
-          if (i > 1) { // Everything that is not node
-            data.put(headers[i - 1], csvRecord.get(i - 1));
+          for (int i = 1; i < 9; i++) { // each item in the row
+            ((PreparedStatement) statement)
+                .setString(
+                    i, csvRecord.get(i - 1)); // to access the first value for table it starts at 1
+            if (i > 1) { // Everything that is not node
+              data.put(headers[i - 1], csvRecord.get(i - 1));
+            }
           }
-        }
-        Location location = new Location(nodeID, data);
-        locationData.put(location.getNodeID(), location);
+          Location location = new Location(nodeID, data);
+          locationData.put(location.getNodeID(), location);
 
-        ((PreparedStatement) statement).execute();
+          ((PreparedStatement) statement).execute();
+        }
       }
     } catch (SQLException | IOException e) {
       e.printStackTrace();
