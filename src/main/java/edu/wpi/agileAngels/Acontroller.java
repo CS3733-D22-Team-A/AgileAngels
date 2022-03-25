@@ -1,15 +1,12 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextArea;
@@ -28,7 +25,7 @@ public class Acontroller {
       giftButton,
       submitGift,
       submitSanitation;
-  @FXML private MenuButton mealDropdown, eqptDropdown, giftType;
+  @FXML private MenuButton mealDropdown, eqptDropdown, giftType, labDropdown;
   @FXML
   private TextField roomInput,
       sanIssue,
@@ -36,16 +33,17 @@ public class Acontroller {
       giftSender,
       giftRecipient,
       giftMessage,
-      equipLocation;
+      equipLocation,
+      labTestLocation;
+
   @FXML private TextArea restrictions;
-  @FXML private Label confirm, sanitationConfermation, equipmentConfirmation, giftConfirm;
+  @FXML private Label confirm, sanitationConfermation, equipmentConfirmation, giftConfirm, labTestConfirmation;;
+
   private String meal = "null";
   private String equipment = "";
 
-  @FXML private ChoiceBox<String> labCHOICE;
-  // Justin's dropdown menu things to be completed.
-  ObservableList<String> labList =
-      FXCollections.observableArrayList("Blood Test", "Urine Test", "Tumor Marker");
+  // Lab Request Menu Component
+  private String labTest = "";
 
   // Switches to a new scene depending on which button is pressed
   @FXML
@@ -181,6 +179,32 @@ public class Acontroller {
     equipment = "Infusion Pump";
   }
 
+  // Lab Test page components.
   @FXML
-  private void getTest() {}
+  private void setBlood() {
+    labDropdown.setText("Blood Test");
+    labTest = "Blood Test";
+  }
+
+  @FXML
+  private void setUrine() {
+    labDropdown.setText("Urine Test");
+    labTest = "Urine Test";
+  }
+
+  @FXML
+  private void setTumor() {
+    labDropdown.setText("Tumor Marker");
+    labTest = "Tumor Marker";
+  }
+
+  @FXML
+  private void submitLabTest() {
+    labTestConfirmation.setText(
+        "Thank you! Your "
+            + labTest
+            + " you requested will be delivered shortly to "
+            + labTestLocation.getText()
+            + ".");
+  }
 }
