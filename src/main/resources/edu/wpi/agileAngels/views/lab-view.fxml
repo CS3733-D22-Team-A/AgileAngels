@@ -21,9 +21,9 @@
       <Label contentDisplay="CENTER" layoutX="369.0" layoutY="155.0" text="Enter location of request." />
       <MenuButton fx:id="labDropdown" layoutX="80.0" layoutY="187.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0">
         <items>
-          <MenuItem mnemonicParsing="false" text="Blood Test" />
-          <MenuItem mnemonicParsing="false" text="Urine Test" />
-            <MenuItem mnemonicParsing="false" text="Tumor Marker" />
+          <MenuItem fx:id="blood" mnemonicParsing="false" onAction="#setLabType" text="Blood Test" />
+          <MenuItem fx:id="urine" mnemonicParsing="false" onAction="#setLabType" text="Urine Test" />
+            <MenuItem fx:id="tumor" mnemonicParsing="false" onAction="#setLabType" text="Tumor Marker" />
         </items>
       </MenuButton>
       <Label fx:id="labTestConfirmation" layoutX="369.0" layoutY="260.0" prefHeight="118.0" prefWidth="168.0" wrapText="true" />

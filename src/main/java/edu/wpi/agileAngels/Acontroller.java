@@ -6,11 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class Acontroller {
@@ -26,6 +22,7 @@ public class Acontroller {
       submitGift,
       submitSanitation;
   @FXML private MenuButton mealDropdown, eqptDropdown, giftType, labDropdown;
+  @FXML private MenuItem blood, urine, tumor;
   @FXML
   private TextField roomInput,
       sanIssue,
@@ -37,7 +34,12 @@ public class Acontroller {
       labTestLocation;
 
   @FXML private TextArea restrictions;
-  @FXML private Label confirm, sanitationConfermation, equipmentConfirmation, giftConfirm, labTestConfirmation;;
+  @FXML
+  private Label confirm,
+      sanitationConfermation,
+      equipmentConfirmation,
+      giftConfirm,
+      labTestConfirmation;;
 
   private String meal = "null";
   private String equipment = "";
@@ -179,23 +181,18 @@ public class Acontroller {
     equipment = "Infusion Pump";
   }
 
-  // Lab Test page components.
-  @FXML
-  private void setBlood() {
-    labDropdown.setText("Blood Test");
-    labTest = "Blood Test";
-  }
 
   @FXML
-  private void setUrine() {
-    labDropdown.setText("Urine Test");
-    labTest = "Urine Test";
-  }
-
-  @FXML
-  private void setTumor() {
-    labDropdown.setText("Tumor Marker");
-    labTest = "Tumor Marker";
+  private void setLabType(ActionEvent event) throws IOException {
+    if (event.getSource() == blood) {
+      labDropdown.setText("Blood");
+    }
+    if (event.getSource() == urine) {
+      labDropdown.setText("Urine");
+    }
+    if (event.getSource() == tumor) {
+      labDropdown.setText("Tumor");
+    }
   }
 
   @FXML

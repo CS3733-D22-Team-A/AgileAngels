@@ -31,7 +31,7 @@
       <Label layoutX="59.0" layoutY="125.0" text="Room Number:" />
       <Label fx:id="confirm" layoutX="387.0" layoutY="223.0" prefHeight="97.0" prefWidth="174.0" wrapText="true" />
       <Button fx:id="homeButton" layoutX="258.0" layoutY="357.0" mnemonicParsing="false" onAction="#openScene" text="Return to Home" />
-      <Button fx:id="order" layoutX="243.0" layoutY="278.0" mnemonicParsing="false" onAction="#placeOrder" prefHeight="51.0" prefWidth="130.0" text="Submit">
+      <Button layoutX="243.0" layoutY="278.0" mnemonicParsing="false" onAction="#placeOrder" prefHeight="51.0" prefWidth="130.0" text="Submit">
          <font>
             <Font size="24.0" />
          </font>
