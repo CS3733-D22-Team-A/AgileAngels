@@ -10,7 +10,7 @@ public class Adb {
   private HashMap<String, Location> data;
   public Connection connection = null;
 
-  public void main(String[] args) throws IOException, InterruptedException {
+  public void main(String[] args) {
 
     // menu();
     // Apache Derby and table creation
@@ -30,13 +30,14 @@ public class Adb {
     }
 
     System.out.println("Apache Derby driver registered!");
+    
 
     Statement statement;
     try {
       // substitute your database name for myDB
       connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
       statement = connection.createStatement();
-      
+
       String query2 = "Drop Table Locations";
       String query =
           "CREATE TABLE Locations( "
@@ -57,6 +58,7 @@ public class Adb {
       return;
     }
     System.out.println("Apache Derby connection established!");
+
 
 
     Parser parser = new Parser();
@@ -111,15 +113,16 @@ public class Adb {
     } else if (select.equals("5")) {
       System.out.println("Save Locations to CSV File");
       // TODO call save locations to csv file function
-
-    } else if (select.equals("6")) {
+      exportToCSV export = new exportToCSV();
+      export.export(connection);
+    }else if (select.equals("6")) {
       System.out.println("Exit Program");
+      System.exit(0);
       // TODO call exit program function
 
     } else {
       System.out.println("Wrong Input, Select From Menu");
     }
-
     menu();
   }
 
