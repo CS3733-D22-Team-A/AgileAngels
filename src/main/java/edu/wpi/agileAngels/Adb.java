@@ -36,7 +36,8 @@ public class Adb {
       // substitute your database name for myDB
       connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
       statement = connection.createStatement();
-
+      
+      String query2 = "Drop Table Locations";
       String query =
           "CREATE TABLE Locations( "
               + "NodeID VARCHAR(50),"
@@ -47,6 +48,7 @@ public class Adb {
               + "NodeType VARCHAR(50),"
               + "longName VARCHAR(50),"
               + "shortName VARCHAR(50))";
+      statement.execute(query2);
       statement.execute(query);
 
     } catch (SQLException e) {
