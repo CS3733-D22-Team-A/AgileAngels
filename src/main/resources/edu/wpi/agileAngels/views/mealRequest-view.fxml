@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Acontroller">
+   <children>
+      <Text layoutX="184.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meal Delivery Request">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Text>
+      <TextField fx:id="roomInput" layoutX="148.0" layoutY="121.0" prefHeight="18.0" prefWidth="62.0" />
+      <MenuButton fx:id="mealDropdown" layoutX="402.0" layoutY="121.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="89.0" text="Meal">
+        <items>
+          <MenuItem fx:id="chicken" mnemonicParsing="false" onAction="#setChicken" text="Chicken" />
+          <MenuItem fx:id="steak" mnemonicParsing="false" onAction="#setSteak" text="Steak" />
+            <MenuItem fx:id="salad" mnemonicParsing="false" onAction="#setSalad" text="Salad" />
+        </items>
+      </MenuButton>
+      <Text layoutX="77.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Diatary restrictions:" />
+      <TextArea fx:id="restrictions" layoutX="78.0" layoutY="255.0" prefHeight="111.0" prefWidth="128.0" />
+      <Text fx:id="comment" layoutX="377.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="10.2791748046875" />
+      <Button fx:id="order" layoutX="521.0" layoutY="354.0" mnemonicParsing="false" onAction="#placeOrder" text="Order" />
+      <Label layoutX="59.0" layoutY="125.0" text="Room Number:" />
+      <Label fx:id="confirm" layoutX="321.0" layoutY="255.0" text="order:" />
+   </children>
+</AnchorPane>

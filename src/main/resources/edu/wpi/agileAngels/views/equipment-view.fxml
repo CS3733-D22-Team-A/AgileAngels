@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Acontroller">
    <children>
       <Label layoutX="194.0" layoutY="34.0" prefHeight="35.0" prefWidth="212.0" text="Equipment Request" textAlignment="CENTER">
@@ -30,5 +29,6 @@
             <Font size="14.0" />
          </font>
       </Label>
+
    </children>
 </AnchorPane>
