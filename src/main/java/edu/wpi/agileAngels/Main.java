@@ -1,10 +1,10 @@
 package edu.wpi.agileAngels;
 
-import java.io.IOException;
+import java.sql.SQLException;
 
 public class Main {
 
-  public static void main(String[] args) throws IOException, InterruptedException {
+  public static void main(String[] args) throws SQLException {
 
     Adb adb = new Adb();
     adb.main(args);

@@ -1,6 +1,5 @@
 package edu.wpi.agileAngels;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -10,7 +9,7 @@ public class Adb {
   private HashMap<String, Location> data;
   public Connection connection = null;
 
-  public void main(String[] args) {
+  public void main(String[] args) throws SQLException {
 
     // menu();
     // Apache Derby and table creation
@@ -30,7 +29,6 @@ public class Adb {
     }
 
     System.out.println("Apache Derby driver registered!");
-    
 
     Statement statement;
     try {
@@ -38,7 +36,6 @@ public class Adb {
       connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
       statement = connection.createStatement();
 
-      String query2 = "Drop Table Locations";
       String query =
           "CREATE TABLE Locations( "
               + "NodeID VARCHAR(50),"
@@ -49,7 +46,7 @@ public class Adb {
               + "NodeType VARCHAR(50),"
               + "longName VARCHAR(50),"
               + "shortName VARCHAR(50))";
-      statement.execute(query2);
+
       statement.execute(query);
 
     } catch (SQLException e) {
@@ -59,8 +56,6 @@ public class Adb {
     }
     System.out.println("Apache Derby connection established!");
 
-
-
     Parser parser = new Parser();
     parser.createTable(connection);
     data = parser.locationData; // Updates the big hashmap
@@ -68,7 +63,7 @@ public class Adb {
   }
 
   /** Menu Creation for User* */
-  private void menu() {
+  private void menu() throws SQLException {
 
     Scanner myObj = new Scanner(System.in); // Create a Scanner object
     System.out.println("1 - Location Information");
@@ -84,10 +79,36 @@ public class Adb {
 
     if (select.equals("1")) {
       System.out.println("Location Information");
+      for (HashMap.Entry<String, Location> set : data.entrySet()) {
+        System.out.println("NodeID " + set.getKey());
+        Location location = set.getValue();
+        System.out.println("xcoord " + location.getXCoord());
+        System.out.println("ycoord " + location.getYCoord());
+        System.out.println("Floor " + location.getFloor());
+        System.out.println("building " + location.getBuilding());
+        System.out.println("Node Type " + location.getNodeType());
+        System.out.println("Long Name " + location.getLongName());
+        System.out.println("Short Name " + location.getShortName());
+        System.out.println(" ");
+      }
       // TODO call location information function
 
     } else if (select.equals("2")) {
       System.out.println("Change Floor and Type");
+      System.out.println("Enter nodeID");
+      // Scanner myObj = new Scanner(System.in);
+      String ID = myObj.next();
+      System.out.println("Enter new Floor");
+      String newFloor = myObj.next();
+      System.out.println("Enter new Location");
+      String newLocation = myObj.next();
+      PreparedStatement pstmt =
+          connection.prepareStatement(
+              "UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
+      pstmt.setString(1, newFloor);
+      pstmt.setString(2, newLocation);
+      pstmt.setString(3, ID);
+      pstmt.executeUpdate();
       // TODO call change floor and type function
 
     } else if (select.equals("3")) {
@@ -115,7 +136,7 @@ public class Adb {
       // TODO call save locations to csv file function
       exportToCSV export = new exportToCSV();
       export.export(connection);
-    }else if (select.equals("6")) {
+    } else if (select.equals("6")) {
       System.out.println("Exit Program");
       System.exit(0);
       // TODO call exit program function

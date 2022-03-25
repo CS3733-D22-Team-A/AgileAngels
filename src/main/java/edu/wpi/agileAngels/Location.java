@@ -29,6 +29,10 @@ public class Location {
     return data.get("Floor");
   }
 
+  public String getBuilding() {
+    return data.get("building");
+  }
+
   public String getNodeType() {
     return data.get("NodeType");
   }
