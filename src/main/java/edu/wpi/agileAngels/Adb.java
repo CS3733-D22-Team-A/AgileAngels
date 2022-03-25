@@ -1,16 +1,16 @@
 package edu.wpi.agileAngels;
 
+
 import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Scanner;
-import javax.swing.*;
 
 public class Adb {
   private HashMap<String, Location> data;
   public Connection connection = null;
 
-  public void main(String[] args) throws IOException, InterruptedException {
+  public void main(String[] args) {
 
     // menu();
     // Apache Derby and table creation
@@ -30,7 +30,6 @@ public class Adb {
     }
 
     System.out.println("Apache Derby driver registered!");
-    
 
     Statement statement;
     try {
@@ -56,8 +55,7 @@ public class Adb {
       return;
     }
     System.out.println("Apache Derby connection established!");
-    Location location = new Location();
-    location.read(connection);
+
     Parser parser = new Parser();
     parser.createTable(connection);
     data = parser.locationData; // Updates the big hashmap
@@ -101,56 +99,17 @@ public class Adb {
     if (select.equals("5")) {
       System.out.println("Save Locations to CSV File");
       // TODO call save locations to csv file function
-
+      exportToCSV export = new exportToCSV();
+      export.export(connection);
     }
     if (select.equals("6")) {
       System.out.println("Exit Program");
+      System.exit(0);
       // TODO call exit program function
 
     } else {
       System.out.println("Wrong Input, Select From Menu");
     }
     menu();
-  }
-
-  public void changeType(String NodeID) {
-    Location l = new Location(NodeID, null);
-    Scanner myObj = new Scanner(System.in); // Create a Scanner object
-    System.out.println("What is the NodeID of the location that you want to change?");
-    String select = myObj.nextLine();
-    // see if it exists
-    System.out.println("The current floor is :" + l.getFloor());
-    System.out.println("The current type is: " + l.getNodeType());
-    System.out.println(
-        "Do you want to change the floor or type?\nClick 1 for floor and 2 for type: ");
-    int choice = myObj.nextInt();
-    if (choice == 1) {
-      System.out.println("What do you want to change the floor to?");
-      String newFloor = myObj.nextLine();
-      l.setFloor(newFloor);
-      System.out.println("Do you also want to change the type?\nSelect 1 for Yes and 0 for No");
-      int choice2 = myObj.nextInt();
-      if (choice2 == 1) {
-        System.out.println("What do you want to change the type to?");
-        String newType = myObj.nextLine();
-        l.setNodeType(newType);
-      } else {
-      }
-    }
-    if (choice == 2) {
-      System.out.println("What do you want to change the type to?");
-      String newType = myObj.nextLine();
-      l.setNodeType(newType);
-      System.out.println("Do you also want to change the floor?\nSelect 1 for Yes and 0 for No");
-      int choice2 = myObj.nextInt();
-      if (choice2 == 1) {
-        System.out.println("What do you want to change the floor to?");
-        String newFloor = myObj.nextLine();
-        l.setFloor(newFloor);
-      } else {
-      }
-    } else {
-      throw exception();
-    }
   }
 }
