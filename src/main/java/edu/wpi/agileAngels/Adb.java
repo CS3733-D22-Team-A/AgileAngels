@@ -75,7 +75,7 @@ public class Adb {
 
     String select = myObj.nextLine();
 
-    // TODO: make a selection
+
 
     if (select.equals("1")) {
       System.out.println("Location Information");
@@ -91,7 +91,7 @@ public class Adb {
         System.out.println("Short Name " + location.getShortName());
         System.out.println(" ");
       }
-      // TODO call location information function
+
 
     } else if (select.equals("2")) {
       System.out.println("Change Floor and Type");
@@ -109,7 +109,6 @@ public class Adb {
       pstmt.setString(2, newLocation);
       pstmt.setString(3, ID);
       pstmt.executeUpdate();
-      // TODO call change floor and type function
 
     } else if (select.equals("3")) {
       System.out.println("Enter Location ID");
@@ -120,7 +119,7 @@ public class Adb {
       } catch (SQLException sqlException) {
         System.out.println("Adding a new location unsuccessful.");
       }
-      in.close();
+
     } else if (select.equals("4")) {
       System.out.println("Enter Location ID");
       Scanner in = new Scanner(System.in);
@@ -130,16 +129,16 @@ public class Adb {
       } catch (SQLException sqlException) {
         System.out.println("Location could not be removed.");
       }
-      in.close();
+
     } else if (select.equals("5")) {
       System.out.println("Save Locations to CSV File");
-      // TODO call save locations to csv file function
+
       exportToCSV export = new exportToCSV();
       export.export(connection);
     } else if (select.equals("6")) {
       System.out.println("Exit Program");
       System.exit(0);
-      // TODO call exit program function
+
 
     } else {
       System.out.println("Wrong Input, Select From Menu");
