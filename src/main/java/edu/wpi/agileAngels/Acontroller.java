@@ -144,7 +144,9 @@ public class Acontroller {
             + giftSender.getText()
             + ",\n "
             + giftRecipient.getText()
-            + " will receive their gift soon. ");
+            + " will receive "
+            + "\n "
+            + "their gift soon. ");
   }
 
   @FXML
@@ -180,7 +182,6 @@ public class Acontroller {
     eqptDropdown.setText("Infusion Pump");
     equipment = "Infusion Pump";
   }
-
 
   @FXML
   private void setLabType(ActionEvent event) throws IOException {
