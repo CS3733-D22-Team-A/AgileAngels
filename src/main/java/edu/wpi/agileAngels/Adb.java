@@ -157,7 +157,7 @@ public class Adb {
   }
 
   public void changeType(String NodeID) {
-    Location l = new Location(NodeID, data.get(NodeID));
+    Location l = data.get(NodeID);
     Scanner myObj = new Scanner(System.in); // Create a Scanner object
     System.out.println("What is the NodeID of the location that you want to change?");
     String select = myObj.nextLine();
@@ -186,14 +186,11 @@ public class Adb {
       l.setNodeType(newType);
       System.out.println("Do you also want to change the floor?\nSelect 1 for Yes and 0 for No");
       int choice2 = myObj.nextInt();
-      if (choice2.equals("1")) {
+      if (choice2 == 1) {
         System.out.println("What do you want to change the floor to?");
         String newFloor = myObj.nextLine();
         l.setFloor(newFloor);
-      } else {
       }
-    } else {
-      throw exception();
     }
   }
 }
