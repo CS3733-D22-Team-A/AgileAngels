@@ -1,18 +1,24 @@
 package edu.wpi.agileAngels;
 
-import java.awt.*;
 import java.io.IOException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 
 public class Acontroller {
 
   @FXML private Button equipmentButton, labButton, sanitationButton, giftButton, homeButton;
+  @FXML private ChoiceBox<String> labCHOICE;
+
+  ObservableList<String> labList =
+      FXCollections.observableArrayList("Blood Test", "Urine Test", "Tumor Marker");
 
   // Switches to a new scene depending on which button is pressed
   @FXML
@@ -47,7 +53,16 @@ public class Acontroller {
     Scene scene = new Scene(root);
     stage.setScene(scene);
     stage.show();
+    System.out.println(labCHOICE);
   }
+
+  @FXML
+  public void initialize() {
+    // labBox.setValue("Blood Test");
+  }
+
+  public void getTest(javafx.scene.input.MouseEvent mouseEvent) {}
+
   /*
    @FXML
    public void initialize() {
