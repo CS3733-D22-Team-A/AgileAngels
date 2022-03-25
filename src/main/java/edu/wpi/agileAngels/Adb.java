@@ -59,6 +59,7 @@ public class Adb {
     Parser parser = new Parser();
     parser.createTable(connection);
     data = parser.locationData; // Updates the big hashmap
+
     menu();
   }
 
@@ -75,8 +76,6 @@ public class Adb {
 
     String select = myObj.nextLine();
 
-
-
     if (select.equals("1")) {
       System.out.println("Location Information");
       for (HashMap.Entry<String, Location> set : data.entrySet()) {
@@ -91,7 +90,6 @@ public class Adb {
         System.out.println("Short Name " + location.getShortName());
         System.out.println(" ");
       }
-
 
     } else if (select.equals("2")) {
       System.out.println("Change Floor and Type");
@@ -109,6 +107,11 @@ public class Adb {
       pstmt.setString(2, newLocation);
       pstmt.setString(3, ID);
       pstmt.executeUpdate();
+
+      // Updating java objects
+      Location location = data.get(ID);
+      location.setFloor(newFloor);
+      location.setNodeType(newLocation);
 
     } else if (select.equals("3")) {
       System.out.println("Enter Location ID");
@@ -138,7 +141,6 @@ public class Adb {
     } else if (select.equals("6")) {
       System.out.println("Exit Program");
       System.exit(0);
-
 
     } else {
       System.out.println("Wrong Input, Select From Menu");
