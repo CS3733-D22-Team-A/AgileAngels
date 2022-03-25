@@ -19,22 +19,22 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="equipmentButton" layoutX="82.0" layoutY="125.0" mnemonicParsing="false" onAction="#openScene" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: AQUAMARINE;" text="Equipment Request">
+      <Button fx:id="equipmentButton" layoutX="82.0" layoutY="125.0" mnemonicParsing="false" onAction="#openScene" prefHeight="30.0" prefWidth="160.0" text="Equipment Request">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="labButton" layoutX="82.0" layoutY="171.0" mnemonicParsing="false" onAction="#openScene" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: AQUAMARINE;" text="Lab Request">
+      <Button fx:id="labButton" layoutX="82.0" layoutY="171.0" mnemonicParsing="false" onAction="#openScene" prefHeight="30.0" prefWidth="160.0" text="Lab Request">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="sanitationButton" layoutX="82.0" layoutY="220.0" mnemonicParsing="false" onAction="#openScene" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: AQUAMARINE;" text="Sanitation Request">
+      <Button fx:id="sanitationButton" layoutX="82.0" layoutY="220.0" mnemonicParsing="false" onAction="#openScene" prefHeight="30.0" prefWidth="160.0" text="Sanitation Request">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="foodButton" layoutX="82.0" layoutY="267.0" mnemonicParsing="false" onAction="#openScene" prefHeight="30.0" prefWidth="160.0" style="-fx-background-color: AQUAMARINE;" text="Meal Request">
+      <Button fx:id="foodButton" layoutX="82.0" layoutY="267.0" mnemonicParsing="false" onAction="#openScene" prefHeight="30.0" prefWidth="160.0" text="Meal Request">
          <font>
             <Font size="16.0" />
          </font>

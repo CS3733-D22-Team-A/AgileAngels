@@ -25,12 +25,16 @@
             <MenuItem fx:id="salad" mnemonicParsing="false" onAction="#setSalad" text="Salad" />
         </items>
       </MenuButton>
-      <Text layoutX="77.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Diatary restrictions:" />
-      <TextArea fx:id="restrictions" layoutX="78.0" layoutY="255.0" prefHeight="111.0" prefWidth="128.0" />
+      <Text layoutX="59.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Diatary restrictions:" />
+      <TextArea fx:id="restrictions" layoutX="60.0" layoutY="222.0" prefHeight="111.0" prefWidth="128.0" wrapText="true" />
       <Text fx:id="comment" layoutX="377.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="10.2791748046875" />
-      <Button fx:id="order" layoutX="521.0" layoutY="354.0" mnemonicParsing="false" onAction="#placeOrder" text="Order" />
       <Label layoutX="59.0" layoutY="125.0" text="Room Number:" />
-      <Label fx:id="confirm" layoutX="321.0" layoutY="255.0" text="order:" />
+      <Label fx:id="confirm" layoutX="387.0" layoutY="223.0" prefHeight="97.0" prefWidth="174.0" wrapText="true" />
       <Button fx:id="homeButton" layoutX="258.0" layoutY="357.0" mnemonicParsing="false" onAction="#openScene" text="Return to Home" />
+      <Button fx:id="order" layoutX="243.0" layoutY="278.0" mnemonicParsing="false" onAction="#placeOrder" prefHeight="51.0" prefWidth="130.0" text="Submit">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -16,11 +16,17 @@ import javafx.stage.Stage;
 public class Acontroller {
 
   @FXML
-  private Button equipmentButton, labButton, sanitationButton, homeButton, giftButton, foodButton;
+  private Button equipmentButton,
+      labButton,
+      sanitationButton,
+      homeButton,
+      giftButton,
+      foodButton,
+      submitSanitation;
   @FXML private MenuButton mealDropdown;
-  @FXML private TextField roomInput;
+  @FXML private TextField roomInput, sanIssue, sanLocation;
   @FXML private TextArea restrictions;
-  @FXML private Label confirm;
+  @FXML private Label confirm, sanitationConfermation;
   private String meal = "null";
 
   // Switches to a new scene depending on which button is pressed
@@ -81,13 +87,26 @@ public class Acontroller {
 
   @FXML
   private void placeOrder() {
-    confirm.setText(
-        "Order confirmed to room "
-            + roomInput.getText()
-            + " for "
-            + meal
-            + "\n"
-            + "Special Instructions: "
-            + restrictions.getText());
+    if (meal == "null") {
+      confirm.setText("please select a meal");
+    } else {
+      confirm.setText(
+          "Order confirmed to room "
+              + roomInput.getText()
+              + " for "
+              + meal
+              + "\n"
+              + "Special Instructions: "
+              + restrictions.getText());
+    }
+  }
+
+  @FXML
+  private void submitSanitation() {
+    sanitationConfermation.setText(
+        "thank you someone will be sent to "
+            + sanLocation.getText()
+            + " to sanitize "
+            + sanIssue.getText());
   }
 }

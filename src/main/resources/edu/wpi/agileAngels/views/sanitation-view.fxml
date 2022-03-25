@@ -21,14 +21,15 @@
          </font>
       </Label>
       <Label alignment="CENTER" layoutX="47.0" layoutY="134.0" prefHeight="18.0" prefWidth="202.0" text="Describe the issue." />
-      <Button layoutX="233.0" layoutY="268.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="130.0" text="Submit">
+      <Button layoutX="233.0" layoutY="268.0" mnemonicParsing="false" onAction="#submitSanitation" prefHeight="51.0" prefWidth="130.0" text="Submit">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
       <Label alignment="CENTER" layoutX="350.0" layoutY="134.0" prefHeight="18.0" prefWidth="202.0" text="Type the location of the issue." />
-      <TextField layoutX="61.0" layoutY="160.0" prefHeight="80.0" prefWidth="174.0" />
-      <TextField layoutX="364.0" layoutY="160.0" prefHeight="80.0" prefWidth="174.0" />
+      <TextField fx:id="sanIssue" alignment="TOP_LEFT" layoutX="61.0" layoutY="160.0" prefHeight="80.0" prefWidth="174.0" />
+      <TextField fx:id="sanLocation" alignment="TOP_LEFT" layoutX="364.0" layoutY="160.0" prefHeight="80.0" prefWidth="174.0" />
       <Accordion />
+      <Label fx:id="sanitationConfermation" alignment="TOP_LEFT" layoutX="389.0" layoutY="268.0" prefHeight="92.0" prefWidth="144.0" wrapText="true" />
    </children>
 </AnchorPane>
