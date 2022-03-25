@@ -22,7 +22,7 @@ public class Acontroller {
       submitGift,
       submitSanitation;
   @FXML private MenuButton mealDropdown, eqptDropdown, giftType, labDropdown;
-  @FXML private MenuItem blood, urine, tumor;
+  @FXML private MenuItem blood, urine, tumor, balloons, flowers;
   @FXML
   private TextField roomInput,
       sanIssue,
@@ -193,6 +193,16 @@ public class Acontroller {
     }
     if (event.getSource() == tumor) {
       labDropdown.setText("Tumor");
+    }
+  }
+
+  @FXML
+  private void setGiftType(ActionEvent event) throws IOException {
+    if (event.getSource() == balloons) {
+      giftType.setText("Balloons");
+    }
+    if (event.getSource() == flowers) {
+      giftType.setText("Flowers");
     }
   }
 

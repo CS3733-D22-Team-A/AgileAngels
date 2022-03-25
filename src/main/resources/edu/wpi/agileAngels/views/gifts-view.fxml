@@ -45,9 +45,8 @@
       </Button>
       <MenuButton fx:id="giftType" layoutX="424.0" layoutY="171.0" mnemonicParsing="false" text="Select a Gift">
         <items>
-          <MenuItem mnemonicParsing="false" text="Hospital Store Gift" />
-          <MenuItem mnemonicParsing="false" text="Flowers" />
-            <MenuItem mnemonicParsing="false" text="Other" />
+           <MenuItem fx:id="balloons" mnemonicParsing="false" onAction="#setGiftType" text="Balloons" />
+           <MenuItem fx:id="flowers" mnemonicParsing="false" onAction="#setGiftType" text="Flowers" />
         </items>
       </MenuButton>
       <Button fx:id="homeButton" layoutX="249.0" layoutY="353.0" mnemonicParsing="false" onAction="#openScene" text="Return to Home" />
