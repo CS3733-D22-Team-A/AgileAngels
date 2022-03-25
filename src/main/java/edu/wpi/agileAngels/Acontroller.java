@@ -23,15 +23,19 @@ public class Acontroller {
       labButton,
       sanitationButton,
       homeButton,
-      giftButton,
       foodButton,
       submitSanitation;
       submitGift;
   @FXML private MenuButton mealDropdown, eqptDropdown;
+<<<<<<< HEAD
   @FXML private TextField roomInput, sanIssue, sanLocation, giftSender, giftRecipient, giftMessage, giftType;
+=======
+  @FXML private TextField roomInput, sanIssue, sanLocation, equipLocation;
+>>>>>>> e78678a9371b20c93f47210d2af4dc7593531cdb
   @FXML private TextArea restrictions;
-  @FXML private Label confirm, sanitationConfermation;
+  @FXML private Label confirm, sanitationConfermation, equipmentConfirmation;
   private String meal = "null";
+  private String equipment = "";
 
   @FXML private ChoiceBox<String> labCHOICE;
   // Justin's dropdown menu things to be completed.
@@ -55,7 +59,10 @@ public class Acontroller {
     else if (event.getSource() == labButton) {
       stage = (Stage) equipmentButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("views/lab-view.fxml"));
-    } else if (event.getSource() == foodButton) {
+    }
+    // If the meal request button on the default scene is pressed,
+    // switch to the meal scene
+    else if (event.getSource() == foodButton) {
       stage = (Stage) foodButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("views/mealRequest-view.fxml"));
     }
@@ -138,13 +145,37 @@ public class Acontroller {
   }
 
   @FXML
-  private void setBed() {
-    eqptDropdown.setText("Bed");
+  private void submitEquipment() {
+    equipmentConfirmation.setText(
+        "Thank you, the "
+            + equipment
+            + " you requested will be delivered shortly to "
+            + equipLocation.getText()
+            + ".");
   }
 
   @FXML
-  private void setMachine() {
-    eqptDropdown.setText("Machine");
+  private void setBed() {
+    eqptDropdown.setText("Bed");
+    equipment = "Bed";
+  }
+
+  @FXML
+  private void setRecliner() {
+    eqptDropdown.setText("Recliner");
+    equipment = "Recliner";
+  }
+
+  @FXML
+  private void setXray() {
+    eqptDropdown.setText("X-Ray Machine");
+    equipment = "X-Ray Machine";
+  }
+
+  @FXML
+  private void setInfusion() {
+    eqptDropdown.setText("Infusion Pump");
+    equipment = "Infusion Pump";
   }
 
   @FXML
