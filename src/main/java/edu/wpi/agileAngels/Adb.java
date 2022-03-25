@@ -30,7 +30,7 @@ public class Adb {
     }
 
     System.out.println("Apache Derby driver registered!");
-    Connection connection = null;
+    
 
     Statement statement;
     try {
