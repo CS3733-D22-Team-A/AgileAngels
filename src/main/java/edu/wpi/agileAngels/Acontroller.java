@@ -26,8 +26,9 @@ public class Acontroller {
       giftButton,
       foodButton,
       submitSanitation;
+      submitGift;
   @FXML private MenuButton mealDropdown, eqptDropdown;
-  @FXML private TextField roomInput, sanIssue, sanLocation;
+  @FXML private TextField roomInput, sanIssue, sanLocation, giftSender, giftRecipient, giftMessage, giftType;
   @FXML private TextArea restrictions;
   @FXML private Label confirm, sanitationConfermation;
   private String meal = "null";
@@ -63,6 +64,12 @@ public class Acontroller {
     else if (event.getSource() == sanitationButton) {
       stage = (Stage) sanitationButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("views/sanitation-view.fxml"));
+    }
+    // If the gift request button on the default scene is pressed,
+    // switch to the gift scene
+    else if (event.getSource() == giftButton) {
+      stage = (Stage) giftButton.getScene().getWindow();
+      root = FXMLLoader.load(getClass().getResource("views/gifts-view.fxml"));
     }
     // If the home button is pressed, switch to the default scene
     else {
@@ -116,6 +123,18 @@ public class Acontroller {
             + sanLocation.getText()
             + " to sanitize "
             + sanIssue.getText());
+  }
+
+
+  @FXML
+  private void submitGift() {
+    giftConfirm.setText(
+
+            "Thank you, "
+                    + giftSender.getText()
+                    +",\n "
+                    + giftRecipient.getText()
+                    + " will recive their gift soon. "
   }
 
   @FXML
