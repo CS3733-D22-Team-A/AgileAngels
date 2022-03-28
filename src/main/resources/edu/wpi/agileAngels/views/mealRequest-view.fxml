@@ -20,18 +20,18 @@
       <TextField fx:id="roomInput" layoutX="148.0" layoutY="121.0" prefHeight="18.0" prefWidth="62.0" />
       <MenuButton fx:id="mealDropdown" layoutX="402.0" layoutY="121.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="89.0" text="Meal">
         <items>
-          <MenuItem fx:id="chicken" mnemonicParsing="false" onAction="#setChicken" text="Chicken" />
-          <MenuItem fx:id="steak" mnemonicParsing="false" onAction="#setSteak" text="Steak" />
-            <MenuItem fx:id="salad" mnemonicParsing="false" onAction="#setSalad" text="Salad" />
+          <MenuItem fx:id="chicken" mnemonicParsing="false" onAction="#setMealType" text="Chicken" />
+          <MenuItem fx:id="steak" mnemonicParsing="false" onAction="#setMealType" text="Steak" />
+            <MenuItem fx:id="salad" mnemonicParsing="false" onAction="#setMealType" text="Salad" />
         </items>
       </MenuButton>
-      <Text layoutX="59.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Diatary restrictions:" />
+      <Text layoutX="59.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dietary restrictions:" />
       <TextArea fx:id="restrictions" layoutX="60.0" layoutY="222.0" prefHeight="111.0" prefWidth="128.0" wrapText="true" />
       <Text fx:id="comment" layoutX="377.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="10.2791748046875" />
       <Label layoutX="59.0" layoutY="125.0" text="Room Number:" />
       <Label fx:id="confirm" layoutX="387.0" layoutY="223.0" prefHeight="97.0" prefWidth="174.0" wrapText="true" />
       <Button fx:id="homeButton" layoutX="258.0" layoutY="357.0" mnemonicParsing="false" onAction="#openScene" text="Return to Home" />
-      <Button layoutX="243.0" layoutY="278.0" mnemonicParsing="false" onAction="#placeOrder" prefHeight="51.0" prefWidth="130.0" text="Submit">
+      <Button layoutX="243.0" layoutY="278.0" mnemonicParsing="false" onAction="#submitMeal" prefHeight="51.0" prefWidth="130.0" text="Submit">
          <font>
             <Font size="24.0" />
          </font>

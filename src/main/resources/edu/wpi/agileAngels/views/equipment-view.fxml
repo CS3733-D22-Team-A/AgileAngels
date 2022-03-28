@@ -31,10 +31,10 @@
       </Label>
       <MenuButton fx:id="eqptDropdown" layoutX="84.0" layoutY="187.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0">
         <items>
-          <MenuItem mnemonicParsing="false" onAction="#setBed" text="Bed" />
-          <MenuItem mnemonicParsing="false" onAction="#setRecliner" text="Recliner" />
-           <MenuItem mnemonicParsing="false" onAction="#setXray" text="X-Ray Machine" />
-           <MenuItem mnemonicParsing="false" onAction="#setInfusion" text="Infusion Pump" />
+          <MenuItem fx:id="bed" mnemonicParsing="false" onAction="#setEquipmentType" text="Bed" />
+          <MenuItem fx:id="recliner" mnemonicParsing="false" onAction="#setEquipmentType" text="Recliner" />
+           <MenuItem fx:id="xray" mnemonicParsing="false" onAction="#setEquipmentType" text="X-Ray Machine" />
+           <MenuItem fx:id="infusion" mnemonicParsing="false" onAction="#setEquipmentType" text="Infusion Pump" />
         </items>
       </MenuButton>
       <Label fx:id="equipmentConfirmation" layoutX="8.0" layoutY="302.0" prefHeight="20.0" prefWidth="583.0" textAlignment="CENTER">

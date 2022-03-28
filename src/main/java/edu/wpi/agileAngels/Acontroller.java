@@ -18,11 +18,21 @@ public class Acontroller {
       sanitationButton,
       homeButton,
       foodButton,
-      giftButton,
-      submitGift,
-      submitSanitation;
+      giftButton;
   @FXML private MenuButton mealDropdown, eqptDropdown, giftType, labDropdown;
-  @FXML private MenuItem blood, urine, tumor, balloons, flowers;
+  @FXML
+  private MenuItem blood,
+      urine,
+      tumor,
+      balloons,
+      flowers,
+      bed,
+      recliner,
+      xray,
+      infusion,
+      chicken,
+      steak,
+      salad;
   @FXML
   private TextField roomInput,
       sanIssue,
@@ -36,16 +46,10 @@ public class Acontroller {
   @FXML private TextArea restrictions;
   @FXML
   private Label confirm,
-      sanitationConfermation,
+      sanitationConfirmation,
       equipmentConfirmation,
       giftConfirm,
       labTestConfirmation;;
-
-  private String meal = "null";
-  private String equipment = "";
-
-  // Lab Request Menu Component
-  private String labTest = "";
 
   // Switches to a new scene depending on which button is pressed
   @FXML
@@ -95,46 +99,24 @@ public class Acontroller {
   }
 
   @FXML
-  private void setChicken() {
-    mealDropdown.setText("Chicken");
-    meal = "Chicken";
-  }
-
-  @FXML
-  private void setSteak() {
-    mealDropdown.setText("steak");
-    meal = "Steak";
-  }
-
-  @FXML
-  private void setSalad() {
-    mealDropdown.setText("Salad");
-    meal = "Salad";
-  }
-
-  @FXML
-  private void placeOrder() {
-    if (meal == "null") {
-      confirm.setText("please select a meal");
-    } else {
-      confirm.setText(
-          "Order confirmed to room "
-              + roomInput.getText()
-              + " for "
-              + meal
-              + "\n"
-              + "Special Instructions: "
-              + restrictions.getText());
-    }
+  private void submitMeal() {
+    confirm.setText(
+        "Order confirmed to room "
+            + roomInput.getText()
+            + " for "
+            + mealDropdown.getText()
+            + ". Special Instructions: "
+            + restrictions.getText());
   }
 
   @FXML
   private void submitSanitation() {
-    sanitationConfermation.setText(
-        "Thank you someone will be sent to "
+    sanitationConfirmation.setText(
+        "Thank you, someone will be sent to "
             + sanLocation.getText()
             + " to sanitize "
-            + sanIssue.getText());
+            + sanIssue.getText()
+            + ".");
   }
 
   @FXML
@@ -153,49 +135,61 @@ public class Acontroller {
   private void submitEquipment() {
     equipmentConfirmation.setText(
         "Thank you, the "
-            + equipment
+            + eqptDropdown.getText()
             + " you requested will be delivered shortly to "
             + equipLocation.getText()
             + ".");
   }
 
   @FXML
-  private void setBed() {
-    eqptDropdown.setText("Bed");
-    equipment = "Bed";
+  private void submitLabTest() {
+    labTestConfirmation.setText(
+        "Thank you! Your "
+            + labDropdown.getText()
+            + " you requested will be delivered shortly to "
+            + labTestLocation.getText()
+            + ".");
   }
 
   @FXML
-  private void setRecliner() {
-    eqptDropdown.setText("Recliner");
-    equipment = "Recliner";
+  private void setMealType(ActionEvent event) throws IOException {
+    if (event.getSource() == chicken) {
+      mealDropdown.setText("Chicken");
+    }
+    if (event.getSource() == steak) {
+      mealDropdown.setText("Steak");
+    }
+    if (event.getSource() == salad) {
+      mealDropdown.setText("Salad");
+    }
   }
 
   @FXML
-  private void setXray() {
-    eqptDropdown.setText("X-Ray Machine");
-    equipment = "X-Ray Machine";
-  }
-
-  @FXML
-  private void setInfusion() {
-    eqptDropdown.setText("Infusion Pump");
-    equipment = "Infusion Pump";
+  private void setEquipmentType(ActionEvent event) throws IOException {
+    if (event.getSource() == bed) {
+      eqptDropdown.setText("Bed");
+    }
+    if (event.getSource() == recliner) {
+      eqptDropdown.setText("Recliner");
+    }
+    if (event.getSource() == xray) {
+      eqptDropdown.setText("X-Ray Machine");
+    }
+    if (event.getSource() == infusion) {
+      eqptDropdown.setText("X-Ray Machine");
+    }
   }
 
   @FXML
   private void setLabType(ActionEvent event) throws IOException {
     if (event.getSource() == blood) {
-      labDropdown.setText("Blood");
-      labTest = "Blood Test";
+      labDropdown.setText("Blood Test");
     }
     if (event.getSource() == urine) {
-      labDropdown.setText("Urine");
-      labTest = "Urine Test";
+      labDropdown.setText("Urine Test");
     }
     if (event.getSource() == tumor) {
-      labDropdown.setText("Tumor");
-      labTest = "Tumor Markup";
+      labDropdown.setText("Tumor Markup");
     }
   }
 
@@ -207,15 +201,5 @@ public class Acontroller {
     if (event.getSource() == flowers) {
       giftType.setText("Flowers");
     }
-  }
-
-  @FXML
-  private void submitLabTest() {
-    labTestConfirmation.setText(
-        "Thank you! Your "
-            + labTest
-            + " you requested will be delivered shortly to "
-            + labTestLocation.getText()
-            + ".");
   }
 }
