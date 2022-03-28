@@ -1,71 +1,87 @@
 package edu.wpi.agileAngels;
 
-import java.sql.*;
-import java.util.HashMap;
+import org.w3c.dom.Node;
+
+
 
 public class Location {
-  private String NodeID; // Unique for every location
-  private HashMap<String, String> data; // Stores a location's values, except for nodeID
+    private String NodeID; // Unique for every location
+    private String xCoord;
+    private String yCoord;
+    private String floor;
+    private String building;
+    private String nodeType;
+    private String longName;
+    private String shortName;
 
-  // Sets initial location values.
-  public Location(String nodeID, HashMap<String, String> dataIn) {
-    this.NodeID = nodeID;
-    this.data = dataIn;
-  }
 
-  public String getNodeID() {
-    return NodeID;
-  }
+    // Sets initial location values. Constructor
+    public Location(String nodeID, String xCoord, String yCoord, String floor, String building, String nodeType, String longName, String shortName) {
+        this.NodeID = nodeID;
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
+        this.floor = floor;
+        this.building = building;
+        this.nodeType = nodeType;
+        this.longName = longName;
+        this.shortName = shortName;
 
-  public String getXCoord() {
-    return data.get("xcoord");
-  }
+    }
 
-  public String getYCoord() {
-    return data.get("ycoord");
-  }
+    public String getNodeID() {
 
-  public String getFloor() {
-    return data.get("floor");
-  }
+        return NodeID;
+    }
 
-  public String getBuilding() {
-    return data.get("building");
-  }
+    public String getXCoord() {
+        return xCoord;
+    }
 
-  public String getNodeType() {
-    return data.get("nodeType");
-  }
+    public String getYCoord() {
+        return yCoord;
+    }
 
-  public String getLongName() {
-    return data.get("longName");
-  }
+    public String getFloor() {
+        return floor;
+    }
 
-  public String getShortName() {
-    return data.get("shortName");
-  }
+    public String getBuilding() {
+        return building;
+    }
 
-  public void setXCoord(String xCoordIn) {
-    data.put("xcoord", xCoordIn);
-  }
+    public String getNodeType() {
+        return nodeType;
+    }
 
-  public void setYCoord(String yCoordIn) {
-    data.put("ycoord", yCoordIn);
-  }
+    public String getLongName() {
+        return longName;
+    }
 
-  public void setFloor(String FloorIn) {
-    data.put("floor", FloorIn);
-  }
+    public String getShortName() {
+        return shortName;
+    }
 
-  public void setNodeType(String NodeTypeIn) {
-    data.put("nodeType", NodeTypeIn);
-  }
+    public void setXCoord(String xCoordIn) {
+        this.xCoord = xCoordIn;
+    }
 
-  public void setLongName(String LongNameIn) {
-    data.put("longName", LongNameIn);
-  }
+    public void setYCoord(String yCoordIn) {
+        this.yCoord = yCoordIn;
+    }
 
-  public void setShortName(String ShortNameIn) {
-    data.put("shortName", ShortNameIn);
-  }
+    public void setFloor(String FloorIn) {
+        this.floor = FloorIn;
+    }
+
+    public void setNodeType(String NodeTypeIn) {
+        this.nodeType = NodeTypeIn;
+    }
+
+    public void setLongName(String LongNameIn) {
+        this.longName = LongNameIn;
+    }
+
+    public void setShortName(String ShortNameIn) {
+        this.shortName = ShortNameIn;
+    }
 }
