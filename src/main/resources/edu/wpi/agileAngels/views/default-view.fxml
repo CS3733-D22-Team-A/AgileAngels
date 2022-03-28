@@ -44,5 +44,10 @@
             <Font size="16.0" />
          </font>
       </Button>
+      <Button fx:id="exitButton" layoutX="329.0" layoutY="304.0" mnemonicParsing="false" onAction="#closeApp" prefHeight="30.0" prefWidth="160.0" text="Close Application">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

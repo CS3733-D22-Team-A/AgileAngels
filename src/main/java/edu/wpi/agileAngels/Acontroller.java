@@ -1,6 +1,7 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -96,6 +97,11 @@ public class Acontroller {
     Scene scene = new Scene(root);
     stage.setScene(scene);
     stage.show();
+  }
+
+  @FXML
+  private void closeApp() {
+    Platform.exit();
   }
 
   @FXML
