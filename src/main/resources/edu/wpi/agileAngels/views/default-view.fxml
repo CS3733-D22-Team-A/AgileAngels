@@ -14,9 +14,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: F;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Acontroller">
    <children>
-      <ImageView fitHeight="840.0" fitWidth="1425.0" layoutX="-123.0" preserveRatio="true">
+      <ImageView fitHeight="819.0" fitWidth="1442.0" layoutX="-160.0" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../../Desktop/D%20Term%202022/Soft%20Eng/UI%20shit/Home%20Page%202.png" />
+            <Image url="@../assets/Home Page 2.png" />
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="47.0" layoutX="303.0" layoutY="518.0" stroke="WHITE" strokeType="INSIDE" width="687.0" />
