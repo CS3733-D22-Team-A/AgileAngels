@@ -97,27 +97,8 @@ public class Adb {
       System.out.println("Enter nodeID");
       // Scanner myObj = new Scanner(System.in);
       String ID = myObj.next();
-
       data = DAO.getAllLocations();
-
-      if (data.get(ID) != null) {
-        System.out.println("Enter new Floor");
-        String newFloor = myObj.next();
-        System.out.println("Enter new Location");
-        String newLocation = myObj.next();
-        PreparedStatement pstmt =
-            connection.prepareStatement(
-                "UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
-        pstmt.setString(1, newFloor);
-        pstmt.setString(2, newLocation);
-        pstmt.setString(3, ID);
-        pstmt.executeUpdate();
-
-        // Updating java objects
-        Location location = data.get(ID);
-        DAO.updateLocationFloor(location, newFloor);
-        DAO.updateLocationType(location, newLocation);
-      }
+      ChangeFloorandType(ID, myObj);
 
     } else if (select.equals("3")) {
       System.out.println("Enter Location ID");
@@ -154,6 +135,32 @@ public class Adb {
       System.out.println("Wrong Input, Select From Menu");
     }
     menu();
+  }
+
+
+  private void ChangeFloorandType(String ID, Scanner myObj) throws SQLException {
+    if (data.get(ID) != null) {
+      System.out.println("Enter new Floor");
+      String newFloor = myObj.next();
+      System.out.println("Enter new Location");
+      String newLocation = myObj.next();
+      PreparedStatement pstmt =
+              connection.prepareStatement(
+                      "UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
+      pstmt.setString(1, newFloor);
+      pstmt.setString(2, newLocation);
+      pstmt.setString(3, ID);
+      pstmt.executeUpdate();
+
+      // Updating java objects
+      Location location = data.get(ID);
+      DAO.updateLocationFloor(location, newFloor);
+      DAO.updateLocationType(location, newLocation);
+    }
+    else{
+      System.out.println("Cannot Find Location");
+    }
+
   }
 
   /**
