@@ -3,7 +3,6 @@ package edu.wpi.agileAngels;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Scanner;
-import javax.swing.*;
 
 public class Adb {
   private HashMap<String, Location> data;
@@ -79,18 +78,7 @@ public class Adb {
     if (select.equals("1")) {
       System.out.println("Location Information");
       data = DAO.getAllLocations();
-      for (HashMap.Entry<String, Location> set : data.entrySet()) {
-        System.out.println("NodeID " + set.getKey());
-        Location location = set.getValue();
-        System.out.println("xcoord " + location.getXCoord());
-        System.out.println("ycoord " + location.getYCoord());
-        System.out.println("Floor " + location.getFloor());
-        System.out.println("building " + location.getBuilding());
-        System.out.println("Node Type " + location.getNodeType());
-        System.out.println("Long Name " + location.getLongName());
-        System.out.println("Short Name " + location.getShortName());
-        System.out.println(" ");
-      }
+      DisplayLocations();
 
     } else if (select.equals("2")) {
       System.out.println("Change Floor and Type");
@@ -124,20 +112,42 @@ public class Adb {
 
     } else if (select.equals("5")) {
       System.out.println("Save Locations to CSV File");
-
       exportToCSV export = new exportToCSV();
       export.export(connection);
     } else if (select.equals("6")) {
       System.out.println("Exit Program");
       System.exit(0);
-
     } else {
       System.out.println("Wrong Input, Select From Menu");
     }
     menu();
   }
 
+  /**
+   * Display all Locations and attributes
+   */
+  private void DisplayLocations(){
+    for (HashMap.Entry<String, Location> set : data.entrySet()) {
+      System.out.println("NodeID " + set.getKey());
+      Location location = set.getValue();
+      System.out.println("xcoord " + location.getXCoord());
+      System.out.println("ycoord " + location.getYCoord());
+      System.out.println("Floor " + location.getFloor());
+      System.out.println("building " + location.getBuilding());
+      System.out.println("Node Type " + location.getNodeType());
+      System.out.println("Long Name " + location.getLongName());
+      System.out.println("Short Name " + location.getShortName());
+      System.out.println(" ");
+    }
 
+  }
+
+  /**
+   * Allows the user to change the floor and location type
+   * @param ID the node string ID to check if location is present in the map
+   * @param myObj --> Scanner to get new floor and new location
+   * @throws SQLException
+   */
   private void ChangeFloorandType(String ID, Scanner myObj) throws SQLException {
     if (data.get(ID) != null) {
       System.out.println("Enter new Floor");
