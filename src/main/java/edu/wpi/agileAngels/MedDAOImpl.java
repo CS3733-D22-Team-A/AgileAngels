@@ -42,7 +42,7 @@ public class MedDAOImpl implements MedDAO {
         if (!name.equals("name")) {
           Statement statement =
               connection.prepareStatement(
-                  "INSERT INTO Locations(name,available ,type, location, employee, status, description)values(?,?,?,?,?,?,?)");
+                  "INSERT INTO MedicalEquipment(name,available ,type, location, employee, status, description)values(?,?,?,?,?,?,?)");
 
           // Accessing values by the names assigned to each column
 

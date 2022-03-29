@@ -13,7 +13,6 @@ public class Adb {
 
   public void main(String[] args) throws SQLException {
 
-    // menu();
     // Apache Derby and table creation
     System.out.println("-------Embedded Apache Derby Connection Testing --------");
     try {
