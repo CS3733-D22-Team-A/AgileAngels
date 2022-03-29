@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Acontroller">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.LabController">
    <children>
       <Label layoutX="206.0" layoutY="14.0" text="Lab Request Menu">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="homeButton" layoutX="244.0" layoutY="343.0" mnemonicParsing="false" onAction="#openScene" text="Return to Home" />
+      <Button fx:id="homeButton" layoutX="244.0" layoutY="343.0" mnemonicParsing="false" onAction="#goHome" text="Return to Home" />
       <TextField fx:id="labTestLocation" layoutX="357.0" layoutY="187.0" />
       <Label contentDisplay="CENTER" layoutX="78.0" layoutY="155.0" text="Please select lab type." />
       <Label contentDisplay="CENTER" layoutX="369.0" layoutY="155.0" text="Enter location of request." />
