@@ -8,15 +8,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Acontroller">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.EquipmentController">
    <children>
       <Label layoutX="194.0" layoutY="34.0" prefHeight="35.0" prefWidth="212.0" text="Equipment Request" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="homeButton" layoutX="248.0" layoutY="347.0" mnemonicParsing="false" onAction="#openScene" text="Return to Home" />
-      <Button layoutX="248.0" layoutY="270.0" mnemonicParsing="false" onAction="#submitEquipment" text="Submit">
+      <Button fx:id="homeButton" layoutX="248.0" layoutY="347.0" mnemonicParsing="false" onAction="#goHome" text="Return to Home" />
+      <Button layoutX="246.0" layoutY="231.0" mnemonicParsing="false" onAction="#submitEquipment" text="Submit">
          <font>
             <Font size="24.0" />
          </font>
@@ -45,5 +45,6 @@
       <TextField fx:id="equipmentEmployeeText" layoutX="84.0" layoutY="257.0" prefHeight="26.0" prefWidth="149.0" />
       <Label layoutX="115.0" layoutY="224.0" text="Enter employee." />
 
+      <Button fx:id="clear" layoutX="541.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearPage" text="Clear" />
    </children>
 </AnchorPane>

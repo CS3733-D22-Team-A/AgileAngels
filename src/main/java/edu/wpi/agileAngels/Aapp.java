@@ -20,6 +20,7 @@ public class Aapp extends Application {
   @Override
   public void start(Stage primaryStage) throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("views/default-view.fxml"));
+    // Parent root = FXMLLoader.load(getClass().getResource("views/gifts-view.fxml"));
     Scene defaultScene = new Scene(root);
     primaryStage.setScene(defaultScene);
     primaryStage.show();

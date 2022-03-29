@@ -17,52 +17,15 @@ public class Acontroller {
       equipmentButton,
       labButton,
       sanitationButton,
-      homeButton,
+      giftButton,
       foodButton,
-      giftButton;
-  @FXML private MenuButton mealDropdown, eqptDropdown, giftType, labDropdown;
-  @FXML
-  private MenuItem blood,
-      urine,
-      tumor,
-      balloons,
-      flowers,
-      bed,
-      recliner,
-      xray,
-      infusion,
-      chicken,
-      steak,
-      salad;
-  @FXML
-  private TextField roomInput,
-      sanIssue,
-      sanLocation,
-      giftSender,
-      giftRecipient,
-      giftMessage,
-      equipLocation,
-      labTestLocation,
-      labEmployeeText,
-      equipmentEmployeeText,
-      mealEmployeeText,
-      giftEmployeeText,
-      sanitationEmployeeText;
-
-  @FXML private TextArea restrictions;
-  @FXML
-  private Label confirm,
-      sanitationConfirmation,
-      equipmentConfirmation,
-      giftConfirm,
-      labTestConfirmation;
+      homeButton;
 
   // Switches to a new scene depending on which button is pressed
   @FXML
   private void openScene(ActionEvent event) throws IOException {
     Stage stage;
     Parent root;
-
     // If the equipment request button on the default scene is pressed,
     // switch to the equipment scene
     if (event.getSource() == equipmentButton) {
