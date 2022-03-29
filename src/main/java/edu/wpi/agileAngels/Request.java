@@ -34,4 +34,6 @@ public class Request {
     public void setType(String type) {
         this.type = type;
     }
+
+
 }
