@@ -107,12 +107,12 @@ public class LocationDAOImpl implements LocationDAO {
   }
 
   public void updateLocationBuilding(Location location, String newLocationBuilding) {
-    location.setFloor(newLocationBuilding);
+    location.setBuilding(newLocationBuilding);
     System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
   }
 
   public void updateLocationLongName(Location location, String newLocationLongName) {
-    location.setFloor(newLocationLongName);
+    location.setLongName(newLocationLongName);
     System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
   }
 
