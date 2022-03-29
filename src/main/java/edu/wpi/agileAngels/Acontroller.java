@@ -20,6 +20,7 @@ public class Acontroller {
       giftButton,
       foodButton,
       homeButton;
+  @FXML private MenuItem equipmentMenu, labMenu, sanitationMenu, mealMenu, giftMenu;
 
   // Switches to a new scene depending on which button is pressed
   @FXML
@@ -28,31 +29,31 @@ public class Acontroller {
     Parent root;
     // If the equipment request button on the default scene is pressed,
     // switch to the equipment scene
-    if (event.getSource() == equipmentButton) {
+    if (event.getSource() == equipmentButton || event.getSource() == equipmentMenu) {
       stage = (Stage) equipmentButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("views/equipment-view.fxml"));
     }
     // If the lab request button on the default scene is pressed,
     // switch to the lab scene
-    else if (event.getSource() == labButton) {
+    else if (event.getSource() == labButton || event.getSource() == labMenu) {
       stage = (Stage) equipmentButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("views/lab-view.fxml"));
     }
     // If the meal request button on the default scene is pressed,
     // switch to the meal scene
-    else if (event.getSource() == foodButton) {
+    else if (event.getSource() == foodButton || event.getSource() == mealMenu) {
       stage = (Stage) foodButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("views/mealRequest-view.fxml"));
     }
     // If the sanitation request button on the default scene is pressed,
     // switch to the sanitation scene
-    else if (event.getSource() == sanitationButton) {
+    else if (event.getSource() == sanitationButton || event.getSource() == sanitationMenu) {
       stage = (Stage) sanitationButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("views/sanitation-view.fxml"));
     }
     // If the gift request button on the default scene is pressed,
     // switch to the gift scene
-    else if (event.getSource() == giftButton) {
+    else if (event.getSource() == giftButton || event.getSource() == giftMenu) {
       stage = (Stage) giftButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("views/gifts-view.fxml"));
     }
