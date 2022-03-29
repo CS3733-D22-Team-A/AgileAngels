@@ -12,13 +12,13 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Acontroller">
    <children>
-      <Text layoutX="184.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meal Delivery Request">
+      <Text layoutX="184.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meal Delivery Request">
          <font>
             <Font size="25.0" />
          </font>
       </Text>
       <TextField fx:id="roomInput" layoutX="148.0" layoutY="121.0" prefHeight="18.0" prefWidth="62.0" />
-      <MenuButton fx:id="mealDropdown" layoutX="402.0" layoutY="121.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="89.0" text="Meal">
+      <MenuButton fx:id="mealDropdown" layoutX="402.0" layoutY="121.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" text="Meal">
         <items>
           <MenuItem fx:id="chicken" mnemonicParsing="false" onAction="#setMealType" text="Chicken" />
           <MenuItem fx:id="steak" mnemonicParsing="false" onAction="#setMealType" text="Steak" />
@@ -36,5 +36,12 @@
             <Font size="24.0" />
          </font>
       </Button>
+      <Label layoutX="402.0" layoutY="158.0" prefHeight="17.0" prefWidth="89.0" text="Enter employee." />
+      <TextField fx:id="mealEmployeeText" layoutX="402.0" layoutY="182.0" prefHeight="26.0" prefWidth="103.0" />
+      <Label layoutX="57.0" layoutY="70.0" prefHeight="20.0" prefWidth="505.0" text="Please fill out the information below and then press the &quot;Submit Request&quot; button.">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

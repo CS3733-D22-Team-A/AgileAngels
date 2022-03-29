@@ -16,9 +16,9 @@
          </font>
       </Label>
       <Button fx:id="homeButton" layoutX="244.0" layoutY="343.0" mnemonicParsing="false" onAction="#openScene" text="Return to Home" />
-      <TextField fx:id="labTestLocation" layoutX="357.0" layoutY="187.0" />
+      <TextField fx:id="labTestLocation" layoutX="360.0" layoutY="115.0" />
       <Label contentDisplay="CENTER" layoutX="78.0" layoutY="155.0" text="Please select lab type." />
-      <Label contentDisplay="CENTER" layoutX="369.0" layoutY="155.0" text="Enter location of request." />
+      <Label contentDisplay="CENTER" layoutX="372.0" layoutY="83.0" text="Enter location of request." />
       <MenuButton fx:id="labDropdown" layoutX="80.0" layoutY="187.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0">
         <items>
           <MenuItem fx:id="blood" mnemonicParsing="false" onAction="#setLabType" text="Blood Test" />
@@ -32,5 +32,12 @@
             <Font size="24.0" />
          </font>
       </Button>
+      <TextField fx:id="labEmployeeText" layoutX="359.0" layoutY="203.0" />
+      <Label contentDisplay="CENTER" layoutX="371.0" layoutY="171.0" text="Enter name of employee." />
+      <Label layoutX="48.0" layoutY="49.0" prefHeight="20.0" prefWidth="505.0" text="Please fill out the information below and then press the &quot;Submit Request&quot; button.">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
