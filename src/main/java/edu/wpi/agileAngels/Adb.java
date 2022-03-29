@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Adb {
-  private HashMap<String, Location> data;
+  private HashMap<String, Location> locationData;
+  private HashMap<String, MedDevice> medData;
   public Connection connection = null;
-  private LocationDAOImpl DAO;
+  private LocationDAOImpl LocationDAO;
+  private MedDAOImpl MedDAO;
 
   public void main(String[] args) throws SQLException {
 
@@ -30,13 +32,14 @@ public class Adb {
 
     System.out.println("Apache Derby driver registered!");
 
-    Statement statement;
+    Statement statementLocations;
+    Statement statementMedical;
     try {
       // substitute your database name for myDB
       connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-      statement = connection.createStatement();
+      statementLocations = connection.createStatement();
 
-      String query =
+      String queryLocations =
           "CREATE TABLE Locations( "
               + "NodeID VARCHAR(50),"
               + "xcoord VARCHAR(50),"
@@ -47,7 +50,20 @@ public class Adb {
               + "longName VARCHAR(50),"
               + "shortName VARCHAR(50))";
 
-      statement.execute(query);
+      statementLocations.execute(queryLocations);
+
+      statementMedical = connection.createStatement();
+
+      String queryMedical =
+          "CREATE TABLE MedicalEquipment ( "
+              + "Name VARCHAR(50),"
+              + "available VARCHAR(50),"
+              + "type VARCHAR(50),"
+              + "location VARCHAR(50),"
+              + "employee VARCHAR(50),"
+              + "status VARCHAR(50),"
+              + "description VARCHAR(50))";
+      statementMedical.execute(queryMedical);
 
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
@@ -56,10 +72,44 @@ public class Adb {
     }
     System.out.println("Apache Derby connection established!");
 
-    DAO = new LocationDAOImpl(connection);
-    data = DAO.getAllLocations(); // Updates the big hashmap
+    LocationDAO = new LocationDAOImpl(connection);
+    locationData = LocationDAO.getAllLocations(); // Updates the big hashmap
 
+    MedDAO = new MedDAOImpl(connection);
+    medData = MedDAO.getAllMedicalEquipmentRequests();
+
+    MedMenu();
     menu();
+  }
+
+  private void MedMenu() {
+    Scanner myObj = new Scanner(System.in); // Create a Scanner object
+    System.out.println("1 - Medical Equipment Request Information");
+    System.out.println("2 - Change Floor and Type");
+    System.out.println("3 - Enter Location");
+    System.out.println("4 - Delete Location");
+    System.out.println("5 - Save Locations to CSV File");
+    System.out.println("6 - Exit Program");
+
+    String select = myObj.nextLine();
+
+    if ((select.equals("1"))) {
+      DisplayMedicalEquipment();
+    }
+  }
+
+  private void DisplayMedicalEquipment() {
+    for (HashMap.Entry<String, MedDevice> set : medData.entrySet()) {
+      System.out.println("Name " + set.getKey());
+      MedDevice medDevice = set.getValue();
+      System.out.println("available " + medDevice.getAvailable());
+      System.out.println("Type " + medDevice.getType());
+      System.out.println("Location " + medDevice.getLocation());
+      System.out.println("Employee " + medDevice.getEmployee());
+      System.out.println("Status " + medDevice.getStatus());
+      System.out.println("Description " + medDevice.getDescription());
+      System.out.println(" ");
+    }
   }
 
   /** Menu Creation for User* */
@@ -77,7 +127,7 @@ public class Adb {
 
     if (select.equals("1")) {
       System.out.println("Location Information");
-      data = DAO.getAllLocations();
+      locationData = LocationDAO.getAllLocations();
       DisplayLocations();
 
     } else if (select.equals("2")) {
@@ -85,14 +135,14 @@ public class Adb {
       System.out.println("Enter nodeID");
       // Scanner myObj = new Scanner(System.in);
       String ID = myObj.next();
-      data = DAO.getAllLocations();
+      locationData = LocationDAO.getAllLocations();
       ChangeFloorandType(ID, myObj);
 
     } else if (select.equals("3")) {
       System.out.println("Enter Location ID");
       Scanner in = new Scanner(System.in);
       String nodeID = in.next();
-      data = DAO.getAllLocations();
+      locationData = LocationDAO.getAllLocations();
 
       try {
         addLocation(nodeID);
@@ -123,11 +173,9 @@ public class Adb {
     menu();
   }
 
-  /**
-   * Display all Locations and attributes
-   */
-  private void DisplayLocations(){
-    for (HashMap.Entry<String, Location> set : data.entrySet()) {
+  /** Display all Locations and attributes */
+  private void DisplayLocations() {
+    for (HashMap.Entry<String, Location> set : locationData.entrySet()) {
       System.out.println("NodeID " + set.getKey());
       Location location = set.getValue();
       System.out.println("xcoord " + location.getXCoord());
@@ -139,38 +187,36 @@ public class Adb {
       System.out.println("Short Name " + location.getShortName());
       System.out.println(" ");
     }
-
   }
 
   /**
    * Allows the user to change the floor and location type
+   *
    * @param ID the node string ID to check if location is present in the map
    * @param myObj --> Scanner to get new floor and new location
    * @throws SQLException
    */
   private void ChangeFloorandType(String ID, Scanner myObj) throws SQLException {
-    if (data.get(ID) != null) {
+    if (locationData.get(ID) != null) {
       System.out.println("Enter new Floor");
       String newFloor = myObj.next();
       System.out.println("Enter new Location");
       String newLocation = myObj.next();
       PreparedStatement pstmt =
-              connection.prepareStatement(
-                      "UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
+          connection.prepareStatement(
+              "UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
       pstmt.setString(1, newFloor);
       pstmt.setString(2, newLocation);
       pstmt.setString(3, ID);
       pstmt.executeUpdate();
 
       // Updating java objects
-      Location location = data.get(ID);
-      DAO.updateLocationFloor(location, newFloor);
-      DAO.updateLocationType(location, newLocation);
-    }
-    else{
+      Location location = locationData.get(ID);
+      LocationDAO.updateLocationFloor(location, newFloor);
+      LocationDAO.updateLocationType(location, newLocation);
+    } else {
       System.out.println("Cannot Find Location");
     }
-
   }
 
   /**
@@ -180,7 +226,7 @@ public class Adb {
    * @throws SQLException
    */
   private void addLocation(String node) throws SQLException {
-    data = DAO.getAllLocations();
+    locationData = LocationDAO.getAllLocations();
     // Adding to the database table
     String add =
         "INSERT INTO Locations(NodeID,xcoord,ycoord,Floor,building,nodeType,longName,shortName)VALUES(?,'?','?','?','?','?','?','?')";
@@ -200,7 +246,7 @@ public class Adb {
             placeholder,
             placeholder,
             placeholder);
-    DAO.addLocation(location);
+    LocationDAO.addLocation(location);
   }
 
   /**
@@ -211,7 +257,7 @@ public class Adb {
    */
   private void deleteLocation(String node) throws SQLException {
     // Deleting from the database table
-    Location location = data.get(node);
+    Location location = locationData.get(node);
     if (location != null) {
       PreparedStatement preparedStatement =
           connection.prepareStatement("DELETE FROM Locations WHERE NodeID = ?");
@@ -219,7 +265,7 @@ public class Adb {
       preparedStatement.execute();
 
       // Deleting from hashmap
-      DAO.deleteLocation(location);
+      LocationDAO.deleteLocation(location);
     } else {
       System.out.println("Location Does Not Exist");
     }
