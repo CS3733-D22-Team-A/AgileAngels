@@ -1,67 +1,137 @@
 package edu.wpi.agileAngels;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
-//includes a list od Location objects and implements the Location DAO methods
-//this will get the data from the DB?
+// includes a list od Location objects and implements the Location DAO methods
+// this will get the data from the DB?
 public class LocationDAOImpl implements LocationDAO {
-    //List is working as a database
-    List<Location> locations;
+  // List is working as a database
+  private final String CSV_FILE_PATH = "./TowerLocations.csv";
+  private HashMap<String, Location> data = new HashMap<>();
 
-    public LocationDAOImpl() { //error, maybe return void? doesn't in tutorial :(
-        locations = new ArrayList<Location>();
-        Location loc1 = new Location(); //add values (figure out if we need this)
-        Location loc2 = new Location(); //add values (figure out if we need this)
-    }
+  public LocationDAOImpl(
+      Connection connection) { // error, maybe return void? doesn't in tutorial :(
+    try (Reader reader = Files.newBufferedReader(Paths.get(CSV_FILE_PATH));
+        CSVParser csvParser =
+            new CSVParser(
+                reader,
+                CSVFormat.DEFAULT
+                    .withHeader(
+                        "NodeID",
+                        "xcoord",
+                        "ycoord",
+                        "floor",
+                        "building",
+                        "nodeType",
+                        "longName",
+                        "shortName")
+                    .withIgnoreHeaderCase()
+                    .withTrim())) {
 
-    //@Override
-    // override is in the tutorial, maybe change method name to delete?
-    //use the dictionaries here instead of this method (idea)
-    public void deleteLocation(Location location) {
-        locations.remove(location.getNodeID());
-        System.out.println("Location: NodeID " + location.getNodeID() + ", deleted from the database");
-    }
+      for (CSVRecord csvRecord : csvParser) { // each row has a dictionary
 
-    //retrieve list of locations from the database
-    @Override
-    public List<Location> getAllLocations() {
-        return Locations;
-    }
+        String nodeID = csvRecord.get(0);
+        if (!nodeID.equals("nodeID")) {
 
-    // @Override override in the tutorial, different method name?
-    public Location getLocation(String NodeID) {
-        return Locations.get(NodeID);
-    }
+          Statement statement =
+              connection.prepareStatement(
+                  "INSERT INTO Locations(NodeID, xcoord, ycoord, Floor, building, nodeType, longName, shortName)values(?,?,?,?,?,?,?,?)");
 
-    // @Override override in the tutoral, different method name? (for all updateLocation<field_name> methods)
-    public void updateLocationType(Location location) {
-        locations.get(location.getNodeID()).setNodeType(location.getNodeType()); //error here with getter
-        System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
-    }
+          // Accessing values by the names assigned to each column
 
-    public void updateLocationFloor(Location location) {
-        locations.get(location.getNodeID()).setFloor(location.getFloor()); //error here with getter
-        System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
-    }
+          for (int i = 1; i < 9; i++) { // each item in the row
+            ((PreparedStatement) statement)
+                .setString(
+                    i, csvRecord.get(i - 1)); // to access the first value for table it starts at 1
+          }
+          Location location =
+              new Location(
+                  csvRecord.get(0),
+                  csvRecord.get(1),
+                  csvRecord.get(2),
+                  csvRecord.get(3),
+                  csvRecord.get(4),
+                  csvRecord.get(5),
+                  csvRecord.get(6),
+                  csvRecord.get(7));
+          data.put(csvRecord.get(0), location);
 
-    public void updateLocationLongName(Location location) {
-        locations.get(location.getNodeID()).setLongName(location.getLongName()); //error here with getter
-        System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
+          ((PreparedStatement) statement).execute();
+        }
+      }
+    } catch (SQLException | IOException e) {
+      e.printStackTrace();
     }
+  }
 
-    public void updateLocationShortName(Location location) {
-        locations.get(location.getNodeID()).setShortName(location.getShortName()); //error here with getter
-        System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
-    }
+  // retrieve list of locations from the database
+  @Override
+  public HashMap<String, Location> getAllLocations() {
+    return data;
+  }
 
-    public void updateLocationXCoord(Location location) {
-        locations.get(location.getNodeID()).setXCoord(location.getXCoord()); //error here with getter
-        System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
-    }
+  // @Override
+  // override is in the tutorial, maybe change method name to delete?
+  // use the dictionaries here instead of this method (idea)
+  public void deleteLocation(Location location) {
+    data.remove(location.getNodeID());
+    System.out.println("Location: NodeID " + location.getNodeID() + ", deleted from the database");
+  }
 
-    public void updateLocationYCoord(Location location) {
-        locations.get(location.getNodeID()).setYCoord(location.getYCoord()); //error here with getter
-        System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
-    }
+  // @Override override in the tutorial, different method name?
+  public Location getLocation(String NodeID) {
+    return data.get(NodeID);
+  }
+
+  // @Override override in the tutoral, different method name? (for all updateLocation<field_name>
+  // methods)
+  public void updateLocationType(Location location, String newLocationType) {
+    location.setNodeType(newLocationType);
+    System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
+  }
+
+  public void updateLocationFloor(Location location, String newLocationFloor) {
+    location.setFloor(newLocationFloor);
+    System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
+  }
+
+  public void updateLocationBuilding(Location location, String newLocationBuilding) {
+    location.setFloor(newLocationBuilding);
+    System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
+  }
+
+  public void updateLocationLongName(Location location, String newLocationLongName) {
+    location.setFloor(newLocationLongName);
+    System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
+  }
+
+  public void updateLocationShortName(Location location, String newLocationShortName) {
+    location.setShortName(newLocationShortName);
+    System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
+  }
+
+  public void updateLocationXCoord(Location location, String newLocationXCoord) {
+    location.setXCoord(newLocationXCoord);
+    System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
+  }
+
+  public void updateLocationYCoord(Location location, String newLocationYCoord) {
+    location.setYCoord(newLocationYCoord);
+    System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
+  }
+
+  public void addLocation(Location location) {
+    data.put(location.getNodeID(), location);
+  }
 }

@@ -1,24 +1,35 @@
 package edu.wpi.agileAngels;
-//test DAO methods
+
+import java.util.Map;
+
+// test DAO methods
 public class DAOPatternDemo {
-    public static main(String[] args) {
-        LocationDAO locationDao = new LocationDAO();
-        {
-            //print all students
-            for (Location l : locationDao.getLocations()) {
-                System.out.println("Location: [NodeID: " +
-                        l.getNodeID() + " long name" + l.getLongName() + " ]");
-            }
-            //update location
-            Location l = locationDao.getAllLocations().get(0);
-            l.setLongName("main campus");
-            locationDao.updateLocationLongName(l);
+  public void main(String[] args) {
+    LocationDAOImpl locationDao = new LocationDAOImpl(null);
+    {
+      // print all students
+      for (Map.Entry<String, Location> set : locationDao.getAllLocations().entrySet()) {
+        System.out.println(
+            "Location: [NodeID: "
+                + set.getKey()
+                + " long name"
+                + set.getValue().getLongName()
+                + " ]");
+      }
 
-            //get the location
-            locationDao.getLocation("0");
-            System.out.println("Location: [NodeID: " +
-                    l.getNodeID() + " long name" + l.getLongName() + " ]");
+      // add location
+      String place = "?";
+      Location a = new Location("0", place, place, place, place, place, place, place);
+      locationDao.addLocation(a);
+      // update location
+      Location l = locationDao.getAllLocations().get("0");
+      String name = "main campus";
+      locationDao.updateLocationLongName(l, name);
 
-        }
+      // get the location
+      Location b = locationDao.getAllLocations().get("0");
+      System.out.println(
+          "Location: [NodeID: " + b.getNodeID() + " long name" + b.getLongName() + " ]");
     }
+  }
 }

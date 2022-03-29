@@ -8,6 +8,7 @@ import javax.swing.*;
 public class Adb {
   private HashMap<String, Location> data;
   public Connection connection = null;
+  private LocationDAOImpl DAO;
 
   public void main(String[] args) throws SQLException {
 
@@ -56,9 +57,8 @@ public class Adb {
     }
     System.out.println("Apache Derby connection established!");
 
-    Parser parser = new Parser();
-    parser.createTable(connection);
-    data = parser.locationData; // Updates the big hashmap
+    DAO = new LocationDAOImpl(connection);
+    data = DAO.getAllLocations(); // Updates the big hashmap
 
     menu();
   }
@@ -78,6 +78,7 @@ public class Adb {
 
     if (select.equals("1")) {
       System.out.println("Location Information");
+      data = DAO.getAllLocations();
       for (HashMap.Entry<String, Location> set : data.entrySet()) {
         System.out.println("NodeID " + set.getKey());
         Location location = set.getValue();
@@ -96,27 +97,34 @@ public class Adb {
       System.out.println("Enter nodeID");
       // Scanner myObj = new Scanner(System.in);
       String ID = myObj.next();
-      System.out.println("Enter new Floor");
-      String newFloor = myObj.next();
-      System.out.println("Enter new Location");
-      String newLocation = myObj.next();
-      PreparedStatement pstmt =
-          connection.prepareStatement(
-              "UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
-      pstmt.setString(1, newFloor);
-      pstmt.setString(2, newLocation);
-      pstmt.setString(3, ID);
-      pstmt.executeUpdate();
 
-      // Updating java objects
-      Location location = data.get(ID);
-      location.setFloor(newFloor);
-      location.setNodeType(newLocation);
+      data = DAO.getAllLocations();
+
+      if (data.get(ID) != null) {
+        System.out.println("Enter new Floor");
+        String newFloor = myObj.next();
+        System.out.println("Enter new Location");
+        String newLocation = myObj.next();
+        PreparedStatement pstmt =
+            connection.prepareStatement(
+                "UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
+        pstmt.setString(1, newFloor);
+        pstmt.setString(2, newLocation);
+        pstmt.setString(3, ID);
+        pstmt.executeUpdate();
+
+        // Updating java objects
+        Location location = data.get(ID);
+        DAO.updateLocationFloor(location, newFloor);
+        DAO.updateLocationType(location, newLocation);
+      }
 
     } else if (select.equals("3")) {
       System.out.println("Enter Location ID");
       Scanner in = new Scanner(System.in);
       String nodeID = in.next();
+      data = DAO.getAllLocations();
+
       try {
         addLocation(nodeID);
       } catch (SQLException sqlException) {
@@ -155,6 +163,7 @@ public class Adb {
    * @throws SQLException
    */
   private void addLocation(String node) throws SQLException {
+    data = DAO.getAllLocations();
     // Adding to the database table
     String add =
         "INSERT INTO Locations(NodeID,xcoord,ycoord,Floor,building,nodeType,longName,shortName)VALUES(?,'?','?','?','?','?','?','?')";
@@ -163,7 +172,18 @@ public class Adb {
     preparedStatement.execute();
 
     // Adding to the hashmap
-    data.put(node, new Location(node, new HashMap<>()));
+    String placeholder = "?";
+    Location location =
+        new Location(
+            node,
+            placeholder,
+            placeholder,
+            placeholder,
+            placeholder,
+            placeholder,
+            placeholder,
+            placeholder);
+    DAO.addLocation(location);
   }
 
   /**
@@ -174,50 +194,17 @@ public class Adb {
    */
   private void deleteLocation(String node) throws SQLException {
     // Deleting from the database table
-    PreparedStatement preparedStatement =
-        connection.prepareStatement("DELETE FROM Locations WHERE NodeID = ?");
-    preparedStatement.setString(1, node);
-    preparedStatement.execute();
+    Location location = data.get(node);
+    if (location != null) {
+      PreparedStatement preparedStatement =
+          connection.prepareStatement("DELETE FROM Locations WHERE NodeID = ?");
+      preparedStatement.setString(1, node);
+      preparedStatement.execute();
 
-    // Deleting from hashmap
-    data.remove(node);
-  }
-
-  public void changeType(String NodeID) {
-    Location l = data.get(NodeID);
-    Scanner myObj = new Scanner(System.in); // Create a Scanner object
-    System.out.println("What is the NodeID of the location that you want to change?");
-    String select = myObj.nextLine();
-    // see if it exists
-    System.out.println("The current floor is :" + l.getFloor());
-    System.out.println("The current type is: " + l.getNodeType());
-    System.out.println(
-        "Do you want to change the floor or type?\nClick 1 for floor and 2 for type: ");
-    String choice = myObj.nextLine();
-    if (choice.equals("1")) {
-      System.out.println("What do you want to change the floor to?");
-      String newFloor = myObj.nextLine();
-      l.setFloor(newFloor);
-      System.out.println("Do you also want to change the type?\nSelect 1 for Yes and 0 for No");
-      String choice2 = myObj.nextLine();
-      if (choice2.equals("1")) {
-        System.out.println("What do you want to change the type to?");
-        String newType = myObj.nextLine();
-        l.setNodeType(newType);
-      } else {
-      }
-    }
-    if (choice.equals("2")) {
-      System.out.println("What do you want to change the type to?");
-      String newType = myObj.nextLine();
-      l.setNodeType(newType);
-      System.out.println("Do you also want to change the floor?\nSelect 1 for Yes and 0 for No");
-      int choice2 = myObj.nextInt();
-      if (choice2 == 1) {
-        System.out.println("What do you want to change the floor to?");
-        String newFloor = myObj.nextLine();
-        l.setFloor(newFloor);
-      }
+      // Deleting from hashmap
+      DAO.deleteLocation(location);
+    } else {
+      System.out.println("Location Does Not Exist");
     }
   }
 }
