@@ -78,23 +78,56 @@ public class Adb {
     medData = MedDAO.getAllMedicalEquipmentRequests();
 
     MedMenu();
-    menu();
+    Locationsmenu();
   }
 
+  /**
+   * Medical Equipment Menu
+   */
   private void MedMenu() {
     Scanner myObj = new Scanner(System.in); // Create a Scanner object
     System.out.println("1 - Medical Equipment Request Information");
-    System.out.println("2 - Change Floor and Type");
-    System.out.println("3 - Enter Location");
-    System.out.println("4 - Delete Location");
-    System.out.println("5 - Save Locations to CSV File");
-    System.out.println("6 - Exit Program");
+    System.out.println("2 - Add Medical Request");
+    System.out.println("3 - Delete Location");
+    System.out.println("4 - Save Locations to CSV File");
+    System.out.println("5 - Exit Program");
 
     String select = myObj.nextLine();
 
     if ((select.equals("1"))) {
       DisplayMedicalEquipment();
     }
+    if ((select.equals("2"))) {
+      System.out.println("Add Medical Equipment Database");
+      Scanner in = new Scanner(System.in);
+      String name = in.next();
+      medData = MedDAO.getAllMedicalEquipmentRequests();
+      try {
+        addMedicalEquipment(name);
+      } catch (SQLException sqlException) {
+        System.out.println("Adding a new Medical Equipment unsuccessful.");
+      }
+    }
+    if ((select.equals("3"))) {
+      System.out.println("Enter Medical Equipment Name");
+      Scanner in = new Scanner(System.in);
+      String name = in.next();
+      try {
+        deleteMedicalEquipment(name);
+      } catch (SQLException sqlException) {
+        System.out.println("Medical Equipment could not be removed.");
+      }
+    } else if (select.equals("4")) {
+      System.out.println("Save Locations to CSV File");
+      MedExportToCSV medExport = new MedExportToCSV();
+      medExport.export(connection);
+    } else if (select.equals("5")) {
+      System.out.println("Exit Program");
+      System.exit(0);
+    } else {
+      System.out.println("Wrong Input, Select From Menu");
+    }
+    MedMenu();
   }
 
   private void DisplayMedicalEquipment() {
@@ -111,8 +144,48 @@ public class Adb {
     }
   }
 
+  private void addMedicalEquipment(String name) throws SQLException {
+    medData = MedDAO.getAllMedicalEquipmentRequests();
+    // Adding to the database table
+    String addMed =
+        "INSERT INTO MedicalEquipment(Name, available ,type, location, employee, status, description)VALUES(?,'?','?','?','?','?','?')";
+    PreparedStatement preparedStatement = connection.prepareStatement(addMed);
+    preparedStatement.setString(1, name);
+    preparedStatement.execute();
+
+    // Adding to the hashmap
+    String placeholder = "?";
+    MedDevice medDevice =
+        new MedDevice(
+            name, placeholder, placeholder, placeholder, placeholder, placeholder, placeholder);
+
+    MedDAO.addMed(medDevice);
+  }
+
+  /**
+   * Deletes a Medical Equipment from the table and hashmap.
+   *
+   * @param name
+   * @throws SQLException
+   */
+  private void deleteMedicalEquipment(String name) throws SQLException {
+    // Deleting from the database table
+    MedDevice medDevice = medData.get(name);
+    if (medDevice != null) {
+      PreparedStatement preparedStatement =
+          connection.prepareStatement("DELETE FROM MedicalEquipment WHERE Name = ?");
+      preparedStatement.setString(1, name);
+      preparedStatement.execute();
+
+      // Deleting from hashmap
+      MedDAO.deleteMed(medDevice);
+    } else {
+      System.out.println("Medical Equipment Does Not Exist");
+    }
+  }
+
   /** Menu Creation for User* */
-  private void menu() throws SQLException {
+  private void Locationsmenu() throws SQLException {
 
     Scanner myObj = new Scanner(System.in); // Create a Scanner object
     System.out.println("1 - Location Information");
@@ -169,7 +242,7 @@ public class Adb {
     } else {
       System.out.println("Wrong Input, Select From Menu");
     }
-    menu();
+    Locationsmenu();
   }
 
   /** Display all Locations and attributes */
