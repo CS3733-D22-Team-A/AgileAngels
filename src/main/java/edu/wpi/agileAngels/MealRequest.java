@@ -1,4 +1,4 @@
-package edu.wpi.agileAngels.requests;
+package edu.wpi.agileAngels;
 
 public class MealRequest extends Request {
 
