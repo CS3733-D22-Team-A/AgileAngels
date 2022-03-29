@@ -60,5 +60,6 @@
             <Menu fx:id="giftMenu" mnemonicParsing="false" text="Gift Request" />
         </menus>
       </MenuBar>
+
    </children>
 </AnchorPane>
