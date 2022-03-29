@@ -6,7 +6,7 @@ public class MedDevice {
   private String type;
   private String location;
   private String employee;
-  private String complete;
+  private String status;
   private String description;
 
   public MedDevice(
@@ -15,14 +15,14 @@ public class MedDevice {
       String type,
       String location,
       String employee,
-      String complete,
+      String status,
       String description) {
     this.name = name;
     this.available = available;
     this.type = type;
     this.location = location;
     this.employee = employee;
-    this.complete = complete;
+    this.status = status;
     this.description = description;
   }
 
@@ -46,8 +46,8 @@ public class MedDevice {
     return employee;
   }
 
-  public String getComplete() {
-    return complete;
+  public String getStatus() {
+    return status;
   }
 
   public String getDescription() {
@@ -74,8 +74,8 @@ public class MedDevice {
     this.employee = employee;
   }
 
-  public void setComplete(String complete) {
-    this.complete = complete;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   public void setDescription(String description) {
