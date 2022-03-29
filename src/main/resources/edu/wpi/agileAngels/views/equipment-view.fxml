@@ -16,7 +16,7 @@
          </font>
       </Label>
       <Button fx:id="homeButton" layoutX="248.0" layoutY="347.0" mnemonicParsing="false" onAction="#openScene" text="Return to Home" />
-      <Button layoutX="246.0" layoutY="231.0" mnemonicParsing="false" onAction="#submitEquipment" text="Submit">
+      <Button layoutX="248.0" layoutY="270.0" mnemonicParsing="false" onAction="#submitEquipment" text="Submit">
          <font>
             <Font size="24.0" />
          </font>
@@ -33,15 +33,17 @@
         <items>
           <MenuItem fx:id="bed" mnemonicParsing="false" onAction="#setEquipmentType" text="Bed" />
           <MenuItem fx:id="recliner" mnemonicParsing="false" onAction="#setEquipmentType" text="Recliner" />
-           <MenuItem fx:id="xray" mnemonicParsing="false" onAction="#setEquipmentType" text="X-Ray Machine" />
+           <MenuItem mnemonicParsing="false" onAction="#setEquipmentType" text="X-Ray Machine" fx:id="xray" />
            <MenuItem fx:id="infusion" mnemonicParsing="false" onAction="#setEquipmentType" text="Infusion Pump" />
         </items>
       </MenuButton>
-      <Label fx:id="equipmentConfirmation" layoutX="8.0" layoutY="302.0" prefHeight="20.0" prefWidth="583.0" textAlignment="CENTER">
+      <Label fx:id="equipmentConfirmation" layoutX="9.0" layoutY="321.0" prefHeight="20.0" prefWidth="583.0" textAlignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <TextField fx:id="equipmentEmployeeText" layoutX="84.0" layoutY="257.0" prefHeight="26.0" prefWidth="149.0" />
+      <Label layoutX="115.0" layoutY="224.0" text="Enter employee." />
 
    </children>
 </AnchorPane>

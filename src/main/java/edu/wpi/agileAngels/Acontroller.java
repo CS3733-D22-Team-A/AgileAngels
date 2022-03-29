@@ -42,7 +42,12 @@ public class Acontroller {
       giftRecipient,
       giftMessage,
       equipLocation,
-      labTestLocation;
+      labTestLocation,
+      labEmployeeText,
+      equipmentEmployeeText,
+      mealEmployeeText,
+      giftEmployeeText,
+      sanitationEmployeeText;
 
   @FXML private TextArea restrictions;
   @FXML
@@ -50,7 +55,7 @@ public class Acontroller {
       sanitationConfirmation,
       equipmentConfirmation,
       giftConfirm,
-      labTestConfirmation;;
+      labTestConfirmation;
 
   // Switches to a new scene depending on which button is pressed
   @FXML
@@ -107,7 +112,9 @@ public class Acontroller {
   @FXML
   private void submitMeal() {
     confirm.setText(
-        "Order confirmed to room "
+        "Your order will be delivered by "
+            + mealEmployeeText.getText()
+            + " to room "
             + roomInput.getText()
             + " for "
             + mealDropdown.getText()
@@ -118,7 +125,9 @@ public class Acontroller {
   @FXML
   private void submitSanitation() {
     sanitationConfirmation.setText(
-        "Thank you, someone will be sent to "
+        "Thank you, "
+            + sanitationEmployeeText.getText()
+            + " will be sent to "
             + sanLocation.getText()
             + " to sanitize "
             + sanIssue.getText()
@@ -131,9 +140,11 @@ public class Acontroller {
         "Thank you, "
             + giftSender.getText()
             + ", "
-            + giftRecipient.getText()
-            + " will receive their "
+            + giftEmployeeText.getText()
+            + " will deliver "
             + giftType.getText()
+            + " to "
+            + giftRecipient.getText()
             + " soon. ");
   }
 
@@ -144,6 +155,8 @@ public class Acontroller {
             + eqptDropdown.getText()
             + " you requested will be delivered shortly to "
             + equipLocation.getText()
+            + " by "
+            + equipmentEmployeeText.getText()
             + ".");
   }
 
@@ -154,6 +167,8 @@ public class Acontroller {
             + labDropdown.getText()
             + " you requested will be delivered shortly to "
             + labTestLocation.getText()
+            + " by "
+            + labEmployeeText.getText()
             + ".");
   }
 
