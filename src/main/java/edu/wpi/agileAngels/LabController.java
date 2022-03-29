@@ -13,7 +13,7 @@ public class LabController extends MainController {
 
   @FXML private MenuButton labDropdown;
   @FXML private MenuItem blood, urine, tumor;
-  @FXML private TextField labTestLocation;
+  @FXML private TextField labTestLocation, labEmployeeText;
 
   @FXML private TextArea restrictions;
   @FXML private Label labTestConfirmation;
@@ -25,6 +25,8 @@ public class LabController extends MainController {
             + labDropdown.getText()
             + " you requested will be delivered shortly to "
             + labTestLocation.getText()
+            + " by "
+            + labEmployeeText.getText()
             + ".");
   }
 

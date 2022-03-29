@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class GiftsController extends MainController {
-  @FXML private TextField giftSender, giftRecipient, giftMessage;
+  @FXML private TextField giftSender, giftRecipient, giftMessage, giftEmployeeText;
 
   @FXML private MenuButton giftType;
 
@@ -19,7 +19,7 @@ public class GiftsController extends MainController {
   @FXML private Label giftConfirm;
 
   @FXML
-  private void setGiftType(ActionEvent event) throws IOException {
+  private void setGiftType(ActionEvent event) {
     if (event.getSource() == balloons) {
       giftType.setText("Balloons");
     }
@@ -34,9 +34,11 @@ public class GiftsController extends MainController {
         "Thank you, "
             + giftSender.getText()
             + ", "
-            + giftRecipient.getText()
-            + " will receive their "
+            + giftEmployeeText.getText()
+            + " will deliver "
             + giftType.getText()
+            + " to "
+            + giftRecipient.getText()
             + " soon. ");
   }
 

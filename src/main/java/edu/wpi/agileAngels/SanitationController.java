@@ -11,13 +11,15 @@ import javafx.stage.Stage;
 
 public class SanitationController extends MainController {
 
-  @FXML private TextField sanIssue, sanLocation;
+  @FXML private TextField sanIssue, sanLocation, sanitationEmployeeText;
   @FXML private Label sanitationConfirmation;
 
   @FXML
   private void submitSanitation() {
     sanitationConfirmation.setText(
-        "Thank you, someone will be sent to "
+        "Thank you, "
+            + sanitationEmployeeText.getText()
+            + " will be sent to "
             + sanLocation.getText()
             + " to sanitize "
             + sanIssue.getText()

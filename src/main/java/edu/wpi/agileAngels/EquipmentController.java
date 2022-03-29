@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class EquipmentController extends MainController {
   @FXML private MenuButton eqptDropdown;
   @FXML private MenuItem bed, recliner, xray, infusion;
-  @FXML private TextField equipLocation;
+  @FXML private TextField equipLocation, equipmentEmployeeText;
   @FXML private Label equipmentConfirmation;
 
   @FXML
@@ -25,6 +25,8 @@ public class EquipmentController extends MainController {
             + eqptDropdown.getText()
             + " you requested will be delivered shortly to "
             + equipLocation.getText()
+            + " by "
+            + equipmentEmployeeText.getText()
             + ".");
   }
 
@@ -40,7 +42,7 @@ public class EquipmentController extends MainController {
       eqptDropdown.setText("X-Ray Machine");
     }
     if (event.getSource() == infusion) {
-      eqptDropdown.setText("Infusion Pump");
+      eqptDropdown.setText("Infusion");
     }
   }
 

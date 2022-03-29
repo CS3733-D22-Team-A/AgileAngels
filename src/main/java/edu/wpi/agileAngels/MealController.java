@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class MealController extends MainController {
   @FXML private MenuButton mealDropdown;
   @FXML private MenuItem chicken, steak, salad;
-  @FXML private TextField roomInput;
+  @FXML private TextField roomInput, mealEmployeeText;
 
   @FXML private TextArea restrictions;
 
@@ -21,7 +21,9 @@ public class MealController extends MainController {
   @FXML
   private void submitMeal() {
     confirm.setText(
-        "Order confirmed to room "
+        "Your order will be delivered by "
+            + mealEmployeeText.getText()
+            + " to room "
             + roomInput.getText()
             + " for "
             + mealDropdown.getText()
