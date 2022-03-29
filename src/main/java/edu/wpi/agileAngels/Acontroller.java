@@ -19,7 +19,7 @@ public class Acontroller {
       sanitationButton,
       giftButton,
       foodButton,
-      homeButton;
+      homeButton, mapButton;
   @FXML private MenuItem equipmentMenu, labMenu, sanitationMenu, mealMenu, giftMenu;
 
   // Switches to a new scene depending on which button is pressed
@@ -56,6 +56,10 @@ public class Acontroller {
     else if (event.getSource() == giftButton || event.getSource() == giftMenu) {
       stage = (Stage) giftButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("views/gifts-view.fxml"));
+    }
+    else if (event.getSource() == mapButton) {
+      stage = (Stage) mapButton.getScene().getWindow();
+      root = FXMLLoader.load(getClass().getResource("views/maps.fxml"));
     }
     // If the home button is pressed, switch to the default scene
     else {
