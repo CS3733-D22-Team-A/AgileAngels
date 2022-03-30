@@ -10,12 +10,25 @@ plugins {
 mainClassName = 'edu.wpi.agileAngels.Main'
 
 jar {
+
     manifest {
         attributes "Main-Class": "$mainClassName"
     }
 
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+// Include dependent libraries in archive.
+
+jar {
+    manifest {
+        attributes "Main-Class": "$mainClassName"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
