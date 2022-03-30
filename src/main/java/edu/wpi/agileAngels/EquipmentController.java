@@ -20,6 +20,7 @@ public class EquipmentController extends MainController {
   public EquipmentController() throws SQLException {
     medDAO = new MedDAOImpl(connection);
   }
+
   @FXML private TableView equipmentTable;
   @FXML
   private TableColumn nameColumn,
@@ -46,47 +47,29 @@ public class EquipmentController extends MainController {
               + " by "
               + equipmentEmployeeText.getText()
               + ".");
-      EquipmentRequest request =
-          new EquipmentRequest(
-              equipmentEmployeeText.getText(),
-              equipLocation.getText(),
+      String placeholder = "?";
+      MedDevice medDevice =
+          new MedDevice(
               eqptDropdown.getText(),
-              equipmentStatus.getText());
+              placeholder,
+              placeholder,
+              equipLocation.getText(),
+              equipmentEmployeeText.getText(),
+              placeholder,
+              placeholder);
+      medDAO.addMed(medDevice);
+      String addMed =
+          "INSERT INTO MedicalEquipment(Name, available ,type, location, employee, status, description)VALUES(?,?,?,?,?,?,?)";
+      PreparedStatement preparedStatement = connection.prepareStatement(addMed);
+      preparedStatement.setString(1, medDevice.getName());
+      preparedStatement.setString(2, medDevice.getAvailable());
+      preparedStatement.setString(3, medDevice.getType());
+      preparedStatement.setString(4, medDevice.getLocation());
+      preparedStatement.setString(5, medDevice.getEmployee());
+      preparedStatement.setString(6, medDevice.getStatus());
+      preparedStatement.setString(7, medDevice.getDescription());
+      preparedStatement.execute();
     }
-  private void submitEquipment() throws SQLException {
-    equipmentConfirmation.setText(
-        "Thank you, the "
-            + eqptDropdown.getText()
-            + " you requested will be delivered shortly to "
-            + equipLocation.getText()
-            + " by "
-            + equipmentEmployeeText.getText()
-            + ".");
-
-    // EquipmentRequest request = new EquipmentRequest(equipmentEmployeeText.getText(),
-    // equipLocation.getText(), eqptDropdown.getText(), null, null, null, null);
-    String placeholder = "?";
-    MedDevice medDevice =
-        new MedDevice(
-            eqptDropdown.getText(),
-            placeholder,
-            placeholder,
-            equipLocation.getText(),
-            equipmentEmployeeText.getText(),
-            placeholder,
-            placeholder);
-    medDAO.addMed(medDevice);
-    String addMed =
-        "INSERT INTO MedicalEquipment(Name, available ,type, location, employee, status, description)VALUES(?,?,?,?,?,?,?)";
-    PreparedStatement preparedStatement = connection.prepareStatement(addMed);
-    preparedStatement.setString(1, medDevice.getName());
-    preparedStatement.setString(2, medDevice.getAvailable());
-    preparedStatement.setString(3, medDevice.getType());
-    preparedStatement.setString(4, medDevice.getLocation());
-    preparedStatement.setString(5, medDevice.getEmployee());
-    preparedStatement.setString(6, medDevice.getStatus());
-    preparedStatement.setString(7, medDevice.getDescription());
-    preparedStatement.execute();
   }
 
   @FXML
