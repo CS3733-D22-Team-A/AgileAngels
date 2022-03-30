@@ -40,8 +40,13 @@ public class GiftsController extends MainController {
             + " to "
             + giftLocation.getText()
             + " soon. ");
-    GiftRequest request = new GiftRequest(giftEmployeeText.getText(), giftLocation.getText(),
-            giftType.getText(), giftSender.getText(), giftMessage.getText());
+    GiftRequest request =
+        new GiftRequest(
+            giftEmployeeText.getText(),
+            giftLocation.getText(),
+            giftType.getText(),
+            giftSender.getText(),
+            giftMessage.getText());
   }
 
   @FXML

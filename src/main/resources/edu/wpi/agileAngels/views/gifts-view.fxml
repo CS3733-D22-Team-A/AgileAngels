@@ -25,7 +25,7 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <Label layoutX="319.0" layoutY="96.0" prefHeight="51.0" prefWidth="62.0" text="Recipient Location:" textAlignment="CENTER">
+      <Label layoutX="263.0" layoutY="96.0" prefHeight="51.0" prefWidth="118.0" text="Recipient Location:" textAlignment="CENTER">
          <font>
             <Font size="13.0" />
          </font>
