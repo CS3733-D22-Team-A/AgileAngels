@@ -29,13 +29,14 @@ public class LabController extends MainController {
               + " by "
               + labEmployeeText.getText()
               + ".");
+      LabRequest request =
+              new LabRequest(
+                      labEmployeeText.getText(),
+                      labTestLocation.getText(),
+                      labDropdown.getText(),
+                      labStatus.getText());
     }
-    LabRequest request =
-        new LabRequest(
-            labEmployeeText.getText(),
-            labTestLocation.getText(),
-            labDropdown.getText(),
-            labStatus.getText());
+
   }
 
   @FXML
