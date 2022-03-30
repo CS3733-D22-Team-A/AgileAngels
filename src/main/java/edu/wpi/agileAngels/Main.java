@@ -8,6 +8,6 @@ public class Main {
 
     Adb adb = new Adb();
     adb.main(args);
-    // Aapp.launch(Aapp.class, args);
+    Aapp.launch(Aapp.class, args);
   }
 }

@@ -81,9 +81,7 @@ public class Adb {
     Locationsmenu();
   }
 
-  /**
-   * Medical Equipment Menu
-   */
+  /** Medical Equipment Menu */
   private void MedMenu() {
     Scanner myObj = new Scanner(System.in); // Create a Scanner object
     System.out.println("1 - Medical Equipment Request Information");
