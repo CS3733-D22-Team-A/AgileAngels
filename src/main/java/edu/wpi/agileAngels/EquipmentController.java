@@ -3,14 +3,10 @@ package edu.wpi.agileAngels;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class EquipmentController extends MainController {
   @FXML private MenuButton eqptDropdown;
@@ -20,14 +16,21 @@ public class EquipmentController extends MainController {
 
   @FXML
   private void submitEquipment() {
-    equipmentConfirmation.setText(
-        "Thank you, the "
-            + eqptDropdown.getText()
-            + " you requested will be delivered shortly to "
-            + equipLocation.getText()
-            + " by "
-            + equipmentEmployeeText.getText()
-            + ".");
+
+    if (eqptDropdown.getText().isEmpty()
+        || equipLocation.getText().isEmpty()
+        || equipmentEmployeeText.getText().isEmpty()) {
+      equipmentConfirmation.setText("Please fill out all the require fields");
+    } else {
+      equipmentConfirmation.setText(
+          "Thank you, the "
+              + eqptDropdown.getText()
+              + " you requested will be delivered shortly to "
+              + equipLocation.getText()
+              + " by "
+              + equipmentEmployeeText.getText()
+              + ".");
+    }
   }
 
   @FXML
@@ -49,14 +52,6 @@ public class EquipmentController extends MainController {
   @FXML
   private void clearPage() throws IOException {
 
-    Stage stage;
-    Parent root;
-
-    stage = (Stage) homeButton.getScene().getWindow();
-    root = FXMLLoader.load(getClass().getResource("views/equipment-view.fxml"));
-
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    resetPage("views/equipment-view.fxml");
   }
 }

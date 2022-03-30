@@ -3,14 +3,10 @@ package edu.wpi.agileAngels;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 public class GiftsController extends MainController {
-  @FXML private TextField giftSender, giftLocation, giftMessage, giftEmployeeText;
+  @FXML private TextField giftSender, giftRecipient, giftMessage, giftEmployeeText;
 
   @FXML private MenuButton giftType;
 
@@ -30,36 +26,27 @@ public class GiftsController extends MainController {
 
   @FXML
   private void submitGift() {
-    giftConfirm.setText(
-        "Thank you, "
-            + giftSender.getText()
-            + ", "
-            + giftEmployeeText.getText()
-            + " will deliver "
-            + giftType.getText()
-            + " to "
-            + giftLocation.getText()
-            + " soon. ");
-    GiftRequest request =
-        new GiftRequest(
-            giftEmployeeText.getText(),
-            giftLocation.getText(),
-            giftType.getText(),
-            giftSender.getText(),
-            giftMessage.getText());
+    if (giftSender.getText().isEmpty()
+        || giftEmployeeText.getText().isEmpty()
+        || giftType.getText().isEmpty()
+        || giftRecipient.getText().isEmpty()) {
+      giftConfirm.setText("Please fill out all of the required fields");
+    } else {
+      giftConfirm.setText(
+          "Thank you, "
+              + giftSender.getText()
+              + ", "
+              + giftEmployeeText.getText()
+              + " will deliver "
+              + giftType.getText()
+              + " to "
+              + giftRecipient.getText()
+              + " soon. ");
+    }
   }
 
   @FXML
   private void clearPage() throws IOException {
-
-    Stage stage;
-    Parent root;
-
-    stage = (Stage) homeButton.getScene().getWindow();
-    root = FXMLLoader.load(getClass().getResource("views/gifts-view.fxml"));
-
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    resetPage("views/gifts-view.fxml");
   }
 }
