@@ -10,12 +10,25 @@ plugins {
 mainClassName = 'edu.wpi.agileAngels.Main'
 
 jar {
+
     manifest {
         attributes "Main-Class": "$mainClassName"
     }
 
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+// Include dependent libraries in archive.
+
+jar {
+    manifest {
+        attributes "Main-Class": "$mainClassName"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
@@ -49,6 +62,7 @@ dependencies {
             'org.slf4j:slf4j-simple:1.7.30',
             "org.apache.commons:commons-csv:1.5"
     )
+    implementation 'org.jetbrains:annotations:20.1.0'
 
     testCompile(
             "org.testfx:testfx-core:4.0.16-alpha",

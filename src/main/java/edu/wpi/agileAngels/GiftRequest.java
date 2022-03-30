@@ -5,8 +5,13 @@ public class GiftRequest extends Request {
   private String sender, message;
 
   public GiftRequest(
-      String employeeName, String location, String type, String sender, String message) {
-    super(employeeName, location, type);
+      String employeeName,
+      String location,
+      String type,
+      String status,
+      String sender,
+      String message) {
+    super(employeeName, location, type, status);
     this.message = message;
     this.sender = sender;
   }
