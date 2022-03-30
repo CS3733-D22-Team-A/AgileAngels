@@ -9,7 +9,7 @@ public class LabController extends MainController {
 
   @FXML private MenuButton labDropdown;
   @FXML private MenuItem blood, urine, tumor;
-  @FXML private TextField labTestLocation, labEmployeeText;
+  @FXML private TextField labTestLocation, labEmployeeText, labStatus;
 
   @FXML private TextArea restrictions;
   @FXML private Label labTestConfirmation;
@@ -30,8 +30,12 @@ public class LabController extends MainController {
               + labEmployeeText.getText()
               + ".");
     }
-    LabRequest request = new LabRequest(labEmployeeText.getText(),
-            labTestLocation.getText(), labDropdown.getText());
+    LabRequest request =
+        new LabRequest(
+            labEmployeeText.getText(),
+            labTestLocation.getText(),
+            labDropdown.getText(),
+            labStatus.getText());
   }
 
   @FXML

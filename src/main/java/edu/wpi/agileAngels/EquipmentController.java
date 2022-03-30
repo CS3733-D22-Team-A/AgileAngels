@@ -1,18 +1,27 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class EquipmentController extends MainController {
   @FXML private MenuButton eqptDropdown;
   @FXML private MenuItem bed, recliner, xray, infusion;
-  @FXML private TextField equipLocation, equipmentEmployeeText;
+  @FXML private TextField equipLocation, equipmentEmployeeText, equipmentStatus;
   @FXML private Label equipmentConfirmation;
+  @FXML private TableView equipmentTable;
+  @FXML
+  private TableColumn nameColumn,
+      availableColumn,
+      typeColumn,
+      locationColumn,
+      employeeColumn,
+      statusColumn,
+      descriptionColumn;
 
   @FXML
   private void submitEquipment() {
@@ -30,6 +39,19 @@ public class EquipmentController extends MainController {
               + " by "
               + equipmentEmployeeText.getText()
               + ".");
+      EquipmentRequest request =
+          new EquipmentRequest(
+              equipmentEmployeeText.getText(),
+              equipLocation.getText(),
+              eqptDropdown.getText(),
+              equipmentStatus.getText());
+      ObservableList<EquipmentRequest> data = FXCollections.observableArrayList();
+      data.add(request);
+      employeeColumn.setCellValueFactory(new PropertyValueFactory("employeeName"));
+      locationColumn.setCellValueFactory(new PropertyValueFactory("location"));
+      typeColumn.setCellValueFactory(new PropertyValueFactory("type"));
+      statusColumn.setCellValueFactory(new PropertyValueFactory("status"));
+      equipmentTable.setItems(data);
     }
   }
 

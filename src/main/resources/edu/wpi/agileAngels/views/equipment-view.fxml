@@ -7,6 +7,8 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -73,16 +75,16 @@
             <Insets />
          </opaqueInsets>
       </Button>
-      <Label layoutX="90.0" layoutY="299.0" text="Select the type of equipment needed:">
+      <Label layoutX="57.0" layoutY="295.0" text="Select the type of equipment needed:">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <Label layoutX="90.0" layoutY="400.0" text="Enter the location for equipment delivery:">
+      <Label layoutX="61.0" layoutY="374.0" text="Enter the location for equipment delivery:">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <TextField fx:id="equipLocation" layoutX="90.0" layoutY="422.0" prefHeight="35.0" prefWidth="200.0" />
-      <MenuButton fx:id="eqptDropdown" layoutX="90.0" layoutY="321.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0">
+      <TextField fx:id="equipLocation" layoutX="57.0" layoutY="400.0" prefHeight="35.0" prefWidth="200.0" />
+      <MenuButton fx:id="eqptDropdown" layoutX="57.0" layoutY="321.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0">
         <items>
           <MenuItem fx:id="bed" mnemonicParsing="false" onAction="#setEquipmentType" text="Bed" />
           <MenuItem fx:id="recliner" mnemonicParsing="false" onAction="#setEquipmentType" text="Recliner" />
@@ -90,13 +92,13 @@
            <MenuItem fx:id="infusion" mnemonicParsing="false" onAction="#setEquipmentType" text="Infusion Pump" />
         </items>
       </MenuButton>
-      <Label fx:id="equipmentConfirmation" alignment="TOP_LEFT" layoutX="584.0" layoutY="328.0" prefHeight="267.0" prefWidth="583.0" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="equipmentConfirmation" alignment="TOP_LEFT" layoutX="57.0" layoutY="599.0" prefHeight="86.0" prefWidth="302.0" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="equipmentEmployeeText" layoutX="90.0" layoutY="526.0" prefHeight="35.0" prefWidth="200.0" />
-      <Label layoutX="90.0" layoutY="502.0" prefHeight="17.0" prefWidth="134.0" text="Enter employee:">
+      <TextField fx:id="equipmentEmployeeText" layoutX="57.0" layoutY="477.0" prefHeight="35.0" prefWidth="200.0" />
+      <Label layoutX="57.0" layoutY="451.0" prefHeight="17.0" prefWidth="134.0" text="Enter employee:">
          <font>
             <Font size="16.0" />
          </font></Label>
@@ -105,5 +107,22 @@
          <font>
             <Font size="20.0" />
          </font></Button>
+      <TableView fx:id="equipmentTable" layoutX="382.0" layoutY="295.0" prefHeight="364.0" prefWidth="861.0">
+        <columns>
+          <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
+            <TableColumn fx:id="availableColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Available" />
+            <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Type" />
+            <TableColumn fx:id="locationColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Location" />
+            <TableColumn fx:id="employeeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Employee" />
+            <TableColumn fx:id="statusColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Status" />
+            <TableColumn fx:id="descriptionColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Description" />
+        </columns>
+      </TableView>
+      <Label layoutX="57.0" layoutY="527.0" prefHeight="17.0" prefWidth="134.0" text="Enter status:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="equipmentStatus" layoutX="57.0" layoutY="553.0" prefHeight="35.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
