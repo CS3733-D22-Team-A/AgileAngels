@@ -31,6 +31,8 @@ public class MealController extends MainController {
               + ". Special Instructions: "
               + restrictions.getText());
     }
+    MealRequest request = new MealRequest(mealEmployeeText.getText(),
+            roomInput.getText(), mealDropdown.getText(), restrictions.getText());
   }
 
   @FXML
