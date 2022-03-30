@@ -101,6 +101,8 @@ public class EquipmentController extends MainController implements Initializable
       preparedStatement.setString(6, medDevice.getStatus());
       preparedStatement.setString(7, medDevice.getDescription());
       preparedStatement.execute();
+      medData.add(medDevice);
+      equipmentTable.setItems(medData);
     }
   }
 
