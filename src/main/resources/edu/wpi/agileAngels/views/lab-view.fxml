@@ -13,6 +13,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.Menu?>
+<?import javafx.geometry.Insets?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: F;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.LabController">
    <children>
       <ImageView fitHeight="800" fitWidth="1280" layoutX="0" preserveRatio="true">
@@ -60,12 +61,29 @@
             </Menu>
          </menus>
       </MenuBar>
+      <Button fx:id="homeButton" layoutX="41.0" layoutY="715.0" mnemonicParsing="false" onAction="#goHome" prefHeight="60.0" prefWidth="90.0" text="Home">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+      <Button alignment="CENTER" layoutX="542.0" layoutY="694.0" mnemonicParsing="false" onAction="#submitLabTest" prefHeight="89.0" prefWidth="206.0" text="Submit" textAlignment="CENTER">
+         <font>
+            <Font size="32.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="clear" layoutX="1165.0" layoutY="713.0" mnemonicParsing="false" onAction="#clearPage" prefHeight="60.0" prefWidth="90.0" text="Clear">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+
       <Label layoutX="206.0" layoutY="14.0" text="Lab Request Menu">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="homeButton" layoutX="244.0" layoutY="343.0" mnemonicParsing="false" onAction="#goHome" text="Return to Home" />
+
       <TextField fx:id="labTestLocation" layoutX="360.0" layoutY="115.0" />
       <Label contentDisplay="CENTER" layoutX="78.0" layoutY="155.0" text="Please select lab type." />
       <Label contentDisplay="CENTER" layoutX="372.0" layoutY="83.0" text="Enter location of request." />
@@ -77,11 +95,7 @@
         </items>
       </MenuButton>
       <Label fx:id="labTestConfirmation" layoutX="369.0" layoutY="260.0" prefHeight="118.0" prefWidth="168.0" wrapText="true" />
-      <Button layoutX="230.0" layoutY="268.0" mnemonicParsing="false" onAction="#submitLabTest" prefHeight="51.0" prefWidth="130.0" text="Submit">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
+
       <TextField fx:id="labEmployeeText" layoutX="359.0" layoutY="203.0" />
       <Label contentDisplay="CENTER" layoutX="371.0" layoutY="171.0" text="Enter name of employee." />
       <Label layoutX="48.0" layoutY="49.0" prefHeight="20.0" prefWidth="505.0" text="Please fill out the information below and then press the &quot;Submit Request&quot; button.">
@@ -89,6 +103,6 @@
             <Font size="14.0" />
          </font>
       </Label>
-       <Button fx:id="clear" layoutX="541.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearPage" text="Clear" />
+
    </children>
 </AnchorPane>
