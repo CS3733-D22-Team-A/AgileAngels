@@ -82,7 +82,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="90.0" layoutY="356.0" prefHeight="28.0" prefWidth="130.0" text="Recipient:" textAlignment="CENTER">
+      <Label layoutX="90.0" layoutY="356.0" prefHeight="28.0" prefWidth="152.0" text="Recipient Location:" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
