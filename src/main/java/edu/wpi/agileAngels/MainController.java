@@ -20,6 +20,7 @@ public class MainController {
       sanitationButton,
       giftButton,
       foodButton,
+      locationButton,
       mapButton;
   @FXML private MenuItem equipmentMenu, labMenu, sanitationMenu, mealMenu, giftMenu;
 
@@ -32,6 +33,9 @@ public class MainController {
     if (event.getSource() == equipmentButton) {
       stage = (Stage) equipmentButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("views/equipment-view.fxml"));
+    } else if (event.getSource() == locationButton) {
+      stage = (Stage) locationButton.getScene().getWindow();
+      root = FXMLLoader.load(getClass().getResource("views/locations-view.fxml"));
     } else if (event.getSource() == equipmentMenu) {
       stage =
           (Stage)
