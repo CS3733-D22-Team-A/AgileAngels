@@ -16,14 +16,20 @@ public class LabController extends MainController {
 
   @FXML
   private void submitLabTest() {
-    labTestConfirmation.setText(
-        "Thank you! Your "
-            + labDropdown.getText()
-            + " you requested will be delivered shortly to "
-            + labTestLocation.getText()
-            + " by "
-            + labEmployeeText.getText()
-            + ".");
+    if (labDropdown.getText().isEmpty()
+        || labEmployeeText.getText().isEmpty()
+        || labEmployeeText.getText().isEmpty()) {
+      labTestConfirmation.setText("Please fill out all the required fields");
+    } else {
+      labTestConfirmation.setText(
+          "Thank you! Your "
+              + labDropdown.getText()
+              + " you requested will be delivered shortly to "
+              + labTestLocation.getText()
+              + " by "
+              + labEmployeeText.getText()
+              + ".");
+    }
   }
 
   @FXML

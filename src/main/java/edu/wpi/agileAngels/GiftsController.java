@@ -26,16 +26,23 @@ public class GiftsController extends MainController {
 
   @FXML
   private void submitGift() {
-    giftConfirm.setText(
-        "Thank you, "
-            + giftSender.getText()
-            + ", "
-            + giftEmployeeText.getText()
-            + " will deliver "
-            + giftType.getText()
-            + " to "
-            + giftRecipient.getText()
-            + " soon. ");
+    if (giftSender.getText().isEmpty()
+        || giftEmployeeText.getText().isEmpty()
+        || giftType.getText().isEmpty()
+        || giftRecipient.getText().isEmpty()) {
+      giftConfirm.setText("Please fill out all of the required fields");
+    } else {
+      giftConfirm.setText(
+          "Thank you, "
+              + giftSender.getText()
+              + ", "
+              + giftEmployeeText.getText()
+              + " will deliver "
+              + giftType.getText()
+              + " to "
+              + giftRecipient.getText()
+              + " soon. ");
+    }
   }
 
   @FXML

@@ -16,14 +16,21 @@ public class EquipmentController extends MainController {
 
   @FXML
   private void submitEquipment() {
-    equipmentConfirmation.setText(
-        "Thank you, the "
-            + eqptDropdown.getText()
-            + " you requested will be delivered shortly to "
-            + equipLocation.getText()
-            + " by "
-            + equipmentEmployeeText.getText()
-            + ".");
+
+    if (eqptDropdown.getText().isEmpty()
+        || equipLocation.getText().isEmpty()
+        || equipmentEmployeeText.getText().isEmpty()) {
+      equipmentConfirmation.setText("Please fill out all the require fields");
+    } else {
+      equipmentConfirmation.setText(
+          "Thank you, the "
+              + eqptDropdown.getText()
+              + " you requested will be delivered shortly to "
+              + equipLocation.getText()
+              + " by "
+              + equipmentEmployeeText.getText()
+              + ".");
+    }
   }
 
   @FXML

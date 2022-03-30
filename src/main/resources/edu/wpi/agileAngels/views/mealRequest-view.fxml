@@ -78,8 +78,8 @@
          <font>
             <Font size="20.0" />
          </font></Button>
-      <TextField fx:id="roomInput" layoutX="90.0" layoutY="274.0" prefHeight="35.0" prefWidth="62.0" />
-      <MenuButton fx:id="mealDropdown" layoutX="345.0" layoutY="270.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" text="Meal">
+      <TextField fx:id="roomInput" layoutX="90.0" layoutY="263.0" prefHeight="35.0" prefWidth="62.0" />
+      <MenuButton fx:id="mealDropdown" layoutX="90.0" layoutY="338.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" text="Meal">
         <items>
           <MenuItem fx:id="chicken" mnemonicParsing="false" onAction="#setMealType" text="Chicken" />
           <MenuItem fx:id="steak" mnemonicParsing="false" onAction="#setMealType" text="Steak" />
@@ -89,13 +89,9 @@
             <Font size="16.0" />
          </font>
       </MenuButton>
-      <Text layoutX="90.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dietary restrictions:">
-         <font>
-            <Font size="16.0" />
-         </font></Text>
-      <TextArea fx:id="restrictions" layoutX="90.0" layoutY="408.0" prefHeight="100.0" prefWidth="200.0" wrapText="true" />
+      <TextArea fx:id="restrictions" layoutX="90.0" layoutY="439.0" prefHeight="100.0" prefWidth="200.0" wrapText="true" />
       <Text fx:id="comment" layoutX="377.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="10.2791748046875" />
-      <Label layoutX="90.0" layoutY="251.0" text="Room Number:">
+      <Label layoutX="90.0" layoutY="240.0" text="Room Number:">
          <font>
             <Font size="16.0" />
          </font></Label>
@@ -108,5 +104,10 @@
             <Font size="16.0" />
          </font></Label>
       <TextField fx:id="mealEmployeeText" layoutX="90.0" layoutY="602.0" prefHeight="35.0" prefWidth="200.0" />
+      <Label layoutX="91.0" layoutY="417.0" prefHeight="20.0" prefWidth="206.0" text="Dietary Restrictions">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

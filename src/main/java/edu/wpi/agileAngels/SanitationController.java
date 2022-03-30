@@ -12,14 +12,20 @@ public class SanitationController extends MainController {
 
   @FXML
   private void submitSanitation() {
-    sanitationConfirmation.setText(
-        "Thank you, "
-            + sanitationEmployeeText.getText()
-            + " will be sent to "
-            + sanLocation.getText()
-            + " to sanitize "
-            + sanIssue.getText()
-            + ".");
+    if (sanIssue.getText().isEmpty()
+        || sanLocation.getText().isEmpty()
+        || sanitationEmployeeText.getText().isEmpty()) {
+      sanitationConfirmation.setText("Please fill out all the required fields");
+    } else {
+      sanitationConfirmation.setText(
+          "Thank you, "
+              + sanitationEmployeeText.getText()
+              + " will be sent to "
+              + sanLocation.getText()
+              + " to sanitize "
+              + sanIssue.getText()
+              + ".");
+    }
   }
 
   @FXML

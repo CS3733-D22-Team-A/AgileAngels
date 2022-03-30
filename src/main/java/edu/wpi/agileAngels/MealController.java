@@ -16,15 +16,21 @@ public class MealController extends MainController {
 
   @FXML
   private void submitMeal() {
-    confirm.setText(
-        "Your order will be delivered by "
-            + mealEmployeeText.getText()
-            + " to room "
-            + roomInput.getText()
-            + " for "
-            + mealDropdown.getText()
-            + ". Special Instructions: "
-            + restrictions.getText());
+    if (mealDropdown.getText().isEmpty()
+        || roomInput.getText().isEmpty()
+        || mealDropdown.getText().isEmpty()) {
+      confirm.setText("Please fill out all the required fields");
+    } else {
+      confirm.setText(
+          "Your order will be delivered by "
+              + mealEmployeeText.getText()
+              + " to room "
+              + roomInput.getText()
+              + " for "
+              + mealDropdown.getText()
+              + ". Special Instructions: "
+              + restrictions.getText());
+    }
   }
 
   @FXML
