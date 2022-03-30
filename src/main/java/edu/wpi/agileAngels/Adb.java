@@ -78,12 +78,10 @@ public class Adb {
     medData = MedDAO.getAllMedicalEquipmentRequests();
 
     MedMenu();
-    Locationsmenu();
+    // Locationsmenu();
   }
 
-  /**
-   * Medical Equipment Menu
-   */
+  /** Medical Equipment Menu */
   private void MedMenu() {
     Scanner myObj = new Scanner(System.in); // Create a Scanner object
     System.out.println("1 - Medical Equipment Request Information");
@@ -123,7 +121,7 @@ public class Adb {
       medExport.export(connection);
     } else if (select.equals("5")) {
       System.out.println("Exit Program");
-      System.exit(0);
+      return;
     } else {
       System.out.println("Wrong Input, Select From Menu");
     }
