@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: F;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Acontroller">
+   <children>
+      <ImageView fitHeight="819.0" fitWidth="1442.0" layoutX="-160.0" preserveRatio="true">
+         <image>
+            <Image url="@../assets/Home Page 2.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="47.0" layoutX="303.0" layoutY="518.0" stroke="WHITE" strokeType="INSIDE" width="687.0" />
+      <Label layoutX="328.0" layoutY="496.0" prefHeight="90.0" prefWidth="667.0" text="Please select the service you would like to request:" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <Button fx:id="equipmentButton" layoutX="122.0" layoutY="601.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="182.0" text="Equipment Request">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="labButton" layoutX="340.0" layoutY="601.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="182.0" text="Lab Request">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="sanitationButton" layoutX="558.0" layoutY="600.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="182.0" text="Sanitation Request">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="foodButton" layoutX="776.0" layoutY="601.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="182.0" text="Meal Request">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="giftButton" layoutX="991.0" layoutY="601.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="182.0" text="Gift Request">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="exitButton" layoutX="24.0" layoutY="744.0" mnemonicParsing="false" onAction="#closeApp" prefHeight="36.0" prefWidth="160.0" text="Close Application">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <MenuBar layoutX="-8.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Submit Request">
+               <items>
+                  <MenuItem fx:id="equipmentMenu" mnemonicParsing="false" onAction="#openScene" text="Equipment Request" />
+                  <MenuItem fx:id="labMenu" mnemonicParsing="false" onAction="#openScene" text="Lab Request" />
+                  <MenuItem fx:id="sanitationMenu" mnemonicParsing="false" onAction="#openScene" text="Sanitation Request" />
+                  <MenuItem fx:id="mealMenu" mnemonicParsing="false" onAction="#openScene" text="Meal Request" />
+                  <MenuItem fx:id="giftMenu" mnemonicParsing="false" onAction="#openScene" text="Gift Request" />
+               </items></Menu>
+            <Menu mnemonicParsing="false" text="View Requests">
+               <items>
+                  <MenuItem fx:id="equipmentMenu1" mnemonicParsing="false" onAction="#openScene" text="View Equipment Requests" />
+                  <MenuItem fx:id="labMenu1" mnemonicParsing="false" onAction="#openScene" text="View Lab Requests" />
+                  <MenuItem fx:id="sanitationMenu1" mnemonicParsing="false" onAction="#openScene" text="View Sanitation Requests" />
+                  <MenuItem fx:id="mealMenu1" mnemonicParsing="false" onAction="#openScene" text="View Meal Requests" />
+                  <MenuItem fx:id="giftMenu1" mnemonicParsing="false" onAction="#openScene" text="View Gift Requests" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit Requests">
+               <items>
+                  <MenuItem fx:id="equipmentMenu11" mnemonicParsing="false" onAction="#openScene" text="Edit Equipment Requests" />
+                  <MenuItem fx:id="labMenu11" mnemonicParsing="false" onAction="#openScene" text="Edit Lab Requests" />
+                  <MenuItem fx:id="sanitationMenu11" mnemonicParsing="false" onAction="#openScene" text="Edit Sanitation Requests" />
+                  <MenuItem fx:id="mealMenu11" mnemonicParsing="false" onAction="#openScene" text="Edit Meal Requests" />
+                  <MenuItem fx:id="giftMenu11" mnemonicParsing="false" onAction="#openScene" text="Edit Gift Requests" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Profile">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Login" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <Pane layoutX="-141.0" layoutY="81.0" />
+      <Text fill="WHITE" layoutX="90.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Home Page">
+         <font>
+            <Font size="65.0" />
+         </font>
+      </Text>
+      <Text layoutX="163.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Button layoutX="418.0" layoutY="701.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="195.0" text="Database">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <Button id="mapButton" fx:id="mapButton" layoutX="658.0" layoutY="701.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="195.0" text="Maps">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+
+   </children>
+</AnchorPane>

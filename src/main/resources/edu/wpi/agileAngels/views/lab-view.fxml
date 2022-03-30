@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.LabController">
+   <children>
+      <Label layoutX="206.0" layoutY="14.0" text="Lab Request Menu">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="homeButton" layoutX="244.0" layoutY="343.0" mnemonicParsing="false" onAction="#goHome" text="Return to Home" />
+      <TextField fx:id="labTestLocation" layoutX="360.0" layoutY="115.0" />
+      <Label contentDisplay="CENTER" layoutX="78.0" layoutY="155.0" text="Please select lab type." />
+      <Label contentDisplay="CENTER" layoutX="372.0" layoutY="83.0" text="Enter location of request." />
+      <MenuButton fx:id="labDropdown" layoutX="80.0" layoutY="187.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0">
+        <items>
+          <MenuItem fx:id="blood" mnemonicParsing="false" onAction="#setLabType" text="Blood Test" />
+          <MenuItem fx:id="urine" mnemonicParsing="false" onAction="#setLabType" text="Urine Test" />
+            <MenuItem fx:id="tumor" mnemonicParsing="false" onAction="#setLabType" text="Tumor Marker" />
+        </items>
+      </MenuButton>
+      <Label fx:id="labTestConfirmation" layoutX="369.0" layoutY="260.0" prefHeight="118.0" prefWidth="168.0" wrapText="true" />
+      <Button layoutX="230.0" layoutY="268.0" mnemonicParsing="false" onAction="#submitLabTest" prefHeight="51.0" prefWidth="130.0" text="Submit">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <TextField fx:id="labEmployeeText" layoutX="359.0" layoutY="203.0" />
+      <Label contentDisplay="CENTER" layoutX="371.0" layoutY="171.0" text="Enter name of employee." />
+      <Label layoutX="48.0" layoutY="49.0" prefHeight="20.0" prefWidth="505.0" text="Please fill out the information below and then press the &quot;Submit Request&quot; button.">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+       <Button fx:id="clear" layoutX="541.0" layoutY="14.0" mnemonicParsing="false" onAction="#clearPage" text="Clear" />
+   </children>
+</AnchorPane>

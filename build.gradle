@@ -5,6 +5,7 @@ plugins {
     id 'com.diffplug.gradle.spotless' version '3.27.1'
     id "io.freefair.lombok" version "5.0.0-rc6"
     id 'org.openjfx.javafxplugin' version '0.0.10'
+    id 'org.beryx.jlink' version '2.24.1'
 }
 mainClassName = 'edu.wpi.agileAngels.Main'
 
@@ -68,9 +69,12 @@ jar {
     }
 }
 
+// added exceptions for all classes so code would build without JUnit tests
 def codeCoverageExcludes = [
-        'edu.wpi.teamname.App',
-        'edu.wpi.teamname.Main',
+        'edu.wpi.agileAngels.Aapp',
+        'edu.wpi.agileAngels.Main',
+        'edu.wpi.agileAngels.Adb',
+        'edu.wpi.agileAngels.Acontroller',
 ]
 
 jacoco {
