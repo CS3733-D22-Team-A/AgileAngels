@@ -1,6 +1,10 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,9 +21,15 @@ public class EquipmentController extends MainController {
   @FXML private MenuItem bed, recliner, xray, infusion;
   @FXML private TextField equipLocation, equipmentEmployeeText;
   @FXML private Label equipmentConfirmation;
+  private Connection connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+  private MedDAOImpl medDAO;
+
+  public EquipmentController() throws SQLException {
+    medDAO = new MedDAOImpl(connection);
+  }
 
   @FXML
-  private void submitEquipment() {
+  private void submitEquipment() throws SQLException {
     equipmentConfirmation.setText(
         "Thank you, the "
             + eqptDropdown.getText()
@@ -28,6 +38,25 @@ public class EquipmentController extends MainController {
             + " by "
             + equipmentEmployeeText.getText()
             + ".");
+
+    // EquipmentRequest request = new EquipmentRequest(equipmentEmployeeText.getText(),
+    // equipLocation.getText(), eqptDropdown.getText(), null, null, null, null);
+    String placeholder = "?";
+    MedDevice medDevice =
+        new MedDevice(
+            eqptDropdown.getText(),
+            placeholder,
+            placeholder,
+            equipLocation.getText(),
+            equipmentEmployeeText.getText(),
+            placeholder,
+            placeholder);
+    medDAO.addMed(medDevice);
+    String addMed =
+        "INSERT INTO MedicalEquipment(Name, available ,type, location, employee, status, description)VALUES(?,'?','?','?','?','?','?')";
+    PreparedStatement preparedStatement = connection.prepareStatement(addMed);
+    preparedStatement.setString(1, medDevice.getName());
+    preparedStatement.execute();
   }
 
   @FXML
