@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class GiftsController extends MainController {
-  @FXML private TextField giftSender, giftRecipient, giftMessage, giftEmployeeText;
+  @FXML private TextField giftSender, giftLocation, giftMessage, giftEmployeeText;
 
   @FXML private MenuButton giftType;
 
@@ -38,8 +38,10 @@ public class GiftsController extends MainController {
             + " will deliver "
             + giftType.getText()
             + " to "
-            + giftRecipient.getText()
+            + giftLocation.getText()
             + " soon. ");
+    GiftRequest request = new GiftRequest(giftEmployeeText.getText(), giftLocation.getText(),
+            giftType.getText(), giftSender.getText(), giftMessage.getText());
   }
 
   @FXML

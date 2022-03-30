@@ -25,7 +25,7 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <Label layoutX="319.0" layoutY="96.0" prefHeight="51.0" prefWidth="62.0" text="Recipient:" textAlignment="CENTER">
+      <Label layoutX="319.0" layoutY="96.0" prefHeight="51.0" prefWidth="62.0" text="Recipient Location:" textAlignment="CENTER">
          <font>
             <Font size="13.0" />
          </font>
@@ -36,7 +36,7 @@
          </font>
       </Label>
       <TextField fx:id="giftSender" layoutX="98.0" layoutY="109.0" prefHeight="26.0" prefWidth="150.0" />
-      <TextField fx:id="giftRecipient" layoutX="382.0" layoutY="109.0" />
+      <TextField fx:id="giftLocation" layoutX="382.0" layoutY="109.0" />
       <TextField fx:id="giftMessage" alignment="TOP_LEFT" layoutX="98.0" layoutY="154.0" prefHeight="108.0" prefWidth="150.0" />
       <Button fx:id="giftSubmit" layoutX="235.0" layoutY="289.0" mnemonicParsing="false" onAction="#submitGift" prefHeight="51.0" prefWidth="130.0" text="Submit">
          <font>
