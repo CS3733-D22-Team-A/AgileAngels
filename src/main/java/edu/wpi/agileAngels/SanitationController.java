@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 
 public class SanitationController extends MainController {
 
-  @FXML private TextField sanIssue, sanLocation, sanitationEmployeeText;
+  @FXML private TextField sanIssue, sanLocation, sanitationEmployeeText, sanitationStatus;
   @FXML private Label sanitationConfirmation;
 
   @FXML
@@ -25,10 +25,13 @@ public class SanitationController extends MainController {
               + " to sanitize "
               + sanIssue.getText()
               + ".");
+      SanitationRequest request =
+          new SanitationRequest(
+              sanitationEmployeeText.getText(),
+              sanLocation.getText(),
+              sanIssue.getText(),
+              sanitationStatus.getText());
     }
-    SanitationRequest request =
-        new SanitationRequest(
-            sanitationEmployeeText.getText(), sanLocation.getText(), sanIssue.getText());
   }
 
   @FXML

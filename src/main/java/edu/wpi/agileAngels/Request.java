@@ -4,11 +4,17 @@ public class Request {
   private String employeeName;
   private String location;
   private String type;
+  private String status;
 
-  public Request(String employeeName, String location, String type) {
+  public Request(String employeeName, String location, String type, String status) {
     this.employeeName = employeeName;
     this.location = location;
     this.type = type;
+    this.status = status;
+  }
+
+  public String getStatus() {
+    return status;
   }
 
   public String getEmployeeName() {
@@ -33,5 +39,9 @@ public class Request {
 
   public void setType(String type) {
     this.type = type;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 }

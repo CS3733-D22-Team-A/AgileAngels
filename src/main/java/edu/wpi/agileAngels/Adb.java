@@ -77,7 +77,7 @@ public class Adb {
     // MedDAO = new MedDAOImpl(connection);
     // medData = MedDAO.getAllMedicalEquipmentRequests();
 
-    MedMenu();
+    // MedMenu();
     // Locationsmenu();
   }
 

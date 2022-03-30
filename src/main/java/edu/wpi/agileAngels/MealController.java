@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 public class MealController extends MainController {
   @FXML private MenuButton mealDropdown;
   @FXML private MenuItem chicken, steak, salad;
-  @FXML private TextField roomInput, mealEmployeeText;
+  @FXML private TextField roomInput, mealEmployeeText, mealStatus;
 
   @FXML private TextArea restrictions;
 
@@ -30,13 +30,14 @@ public class MealController extends MainController {
               + mealDropdown.getText()
               + ". Special Instructions: "
               + restrictions.getText());
+      MealRequest request =
+          new MealRequest(
+              mealEmployeeText.getText(),
+              roomInput.getText(),
+              mealDropdown.getText(),
+              mealStatus.getText(),
+              restrictions.getText());
     }
-    MealRequest request =
-        new MealRequest(
-            mealEmployeeText.getText(),
-            roomInput.getText(),
-            mealDropdown.getText(),
-            restrictions.getText());
   }
 
   @FXML

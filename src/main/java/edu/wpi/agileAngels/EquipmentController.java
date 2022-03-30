@@ -1,21 +1,38 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class EquipmentController extends MainController {
   @FXML private MenuButton eqptDropdown;
   @FXML private MenuItem bed, recliner, xray, infusion;
-  @FXML private TextField equipLocation, equipmentEmployeeText;
+  @FXML private TextField equipLocation, equipmentEmployeeText, equipmentStatus;
   @FXML private Label equipmentConfirmation;
+  private Connection connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+  private MedDAOImpl medDAO;
+
+  public EquipmentController() throws SQLException {
+    medDAO = new MedDAOImpl(connection);
+  }
+
+  @FXML private TableView equipmentTable;
+  @FXML
+  private TableColumn nameColumn,
+      availableColumn,
+      typeColumn,
+      locationColumn,
+      employeeColumn,
+      statusColumn,
+      descriptionColumn;
 
   @FXML
-  private void submitEquipment() {
+  private void submitEquipment() throws SQLException {
 
     if (eqptDropdown.getText().isEmpty()
         || equipLocation.getText().isEmpty()
@@ -30,6 +47,28 @@ public class EquipmentController extends MainController {
               + " by "
               + equipmentEmployeeText.getText()
               + ".");
+      String placeholder = "?";
+      MedDevice medDevice =
+          new MedDevice(
+              eqptDropdown.getText(),
+              placeholder,
+              placeholder,
+              equipLocation.getText(),
+              equipmentEmployeeText.getText(),
+              placeholder,
+              placeholder);
+      medDAO.addMed(medDevice);
+      String addMed =
+          "INSERT INTO MedicalEquipment(Name, available ,type, location, employee, status, description)VALUES(?,?,?,?,?,?,?)";
+      PreparedStatement preparedStatement = connection.prepareStatement(addMed);
+      preparedStatement.setString(1, medDevice.getName());
+      preparedStatement.setString(2, medDevice.getAvailable());
+      preparedStatement.setString(3, medDevice.getType());
+      preparedStatement.setString(4, medDevice.getLocation());
+      preparedStatement.setString(5, medDevice.getEmployee());
+      preparedStatement.setString(6, medDevice.getStatus());
+      preparedStatement.setString(7, medDevice.getDescription());
+      preparedStatement.execute();
     }
   }
 

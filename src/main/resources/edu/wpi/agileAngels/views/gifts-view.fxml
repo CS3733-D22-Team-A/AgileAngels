@@ -105,7 +105,7 @@
          </font>
       </MenuButton>
 
-      <Label fx:id="giftConfirm" alignment="TOP_LEFT" layoutX="516.0" layoutY="368.0" prefHeight="286.0" prefWidth="635.0" wrapText="true">
+      <Label fx:id="giftConfirm" alignment="TOP_LEFT" layoutX="708.0" layoutY="368.0" prefHeight="286.0" prefWidth="443.0" wrapText="true">
          <font>
             <Font size="16.0" />
          </font></Label>
@@ -114,6 +114,11 @@
             <Font size="16.0" />
          </font></Label>
       <TextField fx:id="giftEmployeeText" layoutX="90.0" layoutY="628.0" prefHeight="35.0" prefWidth="200.0" />
-
+      <Label layoutX="389.0" layoutY="371.0" prefHeight="17.0" prefWidth="134.0" text="Enter status:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="giftStatus" layoutX="389.0" layoutY="401.0" prefHeight="35.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

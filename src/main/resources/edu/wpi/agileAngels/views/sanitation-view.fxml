@@ -94,11 +94,16 @@
          <font>
             <Font size="16.0" />
          </font></Label>
-      <TextField fx:id="sanitationEmployeeText" layoutX="90.0" layoutY="569.0" prefHeight="35.0" prefWidth="200.0" />
-      <Label layoutX="90.0" layoutY="542.0" prefHeight="20.0" prefWidth="164.0" text="Enter employee name:">
+      <TextField fx:id="sanitationEmployeeText" layoutX="86.0" layoutY="529.0" prefHeight="35.0" prefWidth="200.0" />
+      <Label layoutX="87.0" layoutY="503.0" prefHeight="20.0" prefWidth="164.0" text="Enter employee name:">
          <font>
             <Font size="16.0" />
          </font></Label>
-
+      <Label layoutX="90.0" layoutY="607.0" prefHeight="17.0" prefWidth="134.0" text="Enter status:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="sanitationStatus" layoutX="90.0" layoutY="633.0" prefHeight="35.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

@@ -5,8 +5,12 @@ public class MealRequest extends Request {
   private String dietaryRestrictions;
 
   public MealRequest(
-      String employeeName, String location, String type, String dietaryRestrictions) {
-    super(employeeName, location, type);
+      String employeeName,
+      String location,
+      String type,
+      String status,
+      String dietaryRestrictions) {
+    super(employeeName, location, type, status);
     this.dietaryRestrictions = dietaryRestrictions;
   }
 

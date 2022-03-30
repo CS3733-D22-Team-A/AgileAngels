@@ -107,6 +107,11 @@
          <font>
             <Font size="16.0" />
          </font></Label>
-
+      <Label layoutX="90.0" layoutY="609.0" prefHeight="17.0" prefWidth="134.0" text="Enter status:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="labStatus" layoutX="90.0" layoutY="635.0" prefHeight="35.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

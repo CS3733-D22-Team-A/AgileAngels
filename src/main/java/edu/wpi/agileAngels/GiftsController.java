@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 public class GiftsController extends MainController {
-  @FXML private TextField giftSender, giftRecipient, giftMessage, giftEmployeeText;
+  @FXML private TextField giftSender, giftRecipient, giftMessage, giftEmployeeText, giftStatus;
 
   @FXML private MenuButton giftType;
 
@@ -42,14 +42,15 @@ public class GiftsController extends MainController {
               + " to "
               + giftRecipient.getText()
               + " soon. ");
+      GiftRequest request =
+          new GiftRequest(
+              giftEmployeeText.getText(),
+              giftRecipient.getText(),
+              giftType.getText(),
+              giftStatus.getText(),
+              giftMessage.getText(),
+              giftSender.getText());
     }
-    GiftRequest request =
-        new GiftRequest(
-            giftEmployeeText.getText(),
-            giftRecipient.getText(),
-            giftType.getText(),
-            giftMessage.getText(),
-            giftSender.getText());
   }
 
   @FXML
