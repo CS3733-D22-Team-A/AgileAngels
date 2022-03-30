@@ -12,13 +12,8 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: F;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Acontroller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: F;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Acontroller">
    <children>
       <ImageView fitHeight="800" fitWidth="1280.0" layoutX="0" preserveRatio="true">
          <image>
@@ -26,34 +21,34 @@
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="47.0" layoutX="303.0" layoutY="518.0" stroke="WHITE" strokeType="INSIDE" width="687.0" />
-      <Label layoutX="328.0" layoutY="496.0" prefHeight="90.0" prefWidth="667.0" text="Please select the service you would like to request:" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+      <Label layoutX="341.0" layoutY="496.0" prefHeight="90.0" prefWidth="667.0" text="Please select the service you would like to request" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
-      <Button fx:id="equipmentButton" layoutX="122.0" layoutY="601.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="182.0" text="Equipment Request">
+      <Button fx:id="equipmentButton" alignment="CENTER" layoutX="122.0" layoutY="601.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="182.0" text="Equipment Request" textAlignment="CENTER" wrapText="true">
          <font>
-            <Font size="16.0" />
+            <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="labButton" layoutX="340.0" layoutY="601.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="182.0" text="Lab Request">
+      <Button fx:id="labButton" alignment="CENTER" layoutX="340.0" layoutY="601.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="182.0" text="Lab Request" textAlignment="CENTER" wrapText="true">
          <font>
-            <Font size="16.0" />
+            <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="sanitationButton" layoutX="558.0" layoutY="600.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="182.0" text="Sanitation Request">
+      <Button fx:id="sanitationButton" alignment="CENTER" layoutX="558.0" layoutY="600.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="182.0" text="Sanitation Request" textAlignment="CENTER" wrapText="true">
          <font>
-            <Font size="16.0" />
+            <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="foodButton" layoutX="776.0" layoutY="601.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="182.0" text="Meal Request">
+      <Button fx:id="foodButton" alignment="CENTER" layoutX="776.0" layoutY="601.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="182.0" text="Meal Request" textAlignment="CENTER" wrapText="true">
          <font>
-            <Font size="16.0" />
+            <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="giftButton" layoutX="991.0" layoutY="601.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="182.0" text="Gift Request">
+      <Button fx:id="giftButton" alignment="CENTER" layoutX="991.0" layoutY="601.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="182.0" text="Gift Request" textAlignment="CENTER" wrapText="true">
          <font>
-            <Font size="16.0" />
+            <Font size="20.0" />
          </font>
       </Button>
       <Button fx:id="exitButton" layoutX="24.0" layoutY="744.0" mnemonicParsing="false" onAction="#closeApp" prefHeight="36.0" prefWidth="160.0" text="Close Application">
@@ -105,12 +100,12 @@
       <Text layoutX="163.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Button layoutX="418.0" layoutY="701.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="195.0" text="Database">
          <font>
-            <Font size="23.0" />
+            <Font size="20.0" />
          </font>
       </Button>
       <Button id="mapButton" fx:id="mapButton" layoutX="658.0" layoutY="701.0" mnemonicParsing="false" onAction="#openScene" prefHeight="69.0" prefWidth="195.0" text="Maps">
          <font>
-            <Font size="23.0" />
+            <Font size="20.0" />
          </font>
       </Button>
 
