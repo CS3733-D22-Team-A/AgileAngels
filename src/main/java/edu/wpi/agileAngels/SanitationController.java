@@ -26,8 +26,9 @@ public class SanitationController extends MainController {
               + sanIssue.getText()
               + ".");
     }
-    SanitationRequest request = new SanitationRequest(sanitationEmployeeText.getText(),
-            sanLocation.getText(), sanIssue.getText());
+    SanitationRequest request =
+        new SanitationRequest(
+            sanitationEmployeeText.getText(), sanLocation.getText(), sanIssue.getText());
   }
 
   @FXML
