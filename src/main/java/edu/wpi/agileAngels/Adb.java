@@ -71,11 +71,11 @@ public class Adb {
     }
     System.out.println("Apache Derby connection established!");
 
-    LocationDAO = new LocationDAOImpl(connection);
-    locationData = LocationDAO.getAllLocations(); // Updates the big hashmap
+    // LocationDAO = new LocationDAOImpl(connection);
+    // locationData = LocationDAO.getAllLocations(); // Updates the big hashmap
 
-    MedDAO = new MedDAOImpl(connection);
-    medData = MedDAO.getAllMedicalEquipmentRequests();
+    // MedDAO = new MedDAOImpl(connection);
+    // medData = MedDAO.getAllMedicalEquipmentRequests();
 
     MedMenu();
     // Locationsmenu();
