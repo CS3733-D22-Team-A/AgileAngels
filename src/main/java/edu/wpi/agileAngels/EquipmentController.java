@@ -1,20 +1,23 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class EquipmentController extends MainController {
+public class EquipmentController extends MainController implements Initializable {
   @FXML private MenuButton eqptDropdown;
   @FXML private MenuItem bed, recliner, xray, infusion;
   @FXML private TextField equipLocation, equipmentEmployeeText, equipmentStatus;
@@ -34,7 +37,11 @@ public class EquipmentController extends MainController {
       statusColumn,
       descriptionColumn;
 
-  public EquipmentController() throws SQLException {
+  public EquipmentController() throws SQLException {}
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+
     medDAO = new MedDAOImpl(connection);
 
     // Implement DAO here.
@@ -44,21 +51,6 @@ public class EquipmentController extends MainController {
       MedDevice object = entry.getValue();
       medData.add(object);
     }
-
-    // no need to add them to the table since the FXMLLoader is ready doing that
-    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
-    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-    locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-    employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
-    statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-    descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-    equipmentTable.setItems(medData);
-  }
-
-  public void add(MedDevice object) {
-
-    medData.add(object);
 
     // no need to add them to the table since the FXMLLoader is ready doing that
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -98,7 +90,6 @@ public class EquipmentController extends MainController {
               placeholder,
               placeholder);
       medDAO.addMed(medDevice);
-      add(medDevice);
       String addMed =
           "INSERT INTO MedicalEquipment(Name, available ,type, location, employee, status, description)VALUES(?,?,?,?,?,?,?)";
       PreparedStatement preparedStatement = connection.prepareStatement(addMed);
