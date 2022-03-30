@@ -144,15 +144,3 @@ public class MainController {
     stage.show();
   }
 }
-  // Make this work It would be awesome!!
-
-  //  @FXML
-  //  private void clearPage() {
-  //
-  //    Stage stage;
-  //    stage = (Stage) homeButton.getScene().getWindow();
-  //
-  //    Scene scene = clear.getScene();
-  //    stage.setScene(scene);
-  //    stage.show();
-  //  }

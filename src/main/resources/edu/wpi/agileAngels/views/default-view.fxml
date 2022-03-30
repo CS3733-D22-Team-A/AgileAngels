@@ -20,7 +20,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: F;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Acontroller">
    <children>
-      <ImageView fitHeight="819.0" fitWidth="1442.0" layoutX="-160.0" preserveRatio="true">
+      <ImageView fitHeight="800" fitWidth="1280.0" layoutX="0" preserveRatio="true">
          <image>
             <Image url="@../assets/Home Page 2.png" />
          </image>
