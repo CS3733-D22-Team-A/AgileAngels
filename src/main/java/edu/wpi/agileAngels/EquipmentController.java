@@ -45,13 +45,6 @@ public class EquipmentController extends MainController {
               equipLocation.getText(),
               eqptDropdown.getText(),
               equipmentStatus.getText());
-      ObservableList<EquipmentRequest> data = FXCollections.observableArrayList();
-      data.add(request);
-      employeeColumn.setCellValueFactory(new PropertyValueFactory("employeeName"));
-      locationColumn.setCellValueFactory(new PropertyValueFactory("location"));
-      typeColumn.setCellValueFactory(new PropertyValueFactory("type"));
-      statusColumn.setCellValueFactory(new PropertyValueFactory("status"));
-      equipmentTable.setItems(data);
     }
   }
 
