@@ -53,6 +53,6 @@ public class LabController extends MainController {
 
   @FXML
   private void clearPage() throws IOException {
-    resetPage("views/lab-view.fxml");
+    loadPage("views/lab-view.fxml", labStatus);
   }
 }

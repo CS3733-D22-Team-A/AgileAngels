@@ -55,6 +55,6 @@ public class MealController extends MainController {
 
   @FXML
   private void clearPage() throws IOException {
-    resetPage("views/mealRequest-view.fxml");
+    loadPage("views/mealRequest-view.fxml", confirm);
   }
 }

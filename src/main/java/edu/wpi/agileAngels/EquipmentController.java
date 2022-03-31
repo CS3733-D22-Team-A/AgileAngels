@@ -64,6 +64,6 @@ public class EquipmentController extends MainController {
   @FXML
   private void clearPage() throws IOException {
 
-    resetPage("views/equipment-view.fxml");
+    loadPage("views/equipment-view.fxml", equipmentStatus);
   }
 }

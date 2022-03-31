@@ -55,6 +55,6 @@ public class GiftsController extends MainController {
 
   @FXML
   private void clearPage() throws IOException {
-    resetPage("views/gifts-view.fxml");
+    loadPage("views/gifts-view.fxml", giftConfirm);
   }
 }
