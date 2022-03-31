@@ -206,7 +206,15 @@ public class Adb {
       // Scanner myObj = new Scanner(System.in);
       String ID = myObj.next();
       locationData = LocationDAO.getAllLocations();
-      ChangeFloorandType(ID, myObj);
+      System.out.println("Press 1 to change the floor and press 2 to change the Type");
+      String result = myObj.nextLine();
+      if(result.equals("1")){
+        changeFloor(ID,myObj);
+      }
+      else{
+        changeType(ID, myObj);
+      }
+
 
     } else if (select.equals("3")) {
       System.out.println("Enter Location ID");
@@ -266,28 +274,45 @@ public class Adb {
    * @param myObj --> Scanner to get new floor and new location
    * @throws SQLException
    */
-  private void ChangeFloorandType(String ID, Scanner myObj) throws SQLException {
+  private void changeType(String ID, Scanner myObj) throws SQLException {
     if (locationData.get(ID) != null) {
-      System.out.println("Enter new Floor");
-      String newFloor = myObj.next();
       System.out.println("Enter new Location");
       String newLocation = myObj.next();
       PreparedStatement pstmt =
           connection.prepareStatement(
-              "UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
-      pstmt.setString(1, newFloor);
-      pstmt.setString(2, newLocation);
-      pstmt.setString(3, ID);
+              "UPDATE Locations SET nodeType = ? WHERE nodeID = ?");
+
+      pstmt.setString(1, newLocation);
+      pstmt.setString(2, ID);
       pstmt.executeUpdate();
 
       // Updating java objects
       Location location = locationData.get(ID);
-      LocationDAO.updateLocationFloor(location, newFloor);
       LocationDAO.updateLocationType(location, newLocation);
     } else {
       System.out.println("Cannot Find Location");
     }
   }
+
+  private void changeFloor(String ID, Scanner myObj) throws SQLException {
+    if (locationData.get(ID) != null) {
+      System.out.println("Enter new Floor");
+      String newFloor = myObj.next();
+      PreparedStatement pstmt =
+              connection.prepareStatement(
+                      "UPDATE Locations SET floor= ?, WHERE nodeID = ?");
+      pstmt.setString(1, newFloor);
+      pstmt.setString(2, ID);
+      pstmt.executeUpdate();
+
+      // Updating java objects
+      Location location = locationData.get(ID);
+      LocationDAO.updateLocationFloor(location, newFloor);
+    } else {
+      System.out.println("Cannot Find Location");
+    }
+  }
+
 
   /**
    * Adds a new location to the location table and hashmap.
