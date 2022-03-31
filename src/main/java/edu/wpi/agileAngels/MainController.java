@@ -22,7 +22,8 @@ public class MainController {
       foodButton,
       locationButton,
       mapButton;
-  @FXML private MenuItem equipmentMenu, labMenu, sanitationMenu, mealMenu, giftMenu;
+  @FXML
+  private MenuItem equipmentMenu, equipmentMenu11, labMenu, sanitationMenu, mealMenu, giftMenu;
 
   @FXML
   private void openScene(ActionEvent event) throws IOException {
@@ -109,6 +110,15 @@ public class MainController {
     } else if (event.getSource() == mapButton) {
       stage = (Stage) mapButton.getScene().getWindow();
       root = FXMLLoader.load(getClass().getResource("views/maps.fxml"));
+    } else if (event.getSource() == equipmentMenu11) {
+      stage =
+          (Stage)
+              ((MenuItem) event.getTarget())
+                  .getParentPopup()
+                  .getOwnerWindow()
+                  .getScene()
+                  .getWindow();
+      root = FXMLLoader.load(getClass().getResource("views/equipmentEdit-view.fxml"));
     }
     // If the home button is pressed, switch to the default scene
     else {
