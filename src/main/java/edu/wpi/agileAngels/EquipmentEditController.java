@@ -21,7 +21,6 @@ public class EquipmentEditController extends MainController implements Initializ
   @FXML private Label equipmentConfirmation;
   private Connection connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
   private MedDAOImpl medDAO;
-
   private ObservableList<MedDevice> medData = FXCollections.observableArrayList();
 
   @FXML private TableView equipmentTable;
@@ -43,6 +42,11 @@ public class EquipmentEditController extends MainController implements Initializ
 
     // Implement DAO here.
 
+    updateTable();
+  }
+
+  private void updateTable() {
+    medData.clear();
     HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
     for (Map.Entry<String, MedDevice> entry : data.entrySet()) {
       MedDevice object = entry.getValue();
@@ -81,7 +85,7 @@ public class EquipmentEditController extends MainController implements Initializ
       statement.setString(2, nodeID.getText());
       statement.execute();
 
-      equipmentTable.setItems(medData);
+      updateTable();
     }
   }
 
