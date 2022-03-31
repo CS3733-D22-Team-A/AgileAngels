@@ -23,35 +23,50 @@
          <font>
             <Font size="20.0" />
          </font></Button>
-      <ImageView id="lowerLevelTwo" fx:id="lowerLevelTwoMap" fitHeight="500.0" fitWidth="500.0" layoutX="664.0" layoutY="261.0" preserveRatio="true">
+      <ImageView id="lowerLevelTwo" fx:id="lowerLevelTwoMap" fitHeight="500.0" fitWidth="500.0" layoutX="424.0" layoutY="210.0" preserveRatio="true">
          <image>
             <Image url="@../assets/LowerFloor2_Tower_FINAL.jpg" />
          </image>
       </ImageView>
-      <ImageView id="lowerLevelOne" fx:id="lowerLevelOneMap" fitHeight="500.0" fitWidth="500.0" layoutX="664.0" layoutY="261.0" preserveRatio="true">
+      <ImageView id="lowerLevelOne" fx:id="lowerLevelOneMap" fitHeight="500.0" fitWidth="500.0" layoutX="424.0" layoutY="210.0" preserveRatio="true">
          <image>
             <Image url="@../assets/LowerFloor1_Tower_FINAL.jpg" />
          </image>
       </ImageView>
-      <ImageView id="floorThreeMap" fx:id="floorThreeMap" fitHeight="500.0" fitWidth="500.0" layoutX="664.0" layoutY="261.0" preserveRatio="true">
+      <ImageView id="floorThreeMap" fx:id="floorThreeMap" fitHeight="500.0" fitWidth="500.0" layoutX="424.0" layoutY="210.0" preserveRatio="true">
          <image>
             <Image url="@../assets/Floor3_Tower_FINAL.jpg" />
          </image>
       </ImageView>
-      <ImageView id="floorTwoMap" fx:id="floorTwoMap" fitHeight="500.0" fitWidth="500.0" layoutX="664.0" layoutY="264.0" preserveRatio="true">
+      <ImageView id="floorTwoMap" fx:id="floorTwoMap" fitHeight="500.0" fitWidth="500.0" layoutX="424.0" layoutY="213.0" preserveRatio="true">
          <image>
             <Image url="@../assets/Floor2_Tower_Final.jpg" />
          </image>
       </ImageView>
-      <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="500.0" fitWidth="500.0" layoutX="664.0" layoutY="261.0" preserveRatio="true">
+      <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="500.0" fitWidth="500.0" layoutX="424.0" layoutY="210.0" preserveRatio="true">
          <image>
             <Image url="@../assets/FirstFloor_Tower_FINAL.jpg" />
          </image>
       </ImageView>
-      <Button id="floorThree" fx:id="floorThree" layoutX="127.0" layoutY="361.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="50.0" prefWidth="100.0" text="Floor 3" />
-      <Button id="floorTwo" fx:id="floorTwo" layoutX="127.0" layoutY="414.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="50.0" prefWidth="100.0" text="Floor 2" />
-      <Button id="floorOne" fx:id="floorOne" layoutX="127.0" layoutY="467.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="50.0" prefWidth="100.0" text="Floor 1" />
-      <Button id="lowerLevelOne" fx:id="lowerLevelOne" layoutX="127.0" layoutY="520.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="50.0" prefWidth="100.0" text="Lower Level 1" />
-      <Button id="lowerLevelTwo" fx:id="lowerLevelTwo" layoutX="127.0" layoutY="573.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="50.0" prefWidth="100.0" text="Lower Level 2" />
+      <Button id="floorThree" fx:id="floorThree" layoutX="131.0" layoutY="226.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 3">
+         <font>
+            <Font size="17.0" />
+         </font></Button>
+      <Button id="floorTwo" fx:id="floorTwo" layoutX="131.0" layoutY="313.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 2">
+         <font>
+            <Font size="17.0" />
+         </font></Button>
+      <Button id="floorOne" fx:id="floorOne" layoutX="131.0" layoutY="399.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 1">
+         <font>
+            <Font size="17.0" />
+         </font></Button>
+      <Button id="lowerLevelOne" fx:id="lowerLevelOne" layoutX="131.0" layoutY="485.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Lower Level 1">
+         <font>
+            <Font size="17.0" />
+         </font></Button>
+      <Button id="lowerLevelTwo" fx:id="lowerLevelTwo" layoutX="131.0" layoutY="569.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Lower Level 2">
+         <font>
+            <Font size="17.0" />
+         </font></Button>
    </children>
 </AnchorPane>
