@@ -1,3 +1,14 @@
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(https://fonts.google.com/specimen/Roboto);
+}
+
+#main{
+    -fx-font-family: "Roboto Light";
+    -fx-background-color: rgb(227,227,227);
+}
+
 .label{
     -fx-font-size: 16;
 }
@@ -7,8 +18,27 @@
 }
 
 .button{
-    -fx-background-color: rgb(105, 182, 191);
-    -fx-background-radius: 20;
-    -fx-font-size: 18;
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.15), 16, 0, 4, 4);
+    -fx-background-radius: 10;
+    -fx-text-fill: black;
 }
+
+.label{
+    -fx-font-size: 20;
+}
+#topBar{
+    -fx-background-color: rgb(0, 156, 166);
+}
+#topBar2{
+    -fx-background-color: rgb(255, 255, 255);
+}
+
+#menuButton{
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+}
+
+
 
