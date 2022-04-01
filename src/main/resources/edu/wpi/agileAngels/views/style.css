@@ -1,6 +1,6 @@
 
 @font-face {
-    font-family: myFirstFont;
+    font-family: Roboto;
     src: url(https://fonts.google.com/specimen/Roboto);
 }
 
@@ -24,6 +24,28 @@
     -fx-text-fill: black;
 }
 
+#icon {
+    -fx-background-radius: 0;
+    -fx-background-color: rgba(0, 0, 0, 0.0);
+    -fx-effect: none;
+}
+#icon:hover {
+    -fx-background-radius: 0;
+    -fx-background-color: rgba(0, 0, 0, 0.0);
+    -fx-effect: none;
+    -fx-translate-y: 0;
+    -fx-translate-x: 0;
+}
+
+.button:pressed{
+    -fx-background-color: rgb(200, 200, 200);
+    -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.15), 8, 0, 2, 2);
+    -fx-translate-x: 1;
+    -fx-translate-y: 1;
+    -fx-background-radius: 10;
+    -fx-text-fill: black;
+}
+
 .label{
     -fx-font-size: 20;
 }
@@ -39,6 +61,65 @@
     -fx-text-fill: white;
     -fx-font-size: 16;
 }
+
+#menuButton:hover{
+    -fx-translate-y: 2;
+    -fx-border-width: 0 0 4 0;
+    -fx-border-color: rgb(0, 120, 140);
+}
+
+.text-field{
+    -fx-background-color: white;
+    -fx-border-color: rgb(180,180,180);
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+
+#dropdown{
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.15), 16, 0, 4, 4);
+    -fx-background-radius: 10;
+    -fx-text-fill: black;
+}
+
+#menuItemTop{
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-effect: none;
+    -fx-text-alignment: left;
+    -fx-background-radius: 10 10 0 0;
+    -fx-text-fill: black;
+
+}
+#menuItem{
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-effect: none;
+    -fx-background-radius: 0 0 0 0;
+    -fx-text-fill: black;
+    -fx-border-color: rgb(200, 200, 200);
+    -fx-border-width: 1 0 0 0;
+}
+#menuItemBottom{
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-effect: none;
+    -fx-background-radius: 0 0 10 10;
+    -fx-text-fill: black;
+    -fx-border-color: rgb(200, 200, 200);
+    -fx-border-width: 1 0 0 0;
+}
+
+#menuItem:hover{
+    -fx-background-color: rgb(200, 200, 200);
+}
+#menuItemTop:hover{
+    -fx-background-color: rgb(200, 200, 200);
+}
+#menuItemBottom:hover{
+    -fx-background-color: rgb(200, 200, 200);
+}
+
+
+
 
 
 
