@@ -5,9 +5,11 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class MainController {
@@ -29,6 +31,8 @@ public class MainController {
       viewRequest,
       map;
   @FXML private MenuItem equipmentMenu, labMenu, sanitationMenu, mealMenu, giftMenu;
+
+  @FXML AnchorPane anchor;
 
   @FXML
   private void closeApp() {
@@ -55,6 +59,7 @@ public class MainController {
     }
   }
 
+  // delete start
   @FXML
   private void openScene(ActionEvent event) throws IOException {
     Stage stage;
@@ -152,6 +157,13 @@ public class MainController {
     stage.show();
   }
 
+  // delete end
+
+  @FXML
+  private void profile() throws IOException {
+    loadPage("views/home-view.fxml", close);
+  }
+
   @FXML
   private void goHome(ActionEvent event) throws IOException {
     loadPage("views/home-view.fxml", close);
@@ -167,6 +179,55 @@ public class MainController {
 
     Scene scene = new Scene(root);
     stage.setScene(scene);
+    stage.setResizable(false);
     stage.show();
   }
+
+  static double pos = 0;
+
+  //  public double getPositionX(Node node) {
+  //
+  //    pos = pos + getPositionX(node);
+  //    return node.getParent() == anchor ? node.getLayoutX() : getPositionX(node.getParent()) + pos
+  // ;
+  //
+  //  }
+
+  public double getPositionX(Node node) {
+    if (node.getParent() == anchor) {
+      double position = pos + node.getLayoutX();
+      pos = 0;
+      return position;
+    } else {
+      pos += node.getLayoutX();
+      return getPositionX(node.getParent());
+    }
+  }
+
+  public double getPositionY(Node node) {
+    if (node.getParent() == anchor) {
+      double position = pos + node.getLayoutY();
+      pos = 0;
+      return position;
+    } else {
+      pos += node.getLayoutY();
+      return getPositionY(node.getParent());
+    }
+  }
+
+  //  public double getPositionY(Node node) {
+  //    if (node.getParent() == anchor) {
+  //      return node.getLayoutY();
+  //    } else {
+  //      return getPositionY(node.getParent(), node.getLayoutY());
+  //    }
+  //  }
+  //
+  //  public double getPositionY(Node node, double pos) {
+  //    if (node.getParent() == anchor) {
+  //      return pos + node.getLayoutY();
+  //    } else {
+  //      return getPositionY(node.getParent(), pos + node.getLayoutY());
+  //    }
+  //  }
 }

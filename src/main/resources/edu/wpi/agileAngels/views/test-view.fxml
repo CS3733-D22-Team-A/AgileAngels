@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -71,60 +73,18 @@
         </graphic>
     </Button>
       <TextField layoutX="101.0" layoutY="208.0" promptText="Employee" />
-      <Button fx:id="drop1" layoutX="350.0" layoutY="350.0" mnemonicParsing="false" onAction="#dropDownTest" prefHeight="44.0" prefWidth="277.0">
+      <MenuButton layoutX="96.0" layoutY="452.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="286.0">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
          <graphic>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="dropText" prefHeight="26.0" prefWidth="344.0" text="Back" textFill="#868686">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Label>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/icons/dropdown.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </ImageView>
-                     </children>
-                  </HBox>
+                  <Label text="Menu" />
                </children>
             </HBox>
          </graphic>
-      </Button>
-      <Pane id="dropdown" fx:id="drop" layoutX="350.0" layoutY="350.0" prefHeight="176.0" prefWidth="277.0" visible="false">
-         <children>
-            <VBox prefHeight="176.0" prefWidth="277.0">
-               <children>
-                  <Button id="menuItemTop" fx:id="op1" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="44.0" prefWidth="277.0" stylesheets="@style.css" textOverrun="CLIP">
-                     <graphic>
-                        <Label prefHeight="24.0" prefWidth="360.0" text="Option 1" />
-                     </graphic></Button>
-                  <Button id="menuItem" fx:id="op2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="44.0" prefWidth="277.0" stylesheets="@style.css" textOverrun="CLIP">
-                     <graphic>
-                        <Label prefHeight="24.0" prefWidth="360.0" text="Option 2" />
-                     </graphic>
-                  </Button>
-                  <Button id="menuItem" fx:id="op3" layoutX="10.0" layoutY="54.0" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="44.0" prefWidth="277.0" stylesheets="@style.css" textOverrun="CLIP">
-                     <graphic>
-                        <Label prefHeight="24.0" prefWidth="360.0" text="Option 3" />
-                     </graphic>
-                  </Button>
-                  <Button id="menuItemBottom" fx:id="op4" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="44.0" prefWidth="277.0" stylesheets="@style.css" textOverrun="CLIP">
-                     <graphic>
-                        <Label prefHeight="24.0" prefWidth="360.0" text="Option 4" />
-                     </graphic>
-                  </Button>
-               </children>
-            </VBox>
-         </children>
-      </Pane>
+      </MenuButton>
     </children>
 </AnchorPane>

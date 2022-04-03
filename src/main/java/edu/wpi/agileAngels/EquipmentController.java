@@ -1,16 +1,26 @@
 package edu.wpi.agileAngels;
 
+import java.awt.*;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 public class EquipmentController extends MainController {
-  @FXML private MenuButton eqptDropdown;
-  @FXML private MenuItem bed, recliner, xray, infusion;
+  // @FXML private MenuButton eqptDropdown;
+  //  @FXML private MenuItem bed, recliner, xray, infusion;
+  @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
   @FXML private TextField equipLocation, equipmentEmployeeText, equipmentStatus;
-  @FXML private Label equipmentConfirmation;
+  @FXML private Label equipmentConfirmation, dropText;
   @FXML private TableView equipmentTable;
+  @FXML Pane drop;
+
   @FXML
   private TableColumn nameColumn,
       availableColumn,
@@ -23,42 +33,54 @@ public class EquipmentController extends MainController {
   @FXML
   private void submitEquipment() {
 
-    if (eqptDropdown.getText().isEmpty()
-        || equipLocation.getText().isEmpty()
-        || equipmentEmployeeText.getText().isEmpty()) {
-      equipmentConfirmation.setText("Please fill out all the require fields");
-    } else {
-      equipmentConfirmation.setText(
-          "Thank you, the "
-              + eqptDropdown.getText()
-              + " you requested will be delivered shortly to "
-              + equipLocation.getText()
-              + " by "
-              + equipmentEmployeeText.getText()
-              + ".");
-      EquipmentRequest request =
-          new EquipmentRequest(
-              equipmentEmployeeText.getText(),
-              equipLocation.getText(),
-              eqptDropdown.getText(),
-              equipmentStatus.getText());
-    }
+    //      if (eqptDropdown.getText().isEmpty()
+    //          || equipLocation.getText().isEmpty()
+    //          || equipmentEmployeeText.getText().isEmpty()) {
+    //        equipmentConfirmation.setText("Please fill out all the require fields");
+    //      } else {
+    //        equipmentConfirmation.setText(
+    //            "Thank you, the "
+    //                + eqptDropdown.getText()
+    //                + " you requested will be delivered shortly to "
+    //                + equipLocation.getText()
+    //                + " by "
+    //                + equipmentEmployeeText.getText()
+    //                + ".");
+    //        EquipmentRequest request =
+    //            new EquipmentRequest(
+    //                equipmentEmployeeText.getText(),
+    //                equipLocation.getText(),
+    //                eqptDropdown.getText(),
+    //                equipmentStatus.getText());
+    //      }
   }
 
-  @FXML
-  private void setEquipmentType(ActionEvent event) throws IOException {
+  public void eqpDrop() throws IOException {
+    //    drop.setLayoutX(equipDropdownButton.getParent().getParent().getLayoutX());
+    //    drop.setLayoutY(equipDropdownButton.getParent().getParent().getLayoutY());
+
+    drop.setLayoutX(getPositionX(equipDropdownButton));
+    drop.setLayoutY(getPositionY(equipDropdownButton));
+
+    drop.setVisible(true);
+  }
+
+  public void closeMenu(MouseEvent mouseEvent) {
+    drop.setVisible(false);
+  }
+
+  public void menuItemSelected(ActionEvent event) {
+    dropText.setTextFill(Color.rgb(0, 0, 0));
     if (event.getSource() == bed) {
-      eqptDropdown.setText("Bed");
+      dropText.setText("Bed");
+    } else if (event.getSource() == recliner) {
+      dropText.setText("Recliner");
+    } else if (event.getSource() == xray) {
+      dropText.setText("XRay Machine");
+    } else if (event.getSource() == infusion) {
+      dropText.setText("Infusion Pump");
     }
-    if (event.getSource() == recliner) {
-      eqptDropdown.setText("Recliner");
-    }
-    if (event.getSource() == xray) {
-      eqptDropdown.setText("X-Ray Machine");
-    }
-    if (event.getSource() == infusion) {
-      eqptDropdown.setText("Infusion");
-    }
+    drop.setVisible(false);
   }
 
   @FXML

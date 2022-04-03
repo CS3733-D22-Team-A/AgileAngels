@@ -18,14 +18,9 @@
    <children>
       <Pane id="topBar" prefHeight="142.0" prefWidth="1280.0">
          <children>
-            <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="1208.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/icons/profile.png" />
-               </image>
-            </ImageView>
             <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="770.0" spacing="30.0">
                <children>
-                  <Button id="icon" mnemonicParsing="false">
+                  <Button id="icon" mnemonicParsing="false" onAction="#goHome">
                      <graphic>
                         <ImageView fitHeight="59.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -45,9 +40,9 @@
          </children>
       </Pane>
       <Pane id="topBar2" layoutX="-3.0" layoutY="137.0" prefHeight="10.0" prefWidth="1280.0" />
-      <Button id="icon" graphicTextGap="0.0" layoutX="911.0" layoutY="-10.0" mnemonicParsing="false">
+      <Button id="icon" graphicTextGap="0.0" layoutX="911.0" onAction="#goHome" layoutY="-10.0" mnemonicParsing="false">
          <graphic>
-            <ImageView fitHeight="250.0" fitWidth="259.0" onDragDetected="#goHome" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="250.0" fitWidth="259.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/logo.png" />
                </image>
@@ -115,6 +110,16 @@
                   </Label>
                </children>
             </VBox>
+         </graphic>
+      </Button>
+      <Button id="icon" layoutX="1221.0" layoutY="18.0" mnemonicParsing="false" onAction="#profile" />
+      <Button id="icon" layoutX="1204.0" layoutY="9.0" mnemonicParsing="false" onAction="#profile" prefHeight="36.0" prefWidth="38.0">
+         <graphic>
+            <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons/profile.png" />
+               </image>
+            </ImageView>
          </graphic>
       </Button>
    </children>

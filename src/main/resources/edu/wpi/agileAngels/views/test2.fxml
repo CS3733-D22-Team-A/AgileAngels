@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" onMouseClicked="#closeMenu" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.EquipmentController">
+<AnchorPane id="main" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" onMouseClicked="#closeMenu" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.EquipmentController">
    <children>
       <Pane id="topBar" prefHeight="60.0" prefWidth="1280.0">
          <children>
@@ -94,7 +94,35 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="68.0" layoutY="171.0" prefHeight="410.0" prefWidth="1158.0" spacing="50.0">
+      <Pane id="dropdown" fx:id="drop" layoutX="68.0" layoutY="167.0" prefHeight="200.0" prefWidth="264.0" visible="false">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="270.0">
+               <children>
+                  <Button id="menuItemTop" fx:id="bed" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
+                     <graphic>
+                        <Label prefHeight="24.0" prefWidth="360.0" text="Bed" />
+                     </graphic>
+                  </Button>
+                  <Button id="menuItem" fx:id="recliner" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
+                     <graphic>
+                        <Label prefHeight="24.0" prefWidth="360.0" text="Recliner" />
+                     </graphic>
+                  </Button>
+                  <Button id="menuItem" layoutX="10.0" layoutY="54.0" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP" fx:id="xray">
+                     <graphic>
+                        <Label prefHeight="24.0" prefWidth="360.0" text="X-Ray Machine" />
+                     </graphic>
+                  </Button>
+                  <Button id="menuItemBottom" fx:id="infusion" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
+                     <graphic>
+                        <Label prefHeight="24.0" prefWidth="360.0" text="Infusion Pump" />
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <HBox alignment="CENTER" layoutX="68.0" layoutY="164.0" prefHeight="417.0" prefWidth="1158.0" spacing="50.0">
          <children>
             <VBox alignment="CENTER" prefHeight="432.0" prefWidth="270.0" spacing="40.0">
                <children>
@@ -184,57 +212,5 @@
             </TableView>
          </children>
       </HBox>
-      <Pane id="dropdown" fx:id="drop" layoutX="100.0" layoutY="100.0" prefHeight="200.0" prefWidth="264.0" visible="false">
-         <children>
-            <VBox prefHeight="200.0" prefWidth="270.0">
-               <children>
-                  <Button id="menuItemTop" fx:id="bed" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="264.0" stylesheets="@style.css" textOverrun="CLIP">
-                     <graphic>
-                        <Label prefHeight="26.0" prefWidth="274.0" text="Bed">
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding></Label>
-                     </graphic>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Button>
-                  <Button id="menuItem" fx:id="recliner" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="264.0" stylesheets="@style.css" textOverrun="CLIP">
-                     <graphic>
-                        <Label prefHeight="24.0" prefWidth="360.0" text="Recliner">
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding></Label>
-                     </graphic>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Button>
-                  <Button id="menuItem" layoutX="10.0" layoutY="54.0" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="264.0" stylesheets="@style.css" textOverrun="CLIP" fx:id="xray">
-                     <graphic>
-                        <Label prefHeight="24.0" prefWidth="360.0" text="X-Ray Machine">
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding></Label>
-                     </graphic>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Button>
-                  <Button id="menuItemBottom" fx:id="infusion" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="264.0" stylesheets="@style.css" textOverrun="CLIP">
-                     <graphic>
-                        <Label prefHeight="24.0" prefWidth="360.0" text="Infusion Pump">
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding></Label>
-                     </graphic>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Button>
-               </children>
-            </VBox>
-         </children>
-      </Pane>
    </children>
 </AnchorPane>

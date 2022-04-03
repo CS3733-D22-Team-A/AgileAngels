@@ -27,6 +27,7 @@ public class Aapp extends Application {
     // Parent root = FXMLLoader.load(getClass().getResource("views/gifts-view.fxml"));
     Scene defaultScene = new Scene(root);
     primaryStage.setScene(defaultScene);
+    primaryStage.setResizable(false);
     primaryStage.show();
   }
 
