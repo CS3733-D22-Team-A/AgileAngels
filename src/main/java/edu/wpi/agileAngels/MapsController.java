@@ -4,6 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+
+import java.awt.*;
 
 public class MapsController extends MainController {
 
@@ -13,6 +16,9 @@ public class MapsController extends MainController {
   // @FXML private MenuButton mapMenu;
 
   @FXML private Button floorOne, floorTwo, floorThree, lowerLevelOne, lowerLevelTwo;
+
+  @FXML Pane mapPane;
+  @FXML Shape testPoint;
 
   @FXML
   private void changeMap(ActionEvent event) {
