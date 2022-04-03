@@ -6,7 +6,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -75,30 +74,5 @@ public class MainController {
   @FXML
   private void goHome(ActionEvent event) throws IOException, InterruptedException {
     loadPage("views/home-view.fxml", close);
-  }
-
-  static double pos = 0;
-
-  public double getPositionX(Node node) {
-
-    if (node.getParent() == anchor) {
-      double position = pos + node.getLayoutX();
-      pos = 0;
-      return position;
-    } else {
-      pos += node.getLayoutX();
-      return getPositionX(node.getParent());
-    }
-  }
-
-  public double getPositionY(Node node) {
-    if (node.getParent() == anchor) {
-      double position = pos + node.getLayoutY();
-      pos = 0;
-      return position;
-    } else {
-      pos += node.getLayoutY();
-      return getPositionY(node.getParent());
-    }
   }
 }

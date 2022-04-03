@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -20,7 +21,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="770.0" spacing="30.0">
                <children>
-                  <Button id="icon" mnemonicParsing="false" onAction="#goHome">
+                  <Button id="icon" mnemonicParsing="false" onAction="#goHome" styleClass="topBarIcon">
                      <graphic>
                         <ImageView fitHeight="59.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -39,8 +40,16 @@
             </HBox>
          </children>
       </Pane>
-      <Pane id="topBar2" layoutX="-3.0" layoutY="137.0" prefHeight="10.0" prefWidth="1280.0" />
-      <Button id="icon" graphicTextGap="0.0" layoutX="911.0" onAction="#goHome" layoutY="-10.0" mnemonicParsing="false">
+      <Button id="icon" layoutX="1204.0" layoutY="9.0" mnemonicParsing="false" onAction="#profile" prefHeight="36.0" prefWidth="38.0" styleClass="topBarIcon">
+         <graphic>
+            <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons/profile.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button id="icon" graphicTextGap="0.0" layoutX="911.0" layoutY="-10.0" mnemonicParsing="false" onAction="#goHome">
          <graphic>
             <ImageView fitHeight="250.0" fitWidth="259.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -48,6 +57,10 @@
                </image>
             </ImageView>
          </graphic>
+         <styleClass>
+            <String fx:value="image" />
+            <String fx:value="topBarIcon" />
+         </styleClass>
       </Button>
       <GridPane alignment="CENTER" layoutX="150.0" layoutY="242.0" prefHeight="402.0" prefWidth="1000.0">
          <columnConstraints>
@@ -110,16 +123,6 @@
                   </Label>
                </children>
             </VBox>
-         </graphic>
-      </Button>
-      <Button id="icon" layoutX="1221.0" layoutY="18.0" mnemonicParsing="false" onAction="#profile" />
-      <Button id="icon" layoutX="1204.0" layoutY="9.0" mnemonicParsing="false" onAction="#profile" prefHeight="36.0" prefWidth="38.0">
-         <graphic>
-            <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/icons/profile.png" />
-               </image>
-            </ImageView>
          </graphic>
       </Button>
    </children>

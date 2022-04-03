@@ -11,6 +11,7 @@ public class HomeController extends MainController {
 
   @FXML
   private void homeButton(ActionEvent event) throws IOException {
+    System.out.println("here");
     if (event.getSource() == serviceButton) {
       loadPage("views/serviceRequest-view.fxml", serviceButton);
     }

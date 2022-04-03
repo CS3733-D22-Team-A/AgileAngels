@@ -4,9 +4,9 @@
     src: url(https://fonts.google.com/specimen/Roboto);
 }
 
-#main{
-    -fx-font-family: "Roboto Light";
-    -fx-background-color: rgb(227,227,227);
+.root{
+    -fx-font-family: "Roboto Thin";
+    -fx-background-color: rgb(243, 243, 243);
 }
 
 .label{
@@ -25,37 +25,36 @@
 
 .button{
     -fx-background-color: rgb(255, 255, 255);
-    -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.15), 16, 0, 4, 4);
+    -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 8, 0, 4, 4);
     -fx-background-radius: 10;
     -fx-text-fill: black;
+    -fx-cursor: hand;
 }
 
 .button:pressed{
-    -fx-background-color: rgb(200, 200, 200);
-    -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.15), 8, 0, 2, 2);
+    -fx-background-color: rgb(222, 222, 222);
+    -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 8, 0, 2, 2);
     -fx-translate-x: 1;
     -fx-translate-y: 1;
     -fx-background-radius: 10;
     -fx-text-fill: black;
 }
 
-#icon {
-    -fx-background-radius: 10;
+.topBarIcon {
     -fx-background-color: rgba(0, 0, 0, 0.0);
     -fx-effect: none;
 }
-#icon:hover {
+.topBarIcon:hover {
     -fx-background-radius: 0;
     -fx-effect: none;
     -fx-translate-y: 0;
     -fx-translate-x: 0;
 }
 
-#icon:pressed{
+.topBarIcon:pressed{
     -fx-background-radius: 10;
     -fx-background-color: rgba(0, 0, 0, 0);
 }
-
 
 
 .label{
@@ -63,9 +62,13 @@
 }
 #topBar{
     -fx-background-color: rgb(0, 156, 166);
+    -fx-border-width: 0 0 7 0;
+    -fx-border-color: white;
+    -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 16, 0, 4, 0);
 }
-#topBar2{
-    -fx-background-color: rgb(255, 255, 255);
+
+#icon.image{
+    -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 16, 0, 4, 0);
 }
 
 #menuButton{
@@ -82,7 +85,7 @@
 
 .menu-button{
     -fx-background-color: rgb(255, 255, 255);
-    -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.15), 16, 0, 4, 4);
+    -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 16, 0, 4, 4);
     -fx-background-radius: 10;
     -fx-text-fill: black;
 }

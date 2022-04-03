@@ -20,7 +20,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -32,7 +31,7 @@ public class EquipmentController extends MainController implements Initializable
   @FXML private Label equipmentConfirmation, dropText;
   @FXML private TableView equipmentTable;
 
-  @FXML Pane drop;
+  @FXML Pane drop, drop2;
   private Connection connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
   private MedDAOImpl medDAO;
 
@@ -117,18 +116,16 @@ public class EquipmentController extends MainController implements Initializable
     }
   }
 
-  public void eqpDrop() throws IOException {
-    //    drop.setLayoutX(equipDropdownButton.getParent().getParent().getLayoutX());
-    //    drop.setLayoutY(equipDropdownButton.getParent().getParent().getLayoutY());
-
-    drop.setLayoutX(getPositionX(equipDropdownButton));
-    drop.setLayoutY(getPositionY(equipDropdownButton));
-    drop.setViewOrder(0);
+  public void eqpDrop() {
+    drop2.setViewOrder(-1);
+    drop.setViewOrder(-1);
+    equipDropdownButton.setVisible(false);
     drop.setVisible(true);
   }
 
-  public void closeMenu(MouseEvent mouseEvent) {
+  public void closeMenu() {
     drop.setVisible(false);
+    equipDropdownButton.setVisible(true);
   }
 
   public void menuItemSelected(ActionEvent event) {
@@ -142,7 +139,7 @@ public class EquipmentController extends MainController implements Initializable
     } else if (event.getSource() == infusion) {
       dropText.setText("Infusion Pump");
     }
-    drop.setVisible(false);
+    closeMenu();
   }
 
   @FXML
