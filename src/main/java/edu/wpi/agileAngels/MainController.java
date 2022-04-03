@@ -62,7 +62,7 @@ public class MainController {
       loadPage("views/equipmentEdit-view.fxml", close);
     }
     if (event.getSource() == map) {
-      loadPage("views/maps.fxml", close);
+      loadPage("views/map-view.fxml", close);
     }
   }
 

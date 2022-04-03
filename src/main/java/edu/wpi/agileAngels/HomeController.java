@@ -7,13 +7,14 @@ import javafx.scene.control.*;
 
 public class HomeController extends MainController {
 
-  @FXML Button serviceButton;
+  @FXML Button serviceButton, mapButton;
 
   @FXML
   private void homeButton(ActionEvent event) throws IOException {
-    System.out.println("here");
     if (event.getSource() == serviceButton) {
       loadPage("views/serviceRequest-view.fxml", serviceButton);
+    } else if (event.getSource() == mapButton) {
+      loadPage("views/map-view.fxml", mapButton);
     }
   }
 }
