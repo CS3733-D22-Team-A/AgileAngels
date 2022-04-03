@@ -16,17 +16,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-public class EquipmentController extends MainController implements Initializable{
-  //@FXML private MenuButton eqptDropdown;
-  //@FXML private MenuItem bed, recliner, xray, infusion;
+public class EquipmentController extends MainController implements Initializable {
+  // @FXML private MenuButton eqptDropdown;
+  // @FXML private MenuItem bed, recliner, xray, infusion;
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
   @FXML private TextField equipLocation, equipmentEmployeeText, equipmentStatus;
   @FXML private Label equipmentConfirmation, dropText;
@@ -37,7 +37,6 @@ public class EquipmentController extends MainController implements Initializable
   private MedDAOImpl medDAO;
 
   private ObservableList<MedDevice> medData = FXCollections.observableArrayList();
-
 
   @FXML
   private TableColumn nameColumn,

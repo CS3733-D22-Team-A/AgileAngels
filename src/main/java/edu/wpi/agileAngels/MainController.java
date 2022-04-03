@@ -52,7 +52,7 @@ public class MainController {
       loadPage("views/equipment-view.fxml", close);
     }
     if (event.getSource() == viewRequest) {
-      loadPage("views/home-view.fxml", close);
+      loadPage("views/equipmentEdit-view.fxml", close);
     }
     if (event.getSource() == map) {
       loadPage("views/maps.fxml", close);

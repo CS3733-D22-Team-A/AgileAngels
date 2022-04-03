@@ -91,7 +91,6 @@ public class EquipmentEditController extends MainController implements Initializ
 
   @FXML
   private void clearPage() throws IOException {
-
-    resetPage("views/equipment-view.fxml");
+    loadPage("views/equipment-view.fxml", equipmentConfirmation);
   }
 }
