@@ -18,7 +18,8 @@ public class MedDAOImpl implements MedDAO {
   private final String CSV_FILE_PATH = "./MedData.csv";
   private HashMap<String, MedDevice> medData = new HashMap<>();
 
-  public MedDAOImpl(Connection connection) {
+  public MedDAOImpl() {
+    Connection connection = DBconnection.getConnection();
     try (Reader reader = Files.newBufferedReader(Paths.get(CSV_FILE_PATH));
         CSVParser csvParser =
             new CSVParser(

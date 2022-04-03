@@ -30,9 +30,10 @@ public class EquipmentController extends MainController implements Initializable
   @FXML private TextField equipLocation, equipmentEmployeeText, equipmentStatus;
   @FXML private Label equipmentConfirmation, dropText;
   @FXML private TableView equipmentTable;
+  private Connection connection;
 
   @FXML Pane drop, drop2;
-  private Connection connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+
   private MedDAOImpl medDAO;
 
   private ObservableList<MedDevice> medData = FXCollections.observableArrayList();
@@ -51,7 +52,7 @@ public class EquipmentController extends MainController implements Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    medDAO = new MedDAOImpl(connection);
+    connection = DBconnection.getConnection();
 
     // Implement DAO here.
 

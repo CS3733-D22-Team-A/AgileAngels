@@ -20,8 +20,8 @@ public class LocationDAOImpl implements LocationDAO {
   private final String CSV_FILE_PATH = "./TowerLocations.csv";
   private HashMap<String, Location> data = new HashMap<>();
 
-  public LocationDAOImpl(
-      Connection connection) { // error, maybe return void? doesn't in tutorial :(
+  public LocationDAOImpl() { // error, maybe return void? doesn't in tutorial :(
+    Connection connection = DBconnection.getConnection();
     try (Reader reader = Files.newBufferedReader(Paths.get(CSV_FILE_PATH));
         CSVParser csvParser =
             new CSVParser(
