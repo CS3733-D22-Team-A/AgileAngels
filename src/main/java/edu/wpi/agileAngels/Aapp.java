@@ -27,10 +27,12 @@ public class Aapp extends Application {
     adb = new Adb();
     String[] args = new String[1];
     adb.main(args);
-    Parent root = FXMLLoader.load(getClass().getResource("views/default-view.fxml"));
-    // Parent root = FXMLLoader.load(getClass().getResource("views/gifts-view.fxml"));
+    // Parent root = FXMLLoader.load(getClass().getResource("views/home-view.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("views/home-view.fxml"));
+    Parent root = loader.load();
     Scene defaultScene = new Scene(root);
     primaryStage.setScene(defaultScene);
+    primaryStage.setResizable(false);
     primaryStage.show();
   }
 

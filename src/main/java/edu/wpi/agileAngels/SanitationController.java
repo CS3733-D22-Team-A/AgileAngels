@@ -35,7 +35,7 @@ public class SanitationController extends MainController {
   }
 
   @FXML
-  private void clearPage() throws IOException {
-    resetPage("views/sanitation-view.fxml");
+  private void clearPage() throws IOException, InterruptedException {
+    loadPage("views/sanitation-view.fxml", sanitationConfirmation);
   }
 }
