@@ -53,7 +53,7 @@
 
 #icon:pressed{
     -fx-background-radius: 10;
-    -fx-background-color: rgba(0, 0, 0, 0.15);
+    -fx-background-color: rgba(0, 0, 0, 0);
 }
 
 
@@ -110,6 +110,7 @@
     -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.15), 32, 0, 2, 2);
     -fx-background-radius: 10;
     -fx-text-fill: black;
+    -fx-view-order: 100;
 }
 
 #menuItemTop{

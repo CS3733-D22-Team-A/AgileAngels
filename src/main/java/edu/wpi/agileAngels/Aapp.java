@@ -20,6 +20,7 @@ public class Aapp extends Application {
   // Creates and displays default scene
   @Override
   public void start(Stage primaryStage) throws IOException, SQLException {
+
     Adb adb = new Adb();
     String[] args = new String[1];
     adb.main(args);

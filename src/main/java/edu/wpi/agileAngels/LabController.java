@@ -52,7 +52,7 @@ public class LabController extends MainController {
   }
 
   @FXML
-  private void clearPage() throws IOException {
+  private void clearPage() throws IOException, InterruptedException {
     loadPage("views/lab-view.fxml", labStatus);
   }
 }

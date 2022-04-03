@@ -33,35 +33,35 @@ public class EquipmentController extends MainController {
   @FXML
   private void submitEquipment() {
 
-    //      if (eqptDropdown.getText().isEmpty()
-    //          || equipLocation.getText().isEmpty()
-    //          || equipmentEmployeeText.getText().isEmpty()) {
-    //        equipmentConfirmation.setText("Please fill out all the require fields");
-    //      } else {
-    //        equipmentConfirmation.setText(
-    //            "Thank you, the "
-    //                + eqptDropdown.getText()
-    //                + " you requested will be delivered shortly to "
-    //                + equipLocation.getText()
-    //                + " by "
-    //                + equipmentEmployeeText.getText()
-    //                + ".");
-    //        EquipmentRequest request =
-    //            new EquipmentRequest(
-    //                equipmentEmployeeText.getText(),
-    //                equipLocation.getText(),
-    //                eqptDropdown.getText(),
-    //                equipmentStatus.getText());
-    //      }
+    if (dropText.getText().isEmpty()
+        || equipLocation.getText().isEmpty()
+        || equipmentEmployeeText.getText().isEmpty()) {
+      equipmentConfirmation.setText("Please fill out all the require fields");
+    } else {
+      equipmentConfirmation.setText(
+          "Thank you, the "
+              + dropText.getText()
+              + " you requested will be delivered shortly to "
+              + equipLocation.getText()
+              + " by "
+              + equipmentEmployeeText.getText()
+              + ".");
+      EquipmentRequest request =
+          new EquipmentRequest(
+              equipmentEmployeeText.getText(),
+              equipLocation.getText(),
+              dropText.getText(),
+              equipmentStatus.getText());
+    }
   }
 
   public void eqpDrop() throws IOException {
     //    drop.setLayoutX(equipDropdownButton.getParent().getParent().getLayoutX());
     //    drop.setLayoutY(equipDropdownButton.getParent().getParent().getLayoutY());
 
-    drop.setLayoutX(getPositionX(equipDropdownButton));
-    drop.setLayoutY(getPositionY(equipDropdownButton));
-
+    // drop.setLayoutX(getPositionX(equipDropdownButton));
+    // drop.setLayoutY(getPositionY(equipDropdownButton));
+    drop.setViewOrder(0);
     drop.setVisible(true);
   }
 
@@ -84,7 +84,7 @@ public class EquipmentController extends MainController {
   }
 
   @FXML
-  private void clearPage() throws IOException {
+  private void clearPage() throws IOException, InterruptedException {
 
     loadPage("views/equipment-view.fxml", equipmentStatus);
   }

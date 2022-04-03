@@ -9,7 +9,7 @@ public class ServiceRequestController extends MainController {
 
   @FXML Button equipmentRequest, labRequest, sanRequest, mealRequest, giftRequest, testButton;
 
-  public void requestButton(ActionEvent event) throws IOException {
+  public void requestButton(ActionEvent event) throws IOException, InterruptedException {
     if (event.getSource() == equipmentRequest) {
       loadPage("views/equipment-view.fxml", equipmentRequest);
     }
