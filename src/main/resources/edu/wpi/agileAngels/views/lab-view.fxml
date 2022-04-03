@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -14,124 +15,181 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" onMouseClicked="#closeMenu" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.EquipmentController">
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" onMouseClicked="#closeMenu" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.LabController">
    <children>
-      <Pane id="topBar" prefHeight="60.0" prefWidth="1280.0" styleClass="minimize" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+
+<Pane id="topBar" prefHeight="60.0" prefWidth="1280.0" styleClass="minimize" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="770.0" spacing="30.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="770.0" spacing="30.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#goHome" styleClass="topBarIcon">
-                     <graphic>
-                        <ImageView fitHeight="59.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/smallLogo.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button id="menuButton" fx:id="equipRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="163.0" text="Equipment Request" />
-                  <Button id="menuButton" fx:id="viewRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="127.0" text="View Requests" />
-                  <Button id="menuButton" fx:id="map" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="68.0" text="Map" />
-               </children>
-               <padding>
-                  <Insets left="30.0" />
-               </padding>
-            </HBox>
-            <Button layoutX="1199.0" layoutY="4.0" mnemonicParsing="false" onAction="#profile" prefHeight="36.0" prefWidth="38.0" styleClass="topBarIcon">
+            <Button mnemonicParsing="false" onAction="#goHome" styleClass="topBarIcon">
                <graphic>
-                  <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="59.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/icons/profile.png" />
+                        <Image url="@../assets/smallLogo.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
+            <Button id="menuButton" fx:id="equipRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="163.0" text="Equipment Request" />
+            <Button id="menuButton" fx:id="viewRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="127.0" text="View Requests" />
+            <Button id="menuButton" fx:id="map" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="68.0" text="Map" />
          </children>
-      </Pane>
-      <Button graphicTextGap="0.0" layoutX="1010.0" layoutY="-10.0" mnemonicParsing="false" onAction="#goHome" AnchorPane.rightAnchor="103.0">
+         <padding>
+            <Insets left="30.0" />
+         </padding>
+      </HBox>
+      <Button layoutX="1199.0" layoutY="4.0" mnemonicParsing="false" onAction="#profile" prefHeight="36.0" prefWidth="38.0" styleClass="topBarIcon">
          <graphic>
-            <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assets/logo.png" />
+                  <Image url="@../assets/icons/profile.png" />
                </image>
             </ImageView>
          </graphic>
-         <styleClass>
-            <String fx:value="image" />
-            <String fx:value="topBarIcon" />
-         </styleClass>
       </Button>
-      <Button fx:id="back" layoutX="20.0" layoutY="656.0" mnemonicParsing="false" onAction="#back" prefHeight="44.0" prefWidth="104.0">
-         <graphic>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/back.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="Back">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-         </graphic>
-      </Button>
-      <Button fx:id="close" layoutX="1136.0" layoutY="656.0" mnemonicParsing="false" onAction="#closeApp" prefHeight="44.0" prefWidth="124.0">
-         <graphic>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
-               <children>
-                  <Label text="Close App">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-         </graphic>
-      </Button>
-
-
-
-
-
-      <HBox alignment="CENTER" layoutX="78.0" layoutY="181.0" prefHeight="410.0" prefWidth="1158.0" spacing="50.0">
+   </children>
+</Pane>
+<Button graphicTextGap="0.0" layoutX="1010.0" layoutY="-10.0" mnemonicParsing="false" onAction="#goHome" AnchorPane.rightAnchor="103.0">
+   <graphic>
+      <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/logo.png" />
+         </image>
+      </ImageView>
+   </graphic>
+   <styleClass>
+      <String fx:value="image" />
+      <String fx:value="topBarIcon" />
+   </styleClass>
+</Button>
+<Button fx:id="back" layoutX="20.0" layoutY="656.0" mnemonicParsing="false" onAction="#back" prefHeight="44.0" prefWidth="104.0">
+   <graphic>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
          <children>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons/back.png" />
+               </image>
+            </ImageView>
+            <Label text="Back">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </graphic>
+</Button>
+<Button fx:id="close" layoutX="1136.0" layoutY="656.0" mnemonicParsing="false" onAction="#closeApp" prefHeight="44.0" prefWidth="124.0">
+   <graphic>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+         <children>
+            <Label text="Close App">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </graphic>
+</Button>
+
+<HBox alignment="CENTER" layoutX="78.0" layoutY="181.0" prefHeight="410.0" prefWidth="1158.0" spacing="50.0">
+   <children>
             <VBox alignment="CENTER" prefHeight="432.0" prefWidth="270.0" spacing="40.0">
                <children>
-                  <Button fx:id="labDropdownButton" mnemonicParsing="false" onAction="#eqpDrop" prefHeight="50.0" prefWidth="270.0">
-                     <graphic>
-                        <HBox alignment="CENTER_LEFT" layoutX="100.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <Pane fx:id="drop2" prefHeight="50.0" prefWidth="270.0">
+                     <children>
+                        <Pane id="dropdown" fx:id="drop" prefHeight="200.0" prefWidth="270.0" visible="false">
                            <children>
-                              <Label fx:id="dropText" prefHeight="26.0" prefWidth="344.0" text="Equipment Needed" textFill="#868686">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                              </Label>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                              <VBox prefHeight="200.0" prefWidth="270.0">
                                  <children>
-                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/icons/dropdown.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets right="10.0" />
-                                       </HBox.margin>
-                                    </ImageView>
+                                    <Button id="menuItemTop" fx:id="blood" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
+                                       <graphic>
+                                          <Label fx:id="bloodLabel" prefHeight="26.0" prefWidth="274.0" text="Blood Test">
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </Label>
+                                       </graphic>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </Button>
+                                    <Button id="menuItem" fx:id="urine" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
+                                       <graphic>
+                                          <Label fx:id="urineLabel" prefHeight="24.0" prefWidth="360.0" text="Urine Test">
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </Label>
+                                       </graphic>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </Button>
+                                    <Button id="menuItem" fx:id="tumor" layoutX="10.0" layoutY="54.0" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
+                                       <graphic>
+                                          <Label fx:id="tumorLabel" prefHeight="24.0" prefWidth="360.0" text="Tumor Marker">
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </Label>
+                                       </graphic>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </Button>
+                                    <Button id="menuItemBottom" fx:id="covid" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
+                                       <graphic>
+                                          <Label fx:id="covidLabel" prefHeight="24.0" prefWidth="360.0" text="COVID-19 Test">
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </Label>
+                                       </graphic>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                        <Button fx:id="labDropdownButton" mnemonicParsing="false" onAction="#labDrop" prefHeight="50.0" prefWidth="270.0">
+                           <graphic>
+                              <HBox alignment="CENTER_LEFT" layoutX="100.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Label fx:id="dropText" prefHeight="26.0" prefWidth="344.0" text="Lab Test" textFill="#868686">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </Label>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../assets/icons/dropdown.png" />
+                                             </image>
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
                                  </children>
                               </HBox>
-                           </children>
-                        </HBox>
-                     </graphic>
-                  </Button>
-                  <TextField fx:id="equipLocation" prefHeight="50.0" prefWidth="270.0" promptText="Delivery Location" />
-                  <TextField fx:id="equipmentEmployeeText" prefHeight="50.0" prefWidth="270.0" promptText="Employee" />
-                  <TextField fx:id="equipmentStatus" prefHeight="50.0" prefWidth="270.0" promptText="Status" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </Pane>
+                  <TextField fx:id="labTestLocation" prefHeight="50.0" prefWidth="270.0" promptText="Delivery Location" />
+                  <TextField fx:id="labEmployeeText" prefHeight="50.0" prefWidth="270.0" promptText="Employee" />
+                  <TextField fx:id="labStatus" prefHeight="50.0" prefWidth="270.0" promptText="Status" />
                   <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0">
                      <children>
                         <Button fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
@@ -152,7 +210,7 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#submitEquipment" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#submitLabTest" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
                            <font>
                               <Font size="10.0" />
                            </font>
@@ -173,115 +231,25 @@
                      </children>
                   </HBox>
                </children>
-
-
-               <!--
-
-               above is a VBox that includes text fields and a menu dropdown if implimenting a menu dropdown include the pane at the end
-
-               -->
-
             </VBox>
-            <TableView fx:id="equipmentTable" prefHeight="410.0" prefWidth="838.0">
-               <columns>
-                  <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
-                  <TableColumn fx:id="availableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Available" />
-                  <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Type" />
-                  <TableColumn fx:id="locationColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Location" />
-                  <TableColumn fx:id="employeeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Employee" />
-                  <TableColumn fx:id="statusColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Status" />
-                  <TableColumn fx:id="descriptionColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Description" />
-               </columns>
-            </TableView>
-         </children>
-      </HBox>
+      <TableView fx:id="equipmentTable" prefHeight="410.0" prefWidth="838.0">
+         <columns>
+            <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
+            <TableColumn fx:id="availableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Available" />
+            <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Type" />
+            <TableColumn fx:id="locationColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Location" />
+            <TableColumn fx:id="employeeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Employee" />
+            <TableColumn fx:id="statusColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Status" />
+            <TableColumn fx:id="descriptionColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Description" />
+         </columns>
+      </TableView>
+   </children>
+</HBox>
+<Label fx:id="labTestConfirmation" alignment="TOP_LEFT" layoutX="467.0" layoutY="600.0" prefHeight="100.0" prefWidth="523.0" wrapText="true">
+   <font>
+      <Font size="16.0" />
+   </font></Label>
 
 
-
-      <Pane id="dropdown" fx:id="drop1" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="270.0" visible="false">
-         <children>
-            <VBox prefHeight="200.0" prefWidth="270.0">
-               <children>
-                  <Button id="menuItemTop" fx:id="blood" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
-                     <graphic>
-                        <Label prefHeight="26.0" prefWidth="274.0" text="Blood Test">
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </Label>
-                     </graphic>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Button>
-                  <Button id="menuItem" fx:id="urine" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
-                     <graphic>
-                        <Label prefHeight="24.0" prefWidth="360.0" text="Urine Test">
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </Label>
-                     </graphic>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Button>
-                  <Button id="menuItem" fx:id="tumor" layoutX="10.0" layoutY="54.0" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
-                     <graphic>
-                        <Label prefHeight="24.0" prefWidth="360.0" text="Tumor Marker">
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </Label>
-                     </graphic>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Button>
-                  <Button id="menuItemBottom" fx:id="covid" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" onAction="#menuItemSelected" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
-                     <graphic>
-                        <Label prefHeight="24.0" prefWidth="360.0" text="COVID-19 Test">
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </Label>
-                     </graphic>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Button>
-               </children>
-            </VBox>
-         </children>
-      </Pane>
-
-
-
-
-      <TextField fx:id="labTestLocation" layoutX="90.0" layoutY="413.0" prefHeight="35.0" prefWidth="200.0" />
-      <Label contentDisplay="CENTER" layoutX="374.0" layoutY="135.0" text="Please select lab type:">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
-      <Label contentDisplay="CENTER" layoutX="90.0" layoutY="390.0" text="Enter location of request.">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
-      <Label fx:id="labTestConfirmation" alignment="TOP_LEFT" layoutX="564.0" layoutY="294.0" prefHeight="359.0" prefWidth="686.0" wrapText="true">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
-
-      <TextField fx:id="labEmployeeText" layoutX="90.0" layoutY="535.0" prefHeight="35.0" prefWidth="200.0" />
-      <Label contentDisplay="CENTER" layoutX="90.0" layoutY="513.0" text="Enter name of employee.">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
-      <Label layoutX="90.0" layoutY="609.0" prefHeight="17.0" prefWidth="134.0" text="Enter status:">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <TextField fx:id="labStatus" layoutX="90.0" layoutY="635.0" prefHeight="35.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
