@@ -1,6 +1,7 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
+import java.util.Stack;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,31 +20,38 @@ public class MainController {
 
   @FXML AnchorPane anchor;
 
-  // public Stack<String> pageHistory = new Stack<>();
+  public static Stack<String> pageHistory = new Stack<>();
 
   @FXML
   private void closeApp() {
+
     Platform.exit();
   }
 
   void loadPage(String view, Control item) throws IOException {
 
-    // pageHistory.push("views/maps.fxml");
-    System.out.println("test");
+    if (item == back) {
+    } else if (pageHistory.empty()) {
+      pageHistory.push("views/home-view.fxml");
+      pageHistory.push(view);
+    } else if (view != pageHistory.peek()) {
+      pageHistory.push(view);
+    }
+
     Stage stage;
     Parent root;
     stage = (Stage) item.getScene().getWindow();
     root = FXMLLoader.load(getClass().getResource(view));
     Scene scene = new Scene(root);
     stage.setScene(scene);
-    stage.setResizable(false);
+    stage.setResizable(true);
     stage.show();
   }
 
   @FXML
   private void back(ActionEvent event) throws IOException {
-
-    loadPage("views/home-view.fxml", back);
+    pageHistory.pop();
+    loadPage(pageHistory.peek(), back);
   }
 
   @FXML
@@ -72,6 +80,7 @@ public class MainController {
   static double pos = 0;
 
   public double getPositionX(Node node) {
+
     if (node.getParent() == anchor) {
       double position = pos + node.getLayoutX();
       pos = 0;

@@ -170,6 +170,7 @@
 }
 .table-view:focused{
     -fx-background-color: white;
+    -fx-border-width: 0;
 }
 
 .table-view .column-header {

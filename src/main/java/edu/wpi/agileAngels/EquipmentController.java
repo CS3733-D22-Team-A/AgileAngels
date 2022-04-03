@@ -121,8 +121,8 @@ public class EquipmentController extends MainController implements Initializable
     //    drop.setLayoutX(equipDropdownButton.getParent().getParent().getLayoutX());
     //    drop.setLayoutY(equipDropdownButton.getParent().getParent().getLayoutY());
 
-    // drop.setLayoutX(getPositionX(equipDropdownButton));
-    // drop.setLayoutY(getPositionY(equipDropdownButton));
+    drop.setLayoutX(getPositionX(equipDropdownButton));
+    drop.setLayoutY(getPositionY(equipDropdownButton));
     drop.setViewOrder(0);
     drop.setVisible(true);
   }
