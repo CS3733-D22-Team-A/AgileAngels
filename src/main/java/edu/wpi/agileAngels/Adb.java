@@ -2,7 +2,6 @@ package edu.wpi.agileAngels;
 
 import java.sql.*;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Adb {
   private HashMap<String, Location> locationData;
@@ -11,6 +10,7 @@ public class Adb {
   private LocationDAOImpl LocationDAO;
 
   private MedDAOImpl MedDAO;
+  private Connection connection = DBconnection.getConnection();
 
   public void main(String[] args) throws SQLException {
 
@@ -36,7 +36,7 @@ public class Adb {
     Statement statementMedical;
     try {
       // substitute your database name for myDB
-      Connection connection = DBconnection.getConnection();
+
       statementLocations = connection.createStatement();
 
       String queryLocations =
@@ -74,8 +74,67 @@ public class Adb {
   }
 
 
+  /**
+   * Allows the user to change the floor and location type
+   *
+   * @param ID the node string ID to check if location is present in the map
+   * @throws SQLException
+   */
+  private void ChangeFloorandType(String ID, String newFloor, String newLocation) throws SQLException {
+    PreparedStatement pstmt =
+              connection.prepareStatement(
+                      "UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
+      pstmt.setString(1, newFloor);
+      pstmt.setString(2, newLocation);
+      pstmt.setString(3, ID);
+      pstmt.executeUpdate();
 
+  }
 
+  /**
+   * Adds a new location to the location table and hashmap.
+   *
+   * @param node
+   * @throws SQLException
+   */
+  private void addLocation(String node) throws SQLException {
+    // Adding to the database table
+    String add =
+            "INSERT INTO Locations(NodeID,xcoord,ycoord,Floor,building,nodeType,longName,shortName)VALUES(?,'?','?','?','?','?','?','?')";
+    PreparedStatement preparedStatement = connection.prepareStatement(add);
+    preparedStatement.setString(1, node);
+    preparedStatement.execute();
+
+    //TODO: Add this code to when you add location to hashmap
+    /** Adding to the hashmap
+    String placeholder = "?";
+    Location location =
+            new Location(
+                    node,
+                    placeholder,
+                    placeholder,
+                    placeholder,
+                    placeholder,
+                    placeholder,
+                    placeholder,
+                    placeholder);
+    LocationDAO.addLocation(location);**/
+  }
+
+  /**
+   * Deletes a location from the table and hashmap.
+   *
+   * @param node
+   * @throws SQLException
+   */
+  private void deleteLocation(String node) throws SQLException {
+    // Deleting from the database table
+    PreparedStatement preparedStatement =
+            connection.prepareStatement("DELETE FROM Locations WHERE NodeID = ?");
+    preparedStatement.setString(1, node);
+    preparedStatement.execute();
+
+  }
 
 }
 
