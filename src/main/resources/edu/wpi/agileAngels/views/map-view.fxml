@@ -87,7 +87,7 @@
             </HBox>
          </graphic>
       </MenuButton>
-      <ImageView fitHeight="800" fitWidth="1280" layoutX="0" preserveRatio="true">
+      <ImageView fitHeight="800" fitWidth="1280" preserveRatio="true">
          <image>
             <Image url="@../assets/bground.png" />
          </image>
@@ -97,31 +97,6 @@
             <Font size="65.0" />
          </font>
       </Text>
-      <ImageView id="lowerLevelTwo" fx:id="lowerLevelTwoMap" fitHeight="500.0" fitWidth="500.0" layoutX="424.0" layoutY="210.0" preserveRatio="true">
-         <image>
-            <Image url="@../assets/LowerFloor2_Tower_FINAL.jpg" />
-         </image>
-      </ImageView>
-      <ImageView id="lowerLevelOne" fx:id="lowerLevelOneMap" fitHeight="500.0" fitWidth="500.0" layoutX="424.0" layoutY="210.0" preserveRatio="true">
-         <image>
-            <Image url="@../assets/LowerFloor1_Tower_FINAL.jpg" />
-         </image>
-      </ImageView>
-      <ImageView id="floorThreeMap" fx:id="floorThreeMap" fitHeight="500.0" fitWidth="500.0" layoutX="424.0" layoutY="210.0" preserveRatio="true">
-         <image>
-            <Image url="@../assets/Floor3_Tower_FINAL.jpg" />
-         </image>
-      </ImageView>
-      <ImageView id="floorTwoMap" fx:id="floorTwoMap" fitHeight="500.0" fitWidth="500.0" layoutX="424.0" layoutY="213.0" preserveRatio="true">
-         <image>
-            <Image url="@../assets/Floor2_Tower_Final.jpg" />
-         </image>
-      </ImageView>
-      <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="500.0" fitWidth="500.0" layoutX="424.0" layoutY="210.0" preserveRatio="true">
-         <image>
-            <Image url="@../assets/FirstFloor_Tower_FINAL.jpg" />
-         </image>
-      </ImageView>
       <Button id="floorThree" fx:id="floorThree" layoutX="131.0" layoutY="226.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 3">
          <font>
             <Font size="17.0" />
@@ -142,5 +117,34 @@
          <font>
             <Font size="17.0" />
          </font></Button>
+      <Pane layoutX="390.0" layoutY="198.0" prefHeight="500" prefWidth="500.0">
+         <children>
+            <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="500.0" fitWidth="500.0" layoutX="0" layoutY="0" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/FirstFloor_Tower_FINAL.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="floorTwoMap" fx:id="floorTwoMap" fitHeight="500.0" fitWidth="500.0" layoutX="0" layoutY="0" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/Floor2_Tower_Final.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="floorThreeMap" fx:id="floorThreeMap" fitHeight="500.0" fitWidth="500.0" layoutX="0" layoutY="0" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/Floor3_Tower_FINAL.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="lowerLevelOne" fx:id="lowerLevelOneMap" fitHeight="500.0" fitWidth="500.0" layoutX="0" layoutY="0" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/LowerFloor1_Tower_FINAL.jpg" />
+               </image>
+            </ImageView>
+            <ImageView id="lowerLevelTwo" fx:id="lowerLevelTwoMap" fitHeight="500.0" fitWidth="500.0" layoutX="0" layoutY="0" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/LowerFloor2_Tower_FINAL.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
