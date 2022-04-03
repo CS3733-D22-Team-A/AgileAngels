@@ -28,7 +28,6 @@ public class Aapp extends Application {
     String[] args = new String[1];
     adb.main(args);
     Parent root = FXMLLoader.load(getClass().getResource("views/home-view.fxml"));
-    // Parent root = FXMLLoader.load(getClass().getResource("views/gifts-view.fxml"));
     Scene defaultScene = new Scene(root);
     primaryStage.setScene(defaultScene);
     primaryStage.setResizable(false);
