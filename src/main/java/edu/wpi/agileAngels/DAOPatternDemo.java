@@ -5,12 +5,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+
+
 // test DAO methods
 public class DAOPatternDemo {
+  private static Connection connection;
+  private static LocationDAO locationDao;
   public static void main(String[] args) throws SQLException {
-    Connection connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-    LocationDAOImpl locationDao = new LocationDAOImpl(connection);
     {
+      connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+
       HashMap<String, Location> data = locationDao.getAllLocations();
 
       Location loc1 = data.get("FHALL02401");
