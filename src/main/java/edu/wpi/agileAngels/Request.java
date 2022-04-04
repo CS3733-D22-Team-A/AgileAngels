@@ -6,12 +6,14 @@ public class Request {
   private String type;
   private int requestType;
   private String status;
+  private String description;
 
-  public Request(String employeeName, String location, String type, String status) {
+  public Request(String employeeName, String location, String type, String status, String description) {
     this.employeeName = employeeName;
     this.location = location;
     this.type = type;
     this.status = status;
+    this.description = description;
   }
 
   public Request() {}
@@ -22,6 +24,9 @@ public class Request {
 
   public int getRequestType() {
     return requestType;
+  }
+  public String getDescription(){
+    return description;
   }
 
   public String getEmployeeName() {
@@ -50,5 +55,10 @@ public class Request {
 
   public void setStatus(String status) {
     this.status = status;
+  }
+
+  public void setDescription(String description){
+    this.description = description;
+
   }
 }
