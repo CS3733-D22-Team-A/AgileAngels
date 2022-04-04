@@ -48,7 +48,8 @@ public class GiftsController extends MainController {
               giftRecipient.getText(),
               giftType.getText(),
               giftStatus.getText(),
-              giftMessage.getText(),
+              "",
+              // giftMessage.getText(),
               giftSender.getText());
     }
   }

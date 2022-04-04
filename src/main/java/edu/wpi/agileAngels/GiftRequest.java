@@ -26,8 +26,10 @@ public class GiftRequest extends Request {
   public void setSender(String sender) {
     this.sender = sender;
   }
-
+  /*
   public void setMessage(String message) {
-    setDescription(message);
+    this.description = message;
   }
+  */
+
 }

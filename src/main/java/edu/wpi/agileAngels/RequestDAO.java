@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public interface RequestDAO {
 
-  public HashMap<String, Request> getAllMedicalEquipmentRequests();
+  public HashMap<String, Request> getAllRequests();
 
   public void updateEmployeeName(Request request, String newName);
 
