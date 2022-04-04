@@ -32,7 +32,7 @@
             <Insets left="30.0" />
          </padding>
       </HBox>
-      <Button layoutX="1199.0" layoutY="5.0" mnemonicParsing="false" onAction="#profile" prefHeight="36.0" prefWidth="38.0" styleClass="topBarIcon">
+      <Button fx:id="userButton" layoutX="1199.0" layoutY="5.0" mnemonicParsing="false" onAction="#profile" prefHeight="36.0" prefWidth="38.0" styleClass="topBarIcon">
          <graphic>
             <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -41,6 +41,7 @@
             </ImageView>
          </graphic>
       </Button>
+      <Button fx:id="userIDIcon" layoutX="1207.0" layoutY="9.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="34.0" text="J" visible="false" />
       <Button graphicTextGap="0.0" layoutX="1020.0" layoutY="-5.0" mnemonicParsing="false" onAction="#goHome">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">

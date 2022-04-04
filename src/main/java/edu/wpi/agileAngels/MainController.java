@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 public class MainController {
 
   @FXML private Button back, close, clear, equipRequest, viewRequest, map;
-  @FXML Button dropButton, op1, op2, op3, op4;
+  @FXML Button userButton, userIDIcon, dropButton, op1, op2, op3, op4;
   @FXML Label dropdownButtonText, op1Label, op2Label, op3Label, op4Label;
 
   @FXML AnchorPane anchor;
@@ -25,13 +25,16 @@ public class MainController {
   @FXML Pane menuPane, dropButtonPane;
 
   public static Stack<String> pageHistory = new Stack<>();
+  private static String username;
+  private static String userID;
+  public static Boolean loggedIn = false;
 
   @FXML
   private void closeApp() {
     Platform.exit();
   }
 
-  void loadPage(String view, Control item) throws IOException {
+  public void loadPage(String view, Control item) throws IOException {
 
     if (item == back) {
     } else if (pageHistory.empty()) {
@@ -41,6 +44,7 @@ public class MainController {
       pageHistory.push(view);
     }
 
+    System.out.println(pageHistory);
     Stage stage;
     Parent root;
     stage = (Stage) item.getScene().getWindow();
@@ -52,7 +56,7 @@ public class MainController {
   }
 
   @FXML
-  private void back(ActionEvent event) throws IOException {
+  public void back() throws IOException {
     pageHistory.pop();
     loadPage(pageHistory.peek(), back);
   }
@@ -61,6 +65,19 @@ public class MainController {
   private void clearPage() throws IOException {
     System.out.println("test");
     loadPage(pageHistory.peek(), clear);
+  }
+
+  public void setUsername(String user) {
+    username = user;
+    userID = String.valueOf(user.toUpperCase().charAt(0));
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public String getUserID() {
+    return userID;
   }
 
   @FXML
@@ -78,7 +95,7 @@ public class MainController {
 
   @FXML
   private void profile() throws IOException {
-    loadPage("views/home-view.fxml", close);
+    loadPage("views/login.fxml", close);
   }
 
   @FXML

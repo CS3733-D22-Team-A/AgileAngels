@@ -1,6 +1,5 @@
 package edu.wpi.agileAngels;
 
-import java.awt.*;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
