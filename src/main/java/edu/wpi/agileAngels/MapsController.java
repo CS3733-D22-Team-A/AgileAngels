@@ -60,7 +60,7 @@ public class MapsController extends MainController {
     ArrayList<Location> locationList = new ArrayList<Location>(locationHash.values());
     Stage stage;
     Parent root;
-    stage = (Stage) floorOne.getScene().getWindow();
+    stage = (Stage) mapPane.getScene().getWindow();
     root = FXMLLoader.load(getClass().getResource("views/map-view.fxml"));
     Group group = new Group(root);
 
@@ -71,7 +71,7 @@ public class MapsController extends MainController {
       lowerLevelOneMap.setOpacity(0.0);
       lowerLevelTwoMap.setOpacity(0.0);
 
-      for (int i = 0; 1 < locationList.size(); i++) {
+      for (int i = 0; i < locationList.size(); i++) {
         Location location = locationList.get(i);
         if (location.getFloor().equals("1")) {
           displayLocation(location, i);
