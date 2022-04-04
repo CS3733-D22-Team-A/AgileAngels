@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import java.lang.String?>
 
 <AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" onMouseClicked="#closeMenu" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.LabController">
    <children>
@@ -153,6 +154,14 @@
                      </children>
                   </HBox>
                </children>
+
+
+               <!--
+
+               above is a VBox that includes text fields and a menu dropdown if implimenting a menu dropdown include the pane at the end
+
+               -->
+
             </VBox>
       <TableView fx:id="equipmentTable" prefHeight="410.0" prefWidth="838.0">
          <columns>
