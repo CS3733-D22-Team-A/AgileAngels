@@ -73,6 +73,47 @@ public class Adb {
     System.out.println("Apache Derby connection established!");
   }
 
+  /**
+   * Adds a medical equipment request to the database table.
+   * @param medDevice
+   * @return True if successful, false if not.
+   */
+  public boolean addMedicalEquipmentRequest(MedDevice medDevice){
+    try{
+      PreparedStatement preparedStatement =
+              DBconnection.getConnection().prepareStatement
+                      ("INSERT INTO MedicalEquipment(Name, available ,type, location, employee, status, description) VALUES(?,?,?,?,?,?,?)");
+      preparedStatement.setString(1, medDevice.getName());
+      preparedStatement.setString(2, medDevice.getAvailable());
+      preparedStatement.setString(3, medDevice.getType());
+      preparedStatement.setString(4, medDevice.getLocation());
+      preparedStatement.setString(5, medDevice.getEmployee());
+      preparedStatement.setString(6, medDevice.getStatus());
+      preparedStatement.setString(7, medDevice.getDescription());
+      preparedStatement.execute();
+      return true;
+    }catch(SQLException sqlException){
+      return false;
+    }
+  }
+
+  /**
+   * Removes a medical equipment request from the database table.
+   * @param medDevice
+   * @return True if successful, false if not.
+   */
+  public boolean removeMedicalEquipmentRequest(MedDevice medDevice){
+    try{
+      PreparedStatement preparedStatement =
+              DBconnection.getConnection().prepareStatement(
+                      "DELETE FROM MedicalEquipment WHERE Name = ?");
+      preparedStatement.setString(1, medDevice.getName());
+      preparedStatement.execute();
+      return true;
+    }catch(SQLException sqlException){
+      return false;
+    }
+  }
 
   /**
    * Allows the user to change the floor and location type
@@ -90,7 +131,43 @@ public class Adb {
       pstmt.executeUpdate();
 
   }
+  /**
+   * Updates availability for a med device in the table.
+   * @param medDevice (with new availability)
+   * @return True if successful, false if not.
+   */
+  public boolean updateMedicalEquipmentRequestAvailability(MedDevice medDevice){
+    try{
+      PreparedStatement preparedStatement =
+              DBconnection.getConnection().prepareStatement(
+                      "UPDATE MedicalEquipment SET available = ? WHERE name = ?");
+      preparedStatement.setString(1, medDevice.getAvailable());
+      preparedStatement.setString(2, medDevice.getName());
+      preparedStatement.execute();
+      return true;
+    }catch(SQLException sqlException){
+      return false;
+    }
+  }
 
+  /**
+   * Updates type for a med device in the table.
+   * @param medDevice (with new type)
+   * @return True if successful, false if not.
+   */
+  public boolean updateMedicalEquipmentRequestType(MedDevice medDevice){
+    try{
+      PreparedStatement preparedStatement =
+              DBconnection.getConnection().prepareStatement(
+                      "UPDATE MedicalEquipment SET type = ? WHERE name = ?");
+      preparedStatement.setString(1, medDevice.getType());
+      preparedStatement.setString(2, medDevice.getName());
+      preparedStatement.execute();
+      return true;
+    }catch(SQLException sqlException){
+      return false;
+    }
+  }
   /**
    * Adds a new location to the location table and hashmap.
    *
@@ -135,6 +212,61 @@ public class Adb {
     preparedStatement.execute();
 
   }
+  /**
+   * Updates location for a med device in the table.
+   * @param medDevice (with new location)
+   * @return True if successful, false if not.
+   */
+  public boolean updateMedicalEquipmentRequestLocation(MedDevice medDevice){
+    try{
+      PreparedStatement preparedStatement =
+              DBconnection.getConnection().prepareStatement(
+                      "UPDATE MedicalEquipment SET location = ? WHERE name = ?");
+      preparedStatement.setString(1, medDevice.getLocation());
+      preparedStatement.setString(2, medDevice.getName());
+      preparedStatement.execute();
+      return true;
+    }catch(SQLException sqlException){
+      return false;
+    }
+  }
 
+  /**
+   * Updates employee for a med device in the table.
+   * @param medDevice (with new employee)
+   * @return True if successful, false if not.
+   */
+  public boolean updateMedicalEquipmentRequestEmployee(MedDevice medDevice){
+    try{
+      PreparedStatement preparedStatement =
+              DBconnection.getConnection().prepareStatement(
+                      "UPDATE MedicalEquipment SET employee = ? WHERE name = ?");
+      preparedStatement.setString(1, medDevice.getEmployee());
+      preparedStatement.setString(2, medDevice.getName());
+      preparedStatement.execute();
+      return true;
+    }catch(SQLException sqlException){
+      return false;
+    }
+  }
+
+  /**
+   * Updates status for a med device in the table.
+   * @param medDevice (with new status)
+   * @return True if successful, false if not.
+   */
+  public boolean updateMedicalEquipmentRequestStatus(MedDevice medDevice){
+    try{
+      PreparedStatement preparedStatement =
+              DBconnection.getConnection().prepareStatement(
+                      "UPDATE MedicalEquipment SET status = ? WHERE name = ?");
+      preparedStatement.setString(1, medDevice.getStatus());
+      preparedStatement.setString(2, medDevice.getName());
+      preparedStatement.execute();
+      return true;
+    }catch(SQLException sqlException){
+      return false;
+    }
+  }
 }
 

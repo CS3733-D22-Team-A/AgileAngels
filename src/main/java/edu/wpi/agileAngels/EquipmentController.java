@@ -101,17 +101,6 @@ public class EquipmentController extends MainController implements Initializable
               placeholder,
               placeholder);
       medDAO.addMed(medDevice);
-      String addMed =
-          "INSERT INTO MedicalEquipment(Name, available ,type, location, employee, status, description)VALUES(?,?,?,?,?,?,?)";
-      PreparedStatement preparedStatement = connection.prepareStatement(addMed);
-      preparedStatement.setString(1, medDevice.getName());
-      preparedStatement.setString(2, medDevice.getAvailable());
-      preparedStatement.setString(3, medDevice.getType());
-      preparedStatement.setString(4, medDevice.getLocation());
-      preparedStatement.setString(5, medDevice.getEmployee());
-      preparedStatement.setString(6, medDevice.getStatus());
-      preparedStatement.setString(7, medDevice.getDescription());
-      preparedStatement.execute();
       medData.add(medDevice);
       equipmentTable.setItems(medData);
     }
