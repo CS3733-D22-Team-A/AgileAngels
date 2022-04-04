@@ -2,23 +2,13 @@ package edu.wpi.agileAngels;
 
 public class MealRequest extends Request {
 
-  private String dietaryRestrictions;
-
   public MealRequest(
-      String employeeName,
-      String location,
-      String type,
-      String status,
-      String dietaryRestrictions) {
-    super(employeeName, location, type, status);
-    this.dietaryRestrictions = dietaryRestrictions;
+      String employeeName, String location, String type, String status, String description) {
+    super(employeeName, location, type, status, description);
+    setRequestType(3);
   }
 
-  public String getDietaryRestrictions() {
-    return dietaryRestrictions;
-  }
-
-  public void setDietaryRestrictions(String dietaryRestrictions) {
-    this.dietaryRestrictions = dietaryRestrictions;
+  public String getDietryRestrictions() {
+    return getDescription();
   }
 }

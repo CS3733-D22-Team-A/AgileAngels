@@ -34,7 +34,8 @@ public class LabController extends MainController {
               labEmployeeText.getText(),
               labTestLocation.getText(),
               labDropdown.getText(),
-              labStatus.getText());
+              labStatus.getText(),
+              " ");
     }
   }
 

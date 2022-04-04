@@ -30,7 +30,8 @@ public class SanitationController extends MainController {
               sanitationEmployeeText.getText(),
               sanLocation.getText(),
               sanIssue.getText(),
-              sanitationStatus.getText());
+              sanitationStatus.getText(),
+              "None");
     }
   }
 

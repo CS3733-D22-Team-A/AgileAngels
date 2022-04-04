@@ -1,27 +1,26 @@
 package edu.wpi.agileAngels;
 
 public class GiftRequest extends Request {
-
-  private String sender, message;
+  private String sender;
 
   public GiftRequest(
       String employeeName,
       String location,
       String type,
       String status,
-      String sender,
-      String message) {
-    super(employeeName, location, type, status);
-    this.message = message;
+      String description,
+      String sender) {
+    super(employeeName, location, type, status, description);
     this.sender = sender;
+    setRequestType(2);
   }
 
   public String getSender() {
-    return sender;
+    return this.sender;
   }
 
   public String getMessage() {
-    return message;
+    return getDescription();
   }
 
   public void setSender(String sender) {
@@ -29,6 +28,6 @@ public class GiftRequest extends Request {
   }
 
   public void setMessage(String message) {
-    this.message = message;
+    setDescription(message);
   }
 }
