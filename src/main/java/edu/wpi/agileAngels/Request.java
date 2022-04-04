@@ -4,6 +4,7 @@ public class Request {
   private String employeeName;
   private String location;
   private String type;
+  private int requestType;
   private String status;
 
   public Request(String employeeName, String location, String type, String status) {
@@ -13,8 +14,14 @@ public class Request {
     this.status = status;
   }
 
+  public Request() {}
+
   public String getStatus() {
     return status;
+  }
+
+  public int getRequestType() {
+    return requestType;
   }
 
   public String getEmployeeName() {

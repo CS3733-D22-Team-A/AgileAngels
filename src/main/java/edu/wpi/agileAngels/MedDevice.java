@@ -1,6 +1,6 @@
 package edu.wpi.agileAngels;
 
-public class MedDevice {
+public class MedDevice extends Request {
   private String name;
   private String available;
   private String type;
@@ -8,6 +8,7 @@ public class MedDevice {
   private String employee;
   private String status;
   private String description;
+  private int requestType;
 
   public MedDevice(
       String name,
@@ -24,6 +25,7 @@ public class MedDevice {
     this.employee = employee;
     this.status = status;
     this.description = description;
+    this.requestType = 0;
   }
 
   public String getName() {

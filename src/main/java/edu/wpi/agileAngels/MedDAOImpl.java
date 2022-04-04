@@ -77,7 +77,7 @@ public class MedDAOImpl implements MedDAO {
   }
 
   @Override
-  //database needs unique names to recognize medical requests
+  // database needs unique names to recognize medical requests
   public void updateName(MedDevice medDevice, String newName) {
     medDevice.setName(newName);
     System.out.println(
@@ -129,7 +129,7 @@ public class MedDAOImpl implements MedDAO {
   @Override
   public void addMed(MedDevice medDevice) {
     medData.put(medDevice.getName(), medDevice);
-    //(Adb instance).addMedicalEquipmentRequest(medDevice);
+    // (Adb instance).addMedicalEquipmentRequest(medDevice);
     System.out.println(
         "Medical Equipment: Name " + medDevice.getName() + ", added in the database");
   }
