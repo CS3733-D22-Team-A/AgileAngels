@@ -12,11 +12,11 @@
 <AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.LoginController">
     <children>
         <fx:include source="menu-bar.fxml" />
-      <HBox alignment="CENTER" layoutY="151.0" prefHeight="402.0" prefWidth="1280.0" AnchorPane.bottomAnchor="167.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="151.0">
+
+      <HBox alignment="CENTER" layoutY="222.0" prefHeight="402.0" prefWidth="1280.0" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="222.0">
          <children>
             <VBox alignment="CENTER" prefHeight="555.0" prefWidth="270.0" spacing="40.0">
                <children>
-                  <Label fx:id="invalid" alignment="CENTER" prefHeight="26.0" prefWidth="178.0" />
                   <TextField fx:id="username" prefHeight="50.0" prefWidth="270.0" promptText="Username:" />
                   <TextField fx:id="passwordBox" prefHeight="50.0" prefWidth="270.0" promptText="Password:" />
                   <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0">
@@ -63,6 +63,7 @@
             </VBox>
          </children>
       </HBox>
+      <Label fx:id="invalid" alignment="CENTER" layoutX="451.0" layoutY="216.0" prefHeight="91.0" prefWidth="379.0" textAlignment="CENTER" wrapText="true" />
 
 
     </children>

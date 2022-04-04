@@ -16,13 +16,13 @@ public class LoginController extends MainController {
   @FXML
   private void login() throws IOException {
     if (username.getText().equals(passwordBox.getText()) && !username.getText().isEmpty()) {
-      pageHistory.pop();
       loggedIn = true;
-      loadPage(pageHistory.peek(), login);
       setUsername(username.getText());
+      pageHistory.pop();
+      loadPage(pageHistory.peek(), login);
     } else {
       invalid.setTextFill(Color.rgb(220, 80, 80));
-      invalid.setText("Invalid Password");
+      invalid.setText("Invalid username or password:\nPlease try again");
     }
   }
 }

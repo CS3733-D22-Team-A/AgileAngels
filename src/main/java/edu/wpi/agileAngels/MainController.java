@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 public class MainController {
 
-  @FXML private Button back, close, clear, equipRequest, viewRequest, map;
+  @FXML Button back, close, clear, equipRequest, viewRequest, map;
   @FXML Button userButton, userIDIcon, dropButton, op1, op2, op3, op4;
   @FXML Label dropdownButtonText, op1Label, op2Label, op3Label, op4Label;
 

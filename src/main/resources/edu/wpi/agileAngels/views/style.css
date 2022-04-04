@@ -11,6 +11,9 @@
 #title{
     -fx-font-family: "Roboto Thin";
 }
+#circle{
+    -fx-background-color: black;
+}
 
 .label{
     -fx-font-size: 16;
