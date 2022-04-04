@@ -8,10 +8,17 @@ public class Request {
   private String status;
   private String description;
 
-  public Request(String employeeName, String location, String type, String status, String description) {
+  public Request(
+      String employeeName,
+      String location,
+      String type,
+      int requestType,
+      String status,
+      String description) {
     this.employeeName = employeeName;
     this.location = location;
     this.type = type;
+    this.requestType = requestType;
     this.status = status;
     this.description = description;
   }
@@ -25,7 +32,8 @@ public class Request {
   public int getRequestType() {
     return requestType;
   }
-  public String getDescription(){
+
+  public String getDescription() {
     return description;
   }
 
@@ -57,8 +65,11 @@ public class Request {
     this.status = status;
   }
 
-  public void setDescription(String description){
+  public void setDescription(String description) {
     this.description = description;
+  }
 
+  public void setRequestType(int requestType) {
+    this.requestType = requestType;
   }
 }

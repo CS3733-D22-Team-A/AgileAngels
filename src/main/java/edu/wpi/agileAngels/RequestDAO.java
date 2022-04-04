@@ -6,19 +6,19 @@ public interface RequestDAO {
 
   public HashMap<String, Request> getAllMedicalEquipmentRequests();
 
-  public void updateName(MedDevice medDevice, String newName);
+  public void updateEmployeeName(Request request, String newName);
 
-  public void updateAvailability(MedDevice medDevice, String newAvailability);
+  public void updateRequestType(Request request, int requestType);
 
-  public void updateType(MedDevice medDevice, String newType);
+  public void updateType(Request request, String newType);
 
-  public void updateLocation(MedDevice medDevice, String newLocation);
+  public void updateLocation(Request request, String newLocation);
 
-  public void updateEmployee(MedDevice medDevice, String newEmployee);
+  public void updateDescription(Request request, String description);
 
-  public void updateStatus(MedDevice medDevice, String newStatus);
+  public void updateStatus(Request request, String newStatus);
 
-  public void deleteMed(MedDevice medDevice);
+  public void deleteMed(Request request);
 
-  public void addMed(MedDevice medDevice);
+  public void addMed(Request request);
 }
