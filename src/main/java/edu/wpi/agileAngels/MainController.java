@@ -10,20 +10,24 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class MainController {
 
-  @FXML private Button back, close, equipRequest, viewRequest, map;
-  @FXML private MenuItem equipmentMenu, labMenu, sanitationMenu, mealMenu, giftMenu;
+  @FXML private Button back, close, clear, equipRequest, viewRequest, map;
+  @FXML Button dropButton, op1, op2, op3, op4;
+  @FXML Label dropdownButtonText, op1Label, op2Label, op3Label, op4Label;
 
   @FXML AnchorPane anchor;
+
+  @FXML Pane menuPane, dropButtonPane;
 
   public static Stack<String> pageHistory = new Stack<>();
 
   @FXML
   private void closeApp() {
-
     Platform.exit();
   }
 
@@ -54,7 +58,13 @@ public class MainController {
   }
 
   @FXML
-  private void menuItem(ActionEvent event) throws IOException, InterruptedException {
+  private void clearPage() throws IOException {
+    System.out.println("test");
+    loadPage(pageHistory.peek(), clear);
+  }
+
+  @FXML
+  private void menuItem(ActionEvent event) throws IOException {
     if (event.getSource() == equipRequest) {
       loadPage("views/equipment-view.fxml", close);
     }
@@ -67,12 +77,46 @@ public class MainController {
   }
 
   @FXML
-  private void profile() throws IOException, InterruptedException {
+  private void profile() throws IOException {
     loadPage("views/home-view.fxml", close);
   }
 
   @FXML
-  private void goHome(ActionEvent event) throws IOException, InterruptedException {
+  private void goHome(ActionEvent event) throws IOException {
     loadPage("views/home-view.fxml", close);
+  }
+
+  public void enterDropdown() {
+    menuPane.setViewOrder(-1);
+    dropButtonPane.setViewOrder(-1);
+    dropButton.setVisible(false);
+    menuPane.setVisible(true);
+  }
+
+  public void closeMenu() {
+
+    try {
+      menuPane.setVisible(false);
+      dropButton.setVisible(true);
+    } catch (NullPointerException e) {
+    }
+  }
+
+  @FXML
+  private void menuItemSelected(ActionEvent event) {
+    dropdownButtonText.setTextFill(Color.rgb(0, 0, 0));
+    if (event.getSource() == op1) {
+      dropdownButtonText.setText(op1Label.getText());
+    }
+    if (event.getSource() == op2) {
+      dropdownButtonText.setText(op2Label.getText());
+    }
+    if (event.getSource() == op3) {
+      dropdownButtonText.setText(op3Label.getText());
+    }
+    if (event.getSource() == op4) {
+      dropdownButtonText.setText(op4Label.getText());
+    }
+    closeMenu();
   }
 }
