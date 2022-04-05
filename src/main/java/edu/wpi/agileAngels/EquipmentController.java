@@ -4,6 +4,8 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,17 +20,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 public class EquipmentController extends MainController implements Initializable {
   // @FXML private MenuButton eqptDropdown;
   // @FXML private MenuItem bed, recliner, xray, infusion;
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
   @FXML private TextField equipLocation, equipmentEmployeeText, equipmentStatus;
-  @FXML private Label equipmentConfirmation, dropText;
+  @FXML private Label equipmentConfirmation, dropdownButtonText;
   @FXML private TableView equipmentTable;
   private Connection connection;
+  @FXML Button clear;
 
   @FXML Pane drop, drop2;
 
@@ -79,14 +80,14 @@ public class EquipmentController extends MainController implements Initializable
   @FXML
   private void submitEquipment() throws SQLException {
 
-    if (dropText.getText().isEmpty()
+    if (dropdownButtonText.getText().isEmpty()
         || equipLocation.getText().isEmpty()
         || equipmentEmployeeText.getText().isEmpty()) {
       equipmentConfirmation.setText("Please fill out all the require fields");
     } else {
       equipmentConfirmation.setText(
           "Thank you, the "
-              + dropText.getText()
+              + dropdownButtonText.getText()
               + " you requested will be delivered shortly to "
               + equipLocation.getText()
               + " by "
@@ -96,7 +97,7 @@ public class EquipmentController extends MainController implements Initializable
       String placeholder = "?";
       MedDevice medDevice =
           new MedDevice(
-              dropText.getText(),
+              dropdownButtonText.getText(),
               placeholder,
               placeholder,
               equipLocation.getText(),
@@ -110,35 +111,9 @@ public class EquipmentController extends MainController implements Initializable
     }
   }
 
-  public void eqpDrop() {
-    drop2.setViewOrder(-1);
-    drop.setViewOrder(-1);
-    equipDropdownButton.setVisible(false);
-    drop.setVisible(true);
-  }
-
-  public void closeMenu() {
-    drop.setVisible(false);
-    equipDropdownButton.setVisible(true);
-  }
-
-  public void menuItemSelected(ActionEvent event) {
-    dropText.setTextFill(Color.rgb(0, 0, 0));
-    if (event.getSource() == bed) {
-      dropText.setText("Bed");
-    } else if (event.getSource() == recliner) {
-      dropText.setText("Recliner");
-    } else if (event.getSource() == xray) {
-      dropText.setText("XRay Machine");
-    } else if (event.getSource() == infusion) {
-      dropText.setText("Infusion Pump");
-    }
-    closeMenu();
-  }
-
-  @FXML
-  private void clearPage() throws IOException {
-
-    loadPage("views/equipment-view.fxml", equipmentStatus);
-  }
+  //  @FXML
+  //  private void clearPage() throws IOException {
+  //    System.out.println("test");
+  //    loadPage(pageHistory.peek(), clear);
+  //  }
 }

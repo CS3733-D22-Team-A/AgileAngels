@@ -1,12 +1,18 @@
 
 @font-face {
     font-family: Roboto;
-    src: url(https://fonts.google.com/specimen/Roboto);
+    src: url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);
 }
 
 .root{
-    -fx-font-family: "Roboto Thin";
+    -fx-font-family: "Roboto Light";
     -fx-background-color: rgb(243, 243, 243);
+}
+#title{
+    -fx-font-family: "Roboto Thin";
+}
+#circle{
+    -fx-background-color: black;
 }
 
 .label{
@@ -27,7 +33,7 @@
     -fx-background-color: rgb(255, 255, 255);
     -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 8, 0, 4, 4);
     -fx-background-radius: 10;
-    -fx-text-fill: black;
+    -fx-text-fill: #1c1c1c;
     -fx-cursor: hand;
 }
 
@@ -65,6 +71,11 @@
     -fx-border-width: 0 0 7 0;
     -fx-border-color: white;
     -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 16, 0, 4, 0);
+}
+
+.topButton{
+
+    -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 0, 0, 0, 0);
 }
 
 #icon.image{
@@ -184,4 +195,18 @@
     -fx-text-fill: black;
 }
 
+.table-row-cell:hover {
+    -fx-background-color: #93f9b911;
+    -fx-text-background-color: red;
+}
+.table-row-cell:odd{
+    -fx-background-color: #E6F4F1;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.table-row-cell:even{
+    -fx-background-color: white;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
 

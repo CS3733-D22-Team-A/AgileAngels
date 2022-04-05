@@ -41,8 +41,8 @@ public class SanitationController extends MainController {
               sanitationEmployeeText.getText(),
               sanLocation.getText(),
               sanIssue.getText(),
-              sanitationStatus.getText(),
-              "None");
+              sanitationStatus.getText()
+              );
       sanDAO.addRequest(request);
     }
   }

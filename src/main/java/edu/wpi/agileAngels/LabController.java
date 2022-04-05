@@ -13,13 +13,16 @@ import javafx.scene.control.*;
 
 public class LabController extends MainController implements Initializable {
 
-  @FXML private MenuButton labDropdown;
-  @FXML private MenuItem blood, urine, tumor;
   @FXML private TextField labTestLocation, labEmployeeText, labStatus;
 
-  @FXML private TextArea restrictions;
-  @FXML private Label labTestConfirmation;
   private RequestDAOImpl LabDAO;
+  @FXML
+  private Label labTestConfirmation,
+      dropdownButtonText,
+      bloodLabel,
+      urineLabel,
+      tumorLabel,
+      covidLabel;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -28,14 +31,14 @@ public class LabController extends MainController implements Initializable {
   }
   @FXML
   private void submitLabTest() {
-    if (labDropdown.getText().isEmpty()
+    if (dropdownButtonText.getText().isEmpty()
         || labEmployeeText.getText().isEmpty()
         || labEmployeeText.getText().isEmpty()) {
       labTestConfirmation.setText("Please fill out all the required fields");
     } else {
       labTestConfirmation.setText(
           "Thank you! Your "
-              + labDropdown.getText()
+              + dropdownButtonText.getText()
               + " you requested will be delivered shortly to "
               + labTestLocation.getText()
               + " by "
@@ -45,28 +48,8 @@ public class LabController extends MainController implements Initializable {
           new LabRequest(
               labEmployeeText.getText(),
               labTestLocation.getText(),
-              labDropdown.getText(),
-              labStatus.getText(),
-              " ");
-      LabDAO.addRequest(request);
+              dropdownButtonText.getText(),
+              labStatus.getText());
     }
-  }
-
-  @FXML
-  private void setLabType(ActionEvent event) throws IOException {
-    if (event.getSource() == blood) {
-      labDropdown.setText("Blood Test");
-    }
-    if (event.getSource() == urine) {
-      labDropdown.setText("Urine Test");
-    }
-    if (event.getSource() == tumor) {
-      labDropdown.setText("Tumor Markup");
-    }
-  }
-
-  @FXML
-  private void clearPage() throws IOException, InterruptedException {
-    loadPage("views/lab-view.fxml", labStatus);
   }
 }

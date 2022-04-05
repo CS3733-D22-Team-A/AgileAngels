@@ -13,10 +13,6 @@ import javafx.scene.control.*;
 public class GiftsController extends MainController implements Initializable {
   @FXML private TextField giftSender, giftRecipient, giftMessage, giftEmployeeText, giftStatus;
 
-  @FXML private MenuButton giftType;
-
-  @FXML private MenuItem balloons, flowers;
-
   @FXML private Label giftConfirm;
 private RequestDAOImpl giftDAO;
   @Override
@@ -40,7 +36,7 @@ private RequestDAOImpl giftDAO;
   private void submitGift() {
     if (giftSender.getText().isEmpty()
         || giftEmployeeText.getText().isEmpty()
-        || giftType.getText().isEmpty()
+        || dropdownButtonText.getText().isEmpty()
         || giftRecipient.getText().isEmpty()) {
       giftConfirm.setText("Please fill out all of the required fields");
     } else {
@@ -50,7 +46,7 @@ private RequestDAOImpl giftDAO;
               + ", "
               + giftEmployeeText.getText()
               + " will deliver "
-              + giftType.getText()
+              + dropdownButtonText.getText()
               + " to "
               + giftRecipient.getText()
               + " soon. ");
@@ -58,10 +54,9 @@ private RequestDAOImpl giftDAO;
           new GiftRequest(
               giftEmployeeText.getText(),
               giftRecipient.getText(),
-              giftType.getText(),
+              dropdownButtonText.getText(),
               giftStatus.getText(),
-              "",
-              // giftMessage.getText(),
+              giftMessage.getText(),
               giftSender.getText());
 
       giftDAO.addRequest(request);
@@ -72,6 +67,4 @@ private RequestDAOImpl giftDAO;
   private void clearPage() throws IOException, InterruptedException {
     loadPage("views/gifts-view.fxml", giftConfirm);
   }
-
-
 }
