@@ -63,7 +63,6 @@ public class EquipmentController extends MainController implements Initializable
      * for (Map.Entry<String, Request> entry : data.entrySet()) { Request object = entry.getValue();
      * medData.add(object); }*
      */
-    medData.add(medDevice);
 
     // no need to add them to the table since the FXMLLoader is ready doing that
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
