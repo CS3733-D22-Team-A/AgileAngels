@@ -113,6 +113,8 @@
                   <TextField fx:id="labTestLocation" prefHeight="50.0" prefWidth="270.0" promptText="Delivery Location" />
                   <TextField fx:id="labEmployeeText" prefHeight="50.0" prefWidth="270.0" promptText="Employee" />
                   <TextField fx:id="labStatus" prefHeight="50.0" prefWidth="270.0" promptText="Status" />
+                  <TextField fx:id="labDelete" prefHeight="50.0" prefWidth="270.0" promptText="Delete by Index" />
+                  <TextField fx:id="labEdit" prefHeight="50.0" prefWidth="270.0" promptText="Edit by Index" />
                   <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0">
                      <children>
                         <Button fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
@@ -163,7 +165,7 @@
                -->
 
             </VBox>
-      <TableView fx:id="equipmentTable" prefHeight="410.0" prefWidth="838.0">
+      <TableView fx:id="labTable" prefHeight="410.0" prefWidth="838.0">
          <columns>
             <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
             <TableColumn fx:id="availableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Available" />

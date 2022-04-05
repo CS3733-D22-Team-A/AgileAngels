@@ -82,7 +82,6 @@ public class EquipmentController extends MainController implements Initializable
         || equipLocation.getText().isEmpty()
         || equipmentEmployeeText.getText().isEmpty()
         || (!deleteName.getText().isEmpty())) {
-      System.out.println("First");
       if (!deleteName.getText().isEmpty()) {
         for (int i = 0; i < medData.size(); i++) {
           Request object = medData.get(i);
@@ -100,7 +99,7 @@ public class EquipmentController extends MainController implements Initializable
             || !equipLocation.getText().isEmpty()
             || !equipmentEmployeeText.getText().isEmpty())
         && (!editRequest.getText().isEmpty())) {
-      System.out.println("Second");
+
       Request found = null;
       int num = 0;
       for (int i = 0; i < medData.size(); i++) {
@@ -146,7 +145,7 @@ public class EquipmentController extends MainController implements Initializable
       MedDevice medDevice =
           new MedDevice(
               placeholder,
-              placeholder,
+              "available",
               dropdownButtonText.getText(),
               equipLocation.getText(),
               equipmentEmployeeText.getText(),
