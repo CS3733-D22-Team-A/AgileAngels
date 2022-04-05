@@ -32,6 +32,8 @@ public class MainController {
   private static String userID;
   public static Boolean loggedIn = false;
 
+  public int floorToDisp;
+
   @FXML
   private void closeApp() {
     Platform.exit();

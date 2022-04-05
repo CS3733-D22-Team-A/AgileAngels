@@ -11,20 +11,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 
 public class MapsController extends MainController {
   @FXML
   private ImageView floorOneMap, floorTwoMap, floorThreeMap, lowerLevelOneMap, lowerLevelTwoMap;
-
+  private static ArrayList<ImageView> floors = new ArrayList<>();
   // @FXML private MenuButton mapMenu;
 
   @FXML private Button floorOne, floorTwo, floorThree, lowerLevelOne, lowerLevelTwo;
@@ -39,31 +35,43 @@ public class MapsController extends MainController {
 
   public MapsController() throws SQLException {}
 
+  double map(double s, double a1, double a2, double b1, double b2) {
+    return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+  }
+
+  public void initialize(int floor) {
+    dispFloor(floorToDisp);
+  }
+
   @FXML
   private void displayLocation(Location location) {
 
     Double XCoord = (Double.parseDouble(location.getXCoord()));
     Double YCoord = (Double.parseDouble(location.getYCoord()));
 
-    if (0 <= YCoord && 500 > YCoord && 0 <= XCoord && 500 > XCoord) {
+    if (1415 <= XCoord && (1415 + 580) > XCoord && 638 <= YCoord && (638 + 580) > YCoord) {
       circles.add(new Circle());
 
-      circles.get(circles.size() - 1).setCenterX(XCoord + 390);
-      circles.get(circles.size() - 1).setCenterY(YCoord + 198);
+      circles.get(circles.size() - 1).setCenterX(map(XCoord, 1415, (1415 + 580), 390, 890));
+      circles.get(circles.size() - 1).setCenterY(map(YCoord, 638, (638 + 580), 198, 698));
       circles.get(circles.size() - 1).setRadius(4);
     }
   }
 
-  private void loadMap(Group group) throws java.io.IOException {
-    Stage stage;
-    Parent root;
-    stage = (Stage) floorOne.getScene().getWindow();
-    root = FXMLLoader.load(getClass().getResource("views/map-view.fxml"));
-    group.getChildren().add(root);
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.setResizable(true);
-    stage.show();
+  private void dispFloor(int floor) {
+    floors.add(floorOneMap);
+    floors.add(floorTwoMap);
+    floors.add(floorThreeMap);
+    floors.add(lowerLevelOneMap);
+    floors.add(lowerLevelTwoMap);
+
+    floorOneMap.setOpacity(0.0);
+    floorTwoMap.setOpacity(0.0);
+    floorThreeMap.setOpacity(0.0);
+    lowerLevelOneMap.setOpacity(0.0);
+    lowerLevelTwoMap.setOpacity(0.0);
+
+    floors.get(floor).setOpacity(1.0);
   }
 
   @FXML
@@ -77,12 +85,7 @@ public class MapsController extends MainController {
     group.getChildren().add(new Circle());
 
     if (event.getSource() == floorOne) {
-      floorOneMap.setOpacity(1.0);
-      floorTwoMap.setOpacity(0.0);
-      floorThreeMap.setOpacity(0.0);
-      lowerLevelOneMap.setOpacity(0.0);
-      lowerLevelTwoMap.setOpacity(0.0);
-      System.out.println(locationList.size());
+      floorToDisp = 1;
       for (int i = 0; i < locationList.size(); i++) {
         Location location = locationList.get(i);
         if (location.getFloor().equals("1")) {
@@ -96,11 +99,17 @@ public class MapsController extends MainController {
     }
 
     if (event.getSource() == floorTwo) {
-      floorOneMap.setOpacity(0.0);
-      floorTwoMap.setOpacity(1.0);
-      floorThreeMap.setOpacity(0.0);
-      lowerLevelOneMap.setOpacity(0.0);
-      lowerLevelTwoMap.setOpacity(0.0);
+      floorToDisp = 2;
+      for (int i = 0; i < locationList.size(); i++) {
+        Location location = locationList.get(i);
+        if (location.getFloor().equals("2")) {
+          displayLocation(location);
+        }
+        // System.out.println("This doesn't contain things on floor 1. SOS :3");
+      }
+      for (int i = 0; i < circles.size(); i++) {
+        group.getChildren().add(circles.get(i));
+      }
     }
 
     if (event.getSource() == floorThree) {
