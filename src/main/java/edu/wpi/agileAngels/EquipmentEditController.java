@@ -1,6 +1,5 @@
 package edu.wpi.agileAngels;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -87,10 +86,5 @@ public class EquipmentEditController extends MainController implements Initializ
 
       updateTable();
     }
-  }
-
-  @FXML
-  private void clearPage() throws IOException {
-    loadPage("views/equipment-view.fxml", equipmentConfirmation);
   }
 }

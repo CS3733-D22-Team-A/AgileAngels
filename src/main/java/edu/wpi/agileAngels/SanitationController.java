@@ -1,6 +1,5 @@
 package edu.wpi.agileAngels;
 
-import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -32,10 +31,5 @@ public class SanitationController extends MainController {
               sanIssue.getText(),
               sanitationStatus.getText());
     }
-  }
-
-  @FXML
-  private void clearPage() throws IOException, InterruptedException {
-    loadPage("views/sanitation-view.fxml", sanitationConfirmation);
   }
 }

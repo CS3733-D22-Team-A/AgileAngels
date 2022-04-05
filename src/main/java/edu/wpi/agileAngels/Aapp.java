@@ -27,10 +27,13 @@ public class Aapp extends Application {
     adb = new Adb();
     String[] args = new String[1];
     adb.main(args);
-    // Parent root = FXMLLoader.load(getClass().getResource("views/home-view.fxml"));
     FXMLLoader loader = new FXMLLoader(getClass().getResource("views/home-view.fxml"));
     Parent root = loader.load();
     Scene defaultScene = new Scene(root);
+    defaultScene
+        .getStylesheets()
+        .add(
+            "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
     primaryStage.setScene(defaultScene);
     primaryStage.setResizable(false);
     primaryStage.show();
