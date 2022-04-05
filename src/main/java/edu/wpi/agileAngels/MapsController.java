@@ -105,7 +105,7 @@ public class MapsController extends MainController {
         if (location.getFloor().equals("2")) {
           displayLocation(location);
         }
-        // System.out.println("This doesn't contain things on floor 1. SOS :3");
+        // System.out.println("This doesn't contain things on floor 2. SOS :3");
       }
       for (int i = 0; i < circles.size(); i++) {
         group.getChildren().add(circles.get(i));
@@ -138,4 +138,10 @@ public class MapsController extends MainController {
 
     loadMapPage("views/map-view.fxml", floorOne, group);
   }
+
+  @FXML
+  private void clearMaps(){
+    circles.clear();
+  }
+
 }
