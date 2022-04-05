@@ -11,7 +11,8 @@ public class DemoRequestDAO {
   public static void main(String[] args) throws SQLException {
 
     connection = DBconnection.getConnection();
-    RequestDAO requestDAO = new RequestDAOImpl();
+    HashMap<String, Request> newmap = new HashMap<>();
+    RequestDAOImpl requestDAO = new RequestDAOImpl("./allData.csv", newmap, 0 );
     System.out.println("Start Test");
     HashMap<String, Request> data = requestDAO.getAllRequests();
     Request req1 = new MealRequest("Dan", "WPI", "Dinner", "In Progrss", "none");
