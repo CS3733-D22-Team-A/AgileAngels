@@ -17,7 +17,7 @@ import org.apache.commons.csv.CSVRecord;
 // this will get the data from the DB?
 public class LocationDAOImpl implements LocationDAO {
   // List is working as a database
-  private final String CSV_FILE_PATH = "./TowerMaps_Sheet_FINAL.csv";
+  private final String CSV_FILE_PATH = "./TowerLocations.csv";
   private HashMap<String, Location> data = new HashMap<>();
 
   public LocationDAOImpl(
