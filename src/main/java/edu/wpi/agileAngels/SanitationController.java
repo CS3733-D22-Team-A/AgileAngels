@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -41,8 +40,8 @@ public class SanitationController extends MainController {
               sanitationEmployeeText.getText(),
               sanLocation.getText(),
               sanIssue.getText(),
-              sanitationStatus.getText()
-              );
+              sanitationStatus.getText(),
+              "");
       sanDAO.addRequest(request);
     }
   }

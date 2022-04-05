@@ -1,18 +1,14 @@
 package edu.wpi.agileAngels;
 
 import java.awt.*;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -20,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 
 public class EquipmentController extends MainController implements Initializable {
   // @FXML private MenuButton eqptDropdown;
@@ -52,15 +49,13 @@ public class EquipmentController extends MainController implements Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-
     connection = DBconnection.getConnection();
-
 
     // Implement DAO here.
 
-   //HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
+    // HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
     HashMap<String, Request> data = MedrequestImpl.getAllRequests();
-    MedrequestImpl = new RequestDAOImpl("./MedData.csv", data, 0 );
+    MedrequestImpl = new RequestDAOImpl("./MedData.csv", data, 0);
     for (Map.Entry<String, Request> entry : data.entrySet()) {
       Request object = entry.getValue();
       medData.add(object);

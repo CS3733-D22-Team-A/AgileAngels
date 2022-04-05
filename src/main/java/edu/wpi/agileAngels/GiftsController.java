@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -14,22 +12,12 @@ public class GiftsController extends MainController implements Initializable {
   @FXML private TextField giftSender, giftRecipient, giftMessage, giftEmployeeText, giftStatus;
 
   @FXML private Label giftConfirm;
-private RequestDAOImpl giftDAO;
+  private RequestDAOImpl giftDAO;
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     HashMap<String, Request> giftData = new HashMap<>();
     giftDAO = new RequestDAOImpl("./GIFT.CSV", giftData, 0);
-
-  }
-
-@FXML
-  private void setGiftType(ActionEvent event) {
-    if (event.getSource() == balloons) {
-      giftType.setText("Balloons");
-    }
-    if (event.getSource() == flowers) {
-      giftType.setText("Flowers");
-    }
   }
 
   @FXML

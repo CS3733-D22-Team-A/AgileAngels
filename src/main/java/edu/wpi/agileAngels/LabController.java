@@ -1,15 +1,11 @@
 package edu.wpi.agileAngels;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
 
 public class LabController extends MainController implements Initializable {
 
@@ -29,6 +25,7 @@ public class LabController extends MainController implements Initializable {
     HashMap<String, Request> LabData = new HashMap<String, Request>();
     LabDAO = new RequestDAOImpl("./Lab.csv", LabData, 0);
   }
+
   @FXML
   private void submitLabTest() {
     if (dropdownButtonText.getText().isEmpty()
@@ -49,7 +46,8 @@ public class LabController extends MainController implements Initializable {
               labEmployeeText.getText(),
               labTestLocation.getText(),
               dropdownButtonText.getText(),
-              labStatus.getText());
+              labStatus.getText(),
+              "");
     }
   }
 }
