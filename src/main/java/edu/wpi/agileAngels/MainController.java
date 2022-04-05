@@ -1,17 +1,20 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Stack;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class MainController {
@@ -34,6 +37,8 @@ public class MainController {
     Platform.exit();
   }
 
+  ArrayList<Circle> newList = new ArrayList<Circle>();
+
   public void loadPage(String view, Control item) throws IOException {
 
     if (item == back) {
@@ -50,6 +55,20 @@ public class MainController {
     stage = (Stage) item.getScene().getWindow();
     root = FXMLLoader.load(getClass().getResource(view));
     Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.setResizable(true);
+    stage.show();
+  }
+
+  public void loadMapPage(String view, Control item, Group group) throws IOException {
+
+    System.out.println(pageHistory);
+    Stage stage;
+    Parent root;
+    stage = (Stage) item.getScene().getWindow();
+    root = FXMLLoader.load(getClass().getResource(view));
+    group.getChildren().set(0, root);
+    Scene scene = new Scene(group);
     stage.setScene(scene);
     stage.setResizable(true);
     stage.show();
@@ -89,7 +108,7 @@ public class MainController {
       loadPage("views/equipmentEdit-view.fxml", close);
     }
     if (event.getSource() == map) {
-      loadPage("views/maps.fxml", close);
+      loadPage("views/map-view.fxml", close);
     }
   }
 
