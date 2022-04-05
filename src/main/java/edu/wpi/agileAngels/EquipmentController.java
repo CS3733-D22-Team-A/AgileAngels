@@ -5,7 +5,6 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,19 +53,21 @@ public class EquipmentController extends MainController implements Initializable
     // Implement DAO here.
 
     // HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
-    HashMap<String, Request> data = MedrequestImpl.getAllRequests();
+    HashMap<String, Request> data = new HashMap<>();
+    MedDevice medDevice = new MedDevice("?", "?", "?", "?", "?", "?", "?");
+    data.put("?", medDevice);
     MedrequestImpl = new RequestDAOImpl("./MedData.csv", data, 0);
-    for (Map.Entry<String, Request> entry : data.entrySet()) {
-      Request object = entry.getValue();
-      medData.add(object);
-    }
+
+    /**
+     * for (Map.Entry<String, Request> entry : data.entrySet()) { Request object = entry.getValue();
+     * medData.add(object); }*
+     */
+    medData.add(medDevice);
 
     // no need to add them to the table since the FXMLLoader is ready doing that
-    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
+    nameColumn.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+    availableColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-    locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-    employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     equipmentTable.setItems(medData);
@@ -93,22 +94,17 @@ public class EquipmentController extends MainController implements Initializable
       MedDevice medDevice =
           new MedDevice(
               dropdownButtonText.getText(),
-              placeholder,
-              placeholder,
-              equipLocation.getText(),
               equipmentEmployeeText.getText(),
+              equipLocation.getText(),
+              placeholder,
+              placeholder,
               placeholder,
               placeholder);
       /*medDAO.addMed(medDevice);
       medData.add(medDevice);*/
       MedrequestImpl.addRequest(medDevice);
+      medData.add(medDevice);
       equipmentTable.setItems(medData);
     }
   }
-
-  //  @FXML
-  //  private void clearPage() throws IOException {
-  //    System.out.println("test");
-  //    loadPage(pageHistory.peek(), clear);
-  //  }
 }
