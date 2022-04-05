@@ -71,11 +71,8 @@ public class MapsController extends MainController {
     locationDAO = new LocationDAOImpl(connection);
     HashMap<String, Location> locationHash = locationDAO.getAllLocations();
     ArrayList<Location> locationList = new ArrayList<Location>(locationHash.values());
-    Stage stage;
-    Parent root;
-    stage = (Stage) mapPane.getScene().getWindow();
-    root = FXMLLoader.load(getClass().getResource("views/map-view.fxml"));
-    Group group = new Group(root);
+
+    Group group = new Group();
 
     if (event.getSource() == floorOne) {
       floorOneMap.setOpacity(1.0);
@@ -126,9 +123,6 @@ public class MapsController extends MainController {
       lowerLevelTwoMap.setOpacity(1.0);
     }
 
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.setResizable(true);
-    stage.show();
+    loadMapPage("views/map-view.fxml", floorOne, group);
   }
 }
