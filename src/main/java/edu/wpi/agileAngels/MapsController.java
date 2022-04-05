@@ -41,14 +41,17 @@ public class MapsController extends MainController {
 
   @FXML
   private void displayLocation(Location location) {
-    circles.add(new Circle());
 
     Double XCoord = (Double.parseDouble(location.getXCoord()));
     Double YCoord = (Double.parseDouble(location.getYCoord()));
 
-    circles.get(circles.size() - 1).setCenterX(XCoord);
-    circles.get(circles.size() - 1).setCenterY(YCoord);
-    circles.get(circles.size() - 1).setRadius(4);
+    if (0 <= YCoord && 500 > YCoord && 0 <= XCoord && 500 > XCoord) {
+      circles.add(new Circle());
+
+      circles.get(circles.size() - 1).setCenterX(XCoord + 390);
+      circles.get(circles.size() - 1).setCenterY(YCoord + 198);
+      circles.get(circles.size() - 1).setRadius(4);
+    }
   }
 
   private void loadMap(Group group) throws java.io.IOException {
@@ -84,11 +87,11 @@ public class MapsController extends MainController {
         Location location = locationList.get(i);
         if (location.getFloor().equals("1")) {
           displayLocation(location);
-          group.getChildren().add(circles.get(circles.size() - 1));
-          System.out.println(circles);
-          // Stinker gone moved to line 55.
         }
         // System.out.println("This doesn't contain things on floor 1. SOS :3");
+      }
+      for (int i = 0; i < circles.size(); i++) {
+        group.getChildren().add(circles.get(i));
       }
     }
 
