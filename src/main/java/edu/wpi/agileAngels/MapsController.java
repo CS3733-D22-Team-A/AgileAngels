@@ -21,8 +21,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-// peepeepoopoo jakob was here
-
 public class MapsController extends MainController {
   @FXML
   private ImageView floorOneMap, floorTwoMap, floorThreeMap, lowerLevelOneMap, lowerLevelTwoMap;
@@ -36,21 +34,21 @@ public class MapsController extends MainController {
   private ObservableList<Location> locationData = FXCollections.observableArrayList();
   private LocationDAOImpl locationDAO;
   private Connection connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-  private ArrayList<Circle> circles = new ArrayList<Circle>();
+
+  private static ArrayList<Circle> circles = new ArrayList<Circle>();
 
   public MapsController() throws SQLException {}
 
   @FXML
-  private void displayLocation(Location location, int i) {
+  private void displayLocation(Location location) {
     circles.add(new Circle());
 
-    Double XCoord = Double.parseDouble(location.getXCoord());
-    Double YCoord = Double.parseDouble(location.getYCoord());
+    Double XCoord = (Double.parseDouble(location.getXCoord()));
+    Double YCoord = (Double.parseDouble(location.getYCoord()));
 
-    circles.get(i).setCenterX(XCoord);
-    circles.get(i).setCenterY(YCoord);
-    circles.get(i).setRadius(4);
-    // circles.get(i).setOpacity(1);
+    circles.get(circles.size() - 1).setCenterX(XCoord);
+    circles.get(circles.size() - 1).setCenterY(YCoord);
+    circles.get(circles.size() - 1).setRadius(4);
   }
 
   private void loadMap(Group group) throws java.io.IOException {
@@ -70,9 +68,10 @@ public class MapsController extends MainController {
     circles.clear();
     locationDAO = new LocationDAOImpl(connection);
     HashMap<String, Location> locationHash = locationDAO.getAllLocations();
-    ArrayList<Location> locationList = new ArrayList<Location>(locationHash.values());
+    ArrayList<Location> locationList = new ArrayList<>(locationHash.values());
 
     Group group = new Group();
+    group.getChildren().add(new Circle());
 
     if (event.getSource() == floorOne) {
       floorOneMap.setOpacity(1.0);
@@ -80,14 +79,16 @@ public class MapsController extends MainController {
       floorThreeMap.setOpacity(0.0);
       lowerLevelOneMap.setOpacity(0.0);
       lowerLevelTwoMap.setOpacity(0.0);
-
+      System.out.println(locationList.size());
       for (int i = 0; i < locationList.size(); i++) {
         Location location = locationList.get(i);
         if (location.getFloor().equals("1")) {
-          displayLocation(location, i);
-          group.getChildren().add(circles.get(i));
+          displayLocation(location);
+          group.getChildren().add(circles.get(circles.size() - 1));
+          System.out.println(circles);
+          // Stinker gone moved to line 55.
         }
-        System.out.println("This doesn't contain things on floor 1. SOS :3");
+        // System.out.println("This doesn't contain things on floor 1. SOS :3");
       }
     }
 

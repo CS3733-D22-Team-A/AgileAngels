@@ -67,7 +67,7 @@ public class MainController {
     Parent root;
     stage = (Stage) item.getScene().getWindow();
     root = FXMLLoader.load(getClass().getResource(view));
-    group.getChildren().add(root);
+    group.getChildren().set(0, root);
     Scene scene = new Scene(group);
     stage.setScene(scene);
     stage.setResizable(true);

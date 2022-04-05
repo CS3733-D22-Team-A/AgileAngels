@@ -37,7 +37,7 @@ public class Adb {
       // substitute your database name for myDB
       connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
       statementLocations = connection.createStatement();
-      //Optimizes myDB file to get rid of it. Ask Justin or Aaron for questions.
+      // Optimizes myDB file to get rid of it. Ask Justin or Aaron for questions.
       if (tableExist(connection, "Locations")) {
         String dropLoc = "DROP TABLE Locations";
         String queryLocations =
@@ -368,7 +368,7 @@ public class Adb {
     }
   }
 
-  //Optimizes myDB file to get rid of it. Ask Justin or Aaron for questions.
+  // Optimizes myDB file to get rid of it. Ask Justin or Aaron for questions.
   public boolean tableExist(Connection conn, String tName) throws SQLException {
     boolean tExists = false;
     try {
