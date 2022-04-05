@@ -37,33 +37,60 @@ public class Adb {
       // substitute your database name for myDB
       connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
       statementLocations = connection.createStatement();
-
-      String queryLocations =
-          "CREATE TABLE Locations( "
-              + "NodeID VARCHAR(50),"
-              + "xcoord VARCHAR(50),"
-              + "ycoord VARCHAR(50),"
-              + "Floor VARCHAR(50),"
-              + "building VARCHAR(50),"
-              + "NodeType VARCHAR(50),"
-              + "longName VARCHAR(50),"
-              + "shortName VARCHAR(50))";
-
-      statementLocations.execute(queryLocations);
-
+      //Optimizes myDB file to get rid of it. Ask Justin or Aaron for questions.
+      if (tableExist(connection, "Locations")) {
+        String dropLoc = "DROP TABLE Locations";
+        String queryLocations =
+            "CREATE TABLE Locations( "
+                + "NodeID VARCHAR(50),"
+                + "xcoord VARCHAR(50),"
+                + "ycoord VARCHAR(50),"
+                + "Floor VARCHAR(50),"
+                + "building VARCHAR(50),"
+                + "NodeType VARCHAR(50),"
+                + "longName VARCHAR(50),"
+                + "shortName VARCHAR(50))";
+        statementLocations.execute(dropLoc);
+        statementLocations.execute(queryLocations);
+      } else if (!tableExist(connection, "Locations")) {
+        String queryLocations =
+            "CREATE TABLE Locations( "
+                + "NodeID VARCHAR(50),"
+                + "xcoord VARCHAR(50),"
+                + "ycoord VARCHAR(50),"
+                + "Floor VARCHAR(50),"
+                + "building VARCHAR(50),"
+                + "NodeType VARCHAR(50),"
+                + "longName VARCHAR(50),"
+                + "shortName VARCHAR(50))";
+        statementLocations.execute(queryLocations);
+      }
       statementMedical = connection.createStatement();
-
-      String queryMedical =
-          "CREATE TABLE MedicalEquipment ( "
-              + "Name VARCHAR(50),"
-              + "available VARCHAR(50),"
-              + "type VARCHAR(50),"
-              + "location VARCHAR(50),"
-              + "employee VARCHAR(50),"
-              + "status VARCHAR(50),"
-              + "description VARCHAR(50))";
-      statementMedical.execute(queryMedical);
-
+      if (tableExist(connection, "MedicalEquipment")) {
+        String dropMed = "DROP TABLE MedicalEquipment";
+        String queryMedical =
+            "CREATE TABLE MedicalEquipment ( "
+                + "Name VARCHAR(50),"
+                + "available VARCHAR(50),"
+                + "type VARCHAR(50),"
+                + "location VARCHAR(50),"
+                + "employee VARCHAR(50),"
+                + "status VARCHAR(50),"
+                + "description VARCHAR(50))";
+        statementMedical.execute(dropMed);
+        statementMedical.execute(queryMedical);
+      } else if (!tableExist(connection, "MedicalEquipment")) {
+        String queryMedical =
+            "CREATE TABLE MedicalEquipment ( "
+                + "Name VARCHAR(50),"
+                + "available VARCHAR(50),"
+                + "type VARCHAR(50),"
+                + "location VARCHAR(50),"
+                + "employee VARCHAR(50),"
+                + "status VARCHAR(50),"
+                + "description VARCHAR(50))";
+        statementMedical.execute(queryMedical);
+      }
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
       e.printStackTrace();
@@ -339,5 +366,24 @@ public class Adb {
     } else {
       System.out.println("Location Does Not Exist");
     }
+  }
+
+  //Optimizes myDB file to get rid of it. Ask Justin or Aaron for questions.
+  public boolean tableExist(Connection conn, String tName) throws SQLException {
+    boolean tExists = false;
+    try {
+      DatabaseMetaData metaData = conn.getMetaData();
+      ResultSet rs = metaData.getTables(null, null, tName.toUpperCase(), null);
+      while (rs.next()) {
+        String name = rs.getString("TABLE_NAME");
+        if (name != null && name.equals(tName.toUpperCase())) {
+          tExists = true;
+          break;
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return tExists;
   }
 }
