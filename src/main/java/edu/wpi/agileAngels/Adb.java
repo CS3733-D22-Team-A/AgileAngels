@@ -2,13 +2,13 @@ package edu.wpi.agileAngels;
 
 import java.sql.*;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Adb {
   private HashMap<String, Location> locationData;
   private HashMap<String, MedDevice> medData;
 
   private LocationDAOImpl LocationDAO;
-
   private MedDAOImpl MedDAO;
   private Connection connection = DBconnection.getConnection();
 
@@ -36,8 +36,35 @@ public class Adb {
     Statement statementMedical;
     try {
       // substitute your database name for myDB
-
       statementLocations = connection.createStatement();
+      // Optimizes myDB file to get rid of it. Ask Justin or Aaron for questions.
+      if (tableExist(connection, "Locations")) {
+        String dropLoc = "DROP TABLE Locations";
+        String queryLocations =
+            "CREATE TABLE Locations( "
+                + "NodeID VARCHAR(50),"
+                + "xcoord VARCHAR(50),"
+                + "ycoord VARCHAR(50),"
+                + "Floor VARCHAR(50),"
+                + "building VARCHAR(50),"
+                + "NodeType VARCHAR(50),"
+                + "longName VARCHAR(50),"
+                + "shortName VARCHAR(50))";
+        statementLocations.execute(dropLoc);
+        statementLocations.execute(queryLocations);
+      } else if (!tableExist(connection, "Locations")) {
+        String queryLocations =
+            "CREATE TABLE Locations( "
+                + "NodeID VARCHAR(50),"
+                + "xcoord VARCHAR(50),"
+                + "ycoord VARCHAR(50),"
+                + "Floor VARCHAR(50),"
+                + "building VARCHAR(50),"
+                + "NodeType VARCHAR(50),"
+                + "longName VARCHAR(50),"
+                + "shortName VARCHAR(50))";
+        statementLocations.execute(queryLocations);
+      }
 
       if (tableExist(connection, "Locations")) {
         String dropLoc = "DROP TABLE Locations";
@@ -98,6 +125,15 @@ public class Adb {
       return;
     }
     System.out.println("Apache Derby connection established!");
+
+    // LocationDAO = new LocationDAOImpl(connection);
+    // locationData = LocationDAO.getAllLocations(); // Updates the big hashmap
+
+    // MedDAO = new MedDAOImpl(connection);
+    // medData = MedDAO.getAllMedicalEquipmentRequests();
+
+    // MedMenu();
+    // Locationsmenu();
   }
 
   /**
@@ -206,6 +242,7 @@ public class Adb {
    * @throws SQLException
    */
   private void addLocation(String node) throws SQLException {
+    locationData = LocationDAO.getAllLocations();
     // Adding to the database table
     String add =
         "INSERT INTO Locations(NodeID,xcoord,ycoord,Floor,building,nodeType,longName,shortName)VALUES(?,'?','?','?','?','?','?','?')";
@@ -294,6 +331,25 @@ public class Adb {
     }
   }
 
+  public boolean tableExist(Connection conn, String tName) throws SQLException {
+    boolean tExists = false;
+    try {
+      DatabaseMetaData metaData = conn.getMetaData();
+      ResultSet rs = metaData.getTables(null, null, tName.toUpperCase(), null);
+      while (rs.next()) {
+        String name = rs.getString("TABLE_NAME");
+        if (name != null && name.equals(tName.toUpperCase())) {
+          tExists = true;
+          break;
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return tExists;
+  }
+
+  // Optimizes myDB file to get rid of it. Ask Justin or Aaron for questions.
   public boolean tableExist(Connection conn, String tName) throws SQLException {
     boolean tExists = false;
     try {
