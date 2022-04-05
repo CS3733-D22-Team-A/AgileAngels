@@ -13,7 +13,7 @@ public class MedDevice extends Request {
       String status,
       String description) {
 
-    super(employeeName, location, type, status, description);
+    super(name, employeeName, location, type, status, description);
     setRequestType(0);
     this.name = name;
     this.available = available;

@@ -37,6 +37,7 @@ public class SanitationController extends MainController {
               + ".");
       SanitationRequest request =
           new SanitationRequest(
+              "",
               sanitationEmployeeText.getText(),
               sanLocation.getText(),
               sanIssue.getText(),

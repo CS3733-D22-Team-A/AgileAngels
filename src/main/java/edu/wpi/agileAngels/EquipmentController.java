@@ -21,7 +21,7 @@ public class EquipmentController extends MainController implements Initializable
   // @FXML private MenuButton eqptDropdown;
   // @FXML private MenuItem bed, recliner, xray, infusion;
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
-  @FXML private TextField equipLocation, equipmentEmployeeText, equipmentStatus;
+  @FXML private TextField equipLocation, equipmentEmployeeText, equipmentStatus, deleteName;
   @FXML private Label equipmentConfirmation, dropdownButtonText;
   @FXML private TableView equipmentTable;
   private Connection connection;
@@ -55,7 +55,7 @@ public class EquipmentController extends MainController implements Initializable
     // HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
     HashMap<String, Request> data = new HashMap<>();
     MedDevice medDevice = new MedDevice("?", "?", "?", "?", "?", "?", "?");
-    data.put("?", medDevice);
+    data.put("0", medDevice);
     MedrequestImpl = new RequestDAOImpl("./MedData.csv", data, 0);
 
     /**
@@ -65,9 +65,11 @@ public class EquipmentController extends MainController implements Initializable
     medData.add(medDevice);
 
     // no need to add them to the table since the FXMLLoader is ready doing that
-    nameColumn.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+    locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+    employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     equipmentTable.setItems(medData);
@@ -78,7 +80,20 @@ public class EquipmentController extends MainController implements Initializable
 
     if (dropdownButtonText.getText().isEmpty()
         || equipLocation.getText().isEmpty()
-        || equipmentEmployeeText.getText().isEmpty()) {
+        || equipmentEmployeeText.getText().isEmpty()
+        || !deleteName.getText().isEmpty()) {
+      if (!deleteName.getText().isEmpty()) {
+        for (int i = 0; i < medData.size(); i++) {
+          Request object = medData.get(i);
+          if (0 == deleteName.getText().compareTo(object.getName())) {
+
+            medData.remove(i);
+            MedrequestImpl.deleteRequest(object);
+          }
+        }
+        equipmentTable.setItems(medData);
+      }
+
       equipmentConfirmation.setText("Please fill out all the require fields");
     } else {
       equipmentConfirmation.setText(
@@ -93,17 +108,19 @@ public class EquipmentController extends MainController implements Initializable
       String placeholder = "?";
       MedDevice medDevice =
           new MedDevice(
+              placeholder,
+              placeholder,
               dropdownButtonText.getText(),
-              equipmentEmployeeText.getText(),
               equipLocation.getText(),
-              placeholder,
-              placeholder,
-              placeholder,
+              equipmentEmployeeText.getText(),
+              equipmentStatus.getText(),
               placeholder);
       /*medDAO.addMed(medDevice);
       medData.add(medDevice);*/
       MedrequestImpl.addRequest(medDevice);
+
       medData.add(medDevice);
+
       equipmentTable.setItems(medData);
     }
   }

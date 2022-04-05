@@ -137,6 +137,7 @@ Everything above should be on EVERY page
                   <TextField fx:id="equipLocation" prefHeight="50.0" prefWidth="270.0" promptText="Delivery Location" />
                   <TextField fx:id="equipmentEmployeeText" prefHeight="50.0" prefWidth="270.0" promptText="Employee" />
                   <TextField fx:id="equipmentStatus" prefHeight="50.0" prefWidth="270.0" promptText="Status" />
+                   <TextField fx:id="deleteName" prefHeight="50.0" prefWidth="270.0" promptText="delete index" />
                   <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0">
                      <children>
                         <Button fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">

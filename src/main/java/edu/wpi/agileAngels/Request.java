@@ -1,6 +1,7 @@
 package edu.wpi.agileAngels;
 
 public class Request {
+  private String name;
   private String employeeName;
   private String location;
   private String type;
@@ -9,7 +10,13 @@ public class Request {
   private String description;
 
   public Request(
-      String employeeName, String location, String type, String status, String description) {
+      String Name,
+      String employeeName,
+      String location,
+      String type,
+      String status,
+      String description) {
+    this.name = Name;
     this.employeeName = employeeName;
     this.location = location;
     this.type = type;
@@ -63,5 +70,13 @@ public class Request {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getName() {
+    return this.name;
   }
 }

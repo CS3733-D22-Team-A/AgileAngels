@@ -40,6 +40,7 @@ public class GiftsController extends MainController implements Initializable {
               + " soon. ");
       GiftRequest request =
           new GiftRequest(
+              "",
               giftEmployeeText.getText(),
               giftRecipient.getText(),
               dropdownButtonText.getText(),

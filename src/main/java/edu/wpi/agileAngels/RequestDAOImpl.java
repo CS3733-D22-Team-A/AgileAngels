@@ -47,8 +47,17 @@ public class RequestDAOImpl {
   }
 
   public void addRequest(Request request) {
-    reqData.put(request.getDescription(), request);
+    String letter;
     count = count + 1;
+    if (request.getRequestType() == 0) {
+      letter = "a";
+    } else {
+      letter = "b";
+    }
+    letter = letter + Integer.toString(count);
+    request.setName(letter);
+    reqData.put(letter, request);
+
     // change to the key
   }
 }

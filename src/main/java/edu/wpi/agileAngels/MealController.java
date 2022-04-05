@@ -40,6 +40,7 @@ public class MealController extends MainController {
               + restrictions.getText());
       MealRequest request =
           new MealRequest(
+              "",
               mealEmployeeText.getText(),
               roomInput.getText(),
               dropdownButtonText.getText(),

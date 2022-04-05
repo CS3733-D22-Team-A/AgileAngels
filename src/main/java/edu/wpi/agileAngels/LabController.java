@@ -43,6 +43,7 @@ public class LabController extends MainController implements Initializable {
               + ".");
       LabRequest request =
           new LabRequest(
+              "",
               labEmployeeText.getText(),
               labTestLocation.getText(),
               dropdownButtonText.getText(),
