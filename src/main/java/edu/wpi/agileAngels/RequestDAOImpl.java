@@ -42,11 +42,11 @@ public class RequestDAOImpl {
       request.setStatus(newStatus);
   }
 
-  public void deleteMed(Request request) {
+  public void deleteRequest(Request request) {
       reqData.remove(request.getDescription()); //change to the key
   }
 
-  public void addMed(Request request) {
+  public void addRequest(Request request) {
       reqData.put(request.getDescription(), request);
       count = count +1;
       //change to the key

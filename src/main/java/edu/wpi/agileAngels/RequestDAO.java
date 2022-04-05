@@ -18,7 +18,7 @@ public interface RequestDAO {
 
   public void updateStatus(Request request, String newStatus);
 
-  public void deleteMed(Request request);
+  public void deleteRequest(Request request);
 
-  public void addMed(Request request);
+  public void addRequest(Request request);
 }

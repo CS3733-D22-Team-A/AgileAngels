@@ -1,11 +1,16 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
-public class GiftsController extends MainController {
+public class GiftsController extends MainController implements Initializable {
   @FXML private TextField giftSender, giftRecipient, giftMessage, giftEmployeeText, giftStatus;
 
   @FXML private MenuButton giftType;
@@ -13,8 +18,15 @@ public class GiftsController extends MainController {
   @FXML private MenuItem balloons, flowers;
 
   @FXML private Label giftConfirm;
+private RequestDAOImpl giftDAO;
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    HashMap<String, Request> giftData = new HashMap<>();
+    giftDAO = new RequestDAOImpl("./GIFT.CSV", giftData, 0);
 
-  @FXML
+  }
+
+@FXML
   private void setGiftType(ActionEvent event) {
     if (event.getSource() == balloons) {
       giftType.setText("Balloons");
@@ -51,6 +63,8 @@ public class GiftsController extends MainController {
               "",
               // giftMessage.getText(),
               giftSender.getText());
+
+      giftDAO.addRequest(request);
     }
   }
 
@@ -58,4 +72,6 @@ public class GiftsController extends MainController {
   private void clearPage() throws IOException, InterruptedException {
     loadPage("views/gifts-view.fxml", giftConfirm);
   }
+
+
 }

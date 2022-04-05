@@ -33,8 +33,9 @@ public class EquipmentController extends MainController implements Initializable
   @FXML Pane drop, drop2;
 
   private MedDAOImpl medDAO;
+  private RequestDAOImpl MedrequestImpl;
 
-  private ObservableList<MedDevice> medData = FXCollections.observableArrayList();
+  private ObservableList<Request> medData = FXCollections.observableArrayList();
 
   @FXML
   private TableColumn nameColumn,
@@ -50,13 +51,17 @@ public class EquipmentController extends MainController implements Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
+
     connection = DBconnection.getConnection();
+
 
     // Implement DAO here.
 
-    HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
-    for (Map.Entry<String, MedDevice> entry : data.entrySet()) {
-      MedDevice object = entry.getValue();
+   //HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
+    HashMap<String, Request> data = MedrequestImpl.getAllRequests();
+    MedrequestImpl = new RequestDAOImpl("./MedData.csv", data, 0 );
+    for (Map.Entry<String, Request> entry : data.entrySet()) {
+      Request object = entry.getValue();
       medData.add(object);
     }
 
@@ -98,8 +103,9 @@ public class EquipmentController extends MainController implements Initializable
               equipmentEmployeeText.getText(),
               placeholder,
               placeholder);
-      medDAO.addMed(medDevice);
-      medData.add(medDevice);
+      /*medDAO.addMed(medDevice);
+      medData.add(medDevice);*/
+      MedrequestImpl.addRequest(medDevice);
       equipmentTable.setItems(medData);
     }
   }

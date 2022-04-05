@@ -1,11 +1,17 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
-public class LabController extends MainController {
+
+public class LabController extends MainController implements Initializable {
 
   @FXML private MenuButton labDropdown;
   @FXML private MenuItem blood, urine, tumor;
@@ -13,7 +19,13 @@ public class LabController extends MainController {
 
   @FXML private TextArea restrictions;
   @FXML private Label labTestConfirmation;
+  private RequestDAOImpl LabDAO;
 
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    HashMap<String, Request> LabData = new HashMap<String, Request>();
+    LabDAO = new RequestDAOImpl("./Lab.csv", LabData, 0);
+  }
   @FXML
   private void submitLabTest() {
     if (labDropdown.getText().isEmpty()
@@ -36,6 +48,7 @@ public class LabController extends MainController {
               labDropdown.getText(),
               labStatus.getText(),
               " ");
+      LabDAO.addRequest(request);
     }
   }
 

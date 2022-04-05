@@ -1,6 +1,10 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -9,6 +13,13 @@ public class SanitationController extends MainController {
 
   @FXML private TextField sanIssue, sanLocation, sanitationEmployeeText, sanitationStatus;
   @FXML private Label sanitationConfirmation;
+
+  private RequestDAOImpl sanDAO;
+
+  public void initialize(URL location, ResourceBundle resources) {
+    HashMap<String, Request> sanData = new HashMap<String, Request>();
+    sanDAO = new RequestDAOImpl("./san.csv", sanData, 0);
+  }
 
   @FXML
   private void submitSanitation() {
@@ -32,6 +43,7 @@ public class SanitationController extends MainController {
               sanIssue.getText(),
               sanitationStatus.getText(),
               "None");
+      sanDAO.addRequest(request);
     }
   }
 

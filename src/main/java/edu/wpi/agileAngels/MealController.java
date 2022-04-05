@@ -1,6 +1,10 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -13,6 +17,12 @@ public class MealController extends MainController {
   @FXML private TextArea restrictions;
 
   @FXML private Label confirm;
+  private RequestDAOImpl mealDAO;
+
+  public void initialize(URL location, ResourceBundle resources) {
+    HashMap<String, Request> mealData = new HashMap<String, Request>();
+    mealDAO = new RequestDAOImpl("./Meal.csv", mealData, 0);
+  }
 
   @FXML
   private void submitMeal() {
@@ -38,6 +48,7 @@ public class MealController extends MainController {
               mealStatus.getText(),
               //  "",
               restrictions.getText());
+      mealDAO.addRequest(request);
     }
   }
 
