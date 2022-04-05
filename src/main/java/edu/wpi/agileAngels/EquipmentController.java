@@ -32,7 +32,8 @@ public class EquipmentController extends MainController implements Initializable
   private MedDAOImpl medDAO;
   private RequestDAOImpl MedrequestImpl;
 
-  private ObservableList<Request> medData = FXCollections.observableArrayList();
+  final ObservableList<Request> medData = FXCollections.observableArrayList();
+
   //  private HashMap<String, Request> data = new HashMap<>();
 
   @FXML
@@ -108,7 +109,14 @@ public class EquipmentController extends MainController implements Initializable
       /*medDAO.addMed(medDevice);
       medData.add(medDevice);*/
       MedrequestImpl.addRequest(medDevice);
-      medData.add(medDevice);
+      Request req =
+          new Request(
+              equipmentEmployeeText.getText(),
+              equipmentLocation.getText(),
+              dropdownButtonText.getText(),
+              equipmentStatus.getText(),
+              "");
+      medData.add(req);
       // equipmentTable.setItems(medData);
       equipmentTable.setItems(medData);
       // data.put("?", medDevice);
