@@ -7,12 +7,13 @@ public class MedDevice extends Request {
   public MedDevice(
       String name,
       String available,
-      String type,
-      String location,
       String employeeName,
+      String location,
+      String type,
       String status,
       String description) {
 
+    // super(employeeName, location, type, status, description);
     super(employeeName, location, type, status, description);
     setRequestType(0);
     this.name = name;

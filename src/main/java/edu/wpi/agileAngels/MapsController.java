@@ -69,7 +69,7 @@ public class MapsController extends MainController {
   @FXML
   private void changeMap(ActionEvent event) throws IOException {
     circles.clear();
-    locationDAO = new LocationDAOImpl(connection);
+    locationDAO = new LocationDAOImpl();
     HashMap<String, Location> locationHash = locationDAO.getAllLocations();
     ArrayList<Location> locationList = new ArrayList<>(locationHash.values());
 

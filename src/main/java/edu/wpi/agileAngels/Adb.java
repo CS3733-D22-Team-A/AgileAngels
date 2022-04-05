@@ -2,7 +2,6 @@ package edu.wpi.agileAngels;
 
 import java.sql.*;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Adb {
   private HashMap<String, Location> locationData;
@@ -348,7 +347,7 @@ public class Adb {
     }
     return tExists;
   }
-
+  /*
   // Optimizes myDB file to get rid of it. Ask Justin or Aaron for questions.
   public boolean tableExist(Connection conn, String tName) throws SQLException {
     boolean tExists = false;
@@ -367,4 +366,5 @@ public class Adb {
     }
     return tExists;
   }
+  */
 }

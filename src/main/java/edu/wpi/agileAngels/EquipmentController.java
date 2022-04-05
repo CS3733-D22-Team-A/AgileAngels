@@ -21,7 +21,7 @@ public class EquipmentController extends MainController implements Initializable
   // @FXML private MenuButton eqptDropdown;
   // @FXML private MenuItem bed, recliner, xray, infusion;
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
-  @FXML private TextField equipLocation, equipmentEmployeeText, equipmentStatus;
+  @FXML private TextField equipmentLocation, equipmentEmployeeText, equipmentStatus;
   @FXML private Label equipmentConfirmation, dropdownButtonText;
   @FXML private TableView equipmentTable;
   private Connection connection;
@@ -33,13 +33,14 @@ public class EquipmentController extends MainController implements Initializable
   private RequestDAOImpl MedrequestImpl;
 
   private ObservableList<Request> medData = FXCollections.observableArrayList();
+  //  private HashMap<String, Request> data = new HashMap<>();
 
   @FXML
   private TableColumn nameColumn,
-      availableColumn,
-      typeColumn,
       locationColumn,
       employeeColumn,
+      availableColumn,
+      typeColumn,
       statusColumn,
       descriptionColumn;
 
@@ -65,8 +66,10 @@ public class EquipmentController extends MainController implements Initializable
     medData.add(medDevice);
 
     // no need to add them to the table since the FXMLLoader is ready doing that
-    nameColumn.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
+    employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
+    locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -77,7 +80,8 @@ public class EquipmentController extends MainController implements Initializable
   private void submitEquipment() throws SQLException {
 
     if (dropdownButtonText.getText().isEmpty()
-        || equipLocation.getText().isEmpty()
+        || equipmentLocation.getText().isEmpty()
+        || equipmentStatus.getText().isEmpty()
         || equipmentEmployeeText.getText().isEmpty()) {
       equipmentConfirmation.setText("Please fill out all the require fields");
     } else {
@@ -85,26 +89,30 @@ public class EquipmentController extends MainController implements Initializable
           "Thank you, the "
               + dropdownButtonText.getText()
               + " you requested will be delivered shortly to "
-              + equipLocation.getText()
+              + equipmentLocation.getText()
               + " by "
               + equipmentEmployeeText.getText()
               + ".");
 
       String placeholder = "?";
-      MedDevice medDevice =
+      Request medDevice =
           new MedDevice(
-              dropdownButtonText.getText(),
-              equipmentEmployeeText.getText(),
-              equipLocation.getText(),
-              placeholder,
-              placeholder,
-              placeholder,
-              placeholder);
+              placeholder, // name
+              placeholder, // available
+              equipmentEmployeeText.getText(), // employeename
+              equipmentLocation.getText(), // location
+              dropdownButtonText.getText(), // type
+              equipmentStatus.getText(), // status
+              placeholder); // description
+
       /*medDAO.addMed(medDevice);
       medData.add(medDevice);*/
       MedrequestImpl.addRequest(medDevice);
       medData.add(medDevice);
+      // equipmentTable.setItems(medData);
       equipmentTable.setItems(medData);
+      // data.put("?", medDevice);
+
     }
   }
 }
