@@ -34,6 +34,7 @@ public class MainController {
 
   @FXML
   private void closeApp() {
+    DBconnection.shutdown();
     Platform.exit();
   }
 

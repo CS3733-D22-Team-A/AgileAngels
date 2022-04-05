@@ -33,7 +33,7 @@ public class EquipmentController extends MainController implements Initializable
   private MedDAOImpl medDAO;
   private RequestDAOImpl MedrequestImpl;
 
-  private ObservableList<Request> medData = FXCollections.observableArrayList();
+  private static ObservableList<Request> medData = FXCollections.observableArrayList();
 
   @FXML
   private TableColumn nameColumn,

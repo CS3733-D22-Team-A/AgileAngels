@@ -19,4 +19,12 @@ public class DBconnection {
   public static Connection getConnection() {
     return connection;
   }
+
+  public static void shutdown() {
+    try {
+      connection = DriverManager.getConnection("jdbc:derby:myDB;shutdown=true");
+    } catch (SQLException e) {
+      System.out.println("Shutdown unsuccessful.");
+    }
+  }
 }
