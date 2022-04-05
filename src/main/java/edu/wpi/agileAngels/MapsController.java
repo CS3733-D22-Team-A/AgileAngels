@@ -21,8 +21,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-public class MapsController extends MainController {
+// peepeepoopoo jakob was here
 
+public class MapsController extends MainController {
   @FXML
   private ImageView floorOneMap, floorTwoMap, floorThreeMap, lowerLevelOneMap, lowerLevelTwoMap;
 
@@ -49,7 +50,19 @@ public class MapsController extends MainController {
     circles.get(i).setCenterX(XCoord);
     circles.get(i).setCenterY(YCoord);
     circles.get(i).setRadius(4);
-    circles.get(i).setOpacity(1);
+    // circles.get(i).setOpacity(1);
+  }
+
+  private void loadMap(Group group) throws java.io.IOException {
+    Stage stage;
+    Parent root;
+    stage = (Stage) floorOne.getScene().getWindow();
+    root = FXMLLoader.load(getClass().getResource("views/map-view.fxml"));
+    group.getChildren().add(root);
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.setResizable(true);
+    stage.show();
   }
 
   @FXML
