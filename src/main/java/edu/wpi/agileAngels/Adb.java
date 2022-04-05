@@ -1,16 +1,10 @@
 package edu.wpi.agileAngels;
 
 import java.sql.*;
-import java.util.HashMap;
 
 public class Adb {
-  private HashMap<String, Location> locationData;
-  private HashMap<String, MedDevice> medData;
-
-  private LocationDAOImpl LocationDAO;
-  private MedDAOImpl MedDAO;
   private Connection connection = DBconnection.getConnection();
-
+  // TODO update elements in the csv
   public void main(String[] args) throws SQLException {
 
     // Apache Derby and table creation
@@ -65,58 +59,33 @@ public class Adb {
         statementLocations.execute(queryLocations);
       }
 
-      if (tableExist(connection, "Locations")) {
-        String dropLoc = "DROP TABLE Locations";
-        String queryLocations =
-            "CREATE TABLE Locations( "
-                + "NodeID VARCHAR(50),"
-                + "xcoord VARCHAR(50),"
-                + "ycoord VARCHAR(50),"
-                + "Floor VARCHAR(50),"
-                + "building VARCHAR(50),"
-                + "NodeType VARCHAR(50),"
-                + "longName VARCHAR(50),"
-                + "shortName VARCHAR(50))";
-        statementLocations.execute(dropLoc);
-        statementLocations.execute(queryLocations);
-      } else if (!tableExist(connection, "Locations")) {
-        String queryLocations =
-            "CREATE TABLE Locations( "
-                + "NodeID VARCHAR(50),"
-                + "xcoord VARCHAR(50),"
-                + "ycoord VARCHAR(50),"
-                + "Floor VARCHAR(50),"
-                + "building VARCHAR(50),"
-                + "NodeType VARCHAR(50),"
-                + "longName VARCHAR(50),"
-                + "shortName VARCHAR(50))";
-        statementLocations.execute(queryLocations);
-      }
       statementMedical = connection.createStatement();
-      if (tableExist(connection, "MedicalEquipment")) {
-        String dropMed = "DROP TABLE MedicalEquipment";
-        String queryMedical =
-            "CREATE TABLE MedicalEquipment ( "
+      if (tableExist(connection, "RequestTable")) {
+        String dropRequest = "DROP TABLE RequestTable";
+        String queryRequest =
+            "CREATE TABLE RequestTable ( "
                 + "Name VARCHAR(50),"
-                + "available VARCHAR(50),"
-                + "type VARCHAR(50),"
-                + "location VARCHAR(50),"
-                + "employee VARCHAR(50),"
-                + "status VARCHAR(50),"
-                + "description VARCHAR(50))";
-        statementMedical.execute(dropMed);
-        statementMedical.execute(queryMedical);
-      } else if (!tableExist(connection, "MedicalEquipment")) {
-        String queryMedical =
-            "CREATE TABLE MedicalEquipment ( "
+                + "Available VARCHAR(50),"
+                + "EmployeeName VARCHAR(50),"
+                + "Location VARCHAR(50),"
+                + "Type VARCHAR(50),"
+                + "Status VARCHAR(50),"
+                + "Description VARCHAR(50),"
+                + "PRIMARY KEY (Name))";
+        statementMedical.execute(dropRequest);
+        statementMedical.execute(queryRequest);
+      } else if (!tableExist(connection, "RequestTable")) {
+        String queryRequest =
+            "CREATE TABLE RequestTable ( "
                 + "Name VARCHAR(50),"
-                + "available VARCHAR(50),"
-                + "type VARCHAR(50),"
-                + "location VARCHAR(50),"
-                + "employee VARCHAR(50),"
-                + "status VARCHAR(50),"
-                + "description VARCHAR(50))";
-        statementMedical.execute(queryMedical);
+                + "Available VARCHAR(50),"
+                + "EmployeeName VARCHAR(50),"
+                + "Location VARCHAR(50),"
+                + "Type VARCHAR(50),"
+                + "Status VARCHAR(50),"
+                + "Description VARCHAR(50),"
+                + "PRIMARY KEY (Name))";
+        statementMedical.execute(queryRequest);
       }
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
@@ -124,36 +93,27 @@ public class Adb {
       return;
     }
     System.out.println("Apache Derby connection established!");
-
-    // LocationDAO = new LocationDAOImpl(connection);
-    // locationData = LocationDAO.getAllLocations(); // Updates the big hashmap
-
-    // MedDAO = new MedDAOImpl(connection);
-    // medData = MedDAO.getAllMedicalEquipmentRequests();
-
-    // MedMenu();
-    // Locationsmenu();
   }
 
   /**
-   * Adds a medical equipment request to the database table.
+   * Adds a request to the database table.
    *
-   * @param medDevice
+   * @param request
    * @return True if successful, false if not.
    */
-  public boolean addMedicalEquipmentRequest(MedDevice medDevice) {
+  public static boolean addRequest(Request request) {
     try {
       PreparedStatement preparedStatement =
           DBconnection.getConnection()
               .prepareStatement(
-                  "INSERT INTO MedicalEquipment(Name, available ,type, location, employee, status, description) VALUES(?,?,?,?,?,?,?)");
-      preparedStatement.setString(1, medDevice.getName());
-      preparedStatement.setString(2, medDevice.getAvailable());
-      preparedStatement.setString(3, medDevice.getType());
-      preparedStatement.setString(4, medDevice.getLocation());
-      preparedStatement.setString(5, medDevice.getEmployee());
-      preparedStatement.setString(6, medDevice.getStatus());
-      preparedStatement.setString(7, medDevice.getDescription());
+                  "INSERT INTO RequestTable(Name, Available, EmployeeName, Location, Type, Status, Description) VALUES(?,?,?,?,?,?,?)");
+      preparedStatement.setString(1, request.getName());
+      preparedStatement.setString(2, "");
+      preparedStatement.setString(3, request.getType());
+      preparedStatement.setString(4, request.getLocation());
+      preparedStatement.setString(5, request.getEmployee());
+      preparedStatement.setString(6, request.getStatus());
+      preparedStatement.setString(7, request.getDescription());
       preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {
@@ -162,17 +122,16 @@ public class Adb {
   }
 
   /**
-   * Removes a medical equipment request from the database table.
+   * Removes a request from the database table.
    *
-   * @param medDevice
+   * @param request
    * @return True if successful, false if not.
    */
-  public boolean removeMedicalEquipmentRequest(MedDevice medDevice) {
+  public static boolean removeRequest(Request request) {
     try {
       PreparedStatement preparedStatement =
-          DBconnection.getConnection()
-              .prepareStatement("DELETE FROM MedicalEquipment WHERE Name = ?");
-      preparedStatement.setString(1, medDevice.getName());
+          DBconnection.getConnection().prepareStatement("DELETE FROM RequestTable WHERE Name = ?");
+      preparedStatement.setString(1, request.getName());
       preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {
@@ -196,18 +155,19 @@ public class Adb {
     pstmt.executeUpdate();
   }
   /**
-   * Updates availability for a med device in the table.
+   * Updates availability for a request in the table.
    *
-   * @param medDevice (with new availability)
+   * @param request, updateAttribute, update
    * @return True if successful, false if not.
    */
-  public boolean updateMedicalEquipmentRequestAvailability(MedDevice medDevice) {
+  public static boolean updateRequest(Request request, String updateAttribute, String update) {
     try {
       PreparedStatement preparedStatement =
           DBconnection.getConnection()
-              .prepareStatement("UPDATE MedicalEquipment SET available = ? WHERE name = ?");
-      preparedStatement.setString(1, medDevice.getAvailable());
-      preparedStatement.setString(2, medDevice.getName());
+              .prepareStatement("UPDATE MedicalEquipment SET ? = ? WHERE Name = ?");
+      preparedStatement.setString(1, updateAttribute);
+      preparedStatement.setString(2, update);
+      preparedStatement.setString(3, request.getName());
       preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {
@@ -216,32 +176,13 @@ public class Adb {
   }
 
   /**
-   * Updates type for a med device in the table.
-   *
-   * @param medDevice (with new type)
-   * @return True if successful, false if not.
-   */
-  public boolean updateMedicalEquipmentRequestType(MedDevice medDevice) {
-    try {
-      PreparedStatement preparedStatement =
-          DBconnection.getConnection()
-              .prepareStatement("UPDATE MedicalEquipment SET type = ? WHERE name = ?");
-      preparedStatement.setString(1, medDevice.getType());
-      preparedStatement.setString(2, medDevice.getName());
-      preparedStatement.execute();
-      return true;
-    } catch (SQLException sqlException) {
-      return false;
-    }
-  }
-  /**
    * Adds a new location to the location table and hashmap.
    *
    * @param node
    * @throws SQLException
    */
   private void addLocation(String node) throws SQLException {
-    locationData = LocationDAO.getAllLocations();
+    // locationData = LocationDAO.getAllLocations();
     // Adding to the database table
     String add =
         "INSERT INTO Locations(NodeID,xcoord,ycoord,Floor,building,nodeType,longName,shortName)VALUES(?,'?','?','?','?','?','?','?')";
@@ -270,65 +211,6 @@ public class Adb {
     preparedStatement.setString(1, node);
     preparedStatement.execute();
   }
-  /**
-   * Updates location for a med device in the table.
-   *
-   * @param medDevice (with new location)
-   * @return True if successful, false if not.
-   */
-  public boolean updateMedicalEquipmentRequestLocation(MedDevice medDevice) {
-    try {
-      PreparedStatement preparedStatement =
-          DBconnection.getConnection()
-              .prepareStatement("UPDATE MedicalEquipment SET location = ? WHERE name = ?");
-      preparedStatement.setString(1, medDevice.getLocation());
-      preparedStatement.setString(2, medDevice.getName());
-      preparedStatement.execute();
-      return true;
-    } catch (SQLException sqlException) {
-      return false;
-    }
-  }
-
-  /**
-   * Updates employee for a med device in the table.
-   *
-   * @param medDevice (with new employee)
-   * @return True if successful, false if not.
-   */
-  public boolean updateMedicalEquipmentRequestEmployee(MedDevice medDevice) {
-    try {
-      PreparedStatement preparedStatement =
-          DBconnection.getConnection()
-              .prepareStatement("UPDATE MedicalEquipment SET employee = ? WHERE name = ?");
-      preparedStatement.setString(1, medDevice.getEmployee());
-      preparedStatement.setString(2, medDevice.getName());
-      preparedStatement.execute();
-      return true;
-    } catch (SQLException sqlException) {
-      return false;
-    }
-  }
-
-  /**
-   * Updates status for a med device in the table.
-   *
-   * @param medDevice (with new status)
-   * @return True if successful, false if not.
-   */
-  public boolean updateMedicalEquipmentRequestStatus(MedDevice medDevice) {
-    try {
-      PreparedStatement preparedStatement =
-          DBconnection.getConnection()
-              .prepareStatement("UPDATE MedicalEquipment SET status = ? WHERE name = ?");
-      preparedStatement.setString(1, medDevice.getStatus());
-      preparedStatement.setString(2, medDevice.getName());
-      preparedStatement.execute();
-      return true;
-    } catch (SQLException sqlException) {
-      return false;
-    }
-  }
 
   public boolean tableExist(Connection conn, String tName) throws SQLException {
     boolean tExists = false;
@@ -347,24 +229,4 @@ public class Adb {
     }
     return tExists;
   }
-  /*
-  // Optimizes myDB file to get rid of it. Ask Justin or Aaron for questions.
-  public boolean tableExist(Connection conn, String tName) throws SQLException {
-    boolean tExists = false;
-    try {
-      DatabaseMetaData metaData = conn.getMetaData();
-      ResultSet rs = metaData.getTables(null, null, tName.toUpperCase(), null);
-      while (rs.next()) {
-        String name = rs.getString("TABLE_NAME");
-        if (name != null && name.equals(tName.toUpperCase())) {
-          tExists = true;
-          break;
-        }
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return tExists;
-  }
-  */
 }

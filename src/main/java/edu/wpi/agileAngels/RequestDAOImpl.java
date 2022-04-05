@@ -43,7 +43,9 @@ public class RequestDAOImpl {
   }
 
   public void deleteRequest(Request request) {
+
     reqData.remove(request.getDescription()); // change to the key
+    Adb.removeRequest(request);
   }
 
   public void addRequest(Request request) {
@@ -57,7 +59,7 @@ public class RequestDAOImpl {
     letter = letter + Integer.toString(count);
     request.setName(letter);
     reqData.put(letter, request);
-
+    Adb.addRequest(request);
     // change to the key
   }
 }
