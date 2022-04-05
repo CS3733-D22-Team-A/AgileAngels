@@ -21,7 +21,8 @@ public class EquipmentController extends MainController implements Initializable
   // @FXML private MenuButton eqptDropdown;
   // @FXML private MenuItem bed, recliner, xray, infusion;
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
-  @FXML private TextField equipLocation, equipmentEmployeeText, equipmentStatus, deleteName;
+  @FXML
+  private TextField equipLocation, equipmentEmployeeText, equipmentStatus, deleteName, editRequest;
   @FXML private Label equipmentConfirmation, dropdownButtonText;
   @FXML private TableView equipmentTable;
   private Connection connection;
@@ -81,7 +82,8 @@ public class EquipmentController extends MainController implements Initializable
     if (dropdownButtonText.getText().isEmpty()
         || equipLocation.getText().isEmpty()
         || equipmentEmployeeText.getText().isEmpty()
-        || !deleteName.getText().isEmpty()) {
+        || (!deleteName.getText().isEmpty())) {
+      System.out.println("First");
       if (!deleteName.getText().isEmpty()) {
         for (int i = 0; i < medData.size(); i++) {
           Request object = medData.get(i);
@@ -95,7 +97,43 @@ public class EquipmentController extends MainController implements Initializable
       }
 
       equipmentConfirmation.setText("Please fill out all the require fields");
+    } else if ((!dropdownButtonText.getText().isEmpty()
+            || !equipLocation.getText().isEmpty()
+            || !equipmentEmployeeText.getText().isEmpty())
+        && (!editRequest.getText().isEmpty())) {
+      System.out.println("Second");
+      Request found = null;
+      int num = 0;
+      for (int i = 0; i < medData.size(); i++) {
+        Request device = medData.get(i);
+        if (0 == editRequest.getText().compareTo(device.getName())) {
+          found = device;
+          num = i;
+        }
+      }
+      if (found != null) {
+        if (!dropdownButtonText.getText().isEmpty()) {
+          String type = dropdownButtonText.getText();
+          found.setType(type);
+          MedrequestImpl.updateType(found, type);
+        }
+        if (!equipLocation.getText().isEmpty()) {
+          String location = equipLocation.getText();
+          found.setLocation(location);
+          MedrequestImpl.updateLocation(found, location);
+        }
+        if (!equipmentEmployeeText.getText().isEmpty()) {
+          String employee = equipmentEmployeeText.getText();
+          found.setEmployee(employee);
+          MedrequestImpl.updateEmployeeName(found, employee);
+        }
+        medData.set(num, found);
+
+        equipmentTable.setItems(medData);
+      }
+
     } else {
+      System.out.println("ADD DEVICE");
       equipmentConfirmation.setText(
           "Thank you, the "
               + dropdownButtonText.getText()
