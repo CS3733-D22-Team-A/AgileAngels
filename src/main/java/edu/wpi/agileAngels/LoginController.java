@@ -10,7 +10,7 @@ import javax.swing.*;
 
 public class LoginController extends MainController {
   @FXML private TextField username, passwordBox;
-  @FXML private Label invalid;
+  @FXML private Label invalid, intialsBox;
   @FXML private Button login;
 
   @FXML
@@ -25,4 +25,49 @@ public class LoginController extends MainController {
       invalid.setText("Invalid username or password:\nPlease try again");
     }
   }
+
+  /*
+  @FXML
+   private void setInitials(String) throws IOException {
+     if (username.getText().equals(passwordBox.getText()) && !username.getText().isEmpty()) {
+       loggedIn = true;
+       setUsername(username.getText());
+       pageHistory.pop();
+       loadPage(pageHistory.peek(), login);
+     } else {
+       invalid.setTextFill(Color.rgb(220, 80, 80));
+       invalid.setText("Invalid username or password:\nPlease try again");
+     }
+   }
+   */
+
+  /**
+   * Creates the intial(s) of the given string. If only 1 name is given, 1 intial will return. If 2+
+   * names, 2 initials.
+   *
+   * @return The initial(s) of the given string
+   */
+  public String intialsMaker(String name) {
+    String initials = "N/A";
+
+    // If the name has a space, 2+ names were given and need to be broken up.
+    char firstInitial = name.charAt(0);
+    if (name.contains(" ")) {
+      int lastSpaceIndex = name.lastIndexOf(" ");
+      char secondInitial = name.charAt(lastSpaceIndex + 1);
+
+      initials = "" + firstInitial + secondInitial;
+    }
+
+    // Else, 1 name was given, throw the first character.
+    else {
+      initials = "" + firstInitial;
+    }
+
+    return initials;
+  }
+
+  /*
+  Maybe make a way to turn password text into asterisks as it's being typed, and a way to turn it back when "show pw" is clicked.
+   */
 }
