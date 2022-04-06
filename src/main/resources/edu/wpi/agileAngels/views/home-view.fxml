@@ -19,7 +19,7 @@
    <children>
       <ImageView fitHeight="726.0" fitWidth="1280.0" preserveRatio="true">
          <image>
-            <Image url="@../../../../../resources/edu/wpi/agileAngels/assets/blur.png" />
+            <Image url="@../assets/blur.png" />
          </image>
       </ImageView>
       <Pane id="topBar" prefHeight="142.0" prefWidth="1280.0">
