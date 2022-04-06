@@ -11,12 +11,10 @@ public class HomeController extends MainController {
 
   @FXML
   private void homeButton(ActionEvent event) throws IOException {
-
     if (event.getSource() == serviceButton) {
       loadPage("views/serviceRequest-view.fxml", serviceButton);
-    }
-    if (event.getSource() == mapButton) {
-      loadPage("views/maps.fxml", serviceButton);
+    } else if (event.getSource() == mapButton) {
+      loadPage("views/map-view.fxml", mapButton);
     }
   }
 }

@@ -1,4 +1,4 @@
-nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName
+﻿nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName
 FDEPT00101,1617,825,1,Tower,DEPT,Center for International Medicine,CIM
 FDEPT00201,1610,1120,1,Tower,DEPT,Bretholtz Center for Patients and Families,Bretholtz WR
 FDEPT00301,1721,931,1,Tower,DEPT,Multifaith Chapel,Chapel
@@ -123,3 +123,30 @@ CHALL010L2,2130,849,L2,Tower,HALL,Hallway 10 Floor L2,Hallway C010L2
 WELEV00LL2,1785,924,L2,Tower,ELEV,Elevator L Floor L2,Elevator LL2
 WELEV00ML2,1820,1280,L2,Tower,ELEV,Elevator M Floor L2,Elevator ML2
 WHALL001L2,1745,1524,L2,Tower,HALL,Hallway Connector 1 Floor L2,Hallway W01L2
+ASTOR001L1,1670,860,L1,Tower,STOR,OR Bed Park,Bed Park
+ASTOR00101,1505,923,1,Tower,STOR,West Plaza,West Plaza
+ASTOR00103,1498,786,3,Tower,STOR,Pod B clean equiptment srotsage,Clean pumps 00103
+ASTOR00203,1502,1063,3,Tower,STOR,Pod C clean equiptment srotsage,Clean pumps 00203
+ADIRT00103,1527,942,3,Tower,DIRT,Soiled equiptment storage,Dirty pumps
+APATI00103,1491,864,3,Tower,PATI,Patient room pod B 1,Patient 00103
+APATI00203,1454,844,3,Tower,PATI,Patient room pod B 2,Patient 00203
+APATI00303,1422,798,3,Tower,PATI,Patient room pod B 3,Patient 00303
+APATI00403,1416,755,3,Tower,PATI,Patient room pod B 4,Patient 00403
+APATI00503,1436,710,3,Tower,PATI,Patient room pod B 5,Patient 00503
+APATI00603,1461,682,3,Tower,PATI,Patient room pod B 6,Patient 00603
+APATI00703,1510,665,3,Tower,PATI,Patient room pod B 7,Patient 00703
+APATI00803,1552,670,3,Tower,PATI,Patient room pod B 8,Patient 00803
+APATI00903,1600,698,3,Tower,PATI,Patient room pod B 9,Patient 00903
+APATI01003,1625,743,3,Tower,PATI,Patient room pod B 10,Patient 01003
+APATI01103,1619,1106,3,Tower,PATI,Patient room pod C 1,Patient 01103
+APATI01203,1599,1150,3,Tower,PATI,Patient room pod C 2,Patient 01203
+APATI01303,1552,1177,3,Tower,PATI,Patient room pod C 3,Patient 01303
+APATI01403,1503,1183,3,Tower,PATI,Patient room pod C 4,Patient 01403
+APATI01503,1460,1162,3,Tower,PATI,Patient room pod C 5,Patient 01503
+APATI01603,1428,1133,3,Tower,PATI,Patient room pod C 6,Patient 01603
+APATI01703,1416,1090,3,Tower,PATI,Patient room pod C 7,Patient 01703
+APATI01803,1416,1047,3,Tower,PATI,Patient room pod C 8,Patient 01803
+APATI01903,1442,1000,3,Tower,PATI,Patient room pod C 9,Patient 01903
+APATI02003,1491,977,3,Tower,PATI,Patient room pod C 10,Patient 02003
+ASTOR00303,1679,806,3,Tower,STOR,Bed recliner storage for Pod A and B,Bed storage 00303
+ASTOR00403,1668,1041,3,Tower,STOR,Bed recliner storage for Pod C and D,Bed storage 00403

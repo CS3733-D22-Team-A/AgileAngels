@@ -18,7 +18,8 @@ public class MedDAOImpl implements MedDAO {
   private final String CSV_FILE_PATH = "./MedData.csv";
   private HashMap<String, MedDevice> medData = new HashMap<>();
 
-  public MedDAOImpl(Connection connection) {
+  public MedDAOImpl() {
+    Connection connection = DBconnection.getConnection();
     try (Reader reader = Files.newBufferedReader(Paths.get(CSV_FILE_PATH));
         CSVParser csvParser =
             new CSVParser(
@@ -76,6 +77,7 @@ public class MedDAOImpl implements MedDAO {
   }
 
   @Override
+  // database needs unique names to recognize medical requests
   public void updateName(MedDevice medDevice, String newName) {
     medDevice.setName(newName);
     System.out.println(
@@ -127,6 +129,7 @@ public class MedDAOImpl implements MedDAO {
   @Override
   public void addMed(MedDevice medDevice) {
     medData.put(medDevice.getName(), medDevice);
+    // (Adb instance).addMedicalEquipmentRequest(medDevice);
     System.out.println(
         "Medical Equipment: Name " + medDevice.getName() + ", added in the database");
   }

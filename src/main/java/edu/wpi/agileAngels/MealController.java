@@ -1,5 +1,8 @@
 package edu.wpi.agileAngels;
 
+import java.net.URL;
+import java.util.HashMap;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,6 +14,13 @@ public class MealController extends MainController {
   @FXML private TextField roomInput, mealEmployeeText, mealStatus, restrictions;
   @FXML private Label dropdownButtonText, confirm, pastaLabel, stealLabel, burgerLabel, pizzaLabel;
   @FXML Pane drop, drop2;
+
+  private RequestDAOImpl mealDAO;
+
+  public void initialize(URL location, ResourceBundle resources) {
+    HashMap<String, Request> mealData = new HashMap<String, Request>();
+    mealDAO = new RequestDAOImpl("./Meal.csv", mealData, 0);
+  }
 
   @FXML
   private void submitMeal() {
@@ -30,11 +40,13 @@ public class MealController extends MainController {
               + restrictions.getText());
       MealRequest request =
           new MealRequest(
+              "",
               mealEmployeeText.getText(),
               roomInput.getText(),
               dropdownButtonText.getText(),
               mealStatus.getText(),
               restrictions.getText());
+      mealDAO.addRequest(request);
     }
   }
 }

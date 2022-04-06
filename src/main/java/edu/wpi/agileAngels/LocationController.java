@@ -2,7 +2,6 @@ package edu.wpi.agileAngels;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +27,7 @@ public class LocationController extends MainController implements Initializable 
       shortNameColumn;
   private ObservableList<Location> locationData = FXCollections.observableArrayList();
   private LocationDAOImpl locationDAO;
-  private Connection connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+  private Connection connection;
 
   @FXML private TableView locationTable;
 
@@ -41,7 +40,7 @@ public class LocationController extends MainController implements Initializable 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    locationDAO = new LocationDAOImpl(connection);
+    connection = DBconnection.getConnection();
 
     // Implement DAO here.
 

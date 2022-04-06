@@ -1,12 +1,24 @@
 package edu.wpi.agileAngels;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
-public class GiftsController extends MainController {
+public class GiftsController extends MainController implements Initializable {
   @FXML private TextField giftSender, giftRecipient, giftMessage, giftEmployeeText, giftStatus;
 
   @FXML private Label giftConfirm;
+  private RequestDAOImpl giftDAO;
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    HashMap<String, Request> giftData = new HashMap<>();
+    giftDAO = new RequestDAOImpl("./GIFT.CSV", giftData, 0);
+  }
 
   @FXML
   private void submitGift() {
@@ -28,12 +40,20 @@ public class GiftsController extends MainController {
               + " soon. ");
       GiftRequest request =
           new GiftRequest(
+              "",
               giftEmployeeText.getText(),
               giftRecipient.getText(),
               dropdownButtonText.getText(),
               giftStatus.getText(),
               giftMessage.getText(),
               giftSender.getText());
+
+      giftDAO.addRequest(request);
     }
+  }
+
+  @FXML
+  private void clearPage() throws IOException, InterruptedException {
+    loadPage("views/gifts-view.fxml", giftConfirm);
   }
 }
