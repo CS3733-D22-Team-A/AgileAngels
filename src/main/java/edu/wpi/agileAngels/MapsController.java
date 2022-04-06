@@ -17,7 +17,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 
-// hello
+// @TODO hot mess, sayonara
+
 public class MapsController extends MainController implements Initializable {
 
   @FXML private Button floorOne, floorTwo, floorThree, lowerLevelOne, lowerLevelTwo;

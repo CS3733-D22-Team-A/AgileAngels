@@ -4,8 +4,11 @@ import java.io.IOException;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 
+// bye bye
 public class Node {
+  /** each point on map is a node */
   private final MapsManager maps = MapsManager.getMapsManager();
+
   private Location location;
   private Circle circle;
 

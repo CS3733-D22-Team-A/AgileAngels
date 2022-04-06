@@ -15,7 +15,6 @@ public class MedDevice extends Request {
 
     super(name, employeeName, location, type, status, description);
     setRequestType(0);
-    this.name = name;
     this.available = available;
   }
 

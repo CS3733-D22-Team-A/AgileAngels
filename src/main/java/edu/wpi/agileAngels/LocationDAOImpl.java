@@ -15,6 +15,7 @@ import org.apache.commons.csv.CSVRecord;
 
 // includes a list od Location objects and implements the Location DAO methods
 // this will get the data from the DB?
+// TODO export to CSV in LocationDAOImpl
 public class LocationDAOImpl implements LocationDAO {
   // List is working as a database
   private final String CSV_FILE_PATH = "./TowerLocations.csv";
@@ -96,6 +97,7 @@ public class LocationDAOImpl implements LocationDAO {
 
   // @Override override in the tutoral, different method name? (for all updateLocation<field_name>
   // methods)
+  // TODO edit more than one at a time
   public void updateLocationType(Location location, String newLocationType) {
     location.setNodeType(newLocationType);
     System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");

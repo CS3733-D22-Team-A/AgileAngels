@@ -2,6 +2,7 @@ package edu.wpi.agileAngels;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -17,10 +18,15 @@ public class GiftsController extends MainController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     HashMap<String, Request> giftData = new HashMap<>();
-    giftDAO = new RequestDAOImpl("./GIFT.CSV", giftData, 0);
+    try {
+      giftDAO = new RequestDAOImpl("./GIFT.CSV", giftData, 0);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   @FXML
+  /** Submits fields to a Java gifts Request Object */
   private void submitGift() {
     if (giftSender.getText().isEmpty()
         || giftEmployeeText.getText().isEmpty()

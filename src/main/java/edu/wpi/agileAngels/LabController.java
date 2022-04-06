@@ -1,6 +1,7 @@
 package edu.wpi.agileAngels;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -10,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+// similar to equip controller
 public class LabController extends MainController implements Initializable {
 
   @FXML private TextField labTestLocation, labEmployeeText, labStatus, labDelete, labEdit;
@@ -38,7 +40,11 @@ public class LabController extends MainController implements Initializable {
     HashMap<String, Request> LabData = new HashMap<String, Request>();
     Request labRequest = new LabRequest("?", "?", "?", "?", "?", "?", "?");
     LabData.put("0", labRequest);
-    LabDAO = new RequestDAOImpl("./Lab.csv", LabData, 0);
+    try {
+      LabDAO = new RequestDAOImpl("./Lab.csv", LabData, 0);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));

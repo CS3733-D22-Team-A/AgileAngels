@@ -17,9 +17,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
+// TODO create helper methods to avoid confusion
 public class EquipmentController extends MainController implements Initializable {
-  // @FXML private MenuButton eqptDropdown;
-  // @FXML private MenuItem bed, recliner, xray, infusion;
+
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
   @FXML
   private TextField equipLocation, equipmentEmployeeText, equipmentStatus, deleteName, editRequest;
@@ -30,10 +30,10 @@ public class EquipmentController extends MainController implements Initializable
 
   @FXML Pane drop, drop2;
 
-  private MedDAOImpl medDAO;
-  private RequestDAOImpl MedrequestImpl;
-
-  private static ObservableList<Request> medData = FXCollections.observableArrayList();
+  private RequestDAOImpl MedrequestImpl; // instance of RequestDAOImpl to access functions
+  // only way to update the UI is ObservableList
+  private static ObservableList<Request> medData =
+      FXCollections.observableArrayList(); // list of requests
 
   @FXML
   private TableColumn nameColumn,
@@ -57,7 +57,11 @@ public class EquipmentController extends MainController implements Initializable
     HashMap<String, Request> data = new HashMap<>();
     MedDevice medDevice = new MedDevice("?", "?", "?", "?", "?", "?", "?");
     data.put("0", medDevice);
-    MedrequestImpl = new RequestDAOImpl("./MedData.csv", data, 0);
+    try {
+      MedrequestImpl = new RequestDAOImpl("./MedData.csv", data, 0);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
 
     /**
      * for (Map.Entry<String, Request> entry : data.entrySet()) { Request object = entry.getValue();
@@ -153,9 +157,9 @@ public class EquipmentController extends MainController implements Initializable
               placeholder);
       /*medDAO.addMed(medDevice);
       medData.add(medDevice);*/
-      MedrequestImpl.addRequest(medDevice);
+      MedrequestImpl.addRequest(medDevice); // add to hashmap
 
-      medData.add(medDevice);
+      medData.add(medDevice); // add to the UI
 
       equipmentTable.setItems(medData);
     }

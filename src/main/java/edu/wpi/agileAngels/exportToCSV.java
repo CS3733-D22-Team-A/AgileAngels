@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
 
+// TODO this needs to all be in impl or ADB (continous?)
+
 public class exportToCSV {
   public void export(Connection connection) {
 

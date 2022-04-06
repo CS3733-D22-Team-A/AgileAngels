@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 // test DAO methods
+// Sandbox is fun!
 public class DAOPatternDemo {
   private static Connection connection;
   private static LocationDAO locationDao;
