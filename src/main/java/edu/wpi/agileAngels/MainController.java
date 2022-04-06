@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+// hello
 public class MainController {
 
   @FXML Button back, close, clear, equipRequest, viewRequest, map;

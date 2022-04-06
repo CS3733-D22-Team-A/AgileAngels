@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 
+// hello
 public class MapsManager extends MainController implements Initializable {
 
   private static MapsManager mapsManager;
