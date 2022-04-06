@@ -1,16 +1,10 @@
 package edu.wpi.agileAngels;
 
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Scanner;
 
 public class Adb {
-  private HashMap<String, Location> locationData;
-  private HashMap<String, MedDevice> medData;
-  public Connection connection = null;
-  private LocationDAOImpl LocationDAO;
-  private MedDAOImpl MedDAO;
-
+  private Connection connection = DBconnection.getConnection();
+  // TODO update elements in the csv
   public void main(String[] args) throws SQLException {
 
     // Apache Derby and table creation
@@ -35,7 +29,6 @@ public class Adb {
     Statement statementMedical;
     try {
       // substitute your database name for myDB
-      connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
       statementLocations = connection.createStatement();
       // Optimizes myDB file to get rid of it. Ask Justin or Aaron for questions.
       if (tableExist(connection, "Locations")) {
@@ -65,31 +58,34 @@ public class Adb {
                 + "shortName VARCHAR(50))";
         statementLocations.execute(queryLocations);
       }
+
       statementMedical = connection.createStatement();
-      if (tableExist(connection, "MedicalEquipment")) {
-        String dropMed = "DROP TABLE MedicalEquipment";
-        String queryMedical =
-            "CREATE TABLE MedicalEquipment ( "
+      if (tableExist(connection, "RequestTable")) {
+        String dropRequest = "DROP TABLE RequestTable";
+        String queryRequest =
+            "CREATE TABLE RequestTable ( "
                 + "Name VARCHAR(50),"
-                + "available VARCHAR(50),"
-                + "type VARCHAR(50),"
-                + "location VARCHAR(50),"
-                + "employee VARCHAR(50),"
-                + "status VARCHAR(50),"
-                + "description VARCHAR(50))";
-        statementMedical.execute(dropMed);
-        statementMedical.execute(queryMedical);
-      } else if (!tableExist(connection, "MedicalEquipment")) {
-        String queryMedical =
-            "CREATE TABLE MedicalEquipment ( "
+                + "Available VARCHAR(50),"
+                + "EmployeeName VARCHAR(50),"
+                + "Location VARCHAR(50),"
+                + "Type VARCHAR(50),"
+                + "Status VARCHAR(50),"
+                + "Description VARCHAR(50),"
+                + "PRIMARY KEY (Name))";
+        statementMedical.execute(dropRequest);
+        statementMedical.execute(queryRequest);
+      } else if (!tableExist(connection, "RequestTable")) {
+        String queryRequest =
+            "CREATE TABLE RequestTable ( "
                 + "Name VARCHAR(50),"
-                + "available VARCHAR(50),"
-                + "type VARCHAR(50),"
-                + "location VARCHAR(50),"
-                + "employee VARCHAR(50),"
-                + "status VARCHAR(50),"
-                + "description VARCHAR(50))";
-        statementMedical.execute(queryMedical);
+                + "Available VARCHAR(50),"
+                + "EmployeeName VARCHAR(50),"
+                + "Location VARCHAR(50),"
+                + "Type VARCHAR(50),"
+                + "Status VARCHAR(50),"
+                + "Description VARCHAR(50),"
+                + "PRIMARY KEY (Name))";
+        statementMedical.execute(queryRequest);
       }
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
@@ -97,192 +93,49 @@ public class Adb {
       return;
     }
     System.out.println("Apache Derby connection established!");
-
-    // LocationDAO = new LocationDAOImpl(connection);
-    // locationData = LocationDAO.getAllLocations(); // Updates the big hashmap
-
-    // MedDAO = new MedDAOImpl(connection);
-    // medData = MedDAO.getAllMedicalEquipmentRequests();
-
-    // MedMenu();
-    // Locationsmenu();
-  }
-
-  /** Medical Equipment Menu */
-  private void MedMenu() {
-    Scanner myObj = new Scanner(System.in); // Create a Scanner object
-    System.out.println("1 - Medical Equipment Request Information");
-    System.out.println("2 - Add Medical Request");
-    System.out.println("3 - Delete Location");
-    System.out.println("4 - Save Locations to CSV File");
-    System.out.println("5 - Exit Program");
-
-    String select = myObj.nextLine();
-
-    if ((select.equals("1"))) {
-      DisplayMedicalEquipment();
-    }
-    if ((select.equals("2"))) {
-      System.out.println("Add Medical Equipment Database");
-      Scanner in = new Scanner(System.in);
-      String name = in.next();
-      medData = MedDAO.getAllMedicalEquipmentRequests();
-      try {
-        addMedicalEquipment(name);
-      } catch (SQLException sqlException) {
-        System.out.println("Adding a new Medical Equipment unsuccessful.");
-      }
-    }
-    if ((select.equals("3"))) {
-      System.out.println("Enter Medical Equipment Name");
-      Scanner in = new Scanner(System.in);
-      String name = in.next();
-      try {
-        deleteMedicalEquipment(name);
-      } catch (SQLException sqlException) {
-        System.out.println("Medical Equipment could not be removed.");
-      }
-    } else if (select.equals("4")) {
-      System.out.println("Save Locations to CSV File");
-      MedExportToCSV medExport = new MedExportToCSV();
-      medExport.export(connection);
-    } else if (select.equals("5")) {
-      System.out.println("Exit Program");
-      return;
-    } else {
-      System.out.println("Wrong Input, Select From Menu");
-    }
-    MedMenu();
-  }
-
-  private void DisplayMedicalEquipment() {
-    for (HashMap.Entry<String, MedDevice> set : medData.entrySet()) {
-      System.out.println("Name " + set.getKey());
-      MedDevice medDevice = set.getValue();
-      System.out.println("available " + medDevice.getAvailable());
-      System.out.println("Type " + medDevice.getType());
-      System.out.println("Location " + medDevice.getLocation());
-      System.out.println("Employee " + medDevice.getEmployee());
-      System.out.println("Status " + medDevice.getStatus());
-      System.out.println("Description " + medDevice.getDescription());
-      System.out.println(" ");
-    }
-  }
-
-  private void addMedicalEquipment(String name) throws SQLException {
-    medData = MedDAO.getAllMedicalEquipmentRequests();
-    // Adding to the database table
-    String addMed =
-        "INSERT INTO MedicalEquipment(Name, available ,type, location, employee, status, description)VALUES(?,'?','?','?','?','?','?')";
-    PreparedStatement preparedStatement = connection.prepareStatement(addMed);
-    preparedStatement.setString(1, name);
-    preparedStatement.execute();
-
-    // Adding to the hashmap
-    String placeholder = "?";
-    MedDevice medDevice =
-        new MedDevice(
-            name, placeholder, placeholder, placeholder, placeholder, placeholder, placeholder);
-
-    MedDAO.addMed(medDevice);
   }
 
   /**
-   * Deletes a Medical Equipment from the table and hashmap.
+   * Adds a request to the database table.
    *
-   * @param name
-   * @throws SQLException
+   * @param request
+   * @return True if successful, false if not.
    */
-  private void deleteMedicalEquipment(String name) throws SQLException {
-    // Deleting from the database table
-    MedDevice medDevice = medData.get(name);
-    if (medDevice != null) {
+  public static boolean addRequest(Request request) {
+    try {
       PreparedStatement preparedStatement =
-          connection.prepareStatement("DELETE FROM MedicalEquipment WHERE Name = ?");
-      preparedStatement.setString(1, name);
+          DBconnection.getConnection()
+              .prepareStatement(
+                  "INSERT INTO RequestTable(Name, Available, EmployeeName, Location, Type, Status, Description) VALUES(?,?,?,?,?,?,?)");
+      preparedStatement.setString(1, request.getName());
+      preparedStatement.setString(2, "");
+      preparedStatement.setString(3, request.getEmployee());
+      preparedStatement.setString(4, request.getLocation());
+      preparedStatement.setString(5, request.getType());
+      preparedStatement.setString(6, request.getStatus());
+      preparedStatement.setString(7, request.getDescription());
       preparedStatement.execute();
-
-      // Deleting from hashmap
-      MedDAO.deleteMed(medDevice);
-    } else {
-      System.out.println("Medical Equipment Does Not Exist");
+      return true;
+    } catch (SQLException sqlException) {
+      return false;
     }
   }
 
-  /** Menu Creation for User* */
-  private void Locationsmenu() throws SQLException {
-
-    Scanner myObj = new Scanner(System.in); // Create a Scanner object
-    System.out.println("1 - Location Information");
-    System.out.println("2 - Change Floor and Type");
-    System.out.println("3 - Enter Location");
-    System.out.println("4 - Delete Location");
-    System.out.println("5 - Save Locations to CSV File");
-    System.out.println("6 - Exit Program");
-
-    String select = myObj.nextLine();
-
-    if (select.equals("1")) {
-      System.out.println("Location Information");
-      locationData = LocationDAO.getAllLocations();
-      DisplayLocations();
-
-    } else if (select.equals("2")) {
-      System.out.println("Change Floor and Type");
-      System.out.println("Enter nodeID");
-      // Scanner myObj = new Scanner(System.in);
-      String ID = myObj.next();
-      locationData = LocationDAO.getAllLocations();
-      ChangeFloorandType(ID, myObj);
-
-    } else if (select.equals("3")) {
-      System.out.println("Enter Location ID");
-      Scanner in = new Scanner(System.in);
-      String nodeID = in.next();
-      locationData = LocationDAO.getAllLocations();
-
-      try {
-        addLocation(nodeID);
-      } catch (SQLException sqlException) {
-        System.out.println("Adding a new location unsuccessful.");
-      }
-
-    } else if (select.equals("4")) {
-      System.out.println("Enter Location ID");
-      Scanner in = new Scanner(System.in);
-      String nodeID = in.next();
-      try {
-        deleteLocation(nodeID);
-      } catch (SQLException sqlException) {
-        System.out.println("Location could not be removed.");
-      }
-
-    } else if (select.equals("5")) {
-      System.out.println("Save Locations to CSV File");
-      exportToCSV export = new exportToCSV();
-      export.export(connection);
-    } else if (select.equals("6")) {
-      System.out.println("Exit Program");
-      System.exit(0);
-    } else {
-      System.out.println("Wrong Input, Select From Menu");
-    }
-    Locationsmenu();
-  }
-
-  /** Display all Locations and attributes */
-  private void DisplayLocations() {
-    for (HashMap.Entry<String, Location> set : locationData.entrySet()) {
-      System.out.println("NodeID " + set.getKey());
-      Location location = set.getValue();
-      System.out.println("xcoord " + location.getXCoord());
-      System.out.println("ycoord " + location.getYCoord());
-      System.out.println("Floor " + location.getFloor());
-      System.out.println("building " + location.getBuilding());
-      System.out.println("Node Type " + location.getNodeType());
-      System.out.println("Long Name " + location.getLongName());
-      System.out.println("Short Name " + location.getShortName());
-      System.out.println(" ");
+  /**
+   * Removes a request from the database table.
+   *
+   * @param request
+   * @return True if successful, false if not.
+   */
+  public static boolean removeRequest(Request request) {
+    try {
+      PreparedStatement preparedStatement =
+          DBconnection.getConnection().prepareStatement("DELETE FROM RequestTable WHERE Name = ?");
+      preparedStatement.setString(1, request.getName());
+      preparedStatement.execute();
+      return true;
+    } catch (SQLException sqlException) {
+      return false;
     }
   }
 
@@ -290,29 +143,59 @@ public class Adb {
    * Allows the user to change the floor and location type
    *
    * @param ID the node string ID to check if location is present in the map
-   * @param myObj --> Scanner to get new floor and new location
    * @throws SQLException
    */
-  private void ChangeFloorandType(String ID, Scanner myObj) throws SQLException {
-    if (locationData.get(ID) != null) {
-      System.out.println("Enter new Floor");
-      String newFloor = myObj.next();
-      System.out.println("Enter new Location");
-      String newLocation = myObj.next();
-      PreparedStatement pstmt =
-          connection.prepareStatement(
-              "UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
-      pstmt.setString(1, newFloor);
-      pstmt.setString(2, newLocation);
-      pstmt.setString(3, ID);
-      pstmt.executeUpdate();
-
-      // Updating java objects
-      Location location = locationData.get(ID);
-      LocationDAO.updateLocationFloor(location, newFloor);
-      LocationDAO.updateLocationType(location, newLocation);
-    } else {
-      System.out.println("Cannot Find Location");
+  private void ChangeFloorandType(String ID, String newFloor, String newLocation)
+      throws SQLException {
+    PreparedStatement pstmt =
+        connection.prepareStatement("UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
+    pstmt.setString(1, newFloor);
+    pstmt.setString(2, newLocation);
+    pstmt.setString(3, ID);
+    pstmt.executeUpdate();
+  }
+  /**
+   * Updates availability for a request in the table.
+   *
+   * @param request, updateAttribute, update
+   * @return True if successful, false if not.
+   */
+  public static boolean updateRequest(Request request, String updateAttribute, String update) {
+    try {
+      PreparedStatement preparedStatement;
+      if (updateAttribute.equals("Available")) {
+        preparedStatement =
+            DBconnection.getConnection()
+                .prepareStatement("UPDATE RequestTable SET Available = ? WHERE Name = ?");
+      } else if (updateAttribute.equals("EmployeeName")) {
+        preparedStatement =
+            DBconnection.getConnection()
+                .prepareStatement("UPDATE RequestTable SET EmployeeName = ? WHERE Name = ?");
+      } else if (updateAttribute.equals("Location")) {
+        preparedStatement =
+            DBconnection.getConnection()
+                .prepareStatement("UPDATE RequestTable SET Location = ? WHERE Name = ?");
+      } else if (updateAttribute.equals("Type")) {
+        preparedStatement =
+            DBconnection.getConnection()
+                .prepareStatement("UPDATE RequestTable SET Type = ? WHERE Name = ?");
+      } else if (updateAttribute.equals("Status")) {
+        preparedStatement =
+            DBconnection.getConnection()
+                .prepareStatement("UPDATE RequestTable SET Status = ? WHERE Name = ?");
+      } else if (updateAttribute.equals("Description")) {
+        preparedStatement =
+            DBconnection.getConnection()
+                .prepareStatement("UPDATE RequestTable SET Description = ? WHERE Name = ?");
+      } else {
+        return false;
+      }
+      preparedStatement.setString(1, update);
+      preparedStatement.setString(2, request.getName());
+      preparedStatement.execute();
+      return true;
+    } catch (SQLException sqlException) {
+      return false;
     }
   }
 
@@ -323,7 +206,7 @@ public class Adb {
    * @throws SQLException
    */
   private void addLocation(String node) throws SQLException {
-    locationData = LocationDAO.getAllLocations();
+    // locationData = LocationDAO.getAllLocations();
     // Adding to the database table
     String add =
         "INSERT INTO Locations(NodeID,xcoord,ycoord,Floor,building,nodeType,longName,shortName)VALUES(?,'?','?','?','?','?','?','?')";
@@ -331,19 +214,12 @@ public class Adb {
     preparedStatement.setString(1, node);
     preparedStatement.execute();
 
-    // Adding to the hashmap
-    String placeholder = "?";
-    Location location =
-        new Location(
-            node,
-            placeholder,
-            placeholder,
-            placeholder,
-            placeholder,
-            placeholder,
-            placeholder,
-            placeholder);
-    LocationDAO.addLocation(location);
+    // TODO: Add this code to when you add location to hashmap
+    /**
+     * Adding to the hashmap String placeholder = "?"; Location location = new Location( node,
+     * placeholder, placeholder, placeholder, placeholder, placeholder, placeholder, placeholder);
+     * LocationDAO.addLocation(location);*
+     */
   }
 
   /**
@@ -354,21 +230,12 @@ public class Adb {
    */
   private void deleteLocation(String node) throws SQLException {
     // Deleting from the database table
-    Location location = locationData.get(node);
-    if (location != null) {
-      PreparedStatement preparedStatement =
-          connection.prepareStatement("DELETE FROM Locations WHERE NodeID = ?");
-      preparedStatement.setString(1, node);
-      preparedStatement.execute();
-
-      // Deleting from hashmap
-      LocationDAO.deleteLocation(location);
-    } else {
-      System.out.println("Location Does Not Exist");
-    }
+    PreparedStatement preparedStatement =
+        connection.prepareStatement("DELETE FROM Locations WHERE NodeID = ?");
+    preparedStatement.setString(1, node);
+    preparedStatement.execute();
   }
 
-  // Optimizes myDB file to get rid of it. Ask Justin or Aaron for questions.
   public boolean tableExist(Connection conn, String tName) throws SQLException {
     boolean tExists = false;
     try {
@@ -385,5 +252,13 @@ public class Adb {
       e.printStackTrace();
     }
     return tExists;
+  }
+
+  public static class MedicalEquip {
+      private String name;
+
+      public MedicalEquip(String name){
+          this.name = name;
+      }
   }
 }

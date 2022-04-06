@@ -37,7 +37,7 @@ public class EquipmentEditController extends MainController implements Initializ
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    medDAO = new MedDAOImpl(connection);
+    medDAO = new MedDAOImpl();
 
     // Implement DAO here.
 
