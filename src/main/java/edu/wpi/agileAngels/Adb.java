@@ -109,9 +109,9 @@ public class Adb {
                   "INSERT INTO RequestTable(Name, Available, EmployeeName, Location, Type, Status, Description) VALUES(?,?,?,?,?,?,?)");
       preparedStatement.setString(1, request.getName());
       preparedStatement.setString(2, "");
-      preparedStatement.setString(3, request.getType());
+      preparedStatement.setString(3, request.getEmployee());
       preparedStatement.setString(4, request.getLocation());
-      preparedStatement.setString(5, request.getEmployee());
+      preparedStatement.setString(5, request.getType());
       preparedStatement.setString(6, request.getStatus());
       preparedStatement.setString(7, request.getDescription());
       preparedStatement.execute();
@@ -162,12 +162,36 @@ public class Adb {
    */
   public static boolean updateRequest(Request request, String updateAttribute, String update) {
     try {
-      PreparedStatement preparedStatement =
-          DBconnection.getConnection()
-              .prepareStatement("UPDATE MedicalEquipment SET ? = ? WHERE Name = ?");
-      preparedStatement.setString(1, updateAttribute);
-      preparedStatement.setString(2, update);
-      preparedStatement.setString(3, request.getName());
+      PreparedStatement preparedStatement;
+      if (updateAttribute.equals("Available")) {
+        preparedStatement =
+            DBconnection.getConnection()
+                .prepareStatement("UPDATE RequestTable SET Available = ? WHERE Name = ?");
+      } else if (updateAttribute.equals("EmployeeName")) {
+        preparedStatement =
+            DBconnection.getConnection()
+                .prepareStatement("UPDATE RequestTable SET EmployeeName = ? WHERE Name = ?");
+      } else if (updateAttribute.equals("Location")) {
+        preparedStatement =
+            DBconnection.getConnection()
+                .prepareStatement("UPDATE RequestTable SET Location = ? WHERE Name = ?");
+      } else if (updateAttribute.equals("Type")) {
+        preparedStatement =
+            DBconnection.getConnection()
+                .prepareStatement("UPDATE RequestTable SET Type = ? WHERE Name = ?");
+      } else if (updateAttribute.equals("Status")) {
+        preparedStatement =
+            DBconnection.getConnection()
+                .prepareStatement("UPDATE RequestTable SET Status = ? WHERE Name = ?");
+      } else if (updateAttribute.equals("Description")) {
+        preparedStatement =
+            DBconnection.getConnection()
+                .prepareStatement("UPDATE RequestTable SET Description = ? WHERE Name = ?");
+      } else {
+        return false;
+      }
+      preparedStatement.setString(1, update);
+      preparedStatement.setString(2, request.getName());
       preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {
