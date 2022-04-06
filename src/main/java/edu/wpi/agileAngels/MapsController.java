@@ -3,6 +3,7 @@ package edu.wpi.agileAngels;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
 public class MapsController extends MainController {
@@ -10,51 +11,38 @@ public class MapsController extends MainController {
   @FXML
   private ImageView floorOneMap, floorTwoMap, floorThreeMap, lowerLevelOneMap, lowerLevelTwoMap;
 
-  // @FXML private MenuButton mapMenu;
-
-  @FXML private Button floorOne, floorTwo, floorThree, lowerLevelOne, lowerLevelTwo;
+  @FXML private Button floorOne, floorTwo, floorThree, lowerLevelOne, lowerLevelTwo,
+  updateButton,addButton,removeButton,clearButton;
 
   @FXML
-  private void changeMap(ActionEvent event) {
+  private TextField nodeIDField,nameField,xCoordField,yCoordField,nodeTypeField;
 
-    if (event.getSource() == floorOne) {
-      floorOneMap.setOpacity(1.0);
-      floorTwoMap.setOpacity(0.0);
-      floorThreeMap.setOpacity(0.0);
-      lowerLevelOneMap.setOpacity(0.0);
-      lowerLevelTwoMap.setOpacity(0.0);
-    }
+  private void changeFloor(){ //takes in a int or a string once it's implemented.
 
-    if (event.getSource() == floorTwo) {
-      floorOneMap.setOpacity(0.0);
-      floorTwoMap.setOpacity(1.0);
-      floorThreeMap.setOpacity(0.0);
-      lowerLevelOneMap.setOpacity(0.0);
-      lowerLevelTwoMap.setOpacity(0.0);
-    }
-
-    if (event.getSource() == floorThree) {
-      floorOneMap.setOpacity(0.0);
-      floorTwoMap.setOpacity(0.0);
-      floorThreeMap.setOpacity(1.0);
-      lowerLevelOneMap.setOpacity(0.0);
-      lowerLevelTwoMap.setOpacity(0.0);
-    }
-
-    if (event.getSource() == lowerLevelOne) {
-      floorOneMap.setOpacity(0.0);
-      floorTwoMap.setOpacity(0.0);
-      floorThreeMap.setOpacity(0.0);
-      lowerLevelOneMap.setOpacity(1.0);
-      lowerLevelTwoMap.setOpacity(0.0);
-    }
-
-    if (event.getSource() == lowerLevelTwo) {
-      floorOneMap.setOpacity(0.0);
-      floorTwoMap.setOpacity(0.0);
-      floorThreeMap.setOpacity(0.0);
-      lowerLevelOneMap.setOpacity(0.0);
-      lowerLevelTwoMap.setOpacity(1.0);
-    }
   }
+
+  private void addNode(String nodeID,String name,double xCoord,double yCoord,String nodeType){
+    //adds node to page.
+  }
+
+  private void editNode(String nodeID, String name,double xCoord, double yCoord, String nodeType){
+
+  }
+
+  private void removeNode(String nodeID){
+   // Node.remove(NodeID) mega brain.
+  }
+
+  private void clearFields(){
+    //I have no clue how to write this without fields yet.
+  }
+
+  private void switchMode(){
+    //Can't do anything till pages set up.
+  }
+
+  private void displayNode(Node){
+    //At the time of coding there's no node class so this will cause errors.
+  }
+
 }
