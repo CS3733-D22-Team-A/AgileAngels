@@ -5,9 +5,9 @@ public class MedicalEquip {
   private int amount;
 
   public MedicalEquip(String name, int amount) {
-
+//TODO: Make every equipment be an object
     this.name = name;
-    this.amount = amount;
+    this.amount = amount; //TODO: remove amount
   }
 
   public boolean decrement() {

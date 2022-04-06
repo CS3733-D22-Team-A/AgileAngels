@@ -18,8 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
 public class EquipmentController extends MainController implements Initializable {
-  // @FXML private MenuButton eqptDropdown;
-  // @FXML private MenuItem bed, recliner, xray, infusion;
+
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
   @FXML
   private TextField equipLocation, equipmentEmployeeText, equipmentStatus, deleteName, editRequest;
@@ -30,7 +29,6 @@ public class EquipmentController extends MainController implements Initializable
 
   @FXML Pane drop, drop2;
 
-  private MedDAOImpl medDAO;
   private RequestDAOImpl MedrequestImpl;
 
   private static ObservableList<Request> medData = FXCollections.observableArrayList();

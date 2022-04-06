@@ -14,7 +14,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 public class MedDAOImpl implements MedDAO {
-
+//TODO: delete class, move parser
   private final String CSV_FILE_PATH = "./MedData.csv";
   private HashMap<String, MedDevice> medData = new HashMap<>();
 

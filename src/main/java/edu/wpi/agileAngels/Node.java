@@ -5,6 +5,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 
 public class Node {
+  /**
+   * each point on map is a node
+   */
   private final MapsManager maps = MapsManager.getMapsManager();
   private Location location;
   private Circle circle;

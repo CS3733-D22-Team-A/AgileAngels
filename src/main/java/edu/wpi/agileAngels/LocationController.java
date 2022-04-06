@@ -16,6 +16,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class LocationController extends MainController implements Initializable {
+  /**
+   * Displays all locations in a table
+   */
   @FXML
   private TableColumn nodeIDColumn,
       xCoordColumn,

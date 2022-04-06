@@ -21,7 +21,7 @@ public class GiftRequest extends Request {
   }
 
   public String getMessage() {
-    return getDescription();
+      return getDescription();
   }
 
   public void setSender(String sender) {

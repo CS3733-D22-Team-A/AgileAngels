@@ -12,8 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Aapp extends Application {
 
-  private MedDAOImpl medDAO;
-
   @Override
   public void init() {
     log.info("Starting Up");
@@ -24,7 +22,7 @@ public class Aapp extends Application {
   // Creates and displays default scene
   @Override
   public void start(Stage primaryStage) throws IOException, SQLException {
-    adb = new Adb();
+    adb = new Adb(); //ADB class
     String[] args = new String[1];
     adb.main(args);
     FXMLLoader loader = new FXMLLoader(getClass().getResource("views/home-view.fxml"));

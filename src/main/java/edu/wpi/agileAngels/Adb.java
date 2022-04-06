@@ -175,6 +175,7 @@ public class Adb {
    * @param request, updateAttribute, update
    * @return True if successful, false if not.
    */
+  //TODO multiple updates
   public static boolean updateRequest(Request request, String updateAttribute, String update) {
     try {
       PreparedStatement preparedStatement;
@@ -251,7 +252,14 @@ public class Adb {
     preparedStatement.execute();
   }
 
-  public boolean tableExist(Connection conn, String tName) throws SQLException {
+  /**
+   * helper function to check if table exists
+   * @param conn
+   * @param tName
+   * @return
+   * @throws SQLException
+   */
+  private boolean tableExist(Connection conn, String tName) throws SQLException {
     boolean tExists = false;
     try {
       DatabaseMetaData metaData = conn.getMetaData();
@@ -269,6 +277,11 @@ public class Adb {
     return tExists;
   }
 
+  /**
+   * Adding medical equipment
+   * @param eq
+   * @throws SQLException
+   */
   public static void addMedicalEquipment(ArrayList<MedicalEquip> eq) throws SQLException {
     try {
       for (int i = 0; i < eq.size(); i++) {

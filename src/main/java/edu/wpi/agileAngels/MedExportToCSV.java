@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class MedExportToCSV {
+  //TODO: gemeralize export and import
   public void export(Connection connection) {
 
     String csvFilePath = "Medexport.csv";
