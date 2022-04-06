@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
+// TODO create helper methods to avoid confusion
 public class EquipmentController extends MainController implements Initializable {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
@@ -29,9 +30,10 @@ public class EquipmentController extends MainController implements Initializable
 
   @FXML Pane drop, drop2;
 
-  private RequestDAOImpl MedrequestImpl;
-
-  private static ObservableList<Request> medData = FXCollections.observableArrayList();
+  private RequestDAOImpl MedrequestImpl; // instance of RequestDAOImpl to access functions
+  // only way to update the UI is ObservableList
+  private static ObservableList<Request> medData =
+      FXCollections.observableArrayList(); // list of requests
 
   @FXML
   private TableColumn nameColumn,
@@ -155,9 +157,9 @@ public class EquipmentController extends MainController implements Initializable
               placeholder);
       /*medDAO.addMed(medDevice);
       medData.add(medDevice);*/
-      MedrequestImpl.addRequest(medDevice);
+      MedrequestImpl.addRequest(medDevice); // add to hashmap
 
-      medData.add(medDevice);
+      medData.add(medDevice); // add to the UI
 
       equipmentTable.setItems(medData);
     }

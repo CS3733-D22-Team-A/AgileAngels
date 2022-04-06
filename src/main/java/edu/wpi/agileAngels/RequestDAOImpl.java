@@ -4,11 +4,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RequestDAOImpl {
+// Implementation of RequestDAO
+public class RequestDAOImpl implements RequestDAO {
 
   private String CSV_FILE_PATH = "./MedData.csv";
-  private HashMap<String, Request> reqData = new HashMap<>();
-  private int count;
+  private HashMap<String, Request> reqData = new HashMap<>(); // each type has its own request
+  private int count; // how many requests there are
   private ArrayList<MedicalEquip> equipment = new ArrayList<MedicalEquip>();
 
   public RequestDAOImpl(String CSV_FILE_PATH, HashMap<String, Request> reqData, int count)
@@ -61,8 +62,9 @@ public class RequestDAOImpl {
     reqData.remove(request.getDescription()); // change to the key
     Adb.removeRequest(request);
   }
-
+  // add request based on count and requestType
   public void addRequest(Request request) {
+    // TODO debug this
     String letter;
     count = count + 1;
     if (request.getRequestType() == 0) {

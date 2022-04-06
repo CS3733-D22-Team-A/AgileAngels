@@ -3,9 +3,19 @@ package edu.wpi.agileAngels;
 import java.sql.*;
 import java.util.ArrayList;
 
+// This class is the backend of the DAO method.
+// The objects communicate with the DB here
+// Basically, front end shouldn't directly interact adb, it should interact with DAO classes
 public class Adb {
   private Connection connection = DBconnection.getConnection();
   // TODO update elements in the csv
+
+  /**
+   * Main: creates the tables if they do not exist already
+   *
+   * @param args
+   * @throws SQLException
+   */
   public void main(String[] args) throws SQLException {
 
     // Apache Derby and table creation
@@ -170,12 +180,12 @@ public class Adb {
     pstmt.executeUpdate();
   }
   /**
-   * Updates availability for a request in the table.
+   * Updates different attributes for a request in the table.
    *
    * @param request, updateAttribute, update
    * @return True if successful, false if not.
    */
-  //TODO multiple updates
+  // TODO multiple updates
   public static boolean updateRequest(Request request, String updateAttribute, String update) {
     try {
       PreparedStatement preparedStatement;
@@ -254,6 +264,7 @@ public class Adb {
 
   /**
    * helper function to check if table exists
+   *
    * @param conn
    * @param tName
    * @return
@@ -279,6 +290,7 @@ public class Adb {
 
   /**
    * Adding medical equipment
+   *
    * @param eq
    * @throws SQLException
    */

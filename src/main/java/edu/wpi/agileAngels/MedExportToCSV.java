@@ -8,8 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+// export to the CSV file
+// TODO generalize this and move to IMPL class
 public class MedExportToCSV {
-  //TODO: gemeralize export and import
+  // TODO: gemeralize export and import
   public void export(Connection connection) {
 
     String csvFilePath = "Medexport.csv";

@@ -1,14 +1,15 @@
 package edu.wpi.agileAngels;
-
+// Mother class for all requests
+// TODO find out main attributes for this class and other request classes
 public class Request {
   private String name;
   private String employeeName;
   private String location;
-  private String type;
-  private int requestType;
+  private String type; // TODO change name of this
+  private int requestType; // which request it is based on int value
   private String status;
   private String description;
-
+  // constructor
   public Request(
       String Name,
       String employeeName,

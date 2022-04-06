@@ -26,9 +26,7 @@ public class GiftsController extends MainController implements Initializable {
   }
 
   @FXML
-  /**
-   * Submits fields to a Java gifts Request Object
-   */
+  /** Submits fields to a Java gifts Request Object */
   private void submitGift() {
     if (giftSender.getText().isEmpty()
         || giftEmployeeText.getText().isEmpty()

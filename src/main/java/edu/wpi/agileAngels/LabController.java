@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+// similar to equip controller
 public class LabController extends MainController implements Initializable {
 
   @FXML private TextField labTestLocation, labEmployeeText, labStatus, labDelete, labEdit;

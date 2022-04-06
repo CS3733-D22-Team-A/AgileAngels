@@ -12,7 +12,8 @@ public class GiftRequest extends Request {
       String description,
       String sender) {
     super(name, employeeName, location, type, status, description);
-    this.sender = sender;
+    this.sender = sender; // new attr
+    // message = description
     setRequestType(2);
   }
 
@@ -21,7 +22,7 @@ public class GiftRequest extends Request {
   }
 
   public String getMessage() {
-      return getDescription();
+    return getDescription();
   }
 
   public void setSender(String sender) {

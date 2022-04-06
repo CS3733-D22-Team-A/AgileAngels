@@ -22,7 +22,7 @@ public class Aapp extends Application {
   // Creates and displays default scene
   @Override
   public void start(Stage primaryStage) throws IOException, SQLException {
-    adb = new Adb(); //ADB class
+    adb = new Adb(); // ADB class
     String[] args = new String[1];
     adb.main(args);
     FXMLLoader loader = new FXMLLoader(getClass().getResource("views/home-view.fxml"));
