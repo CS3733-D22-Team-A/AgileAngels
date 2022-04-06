@@ -253,4 +253,12 @@ public class Adb {
     }
     return tExists;
   }
+
+  public static class MedicalEquip {
+      private String name;
+
+      public MedicalEquip(String name){
+          this.name = name;
+      }
+  }
 }
