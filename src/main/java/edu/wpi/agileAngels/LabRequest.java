@@ -15,4 +15,8 @@ public class LabRequest extends Request {
     this.available = available;
     setRequestType(4);
   }
+
+  public String getAvailable() {
+    return this.available;
+  }
 }
