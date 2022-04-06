@@ -45,7 +45,7 @@ public class EquipmentEditController extends MainController implements Initializ
 
     // Implement DAO here.
 
-    updateTable();
+    // updateTable();
   }
 
   private void updateTable() {

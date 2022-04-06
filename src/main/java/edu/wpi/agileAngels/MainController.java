@@ -7,7 +7,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+// hello
 public class MainController {
 
   @FXML Button back, close, clear, equipRequest, viewRequest, map;
@@ -31,6 +31,8 @@ public class MainController {
   private static String username;
   private static String userID;
   public static Boolean loggedIn = false;
+
+  public int floorToDisp;
 
   @FXML
   private void closeApp() {
@@ -61,15 +63,14 @@ public class MainController {
     stage.show();
   }
 
-  public void loadMapPage(String view, Control item, Group group) throws IOException {
+  public void loadMapPage(String view, Control item) throws IOException {
 
     System.out.println(pageHistory);
     Stage stage;
     Parent root;
     stage = (Stage) item.getScene().getWindow();
     root = FXMLLoader.load(getClass().getResource(view));
-    group.getChildren().set(0, root);
-    Scene scene = new Scene(group);
+    Scene scene = new Scene(root);
     stage.setScene(scene);
     stage.setResizable(true);
     stage.show();
