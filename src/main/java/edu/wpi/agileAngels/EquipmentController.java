@@ -57,7 +57,11 @@ public class EquipmentController extends MainController implements Initializable
     HashMap<String, Request> data = new HashMap<>();
     MedDevice medDevice = new MedDevice("?", "?", "?", "?", "?", "?", "?");
     data.put("0", medDevice);
-    MedrequestImpl = new RequestDAOImpl("./MedData.csv", data, 0);
+    try {
+      MedrequestImpl = new RequestDAOImpl("./MedData.csv", data, 0);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
 
     /**
      * for (Map.Entry<String, Request> entry : data.entrySet()) { Request object = entry.getValue();

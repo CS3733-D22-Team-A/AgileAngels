@@ -1,6 +1,7 @@
 package edu.wpi.agileAngels;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Adb {
   private Connection connection = DBconnection.getConnection();
@@ -87,6 +88,20 @@ public class Adb {
                 + "PRIMARY KEY (Name))";
         statementMedical.execute(queryRequest);
       }
+
+      Statement statementEquipment = connection.createStatement();
+      if (tableExist(connection, "MedicalEquipment")) {
+        String dropRequest = "DROP TABLE MedicalEquipment";
+        String queryEq =
+            "CREATE TABLE MedicalEquipment ( " + "Name VARCHAR(50)," + "Amount INTEGER)";
+        statementEquipment.execute(dropRequest);
+        statementEquipment.execute(queryEq);
+      } else {
+        String queryEq =
+            "CREATE TABLE MedicalEquipment ( " + "Name VARCHAR(50)," + "Amount INTEGER)";
+        statementEquipment.execute(queryEq);
+      }
+
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
       e.printStackTrace();
@@ -254,11 +269,18 @@ public class Adb {
     return tExists;
   }
 
-  public static class MedicalEquip {
-      private String name;
-
-      public MedicalEquip(String name){
-          this.name = name;
+  public static void addMedicalEquipment(ArrayList<MedicalEquip> eq) throws SQLException {
+    try {
+      for (int i = 0; i < eq.size(); i++) {
+        PreparedStatement add =
+            DBconnection.getConnection()
+                .prepareStatement("INSERT INTO MedicalEquipment(Name, Amount) VALUES(? ,?)");
+        add.setString(1, eq.get(i).getName());
+        add.setInt(2, eq.get(i).getAmount());
+        add.execute();
       }
+    } catch (SQLException e) {
+      System.out.println("Adding unsuccessful.");
+    }
   }
 }

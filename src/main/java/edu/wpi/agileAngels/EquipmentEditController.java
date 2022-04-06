@@ -37,7 +37,11 @@ public class EquipmentEditController extends MainController implements Initializ
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    medDAO = new MedDAOImpl();
+    try {
+      medDAO = new MedDAOImpl();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
 
     // Implement DAO here.
 

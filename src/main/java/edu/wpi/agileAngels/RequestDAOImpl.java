@@ -1,5 +1,7 @@
 package edu.wpi.agileAngels;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RequestDAOImpl {
@@ -7,11 +9,18 @@ public class RequestDAOImpl {
   private String CSV_FILE_PATH = "./MedData.csv";
   private HashMap<String, Request> reqData = new HashMap<>();
   private int count;
+  private ArrayList<MedicalEquip> equipment = new ArrayList<MedicalEquip>();
 
-  public RequestDAOImpl(String CSV_FILE_PATH, HashMap<String, Request> reqData, int count) {
+  public RequestDAOImpl(String CSV_FILE_PATH, HashMap<String, Request> reqData, int count)
+      throws SQLException {
     this.CSV_FILE_PATH = CSV_FILE_PATH;
     this.reqData = reqData;
     this.count = count;
+    equipment.add(new MedicalEquip("Bed", 20));
+    equipment.add(new MedicalEquip("Recliners", 6));
+    equipment.add(new MedicalEquip("X-Ray Machine", 1));
+    equipment.add(new MedicalEquip("Infusion Pump", 30));
+    Adb.addMedicalEquipment(equipment);
   }
 
   public HashMap<String, Request> getAllRequests() {
