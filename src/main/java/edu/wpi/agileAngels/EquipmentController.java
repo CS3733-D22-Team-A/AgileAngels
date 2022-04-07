@@ -99,60 +99,13 @@ public class EquipmentController extends MainController implements Initializable
     // logic to see if the entries in the buttons are empty
     boolean logic =
         (dropDownString.isEmpty() || locationString.isEmpty() || employeeString.isEmpty());
-    // if the fields are empty or the delete input is not empty
+    // if the fields are empty or to delete input is not empty
     if (logic || (!deleteString.isEmpty())) {
-      // if delete name is not empty, deletes obj with certain index
-      if (!deleteString.isEmpty()) {
-        System.out.println("DELETE REQUEST");
-        for (int i = 0; i < medData.size(); i++) {
-          Request object = medData.get(i);
-          if (0 == deleteString.compareTo(object.getName())) {
-            medData.remove(i);
-            MedrequestImpl.deleteRequest(object);
-          }
-        }
-        equipmentTable.setItems(medData);
-      }
-
-      equipmentConfirmation.setText("Please fill out all the require fields");
+      deleteEquipRequest(deleteString);
       // editing a request
     } else if (!editString.isEmpty()) {
-      System.out.println("EDIT REQUEST");
-      Request found = null;
-      int num = 0;
-      for (int i = 0; i < medData.size(); i++) {
-        Request device = medData.get(i);
-        if (0 == editRequest.getText().compareTo(device.getName())) {
-          found = device;
-          num = i;
-        }
-      }
-      if (found != null) {
-        if (!dropDownString.isEmpty()) {
-          // String type = dropdownButtonText.getText();
-          found.setType(dropDownString);
-          MedrequestImpl.updateType(found, dropDownString);
-        }
-        if (!locationString.isEmpty()) {
-          // String location = equipLocation.getText();
-          found.setLocation(locationString);
-          MedrequestImpl.updateLocation(found, locationString);
-        }
-        if (!employeeString.isEmpty()) {
-          // String employee = emp.getText();
-          found.setEmployee(employeeString);
-          MedrequestImpl.updateEmployeeName(found, employeeString);
-        }
-        if (!statusString.isEmpty()) {
-          // String employee = emp.getText();
-          found.setStatus(statusString);
-          MedrequestImpl.updateStatus(found, statusString);
-        }
-        medData.set(num, found);
-
-        equipmentTable.setItems(medData);
-      }
-
+      editEquipmentRequest(
+          editString, dropDownString, locationString, employeeString, statusString);
     } else {
       addEquipRequest("available", dropDownString, locationString, employeeString, statusString);
     }
@@ -187,5 +140,62 @@ public class EquipmentController extends MainController implements Initializable
     MedrequestImpl.addRequest(medDevice); // add to hashmap
     medData.add(medDevice); // add to the UI
     equipmentTable.setItems(medData);
+  }
+
+  private void deleteEquipRequest(String deleteString) {
+    if (!deleteString.isEmpty()) {
+      System.out.println("DELETE REQUEST");
+      for (int i = 0; i < medData.size(); i++) {
+        Request object = medData.get(i);
+        if (0 == deleteString.compareTo(object.getName())) {
+          medData.remove(i);
+          MedrequestImpl.deleteRequest(object);
+        }
+      }
+      equipmentTable.setItems(medData);
+    }
+  }
+
+  private void editEquipmentRequest(
+      String editString,
+      String dropDownString,
+      String locationString,
+      String employeeString,
+      String statusString) {
+    System.out.println("EDIT REQUEST");
+    Request found = null;
+    int num = 0;
+    for (int i = 0; i < medData.size(); i++) {
+      Request device = medData.get(i);
+      if (0 == editRequest.getText().compareTo(device.getName())) {
+        found = device;
+        num = i;
+      }
+    }
+    if (found != null) {
+      if (!dropDownString.isEmpty()) {
+        // String type = dropdownButtonText.getText();
+        found.setType(dropDownString);
+        MedrequestImpl.updateType(found, dropDownString);
+      }
+      if (!locationString.isEmpty()) {
+        // String location = equipLocation.getText();
+        found.setLocation(locationString);
+        MedrequestImpl.updateLocation(found, locationString);
+      }
+      if (!employeeString.isEmpty()) {
+        // String employee = emp.getText();
+        found.setEmployee(employeeString);
+        MedrequestImpl.updateEmployeeName(found, employeeString);
+      }
+      if (!statusString.isEmpty()) {
+        // String employee = emp.getText();
+        found.setStatus(statusString);
+        MedrequestImpl.updateStatus(found, statusString);
+      }
+      medData.set(num, found);
+
+      equipmentTable.setItems(medData);
+    }
   }
 }
