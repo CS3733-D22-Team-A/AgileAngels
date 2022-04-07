@@ -1,10 +1,11 @@
 package edu.wpi.agileAngels;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.scene.input.MouseEvent;
+import javafx.event.ActionEvent;
 
 public class Node {
-  private static NodeManager nodeManager = NodeManager.getNodeManager();
+  private NodeManager nodeManager = NodeManager.getNodeManager();
+
   private Location location;
   private JFXButton button = new JFXButton();
 
@@ -14,11 +15,9 @@ public class Node {
     button.setLayoutX(this.getXCoord());
     button.setLayoutY(this.getYCoord());
     button.setText("Node");
-    button.setOnMousePressed(
-        (MouseEvent event) -> {
-          if (event.isSecondaryButtonDown()) {
-            isClicked();
-          }
+    button.setOnAction(
+        (ActionEvent event2) -> {
+          isClicked();
         });
 
     // set the circle color to coordinate with the node type
@@ -30,6 +29,7 @@ public class Node {
 
   public void isClicked() {
     nodeManager.loadNode(this);
+    System.out.println(this);
   }
 
   public Location getLocation() {

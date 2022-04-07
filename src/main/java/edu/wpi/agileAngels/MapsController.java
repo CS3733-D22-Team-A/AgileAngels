@@ -26,11 +26,12 @@ public class MapsController extends MainController implements Initializable {
       addButton,
       removeButton,
       clearButton;
+  @FXML TextField getNodeIDField;
 
   Pane pane1 = new Pane();
   Pane pane2 = new Pane();
 
-  private final NodeManager nodeManager = NodeManager.getNodeManager();
+  private NodeManager nodeManager = NodeManager.getNodeManager();
   @FXML AnchorPane anchor;
 
   @FXML private TextField nodeIDField, nameField, xCoordField, yCoordField, nodeTypeField;
@@ -66,6 +67,11 @@ public class MapsController extends MainController implements Initializable {
 
   private void addNode(String nodeID, String name, double xCoord, double yCoord, String nodeType) {
     // adds node to page.
+  }
+
+  public void populateNodeData(Node node) {
+    System.out.println(node.getNodeID());
+    nodeIDField.setText(node.getNodeID());
   }
 
   private void editNode(

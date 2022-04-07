@@ -10,7 +10,9 @@ public class NodeManager {
   private NodeManager() {}
 
   static NodeManager getNodeManager() {
-    if (newNodeManager == null) newNodeManager = new NodeManager();
+    if (newNodeManager == null) {
+      newNodeManager = new NodeManager();
+    }
 
     return newNodeManager;
   }
@@ -39,7 +41,8 @@ public class NodeManager {
   }
 
   void loadNode(Node node) {
-    node.getButton();
+    System.out.println(node.getNodeID());
+
     // gets called on button press and gets the node data
   }
 }
