@@ -22,11 +22,16 @@ public class NodeManager {
     // take the Node ID and delete the node from the pane
   }
 
-  void addNode(
-      String nodeID, String name, double xCoord, double yCoord, String floor, String nodeType) {
-    // create a node from location data
-    // a node will include location data plus a button FXML object and color n' shit
-    // add it to the correct pane
+  void createNodesFromDB() {
+    // gets all locations from the DB and creates nodes from them
+    // this could get called on maps button pressed right before the page is loaded
+
+  }
+
+  void addNode(Location location) {
+    if (location.getFloor() == "1") {
+      Node node = new Node(location);
+    }
   }
 
   void editNode(String nodeID, String name, double xCoord, double yCoord, String nodeType) {

@@ -1,18 +1,16 @@
 package edu.wpi.agileAngels;
 
+import java.net.URL;
+import java.sql.Connection;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.ResourceBundle;
-
-public class MapsController extends MainController {
+public class MapsController extends MainController implements Initializable {
 
   @FXML
   private ImageView floorOneMap, floorTwoMap, floorThreeMap, lowerLevelOneMap, lowerLevelTwoMap;
@@ -31,12 +29,16 @@ public class MapsController extends MainController {
 
   @FXML private TextField nodeIDField, nameField, xCoordField, yCoordField, nodeTypeField;
   private Connection connection;
+  private LocationDAOImpl locationDAO;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    connection = DBconnection.getConnection();
-
-    nodeManager.addNode();
+    // connection = DBconnection.getConnection();
+    // add the locations from the location database to a list of locations and then create nodes
+    // from each location
+    //    Location location1 =
+    //        new Location("test1", "100", "100", "1", "TOWER", "ELV", "Elevator", "ELV1");
+    //    nodeManager.addNode(location1);
   }
 
   private void changeFloor() { // takes in a int or a string once it's implemented.
