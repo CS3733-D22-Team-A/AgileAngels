@@ -4,19 +4,16 @@ import com.jfoenix.controls.JFXButton;
 import javafx.scene.input.MouseEvent;
 
 public class Node {
-  private final NodeManager nodeManager = NodeManager.getNodeManager();
+  private static NodeManager nodeManager = NodeManager.getNodeManager();
   private Location location;
-  private JFXButton button;
+  private JFXButton button = new JFXButton();
 
   public Node(Location location) {
     this.location = location;
-  }
 
-  private JFXButton createButton() {
-    button = new JFXButton();
     button.setLayoutX(this.getXCoord());
     button.setLayoutY(this.getYCoord());
-
+    button.setText("Node");
     button.setOnMousePressed(
         (MouseEvent event) -> {
           if (event.isSecondaryButtonDown()) {
@@ -25,12 +22,10 @@ public class Node {
         });
 
     // set the circle color to coordinate with the node type
-
     // if(this.getNodeType() == "Test") {
     button.setId("blue"); // this ID will be used in the CSS file to style the button
     // }
 
-    return button;
   }
 
   public void isClicked() {

@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 public class MapsController extends MainController implements Initializable {
 
@@ -25,7 +27,11 @@ public class MapsController extends MainController implements Initializable {
       removeButton,
       clearButton;
 
+  Pane pane1 = new Pane();
+  Pane pane2 = new Pane();
+
   private final NodeManager nodeManager = NodeManager.getNodeManager();
+  @FXML AnchorPane anchor;
 
   @FXML private TextField nodeIDField, nameField, xCoordField, yCoordField, nodeTypeField;
   private Connection connection;
@@ -33,6 +39,20 @@ public class MapsController extends MainController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    anchor.getChildren().add(pane1);
+    anchor.getChildren().add(pane2);
+    // nodeManager.createNodesFromDB();
+    Location location1 =
+        new Location("test1", "100", "100", "1", "TOWER", "ELV", "Elevator", "ELV1");
+    Location location2 =
+        new Location("test1", "100", "200", "2", "TOWER", "ELV", "Elevator", "ELV1");
+    Location location3 =
+        new Location("test1", "100", "300", "2", "TOWER", "ELV", "Elevator", "ELV1");
+
+    pane1.getChildren().add(nodeManager.addNode(location1).getButton());
+    pane2.getChildren().add(nodeManager.addNode(location2).getButton());
+    pane2.getChildren().add(nodeManager.addNode(location3).getButton());
+
     // connection = DBconnection.getConnection();
     // add the locations from the location database to a list of locations and then create nodes
     // from each location
@@ -68,6 +88,12 @@ public class MapsController extends MainController implements Initializable {
   }
 
   public void changeMap(ActionEvent event) {
-    // set opacities of the map images and correct node panes
+    if (event.getSource() == floorOne) {
+      pane1.setVisible(false);
+      pane2.setVisible(true);
+    } else if (event.getSource() == floorTwo) {
+      pane1.setVisible(true);
+      pane2.setVisible(false);
+    }
   }
 }

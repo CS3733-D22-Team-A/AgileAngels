@@ -1,14 +1,11 @@
 package edu.wpi.agileAngels;
 
 import java.util.HashMap;
-import javafx.scene.layout.Pane;
 
 public class NodeManager {
   private static NodeManager newNodeManager;
 
   HashMap<String, Node> nodes = new HashMap<>();
-
-  Pane floor1 = new Pane();
 
   private NodeManager() {}
 
@@ -28,10 +25,13 @@ public class NodeManager {
 
   }
 
-  void addNode(Location location) {
-    if (location.getFloor() == "1") {
-      Node node = new Node(location);
-    }
+  Node addNode(Location location) {
+    Node node = null;
+    //    if (location.getFloor() == "1") {
+    node = new Node(location);
+    // floor1.getChildren().add(node.getButton());
+    //    }
+    return node;
   }
 
   void editNode(String nodeID, String name, double xCoord, double yCoord, String nodeType) {
