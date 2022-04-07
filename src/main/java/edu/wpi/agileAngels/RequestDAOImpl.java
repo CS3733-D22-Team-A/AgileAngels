@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 // Implementation of RequestDAO
@@ -10,18 +9,12 @@ public class RequestDAOImpl implements RequestDAO {
   private String CSV_FILE_PATH = "./MedData.csv";
   private HashMap<String, Request> reqData = new HashMap<>(); // each type has its own request
   private int count; // how many requests there are
-  private ArrayList<MedicalEquip> equipment = new ArrayList<MedicalEquip>();
 
   public RequestDAOImpl(String CSV_FILE_PATH, HashMap<String, Request> reqData, int count)
       throws SQLException {
     this.CSV_FILE_PATH = CSV_FILE_PATH;
     this.reqData = reqData;
     this.count = count;
-    equipment.add(new MedicalEquip("Bed", 20));
-    equipment.add(new MedicalEquip("Recliners", 6));
-    equipment.add(new MedicalEquip("X-Ray Machine", 1));
-    equipment.add(new MedicalEquip("Infusion Pump", 30));
-    Adb.addMedicalEquipment(equipment);
   }
 
   public HashMap<String, Request> getAllRequests() {
