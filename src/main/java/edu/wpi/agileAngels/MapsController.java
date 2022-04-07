@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javax.swing.*;
 
 public class MapsController extends MainController implements Initializable {
 
@@ -22,9 +23,11 @@ public class MapsController extends MainController implements Initializable {
       floorThree,
       lowerLevelOne,
       lowerLevelTwo,
-      updateButton,
+      editButton,
       addButton,
       removeButton,
+      switchToAddButton,
+      switchToEditButton,
       clearButton;
   @FXML TextField getNodeIDField;
 
@@ -62,31 +65,55 @@ public class MapsController extends MainController implements Initializable {
     //    nodeManager.addNode(location1);
   }
 
-  private void changeFloor() { // takes in a int or a string once it's implemented.
-  }
-
-  private void addNode(String nodeID, String name, double xCoord, double yCoord, String nodeType) {
-    // adds node to page.
-  }
-
   public void populateNodeData(Node node) {
     System.out.println(node.getNodeID());
     nodeIDField.setText(node.getNodeID());
   }
 
-  private void editNode(
-      String nodeID, String name, double xCoord, double yCoord, String nodeType) {}
+  @FXML
+  private void changeFloor() { // takes in a int or a string once it's implemented.
+  }
 
-  private void removeNode(String nodeID) {
+  @FXML
+  private void addNode() {
+    // adds node to page.
+  }
+
+  @FXML
+  private void editNode() {}
+
+  @FXML
+  private void removeNode() {
     // Node.remove(NodeID) mega brain.
   }
 
+  @FXML
   private void clearFields() {
     // I have no clue how to write this without fields yet.
   }
 
-  private void switchMode() {
-    // Can't do anything till pages set up.
+  /**
+   * Switches between the "add a location" mode and the
+   * "edit or delete a location" mode on a button press
+   * @param event the button that was pressed, which is
+   *              either switchToAddButton or the
+   *              switchToEditButton
+   */
+  @FXML
+  private void switchMode(ActionEvent event) {
+    if (event.getSource() == switchToAddButton) {
+      switchToAddButton.setVisible(false);
+      switchToEditButton.setVisible(true);
+      addButton.setVisible(true);
+      editButton.setVisible(false);
+      removeButton.setVisible(false);
+    } else {
+      switchToAddButton.setVisible(true);
+      switchToEditButton.setVisible(false);
+      addButton.setVisible(false);
+      editButton.setVisible(true);
+      removeButton.setVisible(true);
+    }
   }
 
   private void displayNode(Node node) {

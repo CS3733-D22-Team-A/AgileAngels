@@ -68,7 +68,7 @@ public class Node {
     return button;
   }
 
-  public void setCircle(JFXButton button) {
+  public void setButton(JFXButton button) {
     this.button = button;
   }
 

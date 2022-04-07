@@ -60,6 +60,35 @@
             </ImageView>
          </children>
       </Pane>
-      <TextField fx:id="nodeIDField" layoutX="58.0" layoutY="164.0" promptText="node ID" />
+      <TextField layoutX="58.0" layoutY="406.0" promptText="x-coordinate" fx:id="xCoordField" />
+      <TextField fx:id="nodeIDField" layoutX="58.0" layoutY="213.0" promptText="node ID" />
+      <TextField fx:id="nameField" layoutX="58.0" layoutY="275.0" promptText="name" />
+      <TextField fx:id="typeField" layoutX="58.0" layoutY="341.0" promptText="type" />
+      <TextField fx:id="yCoordField" layoutX="58.0" layoutY="466.0" promptText="y-coordinate" />
+      <Button id="lowerLevelOne" fx:id="removeButton" layoutX="176.0" layoutY="522.0" mnemonicParsing="false" onAction="#removeNode" prefHeight="38.0" prefWidth="82.0" text="Delete">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button id="lowerLevelOne" fx:id="editButton" layoutX="58.0" layoutY="522.0" mnemonicParsing="false" onAction="#editNode" prefHeight="38.0" prefWidth="82.0" text="Edit">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button id="lowerLevelOne" fx:id="addButton" layoutX="117.0" layoutY="522.0" mnemonicParsing="false" onAction="#addNode" prefHeight="38.0" prefWidth="82.0" text="Add" visible="false">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button id="lowerLevelOne" fx:id="switchToAddButton" layoutX="57.0" layoutY="576.0" mnemonicParsing="false" onAction="#switchMode" prefHeight="38.0" prefWidth="201.0" text="Add a Location">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button id="lowerLevelOne" fx:id="switchToEditButton" layoutX="57.0" layoutY="576.0" mnemonicParsing="false" onAction="#switchMode" prefHeight="38.0" prefWidth="201.0" text="Edit/Delete a Location" visible="false">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
