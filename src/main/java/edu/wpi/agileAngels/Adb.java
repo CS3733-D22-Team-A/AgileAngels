@@ -56,7 +56,7 @@ public class Adb {
                 + "shortName VARCHAR(50))";
         statementLocations.execute(dropLoc);
         statementLocations.execute(queryLocations);
-      } else if (!tableExist(connection, "Locations")) {
+      } else if (!tableExist(DBconnection.getConnection(), "Locations")) {
         String queryLocations =
             "CREATE TABLE Locations( "
                 + "NodeID VARCHAR(50),"
@@ -70,8 +70,8 @@ public class Adb {
         statementLocations.execute(queryLocations);
       }
 
-      statementMedical = connection.createStatement();
-      if (tableExist(connection, "RequestTable")) {
+      statementMedical = DBconnection.getConnection().createStatement();
+      if (tableExist(DBconnection.getConnection(), "RequestTable")) {
         String dropRequest = "DROP TABLE RequestTable";
         String queryRequest =
             "CREATE TABLE RequestTable ( "
@@ -85,7 +85,7 @@ public class Adb {
                 + "PRIMARY KEY (Name))";
         statementMedical.execute(dropRequest);
         statementMedical.execute(queryRequest);
-      } else if (!tableExist(connection, "RequestTable")) {
+      } else if (!tableExist(DBconnection.getConnection(), "RequestTable")) {
         String queryRequest =
             "CREATE TABLE RequestTable ( "
                 + "Name VARCHAR(50),"
@@ -99,8 +99,8 @@ public class Adb {
         statementMedical.execute(queryRequest);
       }
 
-      Statement statementEquipment = connection.createStatement();
-      if (tableExist(connection, "MedicalEquipment")) {
+      Statement statementEquipment = DBconnection.getConnection().createStatement();
+      if (tableExist(DBconnection.getConnection(), "MedicalEquipment")) {
         String dropRequest = "DROP TABLE MedicalEquipment";
         String queryEq =
             "CREATE TABLE MedicalEquipment ( "
@@ -183,7 +183,7 @@ public class Adb {
   private void ChangeFloorandType(String ID, String newFloor, String newLocation)
       throws SQLException {
     PreparedStatement pstmt =
-        connection.prepareStatement("UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
+        DBconnection.getConnection().prepareStatement("UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
     pstmt.setString(1, newFloor);
     pstmt.setString(2, newLocation);
     pstmt.setString(3, ID);
@@ -246,7 +246,7 @@ public class Adb {
     // Adding to the database table
     String add =
         "INSERT INTO Locations(NodeID,xcoord,ycoord,Floor,building,nodeType,longName,shortName)VALUES(?,'?','?','?','?','?','?','?')";
-    PreparedStatement preparedStatement = connection.prepareStatement(add);
+    PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
     preparedStatement.setString(1, node);
     preparedStatement.execute();
 
@@ -267,7 +267,7 @@ public class Adb {
   private void deleteLocation(String node) throws SQLException {
     // Deleting from the database table
     PreparedStatement preparedStatement =
-        connection.prepareStatement("DELETE FROM Locations WHERE NodeID = ?");
+        DBconnection.getConnection().prepareStatement("DELETE FROM Locations WHERE NodeID = ?");
     preparedStatement.setString(1, node);
     preparedStatement.execute();
   }
