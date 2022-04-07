@@ -93,11 +93,11 @@ public class MapsController extends MainController implements Initializable {
   }
 
   /**
-   * Switches between the "add a location" mode and the
-   * "edit or delete a location" mode on a button press
-   * @param event the button that was pressed, which is
-   *              either switchToAddButton or the
-   *              switchToEditButton
+   * Switches between the "add a location" mode and the "edit or delete a location" mode on a button
+   * press
+   *
+   * @param event the button that was pressed, which is either switchToAddButton or the
+   *     switchToEditButton
    */
   @FXML
   private void switchMode(ActionEvent event) {
