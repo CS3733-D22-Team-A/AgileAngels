@@ -24,7 +24,6 @@ public class MapsController extends MainController implements Initializable {
   @FXML private Button floorOne, floorTwo, floorThree, lowerLevelOne, lowerLevelTwo;
   @FXML
   public ImageView floorOneMap, floorTwoMap, floorThreeMap, lowerLevelOneMap, lowerLevelTwoMap;
-
   @FXML public Pane mapPane;
 
   private ObservableList<Location> locationData = FXCollections.observableArrayList();

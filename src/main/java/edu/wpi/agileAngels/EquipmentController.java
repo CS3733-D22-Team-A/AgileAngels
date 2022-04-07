@@ -2,7 +2,6 @@ package edu.wpi.agileAngels;
 
 import java.awt.*;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -17,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
+// TODO make sure controllers work without connections :)
 // TODO create helper methods to avoid confusion
 public class EquipmentController extends MainController implements Initializable {
 
@@ -25,9 +25,8 @@ public class EquipmentController extends MainController implements Initializable
   private TextField equipLocation, equipmentEmployeeText, equipmentStatus, deleteName, editRequest;
   @FXML private Label equipmentConfirmation, dropdownButtonText;
   @FXML private TableView equipmentTable;
-  private Connection connection;
+  // private Connection connection;
   @FXML Button clear;
-
   @FXML Pane drop, drop2;
 
   private RequestDAOImpl MedrequestImpl; // instance of RequestDAOImpl to access functions
@@ -49,7 +48,7 @@ public class EquipmentController extends MainController implements Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    connection = DBconnection.getConnection();
+    // connection = DBconnection.getConnection();
 
     // Implement DAO here.
 
@@ -79,18 +78,27 @@ public class EquipmentController extends MainController implements Initializable
     equipmentTable.setItems(medData);
   }
 
+  /**
+  TODO split submit equipment into add, edit x field, edit y field etc.
+   Maybe add a dropdown for edit request so we can choose specifically which
+   field we need to change for the request. I think doing this will help avoid confusion on FE
+
+   Implement little edit section on the left with the table on the right to use as a
+   reference
+   */
   @FXML
   private void submitEquipment() throws SQLException {
-
+    // first sees if all of the attributes are empty
     if (dropdownButtonText.getText().isEmpty()
         || equipLocation.getText().isEmpty()
         || equipmentEmployeeText.getText().isEmpty()
         || (!deleteName.getText().isEmpty())) {
+      // if delete name is not empty, deletes obj with certain index
       if (!deleteName.getText().isEmpty()) {
+        System.out.println("DELETE REQUEST");
         for (int i = 0; i < medData.size(); i++) {
           Request object = medData.get(i);
           if (0 == deleteName.getText().compareTo(object.getName())) {
-
             medData.remove(i);
             MedrequestImpl.deleteRequest(object);
           }
@@ -99,11 +107,12 @@ public class EquipmentController extends MainController implements Initializable
       }
 
       equipmentConfirmation.setText("Please fill out all the require fields");
+      // editing a request
     } else if ((!dropdownButtonText.getText().isEmpty()
             || !equipLocation.getText().isEmpty()
             || !equipmentEmployeeText.getText().isEmpty())
         && (!editRequest.getText().isEmpty())) {
-
+      System.out.println("EDIT REQUEST");
       Request found = null;
       int num = 0;
       for (int i = 0; i < medData.size(); i++) {
@@ -135,6 +144,7 @@ public class EquipmentController extends MainController implements Initializable
       }
 
     } else {
+      // adds a device
       System.out.println("ADD DEVICE");
       equipmentConfirmation.setText(
           "Thank you, the "
@@ -155,8 +165,6 @@ public class EquipmentController extends MainController implements Initializable
               equipmentEmployeeText.getText(),
               equipmentStatus.getText(),
               placeholder);
-      /*medDAO.addMed(medDevice);
-      medData.add(medDevice);*/
       MedrequestImpl.addRequest(medDevice); // add to hashmap
 
       medData.add(medDevice); // add to the UI
