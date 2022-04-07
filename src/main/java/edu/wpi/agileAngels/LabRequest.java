@@ -1,5 +1,5 @@
 package edu.wpi.agileAngels;
-
+// similar to other request classes
 public class LabRequest extends Request {
   private String available;
 

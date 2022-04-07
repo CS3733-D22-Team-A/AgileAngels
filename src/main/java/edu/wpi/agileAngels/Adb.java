@@ -1,10 +1,21 @@
 package edu.wpi.agileAngels;
 
 import java.sql.*;
+import java.util.ArrayList;
 
+// This class is the backend of the DAO method.
+// The objects communicate with the DB here
+// Basically, front end shouldn't directly interact adb, it should interact with DAO classes
 public class Adb {
   private Connection connection = DBconnection.getConnection();
   // TODO update elements in the csv
+
+  /**
+   * Main: creates the tables if they do not exist already
+   *
+   * @param args
+   * @throws SQLException
+   */
   public void main(String[] args) throws SQLException {
 
     // Apache Derby and table creation
@@ -87,6 +98,20 @@ public class Adb {
                 + "PRIMARY KEY (Name))";
         statementMedical.execute(queryRequest);
       }
+
+      Statement statementEquipment = connection.createStatement();
+      if (tableExist(connection, "MedicalEquipment")) {
+        String dropRequest = "DROP TABLE MedicalEquipment";
+        String queryEq =
+            "CREATE TABLE MedicalEquipment ( " + "Name VARCHAR(50)," + "Amount INTEGER)";
+        statementEquipment.execute(dropRequest);
+        statementEquipment.execute(queryEq);
+      } else {
+        String queryEq =
+            "CREATE TABLE MedicalEquipment ( " + "Name VARCHAR(50)," + "Amount INTEGER)";
+        statementEquipment.execute(queryEq);
+      }
+
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
       e.printStackTrace();
@@ -155,11 +180,12 @@ public class Adb {
     pstmt.executeUpdate();
   }
   /**
-   * Updates availability for a request in the table.
+   * Updates different attributes for a request in the table.
    *
    * @param request, updateAttribute, update
    * @return True if successful, false if not.
    */
+  // TODO multiple updates
   public static boolean updateRequest(Request request, String updateAttribute, String update) {
     try {
       PreparedStatement preparedStatement;
@@ -236,7 +262,15 @@ public class Adb {
     preparedStatement.execute();
   }
 
-  public boolean tableExist(Connection conn, String tName) throws SQLException {
+  /**
+   * helper function to check if table exists
+   *
+   * @param conn
+   * @param tName
+   * @return
+   * @throws SQLException
+   */
+  private boolean tableExist(Connection conn, String tName) throws SQLException {
     boolean tExists = false;
     try {
       DatabaseMetaData metaData = conn.getMetaData();
@@ -254,11 +288,24 @@ public class Adb {
     return tExists;
   }
 
-  public static class MedicalEquip {
-    private String name;
-
-    public MedicalEquip(String name) {
-      this.name = name;
+  /**
+   * Adding medical equipment
+   *
+   * @param eq
+   * @throws SQLException
+   */
+  public static void addMedicalEquipment(ArrayList<MedicalEquip> eq) throws SQLException {
+    try {
+      for (int i = 0; i < eq.size(); i++) {
+        PreparedStatement add =
+            DBconnection.getConnection()
+                .prepareStatement("INSERT INTO MedicalEquipment(Name, Amount) VALUES(? ,?)");
+        add.setString(1, eq.get(i).getName());
+        add.setInt(2, eq.get(i).getAmount());
+        add.execute();
+      }
+    } catch (SQLException e) {
+      System.out.println("Adding unsuccessful.");
     }
   }
 }

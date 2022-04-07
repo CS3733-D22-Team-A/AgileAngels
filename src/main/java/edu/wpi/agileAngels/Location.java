@@ -1,6 +1,7 @@
 package edu.wpi.agileAngels;
 
 public class Location {
+  // TODO make Coords doubles
   private String NodeID; // Unique for every location
   private String xCoord;
   private String yCoord;

@@ -15,7 +15,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+// Page that displayed locations in a table
+// Not really using this rn
+// TODO implement this somewhere else
 public class LocationController extends MainController implements Initializable {
+  /** Displays all locations in a table */
   @FXML
   private TableColumn nodeIDColumn,
       xCoordColumn,
@@ -25,6 +29,7 @@ public class LocationController extends MainController implements Initializable 
       nodeTypeColumn,
       longNameColumn,
       shortNameColumn;
+
   private ObservableList<Location> locationData = FXCollections.observableArrayList();
   private LocationDAOImpl locationDAO;
   private Connection connection;

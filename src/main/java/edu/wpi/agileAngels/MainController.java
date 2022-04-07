@@ -16,8 +16,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-// hello
+// parent controller for all of the other controllers
+// holds all of the methods we need in all of the other controllers
+// TODO rework into 2 controllers: figure it out later
 public class MainController {
+  // TODO: Change bars to pretty stuff
 
   @FXML Button back, close, clear, equipRequest, viewRequest, map;
   @FXML Button userButton, userIDIcon, dropButton, op1, op2, op3, op4;
@@ -42,6 +45,7 @@ public class MainController {
 
   ArrayList<Circle> newList = new ArrayList<Circle>();
 
+  // TODO: why mis there 2 load pages
   public void loadPage(String view, Control item) throws IOException {
 
     if (item == back) {
@@ -63,6 +67,7 @@ public class MainController {
     stage.show();
   }
 
+  // TODO: Fix this
   public void loadMapPage(String view, Control item) throws IOException {
 
     System.out.println(pageHistory);
@@ -93,14 +98,8 @@ public class MainController {
     userID = String.valueOf(user.toUpperCase().charAt(0));
   }
 
-  public String getUsername() {
-    return username;
-  }
-
-  public String getUserID() {
-    return userID;
-  }
-
+  // three bars at the top of the page
+  // TODO rework the menu bar
   @FXML
   private void menuItem(ActionEvent event) throws IOException {
     if (event.getSource() == equipRequest) {

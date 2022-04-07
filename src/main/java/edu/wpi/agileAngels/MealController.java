@@ -1,6 +1,7 @@
 package edu.wpi.agileAngels;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -17,7 +18,7 @@ public class MealController extends MainController {
 
   private RequestDAOImpl mealDAO;
 
-  public void initialize(URL location, ResourceBundle resources) {
+  public void initialize(URL location, ResourceBundle resources) throws SQLException {
     HashMap<String, Request> mealData = new HashMap<String, Request>();
     mealDAO = new RequestDAOImpl("./Meal.csv", mealData, 0);
   }

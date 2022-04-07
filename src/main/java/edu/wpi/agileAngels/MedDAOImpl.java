@@ -14,11 +14,11 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 public class MedDAOImpl implements MedDAO {
-
+  // TODO: delete class, move parser
   private final String CSV_FILE_PATH = "./MedData.csv";
   private HashMap<String, MedDevice> medData = new HashMap<>();
 
-  public MedDAOImpl() {
+  public MedDAOImpl() throws SQLException {
     Connection connection = DBconnection.getConnection();
     try (Reader reader = Files.newBufferedReader(Paths.get(CSV_FILE_PATH));
         CSVParser csvParser =

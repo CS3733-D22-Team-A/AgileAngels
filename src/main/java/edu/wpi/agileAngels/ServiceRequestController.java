@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+// brings you to pages
 public class ServiceRequestController extends MainController {
 
   @FXML Button equipmentRequest, labRequest, sanRequest, mealRequest, giftRequest, testButton;
