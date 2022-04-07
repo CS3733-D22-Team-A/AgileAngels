@@ -103,12 +103,20 @@ public class Adb {
       if (tableExist(connection, "MedicalEquipment")) {
         String dropRequest = "DROP TABLE MedicalEquipment";
         String queryEq =
-            "CREATE TABLE MedicalEquipment ( " + "Name VARCHAR(50)," + "Amount INTEGER)";
+            "CREATE TABLE MedicalEquipment ( "
+                    + "ID VARCHAR(50),"
+                    + "Type VARCHAR(50),"
+                    + "Clean VARCHAR(50),"
+                    + "Location VARCHAR(50))";
         statementEquipment.execute(dropRequest);
         statementEquipment.execute(queryEq);
       } else {
         String queryEq =
-            "CREATE TABLE MedicalEquipment ( " + "Name VARCHAR(50)," + "Amount INTEGER)";
+                "CREATE TABLE MedicalEquipment ( "
+                        + "ID VARCHAR(50),"
+                        + "Type VARCHAR(50),"
+                        + "Clean VARCHAR(50),"
+                        + "Location VARCHAR(50))";
         statementEquipment.execute(queryEq);
       }
 
@@ -263,11 +271,11 @@ public class Adb {
   }
 
   /**
-   * helper function to check if table exists
+   * Checks if table exists.
    *
-   * @param conn
-   * @param tName
-   * @return
+   * @param conn Connection
+   * @param tName Name of table
+   * @return True if it exists, false if not
    * @throws SQLException
    */
   private boolean tableExist(Connection conn, String tName) throws SQLException {
@@ -289,19 +297,23 @@ public class Adb {
   }
 
   /**
-   * Adding medical equipment
-   *
+   * Adding medical equipment to the table from an ArrayList.
    * @param eq
-   * @throws SQLException
    */
-  public static void addMedicalEquipment(ArrayList<MedicalEquip> eq) throws SQLException {
+  public static void addMedicalEquipment(ArrayList<MedicalEquip> eq){
     try {
       for (int i = 0; i < eq.size(); i++) {
         PreparedStatement add =
             DBconnection.getConnection()
-                .prepareStatement("INSERT INTO MedicalEquipment(Name, Amount) VALUES(? ,?)");
-        add.setString(1, eq.get(i).getName());
-        add.setInt(2, eq.get(i).getAmount());
+                .prepareStatement("INSERT INTO MedicalEquipment(ID, Type, Clean, Location) VALUES(?, ?, ?, ?)");
+        add.setString(1, eq.get(i).getID());
+        add.setString(2, eq.get(i).getType());
+        if(eq.get(i).isClean()){
+          add.setString(3, "Clean");
+        }else{
+          add.setString(3, "Dirty");
+        }
+        add.setString(4, eq.get(i).getLocation());
         add.execute();
       }
     } catch (SQLException e) {
