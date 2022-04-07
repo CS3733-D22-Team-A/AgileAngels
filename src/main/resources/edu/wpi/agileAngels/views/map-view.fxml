@@ -85,7 +85,7 @@
             <Font size="17.0" />
          </font>
       </Button>
-      <Button id="lowerLevelOne" fx:id="switchToEditButton" layoutX="57.0" layoutY="576.0" mnemonicParsing="false" onAction="#switchMode" prefHeight="38.0" prefWidth="201.0" text="Edit/Delete a Location" visible="false">
+      <Button id="lowerLevelOne" fx:id="switchToEditButton" layoutX="57.0" layoutY="576.0" mnemonicParsing="false" onAction="#switchMode" prefHeight="38.0" prefWidth="201.0" text="Edit/Delete a Location" visible="false" >
          <font>
             <Font size="17.0" />
          </font>
