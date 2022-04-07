@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels;
 
 import java.sql.*;
-import java.util.HashMap;
 
 // This class is the backend of the DAO method.
 // The objects communicate with the DB here
@@ -39,9 +38,10 @@ public class Adb {
     Statement statementLocations;
     Statement statementMedical;
     try {
-      // substitute your database name for myDB
+
       statementLocations = connection.createStatement();
-      // Optimizes myDB file to get rid of it. Ask Justin or Aaron for questions.
+
+      //If the table exists, the table is dropped and re-created.
       if (tableExist(connection, "Locations")) {
         String dropLoc = "DROP TABLE Locations";
         String queryLocations =
@@ -131,8 +131,7 @@ public class Adb {
   }
 
   /**
-   * Adds a request to the database table.
-   *
+   * Adds a request to the request database table.
    * @param request
    * @return True if successful, false if not.
    */
@@ -157,8 +156,7 @@ public class Adb {
   }
 
   /**
-   * Removes a request from the database table.
-   *
+   * Removes a request from the request database table.
    * @param request
    * @return True if successful, false if not.
    */
@@ -175,8 +173,7 @@ public class Adb {
   }
 
   /**
-   * Allows the user to change the floor and location type
-   *
+   * Allows the user to change the floor and location type.
    * @param ID the node string ID to check if location is present in the map
    * @throws SQLException
    */
@@ -191,7 +188,6 @@ public class Adb {
   }
   /**
    * Updates different attributes for a request in the table.
-   *
    * @param request, updateAttribute, update
    * @return True if successful, false if not.
    */
@@ -236,39 +232,27 @@ public class Adb {
   }
 
   /**
-   * Adds a new location to the location table and hashmap.
-   *
-   * @param node
+   * Adds a new location to the locations table.
+   * @param nodeID
    * @throws SQLException
    */
-  private void addLocation(String node) throws SQLException {
-    // locationData = LocationDAO.getAllLocations();
-    // Adding to the database table
+  public static void addLocation(String nodeID) throws SQLException {
     String add =
         "INSERT INTO Locations(NodeID,xcoord,ycoord,Floor,building,nodeType,longName,shortName)VALUES(?,'?','?','?','?','?','?','?')";
     PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
-    preparedStatement.setString(1, node);
+    preparedStatement.setString(1, nodeID);
     preparedStatement.execute();
-
-    // TODO: Add this code to when you add location to hashmap
-    /**
-     * Adding to the hashmap String placeholder = "?"; Location location = new Location( node,
-     * placeholder, placeholder, placeholder, placeholder, placeholder, placeholder, placeholder);
-     * LocationDAO.addLocation(location);*
-     */
   }
 
   /**
-   * Deletes a location from the table and hashmap.
-   *
-   * @param node
+   * Deletes a location from the locations table.
+   * @param nodeID
    * @throws SQLException
    */
-  private void deleteLocation(String node) throws SQLException {
-    // Deleting from the database table
+  public static void deleteLocation(String nodeID) throws SQLException {
     PreparedStatement preparedStatement =
-        DBconnection.getConnection().prepareStatement("DELETE FROM Locations WHERE NodeID = ?");
-    preparedStatement.setString(1, node);
+            DBconnection.getConnection().prepareStatement("DELETE FROM Locations WHERE NodeID = ?");
+    preparedStatement.setString(1, nodeID);
     preparedStatement.execute();
   }
 
@@ -299,7 +283,7 @@ public class Adb {
   }
 
   /**
-   * Adding one medical equipment to the table.
+   * Adding one medical equipment to the medical equipment table.
    * @param medicalEquip
    */
   public static boolean addMedicalEquipment(MedicalEquip medicalEquip){
@@ -322,6 +306,12 @@ public class Adb {
       return false;
     }
   }
+
+  /**
+   * Removes one medical equipment from the medical equipment table.
+   * @param MedID
+   * @return True if successful, false if not.
+   */
   public static boolean removeMedicalEquipment(String MedID){
     try {
       PreparedStatement delete = DBconnection.getConnection()
