@@ -71,4 +71,6 @@ public class Node {
   public void setCircle(Circle circle) {
     this.circle = circle;
   }
+
+  public void editLocation(String Name, Double XCoord, Double YCoord, int Floor) {}
 }
