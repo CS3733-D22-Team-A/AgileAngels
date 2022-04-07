@@ -46,6 +46,7 @@ public class MainController {
   ArrayList<Circle> newList = new ArrayList<Circle>();
 
   // TODO: why mis there 2 load pages
+  // there arent  you sound kinda fuckin crazy right now - JS
   public void loadPage(String view, Control item) throws IOException {
 
     if (item == back) {
@@ -55,20 +56,6 @@ public class MainController {
     } else if (view != pageHistory.peek()) {
       pageHistory.push(view);
     }
-
-    System.out.println(pageHistory);
-    Stage stage;
-    Parent root;
-    // stage = (Stage) item.getScene().getWindow();
-    root = FXMLLoader.load(getClass().getResource(view));
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.setResizable(true);
-    stage.show();
-  }
-
-  // TODO: Fix this
-  public void loadMapPage(String view, Control item) throws IOException {
 
     System.out.println(pageHistory);
     Stage stage;
