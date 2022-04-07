@@ -79,26 +79,34 @@ public class EquipmentController extends MainController implements Initializable
   }
 
   /**
-  TODO split submit equipment into add, edit x field, edit y field etc.
-   Maybe add a dropdown for edit request so we can choose specifically which
-   field we need to change for the request. I think doing this will help avoid confusion on FE
-
-   Implement little edit section on the left with the table on the right to use as a
-   reference
+   * TODO split submit equipment into add, edit x field, edit y field etc. Maybe add a dropdown for
+   * edit request so we can choose specifically which field we need to change for the request. I
+   * think doing this will help avoid confusion on FE ** add if both delete and edit selected ->
+   * error
+   *
+   * <p>Implement little edit section on the left with the table on the right to use as a reference
    */
   @FXML
   private void submitEquipment() throws SQLException {
     // first sees if all of the attributes are empty
-    if (dropdownButtonText.getText().isEmpty()
-        || equipLocation.getText().isEmpty()
-        || equipmentEmployeeText.getText().isEmpty()
-        || (!deleteName.getText().isEmpty())) {
+    // gets all inputs and converts into string
+    String dropDownString = dropdownButtonText.getText();
+    String locationString = equipLocation.getText();
+    String employeeString = equipmentEmployeeText.getText();
+    String statusString = equipmentStatus.getText();
+    String deleteString = deleteName.getText();
+    String editString = editRequest.getText();
+    // logic to see if the entries in the buttons are empty
+    boolean logic =
+        (dropDownString.isEmpty() || locationString.isEmpty() || employeeString.isEmpty());
+    // if the fields are empty or the delete input is not empty
+    if (logic || (!deleteString.isEmpty())) {
       // if delete name is not empty, deletes obj with certain index
-      if (!deleteName.getText().isEmpty()) {
+      if (!deleteString.isEmpty()) {
         System.out.println("DELETE REQUEST");
         for (int i = 0; i < medData.size(); i++) {
           Request object = medData.get(i);
-          if (0 == deleteName.getText().compareTo(object.getName())) {
+          if (0 == deleteString.compareTo(object.getName())) {
             medData.remove(i);
             MedrequestImpl.deleteRequest(object);
           }
@@ -108,10 +116,7 @@ public class EquipmentController extends MainController implements Initializable
 
       equipmentConfirmation.setText("Please fill out all the require fields");
       // editing a request
-    } else if ((!dropdownButtonText.getText().isEmpty()
-            || !equipLocation.getText().isEmpty()
-            || !equipmentEmployeeText.getText().isEmpty())
-        && (!editRequest.getText().isEmpty())) {
+    } else if (!editString.isEmpty()) {
       System.out.println("EDIT REQUEST");
       Request found = null;
       int num = 0;
@@ -123,20 +128,25 @@ public class EquipmentController extends MainController implements Initializable
         }
       }
       if (found != null) {
-        if (!dropdownButtonText.getText().isEmpty()) {
-          String type = dropdownButtonText.getText();
-          found.setType(type);
-          MedrequestImpl.updateType(found, type);
+        if (!dropDownString.isEmpty()) {
+          // String type = dropdownButtonText.getText();
+          found.setType(dropDownString);
+          MedrequestImpl.updateType(found, dropDownString);
         }
-        if (!equipLocation.getText().isEmpty()) {
-          String location = equipLocation.getText();
-          found.setLocation(location);
-          MedrequestImpl.updateLocation(found, location);
+        if (!locationString.isEmpty()) {
+          // String location = equipLocation.getText();
+          found.setLocation(locationString);
+          MedrequestImpl.updateLocation(found, locationString);
         }
-        if (!equipmentEmployeeText.getText().isEmpty()) {
-          String employee = equipmentEmployeeText.getText();
-          found.setEmployee(employee);
-          MedrequestImpl.updateEmployeeName(found, employee);
+        if (!employeeString.isEmpty()) {
+          // String employee = emp.getText();
+          found.setEmployee(employeeString);
+          MedrequestImpl.updateEmployeeName(found, employeeString);
+        }
+        if (!statusString.isEmpty()) {
+          // String employee = emp.getText();
+          found.setStatus(statusString);
+          MedrequestImpl.updateStatus(found, statusString);
         }
         medData.set(num, found);
 
@@ -144,32 +154,38 @@ public class EquipmentController extends MainController implements Initializable
       }
 
     } else {
-      // adds a device
-      System.out.println("ADD DEVICE");
-      equipmentConfirmation.setText(
-          "Thank you, the "
-              + dropdownButtonText.getText()
-              + " you requested will be delivered shortly to "
-              + equipLocation.getText()
-              + " by "
-              + equipmentEmployeeText.getText()
-              + ".");
-
-      String placeholder = "?";
-      MedDevice medDevice =
-          new MedDevice(
-              placeholder,
-              "available",
-              dropdownButtonText.getText(),
-              equipLocation.getText(),
-              equipmentEmployeeText.getText(),
-              equipmentStatus.getText(),
-              placeholder);
-      MedrequestImpl.addRequest(medDevice); // add to hashmap
-
-      medData.add(medDevice); // add to the UI
-
-      equipmentTable.setItems(medData);
+      addEquipRequest("available", dropDownString, locationString, employeeString, statusString);
     }
+  }
+
+  private void addEquipRequest(
+      String availableString,
+      String dropDownString,
+      String locationString,
+      String employeeString,
+      String statusString) {
+    System.out.println("ADD DEVICE");
+    equipmentConfirmation.setText(
+        "Thank you, the "
+            + dropDownString
+            + " you requested will be delivered shortly to "
+            + locationString
+            + " by "
+            + employeeString
+            + ".");
+
+    String placeholder = "?";
+    MedDevice medDevice =
+        new MedDevice(
+            placeholder,
+            "available",
+            dropDownString,
+            locationString,
+            employeeString,
+            statusString,
+            placeholder);
+    MedrequestImpl.addRequest(medDevice); // add to hashmap
+    medData.add(medDevice); // add to the UI
+    equipmentTable.setItems(medData);
   }
 }
