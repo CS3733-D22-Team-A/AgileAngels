@@ -322,4 +322,16 @@ public class Adb {
       return false;
     }
   }
+  public static boolean removeMedicalEquipment(String MedID){
+    try {
+      PreparedStatement delete = DBconnection.getConnection()
+              .prepareStatement("DELETE FROM MedicalEquipment WHERE ID = ?");
+      delete.setString(1,MedID);
+      delete.execute();
+      return true;
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
 }
