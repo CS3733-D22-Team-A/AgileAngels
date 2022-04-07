@@ -55,7 +55,7 @@ public class MainController {
     System.out.println(pageHistory);
     Stage stage;
     Parent root;
-    stage = (Stage) item.getScene().getWindow();
+    // stage = (Stage) item.getScene().getWindow();
     root = FXMLLoader.load(getClass().getResource(view));
     Scene scene = new Scene(root);
     stage.setScene(scene);
