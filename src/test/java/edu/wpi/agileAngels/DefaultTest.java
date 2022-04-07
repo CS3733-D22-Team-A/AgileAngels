@@ -16,15 +16,22 @@ public class DefaultTest {
   public void test() {}
 
   @Test
-  public void setInitialsTest1() {
-    String dansInitials = "DO";
-    assertTrue(dansInitials.equals(dansLController.intialsMaker("Daniel Onyema")));
+  public void initialsMakerDanielTest() {
+    String danInitials = "DO";
+    assertTrue(danInitials.equals(dansLController.intialsMaker("Daniel Onyema")));
+  }
+
+  // Testing
+  @Test
+  public void initialsMakerJustinTest() {
+    String justinInitials = "JW";
+    assertTrue(
+            justinInitials.equals(dansLController.intialsMaker("Justin Paul Santiago - Wonoski")));
   }
 
   @Test
-  public void setInitialsTest2() {
-    String justinsInitials = "JW";
-    assertTrue(
-        justinsInitials.equals(dansLController.intialsMaker("Justin Paul Santiago - Wonoski")));
+  public void initialsMakerEmptyTest() {
+    String notApplicable = "N/A";
+    assertTrue(notApplicable.equals(dansLController.intialsMaker("")));
   }
 }

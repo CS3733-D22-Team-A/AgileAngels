@@ -43,25 +43,34 @@ public class LoginController extends MainController {
 
   /**
    * Creates the intial(s) of the given string. If only 1 name is given, 1 intial will return. If 2+
-   * names, 2 initials.
+   * names, 2 initials. Has no defense against illegal characters...
    *
    * @return The initial(s) of the given string
    */
   public String intialsMaker(String name) {
-    String initials = "N/A";
+    String initials;
 
-    // If the name has a space, 2+ names were given and need to be broken up.
-    char firstInitial = name.charAt(0);
-    if (name.contains(" ")) {
-      int lastSpaceIndex = name.lastIndexOf(" ");
-      char secondInitial = name.charAt(lastSpaceIndex + 1);
-
-      initials = "" + firstInitial + secondInitial;
+    // Is this name empty? Initials ain't applicable...
+    if (name.isEmpty()) {
+      initials = "N/A";
     }
 
-    // Else, 1 name was given, throw the first character.
+    // Not empty? Not illegal? Run the actual method.
     else {
-      initials = "" + firstInitial;
+
+      // If the name has a space, 2+ names were given and need to be broken up.
+      char firstInitial = name.charAt(0);
+      if (name.contains(" ")) {
+        int lastSpaceIndex = name.lastIndexOf(" ");
+        char secondInitial = name.charAt(lastSpaceIndex + 1);
+
+        initials = "" + firstInitial + secondInitial;
+      }
+
+      // Else, 1 name was given, throw the first character.
+      else {
+        initials = "" + firstInitial;
+      }
     }
 
     return initials;
