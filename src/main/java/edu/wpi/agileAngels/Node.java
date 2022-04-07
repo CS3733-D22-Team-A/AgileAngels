@@ -5,7 +5,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 
 public class Node {
-  private final MapsManager maps = MapsManager.getMapsManager();
+  private final NodeManager nodeManager = NodeManager.getNodeManager();
   private Location location;
   private Circle circle;
 
@@ -13,20 +13,20 @@ public class Node {
     this.location = location;
   }
 
-  public Circle createCircle() {
+  private Circle createCircle() {
     circle = new Circle();
     circle.setOnMousePressed(
         (MouseEvent event) -> {
           if (event.isSecondaryButtonDown()) {
-            delete();
+            isClicked();
           }
         });
     return circle;
   }
 
-  public void delete() {
+  public void isClicked() {
     try {
-      maps.deleteLocation(this);
+      nodeManager.loadNode(this);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -34,6 +34,30 @@ public class Node {
 
   public Location getLocation() {
     return location;
+  }
+
+  public String getNodeID() {
+    return location.getNodeID();
+  }
+
+  public String getName() {
+    return location.getLongName();
+  }
+
+  public String getFloor() {
+    return location.getFloor();
+  }
+
+  public String getXCoord() {
+    return location.getXCoord();
+  }
+
+  public String getYCoord() {
+    return location.getYCoord();
+  }
+
+  public String getNodeType() {
+    return location.getNodeType();
   }
 
   public void setLocation(Location location) {
@@ -47,4 +71,6 @@ public class Node {
   public void setCircle(Circle circle) {
     this.circle = circle;
   }
+
+  public void editLocation(String Name, Double XCoord, Double YCoord, int Floor) {}
 }
