@@ -17,7 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
 // TODO make sure controllers work without connections :)
-// TODO create helper methods to avoid confusion
+
 public class EquipmentController extends MainController implements Initializable {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
@@ -25,7 +25,6 @@ public class EquipmentController extends MainController implements Initializable
   private TextField equipLocation, equipmentEmployeeText, equipmentStatus, deleteName, editRequest;
   @FXML private Label equipmentConfirmation, dropdownButtonText;
   @FXML private TableView equipmentTable;
-  // private Connection connection;
   @FXML Button clear;
   @FXML Pane drop, drop2;
 
@@ -48,11 +47,6 @@ public class EquipmentController extends MainController implements Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    // connection = DBconnection.getConnection();
-
-    // Implement DAO here.
-
-    // HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
     HashMap<String, Request> data = new HashMap<>();
     MedDevice medDevice = new MedDevice("?", "?", "?", "?", "?", "?", "?");
     data.put("0", medDevice);
