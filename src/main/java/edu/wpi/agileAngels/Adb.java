@@ -1,7 +1,7 @@
 package edu.wpi.agileAngels;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 // This class is the backend of the DAO method.
 // The objects communicate with the DB here
@@ -107,7 +107,8 @@ public class Adb {
                     + "ID VARCHAR(50),"
                     + "Type VARCHAR(50),"
                     + "Clean VARCHAR(50),"
-                    + "Location VARCHAR(50))";
+                    + "Location VARCHAR(50),"
+                    + "PRIMARY KEY (ID))";
         statementEquipment.execute(dropRequest);
         statementEquipment.execute(queryEq);
       } else {
@@ -116,7 +117,8 @@ public class Adb {
                         + "ID VARCHAR(50),"
                         + "Type VARCHAR(50),"
                         + "Clean VARCHAR(50),"
-                        + "Location VARCHAR(50))";
+                        + "Location VARCHAR(50),"
+                        + "PRIMARY KEY (ID))";
         statementEquipment.execute(queryEq);
       }
 
@@ -297,27 +299,27 @@ public class Adb {
   }
 
   /**
-   * Adding medical equipment to the table from an ArrayList.
-   * @param eq
+   * Adding one medical equipment to the table.
+   * @param medicalEquip
    */
-  public static void addMedicalEquipment(ArrayList<MedicalEquip> eq){
+  public static boolean addMedicalEquipment(MedicalEquip medicalEquip){
     try {
-      for (int i = 0; i < eq.size(); i++) {
-        PreparedStatement add =
-            DBconnection.getConnection()
-                .prepareStatement("INSERT INTO MedicalEquipment(ID, Type, Clean, Location) VALUES(?, ?, ?, ?)");
-        add.setString(1, eq.get(i).getID());
-        add.setString(2, eq.get(i).getType());
-        if(eq.get(i).isClean()){
-          add.setString(3, "Clean");
-        }else{
-          add.setString(3, "Dirty");
-        }
-        add.setString(4, eq.get(i).getLocation());
-        add.execute();
+      PreparedStatement add =
+              DBconnection.getConnection()
+                      .prepareStatement("INSERT INTO MedicalEquipment(ID, Type, Clean, Location) VALUES(?, ?, ?, ?)");
+      add.setString(1, medicalEquip.getID());
+      add.setString(2, medicalEquip.getType());
+      if(medicalEquip.isClean()){
+        add.setString(3, "Clean");
+      }else{
+        add.setString(3, "Dirty");
       }
+      add.setString(4, medicalEquip.getLocation());
+      add.execute();
+      return true;
     } catch (SQLException e) {
       System.out.println("Adding unsuccessful.");
+      return false;
     }
   }
 }
