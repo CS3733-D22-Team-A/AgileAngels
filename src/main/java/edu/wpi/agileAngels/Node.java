@@ -1,35 +1,40 @@
 package edu.wpi.agileAngels;
 
-import java.io.IOException;
+import com.jfoenix.controls.JFXButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Circle;
 
 public class Node {
   private final NodeManager nodeManager = NodeManager.getNodeManager();
   private Location location;
-  private Circle circle;
+  private JFXButton button;
 
   public Node(Location location) {
     this.location = location;
   }
 
-  private Circle createCircle() {
-    circle = new Circle();
-    circle.setOnMousePressed(
+  private JFXButton createButton() {
+    button = new JFXButton();
+    button.setLayoutX(this.getXCoord());
+    button.setLayoutY(this.getYCoord());
+
+    button.setOnMousePressed(
         (MouseEvent event) -> {
           if (event.isSecondaryButtonDown()) {
             isClicked();
           }
         });
-    return circle;
+
+    // set the circle color to coordinate with the node type
+
+    // if(this.getNodeType() == "Test") {
+    button.setId("blue"); // this ID will be used in the CSS file to style the button
+    // }
+
+    return button;
   }
 
   public void isClicked() {
-    try {
-      nodeManager.loadNode(this);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    nodeManager.loadNode(this);
   }
 
   public Location getLocation() {
@@ -48,12 +53,12 @@ public class Node {
     return location.getFloor();
   }
 
-  public String getXCoord() {
-    return location.getXCoord();
+  public Double getXCoord() {
+    return Double.parseDouble(location.getXCoord());
   }
 
-  public String getYCoord() {
-    return location.getYCoord();
+  public Double getYCoord() {
+    return Double.parseDouble(location.getYCoord());
   }
 
   public String getNodeType() {
@@ -64,13 +69,16 @@ public class Node {
     this.location = location;
   }
 
-  public Circle getCircle() {
-    return circle;
+  public JFXButton getButton() {
+    return button;
   }
 
-  public void setCircle(Circle circle) {
-    this.circle = circle;
+  public void setCircle(JFXButton button) {
+    this.button = button;
   }
 
-  public void editLocation(String Name, Double XCoord, Double YCoord, int Floor) {}
+  //  public void editLocation(String Name, Double XCoord, Double YCoord, int Floor) {
+  //  }
+
+  public void editLocation(Double XCoord, Double YCoord, String type) {}
 }

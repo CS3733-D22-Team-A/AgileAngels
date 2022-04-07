@@ -34,6 +34,7 @@ public class NodeManager {
   }
 
   void loadNode(Node node) {
+    node.getButton();
     // gets called on button press and gets the node data
   }
 }
