@@ -58,81 +58,81 @@ public class LabController extends MainController implements Initializable {
 
   @FXML
   private void submitLabTest() {
-    if (dropdownButtonText.getText().isEmpty()
-        || labTestLocation.getText().isEmpty()
-        || labEmployeeText.getText().isEmpty()
-        || (!labDelete.getText().isEmpty())) {
-
-      if (!labDelete.getText().isEmpty()) {
-        for (int i = 0; i < labData.size(); i++) {
-          Request object = labData.get(i);
-          if (0 == labDelete.getText().compareTo(object.getName())) {
-
-            labData.remove(i);
-            LabDAO.deleteRequest(object);
-          }
-        }
-        labTable.setItems(labData);
-      }
-      labTestConfirmation.setText("Please fill out all the required fields");
-    } else if ((!dropdownButtonText.getText().isEmpty()
-            || !labTestLocation.getText().isEmpty()
-            || !labEmployeeText.getText().isEmpty())
-        && (!labEdit.getText().isEmpty())) {
-
-      Request found = null;
-      int num = 0;
-      for (int i = 0; i < labData.size(); i++) {
-        Request device = labData.get(i);
-        if (0 == labEdit.getText().compareTo(device.getName())) {
-          found = device;
-          num = i;
-        }
-      }
-      if (found != null) {
-        if (!dropdownButtonText.getText().isEmpty()) {
-          String type = dropdownButtonText.getText();
-          found.setType(type);
-          LabDAO.updateType(found, type);
-        }
-        if (!labTestLocation.getText().isEmpty()) {
-          String location = labTestLocation.getText();
-          found.setLocation(location);
-          LabDAO.updateLocation(found, location);
-        }
-        if (!labEmployeeText.getText().isEmpty()) {
-          String employee = labEmployeeText.getText();
-          found.setEmployee(employee);
-          LabDAO.updateEmployeeName(found, employee);
-        }
-        labData.set(num, found);
-
-        labTable.setItems(labData);
-      }
-
+    String dropDown = dropdownButtonText.getText();
+    String location = labTestLocation.getText();
+    String employee = labEmployeeText.getText();
+    String status = labStatus.getText();
+    String delete = labDelete.getText();
+    String edit = labEdit.getText();
+    //  boolean logic = (dropDown.isEmpty() || location.isEmpty() || employee.isEmpty());
+    if (!delete.isEmpty()) {
+      deleteLabRequest(delete);
+    } else if (!labEdit.getText().isEmpty()) {
+      editLabRequest(dropDown, location, employee, status);
     } else {
-      labTestConfirmation.setText(
-          "Thank you! Your "
-              + dropdownButtonText.getText()
-              + " you requested will be delivered shortly to "
-              + labTestLocation.getText()
-              + " by "
-              + labEmployeeText.getText()
-              + ".");
-      LabRequest request =
-          new LabRequest(
-              "",
-              "available",
-              labEmployeeText.getText(),
-              labTestLocation.getText(),
-              dropdownButtonText.getText(),
-              labStatus.getText(),
-              "");
+      addLabRequest("available", dropDown, location, employee, status);
+    }
+  }
 
-      LabDAO.addRequest(request);
+  private void deleteLabRequest(String deleteString) {
+    if (!deleteString.isEmpty()) {
+      System.out.println("DELETE REQUEST");
+      for (int i = 0; i < labData.size(); i++) {
+        Request object = labData.get(i);
+        if (0 == deleteString.compareTo(object.getName())) {
+          labData.remove(i);
+          LabDAO.deleteRequest(object);
+        }
+      }
+      labTable.setItems(labData);
+    }
+  }
 
-      labData.add(request);
+  private void addLabRequest(
+      String available, String dropDown, String location, String employee, String status) {
+    labTestConfirmation.setText(
+        "Thank you! Your "
+            + dropDown
+            + " you requested will be delivered shortly to "
+            + location
+            + " by "
+            + employee
+            + ".");
+    LabRequest request = new LabRequest("", available, employee, location, dropDown, status, "");
 
+    LabDAO.addRequest(request);
+    labData.add(request);
+    labTable.setItems(labData);
+  }
+
+  private void editLabRequest(String dropDown, String location, String employee, String status) {
+    Request found = null;
+    int num = 0;
+    for (int i = 0; i < labData.size(); i++) {
+      Request device = labData.get(i);
+      if (0 == labEdit.getText().compareTo(device.getName())) {
+        found = device;
+        num = i;
+      }
+    }
+    if (found != null) {
+      if (!dropDown.isEmpty()) {
+        found.setType(dropDown);
+        LabDAO.updateType(found, dropDown);
+      }
+      if (!location.isEmpty()) {
+        found.setLocation(location);
+        LabDAO.updateLocation(found, location);
+      }
+      if (!employee.isEmpty()) {
+        found.setEmployee(employee);
+        LabDAO.updateEmployeeName(found, employee);
+      }
+      if (!status.isEmpty()) {
+        found.setStatus(employee);
+        LabDAO.updateStatus(found, status);
+      }
+      labData.set(num, found);
       labTable.setItems(labData);
     }
   }

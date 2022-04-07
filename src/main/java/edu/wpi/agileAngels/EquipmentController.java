@@ -91,10 +91,10 @@ public class EquipmentController extends MainController implements Initializable
     String deleteString = deleteName.getText();
     String editString = editRequest.getText();
     // logic to see if the entries in the buttons are empty
-    boolean logic =
-        (dropDownString.isEmpty() || locationString.isEmpty() || employeeString.isEmpty());
+    // boolean logic = (dropDownString.isEmpty() || locationString.isEmpty() ||
+    // employeeString.isEmpty());
     // if the fields are empty or to delete input is not empty
-    if (logic || (!deleteString.isEmpty())) {
+    if (!deleteString.isEmpty()) {
       deleteEquipRequest(deleteString);
       // editing a request
     } else if (!editString.isEmpty()) {
