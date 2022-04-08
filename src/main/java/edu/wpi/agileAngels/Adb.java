@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 // This class is the backend of the DAO method.
 // The objects communicate with the DB here
@@ -39,9 +38,10 @@ public class Adb {
     Statement statementLocations;
     Statement statementMedical;
     try {
-      // substitute your database name for myDB
+
       statementLocations = connection.createStatement();
-      // Optimizes myDB file to get rid of it. Ask Justin or Aaron for questions.
+
+      // If the table exists, the table is dropped and re-created.
       if (tableExist(connection, "Locations")) {
         String dropLoc = "DROP TABLE Locations";
         String queryLocations =
@@ -56,7 +56,7 @@ public class Adb {
                 + "shortName VARCHAR(50))";
         statementLocations.execute(dropLoc);
         statementLocations.execute(queryLocations);
-      } else if (!tableExist(connection, "Locations")) {
+      } else if (!tableExist(DBconnection.getConnection(), "Locations")) {
         String queryLocations =
             "CREATE TABLE Locations( "
                 + "NodeID VARCHAR(50),"
@@ -70,8 +70,8 @@ public class Adb {
         statementLocations.execute(queryLocations);
       }
 
-      statementMedical = connection.createStatement();
-      if (tableExist(connection, "RequestTable")) {
+      statementMedical = DBconnection.getConnection().createStatement();
+      if (tableExist(DBconnection.getConnection(), "RequestTable")) {
         String dropRequest = "DROP TABLE RequestTable";
         String queryRequest =
             "CREATE TABLE RequestTable ( "
@@ -85,7 +85,7 @@ public class Adb {
                 + "PRIMARY KEY (Name))";
         statementMedical.execute(dropRequest);
         statementMedical.execute(queryRequest);
-      } else if (!tableExist(connection, "RequestTable")) {
+      } else if (!tableExist(DBconnection.getConnection(), "RequestTable")) {
         String queryRequest =
             "CREATE TABLE RequestTable ( "
                 + "Name VARCHAR(50),"
@@ -99,15 +99,16 @@ public class Adb {
         statementMedical.execute(queryRequest);
       }
 
-      Statement statementEquipment = connection.createStatement();
-      if (tableExist(connection, "MedicalEquipment")) {
+      Statement statementEquipment = DBconnection.getConnection().createStatement();
+      if (tableExist(DBconnection.getConnection(), "MedicalEquipment")) {
         String dropRequest = "DROP TABLE MedicalEquipment";
         String queryEq =
             "CREATE TABLE MedicalEquipment ( "
                 + "ID VARCHAR(50),"
                 + "Type VARCHAR(50),"
                 + "Clean VARCHAR(50),"
-                + "Location VARCHAR(50))";
+                + "Location VARCHAR(50),"
+                + "PRIMARY KEY (ID))";
         statementEquipment.execute(dropRequest);
         statementEquipment.execute(queryEq);
       } else {
@@ -116,7 +117,8 @@ public class Adb {
                 + "ID VARCHAR(50),"
                 + "Type VARCHAR(50),"
                 + "Clean VARCHAR(50),"
-                + "Location VARCHAR(50))";
+                + "Location VARCHAR(50),"
+                + "PRIMARY KEY (ID))";
         statementEquipment.execute(queryEq);
       }
 
@@ -129,7 +131,7 @@ public class Adb {
   }
 
   /**
-   * Adds a request to the database table.
+   * Adds a request to the request database table.
    *
    * @param request
    * @return True if successful, false if not.
@@ -139,14 +141,15 @@ public class Adb {
       PreparedStatement preparedStatement =
           DBconnection.getConnection()
               .prepareStatement(
-                  "INSERT INTO RequestTable(Name, Available, EmployeeName, Location, Type, Status, Description) VALUES(?,?,?,?,?,?,?)");
+                  "INSERT INTO RequestTable(Name, Available, EmployeeName, Location, Type, Status, Description, Attribute1, Attribute2) VALUES(?,?,?,?,?,?,?, ?,?)");
       preparedStatement.setString(1, request.getName());
-      preparedStatement.setString(2, "");
+      preparedStatement.setString(2, request.getAttribute1());
       preparedStatement.setString(3, request.getEmployee());
       preparedStatement.setString(4, request.getLocation());
       preparedStatement.setString(5, request.getType());
       preparedStatement.setString(6, request.getStatus());
       preparedStatement.setString(7, request.getDescription());
+      preparedStatement.setString(8, request.getAttribute2());
       preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {
@@ -155,7 +158,7 @@ public class Adb {
   }
 
   /**
-   * Removes a request from the database table.
+   * Removes a request from the request database table.
    *
    * @param request
    * @return True if successful, false if not.
@@ -173,7 +176,7 @@ public class Adb {
   }
 
   /**
-   * Allows the user to change the floor and location type
+   * Allows the user to change the floor and location type.
    *
    * @param ID the node string ID to check if location is present in the map
    * @throws SQLException
@@ -181,7 +184,8 @@ public class Adb {
   private void ChangeFloorandType(String ID, String newFloor, String newLocation)
       throws SQLException {
     PreparedStatement pstmt =
-        connection.prepareStatement("UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
+        DBconnection.getConnection()
+            .prepareStatement("UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
     pstmt.setString(1, newFloor);
     pstmt.setString(2, newLocation);
     pstmt.setString(3, ID);
@@ -234,39 +238,29 @@ public class Adb {
   }
 
   /**
-   * Adds a new location to the location table and hashmap.
+   * Adds a new location to the locations table.
    *
-   * @param node
+   * @param nodeID
    * @throws SQLException
    */
-  private void addLocation(String node) throws SQLException {
-    // locationData = LocationDAO.getAllLocations();
-    // Adding to the database table
+  public static void addLocation(String nodeID) throws SQLException {
     String add =
         "INSERT INTO Locations(NodeID,xcoord,ycoord,Floor,building,nodeType,longName,shortName)VALUES(?,'?','?','?','?','?','?','?')";
-    PreparedStatement preparedStatement = connection.prepareStatement(add);
-    preparedStatement.setString(1, node);
+    PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
+    preparedStatement.setString(1, nodeID);
     preparedStatement.execute();
-
-    // TODO: Add this code to when you add location to hashmap
-    /**
-     * Adding to the hashmap String placeholder = "?"; Location location = new Location( node,
-     * placeholder, placeholder, placeholder, placeholder, placeholder, placeholder, placeholder);
-     * LocationDAO.addLocation(location);*
-     */
   }
 
   /**
-   * Deletes a location from the table and hashmap.
+   * Deletes a location from the locations table.
    *
-   * @param node
+   * @param nodeID
    * @throws SQLException
    */
-  private void deleteLocation(String node) throws SQLException {
-    // Deleting from the database table
+  public static void deleteLocation(String nodeID) throws SQLException {
     PreparedStatement preparedStatement =
-        connection.prepareStatement("DELETE FROM Locations WHERE NodeID = ?");
-    preparedStatement.setString(1, node);
+        DBconnection.getConnection().prepareStatement("DELETE FROM Locations WHERE NodeID = ?");
+    preparedStatement.setString(1, nodeID);
     preparedStatement.execute();
   }
 
@@ -297,29 +291,49 @@ public class Adb {
   }
 
   /**
-   * Adding medical equipment to the table from an ArrayList.
+   * Adding one medical equipment to the medical equipment table.
    *
-   * @param eq
+   * @param medicalEquip
    */
-  public static void addMedicalEquipment(ArrayList<MedicalEquip> eq) {
+  public static boolean addMedicalEquipment(MedicalEquip medicalEquip) {
     try {
-      for (int i = 0; i < eq.size(); i++) {
-        PreparedStatement add =
-            DBconnection.getConnection()
-                .prepareStatement(
-                    "INSERT INTO MedicalEquipment(ID, Type, Clean, Location) VALUES(?, ?, ?, ?)");
-        add.setString(1, eq.get(i).getID());
-        add.setString(2, eq.get(i).getType());
-        if (eq.get(i).isClean()) {
-          add.setString(3, "Clean");
-        } else {
-          add.setString(3, "Dirty");
-        }
-        add.setString(4, eq.get(i).getLocation());
-        add.execute();
+      PreparedStatement add =
+          DBconnection.getConnection()
+              .prepareStatement(
+                  "INSERT INTO MedicalEquipment(ID, Type, Clean, Location) VALUES(?,?,?,?)");
+      add.setString(1, medicalEquip.getID());
+      add.setString(2, medicalEquip.getType());
+      if (medicalEquip.isClean()) {
+        add.setString(3, "Clean");
+      } else {
+        add.setString(3, "Dirty");
       }
+      add.setString(4, medicalEquip.getLocation());
+      add.execute();
+      return true;
     } catch (SQLException e) {
       System.out.println("Adding unsuccessful.");
+      return false;
     }
+  }
+
+  /**
+   * Removes one medical equipment from the medical equipment table.
+   *
+   * @param MedID
+   * @return True if successful, false if not.
+   */
+  public static boolean removeMedicalEquipment(String MedID) {
+    try {
+      PreparedStatement delete =
+          DBconnection.getConnection()
+              .prepareStatement("DELETE FROM MedicalEquipment WHERE ID = ?");
+      delete.setString(1, MedID);
+      delete.execute();
+      return true;
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return false;
   }
 }

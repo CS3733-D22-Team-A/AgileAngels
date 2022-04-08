@@ -2,7 +2,6 @@ package edu.wpi.agileAngels;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -179,11 +178,10 @@ public class GiftsController extends MainController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     HashMap<String, Request> giftData = new HashMap<>();
-    try {
-      giftDAO = new RequestDAOImpl("./GIFT.CSV", giftData, 0);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+    /**
+     * try { giftDAO = new RequestDAOImpl("./GIFT.CSV", giftData, 0); } catch (SQLException e) {
+     * e.printStackTrace(); }*
+     */
   }
 
   @FXML
@@ -205,6 +203,24 @@ public class GiftsController extends MainController implements Initializable {
         || recipient.isEmpty()) {
       giftConfirm.setText("Please fill out all of the required fields");
     } else {
+      giftConfirm.setText(
+          "Thank you, "
+              + giftSender.getText()
+              + ", "
+              + giftEmployeeText.getText()
+              + " will deliver "
+              + dropdownButtonText.getText()
+              + " to "
+              + giftRecipient.getText()
+              + " soon. ");
+      /**
+       * GiftRequest request = new GiftRequest( "", giftEmployeeText.getText(),
+       * giftRecipient.getText(), dropdownButtonText.getText(), giftStatus.getText(),
+       * giftMessage.getText(), giftSender.getText());
+       *
+       * <p>giftDAO.addRequest(request);*
+       */
+    }
       addGiftRequest(dropDown, sender, recipient, employee, "location", message, status);
     }
   }
@@ -248,5 +264,4 @@ public class GiftsController extends MainController implements Initializable {
   private void clearPage() throws IOException, InterruptedException {
     loadPage("views/gifts-view.fxml", giftConfirm);
   }
-
 }

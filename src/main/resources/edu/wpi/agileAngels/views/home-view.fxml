@@ -15,120 +15,165 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.HomeController">
+<AnchorPane id="main" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="144.0" minWidth="256.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.HomeController">
    <children>
-      <ImageView fitHeight="726.0" fitWidth="1280.0" preserveRatio="true">
-         <image>
-            <Image url="@../assets/blur.png" />
-         </image>
-      </ImageView>
-      <Pane id="topBar" prefHeight="142.0" prefWidth="1280.0">
+      <HBox prefHeight="718.0" prefWidth="1280.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="770.0" spacing="30.0">
+            <VBox prefHeight="718.0" prefWidth="1291.0">
                <children>
-                  <Button id="icon" mnemonicParsing="false" onAction="#goHome" styleClass="topBarIcon">
+                  <ImageView fitHeight="876.0" fitWidth="1561.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/blur.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="144.0" prefWidth="1547.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-267.0">
+         <children>
+            <Pane id="topBar" prefHeight="144.0" prefWidth="1556.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="650.0" spacing="30.0">
+                     <children>
+                        <Button id="icon" mnemonicParsing="false" onAction="#goHome" styleClass="topBarIcon">
+                           <graphic>
+                              <ImageView fitHeight="59.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/smallLogo.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button id="menuButton" fx:id="equipRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="31.0" prefWidth="135.0" text="Service Request" />
+                        <Button id="menuButton" fx:id="viewRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="31.0" prefWidth="128.0" text="View Requests" />
+                        <Button id="menuButton" fx:id="map" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="64.0" text="Map" />
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" layoutX="757.0" prefHeight="142.0" prefWidth="523.0" AnchorPane.leftAnchor="757.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button id="icon" mnemonicParsing="false" onAction="#profile" prefHeight="36.0" prefWidth="38.0" styleClass="topBarIcon">
+               <graphic>
+                  <ImageView fitHeight="70.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/icons/profile.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+         <padding>
+            <Insets right="18.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="TOP_RIGHT" layoutX="520.0" layoutY="-13.0" prefHeight="271.0" prefWidth="522.0" AnchorPane.leftAnchor="650.0" AnchorPane.rightAnchor="108.0">
+         <children>
+            <Button id="icon" alignment="CENTER_RIGHT" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goHome">
+               <graphic>
+                  <ImageView fitHeight="250.0" fitWidth="259.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="image" />
+                  <String fx:value="topBarIcon" />
+               </styleClass>
+            </Button>
+         </children>
+      </HBox>
+      <VBox alignment="CENTER" layoutY="237.0" prefHeight="483.0" prefWidth="1282.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="237.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="411.0" prefWidth="1281.0">
+               <children>
+                  <GridPane alignment="CENTER" prefHeight="402.0" prefWidth="1000.0">
+                     <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Button fx:id="serviceButton" mnemonicParsing="false" onAction="#homeButton" prefHeight="270.0" prefWidth="370.0">
+                           <graphic>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                                 <children>
+                                    <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../assets/icons/equipment.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label text="Submit Request">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="mapButton" mnemonicParsing="false" onAction="#homeButton" prefHeight="270.0" prefWidth="370.0" GridPane.columnIndex="1">
+                           <graphic>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                                 <children>
+                                    <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../assets/icons/map.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label text="Map">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </graphic>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </GridPane>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="36.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="BOTTOM_CENTER" layoutX="1110.0" layoutY="282.0" prefHeight="438.0" prefWidth="170.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="282.0">
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="93.0" prefWidth="1283.0">
+               <children>
+                  <Button fx:id="close" mnemonicParsing="false" onAction="#closeApp" prefHeight="44.0" prefWidth="124.0">
                      <graphic>
-                        <ImageView fitHeight="59.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/smallLogo.png" />
-                           </image>
-                        </ImageView>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                           <children>
+                              <Label text="Close App">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
                      </graphic>
                   </Button>
-                  <Button id="menuButton" fx:id="equipRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="31.0" prefWidth="135.0" text="Service Request" />
-                  <Button id="menuButton" fx:id="viewRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="31.0" prefWidth="128.0" text="View Requests" />
-                  <Button id="menuButton" fx:id="map" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="64.0" text="Map" />
                </children>
                <padding>
-                  <Insets left="30.0" />
+                  <Insets right="20.0" />
                </padding>
             </HBox>
          </children>
-      </Pane>
-      <Button id="icon" layoutX="1204.0" layoutY="9.0" mnemonicParsing="false" onAction="#profile" prefHeight="36.0" prefWidth="38.0" styleClass="topBarIcon">
-         <graphic>
-            <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/icons/profile.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button id="icon" graphicTextGap="0.0" layoutX="911.0" layoutY="-10.0" mnemonicParsing="false" onAction="#goHome">
-         <graphic>
-            <ImageView fitHeight="250.0" fitWidth="259.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/logo.png" />
-               </image>
-            </ImageView>
-         </graphic>
-         <styleClass>
-            <String fx:value="image" />
-            <String fx:value="topBarIcon" />
-         </styleClass>
-      </Button>
-      <GridPane alignment="CENTER" layoutX="150.0" layoutY="242.0" prefHeight="402.0" prefWidth="1000.0">
-         <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Button fx:id="serviceButton" mnemonicParsing="false" onAction="#homeButton" prefHeight="270.0" prefWidth="370.0">
-               <graphic>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
-                     <children>
-                        <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/icons/equipment.png" />
-                           </image>
-                        </ImageView>
-                        <Label text="Submit Request">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-               </graphic>
-            </Button>
-            <Button fx:id="mapButton" mnemonicParsing="false" onAction="#homeButton" prefHeight="270.0" prefWidth="370.0" GridPane.columnIndex="1">
-               <graphic>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
-                     <children>
-                        <ImageView fitHeight="140.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/icons/map.png" />
-                           </image>
-                        </ImageView>
-                        <Label text="Map">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-               </graphic>
-            </Button>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </GridPane>
-      <Button fx:id="close" layoutX="1136.0" layoutY="653.0" mnemonicParsing="false" onAction="#closeApp" prefHeight="44.0" prefWidth="124.0">
-         <graphic>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
-               <children>
-                  <Label text="Close App">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-         </graphic>
-      </Button>
+      </VBox>
    </children>
 </AnchorPane>
