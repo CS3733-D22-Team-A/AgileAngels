@@ -56,17 +56,21 @@ public class LocationDAOImpl implements LocationDAO {
                 .setString(
                     i, csvRecord.get(i - 1)); // to access the first value for table it starts at 1
           }
-          Location location =
-              new Location(
-                  csvRecord.get(0),
-                  Double.parseDouble(csvRecord.get(1)),
-                  Double.parseDouble(csvRecord.get(2)),
-                  csvRecord.get(3),
-                  csvRecord.get(4),
-                  csvRecord.get(5),
-                  csvRecord.get(6),
-                  csvRecord.get(7));
-          data.put(csvRecord.get(0), location);
+          try {
+            Location location =
+                new Location(
+                    csvRecord.get(0),
+                    Double.parseDouble(csvRecord.get(1)),
+                    Double.parseDouble(csvRecord.get(2)),
+                    csvRecord.get(3),
+                    csvRecord.get(4),
+                    csvRecord.get(5),
+                    csvRecord.get(6),
+                    csvRecord.get(7));
+            data.put(csvRecord.get(0), location);
+          } catch (NumberFormatException nfe) {
+            System.out.println(nfe);
+          }
 
           ((PreparedStatement) statement).execute();
         }
