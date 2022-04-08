@@ -26,7 +26,7 @@ public class DefaultTest {
   public void initialsMakerJustinTest() {
     String justinInitials = "JW";
     assertTrue(
-            justinInitials.equals(dansLController.intialsMaker("Justin Paul Santiago - Wonoski")));
+        justinInitials.equals(dansLController.intialsMaker("Justin Paul Santiago - Wonoski")));
   }
 
   @Test
