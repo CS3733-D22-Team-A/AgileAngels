@@ -8,8 +8,6 @@ import javafx.scene.control.*;
 // service request and map button (page with two buttons 4/6/2022)
 public class HomeController extends MainController {
 
-  private static NodeManager nodeManager = NodeManager.getNodeManager();
-
   @FXML Button serviceButton, mapButton;
 
   @FXML
