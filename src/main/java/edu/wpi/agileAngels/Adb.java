@@ -6,8 +6,6 @@ import java.sql.*;
 // The objects communicate with the DB here
 // Basically, front end shouldn't directly interact adb, it should interact with DAO classes
 public class Adb {
-  private Connection connection = DBconnection.getConnection();
-  // TODO update elements in the csv
 
   /**
    * Main: creates the tables if they do not exist already
@@ -39,10 +37,10 @@ public class Adb {
     Statement statementMedical;
     try {
 
-      statementLocations = connection.createStatement();
+      statementLocations = DBconnection.getConnection().createStatement();
 
       // If the table exists, the table is dropped and re-created.
-      if (tableExist(connection, "Locations")) {
+      if (tableExist(DBconnection.getConnection(), "Locations")) {
         String dropLoc = "DROP TABLE Locations";
         String queryLocations =
             "CREATE TABLE Locations( "
