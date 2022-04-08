@@ -19,8 +19,7 @@ public class LoginController extends MainController {
     if (username.getText().equals(passwordBox.getText()) && !username.getText().isEmpty()) {
       loggedIn = true;
       setUsername(username.getText());
-      pageHistory.pop();
-      loadPage(pageHistory.peek(), login);
+      loadPage("views/home-view.fxml", login);
     } else {
       invalid.setTextFill(Color.rgb(220, 80, 80));
       invalid.setText("Invalid username or password:\nPlease try again");
