@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javax.swing.*;
@@ -57,14 +58,15 @@ public class MapsController extends MainController implements Initializable {
     mapPane.getChildren().add(paneL1);
     paneL1.getChildren().add((lowerLevelOneMap));
     paneL1.setVisible(false);
-    mapPane.getChildren().add(paneL2);
     paneL2.getChildren().add((lowerLevelTwoMap));
+    mapPane.getChildren().add(paneL2);
     paneL2.setVisible(false);
     floorOne.setViewOrder(-100);
     floorTwo.setViewOrder(-100);
     floorThree.setViewOrder(-100);
     lowerLevelOne.setViewOrder(-100);
     lowerLevelTwo.setViewOrder(-100);
+
     nodeManager.createNodesFromDB();
   }
 
@@ -118,7 +120,6 @@ public class MapsController extends MainController implements Initializable {
     // pane1.getChildren().add(node.getButton());
     if (node.getFloor().equals("1")) {
       pane1.getChildren().add(node.getButton());
-
     } else if (node.getFloor().equals("2")) {
       pane2.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("3")) {
