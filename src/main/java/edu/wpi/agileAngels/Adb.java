@@ -104,19 +104,19 @@ public class Adb {
         String dropRequest = "DROP TABLE MedicalEquipment";
         String queryEq =
             "CREATE TABLE MedicalEquipment ( "
-                    + "ID VARCHAR(50),"
-                    + "Type VARCHAR(50),"
-                    + "Clean VARCHAR(50),"
-                    + "Location VARCHAR(50))";
+                + "ID VARCHAR(50),"
+                + "Type VARCHAR(50),"
+                + "Clean VARCHAR(50),"
+                + "Location VARCHAR(50))";
         statementEquipment.execute(dropRequest);
         statementEquipment.execute(queryEq);
       } else {
         String queryEq =
-                "CREATE TABLE MedicalEquipment ( "
-                        + "ID VARCHAR(50),"
-                        + "Type VARCHAR(50),"
-                        + "Clean VARCHAR(50),"
-                        + "Location VARCHAR(50))";
+            "CREATE TABLE MedicalEquipment ( "
+                + "ID VARCHAR(50),"
+                + "Type VARCHAR(50),"
+                + "Clean VARCHAR(50),"
+                + "Location VARCHAR(50))";
         statementEquipment.execute(queryEq);
       }
 
@@ -298,19 +298,21 @@ public class Adb {
 
   /**
    * Adding medical equipment to the table from an ArrayList.
+   *
    * @param eq
    */
-  public static void addMedicalEquipment(ArrayList<MedicalEquip> eq){
+  public static void addMedicalEquipment(ArrayList<MedicalEquip> eq) {
     try {
       for (int i = 0; i < eq.size(); i++) {
         PreparedStatement add =
             DBconnection.getConnection()
-                .prepareStatement("INSERT INTO MedicalEquipment(ID, Type, Clean, Location) VALUES(?, ?, ?, ?)");
+                .prepareStatement(
+                    "INSERT INTO MedicalEquipment(ID, Type, Clean, Location) VALUES(?, ?, ?, ?)");
         add.setString(1, eq.get(i).getID());
         add.setString(2, eq.get(i).getType());
-        if(eq.get(i).isClean()){
+        if (eq.get(i).isClean()) {
           add.setString(3, "Clean");
-        }else{
+        } else {
           add.setString(3, "Dirty");
         }
         add.setString(4, eq.get(i).getLocation());
