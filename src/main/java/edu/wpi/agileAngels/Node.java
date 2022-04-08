@@ -50,11 +50,11 @@ public class Node {
   }
 
   public Double getXCoord() {
-    return Double.parseDouble(location.getXCoord());
+    return location.getXCoord();
   }
 
   public Double getYCoord() {
-    return Double.parseDouble(location.getYCoord());
+    return location.getYCoord();
   }
 
   public String getNodeType() {

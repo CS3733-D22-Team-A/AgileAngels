@@ -59,8 +59,8 @@ public class LocationDAOImpl implements LocationDAO {
           Location location =
               new Location(
                   csvRecord.get(0),
-                  csvRecord.get(1),
-                  csvRecord.get(2),
+                  Double.parseDouble(csvRecord.get(1)),
+                  Double.parseDouble(csvRecord.get(2)),
                   csvRecord.get(3),
                   csvRecord.get(4),
                   csvRecord.get(5),
@@ -123,12 +123,12 @@ public class LocationDAOImpl implements LocationDAO {
     System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
   }
 
-  public void updateLocationXCoord(Location location, String newLocationXCoord) {
+  public void updateLocationXCoord(Location location, double newLocationXCoord) {
     location.setXCoord(newLocationXCoord);
     System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
   }
 
-  public void updateLocationYCoord(Location location, String newLocationYCoord) {
+  public void updateLocationYCoord(Location location, double newLocationYCoord) {
     location.setYCoord(newLocationYCoord);
     System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
   }

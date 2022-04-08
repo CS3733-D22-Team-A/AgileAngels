@@ -3,8 +3,8 @@ package edu.wpi.agileAngels;
 public class Location {
   // TODO make Coords doubles
   private String NodeID; // Unique for every location
-  private String xCoord;
-  private String yCoord;
+  private double xCoord;
+  private double yCoord;
   private String floor;
   private String building;
   private String nodeType;
@@ -14,8 +14,8 @@ public class Location {
   // Sets initial location values. Constructor
   public Location(
       String nodeID,
-      String xCoord,
-      String yCoord,
+      double xCoord,
+      double yCoord,
       String floor,
       String building,
       String nodeType,
@@ -36,11 +36,11 @@ public class Location {
     return NodeID;
   }
 
-  public String getXCoord() {
+  public double getXCoord() {
     return xCoord;
   }
 
-  public String getYCoord() {
+  public double getYCoord() {
     return yCoord;
   }
 
@@ -64,11 +64,11 @@ public class Location {
     return shortName;
   }
 
-  public void setXCoord(String xCoordIn) {
+  public void setXCoord(double xCoordIn) {
     this.xCoord = xCoordIn;
   }
 
-  public void setYCoord(String yCoordIn) {
+  public void setYCoord(double yCoordIn) {
     this.yCoord = yCoordIn;
   }
 
