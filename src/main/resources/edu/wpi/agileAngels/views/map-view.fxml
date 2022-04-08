@@ -112,6 +112,8 @@
             </HBox>
          </graphic>
       </Button>
+      <!--
       <Button layoutX="141.0" layoutY="408.0" mnemonicParsing="false" onAction="#setNewPoint" prefHeight="92.0" prefWidth="113.0" text="Set new coord" />
+      -->
    </children>
 </AnchorPane>

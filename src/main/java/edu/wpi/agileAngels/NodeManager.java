@@ -38,6 +38,11 @@ public class NodeManager {
 
   }
 
+  void removeNode(String nodeID) {
+    // find the node by the nodeID and removes it from the hashmap and the database
+
+  }
+
   // gets called on button press and gets the node data
   void loadNode(Node node) {
     mapsController.populateNodeData(node);
