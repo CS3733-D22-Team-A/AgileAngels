@@ -169,6 +169,7 @@
       </HBox>
       <TableView fx:id="giftTable" layoutX="671.0" layoutY="224.0" prefHeight="292.0" prefWidth="589.0">
         <columns>
+            <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
           <TableColumn fx:id="senderColumn" prefWidth="85.0" text="Sender" />
           <TableColumn fx:id="recipientColumn" prefWidth="85.0" text="Recipient" />
             <TableColumn fx:id="employeeColumn" prefWidth="85.0" text="Employee" />
@@ -178,8 +179,7 @@
             <TableColumn fx:id="messageColumn" prefWidth="85.0" text="Message" />
         </columns>
       </TableView>
-      <Button fx:id="addButton" layoutX="400.0" layoutY="584.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="93.0" text="Add" textFill="#180ba8" />
-      <Button fx:id="editButton" layoutX="575.0" layoutY="584.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="93.0" text="Edit" />
-      <Button fx:id="deleteButton" layoutX="740.0" layoutY="585.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="93.0" text="Delete" />
+      <TextField fx:id="editRequest" layoutX="272.0" layoutY="597.0" onAction="#editGiftRequest" promptText="Edit Name" />
+      <TextField fx:id="deleteName" layoutX="572.0" layoutY="597.0" onAction="#deleteGiftRequest" promptText="Delete Name" />
    </children>
 </AnchorPane>

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -28,6 +29,7 @@ public class GiftsController extends MainController implements Initializable {
       locationColumn,
       statusColumn,
       typeColumn,
+      nameColumn,
       messageColumn;
   @FXML Button addButton, editButton, deleteButton;
   @FXML private Label giftConfirm;
@@ -74,8 +76,10 @@ public class GiftsController extends MainController implements Initializable {
         addGiftRequest("available", dropDown, location, employee, status, message, sender, recipient);
       }
     }
-
-    private void deleteGiftRequest(String deleteString) {
+*/
+    @FXML
+    private void deleteGiftRequest(ActionEvent event) {/* //USE THIS FOR DELETE! Make sure you set deleteString somewhere outside!
+      String deleteString
       if (!deleteString.isEmpty()) {
         System.out.println("DELETE REQUEST");
         for (int i = 0; i < giftData.size(); i++) {
@@ -87,17 +91,13 @@ public class GiftsController extends MainController implements Initializable {
         }
         // giftTable.setItems(giftData);
       }
-    }
+      */
 
-    private void editGiftRequest(
-        String editString,
-        String dropDownString,
-        String locationString,
-        String employeeString,
-        String statusString,
-        String sender,
-        String recipient) {
+    }
+    @FXML
+    private void editGiftRequest(ActionEvent action) { //Use this
       System.out.println("EDIT REQUEST");
+      /*
       Request found = null;
       int num = 0;
       for (int i = 0; i < giftData.size(); i++) {
@@ -129,7 +129,11 @@ public class GiftsController extends MainController implements Initializable {
 
         // giftTable.setItems(giftData);
       }
+
+       */
     }
+
+    /*
 
     private void addGiftRequest(
         String name,
@@ -244,4 +248,5 @@ public class GiftsController extends MainController implements Initializable {
   private void clearPage() throws IOException, InterruptedException {
     loadPage("views/gifts-view.fxml", giftConfirm);
   }
+
 }
