@@ -40,7 +40,6 @@ public class NodeManager {
 
   // gets called on button press and gets the node data
   void loadNode(Node node) {
-    System.out.println(node.getNodeID());
     mapsController.populateNodeData(node);
   }
 }

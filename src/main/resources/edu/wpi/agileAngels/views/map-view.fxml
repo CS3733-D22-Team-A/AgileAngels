@@ -35,7 +35,7 @@
          <font>
             <Font size="17.0" />
          </font></Button>
-      <Pane fx:id="mapPane" layoutX="480.0" layoutY="200.0" prefHeight="426.0" prefWidth="700.0">
+      <Pane fx:id="mapPane" layoutX="480.0" layoutY="200.0" prefHeight="426.0" prefWidth="700.0" AnchorPane.bottomAnchor="94.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="200.0">
          <children>
             <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
                <image>
@@ -64,11 +64,11 @@
             </ImageView>
          </children>
       </Pane>
-      <TextField layoutX="58.0" layoutY="406.0" promptText="x-coordinate" fx:id="xCoordField" />
+      <TextField layoutX="58.0" layoutY="406.0" prefHeight="33.0" prefWidth="60.0" promptText="x-coordinate" fx:id="xCoordField" />
       <TextField fx:id="nodeIDField" layoutX="58.0" layoutY="213.0" promptText="node ID" />
       <TextField fx:id="nameField" layoutX="58.0" layoutY="275.0" promptText="name" />
       <TextField fx:id="typeField" layoutX="58.0" layoutY="341.0" promptText="type" />
-      <TextField fx:id="yCoordField" layoutX="58.0" layoutY="466.0" promptText="y-coordinate" />
+      <TextField fx:id="yCoordField" layoutX="58.0" layoutY="466.0" prefHeight="33.0" prefWidth="61.0" promptText="y-coordinate" />
       <Button id="lowerLevelOne" fx:id="removeButton" layoutX="176.0" layoutY="522.0" mnemonicParsing="false" onAction="#removeNode" prefHeight="38.0" prefWidth="82.0" text="Delete">
          <font>
             <Font size="17.0" />
@@ -112,5 +112,6 @@
             </HBox>
          </graphic>
       </Button>
+      <Button layoutX="141.0" layoutY="408.0" mnemonicParsing="false" onAction="#setNewPoint" prefHeight="92.0" prefWidth="113.0" text="Set new coord" />
    </children>
 </AnchorPane>

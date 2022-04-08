@@ -28,9 +28,14 @@ public class Node {
 
   }
 
+  public void resetLocation() {
+    button.setLayoutX((this.getXCoord() - 800) / 5);
+    button.setLayoutY((this.getYCoord() - 350) / 5);
+    button.setText(String.valueOf(location.getNodeType().charAt(0)));
+  }
+
   public void isClicked() {
     nodeManager.loadNode(this);
-    System.out.println("poop");
   }
 
   public Location getLocation() {
@@ -67,6 +72,22 @@ public class Node {
 
   public JFXButton getButton() {
     return button;
+  }
+
+  public void changeLocationXCoord(double x) {
+    location.setXCoord(x);
+  }
+
+  public void changeLocationYCoord(double y) {
+    location.setYCoord(y);
+  }
+
+  public void changeLocationType(String nodeType) {
+    location.setNodeType(nodeType);
+  }
+
+  public void changeLocationName(String name) {
+    location.setLongName(name);
   }
 
   //  public void editLocation(String Name, Double XCoord, Double YCoord, int Floor) {

@@ -1,6 +1,5 @@
 package edu.wpi.agileAngels;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -46,10 +45,5 @@ public class SanitationController extends MainController {
               "");
       sanDAO.addRequest(request);
     }
-  }
-
-  @FXML
-  private void clearPage() throws IOException, InterruptedException {
-    loadPage("views/sanitation-view.fxml", sanitationConfirmation);
   }
 }

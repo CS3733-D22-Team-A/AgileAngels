@@ -1,5 +1,7 @@
 package edu.wpi.agileAngels;
 
+import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -8,9 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javax.swing.*;
 
 public class MapsController extends MainController implements Initializable {
@@ -31,6 +31,8 @@ public class MapsController extends MainController implements Initializable {
       clearButton;
   @FXML TextField getNodeIDField;
 
+  Node currentNode = null;
+
   Pane pane1 = new Pane();
   Pane pane2 = new Pane();
   Pane pane3 = new Pane();
@@ -40,7 +42,7 @@ public class MapsController extends MainController implements Initializable {
   @FXML Pane mapPane;
   @FXML AnchorPane anchor;
 
-  @FXML private TextField nodeIDField, nameField, xCoordField, yCoordField, nodeTypeField;
+  @FXML private TextField nodeIDField, nameField, xCoordField, yCoordField, typeField;
   private LocationDAOImpl locationDAO;
   NodeManager nodeManager = new NodeManager(this);
 
@@ -73,6 +75,12 @@ public class MapsController extends MainController implements Initializable {
   public void populateNodeData(Node node) {
     System.out.println(node.getNodeID());
     nodeIDField.setText(node.getNodeID());
+    nameField.setText(node.getName());
+    typeField.setText(node.getNodeType());
+    xCoordField.setText(Double.toString(node.getXCoord()));
+    yCoordField.setText(Double.toString(node.getYCoord()));
+
+    currentNode = node;
   }
 
   @FXML
@@ -85,11 +93,20 @@ public class MapsController extends MainController implements Initializable {
   }
 
   @FXML
-  private void editNode() {}
+  private void editNode() throws IOException {
+    currentNode.changeLocationXCoord(Double.parseDouble(xCoordField.getText()));
+    currentNode.changeLocationYCoord(Double.parseDouble(yCoordField.getText()));
+    currentNode.changeLocationName(nameField.getText());
+    currentNode.changeLocationType(typeField.getText());
+    currentNode.resetLocation();
+    currentNode = null;
+  }
 
   @FXML
   private void removeNode() {
-    // Node.remove(NodeID) mega brain.
+    //im not sure if the below line works  we might have to reset the page
+
+    //locationDAO.deleteLocation(currentNode.getLocation());
   }
 
   /**
