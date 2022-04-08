@@ -29,6 +29,10 @@ public class Employee {
         return this.username;
     }
 
+    public void setUsername(String newUN){
+        this.username = newUN;
+    }
+
     public String getPassword(){
         return this.password;
     }

@@ -27,7 +27,7 @@ public class Aapp extends Application {
     adb = new Adb();
     String[] args = new String[1];
     adb.main(args);
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("views/home-view.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("views/home-view.fxml")); //replace with Login.
     Parent root = loader.load();
     Scene defaultScene = new Scene(root);
     defaultScene
