@@ -30,7 +30,7 @@ public class NodeManager {
     return node;
   }
 
-  void editNode(String locationID, String name, double xCoord, double yCoord, String nodeType) {
+  void editNode(String locationID, String name, Double xCoord, Double yCoord, String nodeType) {
     // find the node by the nodeID and change its values
 
   }

@@ -36,11 +36,11 @@ public class Location {
     return NodeID;
   }
 
-  public double getXCoord() {
+  public Double getXCoord() {
     return xCoord;
   }
 
-  public double getYCoord() {
+  public Double getYCoord() {
     return yCoord;
   }
 
@@ -64,11 +64,11 @@ public class Location {
     return shortName;
   }
 
-  public void setXCoord(double xCoordIn) {
+  public void setXCoord(Double xCoordIn) {
     this.xCoord = xCoordIn;
   }
 
-  public void setYCoord(double yCoordIn) {
+  public void setYCoord(Double yCoordIn) {
     this.yCoord = yCoordIn;
   }
 

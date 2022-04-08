@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.HashMap;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -39,11 +36,11 @@ public class LocationDAOImpl implements LocationDAO {
                         "shortName")
                     .withIgnoreHeaderCase()
                     .withTrim())) {
-
+      boolean onHeader = false;
       for (CSVRecord csvRecord : csvParser) { // each row has a dictionary
 
         String nodeID = csvRecord.get(0);
-        if (!nodeID.equals("nodeID")) {
+        if (onHeader) {
 
           Statement statement =
               connection.prepareStatement(
@@ -60,8 +57,8 @@ public class LocationDAOImpl implements LocationDAO {
             Location location =
                 new Location(
                     csvRecord.get(0),
-                    Double.parseDouble(csvRecord.get(1)),
-                    Double.parseDouble(csvRecord.get(2)),
+                    Double.valueOf(csvRecord.get(1)),
+                    Double.valueOf(csvRecord.get(2)),
                     csvRecord.get(3),
                     csvRecord.get(4),
                     csvRecord.get(5),
@@ -74,6 +71,7 @@ public class LocationDAOImpl implements LocationDAO {
 
           ((PreparedStatement) statement).execute();
         }
+        onHeader = true;
       }
     } catch (SQLException | IOException e) {
       e.printStackTrace();
@@ -127,12 +125,12 @@ public class LocationDAOImpl implements LocationDAO {
     System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
   }
 
-  public void updateLocationXCoord(Location location, double newLocationXCoord) {
+  public void updateLocationXCoord(Location location, Double newLocationXCoord) {
     location.setXCoord(newLocationXCoord);
     System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
   }
 
-  public void updateLocationYCoord(Location location, double newLocationYCoord) {
+  public void updateLocationYCoord(Location location, Double newLocationYCoord) {
     location.setYCoord(newLocationYCoord);
     System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
   }
