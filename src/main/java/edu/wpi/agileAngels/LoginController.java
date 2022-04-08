@@ -10,7 +10,7 @@ import javax.swing.*;
 
 public class LoginController extends MainController {
   @FXML private TextField username, passwordBox;
-  @FXML private Label invalid, intialsBox;
+  @FXML private Label invalid;
   @FXML private Button login;
 
   @FXML

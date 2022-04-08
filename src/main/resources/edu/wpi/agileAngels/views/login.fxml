@@ -64,8 +64,6 @@
          </children>
       </HBox>
       <Label fx:id="invalid" alignment="CENTER" layoutX="451.0" layoutY="216.0" prefHeight="91.0" prefWidth="379.0" textAlignment="CENTER" wrapText="true" />
-      <TextField fx:id="intials" layoutX="505.0" layoutY="211.0" prefHeight="50.0" prefWidth="270.0" promptText="Initials:" />
-      <Label layoutX="1200.0" layoutY="14.0" />
 
 
     </children>
