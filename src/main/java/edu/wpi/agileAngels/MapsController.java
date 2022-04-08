@@ -128,9 +128,13 @@ public class MapsController extends MainController implements Initializable {
   }
 
   public void changeMap(ActionEvent event) {
+    pane1.setVisible(false);
+    pane2.setVisible(false);
+    pane3.setVisible(false);
+    paneL1.setVisible(false);
+    paneL2.setVisible(false);
     if (event.getSource() == floorOne) {
-      pane1.setVisible(false);
-      pane2.setVisible(true);
+      pane1.setVisible(true);
     } else if (event.getSource() == floorTwo) {
       pane2.setVisible(true);
     } else if (event.getSource() == floorThree) {
