@@ -60,6 +60,8 @@ public class MapsController extends MainController implements Initializable {
     mapPane.getChildren().add(paneL2);
     paneL2.getChildren().add((lowerLevelTwoMap));
     paneL2.setVisible(false);
+    floorOne.setViewOrder(-100);
+    floorTwo.setViewOrder(-100);
     nodeManager.createNodesFromDB();
   }
 
@@ -83,11 +85,6 @@ public class MapsController extends MainController implements Initializable {
   @FXML
   private void removeNode() {
     // Node.remove(NodeID) mega brain.
-  }
-
-  @FXML
-  private void clearFields() {
-    // I have no clue how to write this without fields yet.
   }
 
   /**
@@ -115,16 +112,22 @@ public class MapsController extends MainController implements Initializable {
   }
 
   public void displayNode(Node node) {
-    if (node.getFloor() == "1") {
+    // pane1.getChildren().add(node.getButton());
+    if (node.getFloor().equals("1")) {
       pane1.getChildren().add(node.getButton());
-    } else if (node.getFloor() == "2") {
+      System.out.println("floor1");
+    } else if (node.getFloor().equals("2")) {
       pane2.getChildren().add(node.getButton());
-    } else if (node.getFloor() == "3") {
+      System.out.println("floor2");
+    } else if (node.getFloor().equals("3")) {
       pane3.getChildren().add(node.getButton());
-    } else if (node.getFloor() == "L1") {
+      System.out.println("floor3");
+    } else if (node.getFloor().equals("L1")) {
       paneL1.getChildren().add(node.getButton());
-    } else if (node.getFloor() == "L2") {
+      System.out.println("floorL1");
+    } else if (node.getFloor().equals("L2")) {
       paneL2.getChildren().add(node.getButton());
+      System.out.println("floorL2");
     }
   }
 

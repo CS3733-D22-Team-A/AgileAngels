@@ -20,8 +20,11 @@ public class NodeManager {
   void createNodesFromDB() {
     HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
     ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
+    // ArrayList<Location> locationsList = new ArrayList<Location>();
+
     for (Location location : locationsList) {
       mapsController.displayNode(addNode(location));
+      // System.out.println(location.getFloor());
     }
   }
 

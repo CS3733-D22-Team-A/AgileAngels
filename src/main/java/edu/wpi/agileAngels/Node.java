@@ -13,8 +13,9 @@ public class Node {
     this.location = location;
     this.nodeManager = nodeManager;
 
-    button.setLayoutX(this.getXCoord());
-    button.setLayoutY(this.getYCoord());
+    button.setLayoutX(this.getXCoord() / 4);
+    button.setLayoutY(this.getYCoord() / 4);
+    button.setViewOrder(-1000);
     button.setText("Node");
     button.setOnAction(
         (ActionEvent event2) -> {
