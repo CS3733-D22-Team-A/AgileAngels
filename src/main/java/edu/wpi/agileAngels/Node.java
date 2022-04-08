@@ -9,7 +9,7 @@ public class Node {
   private NodeManager nodeManager;
   private JFXButton button = new JFXButton();
 
-  public Node(Location location) {
+  public Node(Location location, NodeManager nodeManager) {
     this.location = location;
     this.nodeManager = nodeManager;
 
