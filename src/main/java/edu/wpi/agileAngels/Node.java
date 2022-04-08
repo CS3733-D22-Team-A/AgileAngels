@@ -15,7 +15,6 @@ public class Node {
 
     button.setLayoutX(this.getXCoord() / 4);
     button.setLayoutY(this.getYCoord() / 4);
-    button.setViewOrder(-1000);
     button.setText(String.valueOf(location.getNodeType().charAt(0)));
     button.setOnAction(
         (ActionEvent event2) -> {
@@ -31,7 +30,7 @@ public class Node {
 
   public void isClicked() {
     nodeManager.loadNode(this);
-    System.out.println(this);
+    System.out.println("poop");
   }
 
   public Location getLocation() {
@@ -68,10 +67,6 @@ public class Node {
 
   public JFXButton getButton() {
     return button;
-  }
-
-  public void setButton(JFXButton button) {
-    this.button = button;
   }
 
   //  public void editLocation(String Name, Double XCoord, Double YCoord, int Floor) {

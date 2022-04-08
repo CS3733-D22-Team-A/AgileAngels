@@ -34,7 +34,7 @@
          <font>
             <Font size="17.0" />
          </font></Button>
-      <Pane fx:id="mapPane" layoutX="480.0" layoutY="200.0" prefHeight="450.0" prefWidth="700.0">
+      <Pane fx:id="mapPane" layoutX="480.0" layoutY="200.0" prefHeight="426.0" prefWidth="700.0">
          <children>
             <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
                <image>

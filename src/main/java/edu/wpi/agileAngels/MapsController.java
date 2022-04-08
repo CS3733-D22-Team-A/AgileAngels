@@ -46,19 +46,19 @@ public class MapsController extends MainController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     mapPane.getChildren().add(pane1);
-    // pane1.getChildren().add((floorOneMap));
+    pane1.getChildren().add((floorOneMap));
     pane1.setVisible(true);
     mapPane.getChildren().add(pane2);
-    // pane2.getChildren().add((floorTwoMap));
+    pane2.getChildren().add((floorTwoMap));
     pane2.setVisible(false);
     mapPane.getChildren().add(pane3);
-    // pane3.getChildren().add((floorThreeMap));
+    pane3.getChildren().add((floorThreeMap));
     pane3.setVisible(false);
     mapPane.getChildren().add(paneL1);
-    // paneL1.getChildren().add((lowerLevelOneMap));
+    paneL1.getChildren().add((lowerLevelOneMap));
     paneL1.setVisible(false);
     mapPane.getChildren().add(paneL2);
-    // paneL2.getChildren().add((lowerLevelTwoMap));
+    paneL2.getChildren().add((lowerLevelTwoMap));
     paneL2.setVisible(false);
     floorOne.setViewOrder(-100);
     floorTwo.setViewOrder(-100);
@@ -118,19 +118,15 @@ public class MapsController extends MainController implements Initializable {
     // pane1.getChildren().add(node.getButton());
     if (node.getFloor().equals("1")) {
       pane1.getChildren().add(node.getButton());
-      System.out.println("floor1");
+
     } else if (node.getFloor().equals("2")) {
       pane2.getChildren().add(node.getButton());
-      System.out.println("floor2");
     } else if (node.getFloor().equals("3")) {
       pane3.getChildren().add(node.getButton());
-      System.out.println("floor3");
     } else if (node.getFloor().equals("L1")) {
       paneL1.getChildren().add(node.getButton());
-      System.out.println("floorL1");
     } else if (node.getFloor().equals("L2")) {
       paneL2.getChildren().add(node.getButton());
-      System.out.println("floorL2");
     }
   }
 
