@@ -7,6 +7,7 @@ public class NodeManager {
 
   private MapsController mapsController;
   private LocationDAOImpl locationDAO = new LocationDAOImpl();
+  private HashMap<String, Node> nodes = new HashMap<>();
 
   public NodeManager(MapsController mapsController) {
     this.mapsController = mapsController;
@@ -20,13 +21,14 @@ public class NodeManager {
   void createNodesFromDB() {
     HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
     ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
-    for (Location location : locationsList) {
-      mapsController.displayNode(addNode(location));
-    }
+        for (Location location : locationsList) {
+          mapsController.displayNode(addNode(location));
+        }
   }
 
   Node addNode(Location location) {
     Node node = new Node(location, this);
+    nodes.put(location.getNodeID(), node);
     return node;
   }
 
