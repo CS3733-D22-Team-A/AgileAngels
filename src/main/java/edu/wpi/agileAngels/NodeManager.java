@@ -14,7 +14,9 @@ public class NodeManager {
   }
 
   void deleteNode(String nodeID) {
-    // take the Node ID and delete the node from the pane
+    nodes.remove(nodeID);
+    // im not sure if the below line works  we might have to reset the page
+    // locationDAO.deleteLocation(currentNode.getLocation());
   }
 
   // gets all locations from the DB and creates nodes from them
@@ -35,11 +37,6 @@ public class NodeManager {
 
   void editNode(String locationID, String name, Double xCoord, Double yCoord, String nodeType) {
     // find the node by the nodeID and change its values
-
-  }
-
-  void removeNode(String nodeID) {
-    // find the node by the nodeID and removes it from the hashmap and the database
 
   }
 

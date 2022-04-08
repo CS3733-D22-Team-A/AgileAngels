@@ -115,18 +115,23 @@ public class MapsController extends MainController implements Initializable {
   }
 
   /**
-   * Removes currentNode from its pane and calls NodeManager.removeNode(), which removes the node
+   * Removes currentNode from its pane and calls NodeManager.deleteNode(), which removes the node
    * from the hashmap in NodeManager and the database
    */
   @FXML
   private void removeNode() {
-    // delete node from pane in MapsController
-    // call deleteNode() in NodeManager, which:
-    //   deletes the node from the hashmap in NodeManager
-    //   deletes the node from the database
-
-    // im not sure if the below line works  we might have to reset the page
-    // locationDAO.deleteLocation(currentNode.getLocation());
+    if (currentNode.getFloor().equals("1")) {
+      pane1.getChildren().remove(currentNode.getButton());
+    } else if (currentNode.getFloor().equals("2")) {
+      pane2.getChildren().remove(currentNode.getButton());
+    } else if (currentNode.getFloor().equals("3")) {
+      pane3.getChildren().remove(currentNode.getButton());
+    } else if (currentNode.getFloor().equals("L1")) {
+      paneL1.getChildren().remove(currentNode.getButton());
+    } else if (currentNode.getFloor().equals("L2")) {
+      paneL1.getChildren().remove(currentNode.getButton());
+    }
+    nodeManager.deleteNode(currentNode.getNodeID());
   }
 
   /**
@@ -154,9 +159,9 @@ public class MapsController extends MainController implements Initializable {
   }
 
   /**
-   * Adds a node to the pane corresponding to its floor
+   * Adds the button for a node to the pane corresponding to its floor
    *
-   * @param node the node to be added to a pane
+   * @param node the node whose button is added to a pane
    */
   public void displayNode(Node node) {
     if (node.getFloor().equals("1")) {
