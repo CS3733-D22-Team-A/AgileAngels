@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels;
 
 import java.net.URL;
-import java.sql.Connection;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,36 +32,34 @@ public class MapsController extends MainController implements Initializable {
 
   Pane pane1 = new Pane();
   Pane pane2 = new Pane();
+  Pane pane3 = new Pane();
+  Pane paneL1 = new Pane();
+  Pane paneL2 = new Pane();
 
-  private NodeManager nodeManager = NodeManager.getNodeManager();
   @FXML AnchorPane anchor;
 
   @FXML private TextField nodeIDField, nameField, xCoordField, yCoordField, nodeTypeField;
-  private Connection connection;
   private LocationDAOImpl locationDAO;
+  NodeManager nodeManager = new NodeManager(this);
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     anchor.getChildren().add(pane1);
+    pane1.getChildren().add((floorOneMap));
+    pane1.setVisible(true);
     anchor.getChildren().add(pane2);
-    // nodeManager.createNodesFromDB();
-    Location location1 =
-        new Location("test1", "100", "100", "1", "TOWER", "ELV", "Elevator", "ELV1");
-    Location location2 =
-        new Location("test1", "100", "200", "2", "TOWER", "ELV", "Elevator", "ELV1");
-    Location location3 =
-        new Location("test1", "100", "300", "2", "TOWER", "ELV", "Elevator", "ELV1");
-
-    pane1.getChildren().add(nodeManager.addNode(location1).getButton());
-    pane2.getChildren().add(nodeManager.addNode(location2).getButton());
-    pane2.getChildren().add(nodeManager.addNode(location3).getButton());
-
-    // connection = DBconnection.getConnection();
-    // add the locations from the location database to a list of locations and then create nodes
-    // from each location
-    //    Location location1 =
-    //        new Location("test1", "100", "100", "1", "TOWER", "ELV", "Elevator", "ELV1");
-    //    nodeManager.addNode(location1);
+    pane1.getChildren().add((floorTwoMap));
+    pane2.setVisible(false);
+    anchor.getChildren().add(pane3);
+    pane1.getChildren().add((floorThreeMap));
+    pane3.setVisible(false);
+    anchor.getChildren().add(paneL1);
+    pane1.getChildren().add((lowerLevelOneMap));
+    paneL1.setVisible(false);
+    anchor.getChildren().add(paneL2);
+    pane1.getChildren().add((lowerLevelTwoMap));
+    paneL2.setVisible(false);
+    nodeManager.createNodesFromDB();
   }
 
   public void populateNodeData(Node node) {
@@ -116,8 +113,18 @@ public class MapsController extends MainController implements Initializable {
     }
   }
 
-  private void displayNode(Node node) {
-    // At the time of coding there's no node class so this will cause errors.
+  public void displayNode(Node node) {
+    if (node.getFloor() == "1") {
+      pane1.getChildren().add(node.getButton());
+    } else if (node.getFloor() == "2") {
+      pane2.getChildren().add(node.getButton());
+    } else if (node.getFloor() == "3") {
+      pane3.getChildren().add(node.getButton());
+    } else if (node.getFloor() == "L1") {
+      paneL1.getChildren().add(node.getButton());
+    } else if (node.getFloor() == "L2") {
+      paneL2.getChildren().add(node.getButton());
+    }
   }
 
   public void changeMap(ActionEvent event) {
@@ -125,8 +132,13 @@ public class MapsController extends MainController implements Initializable {
       pane1.setVisible(false);
       pane2.setVisible(true);
     } else if (event.getSource() == floorTwo) {
-      pane1.setVisible(true);
-      pane2.setVisible(false);
+      pane2.setVisible(true);
+    } else if (event.getSource() == floorThree) {
+      pane3.setVisible(true);
+    } else if (event.getSource() == lowerLevelOne) {
+      paneL1.setVisible(true);
+    } else if (event.getSource() == lowerLevelTwo) {
+      paneL2.setVisible(true);
     }
   }
 }

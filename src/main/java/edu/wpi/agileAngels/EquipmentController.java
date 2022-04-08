@@ -80,12 +80,11 @@ public class EquipmentController extends MainController implements Initializable
   }
 
   /**
-  TODO split submit equipment into add, edit x field, edit y field etc.
-   Maybe add a dropdown for edit request so we can choose specifically which
-   field we need to change for the request. I think doing this will help avoid confusion on FE
-
-   Implement little edit section on the left with the table on the right to use as a
-   reference
+   * TODO split submit equipment into add, edit x field, edit y field etc. Maybe add a dropdown for
+   * edit request so we can choose specifically which field we need to change for the request. I
+   * think doing this will help avoid confusion on FE
+   *
+   * <p>Implement little edit section on the left with the table on the right to use as a reference
    */
   @FXML
   private void submitEquipment() throws SQLException {

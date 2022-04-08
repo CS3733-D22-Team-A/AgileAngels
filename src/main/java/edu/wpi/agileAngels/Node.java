@@ -4,13 +4,14 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 
 public class Node {
-  private NodeManager nodeManager = NodeManager.getNodeManager();
 
   private Location location;
+  private NodeManager nodeManager;
   private JFXButton button = new JFXButton();
 
   public Node(Location location) {
     this.location = location;
+    this.nodeManager = nodeManager;
 
     button.setLayoutX(this.getXCoord());
     button.setLayoutY(this.getYCoord());
