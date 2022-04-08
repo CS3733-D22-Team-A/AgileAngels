@@ -31,6 +31,7 @@ public class RequestDAOImpl implements RequestDAO {
   public static RequestDAOImpl getInstance(String type) throws SQLException {
     HashMap data;
     if (MedrequestImpl == null && 0 == type.compareTo("MedRequest")) {
+      System.out.println("IN MEDDREQUESt");
       DAOtype = type;
       data = new HashMap();
       MedrequestImpl = new RequestDAOImpl("./MedData.csv", data, 1);

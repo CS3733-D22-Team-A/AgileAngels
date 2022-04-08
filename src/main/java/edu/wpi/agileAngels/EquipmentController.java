@@ -26,7 +26,6 @@ public class EquipmentController extends MainController implements Initializable
   private TextField equipLocation, equipmentEmployeeText, equipmentStatus, deleteName, editRequest;
   @FXML private Label equipmentConfirmation, dropdownButtonText;
   @FXML private TableView equipmentTable;
-  // private Connection connection;
   @FXML Button clear;
   @FXML Pane drop, drop2;
 
@@ -68,10 +67,9 @@ public class EquipmentController extends MainController implements Initializable
       MedrequestImpl.csvRead();
       Iterator var3 = MedrequestImpl.getAllRequests().entrySet().iterator();
 
-      while (var3.hasNext()) {
-        Map.Entry<String, Request> entry = (Map.Entry) var3.next();
-        Request object = (Request) entry.getValue();
-        medData.add(object);
+      for (Map.Entry<String, Request> entry : MedrequestImpl.getAllRequests().entrySet()) {
+        Request req = entry.getValue();
+        medData.add(req);
       }
     }
 
