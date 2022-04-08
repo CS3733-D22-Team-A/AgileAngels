@@ -36,6 +36,7 @@ public class MapsController extends MainController implements Initializable {
   @FXML AnchorPane anchor;
 
   Node currentNode = null;
+  private String currentFloor = "1";
 
   Pane pane1 = new Pane();
   Pane pane2 = new Pane();
@@ -95,8 +96,25 @@ public class MapsController extends MainController implements Initializable {
   }
 
   @FXML
-  private void addNode() {
-    // adds node to page.
+  private void addNode() throws IOException {
+
+    String nodeID =
+        "A"
+            + typeField.getText()
+            + Integer.toString(nodeManager.getTypeCount(typeField.getText(), currentFloor))
+            + ((currentFloor.length() == 1) ? ("0" + currentFloor) : (currentFloor));
+
+    Location newLocation =
+        new Location(
+            nodeID,
+            Double.parseDouble(xCoordField.getText()),
+            Double.parseDouble(yCoordField.getText()),
+            currentFloor,
+            "TOWER",
+            typeField.getText(),
+            nameField.getText(),
+            nodeID);
+    nodeManager.addNode(newLocation);
   }
 
   /**
@@ -112,6 +130,7 @@ public class MapsController extends MainController implements Initializable {
     currentNode.changeLocationType(typeField.getText());
     currentNode.resetLocation();
     currentNode = null;
+    nodeManager.editNode(currentNode);
   }
 
   /**
@@ -190,14 +209,19 @@ public class MapsController extends MainController implements Initializable {
     paneL2.setVisible(false);
     if (event.getSource() == floorOne) {
       pane1.setVisible(true);
+      currentFloor = "1";
     } else if (event.getSource() == floorTwo) {
       pane2.setVisible(true);
+      currentFloor = "2";
     } else if (event.getSource() == floorThree) {
       pane3.setVisible(true);
+      currentFloor = "3";
     } else if (event.getSource() == lowerLevelOne) {
       paneL1.setVisible(true);
+      currentFloor = "L1";
     } else if (event.getSource() == lowerLevelTwo) {
       paneL2.setVisible(true);
+      currentFloor = "L2";
     }
   }
 }
