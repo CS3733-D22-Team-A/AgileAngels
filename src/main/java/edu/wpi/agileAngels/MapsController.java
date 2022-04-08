@@ -36,6 +36,7 @@ public class MapsController extends MainController implements Initializable {
   Pane paneL1 = new Pane();
   Pane paneL2 = new Pane();
 
+  @FXML Pane mapPane;
   @FXML AnchorPane anchor;
 
   @FXML private TextField nodeIDField, nameField, xCoordField, yCoordField, nodeTypeField;
@@ -44,20 +45,20 @@ public class MapsController extends MainController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    anchor.getChildren().add(pane1);
+    mapPane.getChildren().add(pane1);
     pane1.getChildren().add((floorOneMap));
     pane1.setVisible(true);
-    anchor.getChildren().add(pane2);
-    pane1.getChildren().add((floorTwoMap));
+    mapPane.getChildren().add(pane2);
+    pane2.getChildren().add((floorTwoMap));
     pane2.setVisible(false);
-    anchor.getChildren().add(pane3);
-    pane1.getChildren().add((floorThreeMap));
+    mapPane.getChildren().add(pane3);
+    pane3.getChildren().add((floorThreeMap));
     pane3.setVisible(false);
-    anchor.getChildren().add(paneL1);
-    pane1.getChildren().add((lowerLevelOneMap));
+    mapPane.getChildren().add(paneL1);
+    paneL1.getChildren().add((lowerLevelOneMap));
     paneL1.setVisible(false);
-    anchor.getChildren().add(paneL2);
-    pane1.getChildren().add((lowerLevelTwoMap));
+    mapPane.getChildren().add(paneL2);
+    paneL2.getChildren().add((lowerLevelTwoMap));
     paneL2.setVisible(false);
     // nodeManager.createNodesFromDB();
   }
