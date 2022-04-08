@@ -141,14 +141,15 @@ public class Adb {
       PreparedStatement preparedStatement =
           DBconnection.getConnection()
               .prepareStatement(
-                  "INSERT INTO RequestTable(Name, Available, EmployeeName, Location, Type, Status, Description) VALUES(?,?,?,?,?,?,?)");
+                  "INSERT INTO RequestTable(Name, Available, EmployeeName, Location, Type, Status, Description, Attribute1, Attribute2) VALUES(?,?,?,?,?,?,?, ?,?)");
       preparedStatement.setString(1, request.getName());
-      preparedStatement.setString(2, "");
+      preparedStatement.setString(2, request.getAttribute1());
       preparedStatement.setString(3, request.getEmployee());
       preparedStatement.setString(4, request.getLocation());
       preparedStatement.setString(5, request.getType());
       preparedStatement.setString(6, request.getStatus());
       preparedStatement.setString(7, request.getDescription());
+      preparedStatement.setString(8, request.getAttribute2());
       preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {

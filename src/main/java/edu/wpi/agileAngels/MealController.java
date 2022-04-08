@@ -39,14 +39,16 @@ public class MealController extends MainController {
               + dropdownButtonText.getText()
               + ". Special Instructions: "
               + restrictions.getText());
-      MealRequest request =
-          new MealRequest(
+      Request request =
+          new Request(
               "",
               mealEmployeeText.getText(),
               roomInput.getText(),
               dropdownButtonText.getText(),
               mealStatus.getText(),
-              restrictions.getText());
+              restrictions.getText(),
+              "",
+              "");
       mealDAO.addRequest(request);
     }
   }
