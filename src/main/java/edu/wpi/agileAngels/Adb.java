@@ -41,7 +41,7 @@ public class Adb {
 
       statementLocations = connection.createStatement();
 
-      //If the table exists, the table is dropped and re-created.
+      // If the table exists, the table is dropped and re-created.
       if (tableExist(connection, "Locations")) {
         String dropLoc = "DROP TABLE Locations";
         String queryLocations =
@@ -104,21 +104,21 @@ public class Adb {
         String dropRequest = "DROP TABLE MedicalEquipment";
         String queryEq =
             "CREATE TABLE MedicalEquipment ( "
-                    + "ID VARCHAR(50),"
-                    + "Type VARCHAR(50),"
-                    + "Clean VARCHAR(50),"
-                    + "Location VARCHAR(50),"
-                    + "PRIMARY KEY (ID))";
+                + "ID VARCHAR(50),"
+                + "Type VARCHAR(50),"
+                + "Clean VARCHAR(50),"
+                + "Location VARCHAR(50),"
+                + "PRIMARY KEY (ID))";
         statementEquipment.execute(dropRequest);
         statementEquipment.execute(queryEq);
       } else {
         String queryEq =
-                "CREATE TABLE MedicalEquipment ( "
-                        + "ID VARCHAR(50),"
-                        + "Type VARCHAR(50),"
-                        + "Clean VARCHAR(50),"
-                        + "Location VARCHAR(50),"
-                        + "PRIMARY KEY (ID))";
+            "CREATE TABLE MedicalEquipment ( "
+                + "ID VARCHAR(50),"
+                + "Type VARCHAR(50),"
+                + "Clean VARCHAR(50),"
+                + "Location VARCHAR(50),"
+                + "PRIMARY KEY (ID))";
         statementEquipment.execute(queryEq);
       }
 
@@ -132,6 +132,7 @@ public class Adb {
 
   /**
    * Adds a request to the request database table.
+   *
    * @param request
    * @return True if successful, false if not.
    */
@@ -157,6 +158,7 @@ public class Adb {
 
   /**
    * Removes a request from the request database table.
+   *
    * @param request
    * @return True if successful, false if not.
    */
@@ -174,13 +176,15 @@ public class Adb {
 
   /**
    * Allows the user to change the floor and location type.
+   *
    * @param ID the node string ID to check if location is present in the map
    * @throws SQLException
    */
   private void ChangeFloorandType(String ID, String newFloor, String newLocation)
       throws SQLException {
     PreparedStatement pstmt =
-        DBconnection.getConnection().prepareStatement("UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
+        DBconnection.getConnection()
+            .prepareStatement("UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
     pstmt.setString(1, newFloor);
     pstmt.setString(2, newLocation);
     pstmt.setString(3, ID);
@@ -188,6 +192,7 @@ public class Adb {
   }
   /**
    * Updates different attributes for a request in the table.
+   *
    * @param request, updateAttribute, update
    * @return True if successful, false if not.
    */
@@ -233,6 +238,7 @@ public class Adb {
 
   /**
    * Adds a new location to the locations table.
+   *
    * @param nodeID
    * @throws SQLException
    */
@@ -246,12 +252,13 @@ public class Adb {
 
   /**
    * Deletes a location from the locations table.
+   *
    * @param nodeID
    * @throws SQLException
    */
   public static void deleteLocation(String nodeID) throws SQLException {
     PreparedStatement preparedStatement =
-            DBconnection.getConnection().prepareStatement("DELETE FROM Locations WHERE NodeID = ?");
+        DBconnection.getConnection().prepareStatement("DELETE FROM Locations WHERE NodeID = ?");
     preparedStatement.setString(1, nodeID);
     preparedStatement.execute();
   }
@@ -284,18 +291,20 @@ public class Adb {
 
   /**
    * Adding one medical equipment to the medical equipment table.
+   *
    * @param medicalEquip
    */
-  public static boolean addMedicalEquipment(MedicalEquip medicalEquip){
+  public static boolean addMedicalEquipment(MedicalEquip medicalEquip) {
     try {
       PreparedStatement add =
-              DBconnection.getConnection()
-                      .prepareStatement("INSERT INTO MedicalEquipment(ID, Type, Clean, Location) VALUES(?, ?, ?, ?)");
+          DBconnection.getConnection()
+              .prepareStatement(
+                  "INSERT INTO MedicalEquipment(ID, Type, Clean, Location) VALUES(?,?,?,?)");
       add.setString(1, medicalEquip.getID());
       add.setString(2, medicalEquip.getType());
-      if(medicalEquip.isClean()){
+      if (medicalEquip.isClean()) {
         add.setString(3, "Clean");
-      }else{
+      } else {
         add.setString(3, "Dirty");
       }
       add.setString(4, medicalEquip.getLocation());
@@ -309,14 +318,16 @@ public class Adb {
 
   /**
    * Removes one medical equipment from the medical equipment table.
+   *
    * @param MedID
    * @return True if successful, false if not.
    */
-  public static boolean removeMedicalEquipment(String MedID){
+  public static boolean removeMedicalEquipment(String MedID) {
     try {
-      PreparedStatement delete = DBconnection.getConnection()
+      PreparedStatement delete =
+          DBconnection.getConnection()
               .prepareStatement("DELETE FROM MedicalEquipment WHERE ID = ?");
-      delete.setString(1,MedID);
+      delete.setString(1, MedID);
       delete.execute();
       return true;
     } catch (SQLException e) {

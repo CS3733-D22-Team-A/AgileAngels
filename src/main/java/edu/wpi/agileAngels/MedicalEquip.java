@@ -1,7 +1,5 @@
 package edu.wpi.agileAngels;
-// individual physical equipment object
-// change this late or add more attr fields
-// TODO add field for clean / dirty
+
 public class MedicalEquip {
   private final String ID;
   private String type;
