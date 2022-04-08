@@ -16,7 +16,7 @@ public class Node {
     button.setLayoutX(this.getXCoord() / 4);
     button.setLayoutY(this.getYCoord() / 4);
     button.setViewOrder(-1000);
-    button.setText("Node");
+    button.setText(String.valueOf(location.getNodeType().charAt(0)));
     button.setOnAction(
         (ActionEvent event2) -> {
           isClicked();
