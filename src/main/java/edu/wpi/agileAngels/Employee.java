@@ -24,7 +24,7 @@ public class Employee {
         this.name = name;
     }
 
-    public String  getUsername(){
+    public String getUsername(){
         return this.username;
     }
 
