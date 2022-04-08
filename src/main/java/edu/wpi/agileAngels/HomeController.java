@@ -15,7 +15,7 @@ public class HomeController extends MainController {
     if (event.getSource() == serviceButton) {
       loadPage("views/serviceRequest-view.fxml", serviceButton);
     } else if (event.getSource() == mapButton) {
-      loadPage("views/map-view.fxml", mapButton);
+      loadPage("views/dashboard-view.fxml", mapButton);
     }
   }
 }

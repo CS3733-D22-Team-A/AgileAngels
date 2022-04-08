@@ -15,40 +15,22 @@
 
 <AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.DashboardController">
    <children>
-      <Pane fx:id="sideViewPane" layoutX="578.0" layoutY="59.0" prefHeight="655.0" prefWidth="454.0" AnchorPane.bottomAnchor="5.7999999999999545">
+      <Pane fx:id="sideViewPane" layoutX="508.0" layoutY="34.0" prefHeight="655.0" prefWidth="454.0" AnchorPane.bottomAnchor="30.799999999999955">
          <children>
-            <ImageView fitHeight="678.0" fitWidth="630.0" layoutX="41.0" layoutY="-30.0" preserveRatio="true">
+            <ImageView fitHeight="1218.0" fitWidth="890.0" layoutX="-65.0" layoutY="-692.0" preserveRatio="true">
                <image>
                   <Image url="@../assets/Tower - Side View.png" />
                </image>
             </ImageView>
-            <Button id="dashL21" fx:id="dashL2" layoutX="102.0" layoutY="588.0" mnemonicParsing="false" onAction="#swapFloorDash" opacity="0.0" prefHeight="29.0" prefWidth="209.0" text="L2" />
-            <Button id="dashL11" fx:id="dashL1" layoutX="104.0" layoutY="566.0" mnemonicParsing="false" onAction="#swapFloorDash" opacity="0.0" prefHeight="25.0" prefWidth="207.0" text="L1" />
-            <Button id="dash11" fx:id="dash1" layoutX="103.0" layoutY="537.0" mnemonicParsing="false" onAction="#swapFloorDash" opacity="0.0" prefHeight="27.0" prefWidth="210.0" text="1" />
-            <Button id="dash21" fx:id="dash2" layoutX="104.0" layoutY="513.0" mnemonicParsing="false" onAction="#swapFloorDash" opacity="0.0" prefHeight="27.0" prefWidth="208.0" text="2" />
-            <Button id="dash31" fx:id="dash3" layoutX="101.0" layoutY="487.0" mnemonicParsing="false" onAction="#swapFloorDash" opacity="0.0" prefHeight="25.0" prefWidth="211.0" text="3" />
-            <Button id="dash41" fx:id="dash4" layoutX="139.0" layoutY="460.0" mnemonicParsing="false" onAction="#swapFloorDash" opacity="0.0" prefHeight="28.0" prefWidth="148.0" text="4" />
-            <Button id="dash51" fx:id="dash5" layoutX="140.0" layoutY="435.0" mnemonicParsing="false" onAction="#swapFloorDash" opacity="0.0" prefHeight="25.0" prefWidth="149.0" text="5" />
+            <Button id="dashL21" fx:id="dashL2" layoutX="45.0" layoutY="422.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="48.0" prefWidth="374.0" text="L2" />
+            <Button id="dashL11" fx:id="dashL1" layoutX="46.0" layoutY="376.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="42.0" prefWidth="371.0" text="L1" />
+            <Button id="dash11" fx:id="dash1" layoutX="46.0" layoutY="328.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="42.0" prefWidth="373.0" text="1" />
+            <Button id="dash21" fx:id="dash2" layoutX="46.0" layoutY="281.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="44.0" prefWidth="373.0" text="2" />
+            <Button id="dash31" fx:id="dash3" layoutX="46.0" layoutY="237.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="43.0" prefWidth="375.0" text="3" />
+            <Button id="dash41" fx:id="dash4" layoutX="111.0" layoutY="189.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="44.0" prefWidth="269.0" text="4" />
+            <Button id="dash51" fx:id="dash5" layoutX="111.0" layoutY="142.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="43.0" prefWidth="268.0" text="5" />
          </children>
       </Pane>
-      <Button fx:id="back" mnemonicParsing="false" onAction="#back" prefHeight="44.0" prefWidth="104.0" styleClass="topButton" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
-         <graphic>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/back.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="Back">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-         </graphic>
-      </Button>
       <Button fx:id="close" mnemonicParsing="false" onAction="#closeApp" prefHeight="44.0" prefWidth="124.0" styleClass="topButton" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
          <graphic>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
@@ -108,7 +90,7 @@
             </Button>
          </children>
       </Pane>
-      <StackPane fx:id="stackDash" layoutX="21.0" layoutY="83.0" prefHeight="549.0" prefWidth="615.0">
+      <StackPane fx:id="stackDash" layoutX="23.0" layoutY="140.0" prefHeight="549.0" prefWidth="615.0">
          <children>
             <Pane fx:id="stackDash5" prefHeight="200.0" prefWidth="200.0">
                <children>
@@ -245,5 +227,23 @@
             </Pane>
          </children>
       </StackPane>
+      <Button fx:id="back" mnemonicParsing="false" onAction="#back" prefHeight="44.0" prefWidth="104.0" styleClass="topButton" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+         <graphic>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/icons/back.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Back">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
