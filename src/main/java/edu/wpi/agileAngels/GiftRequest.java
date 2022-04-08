@@ -2,6 +2,7 @@ package edu.wpi.agileAngels;
 
 public class GiftRequest extends Request {
   private String sender;
+  private String recipient;
 
   public GiftRequest(
       String name,
@@ -10,9 +11,11 @@ public class GiftRequest extends Request {
       String type,
       String status,
       String description,
-      String sender) {
+      String sender,
+      String recipient) {
     super(name, employeeName, location, type, status, description);
     this.sender = sender; // new attr
+    this.recipient = recipient;
     // message = description
     setRequestType(2);
   }
