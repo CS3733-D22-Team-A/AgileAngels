@@ -62,8 +62,12 @@ public class NodeManager implements Initializable {
   void createNodesFromDB() {
     HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
     ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
-    locationsList.add(new Location("1", 0.0, 0.0, "1", "Tower", "d", "d", "s"));
+    locationsList.add(new Location("1", 0.0, 0.0, "1", "Tower", "STOR", "STOR", "s"));
     for (Location location : locationsList) {
+      System.out.println(types.indexOf(location.getNodeType()));
+      // typeCounts[types.indexOf(location.getNodeType())][floors.indexOf(location.getFloor())] +=
+      // 1;
+
       mapsController.displayNode(addNode(location));
     }
   }
