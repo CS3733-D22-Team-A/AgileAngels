@@ -25,6 +25,11 @@ public class SanitationController extends MainController {
 
   @FXML
   private void submitSanitation() {
+    String issue = sanIssue.getText();
+    String location = sanLocation.getText();
+    String employee = sanitationEmployeeText.getText();
+    // String status = sanitationStatus.getText(); //This is broken help!
+    // String dropDown = dropdownButtonText.getText();
     if (sanIssue.getText().isEmpty()
         || sanLocation.getText().isEmpty()
         || sanitationEmployeeText.getText().isEmpty()) {
@@ -43,9 +48,23 @@ public class SanitationController extends MainController {
        * sanLocation.getText(), sanIssue.getText(), sanitationStatus.getText(), "");
        * sanDAO.addRequest(request);*
        */
+      //  Request request = new Request("", employee, location, "dropDown", status, issue, "", "");
     }
   }
-
+  /*
+    private void addSaniRequest(
+        String employee, String location, String dropDown, String status, String issue) {
+      sanitationConfirmation.setText(
+          "Thank you, "
+              + sanitationEmployeeText.getText()
+              + " will be sent to "
+              + sanLocation.getText()
+              + " to sanitize "
+              + sanIssue.getText()
+              + ".");
+      // Request request = new Request("", employee, location, dropDown, status, issue, "", "");
+    }
+  */
   @FXML
   private void clearPage() throws IOException, InterruptedException {
     loadPage("../views/sanitation-view.fxml", sanitationConfirmation);

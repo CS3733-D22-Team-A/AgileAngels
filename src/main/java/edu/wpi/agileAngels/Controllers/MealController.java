@@ -27,31 +27,29 @@ public class MealController extends MainController {
 
   @FXML
   private void submitMeal() {
+    String dropDown = dropdownButtonText.getText();
+    String loc = roomInput.getText();
+    String emp = mealEmployeeText.getText();
+    String status = mealStatus.getText();
+    String restr = restrictions.getText();
     if (dropdownButtonText.getText().isEmpty()
         || roomInput.getText().isEmpty()
         || dropdownButtonText.getText().isEmpty()) {
       confirm.setText("Please fill out all the required fields");
     } else {
       confirm.setText(
-          "Your order will be delivered by "
-              + mealEmployeeText.getText()
+          "Your order "
+              + dropDown
+              + " will be delivered by "
+              + emp
               + " to room "
-              + roomInput.getText()
-              + " for "
-              + dropdownButtonText.getText()
+              + loc
               + ". Special Instructions: "
-              + restrictions.getText());
-      Request request =
-          new Request(
-              "",
-              mealEmployeeText.getText(),
-              roomInput.getText(),
-              dropdownButtonText.getText(),
-              mealStatus.getText(),
-              restrictions.getText(),
-              "",
-              "");
-      mealDAO.addRequest(request);
+              + restr);
+      Request request = new Request("", emp, loc, dropDown, status, restr, "", "");
+      // mealDAO.addRequest(request);
     }
   }
+
+  private void addMealRequest() {}
 }
