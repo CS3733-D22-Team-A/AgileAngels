@@ -1,31 +1,52 @@
 package edu.wpi.agileAngels;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-// Implementation of RequestDAO
 public class RequestDAOImpl implements RequestDAO {
-
-  private String CSV_FILE_PATH = "./MedData.csv";
-  private HashMap<String, Request> reqData = new HashMap<>(); // each type has its own request
-  private int count; // how many requests there are
-  private ArrayList<MedicalEquip> equipment = new ArrayList<MedicalEquip>();
+  private String CSV_FILE_PATH;
+  private HashMap<String, Request> reqData = new HashMap();
+  private int count;
+  private ArrayList<MedicalEquip> equipment = new ArrayList();
+  private static RequestDAOImpl MedrequestImpl = null;
+  private static RequestDAOImpl LabrequestImpl = null;
+  private static String DAOtype = null;
 
   public RequestDAOImpl(String CSV_FILE_PATH, HashMap<String, Request> reqData, int count)
       throws SQLException {
     this.CSV_FILE_PATH = CSV_FILE_PATH;
     this.reqData = reqData;
     this.count = count;
-    equipment.add(new MedicalEquip("Bed", 20));
-    equipment.add(new MedicalEquip("Recliners", 6));
-    equipment.add(new MedicalEquip("X-Ray Machine", 1));
-    equipment.add(new MedicalEquip("Infusion Pump", 30));
-    Adb.addMedicalEquipment(equipment);
+    this.equipment.add(new MedicalEquip("Bed", 20));
+    this.equipment.add(new MedicalEquip("Recliners", 6));
+    this.equipment.add(new MedicalEquip("X-Ray Machine", 1));
+    this.equipment.add(new MedicalEquip("Infusion Pump", 30));
+    Adb.addMedicalEquipment(this.equipment);
+  }
+
+  public static RequestDAOImpl getInstance(String type) throws SQLException {
+    HashMap data;
+    if (MedrequestImpl == null && 0 == type.compareTo("MedRequest")) {
+      DAOtype = type;
+      data = new HashMap();
+      MedrequestImpl = new RequestDAOImpl("./MedData.csv", data, 1);
+      return MedrequestImpl;
+    } else if (LabrequestImpl == null && 0 == type.compareTo("LabRequest")) {
+      DAOtype = type;
+      data = new HashMap();
+      LabrequestImpl = new RequestDAOImpl("./LabData.csv", data, 1);
+      return LabrequestImpl;
+    } else {
+      return null;
+    }
   }
 
   public HashMap<String, Request> getAllRequests() {
-    return reqData;
+    return this.reqData;
   }
 
   public void updateEmployeeName(Request request, String newName) {
@@ -58,24 +79,56 @@ public class RequestDAOImpl implements RequestDAO {
   }
 
   public void deleteRequest(Request request) {
-
-    reqData.remove(request.getDescription()); // change to the key
+    this.reqData.remove(request.getDescription());
     Adb.removeRequest(request);
   }
-  // add request based on count and requestType
+
   public void addRequest(Request request) {
-    // TODO debug this
+    ++this.count;
     String letter;
-    count = count + 1;
-    if (request.getRequestType() == 0) {
-      letter = "a";
+    if (DAOtype == "MedRequest") {
+      letter = "Med";
     } else {
-      letter = "b";
+      letter = "Lab";
     }
-    letter = letter + Integer.toString(count);
+
+    letter = letter + Integer.toString(this.count);
     request.setName(letter);
-    reqData.put(letter, request);
+    this.reqData.put(letter, request);
     Adb.addRequest(request);
-    // change to the key
+  }
+
+  public void csvRead() {
+    String line = "";
+    String splitBy = ",";
+
+    try {
+      BufferedReader br = new BufferedReader(new FileReader(this.CSV_FILE_PATH));
+      boolean OnHeader = false;
+      line.split(splitBy);
+
+      while ((line = br.readLine()) != null) {
+        if (OnHeader) {
+          String[] values = line.split(splitBy);
+          this.typeofDAO(values);
+          System.out.println(values[0]);
+        } else {
+          OnHeader = true;
+        }
+      }
+    } catch (IOException var7) {
+      var7.printStackTrace();
+    } catch (SQLException var8) {
+      var8.printStackTrace();
+    }
+  }
+
+  private void typeofDAO(String[] values) throws SQLException {
+    ++this.count;
+    Request request =
+        new Request(
+            values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
+    this.reqData.put(values[0], request);
+    Adb.addRequest(request);
   }
 }

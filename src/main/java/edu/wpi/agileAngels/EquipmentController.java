@@ -3,7 +3,8 @@ package edu.wpi.agileAngels;
 import java.awt.*;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,7 +30,8 @@ public class EquipmentController extends MainController implements Initializable
   @FXML Button clear;
   @FXML Pane drop, drop2;
 
-  private RequestDAOImpl MedrequestImpl; // instance of RequestDAOImpl to access functions
+  private RequestDAOImpl MedrequestImpl =
+      RequestDAOImpl.getInstance("MedRequest");; // instance of RequestDAOImpl to access functions
   // only way to update the UI is ObservableList
   private static ObservableList<Request> medData =
       FXCollections.observableArrayList(); // list of requests
@@ -53,21 +55,7 @@ public class EquipmentController extends MainController implements Initializable
     // Implement DAO here.
 
     // HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
-    HashMap<String, Request> data = new HashMap<>();
-    MedDevice medDevice = new MedDevice("?", "?", "?", "?", "?", "?", "?");
-    data.put("0", medDevice);
-    try {
-      MedrequestImpl = new RequestDAOImpl("./MedData.csv", data, 0);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
 
-    /**
-     * for (Map.Entry<String, Request> entry : data.entrySet()) { Request object = entry.getValue();
-     * medData.add(object); }*
-     */
-
-    // no need to add them to the table since the FXMLLoader is ready doing that
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -75,6 +63,18 @@ public class EquipmentController extends MainController implements Initializable
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+    if (medData.isEmpty()) {
+      System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
+      MedrequestImpl.csvRead();
+      Iterator var3 = MedrequestImpl.getAllRequests().entrySet().iterator();
+
+      while (var3.hasNext()) {
+        Map.Entry<String, Request> entry = (Map.Entry) var3.next();
+        Request object = (Request) entry.getValue();
+        medData.add(object);
+      }
+    }
+
     equipmentTable.setItems(medData);
   }
 
@@ -155,18 +155,19 @@ public class EquipmentController extends MainController implements Initializable
               + ".");
 
       String placeholder = "?";
-      MedDevice medDevice =
-          new MedDevice(
+      Request request =
+          new Request(
               placeholder,
               "available",
               dropdownButtonText.getText(),
               equipLocation.getText(),
               equipmentEmployeeText.getText(),
               equipmentStatus.getText(),
-              placeholder);
-      MedrequestImpl.addRequest(medDevice); // add to hashmap
+              placeholder,
+              "");
+      MedrequestImpl.addRequest(request); // add to hashmap
 
-      medData.add(medDevice); // add to the UI
+      medData.add(request); // add to the UI
 
       equipmentTable.setItems(medData);
     }

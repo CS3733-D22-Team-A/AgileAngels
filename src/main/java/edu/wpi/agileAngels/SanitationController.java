@@ -18,7 +18,7 @@ public class SanitationController extends MainController {
 
   public void initialize(URL location, ResourceBundle resources) throws SQLException {
     HashMap<String, Request> sanData = new HashMap<String, Request>();
-    sanDAO = new RequestDAOImpl("./san.csv", sanData, 0);
+    // sanDAO = new RequestDAOImpl("./san.csv", sanData, 0);
   }
 
   @FXML
@@ -36,15 +36,11 @@ public class SanitationController extends MainController {
               + " to sanitize "
               + sanIssue.getText()
               + ".");
-      SanitationRequest request =
-          new SanitationRequest(
-              "",
-              sanitationEmployeeText.getText(),
-              sanLocation.getText(),
-              sanIssue.getText(),
-              sanitationStatus.getText(),
-              "");
-      sanDAO.addRequest(request);
+      /**
+       * SanitationRequest request = new SanitationRequest( "", sanitationEmployeeText.getText(),
+       * sanLocation.getText(), sanIssue.getText(), sanitationStatus.getText(), "");
+       * sanDAO.addRequest(request);*
+       */
     }
   }
 
