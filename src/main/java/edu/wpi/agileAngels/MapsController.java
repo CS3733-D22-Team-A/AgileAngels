@@ -1,158 +1,132 @@
 package edu.wpi.agileAngels;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
-
-// @TODO hot mess, sayonara
+import javax.swing.*;
 
 public class MapsController extends MainController implements Initializable {
 
-  @FXML private Button floorOne, floorTwo, floorThree, lowerLevelOne, lowerLevelTwo;
   @FXML
-  public ImageView floorOneMap, floorTwoMap, floorThreeMap, lowerLevelOneMap, lowerLevelTwoMap;
-  @FXML public Pane mapPane;
+  private ImageView floorOneMap, floorTwoMap, floorThreeMap, lowerLevelOneMap, lowerLevelTwoMap;
+  @FXML
+  private Button floorOne,
+      floorTwo,
+      floorThree,
+      lowerLevelOne,
+      lowerLevelTwo,
+      editButton,
+      addButton,
+      removeButton,
+      switchToAddButton,
+      switchToEditButton,
+      clearButton;
+  @FXML TextField getNodeIDField;
 
-  private ObservableList<Location> locationData = FXCollections.observableArrayList();
+  Pane pane1 = new Pane();
+  Pane pane2 = new Pane();
+
+  private NodeManager nodeManager = NodeManager.getNodeManager();
+  @FXML AnchorPane anchor;
+
+  @FXML private TextField nodeIDField, nameField, xCoordField, yCoordField, nodeTypeField;
+  private Connection connection;
   private LocationDAOImpl locationDAO;
-  private Connection connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-
-  private static ArrayList<Circle> circles = new ArrayList<Circle>();
-
-  public MapsController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    anchor.getChildren().add(pane1);
+    anchor.getChildren().add(pane2);
+    // nodeManager.createNodesFromDB();
+    Location location1 =
+        new Location("test1", "100", "100", "1", "TOWER", "ELV", "Elevator", "ELV1");
+    Location location2 =
+        new Location("test1", "100", "200", "2", "TOWER", "ELV", "Elevator", "ELV1");
+    Location location3 =
+        new Location("test1", "100", "300", "2", "TOWER", "ELV", "Elevator", "ELV1");
 
-    //    circles.clear();
-    //    locationDAO = new LocationDAOImpl();
-    //    HashMap<String, Location> locationHash = locationDAO.getAllLocations();
-    //    ArrayList<Location> locationList = new ArrayList<>(locationHash.values());
-    //
-    //    for (Location location1 : locationList) {
-    //      Double XCoord = (Double.parseDouble(location1.getXCoord()));
-    //      Double YCoord = (Double.parseDouble(location1.getYCoord()));
-    //
-    //      if (1415 <= XCoord && (1415 + 580) > XCoord && 638 <= YCoord && (638 + 580) > YCoord) {
-    //        Node node = new Node(location1);
-    //        Circle circle = node.createCircle();
-    //
-    //        mapPane.getChildren().add(circle);
-    //        // circles.add(circle);
-    //
-    //        circle.setCenterX(map(XCoord, 1415, (1415 + 580), 0, 500));
-    //        circle.setCenterY(map(YCoord, 638, (638 + 580), 0, 500));
-    //        circle.setRadius(4);
-    //      }
-    //    }
+    pane1.getChildren().add(nodeManager.addNode(location1).getButton());
+    pane2.getChildren().add(nodeManager.addNode(location2).getButton());
+    pane2.getChildren().add(nodeManager.addNode(location3).getButton());
+
+    // connection = DBconnection.getConnection();
+    // add the locations from the location database to a list of locations and then create nodes
+    // from each location
+    //    Location location1 =
+    //        new Location("test1", "100", "100", "1", "TOWER", "ELV", "Elevator", "ELV1");
+    //    nodeManager.addNode(location1);
   }
 
-  double map(double s, double a1, double a2, double b1, double b2) {
-    return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+  public void populateNodeData(Node node) {
+    System.out.println(node.getNodeID());
+    nodeIDField.setText(node.getNodeID());
+  }
+
+  @FXML
+  private void changeFloor() { // takes in a int or a string once it's implemented.
+  }
+
+  @FXML
+  private void addNode() {
+    // adds node to page.
+  }
+
+  @FXML
+  private void editNode() {}
+
+  @FXML
+  private void removeNode() {
+    // Node.remove(NodeID) mega brain.
+  }
+
+  @FXML
+  private void clearFields() {
+    // I have no clue how to write this without fields yet.
   }
 
   /**
-   * This is the method to swap the map images around, Currently it the MAIN function for displaying
-   * the circles and swapping the maps. Though currently, it refreshes the screen in order to show
-   * the circles which causes issues with refreshing the map back to default.
+   * Switches between the "add a location" mode and the "edit or delete a location" mode on a button
+   * press
    *
-   * @param event
-   * @throws IOException
+   * @param event the button that was pressed, which is either switchToAddButton or the
+   *     switchToEditButton
    */
   @FXML
-  public void changeMap(ActionEvent event) throws IOException {
-    MapsManager.getMapsManager().setMapPane(mapPane);
-    MapsManager.getMapsManager().setControlItem(floorOne);
-    int floor = 1;
-    if (event.getSource() == floorOne) floor = 1;
-    else if (event.getSource() == floorTwo) floor = 2;
-    else if (event.getSource() == floorThree) floor = 3;
-    else if (event.getSource() == lowerLevelOne) floor = 4;
-    else if (event.getSource() == lowerLevelTwo) floor = 5;
-
-    if (floor == 1) {
-
-      floorOneMap.setOpacity(1.0);
-      floorTwoMap.setOpacity(0.0);
-      floorThreeMap.setOpacity(0.0);
-      lowerLevelOneMap.setOpacity(0.0);
-      lowerLevelTwoMap.setOpacity(0.0);
-
-      floorToDisp = 0;
-      //      for (Location location : locationList) {
-      //        if (location.getFloor().equals("1")) {
-      //          // displayLocation(location);
-      //        }
-      // System.out.println("This doesn't contain things on floor 1. SOS :3");
+  private void switchMode(ActionEvent event) {
+    if (event.getSource() == switchToAddButton) {
+      switchToAddButton.setVisible(false);
+      switchToEditButton.setVisible(true);
+      addButton.setVisible(true);
+      editButton.setVisible(false);
+      removeButton.setVisible(false);
+    } else {
+      switchToAddButton.setVisible(true);
+      switchToEditButton.setVisible(false);
+      addButton.setVisible(false);
+      editButton.setVisible(true);
+      removeButton.setVisible(true);
     }
-    //      for (Circle circle : circles) {
-    //        group.getChildren().add(circle);
-    //      }
+  }
 
-    else if (floor == 2) {
+  private void displayNode(Node node) {
+    // At the time of coding there's no node class so this will cause errors.
+  }
 
-      floorOneMap.setOpacity(0.0);
-      floorTwoMap.setOpacity(1.0);
-      floorThreeMap.setOpacity(0.0);
-      lowerLevelOneMap.setOpacity(0.0);
-      lowerLevelTwoMap.setOpacity(0.0);
-
-      // floorToDisp = 1;
-      //      for (Location location : locationList) {
-      //        if (location.getFloor().equals("2")) {
-      //          // displayLocation(location);
-      //        }
-      //        // System.out.println("This doesn't contain things on floor 2. SOS :3");
-      //      }
-      //      for (Circle circle : circles) {
-      //        group.getChildren().add(circle);
-      //      }
-    }
-
-    if (floor == 3) {
-
-      floorOneMap.setOpacity(0.0);
-      floorTwoMap.setOpacity(0.0);
-      floorThreeMap.setOpacity(1.0);
-      lowerLevelOneMap.setOpacity(0.0);
-      lowerLevelTwoMap.setOpacity(0.0);
-
-      // floorToDisp = 2;
-    }
-
-    if (floor == 4) {
-
-      floorOneMap.setOpacity(0.0);
-      floorTwoMap.setOpacity(0.0);
-      floorThreeMap.setOpacity(0.0);
-      lowerLevelOneMap.setOpacity(1.0);
-      lowerLevelTwoMap.setOpacity(0.0);
-
-      // floorToDisp = 3;
-    }
-
-    if (floor == 5) {
-
-      floorOneMap.setOpacity(0.0);
-      floorTwoMap.setOpacity(0.0);
-      floorThreeMap.setOpacity(0.0);
-      lowerLevelOneMap.setOpacity(0.0);
-      lowerLevelTwoMap.setOpacity(1.0);
-
-      // MapsManager.getMapsManager().changeMap(floor);
+  public void changeMap(ActionEvent event) {
+    if (event.getSource() == floorOne) {
+      pane1.setVisible(false);
+      pane2.setVisible(true);
+    } else if (event.getSource() == floorTwo) {
+      pane1.setVisible(true);
+      pane2.setVisible(false);
     }
   }
 }

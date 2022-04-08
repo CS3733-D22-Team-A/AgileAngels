@@ -31,6 +31,7 @@ public class EquipmentController extends MainController implements Initializable
 
   private RequestDAOImpl MedrequestImpl; // instance of RequestDAOImpl to access functions
   // only way to update the UI is ObservableList
+
   private static ObservableList<Request> medData =
       FXCollections.observableArrayList(); // list of requests
 

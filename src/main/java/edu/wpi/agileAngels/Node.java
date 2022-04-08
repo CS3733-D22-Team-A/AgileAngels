@@ -1,53 +1,79 @@
 package edu.wpi.agileAngels;
 
-import java.io.IOException;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Circle;
+import com.jfoenix.controls.JFXButton;
+import javafx.event.ActionEvent;
 
-// bye bye
 public class Node {
-  /** each point on map is a node */
-  private final MapsManager maps = MapsManager.getMapsManager();
+  private NodeManager nodeManager = NodeManager.getNodeManager();
 
   private Location location;
-  private Circle circle;
+  private JFXButton button = new JFXButton();
 
   public Node(Location location) {
     this.location = location;
-  }
 
-  public Circle createCircle() {
-    circle = new Circle();
-    circle.setOnMousePressed(
-        (MouseEvent event) -> {
-          if (event.isSecondaryButtonDown()) {
-            delete();
-          }
+    button.setLayoutX(this.getXCoord());
+    button.setLayoutY(this.getYCoord());
+    button.setText("Node");
+    button.setOnAction(
+        (ActionEvent event2) -> {
+          isClicked();
         });
-    return circle;
+
+    // set the circle color to coordinate with the node type
+    // if(this.getNodeType() == "Test") {
+    button.setId("blue"); // this ID will be used in the CSS file to style the button
+    // }
+
   }
 
-  public void delete() {
-    try {
-      maps.deleteLocation(this);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+  public void isClicked() {
+    nodeManager.loadNode(this);
+    System.out.println(this);
   }
 
   public Location getLocation() {
     return location;
   }
 
+  public String getNodeID() {
+    return location.getNodeID();
+  }
+
+  public String getName() {
+    return location.getLongName();
+  }
+
+  public String getFloor() {
+    return location.getFloor();
+  }
+
+  public Double getXCoord() {
+    return Double.parseDouble(location.getXCoord());
+  }
+
+  public Double getYCoord() {
+    return Double.parseDouble(location.getYCoord());
+  }
+
+  public String getNodeType() {
+    return location.getNodeType();
+  }
+
   public void setLocation(Location location) {
     this.location = location;
   }
 
-  public Circle getCircle() {
-    return circle;
+  public JFXButton getButton() {
+    return button;
   }
 
-  public void setCircle(Circle circle) {
-    this.circle = circle;
+  public void setButton(JFXButton button) {
+    this.button = button;
   }
+
+  //  public void editLocation(String Name, Double XCoord, Double YCoord, int Floor) {
+  //  }
+
+  public void editLocation(Double XCoord, Double YCoord, String type) {}
 }
