@@ -23,6 +23,16 @@ public class GiftsController extends MainController implements Initializable {
             deleteName,
             editRequest;
     @FXML
+    private TableColumn senderColumn,
+            recipientColumn,
+            employeeColumn,
+            locationColumn,
+            statusColumn,
+            typeColumn,
+            messageColumn;
+    @FXML
+    Button addButton, editButton, deleteButton;
+    @FXML
     private Label giftConfirm;
     private RequestDAOImpl giftDAO;
     // TODO make gift table in the UI
