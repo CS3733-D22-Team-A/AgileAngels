@@ -4,22 +4,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface EmployeeDAO {
-    public HashMap getAllEmployees();
+    HashMap getAllEmployees();
 
-    public Employee getEmployee(int userID);
+    Employee getEmployee(int userID);
 
-    public void addEmployee(String name, String username, String password, int userID);
+    void addEmployee(String name, String username, String password, int userID);
 
-    public void removeEmployee(int userID);
+    void removeEmployee(int userID);
 
-    public void updateEmployeeName(int userID, String newName);
+    void updateEmployeeName(int userID, String newName);
 
-    public void updateEmployeeUsername(int userID, String newUN);
+    void updateEmployeeUsername(int userID, String newUN);
 
-    public void updateEmployeePassword(int userID, String newPW);
-    public ArrayList<Request> getRequests(int userID);
+    void updateEmployeePassword(int userID, String newPW);
 
-    public void addRequest(int userID, Request newReq);
+    ArrayList<Request> getRequests(int userID);
 
-    public void removeRequest(int userID, Request oldReq);
+    void addRequest(int userID, Request newReq);
+
+    void removeRequest(int userID, Request oldReq);
 }
