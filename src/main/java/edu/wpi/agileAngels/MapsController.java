@@ -60,7 +60,7 @@ public class MapsController extends MainController implements Initializable {
     mapPane.getChildren().add(paneL2);
     paneL2.getChildren().add((lowerLevelTwoMap));
     paneL2.setVisible(false);
-    // nodeManager.createNodesFromDB();
+    nodeManager.createNodesFromDB();
   }
 
   public void populateNodeData(Node node) {

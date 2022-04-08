@@ -7,8 +7,7 @@ import java.util.HashMap;
 public class NodeManager {
 
   private MapsController mapsController;
-  private LocationDAOImpl locationDAO;
-  private Connection connection;
+  private LocationDAOImpl locationDAO = new LocationDAOImpl();
 
   public NodeManager(MapsController mapsController) {
     this.mapsController = mapsController;
@@ -20,7 +19,6 @@ public class NodeManager {
 
   // gets all locations from the DB and creates nodes from them
   void createNodesFromDB() {
-    connection = DBconnection.getConnection();
     HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
     ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
     for (Location location : locationsList) {
