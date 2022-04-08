@@ -30,8 +30,6 @@ public class MapsController extends MainController implements Initializable {
       clearButton;
   @FXML TextField getNodeIDField;
 
-  @FXML Pane mapPane;
-
   Pane pane1 = new Pane();
   Pane pane2 = new Pane();
   Pane pane3 = new Pane();
@@ -46,22 +44,22 @@ public class MapsController extends MainController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    mapPane.getChildren().add(pane1);
+    anchor.getChildren().add(pane1);
     pane1.getChildren().add((floorOneMap));
     pane1.setVisible(true);
-    mapPane.getChildren().add(pane2);
+    anchor.getChildren().add(pane2);
     pane1.getChildren().add((floorTwoMap));
     pane2.setVisible(false);
-    mapPane.getChildren().add(pane3);
+    anchor.getChildren().add(pane3);
     pane1.getChildren().add((floorThreeMap));
     pane3.setVisible(false);
-    mapPane.getChildren().add(paneL1);
+    anchor.getChildren().add(paneL1);
     pane1.getChildren().add((lowerLevelOneMap));
     paneL1.setVisible(false);
-    mapPane.getChildren().add(paneL2);
+    anchor.getChildren().add(paneL2);
     pane1.getChildren().add((lowerLevelTwoMap));
     paneL2.setVisible(false);
-    // nodeManager.createNodesFromDB();
+    nodeManager.createNodesFromDB();
   }
 
   public void populateNodeData(Node node) {
