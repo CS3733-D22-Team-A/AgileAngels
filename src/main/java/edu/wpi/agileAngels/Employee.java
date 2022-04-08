@@ -3,6 +3,7 @@ package edu.wpi.agileAngels;
 import java.util.ArrayList;
 
 public class Employee {
+
     private String name;
     private String username;
     private String password;
@@ -36,7 +37,7 @@ public class Employee {
         this.password = pass;
     }
 
-    public ArrayList<Request> getRequests(ArrayList<Request> requests){
+    public ArrayList<Request> getRequests(){
         return this.requests;
     }
 
