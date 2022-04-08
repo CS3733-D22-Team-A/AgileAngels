@@ -1,5 +1,7 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.Request;
+import edu.wpi.agileAngels.Database.RequestDAOImpl;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -262,6 +264,6 @@ public class GiftsController extends MainController implements Initializable {
 
   @FXML
   private void clearPage() throws IOException, InterruptedException {
-    loadPage("views/gifts-view.fxml", giftConfirm);
+    loadPage("../views/gifts-view.fxml", giftConfirm);
   }
 }

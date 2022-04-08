@@ -1,5 +1,6 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.Location;
 import java.io.IOException;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;

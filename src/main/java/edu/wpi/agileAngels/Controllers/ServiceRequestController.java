@@ -1,4 +1,4 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Controllers;
 
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -12,22 +12,22 @@ public class ServiceRequestController extends MainController {
 
   public void requestButton(ActionEvent event) throws IOException {
     if (event.getSource() == equipmentRequest) {
-      loadPage("views/equipment-view.fxml", equipmentRequest);
+      loadPage("../views/equipment-view.fxml", equipmentRequest);
     }
     if (event.getSource() == labRequest) {
-      loadPage("views/lab-view.fxml", equipmentRequest);
+      loadPage("../views/lab-view.fxml", equipmentRequest);
     }
     if (event.getSource() == sanRequest) {
-      loadPage("views/sanitation-view.fxml", equipmentRequest);
+      loadPage("../views/sanitation-view.fxml", equipmentRequest);
     }
     if (event.getSource() == mealRequest) {
-      loadPage("views/mealRequest-view.fxml", equipmentRequest);
+      loadPage("../views/mealRequest-view.fxml", equipmentRequest);
     }
     if (event.getSource() == giftRequest) {
-      loadPage("views/gifts-view.fxml", equipmentRequest);
+      loadPage("../views/gifts-view.fxml", equipmentRequest);
     }
     if (event.getSource() == testButton) {
-      loadPage("views/test-view.fxml", equipmentRequest);
+      loadPage("../views/test-view.fxml", equipmentRequest);
     }
   }
 }

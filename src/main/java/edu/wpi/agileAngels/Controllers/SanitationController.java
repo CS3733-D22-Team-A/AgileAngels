@@ -1,5 +1,7 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.Request;
+import edu.wpi.agileAngels.Database.RequestDAOImpl;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -46,6 +48,6 @@ public class SanitationController extends MainController {
 
   @FXML
   private void clearPage() throws IOException, InterruptedException {
-    loadPage("views/sanitation-view.fxml", sanitationConfirmation);
+    loadPage("../views/sanitation-view.fxml", sanitationConfirmation);
   }
 }

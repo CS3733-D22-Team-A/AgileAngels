@@ -1,5 +1,7 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.Location;
+import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;

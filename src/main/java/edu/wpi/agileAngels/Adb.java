@@ -1,5 +1,8 @@
 package edu.wpi.agileAngels;
 
+import edu.wpi.agileAngels.Database.DBconnection;
+import edu.wpi.agileAngels.Database.MedicalEquip;
+import edu.wpi.agileAngels.Database.Request;
 import java.sql.*;
 
 // This class is the backend of the DAO method.

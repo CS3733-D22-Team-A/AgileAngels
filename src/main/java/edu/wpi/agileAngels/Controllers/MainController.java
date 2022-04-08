@@ -1,5 +1,6 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.DBconnection;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -50,7 +51,7 @@ public class MainController {
 
     if (item == back) {
     } else if (pageHistory.empty()) {
-      pageHistory.push("views/home-view.fxml");
+      pageHistory.push("../views/home-view.fxml");
       pageHistory.push(view);
     } else if (view != pageHistory.peek()) {
       pageHistory.push(view);
@@ -103,24 +104,24 @@ public class MainController {
   @FXML
   private void menuItem(ActionEvent event) throws IOException {
     if (event.getSource() == equipRequest) {
-      loadPage("views/equipment-view.fxml", close);
+      loadPage("../views/equipment-view.fxml", close);
     }
     if (event.getSource() == viewRequest) {
-      loadPage("views/equipmentEdit-view.fxml", close);
+      loadPage("../views/equipmentEdit-view.fxml", close);
     }
     if (event.getSource() == map) {
-      loadPage("views/map-view.fxml", close);
+      loadPage("../views/map-view.fxml", close);
     }
   }
 
   @FXML
   private void profile() throws IOException {
-    loadPage("views/login.fxml", close);
+    loadPage("../views/login.fxml", close);
   }
 
   @FXML
   private void goHome(ActionEvent event) throws IOException {
-    loadPage("views/home-view.fxml", close);
+    loadPage("../views/home-view.fxml", close);
   }
 
   public void enterDropdown() {
