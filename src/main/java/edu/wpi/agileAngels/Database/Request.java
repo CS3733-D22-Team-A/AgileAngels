@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Database;
 
 public class Request {
   private String name;

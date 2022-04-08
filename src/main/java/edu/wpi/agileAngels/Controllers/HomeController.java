@@ -1,4 +1,4 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Controllers;
 
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -13,9 +13,9 @@ public class HomeController extends MainController {
   @FXML
   private void homeButton(ActionEvent event) throws IOException {
     if (event.getSource() == serviceButton) {
-      loadPage("views/serviceRequest-view.fxml", serviceButton);
+      loadPage("../views/serviceRequest-view.fxml", serviceButton);
     } else if (event.getSource() == mapButton) {
-      loadPage("views/dashboard-view.fxml", mapButton);
+      loadPage("../views/dashboard-view.fxml", mapButton);
     }
   }
 }

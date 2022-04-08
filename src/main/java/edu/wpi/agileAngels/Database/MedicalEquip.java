@@ -1,4 +1,4 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Database;
 
 public class MedicalEquip {
   private final String ID;

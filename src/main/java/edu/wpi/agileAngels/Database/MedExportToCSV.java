@@ -1,20 +1,24 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Database;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-// TODO this needs to all be in impl or ADB (continous?)
-
-public class exportToCSV {
+// export to the CSV file
+// TODO generalize this and move to IMPL class
+public class MedExportToCSV {
+  // TODO: gemeralize export and import
   public void export(Connection connection) {
 
-    String csvFilePath = "export.csv";
+    String csvFilePath = "Medexport.csv";
 
     try {
 
-      String sql = "SELECT * FROM Locations";
+      String sql = "SELECT * FROM MedicalEquipment";
 
       Statement statement = connection.createStatement();
 
@@ -26,19 +30,18 @@ public class exportToCSV {
       fileWriter.write("nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName");
 
       while (result.next()) {
-        String nodeID = result.getString("nodeID");
-        String xcoord = result.getString("xcoord");
-        String ycoord = result.getString("ycoord");
-        String floor = result.getString("floor");
-        String building = result.getString("building");
-        String nodeType = result.getString("nodeType");
-        String longName = result.getString("longName");
-        String shortName = result.getString("shortName");
+        String name = result.getString("name");
+        String available = result.getString("available");
+        String type = result.getString("type");
+        String location = result.getString("location");
+        String employee = result.getString("employee");
+        String status = result.getString("status");
+        String description = result.getString("description");
 
         String line =
             String.format(
-                "%s,%s,%s, %s, %s, %s, %s,%s",
-                nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName);
+                "%s,%s,%s, %s, %s, %s, %s",
+                name, available, type, location, employee, status, description);
 
         fileWriter.newLine();
         fileWriter.write(line);

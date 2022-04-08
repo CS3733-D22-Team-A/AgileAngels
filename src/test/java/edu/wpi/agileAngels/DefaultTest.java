@@ -4,6 +4,7 @@
 
 package edu.wpi.agileAngels;
 
+import edu.wpi.agileAngels.Database.MedicalEquip;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 

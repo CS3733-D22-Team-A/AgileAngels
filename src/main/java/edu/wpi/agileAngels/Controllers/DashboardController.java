@@ -1,4 +1,4 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -124,31 +124,31 @@ public class DashboardController extends MainController implements Initializable
   public void loadFloorMap(ActionEvent event) throws IOException {
 
     if (event.getSource() == dash1) {
-      loadPage("views/map-view.fxml", dash1);
+      loadPage("../views/map-view.fxml", dash1);
     }
 
     if (event.getSource() == dash2) {
-      loadPage("views/map-view.fxml", dash2);
+      loadPage("../views/map-view.fxml", dash2);
     }
 
     if (event.getSource() == dash3) {
-      loadPage("views/map-view.fxml", dash3);
+      loadPage("../views/map-view.fxml", dash3);
     }
 
     if (event.getSource() == dash4) {
-      loadPage("views/map-view.fxml", dash4);
+      loadPage("../views/map-view.fxml", dash4);
     }
 
     if (event.getSource() == dash5) {
-      loadPage("views/map-view.fxml", dash5);
+      loadPage("../views/map-view.fxml", dash5);
     }
 
     if (event.getSource() == dashL1) {
-      loadPage("views/map-view.fxml", dashL1);
+      loadPage("../views/map-view.fxml", dashL1);
     }
 
     if (event.getSource() == dashL2) {
-      loadPage("views/map-view.fxml", dashL2);
+      loadPage("../views/map-view.fxml", dashL2);
     }
   }
 }
