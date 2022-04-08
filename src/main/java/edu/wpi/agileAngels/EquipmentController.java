@@ -30,7 +30,7 @@ public class EquipmentController extends MainController implements Initializable
   @FXML Pane drop, drop2;
 
   private RequestDAOImpl MedrequestImpl =
-      RequestDAOImpl.getInstance("MedRequest");; // instance of RequestDAOImpl to access functions
+      RequestDAOImpl.getInstance("MedRequest"); // instance of RequestDAOImpl to access functions
   // only way to update the UI is ObservableList
   private static ObservableList<Request> medData =
       FXCollections.observableArrayList(); // list of requests
