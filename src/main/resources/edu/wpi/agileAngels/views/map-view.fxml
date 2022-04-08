@@ -34,31 +34,31 @@
          <font>
             <Font size="17.0" />
          </font></Button>
-      <Pane fx:id="mapPane" layoutX="331.0" layoutY="60.0" prefHeight="660.0" prefWidth="844.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+      <Pane fx:id="mapPane" layoutX="480.0" layoutY="200.0" prefHeight="450.0" prefWidth="700.0">
          <children>
-            <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="500.0" fitWidth="500.0" preserveRatio="true">
+            <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
                <image>
-                  <Image url="@../assets/FirstFloor_Tower_FINAL.jpg" />
+                  <Image url="@../assets/Floor 1.png" />
                </image>
             </ImageView>
-            <ImageView id="floorTwoMap" fx:id="floorTwoMap" fitHeight="500.0" fitWidth="500.0" preserveRatio="true">
+            <ImageView id="floorTwoMap" fx:id="floorTwoMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
                <image>
-                  <Image url="@../assets/Floor2_Tower_Final.jpg" />
+                  <Image url="@../assets/Floor 2.png" />
                </image>
             </ImageView>
-            <ImageView id="floorThreeMap" fx:id="floorThreeMap" fitHeight="500.0" fitWidth="500.0" preserveRatio="true">
+            <ImageView id="floorThreeMap" fx:id="floorThreeMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
                <image>
-                  <Image url="@../assets/Floor3_Tower_FINAL.jpg" />
+                  <Image url="@../assets/Floor 3.png" />
                </image>
             </ImageView>
-            <ImageView id="lowerLevelOne" fx:id="lowerLevelOneMap" fitHeight="500.0" fitWidth="500.0" preserveRatio="true">
+            <ImageView id="lowerLevelOne" fx:id="lowerLevelOneMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
                <image>
-                  <Image url="@../assets/LowerFloor1_Tower_FINAL.jpg" />
+                  <Image url="@../assets/Lower level 1.png" />
                </image>
             </ImageView>
-            <ImageView id="lowerLevelTwo" fx:id="lowerLevelTwoMap" fitHeight="500.0" fitWidth="500.0" preserveRatio="true">
+            <ImageView id="lowerLevelTwo" fx:id="lowerLevelTwoMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
                <image>
-                  <Image url="@../assets/LowerFloor2_Tower_FINAL.jpg" />
+                  <Image url="@../assets/Lower level 2.png" />
                </image>
             </ImageView>
          </children>
