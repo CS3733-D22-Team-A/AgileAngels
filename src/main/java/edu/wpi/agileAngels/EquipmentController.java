@@ -125,15 +125,9 @@ public class EquipmentController extends MainController implements Initializable
             + ".");
 
     String placeholder = "?";
-    MedDevice medDevice =
-        new MedDevice(
-            placeholder,
-            "available",
-            dropDownString,
-            locationString,
-            employeeString,
-            statusString,
-            placeholder);
+    Request medDevice =
+        new Request(
+            placeholder, employeeString, locationString, dropDownString, statusString, "", "", "");
     MedrequestImpl.addRequest(medDevice); // add to hashmap
     medData.add(medDevice); // add to the UI
     equipmentTable.setItems(medData);

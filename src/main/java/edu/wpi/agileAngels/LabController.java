@@ -105,7 +105,8 @@ public class LabController extends MainController implements Initializable {
             + " by "
             + employee
             + ".");
-    LabRequest request = new LabRequest("", available, employee, location, dropDown, status, "");
+    // Request request = new Request("", available, dropDown, location, employee, status, "", "");
+    Request request = new Request("", employee, location, dropDown, status, "", "", "");
 
     LabDAO.addRequest(request);
     labData.add(request);
@@ -140,8 +141,8 @@ public class LabController extends MainController implements Initializable {
         LabDAO.updateStatus(found, status);
       }
       labData.set(num, found);
-      Request found = null;
-      int num = 0;
+      // Request found = null;
+      // int num = 0;
       for (int i = 0; i < labData.size(); i++) {
         Request device = labData.get(i);
         if (0 == labEdit.getText().compareTo(device.getName())) {
@@ -156,12 +157,12 @@ public class LabController extends MainController implements Initializable {
           LabDAO.updateType(found, type);
         }
         if (!labTestLocation.getText().isEmpty()) {
-          String location = labTestLocation.getText();
+          // String location = labTestLocation.getText();
           found.setLocation(location);
           LabDAO.updateLocation(found, location);
         }
         if (!labEmployeeText.getText().isEmpty()) {
-          String employee = labEmployeeText.getText();
+          // String employee = labEmployeeText.getText();
           found.setEmployee(employee);
           LabDAO.updateEmployeeName(found, employee);
         }
@@ -179,16 +180,7 @@ public class LabController extends MainController implements Initializable {
               + " by "
               + labEmployeeText.getText()
               + ".");
-      Request request =
-          new Request(
-              "",
-              "available",
-              labEmployeeText.getText(),
-              labTestLocation.getText(),
-              dropdownButtonText.getText(),
-              labStatus.getText(),
-              "",
-              "");
+      Request request = new Request("", employee, location, dropDown, status, "", "", "");
 
       LabDAO.addRequest(request);
 
