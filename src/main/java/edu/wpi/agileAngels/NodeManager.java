@@ -1,25 +1,19 @@
 package edu.wpi.agileAngels;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
 
-public class NodeManager implements Initializable {
+public class NodeManager {
 
   private MapsController mapsController;
   private LocationDAOImpl locationDAO = new LocationDAOImpl();
   private HashMap<String, Node> nodes = new HashMap<>();
-  private int[][] typeCounts = new int[14][5];
+  private int[][] typeCounts = new int[15][5];
   private HashMap<String, Integer> floorsAndTypes = new HashMap<>();
 
   public NodeManager(MapsController mapsController) {
     this.mapsController = mapsController;
-  }
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
     // initialize list of location floors and types
     floorsAndTypes.put("PATI", 0);
     floorsAndTypes.put("STOR", 1);
@@ -35,6 +29,7 @@ public class NodeManager implements Initializable {
     floorsAndTypes.put("EXIT", 11);
     floorsAndTypes.put("RETL", 12);
     floorsAndTypes.put("SERV", 13);
+    floorsAndTypes.put("BATH", 14);
     floorsAndTypes.put("1", 0);
     floorsAndTypes.put("2", 1);
     floorsAndTypes.put("3", 2);
@@ -42,7 +37,7 @@ public class NodeManager implements Initializable {
     floorsAndTypes.put("L2", 4);
 
     // initialize counts for each type of location to zero
-    for (int i = 0; i < 14; i++) {
+    for (int i = 0; i < 15; i++) {
       for (int j = 0; j < 5; j++) {
         typeCounts[i][j] = 0;
       }

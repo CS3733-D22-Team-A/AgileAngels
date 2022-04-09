@@ -114,7 +114,7 @@ public class MapsController extends MainController implements Initializable {
             typeField.getText(),
             nameField.getText(),
             nodeID);
-    nodeManager.addNode(newLocation);
+    displayNode(nodeManager.addNode(newLocation));
   }
 
   /**
