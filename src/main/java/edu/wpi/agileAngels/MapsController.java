@@ -31,11 +31,11 @@ public class MapsController extends MainController implements Initializable {
       removeButton,
       switchToAddButton,
       switchToEditButton;
-  @FXML private TextField nodeIDField, nameField, xCoordField, yCoordField, typeField;
+  @FXML private TextField nameField, xCoordField, yCoordField, typeField;
 
   @FXML Pane mapPane;
   @FXML AnchorPane anchor;
-  @FXML Label floorLabel;
+  @FXML Label floorLabel, nodeIDField;
 
   Node currentNode = null;
   private String currentFloor = "1";

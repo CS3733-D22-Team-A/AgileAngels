@@ -54,7 +54,6 @@ public class NodeManager {
   void createNodesFromDB() {
     HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
     ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
-    locationsList.add(new Location("1", 0.0, 0.0, "1", "Tower", "STOR", "STOR", "s"));
     for (Location location : locationsList) {
       typeCounts[floorsAndTypes.get(location.getNodeType())][
               floorsAndTypes.get(location.getFloor())] +=

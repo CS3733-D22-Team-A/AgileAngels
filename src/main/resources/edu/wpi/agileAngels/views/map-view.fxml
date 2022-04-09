@@ -65,7 +65,7 @@
          </children>
       </Pane>
       <TextField layoutX="58.0" layoutY="406.0" prefHeight="33.0" prefWidth="60.0" promptText="x-coordinate" fx:id="xCoordField" />
-      <TextField fx:id="nodeIDField" layoutX="58.0" layoutY="213.0" promptText="node ID" />
+      <Label fx:id="nodeIDField" layoutX="58.0" layoutY="213.0" />
       <TextField fx:id="nameField" layoutX="58.0" layoutY="275.0" promptText="name" />
       <TextField fx:id="typeField" layoutX="58.0" layoutY="341.0" promptText="type" />
       <TextField fx:id="yCoordField" layoutX="58.0" layoutY="466.0" prefHeight="33.0" prefWidth="61.0" promptText="y-coordinate" />
