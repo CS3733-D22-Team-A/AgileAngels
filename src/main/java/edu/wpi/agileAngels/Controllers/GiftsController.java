@@ -2,7 +2,6 @@ package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.Request;
 import edu.wpi.agileAngels.Database.RequestDAOImpl;
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -260,10 +259,5 @@ public class GiftsController extends MainController implements Initializable {
             giftRecipient.getText());
 
     giftDAO.addRequest(request);
-  }
-
-  @FXML
-  private void clearPage() throws IOException, InterruptedException {
-    loadPage("../views/gifts-view.fxml", giftConfirm);
   }
 }
