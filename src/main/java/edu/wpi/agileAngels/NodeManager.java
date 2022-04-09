@@ -12,8 +12,7 @@ public class NodeManager implements Initializable {
   private LocationDAOImpl locationDAO = new LocationDAOImpl();
   private HashMap<String, Node> nodes = new HashMap<>();
   private int[][] typeCounts = new int[14][5];
-  private ArrayList<String> floors = new ArrayList<String>();
-  private ArrayList<String> types = new ArrayList<String>();
+  private HashMap<String, Integer> floorsAndTypes = new HashMap<>();
 
   public NodeManager(MapsController mapsController) {
     this.mapsController = mapsController;
@@ -21,28 +20,26 @@ public class NodeManager implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    // initialize list of location types
-    types.set(0, "PATI");
-    types.set(1, "STOR");
-    types.set(2, "DIRT");
-    types.set(3, "HALL");
-    types.set(4, "ELEV");
-    types.set(5, "REST");
-    types.set(6, "STAI");
-    types.set(7, "DEPT");
-    types.set(8, "LABS");
-    types.set(9, "INFO");
-    types.set(10, "CONF");
-    types.set(11, "EXIT");
-    types.set(12, "RETL");
-    types.set(13, "SERV");
-
-    // initialize list of floors
-    floors.set(0, "1");
-    floors.set(1, "2");
-    floors.set(2, "3");
-    floors.set(3, "L1");
-    floors.set(4, "L2");
+    // initialize list of location floors and types
+    floorsAndTypes.put("PATI", 0);
+    floorsAndTypes.put("STOR", 1);
+    floorsAndTypes.put("DIRT", 2);
+    floorsAndTypes.put("HALL", 3);
+    floorsAndTypes.put("ELEV", 4);
+    floorsAndTypes.put("REST", 5);
+    floorsAndTypes.put("STAI", 6);
+    floorsAndTypes.put("DEPT", 7);
+    floorsAndTypes.put("LABS", 8);
+    floorsAndTypes.put("INFO", 9);
+    floorsAndTypes.put("CONF", 11);
+    floorsAndTypes.put("EXIT", 11);
+    floorsAndTypes.put("RETL", 12);
+    floorsAndTypes.put("SERV", 13);
+    floorsAndTypes.put("1", 0);
+    floorsAndTypes.put("2", 1);
+    floorsAndTypes.put("3", 2);
+    floorsAndTypes.put("L1", 3);
+    floorsAndTypes.put("L2", 4);
 
     // initialize counts for each type of location to zero
     for (int i = 0; i < 14; i++) {
@@ -64,17 +61,15 @@ public class NodeManager implements Initializable {
     ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
     locationsList.add(new Location("1", 0.0, 0.0, "1", "Tower", "STOR", "STOR", "s"));
     for (Location location : locationsList) {
-      System.out.println(types.indexOf(location.getNodeType()));
-      // typeCounts[types.indexOf(location.getNodeType())][floors.indexOf(location.getFloor())] +=
-      // 1;
-
+      typeCounts[floorsAndTypes.get(location.getNodeType())][
+              floorsAndTypes.get(location.getFloor())] +=
+          1;
       mapsController.displayNode(addNode(location));
     }
   }
 
   Integer getTypeCount(String type, String floor) {
-    // return typeCounts[types.indexOf(type)][floors.indexOf(floor)];
-    return 1;
+    return typeCounts[floorsAndTypes.get(type)][floorsAndTypes.get(floor)];
   }
 
   Node addNode(Location location) {
