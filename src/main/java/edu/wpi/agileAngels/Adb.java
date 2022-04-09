@@ -3,15 +3,16 @@ package edu.wpi.agileAngels;
 import edu.wpi.agileAngels.Database.*;
 
 import java.sql.*;
+import java.util.HashMap;
 
 // This class is the backend of the DAO method.
 // The objects communicate with the DB here
 // Basically, front end shouldn't directly interact adb, it should interact with DAO classes
 public class Adb {
-  private static LocationsTable locationsTable;
-  private static MedicalEquipmentTable medicalEquipmentTable;
-  private static ServiceRequestTable serviceRequestTable;
-  private static EmployeeTable employeeTable;
+  private static LocationsTable locationsTable = null;
+  private static MedicalEquipmentTable medicalEquipmentTable = null;
+  private static ServiceRequestTable serviceRequestTable = null;
+  private static EmployeeTable employeeTable = null;
 
   /**
    * Main: creates the tables if they do not exist already
@@ -132,7 +133,67 @@ public class Adb {
       return;
     }
     System.out.println("Apache Derby connection established!");
+
   }
+
+  /**
+   * Get instance of location Table
+   * @return a singleton of a Locations Table
+   */
+  public static LocationsTable getLocationsTableInstance() {
+    if (locationsTable == null) {
+
+      locationsTable = new LocationsTable();
+      return locationsTable;
+    }
+    return locationsTable;
+
+  }
+
+  /**
+   * Get instance of Medical Equipment Table
+   * @return a singleton of a Medical Equipment Table
+   */
+  public static MedicalEquipmentTable getMedicalEquipmentTableInstance() {
+    if (medicalEquipmentTable == null) {
+
+      medicalEquipmentTable = new MedicalEquipmentTable();
+      return medicalEquipmentTable;
+    }
+    return medicalEquipmentTable;
+
+  }
+
+  /**
+   * Get instance of Service Request Table
+   * @return a singleton of a Service Request Table
+   */
+  public static ServiceRequestTable getServiceRequestTableInstance() {
+    if (serviceRequestTable == null) {
+
+      serviceRequestTable = new ServiceRequestTable();
+      return serviceRequestTable;
+    }
+    return serviceRequestTable;
+
+  }
+
+  /**
+   * Get instance of Employee Table
+   * @return a singleton of a Employee Table
+   */
+  public static EmployeeTable getEmployeeTableInstance() {
+    if (employeeTable == null) {
+
+      employeeTable = new EmployeeTable();
+      return employeeTable;
+    }
+    return employeeTable;
+
+  }
+
+
+
 
   /**
    * Adds a request to the request database table.
