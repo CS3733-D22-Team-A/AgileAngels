@@ -30,7 +30,7 @@ public class LoginController extends MainController implements Initializable {
   @FXML
   private void login() throws IOException {
 
-    if (username.getText().equals(employeeManager.getUsername(username.getText()))
+    if (employeeManager.getUsername(username.getText())
         && passwordBox.getText().equals(employeeManager.getPassword(username.getText()))) {
       loggedIn = true;
       loadPage("views/home-view.fxml", login);
