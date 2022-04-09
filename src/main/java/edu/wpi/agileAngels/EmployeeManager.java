@@ -7,6 +7,10 @@ public class EmployeeManager implements EmployeeDAO {
 
   private HashMap<String, Employee> employeeHashMap;
 
+  public EmployeeManager(HashMap<String, Employee> employeeHashMap) {
+    this.employeeHashMap = employeeHashMap;
+  }
+
   /**
    * Grabs all Employees in hash.
    *
@@ -48,7 +52,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /** Adds Employee into hash . */
   public void addEmployee(String name, String username, String password) {
-    ArrayList<Request> newERequest = new ArrayList<Request>();
+    ArrayList<Request> newERequest = new ArrayList<>();
     Employee newEmployee = new Employee(name, password, newERequest);
     employeeHashMap.put(username, newEmployee);
   }

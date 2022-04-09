@@ -1,25 +1,25 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
-public class LoginController extends MainController {
+public class LoginController extends MainController implements Initializable {
   @FXML private TextField username;
   @FXML private Label invalid;
   @FXML private Button login;
   @FXML private PasswordField passwordBox;
 
-  private EmployeeManager employeeManager;
-  private HashMap<String, Employee> employeeHashMap;
-  private ObservableList<Employee> employeeData = FXCollections.observableArrayList();
+  private HashMap<String, Employee> employeeHashMap = new HashMap<>();
+  private EmployeeManager employeeManager = new EmployeeManager(employeeHashMap);
 
   /**
    * Is the login textfields that take in a username and password and checks to see if it matches
@@ -30,13 +30,8 @@ public class LoginController extends MainController {
   @FXML
   private void login() throws IOException {
 
-    employeeManager.addEmployee("Administrator", "Admin", "Admin");
-    employeeManager.addEmployee("Nurse", "Nurse", "Nurse");
-    employeeManager.addEmployee("Justin", "Justin", "Password");
-
-    if (username.getText().equals("a"))
-    // && passwordBox.getText().equals(employeeManager.getPassword(username.getText())))
-    {
+    if (username.getText().equals(employeeManager.getUsername(username.getText()))
+        && passwordBox.getText().equals(employeeManager.getPassword(username.getText()))) {
       loggedIn = true;
       loadPage("views/home-view.fxml", login);
     } else {
@@ -89,6 +84,14 @@ public class LoginController extends MainController {
       }
     }
     return initials;
+  }
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+
+    employeeManager.addEmployee("Administrator", "Admin", "Admin");
+    employeeManager.addEmployee("Nurse", "Nurse", "Nurse");
+    employeeManager.addEmployee("Justin", "Justin", "Password");
   }
 }
 

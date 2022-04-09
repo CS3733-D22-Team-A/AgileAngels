@@ -6,7 +6,7 @@ public class Employee {
 
   private String name;
   private String password;
-  private ArrayList<Request> requests;
+  private final ArrayList<Request> requests;
 
   public Employee(String name, String password, ArrayList<Request> requests) {
     this.name = name;
