@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.GiftsController">
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.GiftsController">
    <children>
       <fx:include source="menu-bar.fxml" />
 
@@ -165,5 +167,19 @@
             </VBox>
          </children>
       </HBox>
+      <TableView fx:id="giftTable" layoutX="671.0" layoutY="224.0" prefHeight="292.0" prefWidth="589.0">
+        <columns>
+            <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
+          <TableColumn fx:id="senderColumn" prefWidth="85.0" text="Sender" />
+          <TableColumn fx:id="recipientColumn" prefWidth="85.0" text="Recipient" />
+            <TableColumn fx:id="employeeColumn" prefWidth="85.0" text="Employee" />
+            <TableColumn fx:id="locationColumn" prefWidth="85.0" text="Location" />
+            <TableColumn fx:id="statusColumn" prefWidth="85.0" text="Status" />
+            <TableColumn fx:id="typeColumn" prefWidth="85.0" text="Type" />
+            <TableColumn fx:id="messageColumn" prefWidth="85.0" text="Message" />
+        </columns>
+      </TableView>
+      <TextField fx:id="editRequest" layoutX="272.0" layoutY="597.0" onAction="#editGiftRequest" promptText="Edit Name" />
+      <TextField fx:id="deleteName" layoutX="572.0" layoutY="597.0" onAction="#deleteGiftRequest" promptText="Delete Name" />
    </children>
 </AnchorPane>
