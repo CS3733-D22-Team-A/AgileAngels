@@ -5,13 +5,11 @@ import java.util.ArrayList;
 public class Employee {
 
   private String name;
-  private String username;
   private String password;
   private ArrayList<Request> requests;
 
-  public Employee(String name, String username, String password, ArrayList<Request> requests) {
+  public Employee(String name, String password, ArrayList<Request> requests) {
     this.name = name;
-    this.username = username;
     this.password = password;
     this.requests = requests;
   }
@@ -22,14 +20,6 @@ public class Employee {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public String getUsername() {
-    return this.username;
-  }
-
-  public void setUsername(String newUN) {
-    this.username = newUN;
   }
 
   public String getPassword() {

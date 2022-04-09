@@ -18,7 +18,7 @@ public class DefaultTest {
   @Test
   public void initialsMakerDanielTest() {
     String danInitials = "DO";
-    assertTrue(danInitials.equals(dansLController.intialsMaker("Daniel Onyema")));
+    assertTrue(danInitials.equals(dansLController.initialsMaker("Daniel Onyema")));
   }
 
   // Testing
@@ -26,12 +26,12 @@ public class DefaultTest {
   public void initialsMakerJustinTest() {
     String justinInitials = "JW";
     assertTrue(
-        justinInitials.equals(dansLController.intialsMaker("Justin Paul Santiago - Wonoski")));
+        justinInitials.equals(dansLController.initialsMaker("Justin Paul Santiago - Wonoski")));
   }
 
   @Test
   public void initialsMakerEmptyTest() {
     String notApplicable = "N/A";
-    assertTrue(notApplicable.equals(dansLController.intialsMaker("")));
+    assertTrue(notApplicable.equals(dansLController.initialsMaker("")));
   }
 }

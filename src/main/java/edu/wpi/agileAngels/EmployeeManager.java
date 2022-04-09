@@ -21,6 +21,26 @@ public class EmployeeManager implements EmployeeDAO {
     return employeeHashMap.get(userID);
   }
 
+  /**
+   * Checks if the username exists in the hashmap.
+   *
+   * @param username
+   * @return
+   */
+  public boolean getUsername(String username) {
+    return employeeHashMap.containsKey(username);
+  }
+
+  /**
+   * is being used for to check the password.
+   *
+   * @param username
+   * @return
+   */
+  public String getPassword(String username) {
+    return employeeHashMap.get(username).getPassword();
+  }
+
   /** Removes Employee from hash. */
   public void removeEmployee(int userID) {
     employeeHashMap.remove(userID);

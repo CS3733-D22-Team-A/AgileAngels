@@ -1,20 +1,50 @@
 package edu.wpi.agileAngels;
 
 import java.io.IOException;
+import java.util.HashMap;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-import javax.swing.*;
 
 public class LoginController extends MainController {
-  @FXML private TextField username, passwordBox;
+  @FXML private TextField username;
   @FXML private Label invalid;
   @FXML private Button login;
+  @FXML private PasswordField passwordBox;
 
+  private EmployeeManager employeeManager;
+  private HashMap<String, Employee> employeeHashMap;
+  private ObservableList<Employee> employeeData = FXCollections.observableArrayList();
+
+  /**
+   * Is the login textfields that take in a username and password and checks to see if it matches
+   * with anything from the database / hashmap.
+   *
+   * @throws IOException
+   */
   @FXML
   private void login() throws IOException {
+
+    employeeManager.addEmployee("Administrator", "Admin", "Admin");
+    employeeManager.addEmployee("Nurse", "Nurse", "Nurse");
+    employeeManager.addEmployee("Justin", "Justin", "Password");
+
+    if (username.getText().equals("a"))
+    // && passwordBox.getText().equals(employeeManager.getPassword(username.getText())))
+    {
+      loggedIn = true;
+      loadPage("views/home-view.fxml", login);
+    } else {
+      invalid.setTextFill(Color.rgb(220, 80, 80));
+      invalid.setText("Invalid username or password:\nPlease try again");
+    }
+
+    /*
     if (username.getText().equals(passwordBox.getText()) && !username.getText().isEmpty()) {
       loggedIn = true;
       setUsername(username.getText());
@@ -23,6 +53,8 @@ public class LoginController extends MainController {
       invalid.setTextFill(Color.rgb(220, 80, 80));
       invalid.setText("Invalid username or password:\nPlease try again");
     }
+
+     */
   }
 
   /**
@@ -31,7 +63,7 @@ public class LoginController extends MainController {
    *
    * @return The initial(s) of the given string
    */
-  public String intialsMaker(String name) {
+  public String initialsMaker(String name) {
     String initials;
 
     // Is this name empty? Initials ain't applicable...
@@ -58,8 +90,8 @@ public class LoginController extends MainController {
     }
     return initials;
   }
+}
 
   /*
   Maybe make a way to turn password text into asterisks as it's being typed, and a way to turn it back when "show pw" is clicked.
    */
-}
