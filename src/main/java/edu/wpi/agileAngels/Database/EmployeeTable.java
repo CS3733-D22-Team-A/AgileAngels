@@ -10,10 +10,10 @@ public class EmployeeTable implements TableI {
     @Override
     public boolean add(Object obj) {
         try {
-            if(!(obj instanceof Employees)){
+            if(!(obj instanceof Employee)){
                 return false;
             }
-            Employee emp = (Employees) obj;
+            Employee emp = (Employee) obj;
             String add =
                     "INSERT INTO Employees(name, requests)VALUES(?,?)";
             PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
