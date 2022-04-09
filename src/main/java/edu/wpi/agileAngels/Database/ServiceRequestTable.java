@@ -1,8 +1,8 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Database;
 
 import java.util.List;
 
-public class LocationsTable implements TableI{
+public class ServiceRequestTable implements TableI {
 
     @Override
     public boolean add(Object obj) {
@@ -15,7 +15,7 @@ public class LocationsTable implements TableI{
     }
 
     @Override
-    public boolean update(String str, List list) {
+    public boolean update(Object obj) {
         return false;
     }
 
