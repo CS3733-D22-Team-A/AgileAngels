@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class SanitationController extends MainController {
-//Test
+  // Test
   @FXML private TextField sanIssue, sanLocation, sanitationEmployeeText, sanitationStatus;
   @FXML private Label sanitationConfirmation;
 

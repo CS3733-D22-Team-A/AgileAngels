@@ -1,5 +1,7 @@
 package edu.wpi.agileAngels;
 
+import edu.wpi.agileAngels.Database.Employee;
+import edu.wpi.agileAngels.Database.Request;
 import java.util.ArrayList;
 import java.util.HashMap;
 

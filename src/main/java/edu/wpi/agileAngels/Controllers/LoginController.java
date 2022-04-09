@@ -1,5 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.Employee;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -11,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-import javax.swing.*;
 
 public class LoginController extends MainController implements Initializable {
   @FXML private TextField username;
@@ -21,6 +21,14 @@ public class LoginController extends MainController implements Initializable {
 
   private HashMap<String, Employee> employeeHashMap = new HashMap<>();
   private EmployeeManager employeeManager = new EmployeeManager(employeeHashMap);
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+
+    employeeManager.addEmployee("Administrator", "Admin", "Admin");
+    employeeManager.addEmployee("Nurse", "Nurse", "Nurse");
+    employeeManager.addEmployee("Justin", "Justin", "Password");
+  }
 
   /**
    * Is the login textfields that take in a username and password and checks to see if it matches
@@ -33,8 +41,8 @@ public class LoginController extends MainController implements Initializable {
 
     if (employeeManager.getUsername(username.getText())
         && passwordBox.getText().equals(employeeManager.getPassword(username.getText()))) {
-      loggedIn = true;
-      loadPage("views/home-view.fxml", login);
+      // loggedIn = true;
+      loadPage("../views/home-view.fxml", login);
     } else {
       invalid.setTextFill(Color.rgb(220, 80, 80));
       invalid.setText("Invalid username or password:\nPlease try again");
@@ -85,14 +93,6 @@ public class LoginController extends MainController implements Initializable {
       }
     }
     return initials;
-  }
-
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
-
-    employeeManager.addEmployee("Administrator", "Admin", "Admin");
-    employeeManager.addEmployee("Nurse", "Nurse", "Nurse");
-    employeeManager.addEmployee("Justin", "Justin", "Password");
   }
 }
 

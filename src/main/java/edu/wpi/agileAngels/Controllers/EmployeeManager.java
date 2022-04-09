@@ -1,5 +1,8 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.Employee;
+import edu.wpi.agileAngels.Database.Request;
+import edu.wpi.agileAngels.EmployeeDAO;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -52,7 +55,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /** Adds Employee into hash . */
   public void addEmployee(String name, String username, String password) {
-    ArrayList<Request> newERequest = new ArrayList<>();
+    ArrayList<Request> newERequest = new ArrayList<Request>();
     Employee newEmployee = new Employee(name, password, newERequest);
     employeeHashMap.put(username, newEmployee);
   }

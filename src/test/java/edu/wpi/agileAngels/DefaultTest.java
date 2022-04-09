@@ -4,6 +4,9 @@
 
 package edu.wpi.agileAngels;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import edu.wpi.agileAngels.Controllers.LoginController;
 import edu.wpi.agileAngels.Database.MedicalEquip;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
@@ -40,7 +43,7 @@ public class DefaultTest {
   public void initialsMakerJustinTest() {
     String justinInitials = "JW";
     assertTrue(
-            justinInitials.equals(dansLController.initialsMaker("Justin Paul Santiago - Wonoski")));
+        justinInitials.equals(dansLController.initialsMaker("Justin Paul Santiago - Wonoski")));
   }
 
   @Test
@@ -48,6 +51,4 @@ public class DefaultTest {
     String notApplicable = "N/A";
     assertTrue(notApplicable.equals(dansLController.initialsMaker("")));
   }
-}
-
 }
