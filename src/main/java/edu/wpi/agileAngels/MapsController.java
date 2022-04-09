@@ -98,10 +98,12 @@ public class MapsController extends MainController implements Initializable {
   @FXML
   private void addNode() throws IOException {
 
+    int typeCount = (nodeManager.getTypeCount(typeField.getText(), currentFloor));
+
     String nodeID =
         "A"
             + typeField.getText()
-            + Integer.toString(nodeManager.getTypeCount(typeField.getText(), currentFloor))
+            + String.format("%03d", typeCount)
             + ((currentFloor.length() == 1) ? ("0" + currentFloor) : (currentFloor));
 
     Location newLocation =

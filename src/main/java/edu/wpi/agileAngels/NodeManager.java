@@ -64,6 +64,7 @@ public class NodeManager {
   }
 
   Integer getTypeCount(String type, String floor) {
+    typeCounts[floorsAndTypes.get(type)][floorsAndTypes.get(floor)] += 1;
     return typeCounts[floorsAndTypes.get(type)][floorsAndTypes.get(floor)];
   }
 
