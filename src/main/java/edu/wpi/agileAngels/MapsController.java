@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -34,6 +35,7 @@ public class MapsController extends MainController implements Initializable {
 
   @FXML Pane mapPane;
   @FXML AnchorPane anchor;
+  @FXML Label floorLabel;
 
   Node currentNode = null;
   private String currentFloor = "1";
@@ -170,12 +172,14 @@ public class MapsController extends MainController implements Initializable {
       addButton.setVisible(true);
       editButton.setVisible(false);
       removeButton.setVisible(false);
+      nodeIDField.setVisible(false);
     } else {
       switchToAddButton.setVisible(true);
       switchToEditButton.setVisible(false);
       addButton.setVisible(false);
       editButton.setVisible(true);
       removeButton.setVisible(true);
+      nodeIDField.setVisible(true);
     }
   }
 
@@ -212,18 +216,23 @@ public class MapsController extends MainController implements Initializable {
     if (event.getSource() == floorOne) {
       pane1.setVisible(true);
       currentFloor = "1";
+      floorLabel.setText("Floor 1");
     } else if (event.getSource() == floorTwo) {
       pane2.setVisible(true);
       currentFloor = "2";
+      floorLabel.setText("Floor 2");
     } else if (event.getSource() == floorThree) {
       pane3.setVisible(true);
       currentFloor = "3";
+      floorLabel.setText("Floor 3");
     } else if (event.getSource() == lowerLevelOne) {
       paneL1.setVisible(true);
       currentFloor = "L1";
+      floorLabel.setText("Lower Level 1");
     } else if (event.getSource() == lowerLevelTwo) {
       paneL2.setVisible(true);
       currentFloor = "L2";
+      floorLabel.setText("Lower Level 2");
     }
   }
 }

@@ -112,6 +112,7 @@
             </HBox>
          </graphic>
       </Button>
+      <Label fx:id="floorLabel" layoutX="747.0" layoutY="133.0" prefHeight="30.0" prefWidth="127.0" text="Floor 1" />
       <!--
       <Button layoutX="141.0" layoutY="408.0" mnemonicParsing="false" onAction="#setNewPoint" prefHeight="92.0" prefWidth="113.0" text="Set new coord" />
       -->
