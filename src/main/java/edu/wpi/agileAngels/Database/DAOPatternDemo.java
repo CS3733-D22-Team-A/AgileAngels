@@ -1,4 +1,4 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,4 +1,4 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

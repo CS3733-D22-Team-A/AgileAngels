@@ -1,4 +1,4 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Database;
 
 import java.io.IOException;
 import java.io.Reader;

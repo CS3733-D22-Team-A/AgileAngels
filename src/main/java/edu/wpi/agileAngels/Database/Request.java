@@ -1,28 +1,38 @@
-package edu.wpi.agileAngels;
-// Mother class for all requests
-// TODO find out main attributes for this class and other request classes
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
+package edu.wpi.agileAngels.Database;
+
 public class Request {
   private String name;
   private String employeeName;
   private String location;
-  private String type; // TODO change name of this
-  private int requestType; // which request it is based on int value
+  private String type;
+  private int requestType;
   private String status;
   private String description;
-  // constructor
+  private String attribute1;
+  private String attribute2;
+
   public Request(
       String Name,
       String employeeName,
       String location,
       String type,
       String status,
-      String description) {
+      String description,
+      String attribute1,
+      String attribute2) {
     this.name = Name;
     this.employeeName = employeeName;
     this.location = location;
     this.type = type;
     this.status = status;
     this.description = description;
+    this.attribute1 = attribute1;
+    this.attribute2 = attribute2;
   }
 
   public void setRequestType(int requestType) {
@@ -30,27 +40,27 @@ public class Request {
   }
 
   public String getStatus() {
-    return status;
+    return this.status;
   }
 
   public int getRequestType() {
-    return requestType;
+    return this.requestType;
   }
 
   public String getDescription() {
-    return description;
+    return this.description;
   }
 
   public String getEmployee() {
-    return employeeName;
+    return this.employeeName;
   }
 
   public String getLocation() {
-    return location;
+    return this.location;
   }
 
   public String getType() {
-    return type;
+    return this.type;
   }
 
   public void setEmployee(String employeeName) {
@@ -79,5 +89,21 @@ public class Request {
 
   public String getName() {
     return this.name;
+  }
+
+  public String getAttribute1() {
+    return this.attribute1;
+  }
+
+  public void setAttribute1(String attribute) {
+    this.attribute1 = attribute;
+  }
+
+  public String getAttribute2() {
+    return this.attribute2;
+  }
+
+  public void setAttribute2(String attribute) {
+    this.attribute2 = attribute;
   }
 }
