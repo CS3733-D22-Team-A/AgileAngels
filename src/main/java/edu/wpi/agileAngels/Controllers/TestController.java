@@ -1,21 +1,31 @@
 package edu.wpi.agileAngels.Controllers;
 
-import java.util.ArrayList;
 import javafx.event.ActionEvent;
-import javafx.scene.shape.Circle;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 
 // test button on the front end
 public class TestController extends MainController {
 
-  private ArrayList<Circle> circles = new ArrayList<Circle>();
+  Button button = new Button();
+  @FXML AnchorPane anchor;
+  @FXML Button testButton;
 
   public void newCircle(ActionEvent event) {
-    circles.add(new Circle());
+    button.setText("hello");
+    button.setLayoutX(100);
+    button.setLayoutY(100);
+    button.setOnAction(
+        (ActionEvent event2) -> {
+          changeColor(button);
+        });
+    anchor.getChildren().add(button);
+  }
 
-    circles.get(0).setRadius(100);
-    circles.get(0).setId("circle");
-    circles.get(0).setLayoutX(100);
-    circles.get(0).setLayoutY(100);
-    circles.get(0).setVisible(true);
+  private void changeColor(Button button) {
+    System.out.println(button.getLayoutX());
+    testButton.setTextFill(Color.rgb(255, 0, 0));
   }
 }

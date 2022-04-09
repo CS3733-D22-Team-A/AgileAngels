@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.HashMap;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -39,11 +36,11 @@ public class LocationDAOImpl implements LocationDAO {
                         "shortName")
                     .withIgnoreHeaderCase()
                     .withTrim())) {
-
+      boolean onHeader = false;
       for (CSVRecord csvRecord : csvParser) { // each row has a dictionary
 
         String nodeID = csvRecord.get(0);
-        if (!nodeID.equals("nodeID")) {
+        if (onHeader) {
 
           Statement statement =
               connection.prepareStatement(
@@ -56,20 +53,25 @@ public class LocationDAOImpl implements LocationDAO {
                 .setString(
                     i, csvRecord.get(i - 1)); // to access the first value for table it starts at 1
           }
-          Location location =
-              new Location(
-                  csvRecord.get(0),
-                  csvRecord.get(1),
-                  csvRecord.get(2),
-                  csvRecord.get(3),
-                  csvRecord.get(4),
-                  csvRecord.get(5),
-                  csvRecord.get(6),
-                  csvRecord.get(7));
-          data.put(csvRecord.get(0), location);
+          try {
+            Location location =
+                new Location(
+                    csvRecord.get(0),
+                    Double.valueOf(csvRecord.get(1)),
+                    Double.valueOf(csvRecord.get(2)),
+                    csvRecord.get(3),
+                    csvRecord.get(4),
+                    csvRecord.get(5),
+                    csvRecord.get(6),
+                    csvRecord.get(7));
+            data.put(csvRecord.get(0), location);
+          } catch (NumberFormatException nfe) {
+            System.out.println(nfe);
+          }
 
           ((PreparedStatement) statement).execute();
         }
+        onHeader = true;
       }
     } catch (SQLException | IOException e) {
       e.printStackTrace();
@@ -123,12 +125,12 @@ public class LocationDAOImpl implements LocationDAO {
     System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
   }
 
-  public void updateLocationXCoord(Location location, String newLocationXCoord) {
+  public void updateLocationXCoord(Location location, Double newLocationXCoord) {
     location.setXCoord(newLocationXCoord);
     System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
   }
 
-  public void updateLocationYCoord(Location location, String newLocationYCoord) {
+  public void updateLocationYCoord(Location location, Double newLocationYCoord) {
     location.setYCoord(newLocationYCoord);
     System.out.println("Location: NodeID " + location.getNodeID() + ", updated in the database");
   }

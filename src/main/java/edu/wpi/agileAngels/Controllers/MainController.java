@@ -74,8 +74,7 @@ public class MainController {
   }
 
   @FXML
-  private void clearPage() throws IOException {
-    System.out.println("test");
+  public void clearPage() throws IOException {
     loadPage(pageHistory.peek(), clear);
   }
 

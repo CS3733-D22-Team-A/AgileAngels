@@ -2,7 +2,6 @@ package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.Request;
 import edu.wpi.agileAngels.Database.RequestDAOImpl;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -65,8 +64,5 @@ public class SanitationController extends MainController {
       // Request request = new Request("", employee, location, dropDown, status, issue, "", "");
     }
   */
-  @FXML
-  private void clearPage() throws IOException, InterruptedException {
-    loadPage("../views/sanitation-view.fxml", sanitationConfirmation);
-  }
+
 }

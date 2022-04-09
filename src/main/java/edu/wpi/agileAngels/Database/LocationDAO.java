@@ -19,9 +19,9 @@ public interface LocationDAO {
 
   public void updateLocationShortName(Location location, String newLocationShortName);
 
-  public void updateLocationXCoord(Location location, String newLocationXCoord);
+  public void updateLocationXCoord(Location location, Double newLocationXCoord);
 
-  public void updateLocationYCoord(Location location, String newLocationYCoord);
+  public void updateLocationYCoord(Location location, Double newLocationYCoord);
 
   public void deleteLocation(Location location);
 
