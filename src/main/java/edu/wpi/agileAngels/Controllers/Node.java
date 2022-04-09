@@ -3,8 +3,6 @@ package edu.wpi.agileAngels.Controllers;
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.agileAngels.Database.Location;
 import javafx.event.ActionEvent;
-import com.jfoenix.controls.JFXButton;
-import javafx.event.ActionEvent;
 
 public class Node {
 

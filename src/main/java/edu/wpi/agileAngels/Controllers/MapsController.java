@@ -1,16 +1,9 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.Location;
-import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -179,14 +172,12 @@ public class MapsController extends MainController implements Initializable {
       addButton.setVisible(true);
       editButton.setVisible(false);
       removeButton.setVisible(false);
-      nodeIDField.setVisible(false);
     } else {
       switchToAddButton.setVisible(true);
       switchToEditButton.setVisible(false);
       addButton.setVisible(false);
       editButton.setVisible(true);
       removeButton.setVisible(true);
-      nodeIDField.setVisible(true);
     }
   }
 

@@ -1,5 +1,7 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.Location;
+import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import java.util.ArrayList;
 import java.util.HashMap;
 
