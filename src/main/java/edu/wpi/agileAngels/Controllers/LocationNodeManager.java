@@ -5,15 +5,15 @@ import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class NodeManager {
+public class LocationNodeManager {
 
   private MapsController mapsController;
   private LocationDAOImpl locationDAO = new LocationDAOImpl();
-  private HashMap<String, Node> nodes = new HashMap<>();
+  private HashMap<String, LocationNode> nodes = new HashMap<>();
   private int[][] typeCounts = new int[15][5];
   private HashMap<String, Integer> floorsAndTypes = new HashMap<>();
 
-  public NodeManager(MapsController mapsController) {
+  public LocationNodeManager(MapsController mapsController) {
     this.mapsController = mapsController;
 
     // initialize list of location floors and types
@@ -69,20 +69,20 @@ public class NodeManager {
     return typeCounts[floorsAndTypes.get(type)][floorsAndTypes.get(floor)];
   }
 
-  Node addNode(Location location) {
-    Node node = new Node(location, this);
-    nodes.put(node.getNodeID(), node);
-    return node;
+  LocationNode addNode(Location location) {
+    LocationNode locationNode = new LocationNode(location, this);
+    nodes.put(locationNode.getNodeID(), locationNode);
+    return locationNode;
     // add the new location to the database
   }
 
-  void editNode(Node node) {
+  void editNode(LocationNode locationNode) {
     // edit the corresponding location in the backend
 
   }
 
   // gets called on button press and gets the node data
-  void loadNode(Node node) {
-    mapsController.populateNodeData(node);
+  void loadNode(LocationNode locationNode) {
+    mapsController.populateNodeData(locationNode);
   }
 }
