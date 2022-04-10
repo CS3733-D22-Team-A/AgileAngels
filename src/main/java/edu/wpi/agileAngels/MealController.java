@@ -17,6 +17,7 @@ public class MealController extends MainController {
   @FXML Pane drop, drop2;
 
   private RequestDAOImpl mealDAO;
+  LocationDAOImpl locDAO = new LocationDAOImpl();
 
   public void initialize(URL location, ResourceBundle resources) throws SQLException {
     HashMap<String, Request> mealData = new HashMap<String, Request>();
@@ -39,11 +40,12 @@ public class MealController extends MainController {
               + dropdownButtonText.getText()
               + ". Special Instructions: "
               + restrictions.getText());
+
       Request request =
           new Request(
               "",
               mealEmployeeText.getText(),
-              roomInput.getText(),
+              locDAO.getLocation(roomInput.getText()),
               dropdownButtonText.getText(),
               mealStatus.getText(),
               restrictions.getText(),

@@ -8,7 +8,8 @@ package edu.wpi.agileAngels;
 public class Request {
   private String name;
   private String employeeName;
-  private String location;
+  private Location location;
+  // private String location;
   private String type;
   private int requestType;
   private String status;
@@ -19,7 +20,7 @@ public class Request {
   public Request(
       String Name,
       String employeeName,
-      String location,
+      Location location,
       String type,
       String status,
       String description,
@@ -55,7 +56,7 @@ public class Request {
     return this.employeeName;
   }
 
-  public String getLocation() {
+  public Location getLocation() {
     return this.location;
   }
 
@@ -67,7 +68,7 @@ public class Request {
     this.employeeName = employeeName;
   }
 
-  public void setLocation(String location) {
+  public void setLocation(Location location) {
     this.location = location;
   }
 

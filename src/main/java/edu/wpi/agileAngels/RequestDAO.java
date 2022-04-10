@@ -12,7 +12,7 @@ public interface RequestDAO {
 
   public void updateType(Request request, String newType);
 
-  public void updateLocation(Request request, String newLocation);
+  public void updateLocation(Request request, Location location);
 
   public void updateDescription(Request request, String description);
 

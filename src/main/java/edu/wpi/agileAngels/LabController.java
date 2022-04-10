@@ -18,6 +18,7 @@ public class LabController extends MainController implements Initializable {
   @FXML private TextField labTestLocation, labEmployeeText, labStatus, labDelete, labEdit;
 
   private RequestDAOImpl LabDAO = RequestDAOImpl.getInstance("LabRequest");
+  private LocationDAOImpl locDAO = new LocationDAOImpl();
   private static ObservableList<Request> labData = FXCollections.observableArrayList();
   @FXML private TableView labTable;
   @FXML
@@ -105,8 +106,8 @@ public class LabController extends MainController implements Initializable {
             + " by "
             + employee
             + ".");
-    // Request request = new Request("", available, dropDown, location, employee, status, "", "");
-    Request request = new Request("", employee, location, dropDown, status, "", "", "");
+    Location loc = locDAO.getLocation(location);
+    Request request = new Request("", employee, loc, dropDown, status, "", "", "");
 
     LabDAO.addRequest(request);
     labData.add(request);
@@ -129,8 +130,9 @@ public class LabController extends MainController implements Initializable {
         LabDAO.updateType(found, dropDown);
       }
       if (!location.isEmpty()) {
-        found.setLocation(location);
-        LabDAO.updateLocation(found, location);
+        Location loc = locDAO.getLocation(location);
+        found.setLocation(loc);
+        LabDAO.updateLocation(found, loc);
       }
       if (!employee.isEmpty()) {
         found.setEmployee(employee);
@@ -157,9 +159,9 @@ public class LabController extends MainController implements Initializable {
           LabDAO.updateType(found, type);
         }
         if (!labTestLocation.getText().isEmpty()) {
-          // String location = labTestLocation.getText();
-          found.setLocation(location);
-          LabDAO.updateLocation(found, location);
+          Location loc = locDAO.getLocation(location);
+          found.setLocation(loc);
+          LabDAO.updateLocation(found, loc);
         }
         if (!labEmployeeText.getText().isEmpty()) {
           // String employee = labEmployeeText.getText();
@@ -180,7 +182,8 @@ public class LabController extends MainController implements Initializable {
               + " by "
               + labEmployeeText.getText()
               + ".");
-      Request request = new Request("", employee, location, dropDown, status, "", "", "");
+      Location loc = locDAO.getLocation(location);
+      Request request = new Request("", employee, loc, dropDown, status, "", "", "");
 
       LabDAO.addRequest(request);
 

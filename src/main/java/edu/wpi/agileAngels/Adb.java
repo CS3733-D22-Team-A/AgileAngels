@@ -145,7 +145,7 @@ public class Adb {
       preparedStatement.setString(1, request.getName());
       preparedStatement.setString(2, request.getAttribute1());
       preparedStatement.setString(3, request.getEmployee());
-      preparedStatement.setString(4, request.getLocation());
+      preparedStatement.setObject(4, request.getLocation());
       preparedStatement.setString(5, request.getType());
       preparedStatement.setString(6, request.getStatus());
       preparedStatement.setString(7, request.getDescription());

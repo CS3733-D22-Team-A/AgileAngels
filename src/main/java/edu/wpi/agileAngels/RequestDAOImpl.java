@@ -14,6 +14,7 @@ public class RequestDAOImpl implements RequestDAO {
 
   private static RequestDAOImpl MedrequestImpl = null;
   private static RequestDAOImpl LabrequestImpl = null;
+  private LocationDAOImpl locDAO = new LocationDAOImpl();
   private static String DAOtype = null;
 
   public RequestDAOImpl(String CSV_FILE_PATH, HashMap<String, Request> reqData, int count)
@@ -58,9 +59,9 @@ public class RequestDAOImpl implements RequestDAO {
     Adb.updateRequest(request, "Type", newType);
   }
 
-  public void updateLocation(Request request, String newLocation) {
+  public void updateLocation(Request request, Location newLocation) {
     request.setLocation(newLocation);
-    Adb.updateRequest(request, "Location", newLocation);
+    // Adb.updateRequest(request, "Location", newLocation);
   }
 
   public void updateDescription(Request request, String description) {
@@ -117,12 +118,19 @@ public class RequestDAOImpl implements RequestDAO {
       var8.printStackTrace();
     }
   }
-
+  // UHHHH fix this
   private void typeofDAO(String[] values) throws SQLException {
     ++this.count;
     Request request =
         new Request(
-            values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
+            values[0],
+            values[1],
+            locDAO.getLocation(values[2]),
+            values[3],
+            values[4],
+            values[5],
+            values[6],
+            values[7]);
     this.reqData.put(values[0], request);
     Adb.addRequest(request);
   }

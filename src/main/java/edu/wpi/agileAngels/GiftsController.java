@@ -33,6 +33,7 @@ public class GiftsController extends MainController implements Initializable {
   @FXML Button addButton, editButton, deleteButton;
   @FXML private Label giftConfirm;
   private RequestDAOImpl giftDAO;
+  private LocationDAOImpl locDAO = new LocationDAOImpl();
   // TODO make gift table in the UI
   @FXML private TableView giftTable;
   private static ObservableList<Request> giftData =
@@ -250,7 +251,7 @@ public class GiftsController extends MainController implements Initializable {
         new Request(
             "",
             giftEmployeeText.getText(),
-            giftRecipient.getText(),
+            locDAO.getLocation(giftRecipient.getText()),
             dropdownButtonText.getText(),
             giftStatus.getText(),
             giftMessage.getText(),
