@@ -164,7 +164,7 @@ public class Adb {
    * @param nodeID Location id
    * @return True if successful, false if not
    */
-  public static boolean deleteLocation(String nodeID) {
+  public static boolean removeLocation(String nodeID) {
     return locationsTable.delete(nodeID);
   }
 

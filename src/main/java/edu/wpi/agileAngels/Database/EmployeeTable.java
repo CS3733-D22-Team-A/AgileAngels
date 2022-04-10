@@ -18,6 +18,7 @@ public class EmployeeTable implements TableI {
                     "INSERT INTO Employees(name, requests)VALUES(?,?)";
             PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
             preparedStatement.setString(1, emp.getName());
+            //TODO modify to allow the storage of all requests into a column
             preparedStatement.setString(2, emp.getRequests());
             preparedStatement.execute();
             return true;
@@ -62,8 +63,9 @@ public class EmployeeTable implements TableI {
             try {
                 Statement query = DBconnection.getConnection().createStatement();
                 String queryEmployees = "CREATE TABLE Employees( "
-                        + "name VARCHAR(50),"
-                        + "requests VARCHAR(50))";
+                        + "Name VARCHAR(50),"
+                        + "Requests VARCHAR(50),"
+                        + "PRIMARY KEY (Name))";
                 query.execute(queryEmployees);
                 return true;
                 } catch (SQLException sqlException) {

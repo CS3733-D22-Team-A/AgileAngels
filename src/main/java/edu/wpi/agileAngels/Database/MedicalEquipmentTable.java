@@ -50,7 +50,7 @@ public class MedicalEquipmentTable implements TableI {
                 return false;
             }
             MedicalEquip medE = (MedicalEquip) obj;
-            String update = "UPDATE MedicalEquip SET Type = ?, Clean = ?, Location = ? WHERE = ?";
+            String update = "UPDATE MedicalEquipment SET Type = ?, Clean = ?, Location = ? WHERE = ?";
             PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(update);
             preparedStatement.setString(1, medE.getType());
             preparedStatement.setString(2, "Clean");

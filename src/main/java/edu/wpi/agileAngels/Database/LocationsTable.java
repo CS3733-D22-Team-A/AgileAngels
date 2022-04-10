@@ -21,8 +21,8 @@ public class LocationsTable implements TableI {
                     "INSERT INTO Locations(NodeID,xcoord,ycoord,Floor,building,nodeType,longName,shortName)VALUES(?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
             preparedStatement.setString(1, loc.getNodeID());
-            preparedStatement.setString(2, loc.getXCoord());
-            preparedStatement.setString(3, loc.getYCoord());
+            preparedStatement.setDouble(2, loc.getXCoord());
+            preparedStatement.setDouble(3, loc.getYCoord());
             preparedStatement.setString(4, loc.getFloor());
             preparedStatement.setString(5, loc.getBuilding());
             preparedStatement.setString(6, loc.getNodeType());
@@ -68,8 +68,8 @@ public class LocationsTable implements TableI {
             String id = loc.getNodeID();
             PreparedStatement preparedStatement =
                     DBconnection.getConnection().prepareStatement("UPDATE RequestTable SET xcoord = ?, ycoord = ?, floor = ?, building = ?, nodetype = ?, longname = ?, shortname = ? WHERE NodeID = ?");
-            preparedStatement.setString(1, loc.getXCoord());
-            preparedStatement.setString(2, loc.getYCoord());
+            preparedStatement.setDouble(1, loc.getXCoord());
+            preparedStatement.setDouble(2, loc.getYCoord());
             preparedStatement.setString(3, loc.getFloor());
             preparedStatement.setString(4, loc.getBuilding());
             preparedStatement.setString(5, loc.getNodeType());
@@ -100,7 +100,8 @@ public class LocationsTable implements TableI {
                           + "building VARCHAR(50),"
                           + "NodeType VARCHAR(50),"
                           + "longName VARCHAR(50),"
-                          + "shortName VARCHAR(50))";
+                          + "shortName VARCHAR(50),"
+                          + "PRIMARY KEY (NodeID))";
            query.execute(queryLocations);
            return true;
         }catch(SQLException sqlException){
