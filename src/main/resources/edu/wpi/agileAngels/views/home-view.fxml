@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="144.0" minWidth="256.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.HomeController">
+<AnchorPane id="main" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="144.0" minWidth="256.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.HomeController">
    <children>
       <HBox prefHeight="718.0" prefWidth="1280.0">
          <children>
