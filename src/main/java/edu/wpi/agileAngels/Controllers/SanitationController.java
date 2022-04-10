@@ -2,7 +2,6 @@ package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.Request;
 import edu.wpi.agileAngels.Database.RequestDAOImpl;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -12,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class SanitationController extends MainController {
-//Test
+  // Test
   @FXML private TextField sanIssue, sanLocation, sanitationEmployeeText, sanitationStatus;
   @FXML private Label sanitationConfirmation;
 
@@ -65,8 +64,5 @@ public class SanitationController extends MainController {
       // Request request = new Request("", employee, location, dropDown, status, issue, "", "");
     }
   */
-  @FXML
-  private void clearPage() throws IOException, InterruptedException {
-    loadPage("../views/sanitation-view.fxml", sanitationConfirmation);
-  }
+
 }
