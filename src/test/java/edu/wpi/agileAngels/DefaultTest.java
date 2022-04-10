@@ -17,7 +17,7 @@ public class DefaultTest {
   public void testMedEqpAddRemove() throws SQLException {
     String[] arr = new String[1];
     Adb a = new Adb();
-    a.main(arr);
+    a.initialize(arr);
     MedicalEquip mE = new MedicalEquip("R2", "X-Ray Machine", true, "Hall");
     MedicalEquip mE2 = new MedicalEquip("R1", "X-Ray Machine", false, "Hall");
     MedicalEquip mE3 = new MedicalEquip("R3", "X-Ray Machine", true, "Hall");

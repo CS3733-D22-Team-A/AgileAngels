@@ -3,7 +3,6 @@ package edu.wpi.agileAngels;
 import edu.wpi.agileAngels.Database.*;
 
 import java.sql.*;
-import java.util.HashMap;
 
 // This class is the backend of the DAO method.
 // The objects communicate with the DB here
@@ -15,12 +14,10 @@ public class Adb {
   private static EmployeeTable employeeTable = null;
 
   /**
-   * Main: creates the tables if they do not exist already
-   *
-   * @param args
+   * Creates database tables if they do not exist already.
    * @throws SQLException
    */
-  public void main(String[] args) throws SQLException {
+  public void initialize() throws SQLException {
 
     // Apache Derby and table creation
     System.out.println("-------Embedded Apache Derby Connection Testing --------");
@@ -40,98 +37,24 @@ public class Adb {
 
     System.out.println("Apache Derby driver registered!");
 
-    Statement statementLocations;
-    Statement statementMedical;
-    try {
+    //Create instances of all database table managers
+    locationsTable = getLocationsTableInstance();
+    medicalEquipmentTable = getMedicalEquipmentTableInstance();
+    serviceRequestTable = getServiceRequestTableInstance();
+    employeeTable = getEmployeeTableInstance();
 
-      statementLocations = DBconnection.getConnection().createStatement();
+    //Create all database tables
+    locationsTable.createTable();
+    medicalEquipmentTable.createTable();
+    serviceRequestTable.createTable();
+    employeeTable.createTable();
 
-      // If the table exists, the table is dropped and re-created.
-      if (tableExist(DBconnection.getConnection(), "Locations")) {
-        String dropLoc = "DROP TABLE Locations";
-        String queryLocations =
-                "CREATE TABLE Locations( "
-                        + "NodeID VARCHAR(50),"
-                        + "xcoord VARCHAR(50),"
-                        + "ycoord VARCHAR(50),"
-                        + "Floor VARCHAR(50),"
-                        + "building VARCHAR(50),"
-                        + "NodeType VARCHAR(50),"
-                        + "longName VARCHAR(50),"
-                        + "shortName VARCHAR(50))";
-        statementLocations.execute(dropLoc);
-        statementLocations.execute(queryLocations);
-      } else if (!tableExist(DBconnection.getConnection(), "Locations")) {
-        String queryLocations =
-                "CREATE TABLE Locations( "
-                        + "NodeID VARCHAR(50),"
-                        + "xcoord VARCHAR(50),"
-                        + "ycoord VARCHAR(50),"
-                        + "Floor VARCHAR(50),"
-                        + "building VARCHAR(50),"
-                        + "NodeType VARCHAR(50),"
-                        + "longName VARCHAR(50),"
-                        + "shortName VARCHAR(50))";
-        statementLocations.execute(queryLocations);
-      }
-
-      statementMedical = DBconnection.getConnection().createStatement();
-      if (tableExist(DBconnection.getConnection(), "RequestTable")) {
-        String dropRequest = "DROP TABLE RequestTable";
-        String queryRequest =
-                "CREATE TABLE RequestTable ( "
-                        + "Name VARCHAR(50),"
-                        + "Available VARCHAR(50),"
-                        + "EmployeeName VARCHAR(50),"
-                        + "Location VARCHAR(50),"
-                        + "Type VARCHAR(50),"
-                        + "Status VARCHAR(50),"
-                        + "Description VARCHAR(50),"
-                        + "PRIMARY KEY (Name))";
-        statementMedical.execute(dropRequest);
-        statementMedical.execute(queryRequest);
-      } else if (!tableExist(DBconnection.getConnection(), "RequestTable")) {
-        String queryRequest =
-                "CREATE TABLE RequestTable ( "
-                        + "Name VARCHAR(50),"
-                        + "Available VARCHAR(50),"
-                        + "EmployeeName VARCHAR(50),"
-                        + "Location VARCHAR(50),"
-                        + "Type VARCHAR(50),"
-                        + "Status VARCHAR(50),"
-                        + "Description VARCHAR(50),"
-                        + "PRIMARY KEY (Name))";
-        statementMedical.execute(queryRequest);
-      }
-
-      Statement statementEquipment = DBconnection.getConnection().createStatement();
-      if (tableExist(DBconnection.getConnection(), "MedicalEquipment")) {
-        String dropRequest = "DROP TABLE MedicalEquipment";
-        String queryEq =
-                "CREATE TABLE MedicalEquipment ( "
-                        + "ID VARCHAR(50),"
-                        + "Type VARCHAR(50),"
-                        + "Clean VARCHAR(50),"
-                        + "Location VARCHAR(50),"
-                        + "PRIMARY KEY (ID))";
-        statementEquipment.execute(dropRequest);
-        statementEquipment.execute(queryEq);
-      } else {
-        String queryEq =
-                "CREATE TABLE MedicalEquipment ( "
-                        + "ID VARCHAR(50),"
-                        + "Type VARCHAR(50),"
-                        + "Clean VARCHAR(50),"
-                        + "Location VARCHAR(50),"
-                        + "PRIMARY KEY (ID))";
-        statementEquipment.execute(queryEq);
-      }
-
-    } catch (SQLException e) {
-      System.out.println("Connection failed. Check output console.");
-      e.printStackTrace();
+    //Tries to get a connection
+    if(DBconnection.getConnection() == null){
+      System.out.println("Connection has failed.");
       return;
     }
+
     System.out.println("Apache Derby connection established!");
 
   }
@@ -152,7 +75,7 @@ public class Adb {
 
   /**
    * Get instance of Medical Equipment Table
-   * @return a singleton of a Medical Equipment Table
+   * @return a singleton of a MedicalEquipment Table
    */
   public static MedicalEquipmentTable getMedicalEquipmentTableInstance() {
     if (medicalEquipmentTable == null) {
@@ -180,7 +103,7 @@ public class Adb {
 
   /**
    * Get instance of Employee Table
-   * @return a singleton of a Employee Table
+   * @return a singleton of an Employee Table
    */
   public static EmployeeTable getEmployeeTableInstance() {
     if (employeeTable == null) {
@@ -198,7 +121,7 @@ public class Adb {
   /**
    * Adds a request to the request database table.
    *
-   * @param request
+   * @param request new Request
    * @return True if successful, false if not.
    */
   public static boolean addRequest(Request request) {
@@ -208,7 +131,7 @@ public class Adb {
   /**
    * Removes a request from the request database table.
    *
-   * @param name
+   * @param name Request name
    * @return True if successful, false if not.
    */
   public static boolean removeRequest(String name) {
@@ -218,7 +141,7 @@ public class Adb {
   /**
    * Updates different attributes for a request in the table.
    *
-   * @param request
+   * @param request updated Request
    * @return True if successful, false if not.
    */
   public static boolean updateRequest(Request request) {
@@ -238,7 +161,7 @@ public class Adb {
   /**
    * Deletes a location from the locations table.
    *
-   * @param nodeID
+   * @param nodeID Location id
    * @return True if successful, false if not
    */
   public static boolean deleteLocation(String nodeID) {
@@ -247,7 +170,7 @@ public class Adb {
 
   /**
    * Updates a location on the table with updated attributes.
-   * @param location
+   * @param location updated Location
    * @return True if successful, false if not
    */
   public static boolean updateLocation(Location location) {
@@ -256,7 +179,7 @@ public class Adb {
 
   /**
    * Adds one medical equipment to the medical equipment table.
-   * @param medicalEquip
+   * @param medicalEquip new MedicalEquip
    * @return True if successful, false if not
    */
   public static boolean addMedicalEquipment(MedicalEquip medicalEquip){
@@ -265,7 +188,7 @@ public class Adb {
 
   /**
    * Deletes one medical equipment from the medical equipment table
-   * @param ID
+   * @param ID MedicalEquip id
    * @return True if successful, false if not
    */
   public static boolean removeMedicalEquipment(String ID){
@@ -274,7 +197,7 @@ public class Adb {
 
   /**
    * Updates one medical equipment in the medical equipment table
-   * @param medicalEquip
+   * @param medicalEquip updated MedicalEquip
    * @return True if successful, false if not
    */
   public static boolean updateMedicalEquipment(MedicalEquip medicalEquip){
@@ -283,7 +206,7 @@ public class Adb {
 
   /**
    * Adds a new employee to the employee table
-   * @param employee
+   * @param employee Employee name
    * @return True if successful, false if not
    */
   public static boolean addEmployee(Employee employee){
@@ -292,7 +215,7 @@ public class Adb {
 
   /**
    * Removes an employee from the employee table
-   * @param name
+   * @param name Employee name
    * @return True if successful, false if not
    */
   public static boolean removeEmployee(String name){
@@ -301,7 +224,7 @@ public class Adb {
 
   /**
    * Updates an employee's information in the employee table
-   * @param employee
+   * @param employee updated Employee
    * @return True if successful, false if not
    */
   public static boolean updateEmployee(Employee employee){
@@ -309,7 +232,7 @@ public class Adb {
   }
 
 
-  /**
+  /*/**
    * Checks if table exists.
    *
    * @param conn  Connection
@@ -317,7 +240,8 @@ public class Adb {
    * @return True if it exists, false if not
    * @throws SQLException
    */
-  private boolean tableExist(Connection conn, String tName) throws SQLException {
+  /*private boolean tableExist(Connection conn, String tName) throws SQLException{
+  }
     boolean tExists = false;
     try {
       DatabaseMetaData metaData = conn.getMetaData();
@@ -333,6 +257,6 @@ public class Adb {
       e.printStackTrace();
     }
     return tExists;
-  }
+  }*/
 
 }

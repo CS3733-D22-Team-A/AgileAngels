@@ -18,14 +18,17 @@ public class MedicalEquipmentTable implements TableI {
             PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
             preparedStatement.setString(1, medE.getID());
             preparedStatement.setString(2, medE.getType());
-            preparedStatement.setString(3, "Clean");
+            if(medE.isClean()){
+                preparedStatement.setString(3, "Clean");
+            }else{
+                preparedStatement.setString(3, "Dirty");
+            }
             preparedStatement.setString(4, medE.getLocation());
             preparedStatement.execute();
             return true;
         } catch (SQLException e) {
             return false;
         }
-
     }
 
     @Override
