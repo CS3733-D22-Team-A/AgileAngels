@@ -7,7 +7,7 @@ import edu.wpi.agileAngels.Database.Request;
 import java.util.HashMap;
 import javafx.event.ActionEvent;
 
-public class RequestNode {
+public class RequestNode extends Node {
 
   private Request request;
   private Location location;
@@ -50,6 +50,10 @@ public class RequestNode {
 
   public Location getLocation() {
     return this.location;
+  }
+
+  public String getFloor() {
+    return this.location.getFloor();
   }
 
   public void setLocation(Location location) {

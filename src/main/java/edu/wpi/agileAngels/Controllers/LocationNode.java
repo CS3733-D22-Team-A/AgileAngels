@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import edu.wpi.agileAngels.Database.Location;
 import javafx.event.ActionEvent;
 
-public class LocationNode {
+public class LocationNode extends Node {
 
   private Location location;
   private LocationNodeManager locationNodeManager;

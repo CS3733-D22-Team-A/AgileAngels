@@ -5,7 +5,7 @@ import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class LocationNodeManager {
+public class LocationNodeManager extends NodeManager {
 
   private MapsController mapsController;
   private LocationDAOImpl locationDAO = new LocationDAOImpl();

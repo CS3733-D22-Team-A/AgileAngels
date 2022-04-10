@@ -183,19 +183,19 @@ public class MapsController extends MainController implements Initializable {
   /**
    * Adds the button for a node to the pane corresponding to its floor
    *
-   * @param locationNode the node whose button is added to a pane
+   * @param node the node whose button is added to a pane
    */
-  public void displayNode(LocationNode locationNode) {
-    if (locationNode.getFloor().equals("1")) {
-      pane1.getChildren().add(locationNode.getButton());
-    } else if (locationNode.getFloor().equals("2")) {
-      pane2.getChildren().add(locationNode.getButton());
-    } else if (locationNode.getFloor().equals("3")) {
-      pane3.getChildren().add(locationNode.getButton());
-    } else if (locationNode.getFloor().equals("L1")) {
-      paneL1.getChildren().add(locationNode.getButton());
-    } else if (locationNode.getFloor().equals("L2")) {
-      paneL2.getChildren().add(locationNode.getButton());
+  public void displayNode(Node node) {
+    if (node.getFloor().equals("1")) {
+      pane1.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("2")) {
+      pane2.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("3")) {
+      pane3.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("L1")) {
+      paneL1.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("L2")) {
+      paneL2.getChildren().add(node.getButton());
     }
   }
 

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RequestNodeManager {
+public class RequestNodeManager extends NodeManager {
 
   private MapsController mapsController;
   private HashMap<String, Request> requestsHash = new HashMap<>();
@@ -17,7 +17,7 @@ public class RequestNodeManager {
   private int[][] typeCounts = new int[5][5];
   private HashMap<String, Integer> floorsAndTypes = new HashMap<>();
   private LocationDAOImpl locationDAO = new LocationDAOImpl();
-  HashMap<String, Location> locationsHash = new HashMap<>();
+  private HashMap<String, Location> locationsHash = new HashMap<>();
 
   public RequestNodeManager(MapsController mapsController) throws SQLException {
     this.mapsController = mapsController;
@@ -56,7 +56,7 @@ public class RequestNodeManager {
       typeCounts[floorsAndTypes.get(request.getRequestType())][
               floorsAndTypes.get(locationsHash.get(request.getLocation()))] +=
           1;
-      // mapsController.displayNode(addNode(request));
+      mapsController.displayNode(addNode(request));
     }
   }
 
