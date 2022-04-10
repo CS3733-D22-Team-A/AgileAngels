@@ -52,7 +52,11 @@ public class MedicalEquipmentTable implements TableI {
       String update = "UPDATE MedicalEquipment SET Type = ?, Clean = ?, Location = ? WHERE = ?";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(update);
       preparedStatement.setString(1, medE.getType());
-      preparedStatement.setString(2, "Clean");
+      if (medE.isClean()) {
+        preparedStatement.setString(2, "Clean");
+      } else {
+        preparedStatement.setString(2, "Dirty");
+      }
       preparedStatement.setString(3, medE.getLocation());
       preparedStatement.setString(4, medE.getID());
       return true;
