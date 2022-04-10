@@ -1,14 +1,15 @@
 package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.Location;
+import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import edu.wpi.agileAngels.Database.Request;
 import edu.wpi.agileAngels.Database.RequestDAOImpl;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -23,13 +24,14 @@ import javafx.scene.layout.Pane;
 public class EquipmentController extends MainController implements Initializable {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
-  @FXML
-  private TextField equipLocation, equipmentEmployeeText, equipmentStatus, deleteName, editRequest;
+  @FXML private TextField equipmentEmployeeText, equipmentStatus, deleteName, editRequest;
   @FXML private Label equipmentConfirmation, dropdownButtonText;
   @FXML private TableView equipmentTable;
   @FXML Button clear;
   @FXML Pane drop, drop2;
+  @FXML MenuButton equipLocation;
 
+  private LocationDAOImpl locationDAO = new LocationDAOImpl();
   private RequestDAOImpl MedrequestImpl =
       RequestDAOImpl.getInstance("MedRequest"); // instance of RequestDAOImpl to access functions
   // only way to update the UI is ObservableList
@@ -49,6 +51,14 @@ public class EquipmentController extends MainController implements Initializable
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
+    HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
+    ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
+    for (Location loc : locationsList) {
+      MenuItem item = new MenuItem(loc.getLongName());
+      item.setOnAction(this::locationMenu);
+      equipLocation.getItems().add(item);
+    }
 
     // connection = DBconnection.getConnection();
 
@@ -189,5 +199,11 @@ public class EquipmentController extends MainController implements Initializable
 
       equipmentTable.setItems(medData);
     }
+  }
+
+  @FXML
+  public void locationMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    equipLocation.setText(button.getText());
   }
 }
