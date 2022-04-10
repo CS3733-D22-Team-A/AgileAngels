@@ -28,6 +28,7 @@ public class LoginController extends MainController implements Initializable {
     employeeManager.addEmployee("Administrator", "Admin", "Admin");
     employeeManager.addEmployee("Nurse", "Nurse", "Nurse");
     employeeManager.addEmployee("Justin", "Justin", "Password");
+    employeeManager.addEmployee("Staff", "Staff", "Staff");
   }
 
   /**
