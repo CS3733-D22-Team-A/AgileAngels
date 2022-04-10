@@ -6,31 +6,29 @@ import java.sql.Statement;
 import java.util.List;
 
 public class EmployeeTable implements TableI {
-
     /**
      * Adds a new Employee to the employee table.
      * @param obj Employee
      * @return True if successful, false if not
      */
-	@Override
-	public boolean add(Object obj) {
-		try {
-			if(!(obj instanceof Employee)){
-				return false;
-			}
-			Employee emp = (Employee) obj;
-			String add =
-					"INSERT INTO Employees(name, requests)VALUES(?,?)";
-			PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
-			preparedStatement.setString(1, emp.getName());
-			//TODO modify to allow the storage of all requests into a column
-			preparedStatement.setString(2, emp.getRequests());
-			preparedStatement.execute();
-			return true;
-		}catch(SQLException sqlException){
-			return false;
-		}
-	}
+  @Override
+  public boolean add(Object obj) {
+    try {
+      if (!(obj instanceof Employee)) {
+        return false;
+      }
+      Employee emp = (Employee) obj;
+      String add = "INSERT INTO Employees(name, requests)VALUES(?,?)";
+      PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
+      preparedStatement.setString(1, emp.getName());
+      // TODO modify to allow the storage of all requests into a column
+      preparedStatement.setString(2, emp.requestsToString());
+      preparedStatement.execute();
+      return true;
+    } catch (SQLException sqlException) {
+      return false;
+    }
+  }
 
     /**
      * Deletes an employee from the employee table
@@ -55,23 +53,24 @@ public class EmployeeTable implements TableI {
      * @param obj updated Employee
      * @return True if successful, false if not
      */
-    @Override
-    public boolean update (Object obj){
-        try {
-            if (!(obj instanceof Employee)) {
-                return false;
-            }
-            Employee emp = (Employees) obj;
-            PreparedStatement preparedStatement =
-                    DBconnection.getConnection().prepareStatement("UPDATE RequestTable SET requests = ? WHERE name = ?");
-            preparedStatement.setString(1, emp.getRequests());
-            preparedStatement.setString(2, emp.getName());
-            preparedStatement.execute();
-            return true;
-        } catch (SQLException sqlException) {
-            return false;
-        }
+  @Override
+  public boolean update(Object obj) {
+    try {
+      if (!(obj instanceof Employee)) {
+        return false;
+      }
+      Employee emp = (Employee) obj;
+      PreparedStatement preparedStatement =
+          DBconnection.getConnection()
+              .prepareStatement("UPDATE RequestTable SET requests = ? WHERE name = ?");
+      preparedStatement.setString(1, emp.requestsToString());
+      preparedStatement.setString(2, emp.getName());
+      preparedStatement.execute();
+      return true;
+    } catch (SQLException sqlException) {
+      return false;
     }
+  }
 
     /**
      * Creates a new employee table

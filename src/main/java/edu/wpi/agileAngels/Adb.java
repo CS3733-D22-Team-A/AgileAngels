@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels;
 
 import edu.wpi.agileAngels.Database.*;
-
 import java.sql.*;
 
 // This class is the backend of the DAO method.
@@ -15,6 +14,7 @@ public class Adb {
 
   /**
    * Creates database tables if they do not exist already.
+   *
    * @throws SQLException
    */
   public void initialize() throws SQLException {
@@ -29,7 +29,7 @@ public class Adb {
       System.out.println("File | Project Structure, Modules, Dependency tab");
       System.out.println("Add by clicking on the green plus icon on the right of the window");
       System.out.println(
-              "Select JARs or directories. Go to the folder where the database JAR is located");
+          "Select JARs or directories. Go to the folder where the database JAR is located");
       System.out.println("Click OK, now you can compile your program and run it.");
       e.printStackTrace();
       return;
@@ -37,30 +37,30 @@ public class Adb {
 
     System.out.println("Apache Derby driver registered!");
 
-    //Create instances of all database table managers
+    // Create instances of all database table managers
     locationsTable = getLocationsTableInstance();
     medicalEquipmentTable = getMedicalEquipmentTableInstance();
     serviceRequestTable = getServiceRequestTableInstance();
     employeeTable = getEmployeeTableInstance();
 
-    //Create all database tables
+    // Create all database tables
     locationsTable.createTable();
     medicalEquipmentTable.createTable();
     serviceRequestTable.createTable();
     employeeTable.createTable();
 
-    //Tries to get a connection
-    if(DBconnection.getConnection() == null){
+    // Tries to get a connection
+    if (DBconnection.getConnection() == null) {
       System.out.println("Connection has failed.");
       return;
     }
 
     System.out.println("Apache Derby connection established!");
-
   }
 
   /**
    * Get instance of location Table
+   *
    * @return a singleton of a Locations Table
    */
   public static LocationsTable getLocationsTableInstance() {
@@ -70,11 +70,11 @@ public class Adb {
       return locationsTable;
     }
     return locationsTable;
-
   }
 
   /**
    * Get instance of Medical Equipment Table
+   *
    * @return a singleton of a MedicalEquipment Table
    */
   public static MedicalEquipmentTable getMedicalEquipmentTableInstance() {
@@ -84,11 +84,11 @@ public class Adb {
       return medicalEquipmentTable;
     }
     return medicalEquipmentTable;
-
   }
 
   /**
    * Get instance of Service Request Table
+   *
    * @return a singleton of a Service Request Table
    */
   public static ServiceRequestTable getServiceRequestTableInstance() {
@@ -98,11 +98,11 @@ public class Adb {
       return serviceRequestTable;
     }
     return serviceRequestTable;
-
   }
 
   /**
    * Get instance of Employee Table
+   *
    * @return a singleton of an Employee Table
    */
   public static EmployeeTable getEmployeeTableInstance() {
@@ -112,11 +112,7 @@ public class Adb {
       return employeeTable;
     }
     return employeeTable;
-
   }
-
-
-
 
   /**
    * Adds a request to the request database table.
@@ -170,6 +166,7 @@ public class Adb {
 
   /**
    * Updates a location on the table with updated attributes.
+   *
    * @param location updated Location
    * @return True if successful, false if not
    */
@@ -179,58 +176,67 @@ public class Adb {
 
   /**
    * Adds one medical equipment to the medical equipment table.
+   *
    * @param medicalEquip new MedicalEquip
    * @return True if successful, false if not
    */
-  public static boolean addMedicalEquipment(MedicalEquip medicalEquip){
+  public static boolean addMedicalEquipment(MedicalEquip medicalEquip) {
     return medicalEquipmentTable.add(medicalEquip);
   }
 
   /**
    * Deletes one medical equipment from the medical equipment table
+   *
    * @param ID MedicalEquip id
    * @return True if successful, false if not
    */
-  public static boolean removeMedicalEquipment(String ID){
+  public static boolean removeMedicalEquipment(String ID) {
     return medicalEquipmentTable.delete(ID);
   }
 
   /**
    * Updates one medical equipment in the medical equipment table
+   *
    * @param medicalEquip updated MedicalEquip
    * @return True if successful, false if not
    */
-  public static boolean updateMedicalEquipment(MedicalEquip medicalEquip){
+  public static boolean updateMedicalEquipment(MedicalEquip medicalEquip) {
     return medicalEquipmentTable.update(medicalEquip);
   }
 
   /**
    * Adds a new employee to the employee table
+   *
    * @param employee Employee name
    * @return True if successful, false if not
    */
-  public static boolean addEmployee(Employee employee){
+  public static boolean addEmployee(Employee employee) {
     return employeeTable.add(employee);
   }
 
   /**
    * Removes an employee from the employee table
+   *
    * @param name Employee name
    * @return True if successful, false if not
    */
-  public static boolean removeEmployee(String name){
+  public static boolean removeEmployee(String name) {
     return employeeTable.delete(name);
   }
 
   /**
    * Updates an employee's information in the employee table
+   *
    * @param employee updated Employee
    * @return True if successful, false if not
    */
-  public static boolean updateEmployee(Employee employee){
+  public static boolean updateEmployee(Employee employee) {
     return employeeTable.update(employee);
   }
 
+  public static boolean updateRequest(Request request, String employeeName, String newName) {
+    return serviceRequestTable.update(request);
+  }
 
   /*/**
    * Checks if table exists.
