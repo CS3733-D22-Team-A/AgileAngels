@@ -3,6 +3,7 @@ package edu.wpi.agileAngels.Controllers;
 import edu.wpi.agileAngels.Database.Location;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,6 +47,9 @@ public class MapsController extends MainController implements Initializable {
   Pane paneL2 = new Pane();
 
   LocationNodeManager locationNodeManager = new LocationNodeManager(this);
+  RequestNodeManager requestNodeManager = new RequestNodeManager(this);
+
+  public MapsController() throws SQLException {}
 
   /**
    * Called on page load, creates panes for each map, adds the images for each map to its pane, and
@@ -78,6 +82,7 @@ public class MapsController extends MainController implements Initializable {
     lowerLevelTwo.setViewOrder(-100);
 
     locationNodeManager.createNodesFromDB();
+    requestNodeManager.createNodesFromDB();
   }
 
   /**
@@ -151,7 +156,7 @@ public class MapsController extends MainController implements Initializable {
     } else if (currentLocationNode.getFloor().equals("L1")) {
       paneL1.getChildren().remove(currentLocationNode.getButton());
     } else if (currentLocationNode.getFloor().equals("L2")) {
-      paneL1.getChildren().remove(currentLocationNode.getButton());
+      paneL2.getChildren().remove(currentLocationNode.getButton());
     }
     locationNodeManager.deleteNode(currentLocationNode.getNodeID());
   }
