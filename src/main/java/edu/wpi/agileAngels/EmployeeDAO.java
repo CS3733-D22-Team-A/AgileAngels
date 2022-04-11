@@ -18,9 +18,7 @@ public interface EmployeeDAO {
 
   void updateEmployeePassword(String userID, String newPW);
 
-  ArrayList<Request> getRequests(String userID);
 
-  void addRequest(String userID, Request newReq);
 
-  void removeRequest(String userID, Request oldReq);
+
 }

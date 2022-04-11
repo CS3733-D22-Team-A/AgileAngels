@@ -3,6 +3,7 @@ package edu.wpi.agileAngels.Controllers;
 import edu.wpi.agileAngels.Database.Employee;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -19,8 +20,11 @@ public class LoginController extends MainController implements Initializable {
   @FXML private Button login;
   @FXML private PasswordField passwordBox;
 
-  private HashMap<String, Employee> employeeHashMap = new HashMap<>();
-  private EmployeeManager employeeManager = new EmployeeManager(employeeHashMap);
+
+  private EmployeeManager employeeManager = EmployeeManager.getInstance();
+
+  public LoginController() throws SQLException {
+  }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {

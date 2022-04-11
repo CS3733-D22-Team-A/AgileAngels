@@ -19,6 +19,7 @@ public class ServiceRequestTable implements TableI {
         return false;
       }
       Request request = (Request) obj;
+      System.out.println("Adding Object " + request.getName());
       String add =
           "INSERT INTO ServiceRequests(Name, EmployeeName, Location, Type, Status, Description, Attribute1, Attribute2) VALUES(?,?,?,?,?,?,?,?)";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);

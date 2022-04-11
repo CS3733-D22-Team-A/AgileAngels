@@ -116,7 +116,7 @@ public class DatabaseTests {
     Adb.removeEmployee(Martha.getName());
 
     // Update
-    Emily.addRequest(new Request("R1", Emily, loc, "", "", "", "", ""));
+
     Adb.updateEmployee(Emily);
   }
 }

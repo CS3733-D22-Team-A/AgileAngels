@@ -6,12 +6,10 @@ public class Employee {
 
   private String name;
   private String password;
-  private final ArrayList<Request> requests;
 
   public Employee(String name, String password, ArrayList<Request> requests) {
     this.name = name;
     this.password = password;
-    this.requests = requests;
   }
 
   public String getName() {
@@ -30,24 +28,4 @@ public class Employee {
     this.password = pass;
   }
 
-  public ArrayList<Request> getRequests() {
-    return this.requests;
-  }
-
-  public void addRequest(Request newReq) {
-    this.requests.add(newReq);
-  }
-
-  public void removeRequest(Request oldReq) {
-    this.requests.remove(oldReq);
-  }
-
-  public String requestsToString() {
-    String ret = " ";
-    for (int i = 0; i < getRequests().size(); i++) {
-      Request request = getRequests().get(i);
-      ret = ret + request.getName();
-    }
-    return ret;
-  }
 }

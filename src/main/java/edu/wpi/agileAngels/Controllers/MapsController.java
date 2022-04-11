@@ -3,6 +3,7 @@ package edu.wpi.agileAngels.Controllers;
 import edu.wpi.agileAngels.Database.Location;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,6 +48,9 @@ public class MapsController extends MainController implements Initializable {
   Pane paneL2 = new Pane();
 
   NodeManager nodeManager = new NodeManager(this);
+
+  public MapsController() throws SQLException {
+  }
 
   /**
    * Called on page load, creates panes for each map, adds the images for each map to its pane, and

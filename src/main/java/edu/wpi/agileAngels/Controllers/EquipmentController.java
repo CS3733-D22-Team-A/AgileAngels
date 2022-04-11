@@ -29,9 +29,8 @@ public class EquipmentController extends MainController implements Initializable
   @FXML private TableView equipmentTable;
   @FXML Button clear;
   @FXML Pane drop, drop2;
-  private LocationDAOImpl locDAO = new LocationDAOImpl();
-  private HashMap<String, Employee> employeeHashMap = new HashMap<>();
-  private EmployeeManager empDAO = new EmployeeManager(employeeHashMap);
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance()
+  private EmployeeManager empDAO = EmployeeManager.getInstance();
   private RequestDAOImpl MedrequestImpl =
       RequestDAOImpl.getInstance("MedRequest"); // instance of RequestDAOImpl to access functions
   // only way to update the UI is ObservableList

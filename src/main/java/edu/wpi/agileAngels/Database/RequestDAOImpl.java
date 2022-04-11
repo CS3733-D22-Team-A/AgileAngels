@@ -5,6 +5,7 @@ import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import java.io.*;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map;
 
 // Implementation of RequestDAO
 public class RequestDAOImpl implements RequestDAO {
@@ -16,9 +17,10 @@ public class RequestDAOImpl implements RequestDAO {
   private static RequestDAOImpl MedrequestImpl = null;
   private static RequestDAOImpl LabrequestImpl = null;
   private static EmployeeManager empManager = null;
-  private LocationDAOImpl locDAO = new LocationDAOImpl();
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private static String DAOtype = null;
   private static RequestDAOImpl requestDAO;
+
 
   public RequestDAOImpl(
       String CSV_FILE_PATH, HashMap<String, Request> reqData, int count, String type)
@@ -107,7 +109,6 @@ public class RequestDAOImpl implements RequestDAO {
         if (OnHeader) {
           String[] values = line.split(splitBy);
           this.typeofDAO(values);
-          System.out.println(values[0]);
         } else {
           OnHeader = true;
         }
@@ -121,11 +122,12 @@ public class RequestDAOImpl implements RequestDAO {
   // UHHHH fix this
   private void typeofDAO(String[] values) throws SQLException {
     ++this.count;
+
     Request request =
         new Request(
             values[0],
-            empManager.getEmployee(values[1]),
-            locDAO.getLocation(values[2]),
+                findEmployee(values[1]),
+                findLocation(values[2]),
             values[3],
             values[4],
             values[5],
@@ -133,5 +135,20 @@ public class RequestDAOImpl implements RequestDAO {
             values[7]);
     this.reqData.put(values[0], request);
     Adb.addRequest(request);
+  }
+
+  private Employee findEmployee(String value ) throws SQLException {
+    Employee employee;
+    HashMap<String, Employee> employeeData =EmployeeManager.getInstance().getAllEmployees();
+    employee = employeeData.get(value);
+    return employee;
+  }
+
+  private Location findLocation(String value){
+    Location location;
+    HashMap<String, Location> locationData = locDAO.getAllLocations();
+    location = locationData.get(value);
+    return location;
+
   }
 }

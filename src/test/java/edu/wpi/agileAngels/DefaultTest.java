@@ -9,9 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import edu.wpi.agileAngels.Controllers.LoginController;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
+
 public class DefaultTest {
 
   LoginController dansLController = new LoginController();
+
+  public DefaultTest() throws SQLException {
+  }
 
   @Test
   public void test() {}
