@@ -25,15 +25,17 @@ public class RequestNode extends Node {
 
     button.setLayoutX((this.location.getXCoord() - 800) / 5);
     button.setLayoutY((this.location.getYCoord() - 350) / 5);
-    button.setText(String.valueOf(request.getRequestType()));
+    button.setText(String.valueOf(request.getName().charAt(0)));
     button.setOnAction(
         (ActionEvent event2) -> {
           isClicked();
         });
 
+    button.setStyle("-fx-background-color: #6a78fc; ");
+
     // set the circle color to coordinate with the node type
     // if(this.getNodeType() == "Test") {
-    button.setId("blue"); // this ID will be used in the CSS file to style the button
+    // button.setId("blue"); // this ID will be used in the CSS file to style the button
     // }
 
   }

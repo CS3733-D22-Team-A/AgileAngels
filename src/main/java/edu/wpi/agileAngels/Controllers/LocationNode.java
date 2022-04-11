@@ -24,7 +24,7 @@ public class LocationNode extends Node {
 
     // set the circle color to coordinate with the node type
     // if(this.getNodeType() == "Test") {
-    button.setId("blue"); // this ID will be used in the CSS file to style the button
+    // button.setId("blue"); // this ID will be used in the CSS file to style the button
     // }
 
   }
