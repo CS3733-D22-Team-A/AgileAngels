@@ -128,7 +128,7 @@ public class Adb {
                   "INSERT INTO RequestTable(Name, Available, EmployeeName, Location, Type, Status, Description, Attribute1, Attribute2) VALUES(?,?,?,?,?,?,?, ?,?)");
       preparedStatement.setString(1, request.getName());
       preparedStatement.setString(2, request.getAttribute1());
-      preparedStatement.setString(3, request.getEmployee());
+      preparedStatement.setObject(3, request.getEmployee());
       preparedStatement.setObject(4, request.getLocation());
       preparedStatement.setString(5, request.getType());
       preparedStatement.setString(6, request.getStatus());
@@ -139,7 +139,7 @@ public class Adb {
     } catch (SQLException sqlException) {
       return false;
     }
-    return serviceRequestTable.add(request);
+    //  return serviceRequestTable.add(request);
   }
 
   /**

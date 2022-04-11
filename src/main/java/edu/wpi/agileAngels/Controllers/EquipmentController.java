@@ -1,9 +1,9 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Request;
-import edu.wpi.agileAngels.Database.RequestDAOImpl;
+import edu.wpi.agileAngels.Database.*;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -30,6 +30,8 @@ public class EquipmentController extends MainController implements Initializable
   @FXML Button clear;
   @FXML Pane drop, drop2;
   private LocationDAOImpl locDAO = new LocationDAOImpl();
+  private HashMap<String, Employee> employeeHashMap = new HashMap<>();
+  private EmployeeManager empDAO = new EmployeeManager(employeeHashMap);
   private RequestDAOImpl MedrequestImpl =
       RequestDAOImpl.getInstance("MedRequest"); // instance of RequestDAOImpl to access functions
   // only way to update the UI is ObservableList
@@ -131,7 +133,7 @@ public class EquipmentController extends MainController implements Initializable
     Request medDevice =
         new Request(
             placeholder,
-            employeeString,
+            empDAO.getEmployee(employeeString),
             locDAO.getLocation(locationString),
             dropDownString,
             statusString,
@@ -189,7 +191,7 @@ public class EquipmentController extends MainController implements Initializable
       }
       if (!employeeString.isEmpty()) {
         // String employee = emp.getText();
-        found.setEmployee(employeeString);
+        found.setEmployee(empDAO.getEmployee(employeeString));
         MedrequestImpl.updateEmployeeName(found, employeeString);
       }
       if (!statusString.isEmpty()) {

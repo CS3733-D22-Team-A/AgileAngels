@@ -1,11 +1,12 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Request;
-import edu.wpi.agileAngels.Database.RequestDAOImpl;
+import edu.wpi.agileAngels.Database.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,7 +20,10 @@ public class MealController extends MainController {
   @FXML Pane drop, drop2;
 
   private RequestDAOImpl mealDAO;
+  private ObservableList mealList = FXCollections.observableArrayList();
   LocationDAOImpl locDAO = new LocationDAOImpl();
+  private HashMap<String, Employee> employeeHashMap = new HashMap<>();
+  private EmployeeManager empDAO = new EmployeeManager(employeeHashMap);
 
   public void initialize(URL location, ResourceBundle resources) throws SQLException {
     HashMap<String, Request> mealData = new HashMap<String, Request>();
@@ -29,10 +33,12 @@ public class MealController extends MainController {
   @FXML
   private void submitMeal() {
     String dropDown = dropdownButtonText.getText();
-    String loc = roomInput.getText();
-    String emp = mealEmployeeText.getText();
+    String location = roomInput.getText();
+    Location loc = locDAO.getLocation(location);
+    String employee = mealEmployeeText.getText();
+    Employee emp = empDAO.getEmployee(employee);
     String status = mealStatus.getText();
-    String restr = restrictions.getText();
+    // String restrictions = restrictions.getText();
     if (dropdownButtonText.getText().isEmpty()
         || roomInput.getText().isEmpty()
         || dropdownButtonText.getText().isEmpty()) {
@@ -51,7 +57,7 @@ public class MealController extends MainController {
       Request request =
           new Request(
               "",
-              mealEmployeeText.getText(),
+              empDAO.getEmployee(mealEmployeeText.getText()),
               locDAO.getLocation(roomInput.getText()),
               dropdownButtonText.getText(),
               mealStatus.getText(),
@@ -59,9 +65,8 @@ public class MealController extends MainController {
               "",
               "");
       mealDAO.addRequest(request);
-              + restr);
-      Request request = new Request("", emp, loc, dropDown, status, restr, "", "");
-      // mealDAO.addRequest(request);
+      mealList.add(request);
+      // add table
     }
   }
 

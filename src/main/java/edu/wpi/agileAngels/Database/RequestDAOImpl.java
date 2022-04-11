@@ -1,6 +1,7 @@
 package edu.wpi.agileAngels.Database;
 
 import edu.wpi.agileAngels.Adb;
+import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import java.io.*;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -10,10 +11,11 @@ public class RequestDAOImpl implements RequestDAO {
   private String CSV_FILE_PATH;
   private HashMap<String, Request> reqData = new HashMap();
   private int count;
-  private String DAOtype;
+  // private String DAOtype;
 
   private static RequestDAOImpl MedrequestImpl = null;
   private static RequestDAOImpl LabrequestImpl = null;
+  private static EmployeeManager empManager = null;
   private LocationDAOImpl locDAO = new LocationDAOImpl();
   private static String DAOtype = null;
   private static RequestDAOImpl requestDAO;
@@ -43,7 +45,7 @@ public class RequestDAOImpl implements RequestDAO {
   }
 
   public void updateEmployeeName(Request request, String newName) {
-    request.setEmployee(newName);
+    request.setEmployee(empManager.getEmployee(newName));
     Adb.updateRequest(request, "EmployeeName", newName);
   }
 
@@ -122,7 +124,7 @@ public class RequestDAOImpl implements RequestDAO {
     Request request =
         new Request(
             values[0],
-            values[1],
+            empManager.getEmployee(values[1]),
             locDAO.getLocation(values[2]),
             values[3],
             values[4],
