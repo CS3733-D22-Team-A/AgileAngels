@@ -5,7 +5,7 @@ import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class LocationNodeManager extends NodeManager {
+public class LocationNodeManager {
 
   private MapsController mapsController;
   private LocationDAOImpl locationDAO = new LocationDAOImpl();
@@ -61,7 +61,7 @@ public class LocationNodeManager extends NodeManager {
       typeCounts[floorsAndTypes.get(location.getNodeType())][
               floorsAndTypes.get(location.getFloor())] +=
           1;
-      mapsController.displayNode(addNode(location));
+      mapsController.displayLocationNode(addNode(location));
     }
   }
 
@@ -80,13 +80,13 @@ public class LocationNodeManager extends NodeManager {
     return locationNode;
   }
 
-  void editNode(LocationNode locationNode, Double xCoord, Double yCoord, String longName, String type) {
+  void editNode(
+      LocationNode locationNode, Double xCoord, Double yCoord, String longName, String type) {
     // edit the corresponding location in the backend
     locationDAO.updateLocationXCoord(locationNode.getLocation(), xCoord);
     locationDAO.updateLocationYCoord(locationNode.getLocation(), yCoord);
     locationDAO.updateLocationLongName(locationNode.getLocation(), longName);
     locationDAO.updateLocationType(locationNode.getLocation(), type);
-
   }
 
   // gets called on button press and gets the node data

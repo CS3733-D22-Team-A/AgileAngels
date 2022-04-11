@@ -139,7 +139,7 @@ public class MapsController extends MainController implements Initializable {
             typeField.getText(),
             nameField.getText(),
             nodeID);
-    displayNode(locationNodeManager.addNode(newLocation));
+    displayLocationNode(locationNodeManager.addNode(newLocation));
   }
 
   /**
@@ -159,7 +159,7 @@ public class MapsController extends MainController implements Initializable {
     currentLocationNode.changeLocationType(type);
     currentLocationNode.resetLocation();
     currentLocationNode = null;
-    locationNodeManager.editNode(currentLocationNode, xCoord, yCoord, name,  type);
+    locationNodeManager.editNode(currentLocationNode, xCoord, yCoord, name, type);
   }
 
   /**
@@ -207,11 +207,30 @@ public class MapsController extends MainController implements Initializable {
   }
 
   /**
-   * Adds the button for a node to the pane corresponding to its floor
+   * Adds the button for a location node to the pane corresponding to its floor
    *
    * @param node the node whose button is added to a pane
    */
-  public void displayNode(Node node) {
+  public void displayLocationNode(LocationNode node) {
+    if (node.getFloor().equals("1")) {
+      pane1.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("2")) {
+      pane2.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("3")) {
+      pane3.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("L1")) {
+      paneL1.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("L2")) {
+      paneL2.getChildren().add(node.getButton());
+    }
+  }
+
+  /**
+   * Adds the button for a request node to the pane corresponding to its floor
+   *
+   * @param node the node whose button is added to a pane
+   */
+  public void displayRequestNode(RequestNode node) {
     if (node.getFloor().equals("1")) {
       pane1.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("2")) {
