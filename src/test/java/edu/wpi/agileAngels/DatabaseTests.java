@@ -46,6 +46,7 @@ public class DatabaseTests {
 
   public static void testServiceRequestsTable() {
     ArrayList testAL = new ArrayList();
+
     Location loc = new Location("abc15", 130, 234, "1", "A", "d", "the Hallway", "the Hall");
     Employee dummy = new Employee("Matha", "atham", testAL);
     Request r1 = new Request("R1", dummy, loc, "MED", "Complete", "Descr.", "Available", "N/A");
@@ -87,7 +88,7 @@ public class DatabaseTests {
     Adb.removeLocation("Room 36");
 
     // Update
-    loc3.setYCoord(80.2);
+    loc3.setYCoord(-1.0);
     Adb.updateLocation(loc3);
   }
 

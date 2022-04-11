@@ -50,6 +50,7 @@ public class Adb {
     employeeTable.createTable();
 
     // Tries to get a connection
+
     if (DBconnection.getConnection() == null) {
       System.out.println("Connection has failed.");
       return;
@@ -95,7 +96,6 @@ public class Adb {
     if (serviceRequestTable == null) {
 
       serviceRequestTable = new ServiceRequestTable();
-      return serviceRequestTable;
     }
     return serviceRequestTable;
   }
@@ -109,7 +109,6 @@ public class Adb {
     if (employeeTable == null) {
 
       employeeTable = new EmployeeTable();
-      return employeeTable;
     }
     return employeeTable;
   }
@@ -121,26 +120,9 @@ public class Adb {
    * @return True if successful, false if not.
    */
   public static boolean addRequest(Request request) {
-    try {
-      PreparedStatement preparedStatement =
-          DBconnection.getConnection()
-              .prepareStatement(
-                  "INSERT INTO RequestTable(Name, Available, EmployeeName, Location, Type, Status, Description, Attribute1, Attribute2) VALUES(?,?,?,?,?,?,?, ?,?)");
-      preparedStatement.setString(1, request.getName());
-      preparedStatement.setString(2, request.getAttribute1());
-      preparedStatement.setObject(3, request.getEmployee());
-      preparedStatement.setObject(4, request.getLocation());
-      preparedStatement.setString(5, request.getType());
-      preparedStatement.setString(6, request.getStatus());
-      preparedStatement.setString(7, request.getDescription());
-      preparedStatement.setString(8, request.getAttribute2());
-      preparedStatement.execute();
-      return true;
-    } catch (SQLException sqlException) {
-      return false;
-    }
-    //  return serviceRequestTable.add(request);
+    return serviceRequestTable.add(request);
   }
+  //  return serviceRequestTable.add(request)
 
   /**
    * Removes a request from the request database table.
@@ -152,22 +134,6 @@ public class Adb {
     return serviceRequestTable.delete(name);
   }
 
-  /**
-   * Allows the user to change the floor and location type.
-   *
-   * @param ID the node string ID to check if location is present in the map
-   * @throws SQLException
-   */
-  private void ChangeFloorandType(String ID, String newFloor, String newLocation)
-      throws SQLException {
-    PreparedStatement pstmt =
-        DBconnection.getConnection()
-            .prepareStatement("UPDATE Locations SET floor= ?, nodeType = ? WHERE nodeID = ?");
-    pstmt.setString(1, newFloor);
-    pstmt.setString(2, newLocation);
-    pstmt.setString(3, ID);
-    pstmt.executeUpdate();
-  }
   /**
    * Updates different attributes for a request in the table.
    *

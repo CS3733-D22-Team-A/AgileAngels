@@ -23,8 +23,8 @@ public class ServiceRequestTable implements TableI {
           "INSERT INTO ServiceRequests(Name, EmployeeName, Location, Type, Status, Description, Attribute1, Attribute2) VALUES(?,?,?,?,?,?,?,?)";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
       preparedStatement.setString(1, request.getName());
-      preparedStatement.setObject(2, request.getEmployee());
-      preparedStatement.setObject(3, request.getLocation());
+      preparedStatement.setString(2, request.getEmployee().getName());
+      preparedStatement.setString(3, request.getLocation().getLongName());
       preparedStatement.setString(4, request.getType());
       preparedStatement.setString(5, request.getStatus());
       preparedStatement.setString(6, request.getDescription());
