@@ -49,6 +49,7 @@ public class LoginController extends MainController implements Initializable {
     } else {
       invalid.setTextFill(Color.rgb(220, 80, 80));
       invalid.setText("Invalid username or password:\nPlease try again");
+      passwordBox.clear();
     }
 
     /*

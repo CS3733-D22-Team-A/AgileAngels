@@ -8,10 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
@@ -42,6 +39,8 @@ public class MapsController extends MainController implements Initializable {
   @FXML Pane mapPane;
   @FXML AnchorPane anchor;
   @FXML Label floorLabel, nodeIDField;
+  @FXML MenuItem pati, stor, dirt, hall, elev, rest, stai, dept, labs, info, conf, exit, retl, serv;
+  @FXML MenuButton typeDropdown;
 
   Node currentNode = null;
   private String currentFloor = "1";
@@ -100,7 +99,7 @@ public class MapsController extends MainController implements Initializable {
     System.out.println(node.getNodeID());
     nodeIDField.setText(node.getNodeID());
     nameField.setText(node.getName());
-    typeField.setText(node.getNodeType());
+    typeDropdown.setText(node.getNodeType());
     xCoordField.setText(Double.toString(node.getXCoord()));
     yCoordField.setText(Double.toString(node.getYCoord()));
 
@@ -110,11 +109,11 @@ public class MapsController extends MainController implements Initializable {
   @FXML
   private void addNode() throws IOException {
 
-    int typeCount = (nodeManager.getTypeCount(typeField.getText(), currentFloor));
+    int typeCount = (nodeManager.getTypeCount(typeDropdown.getText(), currentFloor));
 
     String nodeID =
         "A"
-            + typeField.getText()
+            + typeDropdown.getText()
             + String.format("%03d", typeCount)
             + ((currentFloor.length() == 1) ? ("0" + currentFloor) : (currentFloor));
 
@@ -125,10 +124,11 @@ public class MapsController extends MainController implements Initializable {
             Double.parseDouble(yCoordField.getText()),
             currentFloor,
             "TOWER",
-            typeField.getText(),
+            typeDropdown.getText(),
             nameField.getText(),
             nodeID);
     displayNode(nodeManager.addNode(newLocation));
+    clearFields();
   }
 
   /**
@@ -141,10 +141,11 @@ public class MapsController extends MainController implements Initializable {
     currentNode.changeLocationXCoord(Double.parseDouble(xCoordField.getText()));
     currentNode.changeLocationYCoord(Double.parseDouble(yCoordField.getText()));
     currentNode.changeLocationName(nameField.getText());
-    currentNode.changeLocationType(typeField.getText());
+    currentNode.changeLocationType(typeDropdown.getText());
     currentNode.resetLocation();
     currentNode = null;
     nodeManager.editNode(currentNode);
+    clearFields();
   }
 
   /**
@@ -165,6 +166,7 @@ public class MapsController extends MainController implements Initializable {
       paneL1.getChildren().remove(currentNode.getButton());
     }
     nodeManager.deleteNode(currentNode.getNodeID());
+    clearFields();
   }
 
   /**
@@ -242,6 +244,19 @@ public class MapsController extends MainController implements Initializable {
       currentFloor = "L2";
       floorLabel.setText("Lower Level 2");
     }
+  }
+
+  void clearFields() {
+    nameField.clear();
+    xCoordField.clear();
+    yCoordField.clear();
+    typeDropdown.setText("");
+    nodeIDField.setText("");
+  }
+
+  public void typeMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    typeDropdown.setText(button.getText());
   }
 
   public void ZoomableMap(ActionEvent event) {
