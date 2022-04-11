@@ -4,6 +4,8 @@ import edu.wpi.agileAngels.Database.Request;
 import edu.wpi.agileAngels.Database.RequestDAOImpl;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class GiftsController extends MainController implements Initializable {
   @FXML
@@ -33,26 +36,40 @@ public class GiftsController extends MainController implements Initializable {
       messageColumn;
   @FXML Button addButton, editButton, deleteButton;
   @FXML private Label giftConfirm;
-  private RequestDAOImpl giftDAO;
-  // TODO make gift table in the UI
+  private RequestDAOImpl GiftrequestImpl =
+          RequestDAOImpl.getInstance("GiftRequest"); // instance of RequestDAOImpl to access functions
   @FXML private TableView giftTable;
+
   private static ObservableList<Request> giftData =
       FXCollections.observableArrayList(); // list of requests
 
-  /*
+
       @Override
       public void initialize(URL location, ResourceBundle resources) {
 
-        HashMap<String, Request> data = new HashMap<>();
-        GiftRequest giftRequest = new GiftRequest("?", "?", "?", "?", "?", "?", "?", "?");
-        data.put("0", giftRequest);
-        try {
-          giftDAO = new RequestDAOImpl("./MedData.csv", data, 0);
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
-      }
+        senderColumn.setCellValueFactory(new PropertyValueFactory<>("sender"));
+        recipientColumn.setCellValueFactory(new PropertyValueFactory<>("recipent"));
+        employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
+        locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        messageColumn.setCellValueFactory(new PropertyValueFactory<>("message"));
 
+        if (giftData.isEmpty()) {
+          System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
+          GiftrequestImpl.csvRead();
+          Iterator var3 = GiftrequestImpl.getAllRequests().entrySet().iterator();
+
+          for (Map.Entry<String, Request> entry : GiftrequestImpl.getAllRequests().entrySet()) {
+            Request req = entry.getValue();
+            giftData.add(req);
+          }
+        }
+
+        giftTable.setItems(giftData);
+      }
+  /*
       @FXML
     //   Submits fields to a Java gifts Request Object
       private void submitGift() {
@@ -177,14 +194,15 @@ public class GiftsController extends MainController implements Initializable {
 
 
   */
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
-    HashMap<String, Request> giftData = new HashMap<>();
+
+ // @Override
+ // public void initialize(URL location, ResourceBundle resources) {
+  //  HashMap<String, Request> giftData = new HashMap<>();
     /**
      * try { giftDAO = new RequestDAOImpl("./GIFT.CSV", giftData, 0); } catch (SQLException e) {
      * e.printStackTrace(); }*
      */
-  }
+ // }
 
   @FXML
   /** Submits fields to a Java gifts Request Object */
