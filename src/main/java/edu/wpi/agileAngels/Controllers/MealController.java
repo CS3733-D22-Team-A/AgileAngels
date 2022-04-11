@@ -23,7 +23,7 @@ public class MealController extends MainController {
 
   public void initialize(URL location, ResourceBundle resources) throws SQLException {
     HashMap<String, Request> mealData = new HashMap<String, Request>();
-    mealDAO = new RequestDAOImpl("./Meal.csv", mealData, 0);
+    // mealDAO = new RequestDAOImpl("./Meal.csv", mealData, 0);
   }
 
   @FXML

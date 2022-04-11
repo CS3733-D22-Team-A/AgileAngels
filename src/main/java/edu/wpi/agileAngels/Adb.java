@@ -1,24 +1,23 @@
 package edu.wpi.agileAngels;
 
-import edu.wpi.agileAngels.Database.DBconnection;
-import edu.wpi.agileAngels.Database.MedicalEquip;
-import edu.wpi.agileAngels.Database.Request;
+import edu.wpi.agileAngels.Database.*;
 import java.sql.*;
 
 // This class is the backend of the DAO method.
 // The objects communicate with the DB here
 // Basically, front end shouldn't directly interact adb, it should interact with DAO classes
 public class Adb {
-  private Connection connection = DBconnection.getConnection();
-  // TODO update elements in the csv
+  private static LocationsTable locationsTable = null;
+  private static MedicalEquipmentTable medicalEquipmentTable = null;
+  private static ServiceRequestTable serviceRequestTable = null;
+  private static EmployeeTable employeeTable = null;
 
   /**
-   * Main: creates the tables if they do not exist already
+   * Creates database tables if they do not exist already.
    *
-   * @param args
    * @throws SQLException
    */
-  public void main(String[] args) throws SQLException {
+  public void initialize() {
 
     // Apache Derby and table creation
     System.out.println("-------Embedded Apache Derby Connection Testing --------");
@@ -38,105 +37,87 @@ public class Adb {
 
     System.out.println("Apache Derby driver registered!");
 
-    Statement statementLocations;
-    Statement statementMedical;
-    try {
+    // Create instances of all database table managers
+    locationsTable = getLocationsTableInstance();
+    medicalEquipmentTable = getMedicalEquipmentTableInstance();
+    serviceRequestTable = getServiceRequestTableInstance();
+    employeeTable = getEmployeeTableInstance();
 
-      statementLocations = connection.createStatement();
+    // Create all database tables
+    locationsTable.createTable();
+    medicalEquipmentTable.createTable();
+    serviceRequestTable.createTable();
+    employeeTable.createTable();
 
-      // If the table exists, the table is dropped and re-created.
-      if (tableExist(connection, "Locations")) {
-        String dropLoc = "DROP TABLE Locations";
-        String queryLocations =
-            "CREATE TABLE Locations( "
-                + "NodeID VARCHAR(50),"
-                + "xcoord VARCHAR(50),"
-                + "ycoord VARCHAR(50),"
-                + "Floor VARCHAR(50),"
-                + "building VARCHAR(50),"
-                + "NodeType VARCHAR(50),"
-                + "longName VARCHAR(50),"
-                + "shortName VARCHAR(50))";
-        statementLocations.execute(dropLoc);
-        statementLocations.execute(queryLocations);
-      } else if (!tableExist(DBconnection.getConnection(), "Locations")) {
-        String queryLocations =
-            "CREATE TABLE Locations( "
-                + "NodeID VARCHAR(50),"
-                + "xcoord VARCHAR(50),"
-                + "ycoord VARCHAR(50),"
-                + "Floor VARCHAR(50),"
-                + "building VARCHAR(50),"
-                + "NodeType VARCHAR(50),"
-                + "longName VARCHAR(50),"
-                + "shortName VARCHAR(50))";
-        statementLocations.execute(queryLocations);
-      }
-
-      statementMedical = DBconnection.getConnection().createStatement();
-      if (tableExist(DBconnection.getConnection(), "RequestTable")) {
-        String dropRequest = "DROP TABLE RequestTable";
-        String queryRequest =
-            "CREATE TABLE RequestTable ( "
-                + "Name VARCHAR(50),"
-                + "Available VARCHAR(50),"
-                + "EmployeeName VARCHAR(50),"
-                + "Location VARCHAR(50),"
-                + "Type VARCHAR(50),"
-                + "Status VARCHAR(50),"
-                + "Description VARCHAR(50),"
-                + "PRIMARY KEY (Name))";
-        statementMedical.execute(dropRequest);
-        statementMedical.execute(queryRequest);
-      } else if (!tableExist(DBconnection.getConnection(), "RequestTable")) {
-        String queryRequest =
-            "CREATE TABLE RequestTable ( "
-                + "Name VARCHAR(50),"
-                + "Available VARCHAR(50),"
-                + "EmployeeName VARCHAR(50),"
-                + "Location VARCHAR(50),"
-                + "Type VARCHAR(50),"
-                + "Status VARCHAR(50),"
-                + "Description VARCHAR(50),"
-                + "PRIMARY KEY (Name))";
-        statementMedical.execute(queryRequest);
-      }
-
-      Statement statementEquipment = DBconnection.getConnection().createStatement();
-      if (tableExist(DBconnection.getConnection(), "MedicalEquipment")) {
-        String dropRequest = "DROP TABLE MedicalEquipment";
-        String queryEq =
-            "CREATE TABLE MedicalEquipment ( "
-                + "ID VARCHAR(50),"
-                + "Type VARCHAR(50),"
-                + "Clean VARCHAR(50),"
-                + "Location VARCHAR(50),"
-                + "PRIMARY KEY (ID))";
-        statementEquipment.execute(dropRequest);
-        statementEquipment.execute(queryEq);
-      } else {
-        String queryEq =
-            "CREATE TABLE MedicalEquipment ( "
-                + "ID VARCHAR(50),"
-                + "Type VARCHAR(50),"
-                + "Clean VARCHAR(50),"
-                + "Location VARCHAR(50),"
-                + "PRIMARY KEY (ID))";
-        statementEquipment.execute(queryEq);
-      }
-
-    } catch (SQLException e) {
-      System.out.println("Connection failed. Check output console.");
-      e.printStackTrace();
+    // Tries to get a connection
+    if (DBconnection.getConnection() == null) {
+      System.out.println("Connection has failed.");
       return;
     }
+
     System.out.println("Apache Derby connection established!");
+  }
+
+  /**
+   * Get instance of location Table
+   *
+   * @return a singleton of a Locations Table
+   */
+  public static LocationsTable getLocationsTableInstance() {
+    if (locationsTable == null) {
+
+      locationsTable = new LocationsTable();
+      return locationsTable;
+    }
+    return locationsTable;
+  }
+
+  /**
+   * Get instance of Medical Equipment Table
+   *
+   * @return a singleton of a MedicalEquipment Table
+   */
+  public static MedicalEquipmentTable getMedicalEquipmentTableInstance() {
+    if (medicalEquipmentTable == null) {
+
+      medicalEquipmentTable = new MedicalEquipmentTable();
+      return medicalEquipmentTable;
+    }
+    return medicalEquipmentTable;
+  }
+
+  /**
+   * Get instance of Service Request Table
+   *
+   * @return a singleton of a Service Request Table
+   */
+  public static ServiceRequestTable getServiceRequestTableInstance() {
+    if (serviceRequestTable == null) {
+
+      serviceRequestTable = new ServiceRequestTable();
+      return serviceRequestTable;
+    }
+    return serviceRequestTable;
+  }
+
+  /**
+   * Get instance of Employee Table
+   *
+   * @return a singleton of an Employee Table
+   */
+  public static EmployeeTable getEmployeeTableInstance() {
+    if (employeeTable == null) {
+
+      employeeTable = new EmployeeTable();
+      return employeeTable;
+    }
+    return employeeTable;
   }
 
   /**
    * Adds a request to the request database table.
    *
-   * @param request
+   * @param request new Request
    * @return True if successful, false if not.
    */
   public static boolean addRequest(Request request) {
@@ -158,24 +139,17 @@ public class Adb {
     } catch (SQLException sqlException) {
       return false;
     }
+    return serviceRequestTable.add(request);
   }
 
   /**
    * Removes a request from the request database table.
    *
-   * @param request
+   * @param name Request name
    * @return True if successful, false if not.
    */
-  public static boolean removeRequest(Request request) {
-    try {
-      PreparedStatement preparedStatement =
-          DBconnection.getConnection().prepareStatement("DELETE FROM RequestTable WHERE Name = ?");
-      preparedStatement.setString(1, request.getName());
-      preparedStatement.execute();
-      return true;
-    } catch (SQLException sqlException) {
-      return false;
-    }
+  public static boolean removeRequest(String name) {
+    return serviceRequestTable.delete(name);
   }
 
   /**
@@ -197,146 +171,104 @@ public class Adb {
   /**
    * Updates different attributes for a request in the table.
    *
-   * @param request, updateAttribute, update
+   * @param request updated Request
    * @return True if successful, false if not.
    */
-  // TODO multiple updates
-  public static boolean updateRequest(Request request, String updateAttribute, String update) {
-    try {
-      PreparedStatement preparedStatement;
-      if (updateAttribute.equals("Available")) {
-        preparedStatement =
-            DBconnection.getConnection()
-                .prepareStatement("UPDATE RequestTable SET Available = ? WHERE Name = ?");
-      } else if (updateAttribute.equals("EmployeeName")) {
-        preparedStatement =
-            DBconnection.getConnection()
-                .prepareStatement("UPDATE RequestTable SET EmployeeName = ? WHERE Name = ?");
-      } else if (updateAttribute.equals("Location")) {
-        preparedStatement =
-            DBconnection.getConnection()
-                .prepareStatement("UPDATE RequestTable SET Location = ? WHERE Name = ?");
-      } else if (updateAttribute.equals("Type")) {
-        preparedStatement =
-            DBconnection.getConnection()
-                .prepareStatement("UPDATE RequestTable SET Type = ? WHERE Name = ?");
-      } else if (updateAttribute.equals("Status")) {
-        preparedStatement =
-            DBconnection.getConnection()
-                .prepareStatement("UPDATE RequestTable SET Status = ? WHERE Name = ?");
-      } else if (updateAttribute.equals("Description")) {
-        preparedStatement =
-            DBconnection.getConnection()
-                .prepareStatement("UPDATE RequestTable SET Description = ? WHERE Name = ?");
-      } else {
-        return false;
-      }
-      preparedStatement.setString(1, update);
-      preparedStatement.setString(2, request.getName());
-      preparedStatement.execute();
-      return true;
-    } catch (SQLException sqlException) {
-      return false;
-    }
+  public static boolean updateRequest(Request request) {
+    return serviceRequestTable.update(request);
   }
 
   /**
    * Adds a new location to the locations table.
    *
-   * @param nodeID
-   * @throws SQLException
+   * @param location Location
+   * @return True if successful, false if not
    */
-  public static void addLocation(String nodeID) throws SQLException {
-    String add =
-        "INSERT INTO Locations(NodeID,xcoord,ycoord,Floor,building,nodeType,longName,shortName)VALUES(?,'?','?','?','?','?','?','?')";
-    PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
-    preparedStatement.setString(1, nodeID);
-    preparedStatement.execute();
+  public static boolean addLocation(Location location) {
+    return locationsTable.add(location);
   }
 
   /**
    * Deletes a location from the locations table.
    *
-   * @param nodeID
-   * @throws SQLException
+   * @param nodeID Location id
+   * @return True if successful, false if not
    */
-  public static void deleteLocation(String nodeID) throws SQLException {
-    PreparedStatement preparedStatement =
-        DBconnection.getConnection().prepareStatement("DELETE FROM Locations WHERE NodeID = ?");
-    preparedStatement.setString(1, nodeID);
-    preparedStatement.execute();
+  public static boolean removeLocation(String nodeID) {
+    return locationsTable.delete(nodeID);
   }
 
   /**
-   * Checks if table exists.
+   * Updates a location on the table with updated attributes.
    *
-   * @param conn Connection
-   * @param tName Name of table
-   * @return True if it exists, false if not
-   * @throws SQLException
+   * @param location updated Location
+   * @return True if successful, false if not
    */
-  private boolean tableExist(Connection conn, String tName) throws SQLException {
-    boolean tExists = false;
-    try {
-      DatabaseMetaData metaData = conn.getMetaData();
-      ResultSet rs = metaData.getTables(null, null, tName.toUpperCase(), null);
-      while (rs.next()) {
-        String name = rs.getString("TABLE_NAME");
-        if (name != null && name.equals(tName.toUpperCase())) {
-          tExists = true;
-          break;
-        }
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return tExists;
+  public static boolean updateLocation(Location location) {
+    return locationsTable.update(location);
   }
 
   /**
-   * Adding one medical equipment to the medical equipment table.
+   * Adds one medical equipment to the medical equipment table.
    *
-   * @param medicalEquip
+   * @param medicalEquip new MedicalEquip
+   * @return True if successful, false if not
    */
   public static boolean addMedicalEquipment(MedicalEquip medicalEquip) {
-    try {
-      PreparedStatement add =
-          DBconnection.getConnection()
-              .prepareStatement(
-                  "INSERT INTO MedicalEquipment(ID, Type, Clean, Location) VALUES(?,?,?,?)");
-      add.setString(1, medicalEquip.getID());
-      add.setString(2, medicalEquip.getType());
-      if (medicalEquip.isClean()) {
-        add.setString(3, "Clean");
-      } else {
-        add.setString(3, "Dirty");
-      }
-      add.setString(4, medicalEquip.getLocation());
-      add.execute();
-      return true;
-    } catch (SQLException e) {
-      System.out.println("Adding unsuccessful.");
-      return false;
-    }
+    return medicalEquipmentTable.add(medicalEquip);
   }
 
   /**
-   * Removes one medical equipment from the medical equipment table.
+   * Deletes one medical equipment from the medical equipment table
    *
-   * @param MedID
-   * @return True if successful, false if not.
+   * @param ID MedicalEquip id
+   * @return True if successful, false if not
    */
-  public static boolean removeMedicalEquipment(String MedID) {
-    try {
-      PreparedStatement delete =
-          DBconnection.getConnection()
-              .prepareStatement("DELETE FROM MedicalEquipment WHERE ID = ?");
-      delete.setString(1, MedID);
-      delete.execute();
-      return true;
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return false;
+  public static boolean removeMedicalEquipment(String ID) {
+    return medicalEquipmentTable.delete(ID);
+  }
+
+  /**
+   * Updates one medical equipment in the medical equipment table
+   *
+   * @param medicalEquip updated MedicalEquip
+   * @return True if successful, false if not
+   */
+  public static boolean updateMedicalEquipment(MedicalEquip medicalEquip) {
+    return medicalEquipmentTable.update(medicalEquip);
+  }
+
+  /**
+   * Adds a new employee to the employee table
+   *
+   * @param employee Employee name
+   * @return True if successful, false if not
+   */
+  public static boolean addEmployee(Employee employee) {
+    return employeeTable.add(employee);
+  }
+
+  /**
+   * Removes an employee from the employee table
+   *
+   * @param name Employee name
+   * @return True if successful, false if not
+   */
+  public static boolean removeEmployee(String name) {
+    return employeeTable.delete(name);
+  }
+
+  /**
+   * Updates an employee's information in the employee table
+   *
+   * @param employee updated Employee
+   * @return True if successful, false if not
+   */
+  public static boolean updateEmployee(Employee employee) {
+    return employeeTable.update(employee);
+  }
+
+  public static boolean updateRequest(Request request, String employeeName, String newName) {
+    return serviceRequestTable.update(request);
   }
 }

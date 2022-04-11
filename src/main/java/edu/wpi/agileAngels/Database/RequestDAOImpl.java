@@ -1,9 +1,7 @@
 package edu.wpi.agileAngels.Database;
 
 import edu.wpi.agileAngels.Adb;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -12,33 +10,31 @@ public class RequestDAOImpl implements RequestDAO {
   private String CSV_FILE_PATH;
   private HashMap<String, Request> reqData = new HashMap();
   private int count;
+  private String DAOtype;
 
   private static RequestDAOImpl MedrequestImpl = null;
   private static RequestDAOImpl LabrequestImpl = null;
   private LocationDAOImpl locDAO = new LocationDAOImpl();
   private static String DAOtype = null;
+  private static RequestDAOImpl requestDAO;
 
-  public RequestDAOImpl(String CSV_FILE_PATH, HashMap<String, Request> reqData, int count)
+  public RequestDAOImpl(
+      String CSV_FILE_PATH, HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
     this.CSV_FILE_PATH = CSV_FILE_PATH;
     this.reqData = reqData;
     this.count = count;
+    this.DAOtype = type;
   }
 
   public static RequestDAOImpl getInstance(String type) throws SQLException {
     HashMap data;
-    if (MedrequestImpl == null && 0 == type.compareTo("MedRequest")) {
-      DAOtype = type;
+    if (requestDAO == null && 0 == type.compareTo("MedRequest")) {
       data = new HashMap();
-      MedrequestImpl = new RequestDAOImpl("./MedData.csv", data, 1);
-      return MedrequestImpl;
-    } else if (LabrequestImpl == null && 0 == type.compareTo("LabRequest")) {
-      DAOtype = type;
-      data = new HashMap();
-      LabrequestImpl = new RequestDAOImpl("./LabData.csv", data, 1);
-      return LabrequestImpl;
+      requestDAO = new RequestDAOImpl("./MedData.csv", data, 1, "MedRequest");
+      return requestDAO;
     } else {
-      return null;
+      return requestDAO;
     }
   }
 
@@ -77,13 +73,14 @@ public class RequestDAOImpl implements RequestDAO {
 
   public void deleteRequest(Request request) {
     this.reqData.remove(request.getDescription());
-    Adb.removeRequest(request);
+    String name = request.getName();
+    Adb.removeRequest(name);
   }
 
   public void addRequest(Request request) {
     ++this.count;
     String letter;
-    if (DAOtype == "MedRequest") {
+    if (0 == DAOtype.compareTo("MedRequest")) {
       letter = "Med";
     } else {
       letter = "Lab";
