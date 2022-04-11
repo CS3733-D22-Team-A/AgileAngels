@@ -268,18 +268,14 @@ public class GiftsController extends MainController implements Initializable {
             // + " to "
             // + location
             + " soon. ");
-    Request request =
-        new Request(
-            "",
-            giftEmployeeText.getText(),
-            giftRecipient.getText(),
-            dropdownButtonText.getText(),
-            giftStatus.getText(),
-            giftMessage.getText(),
-            giftSender.getText(),
-            giftRecipient.getText());
 
+    String placeholder = "?";
+    Request gift =
+            new Request(
+                    placeholder, employee, location, dropDown, status, message, sender, recipient);
     //todo is this right?
-    GiftrequestImpl.addRequest(request);
+    GiftrequestImpl.addRequest(gift); // add to hashmap
+    giftData.add(gift); // add to the UI
+    giftTable.setItems(giftData);
   }
 }
