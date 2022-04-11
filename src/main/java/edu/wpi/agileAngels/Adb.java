@@ -50,6 +50,7 @@ public class Adb {
     employeeTable.createTable();
 
     // Tries to get a connection
+
     if (DBconnection.getConnection() == null) {
       System.out.println("Connection has failed.");
       return;
@@ -95,7 +96,6 @@ public class Adb {
     if (serviceRequestTable == null) {
 
       serviceRequestTable = new ServiceRequestTable();
-      return serviceRequestTable;
     }
     return serviceRequestTable;
   }
@@ -109,7 +109,6 @@ public class Adb {
     if (employeeTable == null) {
 
       employeeTable = new EmployeeTable();
-      return employeeTable;
     }
     return employeeTable;
   }
@@ -123,6 +122,7 @@ public class Adb {
   public static boolean addRequest(Request request) {
     return serviceRequestTable.add(request);
   }
+  //  return serviceRequestTable.add(request)
 
   /**
    * Removes a request from the request database table.

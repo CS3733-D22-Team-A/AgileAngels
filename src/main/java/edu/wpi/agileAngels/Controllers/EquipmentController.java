@@ -1,9 +1,9 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Request;
-import edu.wpi.agileAngels.Database.RequestDAOImpl;
+import edu.wpi.agileAngels.Database.*;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -29,7 +29,9 @@ public class EquipmentController extends MainController implements Initializable
   @FXML private TableView equipmentTable;
   @FXML Button clear;
   @FXML Pane drop, drop2;
-
+  private LocationDAOImpl locDAO = new LocationDAOImpl();
+  private HashMap<String, Employee> employeeHashMap = new HashMap<>();
+  private EmployeeManager empDAO = new EmployeeManager(employeeHashMap);
   private RequestDAOImpl MedrequestImpl =
       RequestDAOImpl.getInstance("MedRequest"); // instance of RequestDAOImpl to access functions
   // only way to update the UI is ObservableList
@@ -49,12 +51,6 @@ public class EquipmentController extends MainController implements Initializable
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-
-    // connection = DBconnection.getConnection();
-
-    // Implement DAO here.
-
-    // HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
@@ -90,6 +86,8 @@ public class EquipmentController extends MainController implements Initializable
     // gets all inputs and converts into string
     String dropDownString = dropdownButtonText.getText();
     String locationString = equipLocation.getText();
+    // get location obj
+    Location location = locDAO.getLocation(locationString);
     String employeeString = equipmentEmployeeText.getText();
     String statusString = equipmentStatus.getText();
     String deleteString = deleteName.getText();
@@ -128,7 +126,14 @@ public class EquipmentController extends MainController implements Initializable
     String placeholder = "?";
     Request medDevice =
         new Request(
-            placeholder, employeeString, locationString, dropDownString, statusString, "", "", "");
+            placeholder,
+            empDAO.getEmployee(employeeString),
+            locDAO.getLocation(locationString),
+            dropDownString,
+            statusString,
+            "",
+            "",
+            "");
     MedrequestImpl.addRequest(medDevice); // add to hashmap
     medData.add(medDevice); // add to the UI
     equipmentTable.setItems(medData);
@@ -155,6 +160,9 @@ public class EquipmentController extends MainController implements Initializable
       String employeeString,
       String statusString) {
     System.out.println("EDIT REQUEST");
+
+    Location location = locDAO.getLocation(locationString);
+
     Request found = null;
     int num = 0;
     for (int i = 0; i < medData.size(); i++) {
@@ -171,13 +179,13 @@ public class EquipmentController extends MainController implements Initializable
         MedrequestImpl.updateType(found, dropDownString);
       }
       if (!locationString.isEmpty()) {
-        // String location = equipLocation.getText();
-        found.setLocation(locationString);
-        MedrequestImpl.updateLocation(found, locationString);
+        Location loc = locDAO.getLocation(locationString);
+        found.setLocation(location);
+        MedrequestImpl.updateLocation(found, loc);
       }
       if (!employeeString.isEmpty()) {
         // String employee = emp.getText();
-        found.setEmployee(employeeString);
+        found.setEmployee(empDAO.getEmployee(employeeString));
         MedrequestImpl.updateEmployeeName(found, employeeString);
       }
       if (!statusString.isEmpty()) {

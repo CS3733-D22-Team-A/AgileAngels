@@ -45,12 +45,15 @@ public class DatabaseTests {
   }
 
   public static void testServiceRequestsTable() {
-    Request r1 =
-        new Request("R1", "Martha", "Hall", "MED", "Complete", "Descr.", "Available", "N/A");
-    Request r2 = new Request("R2", "Gary", "Tower", "GIFT", "In Progress", "Descr.", "N/A", "N/A");
+    ArrayList testAL = new ArrayList();
+
+    Location loc = new Location("abc15", 130, 234, "1", "A", "d", "the Hallway", "the Hall");
+    Employee dummy = new Employee("Matha", "atham", testAL);
+    Request r1 = new Request("R1", dummy, loc, "MED", "Complete", "Descr.", "Available", "N/A");
+    Request r2 = new Request("R2", dummy, loc, "GIFT", "In Progress", "Descr.", "N/A", "N/A");
     Request r3 =
-        new Request("R3", "Lou", "Hall", "MED", "Not Started", "Descr.", " Not Available", "N/A");
-    Request r4 = new Request("R4", "John", "Cafeteria", "SAN", "Complete", "Descr.", "N/A", "N/A");
+        new Request("R3", dummy, loc, "MED", "Not Started", "Descr.", " Not Available", "N/A");
+    Request r4 = new Request("R4", dummy, loc, "SAN", "Complete", "Descr.", "N/A", "N/A");
 
     // Add
     Adb.addRequest(r1);
@@ -63,7 +66,8 @@ public class DatabaseTests {
     Adb.removeRequest(r1.getName());
 
     // Update
-    r4.setLocation("Tower 2");
+    Location loc2 = new Location("abc15", 130, 234, "1", "A", "d", "the Hallway", "the Hall");
+    r4.setLocation(loc2);
     Adb.updateRequest(r4);
   }
 
@@ -84,20 +88,23 @@ public class DatabaseTests {
     Adb.removeLocation("Room 36");
 
     // Update
-    loc3.setYCoord(80.2);
+    loc3.setYCoord(-1.0);
     Adb.updateLocation(loc3);
   }
 
   public static void testEmployeesTable() {
+    ArrayList testAL = new ArrayList();
+    Location loc = new Location("abc15", 130, 234, "1", "A", "d", "the Hallway", "the Hall");
+    Employee dummy = new Employee("Matha", "atham", testAL);
     ArrayList<Request> reqs = new ArrayList<Request>();
-    reqs.add(new Request("R1", "Martha", "Hall", "MED", "Complete", "Descr.", "Available", "N/A"));
+    reqs.add(new Request("R1", dummy, loc, "MED", "Complete", "Descr.", "Available", "N/A"));
     Employee Emily = new Employee("Emily", "emily123", new ArrayList<Request>());
     Employee Martha = new Employee("Martha", "jjjjjtype", reqs);
     reqs.remove(0);
     reqs.add(
-        new Request("R3", "Lou", "Hall", "MED", "Not Started", "Descr.", " Not Available", "N/A"));
+        new Request("R3", Emily, loc, "MED", "Not Started", "Descr.", " Not Available", "N/A"));
     reqs.add(
-        new Request("R6", "Lou", "Hall", "MED", "Not Started", "Descr.", " Not Available", "N/A"));
+        new Request("R6", Martha, loc, "MED", "Not Started", "Descr.", " Not Available", "N/A"));
     Employee Lou = new Employee("Lou", "kellyanne", reqs);
 
     // Add
@@ -109,7 +116,7 @@ public class DatabaseTests {
     Adb.removeEmployee(Martha.getName());
 
     // Update
-    Emily.addRequest(new Request("R1", "", "", "", "", "", "", ""));
+    Emily.addRequest(new Request("R1", Emily, loc, "", "", "", "", ""));
     Adb.updateEmployee(Emily);
   }
 }
