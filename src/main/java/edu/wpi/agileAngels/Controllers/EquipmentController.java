@@ -58,7 +58,6 @@ public class EquipmentController extends MainController implements Initializable
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     if (medData.isEmpty()) {
-      System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
       MedrequestImpl.csvRead();
       Iterator var3 = MedrequestImpl.getAllRequests().entrySet().iterator();
 
