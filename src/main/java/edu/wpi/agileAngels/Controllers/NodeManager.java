@@ -2,7 +2,6 @@ package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.Location;
 import edu.wpi.agileAngels.Database.LocationDAOImpl;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;

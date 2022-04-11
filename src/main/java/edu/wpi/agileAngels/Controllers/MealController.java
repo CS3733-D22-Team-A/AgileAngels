@@ -21,11 +21,10 @@ public class MealController extends MainController {
 
   private RequestDAOImpl mealDAO;
   private ObservableList mealList = FXCollections.observableArrayList();
-  LocationDAOImpl locDAO =LocationDAOImpl.getInstance();
+  LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
 
-  public MealController() throws SQLException {
-  }
+  public MealController() throws SQLException {}
 
   public void initialize(URL location, ResourceBundle resources) throws SQLException {
     HashMap<String, Request> mealData = new HashMap<String, Request>();

@@ -49,8 +49,7 @@ public class MapsController extends MainController implements Initializable {
 
   NodeManager nodeManager = new NodeManager(this);
 
-  public MapsController() throws SQLException {
-  }
+  public MapsController() throws SQLException {}
 
   /**
    * Called on page load, creates panes for each map, adds the images for each map to its pane, and

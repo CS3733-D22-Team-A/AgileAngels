@@ -6,8 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.util.HashMap;
-
-import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -26,14 +24,12 @@ public class LocationDAOImpl implements LocationDAO {
       HashMap<String, Location> data = new HashMap<>();
       locationDAO = new LocationDAOImpl(data);
       locationDAO.csvRead();
-
     }
     return locationDAO;
   }
 
-  public LocationDAOImpl(HashMap<String, Location> data){
+  public LocationDAOImpl(HashMap<String, Location> data) {
     this.data = data;
-
   }
 
   public void csvRead() { // error, maybe return void? doesn't in tutorial :(

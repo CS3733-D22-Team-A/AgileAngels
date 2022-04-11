@@ -3,9 +3,7 @@ package edu.wpi.agileAngels.Controllers;
 import edu.wpi.agileAngels.Adb;
 import edu.wpi.agileAngels.Database.Employee;
 import edu.wpi.agileAngels.Database.Request;
-import edu.wpi.agileAngels.Database.RequestDAOImpl;
 import edu.wpi.agileAngels.EmployeeDAO;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -28,10 +26,8 @@ public class EmployeeManager implements EmployeeDAO {
     if (employeeManagerDAO == null) {
       HashMap<String, Employee> Employeedata = new HashMap<>();
       employeeManagerDAO = new EmployeeManager(Employeedata, 0);
-
     }
     return employeeManagerDAO;
-
   }
 
   /**
@@ -43,9 +39,7 @@ public class EmployeeManager implements EmployeeDAO {
     return this.employeeHashMap;
   }
 
-  /**
-   * Gets Employee from hash.
-   */
+  /** Gets Employee from hash. */
   public Employee getEmployee(String username) {
     return employeeHashMap.get(username);
   }
@@ -70,46 +64,34 @@ public class EmployeeManager implements EmployeeDAO {
     return employeeHashMap.get(username).getPassword();
   }
 
-  /**
-   * Removes Employee from hash.
-   */
+  /** Removes Employee from hash. */
   public void removeEmployee(String username) {
     employeeHashMap.remove(username);
   }
 
-  /**
-   * Adds Employee into hash .
-   */
+  /** Adds Employee into hash . */
   public void addEmployee(String name, String username, String password) {
     ArrayList<Request> newERequest = new ArrayList<Request>();
     Employee newEmployee = new Employee(name, password, newERequest);
     employeeHashMap.put(username, newEmployee);
   }
 
-  /**
-   * Updates Employee's name with newName.
-   */
+  /** Updates Employee's name with newName. */
   public void updateEmployeeName(String username, String newName) {
     employeeHashMap.get(username).setName(newName);
   }
 
-  /**
-   * Updates Employee's password with newPW.
-   */
+  /** Updates Employee's password with newPW. */
   public void updateEmployeePassword(String username, String newPW) {
     employeeHashMap.get(username).setPassword(newPW);
   }
-
-
-
-
 
   public void readCSV() {
     String line = "";
     String splitBy = ",";
 
     try {
-      BufferedReader br = new BufferedReader(new FileReader("Employees.test"));
+      BufferedReader br = new BufferedReader(new FileReader("./Employees.csv"));
       boolean OnHeader = false;
       line.split(splitBy);
 
@@ -119,11 +101,7 @@ public class EmployeeManager implements EmployeeDAO {
           ArrayList<Request> allRequests = new ArrayList<>();
 
           ++this.count;
-          Employee employee =
-                  new Employee(
-                          values[0],
-                          values[1],
-                          allRequests);
+          Employee employee = new Employee(values[0], values[1], allRequests);
           this.employeeHashMap.put(values[0], employee);
           Adb.addEmployee(employee);
 
@@ -134,6 +112,5 @@ public class EmployeeManager implements EmployeeDAO {
     } catch (IOException var7) {
       var7.printStackTrace();
     }
-
   }
 }

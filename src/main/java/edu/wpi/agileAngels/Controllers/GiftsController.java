@@ -1,6 +1,5 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Employee;
 import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import edu.wpi.agileAngels.Database.Request;
 import edu.wpi.agileAngels.Database.RequestDAOImpl;
@@ -45,8 +44,7 @@ public class GiftsController extends MainController implements Initializable {
   private static ObservableList<Request> giftData =
       FXCollections.observableArrayList(); // list of requests
 
-  public GiftsController() throws SQLException {
-  }
+  public GiftsController() throws SQLException {}
 
   /*
       @Override

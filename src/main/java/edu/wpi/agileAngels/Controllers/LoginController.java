@@ -1,10 +1,8 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Employee;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,11 +18,9 @@ public class LoginController extends MainController implements Initializable {
   @FXML private Button login;
   @FXML private PasswordField passwordBox;
 
-
   private EmployeeManager employeeManager = EmployeeManager.getInstance();
 
-  public LoginController() throws SQLException {
-  }
+  public LoginController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {

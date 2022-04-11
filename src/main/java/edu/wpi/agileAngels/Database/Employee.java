@@ -27,5 +27,4 @@ public class Employee {
   public void setPassword(String pass) {
     this.password = pass;
   }
-
 }

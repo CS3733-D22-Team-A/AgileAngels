@@ -5,7 +5,6 @@ import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import java.io.*;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
 
 // Implementation of RequestDAO
 public class RequestDAOImpl implements RequestDAO {
@@ -21,7 +20,6 @@ public class RequestDAOImpl implements RequestDAO {
   private static String DAOtype = null;
   private static RequestDAOImpl requestDAO;
 
-
   public RequestDAOImpl(
       String CSV_FILE_PATH, HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
@@ -36,10 +34,10 @@ public class RequestDAOImpl implements RequestDAO {
     if (requestDAO == null && 0 == type.compareTo("MedRequest")) {
       data = new HashMap();
       requestDAO = new RequestDAOImpl("./MedData.csv", data, 1, "MedRequest");
-      return requestDAO;
-    } else {
-      return requestDAO;
+
     }
+    return requestDAO;
+
   }
 
   public HashMap<String, Request> getAllRequests() {
@@ -126,8 +124,8 @@ public class RequestDAOImpl implements RequestDAO {
     Request request =
         new Request(
             values[0],
-                findEmployee(values[1]),
-                findLocation(values[2]),
+            findEmployee(values[1]),
+            findLocation(values[2]),
             values[3],
             values[4],
             values[5],
@@ -137,18 +135,17 @@ public class RequestDAOImpl implements RequestDAO {
     Adb.addRequest(request);
   }
 
-  private Employee findEmployee(String value ) throws SQLException {
+  private Employee findEmployee(String value) throws SQLException {
     Employee employee;
-    HashMap<String, Employee> employeeData =EmployeeManager.getInstance().getAllEmployees();
+    HashMap<String, Employee> employeeData = EmployeeManager.getInstance().getAllEmployees();
     employee = employeeData.get(value);
     return employee;
   }
 
-  private Location findLocation(String value){
+  private Location findLocation(String value) {
     Location location;
     HashMap<String, Location> locationData = locDAO.getAllLocations();
     location = locationData.get(value);
     return location;
-
   }
 }
