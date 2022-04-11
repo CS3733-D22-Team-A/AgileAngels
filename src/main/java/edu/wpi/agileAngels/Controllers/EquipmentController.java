@@ -38,12 +38,12 @@ public class EquipmentController extends MainController implements Initializable
 
   @FXML
   private TableColumn nameColumn,
-      availableColumn,
-      typeColumn,
-      locationColumn,
       employeeColumn,
+      locationColumn,
+      typeColumn,
       statusColumn,
-      descriptionColumn;
+      descriptionColumn,
+      availableColumn;
 
   public EquipmentController() throws SQLException {}
 
@@ -51,12 +51,12 @@ public class EquipmentController extends MainController implements Initializable
   public void initialize(URL location, ResourceBundle resources) {
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
-    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+    employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-    employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
+    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     if (medData.isEmpty()) {
       System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
       MedrequestImpl.csvRead();
@@ -64,6 +64,7 @@ public class EquipmentController extends MainController implements Initializable
 
       for (Map.Entry<String, Request> entry : MedrequestImpl.getAllRequests().entrySet()) {
         Request req = entry.getValue();
+
         medData.add(req);
       }
     }

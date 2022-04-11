@@ -13,8 +13,6 @@ public class RequestDAOImpl implements RequestDAO {
   private int count;
   // private String DAOtype;
 
-  private static RequestDAOImpl MedrequestImpl = null;
-  private static RequestDAOImpl LabrequestImpl = null;
   private static EmployeeManager empManager = null;
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private static String DAOtype = null;
@@ -34,10 +32,8 @@ public class RequestDAOImpl implements RequestDAO {
     if (requestDAO == null && 0 == type.compareTo("MedRequest")) {
       data = new HashMap();
       requestDAO = new RequestDAOImpl("./MedData.csv", data, 1, "MedRequest");
-
     }
     return requestDAO;
-
   }
 
   public HashMap<String, Request> getAllRequests() {
@@ -132,12 +128,16 @@ public class RequestDAOImpl implements RequestDAO {
             values[6],
             values[7]);
     this.reqData.put(values[0], request);
+    System.out.println("Request name " + request.getName());
+    System.out.println("Request Employee " + request.getEmployee().getName());
     Adb.addRequest(request);
   }
 
   private Employee findEmployee(String value) throws SQLException {
     Employee employee;
     HashMap<String, Employee> employeeData = EmployeeManager.getInstance().getAllEmployees();
+    System.out.println("Anything in Map? " + value);
+
     employee = employeeData.get(value);
     return employee;
   }

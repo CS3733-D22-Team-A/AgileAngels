@@ -1,5 +1,5 @@
-name,type,location,employee,status,description, attribute1, attribute2
-Med1,medicine,FEXIT00101,James,complete,describe, something, something
-Med2,bloodtest,FHALL00601,Liam,Progress,describe, something, something
-Med3,Pills,FDEPT00101,Harriot,NotStarted,describe, something, something
-Med4,COVIDTest,FHALL02901,Ariana,Complete,Describe, something, something
+name,employee,location,type,status,description, attribute1, attribute2
+Med1,James,FEXIT00101,medicine,complete,describe, something, something
+Med2,Liam,FHALL00601,bloodtest,Progress,describe, something, something
+Med3,Harriot,FDEPT00101,Pills,NotStarted,describe, something, something
+Med4,Ariana,FHALL02901,COVIDTest,Complete,Describe, something, something
