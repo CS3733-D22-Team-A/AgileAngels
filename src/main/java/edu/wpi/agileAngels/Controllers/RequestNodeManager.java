@@ -56,7 +56,7 @@ public class RequestNodeManager extends NodeManager {
       // typeCounts[floorsAndTypes.get(Integer.toString(request.getRequestType()))][
       //         floorsAndTypes.get(locationsHash.get(request.getLocation()))] +=
       //     1;
-      // mapsController.displayNode(addNode(request));
+      mapsController.displayNode(addNode(request));
     }
   }
 
@@ -66,9 +66,6 @@ public class RequestNodeManager extends NodeManager {
   }
 
   RequestNode addNode(Request request) {
-
-    System.out.println("addNode");
-
     RequestNode requestNode = new RequestNode(request, this);
     nodes.put(requestNode.getName(), requestNode);
     return requestNode;

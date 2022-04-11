@@ -1,5 +1,5 @@
 name,available,type,location,employee,status,description, attribute1, attribute2
-Med1,3,medicine,WHALL001L2,James,complete,describe, something, something
-Med2,1,bloodtest,CHALL007L1,Jakob,Progress,describe, something, something
-Med3,1,Pills,FHALL01301,Matthew,NotStarted,describe, something, something
-Med4,2,COVIDTest,HRETL00202,Ariana,Complete,Describe, something, something
+Med1,medicine,WHALL001L2,James,complete,describe, something, something
+Med2,bloodtest,CHALL007L1,Jakob,Progress,describe, something, something
+Med3,Pills,FHALL01301,Matthew,NotStarted,describe, something, something
+Med4,COVIDTest,HRETL00202,Ariana,Complete,Describe, something, something
