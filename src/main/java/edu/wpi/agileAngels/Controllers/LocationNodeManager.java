@@ -48,8 +48,9 @@ public class LocationNodeManager extends NodeManager {
 
   void deleteNode(String nodeID) {
     nodes.remove(nodeID);
-    // locationDAO.deleteLocation(currentNode.getLocation());
-    // adb.deleteLocation(location)
+    HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
+    Location location = locationsHash.get(nodeID);
+    locationDAO.deleteLocation(location);
   }
 
   // gets all locations from the DB and creates nodes from them
@@ -72,8 +73,11 @@ public class LocationNodeManager extends NodeManager {
   LocationNode addNode(Location location) {
     LocationNode locationNode = new LocationNode(location, this);
     nodes.put(locationNode.getNodeID(), locationNode);
-    return locationNode;
+
     // add the new location to the database
+    locationDAO.addLocation(location);
+
+    return locationNode;
   }
 
   void editNode(LocationNode locationNode) {
