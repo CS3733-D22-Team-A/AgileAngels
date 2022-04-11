@@ -95,27 +95,28 @@ public class GiftsController extends MainController implements Initializable {
       }
   */
   @FXML
-  private void deleteGiftRequest(ActionEvent event) {
-    /* //USE THIS FOR DELETE! Make sure you set deleteString somewhere outside!
-    String deleteString
+  private void deleteGiftRequest(String deleteString){
     if (!deleteString.isEmpty()) {
       System.out.println("DELETE REQUEST");
       for (int i = 0; i < giftData.size(); i++) {
         Request object = giftData.get(i);
         if (0 == deleteString.compareTo(object.getName())) {
           giftData.remove(i);
-          giftDAO.deleteRequest(object);
+          GiftrequestImpl.deleteRequest(object);
         }
       }
-      // giftTable.setItems(giftData);
+      giftTable.setItems(giftData);
     }
-    */
   }
 
   @FXML
-  private void editGiftRequest(ActionEvent action) { // Use this
+  private void editGiftRequest(
+                               String editString,
+                               String dropDownString,
+                               String locationString,
+                               String employeeString,
+                               String statusString) {
     System.out.println("EDIT REQUEST");
-    /*
     Request found = null;
     int num = 0;
     for (int i = 0; i < giftData.size(); i++) {
@@ -127,28 +128,30 @@ public class GiftsController extends MainController implements Initializable {
     }
     if (found != null) {
       if (!dropDownString.isEmpty()) {
+        // String type = dropdownButtonText.getText();
         found.setType(dropDownString);
-        giftDAO.updateType(found, dropDownString);
+        GiftrequestImpl.updateType(found, dropDownString);
       }
       if (!locationString.isEmpty()) {
+        // String location = equipLocation.getText();
         found.setLocation(locationString);
-        giftDAO.updateLocation(found, locationString);
+        GiftrequestImpl.updateLocation(found, locationString);
       }
       if (!employeeString.isEmpty()) {
+        // String employee = emp.getText();
         found.setEmployee(employeeString);
-        giftDAO.updateEmployeeName(found, employeeString);
+        GiftrequestImpl.updateEmployeeName(found, employeeString);
       }
       if (!statusString.isEmpty()) {
+        // String employee = emp.getText();
         found.setStatus(statusString);
-        giftDAO.updateStatus(found, statusString);
+        GiftrequestImpl.updateStatus(found, statusString);
       }
-      // TODO edit sender and recipient
       giftData.set(num, found);
 
-      // giftTable.setItems(giftData);
+      giftTable.setItems(giftData);
     }
 
-     */
   }
 
   /*
@@ -276,6 +279,7 @@ public class GiftsController extends MainController implements Initializable {
             giftSender.getText(),
             giftRecipient.getText());
 
-    giftDAO.addRequest(request);
+    //todo is this right?
+    GiftrequestImpl.addRequest(request);
   }
 }
