@@ -17,8 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
-// TODO make sure controllers work without connections :)
-// TODO create helper methods to avoid confusion
 public class EquipmentController extends MainController implements Initializable {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
@@ -38,7 +36,7 @@ public class EquipmentController extends MainController implements Initializable
 
   @FXML
   private TableColumn nameColumn,
-      employeeColumn,
+      employeeColumn, // change to employeeColumn
       locationColumn,
       typeColumn,
       statusColumn,
@@ -51,7 +49,7 @@ public class EquipmentController extends MainController implements Initializable
   public void initialize(URL location, ResourceBundle resources) {
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+    employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
@@ -132,7 +130,9 @@ public class EquipmentController extends MainController implements Initializable
             "",
             "",
             "");
+
     MedrequestImpl.addRequest(medDevice); // add to hashmap
+
     medData.add(medDevice); // add to the UI
     equipmentTable.setItems(medData);
   }
