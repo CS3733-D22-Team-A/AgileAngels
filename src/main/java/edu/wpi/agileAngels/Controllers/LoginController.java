@@ -48,18 +48,6 @@ public class LoginController extends MainController implements Initializable {
       invalid.setTextFill(Color.rgb(220, 80, 80));
       invalid.setText("Invalid username or password:\nPlease try again");
     }
-
-    /*
-    if (username.getText().equals(passwordBox.getText()) && !username.getText().isEmpty()) {
-      loggedIn = true;
-      setUsername(username.getText());
-      loadPage("views/home-view.fxml", login);
-    } else {
-      invalid.setTextFill(Color.rgb(220, 80, 80));
-      invalid.setText("Invalid username or password:\nPlease try again");
-    }
-
-     */
   }
 
   /**
