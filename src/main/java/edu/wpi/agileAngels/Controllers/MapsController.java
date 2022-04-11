@@ -96,7 +96,7 @@ public class MapsController extends MainController implements Initializable {
    * @param node the node whose data is populated
    */
   public void populateNodeData(Node node) {
-    System.out.println(node.getNodeID());
+    // System.out.println(node.getNodeID());
     nodeIDField.setText(node.getNodeID());
     nameField.setText(node.getName());
     typeDropdown.setText(node.getNodeType());
@@ -268,9 +268,12 @@ public class MapsController extends MainController implements Initializable {
     if (event.getSource() == zoomIn) {
       Scale scaleTransform = new Scale(1.05, 1.05, 0, 0);
       contentGroup.getTransforms().add(scaleTransform);
+      nodeManager.resieAll(0.95);
+
     } else if (event.getSource() == zoomOut) {
       Scale scaleTransform = new Scale(.95, .95, 0, 0);
       contentGroup.getTransforms().add(scaleTransform);
+      nodeManager.resieAll(1.05);
     }
   }
 }

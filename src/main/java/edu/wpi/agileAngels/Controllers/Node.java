@@ -3,12 +3,15 @@ package edu.wpi.agileAngels.Controllers;
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.agileAngels.Database.Location;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 
 public class Node {
 
   private Location location;
   private NodeManager nodeManager;
   private JFXButton button = new JFXButton();
+
+  private double fontSize = 10;
 
   public Node(Location location, NodeManager nodeManager) {
     this.location = location;
@@ -17,6 +20,7 @@ public class Node {
     button.setLayoutX((this.getXCoord() - 800) / 5);
     button.setLayoutY((this.getYCoord() - 350) / 5);
     button.setText(String.valueOf(location.getNodeType().charAt(0)));
+    button.setStyle("-fx-font-size: 8");
     button.setOnAction(
         (ActionEvent event2) -> {
           isClicked();
@@ -29,9 +33,14 @@ public class Node {
 
   }
 
+  public void resizeButton(double scaleFactor) {
+    // button.setStyle("-fx-font-size: 6");
+  }
+
   public void resetLocation() {
     button.setLayoutX((this.getXCoord() - 800) / 5);
     button.setLayoutY((this.getYCoord() - 350) / 5);
+
     button.setText(String.valueOf(location.getNodeType().charAt(0)));
   }
 
