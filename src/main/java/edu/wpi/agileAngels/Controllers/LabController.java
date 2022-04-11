@@ -47,7 +47,7 @@ public class LabController extends MainController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
+    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
