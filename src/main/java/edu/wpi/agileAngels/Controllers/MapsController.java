@@ -260,7 +260,7 @@ public class MapsController extends MainController implements Initializable {
     typeDropdown.setText(button.getText());
   }
 
-  public void ZoomableMap(ActionEvent event) {
+  public void zoomableMap(ActionEvent event) {
 
     javafx.scene.Node content = mapScroll.getContent();
     Group contentGroup = new Group();
