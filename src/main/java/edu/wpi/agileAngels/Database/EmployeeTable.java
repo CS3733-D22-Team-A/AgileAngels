@@ -18,10 +18,10 @@ public class EmployeeTable implements TableI {
         return false;
       }
       Employee emp = (Employee) obj;
-      String add = "INSERT INTO Employees(name, requests)VALUES(?,?)";
+      String add = "INSERT INTO Employees(name, password)VALUES(?,?)";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
       preparedStatement.setString(1, emp.getName());
-      preparedStatement.setString(2, emp.requestsToString());
+      preparedStatement.setString(2, emp.getPassword());
       preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {
@@ -63,9 +63,9 @@ public class EmployeeTable implements TableI {
       Employee emp = (Employee) obj;
       PreparedStatement preparedStatement =
           DBconnection.getConnection()
-              .prepareStatement("UPDATE Employees SET requests = ? WHERE name = ?");
-      preparedStatement.setString(1, emp.requestsToString());
-      preparedStatement.setString(2, emp.getName());
+              .prepareStatement("UPDATE Employees SET name = ? WHERE password = ?");
+      preparedStatement.setString(1, emp.getName());
+      preparedStatement.setString(2, emp.getPassword());
       preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {
@@ -85,7 +85,7 @@ public class EmployeeTable implements TableI {
       String queryEmployees =
           "CREATE TABLE Employees( "
               + "Name VARCHAR(50),"
-              + "Requests VARCHAR(50),"
+              + "Password VARCHAR(50),"
               + "PRIMARY KEY (Name))";
       query.execute(queryEmployees);
       return true;

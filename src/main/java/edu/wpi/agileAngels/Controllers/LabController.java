@@ -20,9 +20,9 @@ public class LabController extends MainController implements Initializable {
   @FXML private TextField labTestLocation, labEmployeeText, labStatus, labDelete, labEdit;
 
   private RequestDAOImpl LabDAO = RequestDAOImpl.getInstance("LabRequest");
-  private LocationDAOImpl locDAO = new LocationDAOImpl();
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private HashMap<String, Employee> employeeHashMap = new HashMap<>();
-  private EmployeeManager empDAO = new EmployeeManager(employeeHashMap);
+  private EmployeeManager empDAO = EmployeeManager.getInstance();
   private static ObservableList<Request> labData = FXCollections.observableArrayList();
   @FXML private TableView labTable;
   @FXML

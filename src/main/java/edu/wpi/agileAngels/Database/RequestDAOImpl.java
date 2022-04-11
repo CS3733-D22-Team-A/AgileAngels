@@ -13,10 +13,8 @@ public class RequestDAOImpl implements RequestDAO {
   private int count;
   // private String DAOtype;
 
-  private static RequestDAOImpl MedrequestImpl = null;
-  private static RequestDAOImpl LabrequestImpl = null;
   private static EmployeeManager empManager = null;
-  private LocationDAOImpl locDAO = new LocationDAOImpl();
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private static String DAOtype = null;
   private static RequestDAOImpl requestDAO;
 
@@ -34,10 +32,8 @@ public class RequestDAOImpl implements RequestDAO {
     if (requestDAO == null && 0 == type.compareTo("MedRequest")) {
       data = new HashMap();
       requestDAO = new RequestDAOImpl("./MedData.csv", data, 1, "MedRequest");
-      return requestDAO;
-    } else {
-      return requestDAO;
     }
+    return requestDAO;
   }
 
   public HashMap<String, Request> getAllRequests() {
@@ -107,7 +103,6 @@ public class RequestDAOImpl implements RequestDAO {
         if (OnHeader) {
           String[] values = line.split(splitBy);
           this.typeofDAO(values);
-          System.out.println(values[0]);
         } else {
           OnHeader = true;
         }
@@ -121,17 +116,36 @@ public class RequestDAOImpl implements RequestDAO {
   // UHHHH fix this
   private void typeofDAO(String[] values) throws SQLException {
     ++this.count;
+
     Request request =
         new Request(
             values[0],
-            empManager.getEmployee(values[1]),
-            locDAO.getLocation(values[2]),
+            findEmployee(values[1]),
+            findLocation(values[2]),
             values[3],
             values[4],
             values[5],
             values[6],
             values[7]);
     this.reqData.put(values[0], request);
+    System.out.println("Request name " + request.getName());
+    System.out.println("Request Employee " + request.getEmployee().getName());
     Adb.addRequest(request);
+  }
+
+  private Employee findEmployee(String value) throws SQLException {
+    Employee employee;
+    HashMap<String, Employee> employeeData = EmployeeManager.getInstance().getAllEmployees();
+    System.out.println("Anything in Map? " + value);
+
+    employee = employeeData.get(value);
+    return employee;
+  }
+
+  private Location findLocation(String value) {
+    Location location;
+    HashMap<String, Location> locationData = locDAO.getAllLocations();
+    location = locationData.get(value);
+    return location;
   }
 }

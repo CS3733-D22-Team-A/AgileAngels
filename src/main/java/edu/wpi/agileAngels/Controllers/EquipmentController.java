@@ -3,7 +3,6 @@ package edu.wpi.agileAngels.Controllers;
 import edu.wpi.agileAngels.Database.*;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -29,9 +28,8 @@ public class EquipmentController extends MainController implements Initializable
   @FXML private TableView equipmentTable;
   @FXML Button clear;
   @FXML Pane drop, drop2;
-  private LocationDAOImpl locDAO = new LocationDAOImpl();
-  private HashMap<String, Employee> employeeHashMap = new HashMap<>();
-  private EmployeeManager empDAO = new EmployeeManager(employeeHashMap);
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
+  private EmployeeManager empDAO = EmployeeManager.getInstance();
   private RequestDAOImpl MedrequestImpl =
       RequestDAOImpl.getInstance("MedRequest"); // instance of RequestDAOImpl to access functions
   // only way to update the UI is ObservableList
@@ -40,12 +38,12 @@ public class EquipmentController extends MainController implements Initializable
 
   @FXML
   private TableColumn nameColumn,
-      availableColumn,
-      typeColumn,
-      locationColumn,
       employeeColumn,
+      locationColumn,
+      typeColumn,
       statusColumn,
-      descriptionColumn;
+      descriptionColumn,
+      availableColumn;
 
   public EquipmentController() throws SQLException {}
 
@@ -53,12 +51,12 @@ public class EquipmentController extends MainController implements Initializable
   public void initialize(URL location, ResourceBundle resources) {
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
-    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+    employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-    employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
+    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     if (medData.isEmpty()) {
       System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
       MedrequestImpl.csvRead();
@@ -66,6 +64,7 @@ public class EquipmentController extends MainController implements Initializable
 
       for (Map.Entry<String, Request> entry : MedrequestImpl.getAllRequests().entrySet()) {
         Request req = entry.getValue();
+
         medData.add(req);
       }
     }

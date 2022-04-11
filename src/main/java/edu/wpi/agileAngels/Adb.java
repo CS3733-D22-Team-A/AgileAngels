@@ -1,5 +1,6 @@
 package edu.wpi.agileAngels;
 
+import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import edu.wpi.agileAngels.Database.*;
 import java.sql.*;
 
@@ -17,7 +18,7 @@ public class Adb {
    *
    * @throws SQLException
    */
-  public void initialize() {
+  public void initialize() throws SQLException {
 
     // Apache Derby and table creation
     System.out.println("-------Embedded Apache Derby Connection Testing --------");
@@ -48,6 +49,10 @@ public class Adb {
     medicalEquipmentTable.createTable();
     serviceRequestTable.createTable();
     employeeTable.createTable();
+    EmployeeManager employeeManager = EmployeeManager.getInstance();
+    employeeManager.readCSV();
+    LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
+    locationDAO.csvRead();
 
     // Tries to get a connection
 
