@@ -1,8 +1,10 @@
 package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import edu.wpi.agileAngels.Database.Request;
 import edu.wpi.agileAngels.Database.RequestDAOImpl;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -34,10 +36,15 @@ public class GiftsController extends MainController implements Initializable {
   @FXML Button addButton, editButton, deleteButton;
   @FXML private Label giftConfirm;
   private RequestDAOImpl giftDAO;
+
+  private EmployeeManager empDAO = EmployeeManager.getInstance();
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   // TODO make gift table in the UI
   @FXML private TableView giftTable;
   private static ObservableList<Request> giftData =
       FXCollections.observableArrayList(); // list of requests
+
+  public GiftsController() throws SQLException {}
 
   /*
       @Override
@@ -250,8 +257,8 @@ public class GiftsController extends MainController implements Initializable {
     Request request =
         new Request(
             "",
-            giftEmployeeText.getText(),
-            giftRecipient.getText(),
+            empDAO.getEmployee(giftEmployeeText.getText()),
+            locDAO.getLocation(giftRecipient.getText()),
             dropdownButtonText.getText(),
             giftStatus.getText(),
             giftMessage.getText(),

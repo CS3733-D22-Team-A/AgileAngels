@@ -7,8 +7,8 @@ package edu.wpi.agileAngels.Database;
 
 public class Request {
   private String name;
-  private String employeeName;
-  private String location;
+  private Employee employeeName;
+  private Location location;
   private String type;
   private int requestType;
   private String status;
@@ -18,8 +18,8 @@ public class Request {
 
   public Request(
       String Name,
-      String employeeName,
-      String location,
+      Employee employeeName,
+      Location location,
       String type,
       String status,
       String description,
@@ -51,11 +51,11 @@ public class Request {
     return this.description;
   }
 
-  public String getEmployee() {
+  public Employee getEmployee() {
     return this.employeeName;
   }
 
-  public String getLocation() {
+  public Location getLocation() {
     return this.location;
   }
 
@@ -63,11 +63,11 @@ public class Request {
     return this.type;
   }
 
-  public void setEmployee(String employeeName) {
+  public void setEmployee(Employee employeeName) {
     this.employeeName = employeeName;
   }
 
-  public void setLocation(String location) {
+  public void setLocation(Location location) {
     this.location = location;
   }
 

@@ -2,13 +2,14 @@ package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.Location;
 import edu.wpi.agileAngels.Database.LocationDAOImpl;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LocationNodeManager {
 
   private MapsController mapsController;
-  private LocationDAOImpl locationDAO = new LocationDAOImpl();
+  private LocationDAOImpl locationDAO = new LocationDAOImpl().getInstance;
   private HashMap<String, LocationNode> nodes = new HashMap<>();
   private int[][] typeCounts = new int[15][5];
   private HashMap<String, Integer> floorsAndTypes = new HashMap<>();

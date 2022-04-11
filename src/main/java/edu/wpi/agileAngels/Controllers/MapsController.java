@@ -52,6 +52,8 @@ public class MapsController extends MainController implements Initializable {
 
   public MapsController() throws SQLException {}
 
+  public MapsController() throws SQLException {}
+
   /**
    * Called on page load, creates panes for each map, adds the images for each map to its pane, and
    * sets their initial visibility

@@ -16,9 +16,23 @@ import org.apache.commons.csv.CSVRecord;
 public class LocationDAOImpl implements LocationDAO {
   // List is working as a database
   private final String CSV_FILE_PATH = "./TowerLocations.csv";
-  private HashMap<String, Location> data = new HashMap<>();
+  private HashMap<String, Location> data;
+  private static LocationDAOImpl locationDAO = null;
 
-  public LocationDAOImpl() { // error, maybe return void? doesn't in tutorial :(
+  public static LocationDAOImpl getInstance() throws SQLException {
+    if (locationDAO == null) {
+      HashMap<String, Location> data = new HashMap<>();
+      locationDAO = new LocationDAOImpl(data);
+      locationDAO.csvRead();
+    }
+    return locationDAO;
+  }
+
+  public LocationDAOImpl(HashMap<String, Location> data) {
+    this.data = data;
+  }
+
+  public void csvRead() { // error, maybe return void? doesn't in tutorial :(
     Connection connection = DBconnection.getConnection();
     try (Reader reader = Files.newBufferedReader(Paths.get(CSV_FILE_PATH));
         CSVParser csvParser =

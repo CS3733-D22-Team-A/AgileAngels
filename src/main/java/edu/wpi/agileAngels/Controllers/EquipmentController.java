@@ -1,9 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Location;
-import edu.wpi.agileAngels.Database.LocationDAOImpl;
-import edu.wpi.agileAngels.Database.Request;
-import edu.wpi.agileAngels.Database.RequestDAOImpl;
+import edu.wpi.agileAngels.Database.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
@@ -32,6 +29,8 @@ public class EquipmentController extends MainController implements Initializable
   @FXML MenuButton equipLocation;
 
   private LocationDAOImpl locationDAO = new LocationDAOImpl();
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
+  private EmployeeManager empDAO = EmployeeManager.getInstance();
   private RequestDAOImpl MedrequestImpl =
       RequestDAOImpl.getInstance("MedRequest"); // instance of RequestDAOImpl to access functions
   // only way to update the UI is ObservableList
@@ -40,12 +39,12 @@ public class EquipmentController extends MainController implements Initializable
 
   @FXML
   private TableColumn nameColumn,
-      availableColumn,
-      typeColumn,
-      locationColumn,
       employeeColumn,
+      locationColumn,
+      typeColumn,
       statusColumn,
-      descriptionColumn;
+      descriptionColumn,
+      availableColumn;
 
   public EquipmentController() throws SQLException {}
 
@@ -67,12 +66,12 @@ public class EquipmentController extends MainController implements Initializable
     // HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
-    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+    employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-    employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
+    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     if (medData.isEmpty()) {
       System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
       MedrequestImpl.csvRead();
@@ -80,6 +79,7 @@ public class EquipmentController extends MainController implements Initializable
 
       for (Map.Entry<String, Request> entry : MedrequestImpl.getAllRequests().entrySet()) {
         Request req = entry.getValue();
+
         medData.add(req);
       }
     }
@@ -100,6 +100,8 @@ public class EquipmentController extends MainController implements Initializable
     // gets all inputs and converts into string
     String dropDownString = dropdownButtonText.getText();
     String locationString = equipLocation.getText();
+    // get location obj
+    Location location = locDAO.getLocation(locationString);
     String employeeString = equipmentEmployeeText.getText();
     String statusString = equipmentStatus.getText();
     String deleteString = deleteName.getText();
@@ -138,7 +140,14 @@ public class EquipmentController extends MainController implements Initializable
     String placeholder = "?";
     Request medDevice =
         new Request(
-            placeholder, employeeString, locationString, dropDownString, statusString, "", "", "");
+            placeholder,
+            empDAO.getEmployee(employeeString),
+            locDAO.getLocation(locationString),
+            dropDownString,
+            statusString,
+            "",
+            "",
+            "");
     MedrequestImpl.addRequest(medDevice); // add to hashmap
     medData.add(medDevice); // add to the UI
     equipmentTable.setItems(medData);
@@ -165,6 +174,9 @@ public class EquipmentController extends MainController implements Initializable
       String employeeString,
       String statusString) {
     System.out.println("EDIT REQUEST");
+
+    Location location = locDAO.getLocation(locationString);
+
     Request found = null;
     int num = 0;
     for (int i = 0; i < medData.size(); i++) {
@@ -181,13 +193,13 @@ public class EquipmentController extends MainController implements Initializable
         MedrequestImpl.updateType(found, dropDownString);
       }
       if (!locationString.isEmpty()) {
-        // String location = equipLocation.getText();
-        found.setLocation(locationString);
-        MedrequestImpl.updateLocation(found, locationString);
+        Location loc = locDAO.getLocation(locationString);
+        found.setLocation(location);
+        MedrequestImpl.updateLocation(found, loc);
       }
       if (!employeeString.isEmpty()) {
         // String employee = emp.getText();
-        found.setEmployee(employeeString);
+        found.setEmployee(empDAO.getEmployee(employeeString));
         MedrequestImpl.updateEmployeeName(found, employeeString);
       }
       if (!statusString.isEmpty()) {
