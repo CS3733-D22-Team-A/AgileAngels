@@ -121,7 +121,7 @@
                                           <Image url="@../assets/icons/equipment.png" />
                                        </image>
                                     </ImageView>
-                                    <Label text="Equipment Request" />
+                                    <Label prefHeight="26.0" prefWidth="167.0" text="Equipment Request" />
                                     <Label fx:id="harmoniLabel" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Harmoni" textAlignment="RIGHT" textOverrun="CLIP" visible="false" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets left="10.0" right="5.0" />
