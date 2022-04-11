@@ -46,7 +46,7 @@ public class MainController {
 
   ArrayList<Circle> newList = new ArrayList<Circle>();
 
-  // TODO: why mis there 2 load pages
+  // TODO: why is there 2 load pages
   public void loadPage(String view, Control item) throws IOException {
 
     if (item == back) {
