@@ -30,6 +30,7 @@ public class ServiceRequestTable implements TableI {
       preparedStatement.setString(6, request.getDescription());
       preparedStatement.setString(7, request.getAttribute1());
       preparedStatement.setString(8, request.getAttribute2());
+      preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {
       return false;
@@ -48,6 +49,7 @@ public class ServiceRequestTable implements TableI {
       String delete = "DELETE FROM ServiceRequests WHERE Name = ?";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(delete);
       preparedStatement.setString(1, str);
+      preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {
       return false;
@@ -78,6 +80,7 @@ public class ServiceRequestTable implements TableI {
       preparedStatement.setString(6, request.getAttribute1());
       preparedStatement.setString(7, request.getAttribute2());
       preparedStatement.setString(8, request.getName());
+      preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {
       return false;

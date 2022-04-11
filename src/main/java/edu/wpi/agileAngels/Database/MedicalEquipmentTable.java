@@ -36,6 +36,7 @@ public class MedicalEquipmentTable implements TableI {
       String delete = "DELETE FROM MedicalEquipment WHERE ID = ?";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(delete);
       preparedStatement.setString(1, str);
+      preparedStatement.execute();
       return true;
     } catch (SQLException e) {
       return false;
@@ -49,7 +50,7 @@ public class MedicalEquipmentTable implements TableI {
         return false;
       }
       MedicalEquip medE = (MedicalEquip) obj;
-      String update = "UPDATE MedicalEquipment SET Type = ?, Clean = ?, Location = ? WHERE = ?";
+      String update = "UPDATE MedicalEquipment SET Type = ?, Clean = ?, Location = ? WHERE ID = ?";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(update);
       preparedStatement.setString(1, medE.getType());
       if (medE.isClean()) {
@@ -59,6 +60,7 @@ public class MedicalEquipmentTable implements TableI {
       }
       preparedStatement.setString(3, medE.getLocation());
       preparedStatement.setString(4, medE.getID());
+      preparedStatement.execute();
       return true;
     } catch (SQLException e) {
       return false;
@@ -74,8 +76,7 @@ public class MedicalEquipmentTable implements TableI {
               + "ID VARCHAR(50),"
               + "Type VARCHAR(50),"
               + "Clean VARCHAR(50),"
-              + "Location VARCHAR(50),"
-              + "PRIMARY KEY (ID))";
+              + "Location VARCHAR(50))";
       queryEquip.execute(queryEq);
       return true;
     } catch (SQLException e) {

@@ -21,7 +21,6 @@ public class EmployeeTable implements TableI {
       String add = "INSERT INTO Employees(name, requests)VALUES(?,?)";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
       preparedStatement.setString(1, emp.getName());
-      // TODO modify to allow the storage of all requests into a column
       preparedStatement.setString(2, emp.requestsToString());
       preparedStatement.execute();
       return true;
@@ -64,7 +63,7 @@ public class EmployeeTable implements TableI {
       Employee emp = (Employee) obj;
       PreparedStatement preparedStatement =
           DBconnection.getConnection()
-              .prepareStatement("UPDATE RequestTable SET requests = ? WHERE name = ?");
+              .prepareStatement("UPDATE Employees SET requests = ? WHERE name = ?");
       preparedStatement.setString(1, emp.requestsToString());
       preparedStatement.setString(2, emp.getName());
       preparedStatement.execute();

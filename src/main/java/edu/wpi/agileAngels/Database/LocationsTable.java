@@ -71,7 +71,7 @@ public class LocationsTable implements TableI {
       PreparedStatement preparedStatement =
           DBconnection.getConnection()
               .prepareStatement(
-                  "UPDATE RequestTable SET xcoord = ?, ycoord = ?, floor = ?, building = ?, nodetype = ?, longname = ?, shortname = ? WHERE NodeID = ?");
+                  "UPDATE Locations SET xcoord = ?, ycoord = ?, floor = ?, building = ?, nodetype = ?, longname = ?, shortname = ? WHERE NodeID = ?");
       preparedStatement.setDouble(1, loc.getXCoord());
       preparedStatement.setDouble(2, loc.getYCoord());
       preparedStatement.setString(3, loc.getFloor());
@@ -105,8 +105,7 @@ public class LocationsTable implements TableI {
               + "building VARCHAR(50),"
               + "NodeType VARCHAR(50),"
               + "longName VARCHAR(50),"
-              + "shortName VARCHAR(50),"
-              + "PRIMARY KEY (NodeID))";
+              + "shortName VARCHAR(50))";
       query.execute(queryLocations);
       return true;
     } catch (SQLException sqlException) {

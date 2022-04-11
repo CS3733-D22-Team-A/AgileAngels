@@ -17,7 +17,7 @@ public class Adb {
    *
    * @throws SQLException
    */
-  public void initialize() throws SQLException {
+  public void initialize() {
 
     // Apache Derby and table creation
     System.out.println("-------Embedded Apache Derby Connection Testing --------");
@@ -237,32 +237,4 @@ public class Adb {
   public static boolean updateRequest(Request request, String employeeName, String newName) {
     return serviceRequestTable.update(request);
   }
-
-  /*/**
-   * Checks if table exists.
-   *
-   * @param conn  Connection
-   * @param tName Name of table
-   * @return True if it exists, false if not
-   * @throws SQLException
-   */
-  /*private boolean tableExist(Connection conn, String tName) throws SQLException{
-  }
-    boolean tExists = false;
-    try {
-      DatabaseMetaData metaData = conn.getMetaData();
-      ResultSet rs = metaData.getTables(null, null, tName.toUpperCase(), null);
-      while (rs.next()) {
-        String name = rs.getString("TABLE_NAME");
-        if (name != null && name.equals(tName.toUpperCase())) {
-          tExists = true;
-          break;
-        }
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return tExists;
-  }*/
-
 }
