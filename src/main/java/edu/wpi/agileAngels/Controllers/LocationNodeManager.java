@@ -83,6 +83,6 @@ public class LocationNodeManager extends NodeManager {
 
   // gets called on button press and gets the node data
   void loadNode(LocationNode locationNode) {
-    mapsController.populateNodeData(locationNode);
+    mapsController.populateLocationNodeData(locationNode);
   }
 }

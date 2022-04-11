@@ -79,6 +79,6 @@ public class RequestNodeManager extends NodeManager {
 
   // gets called on button press and gets the node data
   void loadNode(RequestNode requestNode) {
-    // mapsController.populateNodeData(requestNode);
+    mapsController.populateRequestNodeData(requestNode);
   }
 }

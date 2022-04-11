@@ -38,6 +38,7 @@ public class MapsController extends MainController implements Initializable {
   @FXML Label floorLabel, nodeIDField;
 
   LocationNode currentLocationNode = null;
+  RequestNode currentRequestNode = null;
   private String currentFloor = "1";
 
   Pane pane1 = new Pane();
@@ -90,7 +91,7 @@ public class MapsController extends MainController implements Initializable {
    *
    * @param locationNode the node whose data is populated
    */
-  public void populateNodeData(LocationNode locationNode) {
+  public void populateLocationNodeData(LocationNode locationNode) {
     System.out.println(locationNode.getNodeID());
     nodeIDField.setText(locationNode.getNodeID());
     nameField.setText(locationNode.getName());
@@ -99,6 +100,22 @@ public class MapsController extends MainController implements Initializable {
     yCoordField.setText(Double.toString(locationNode.getYCoord()));
 
     currentLocationNode = locationNode;
+  }
+
+  /**
+   * Populates the text fields on the page with data of a node
+   *
+   * @param requestNode the node whose data is populated
+   */
+  public void populateRequestNodeData(RequestNode requestNode) {
+    System.out.println(requestNode.getName());
+    nodeIDField.setText(requestNode.getName());
+    nameField.setText(requestNode.getEmployee());
+    typeField.setText(requestNode.getStatus());
+    xCoordField.setText(Double.toString(requestNode.getLocation().getXCoord()));
+    yCoordField.setText(Double.toString(requestNode.getLocation().getYCoord()));
+
+    currentRequestNode = requestNode;
   }
 
   @FXML
