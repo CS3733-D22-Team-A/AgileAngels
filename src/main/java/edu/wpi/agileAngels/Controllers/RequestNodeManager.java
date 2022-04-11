@@ -11,8 +11,7 @@ import java.util.HashMap;
 public class RequestNodeManager extends NodeManager {
 
   private MapsController mapsController;
-  private HashMap<String, Request> requestsHash = new HashMap<>();
-  private RequestDAOImpl requestDAO = new RequestDAOImpl("", requestsHash, 0);
+  private RequestDAOImpl requestDAO = RequestDAOImpl.getInstance("MedRequest");
   private HashMap<String, RequestNode> nodes = new HashMap<>();
   private int[][] typeCounts = new int[5][5];
   private HashMap<String, Integer> floorsAndTypes = new HashMap<>();
@@ -50,13 +49,14 @@ public class RequestNodeManager extends NodeManager {
 
   // gets all locations from the DB and creates nodes from them
   void createNodesFromDB() {
-    requestsHash = requestDAO.getAllRequests();
-    ArrayList<Request> requestsList = new ArrayList<Request>(requestsHash.values());
+    requestDAO.csvRead();
+    ArrayList<Request> requestsList = new ArrayList<>(requestDAO.getAllRequests().values());
     for (Request request : requestsList) {
-      typeCounts[floorsAndTypes.get(request.getRequestType())][
-              floorsAndTypes.get(locationsHash.get(request.getLocation()))] +=
-          1;
-      mapsController.displayNode(addNode(request));
+      System.out.println(request.getName());
+      // typeCounts[floorsAndTypes.get(Integer.toString(request.getRequestType()))][
+      //         floorsAndTypes.get(locationsHash.get(request.getLocation()))] +=
+      //     1;
+      // mapsController.displayNode(addNode(request));
     }
   }
 
@@ -66,6 +66,9 @@ public class RequestNodeManager extends NodeManager {
   }
 
   RequestNode addNode(Request request) {
+
+    System.out.println("addNode");
+
     RequestNode requestNode = new RequestNode(request, this);
     nodes.put(requestNode.getName(), requestNode);
     return requestNode;

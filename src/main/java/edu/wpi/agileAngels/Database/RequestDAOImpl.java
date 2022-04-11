@@ -30,15 +30,8 @@ public class RequestDAOImpl implements RequestDAO {
       DAOtype = type;
       data = new HashMap();
       MedrequestImpl = new RequestDAOImpl("./MedData.csv", data, 1);
-      return MedrequestImpl;
-    } else if (LabrequestImpl == null && 0 == type.compareTo("LabRequest")) {
-      DAOtype = type;
-      data = new HashMap();
-      LabrequestImpl = new RequestDAOImpl("./LabData.csv", data, 1);
-      return LabrequestImpl;
-    } else {
-      return null;
     }
+    return MedrequestImpl;
   }
 
   public HashMap<String, Request> getAllRequests() {
