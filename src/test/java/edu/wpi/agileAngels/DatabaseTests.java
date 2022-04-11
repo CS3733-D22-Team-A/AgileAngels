@@ -2,13 +2,14 @@ package edu.wpi.agileAngels;
 
 import edu.wpi.agileAngels.Controllers.*;
 import edu.wpi.agileAngels.Database.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DatabaseTests {
 
   private static Adb database;
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws SQLException {
     database = new Adb();
     database.initialize();
     testMedicalEquipmentTable();
@@ -48,7 +49,7 @@ public class DatabaseTests {
     ArrayList testAL = new ArrayList();
 
     Location loc = new Location("abc15", 130, 234, "1", "A", "d", "the Hallway", "the Hall");
-    Employee dummy = new Employee("Matha", "atham", testAL);
+    Employee dummy = new Employee("Matha", "atham");
     Request r1 = new Request("R1", dummy, loc, "MED", "Complete", "Descr.", "Available", "N/A");
     Request r2 = new Request("R2", dummy, loc, "GIFT", "In Progress", "Descr.", "N/A", "N/A");
     Request r3 =
@@ -95,17 +96,17 @@ public class DatabaseTests {
   public static void testEmployeesTable() {
     ArrayList testAL = new ArrayList();
     Location loc = new Location("abc15", 130, 234, "1", "A", "d", "the Hallway", "the Hall");
-    Employee dummy = new Employee("Matha", "atham", testAL);
+    Employee dummy = new Employee("Matha", "atham");
     ArrayList<Request> reqs = new ArrayList<Request>();
     reqs.add(new Request("R1", dummy, loc, "MED", "Complete", "Descr.", "Available", "N/A"));
-    Employee Emily = new Employee("Emily", "emily123", new ArrayList<Request>());
-    Employee Martha = new Employee("Martha", "jjjjjtype", reqs);
+    Employee Emily = new Employee("Emily", "emily123");
+    Employee Martha = new Employee("Martha", "jjjjjtype");
     reqs.remove(0);
     reqs.add(
         new Request("R3", Emily, loc, "MED", "Not Started", "Descr.", " Not Available", "N/A"));
     reqs.add(
         new Request("R6", Martha, loc, "MED", "Not Started", "Descr.", " Not Available", "N/A"));
-    Employee Lou = new Employee("Lou", "kellyanne", reqs);
+    Employee Lou = new Employee("Lou", "kellyanne");
 
     // Add
     Adb.addEmployee(Emily);

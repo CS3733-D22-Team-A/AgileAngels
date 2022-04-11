@@ -72,7 +72,7 @@ public class EmployeeManager implements EmployeeDAO {
   /** Adds Employee into hash . */
   public void addEmployee(String name, String username, String password) {
     ArrayList<Request> newERequest = new ArrayList<Request>();
-    Employee newEmployee = new Employee(name, password, newERequest);
+    Employee newEmployee = new Employee(name, password);
     employeeHashMap.put(username, newEmployee);
   }
 
@@ -98,10 +98,9 @@ public class EmployeeManager implements EmployeeDAO {
       while ((line = br.readLine()) != null) {
         if (OnHeader) {
           String[] values = line.split(splitBy);
-          ArrayList<Request> allRequests = new ArrayList<>();
 
           ++this.count;
-          Employee employee = new Employee(values[0], values[1], allRequests);
+          Employee employee = new Employee(values[0], values[1]);
           this.employeeHashMap.put(values[0], employee);
           Adb.addEmployee(employee);
 
