@@ -9,12 +9,12 @@ import java.util.HashMap;
 public class LocationNodeManager {
 
   private MapsController mapsController;
-  private LocationDAOImpl locationDAO = new LocationDAOImpl().getInstance;
+  private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
   private HashMap<String, LocationNode> nodes = new HashMap<>();
   private int[][] typeCounts = new int[15][5];
   private HashMap<String, Integer> floorsAndTypes = new HashMap<>();
 
-  public LocationNodeManager(MapsController mapsController) {
+  public LocationNodeManager(MapsController mapsController) throws SQLException {
     this.mapsController = mapsController;
 
     // initialize list of location floors and types

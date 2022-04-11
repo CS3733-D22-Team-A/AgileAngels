@@ -28,7 +28,7 @@ public class EquipmentController extends MainController implements Initializable
   @FXML Pane drop, drop2;
   @FXML MenuButton equipLocation;
 
-  private LocationDAOImpl locationDAO = new LocationDAOImpl();
+  private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private RequestDAOImpl MedrequestImpl =

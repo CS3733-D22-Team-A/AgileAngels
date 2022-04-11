@@ -2,9 +2,8 @@ package edu.wpi.agileAngels.Controllers;
 
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.agileAngels.Database.Location;
-import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import edu.wpi.agileAngels.Database.Request;
-import java.util.HashMap;
+import java.sql.SQLException;
 import javafx.event.ActionEvent;
 
 public class RequestNode {
@@ -13,13 +12,11 @@ public class RequestNode {
   private Location location;
   private RequestNodeManager requestNodeManager;
   private JFXButton button = new JFXButton();
-  private LocationDAOImpl locationDAO = new LocationDAOImpl();
-  HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
 
-  public RequestNode(Request request, RequestNodeManager requestNodeManager) {
+  public RequestNode(Request request, RequestNodeManager requestNodeManager) throws SQLException {
     this.request = request;
     this.requestNodeManager = requestNodeManager;
-    this.location = locationsHash.get(this.request.getLocation());
+    this.location = request.getLocation();
 
     button.setLayoutX((this.location.getXCoord() - 800) / 5);
     button.setLayoutY((this.location.getYCoord() - 350) / 5);
@@ -53,7 +50,7 @@ public class RequestNode {
   }
 
   public String getEmployee() {
-    return request.getEmployee();
+    return request.getEmployee().getName();
   }
 
   public String getStatus() {

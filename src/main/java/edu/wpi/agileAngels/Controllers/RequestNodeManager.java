@@ -17,7 +17,7 @@ public class RequestNodeManager {
   }
 
   // gets all locations from the DB and creates nodes from them
-  void createNodesFromDB() {
+  void createNodesFromDB() throws SQLException {
     requestDAO.csvRead();
     ArrayList<Request> requestsList = new ArrayList<>(requestDAO.getAllRequests().values());
     for (Request request : requestsList) {
@@ -25,7 +25,7 @@ public class RequestNodeManager {
     }
   }
 
-  RequestNode addNode(Request request) {
+  RequestNode addNode(Request request) throws SQLException {
     RequestNode requestNode = new RequestNode(request, this);
     nodes.put(requestNode.getName(), requestNode);
     return requestNode;

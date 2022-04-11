@@ -52,8 +52,6 @@ public class MapsController extends MainController implements Initializable {
 
   public MapsController() throws SQLException {}
 
-  public MapsController() throws SQLException {}
-
   /**
    * Called on page load, creates panes for each map, adds the images for each map to its pane, and
    * sets their initial visibility
@@ -85,7 +83,11 @@ public class MapsController extends MainController implements Initializable {
     lowerLevelTwo.setViewOrder(-100);
 
     locationNodeManager.createNodesFromDB();
-    requestNodeManager.createNodesFromDB();
+    try {
+      requestNodeManager.createNodesFromDB();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
