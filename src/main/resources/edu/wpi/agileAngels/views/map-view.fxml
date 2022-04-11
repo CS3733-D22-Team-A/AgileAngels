@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,9 +12,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MapsController">
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MapsController">
    <children>
       <fx:include source="menu-bar.fxml" />
+      <Button fx:id="zoomIn" layoutX="1194.0" layoutY="558.0" mnemonicParsing="false" onAction="#ZoomableMap" prefHeight="30.0" prefWidth="32.0" text="+" />
 
       <Button id="floorThree" fx:id="floorThree" layoutX="286.0" layoutY="207.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 3">
          <font>
@@ -35,35 +37,39 @@
          <font>
             <Font size="17.0" />
          </font></Button>
-      <Pane fx:id="mapPane" layoutX="480.0" layoutY="200.0" prefHeight="426.0" prefWidth="700.0" AnchorPane.bottomAnchor="94.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="200.0">
-         <children>
-            <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/Floor 1.png" />
-               </image>
-            </ImageView>
-            <ImageView id="floorTwoMap" fx:id="floorTwoMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/Floor 2.png" />
-               </image>
-            </ImageView>
-            <ImageView id="floorThreeMap" fx:id="floorThreeMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/Floor 3.png" />
-               </image>
-            </ImageView>
-            <ImageView id="lowerLevelOne" fx:id="lowerLevelOneMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/Lower level 1.png" />
-               </image>
-            </ImageView>
-            <ImageView id="lowerLevelTwo" fx:id="lowerLevelTwoMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/Lower level 2.png" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
+      <ScrollPane fx:id="mapScroll" layoutX="480.0" layoutY="199.0" pannable="true" prefHeight="423.0" prefWidth="700.0">
+         <content>
+            <Pane fx:id="mapPane" prefHeight="426.0" prefWidth="700.0">
+               <children>
+                  <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/Floor 1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView id="floorTwoMap" fx:id="floorTwoMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/Floor 2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView id="floorThreeMap" fx:id="floorThreeMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/Floor 3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView id="lowerLevelOne" fx:id="lowerLevelOneMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/Lower level 1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView id="lowerLevelTwo" fx:id="lowerLevelTwoMap" fitHeight="500.0" fitWidth="700.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/Lower level 2.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </content>
+      </ScrollPane>
       <TextField layoutX="58.0" layoutY="406.0" prefHeight="33.0" prefWidth="60.0" promptText="x-coordinate" fx:id="xCoordField" />
       <Label fx:id="nodeIDField" layoutX="58.0" layoutY="213.0" />
       <TextField fx:id="nameField" layoutX="58.0" layoutY="275.0" promptText="name" />
@@ -113,6 +119,7 @@
          </graphic>
       </Button>
       <Label fx:id="floorLabel" layoutX="747.0" layoutY="133.0" prefHeight="30.0" prefWidth="127.0" text="Floor 1" />
+      <Button fx:id="zoomOut" layoutX="1194.0" layoutY="588.0" mnemonicParsing="false" onAction="#ZoomableMap" prefHeight="30.0" prefWidth="32.0" text="-" />
       <!--
       <Button layoutX="141.0" layoutY="408.0" mnemonicParsing="false" onAction="#setNewPoint" prefHeight="92.0" prefWidth="113.0" text="Set new coord" />
       -->

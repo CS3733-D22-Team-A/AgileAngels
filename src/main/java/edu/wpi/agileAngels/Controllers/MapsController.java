@@ -7,11 +7,14 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.transform.Scale;
 import javax.swing.*;
 
 // TODO: Close app button is broken when displaying floor 1
@@ -20,6 +23,7 @@ public class MapsController extends MainController implements Initializable {
 
   @FXML
   private ImageView floorOneMap, floorTwoMap, floorThreeMap, lowerLevelOneMap, lowerLevelTwoMap;
+  @FXML private ScrollPane mapScroll;
   @FXML
   private Button floorOne,
       floorTwo,
@@ -30,7 +34,9 @@ public class MapsController extends MainController implements Initializable {
       addButton,
       removeButton,
       switchToAddButton,
-      switchToEditButton;
+      switchToEditButton,
+      zoomIn,
+      zoomOut;
   @FXML private TextField nameField, xCoordField, yCoordField, typeField;
 
   @FXML Pane mapPane;
@@ -48,6 +54,8 @@ public class MapsController extends MainController implements Initializable {
 
   NodeManager nodeManager = new NodeManager(this);
 
+  // Map zoom
+  // ZoomableMap zoomableMap = new ZoomableMap(mapScroll.getContent());
   /**
    * Called on page load, creates panes for each map, adds the images for each map to its pane, and
    * sets their initial visibility
@@ -79,6 +87,8 @@ public class MapsController extends MainController implements Initializable {
     lowerLevelTwo.setViewOrder(-100);
 
     nodeManager.createNodesFromDB();
+
+    // this.ZoomableMap(mapScroll);
   }
 
   /**
@@ -231,6 +241,21 @@ public class MapsController extends MainController implements Initializable {
       paneL2.setVisible(true);
       currentFloor = "L2";
       floorLabel.setText("Lower Level 2");
+    }
+  }
+
+  public void ZoomableMap(ActionEvent event) {
+
+    javafx.scene.Node content = mapScroll.getContent();
+    Group contentGroup = new Group();
+    contentGroup.getChildren().add(content);
+    mapScroll.setContent(contentGroup);
+    if (event.getSource() == zoomIn) {
+      Scale scaleTransform = new Scale(1.05, 1.05, 0, 0);
+      contentGroup.getTransforms().add(scaleTransform);
+    } else if (event.getSource() == zoomOut) {
+      Scale scaleTransform = new Scale(.95, .95, 0, 0);
+      contentGroup.getTransforms().add(scaleTransform);
     }
   }
 }
