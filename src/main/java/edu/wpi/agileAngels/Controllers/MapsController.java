@@ -149,13 +149,17 @@ public class MapsController extends MainController implements Initializable {
    */
   @FXML
   private void editNode() throws IOException {
-    currentLocationNode.changeLocationXCoord(Double.parseDouble(xCoordField.getText()));
-    currentLocationNode.changeLocationYCoord(Double.parseDouble(yCoordField.getText()));
-    currentLocationNode.changeLocationName(nameField.getText());
-    currentLocationNode.changeLocationType(typeField.getText());
+    Double xCoord = Double.parseDouble(xCoordField.getText());
+    Double yCoord = Double.parseDouble(yCoordField.getText());
+    String name = nameField.getText();
+    String type = typeField.getText();
+    currentLocationNode.changeLocationXCoord(xCoord);
+    currentLocationNode.changeLocationYCoord(yCoord);
+    currentLocationNode.changeLocationName(name);
+    currentLocationNode.changeLocationType(type);
     currentLocationNode.resetLocation();
     currentLocationNode = null;
-    locationNodeManager.editNode(currentLocationNode);
+    locationNodeManager.editNode(currentLocationNode, xCoord, yCoord, name,  type);
   }
 
   /**
