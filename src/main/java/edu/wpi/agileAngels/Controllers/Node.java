@@ -3,7 +3,6 @@ package edu.wpi.agileAngels.Controllers;
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.agileAngels.Database.Location;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 
 public class Node {
 
@@ -38,8 +37,8 @@ public class Node {
   }
 
   public void resetLocation() {
-    button.setLayoutX((this.getXCoord() - 800) / 5);
-    button.setLayoutY((this.getYCoord() - 350) / 5);
+    button.setLayoutX(this.getXCoord());
+    button.setLayoutY(this.getYCoord());
 
     button.setText(String.valueOf(location.getNodeType().charAt(0)));
   }

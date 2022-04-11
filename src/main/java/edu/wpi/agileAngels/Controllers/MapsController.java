@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
 import javax.swing.*;
@@ -35,8 +36,7 @@ public class MapsController extends MainController implements Initializable {
       zoomIn,
       zoomOut;
   @FXML private TextField nameField, xCoordField, yCoordField, typeField;
-
-  @FXML Pane mapPane;
+  @FXML Pane mapPane, clickPane;
   @FXML AnchorPane anchor;
   @FXML Label floorLabel, nodeIDField;
   @FXML MenuItem pati, stor, dirt, hall, elev, rest, stai, dept, labs, info, conf, exit, retl, serv;
@@ -53,6 +53,7 @@ public class MapsController extends MainController implements Initializable {
 
   NodeManager nodeManager = new NodeManager(this);
 
+  double scale = 1;
   // Map zoom
   // ZoomableMap zoomableMap = new ZoomableMap(mapScroll.getContent());
   /**
@@ -267,13 +268,41 @@ public class MapsController extends MainController implements Initializable {
     mapScroll.setContent(contentGroup);
     if (event.getSource() == zoomIn) {
       Scale scaleTransform = new Scale(1.05, 1.05, 0, 0);
+      scale *= 1.05;
       contentGroup.getTransforms().add(scaleTransform);
       nodeManager.resieAll(0.95);
 
     } else if (event.getSource() == zoomOut) {
       Scale scaleTransform = new Scale(.95, .95, 0, 0);
+      scale *= 0.95;
       contentGroup.getTransforms().add(scaleTransform);
       nodeManager.resieAll(1.05);
     }
+  }
+
+  public void setCoords(ActionEvent event) {
+    // Pane pane = new Pane();
+    // pane.setPrefSize(700, 426);
+    // pane.setLayoutX(480);
+    // pane.setLayoutY(200);
+    // System.out.println("button pressed");
+    // mapScroll.setContent(pane);
+    clickPane.setDisable(false);
+    clickPane.setViewOrder(-1000);
+    clickPane.setStyle("-fx-background-color: rgba(0,0,0, .15)");
+
+    clickPane.setOnMouseClicked(
+        (MouseEvent click) -> {
+          System.out.println(mapScroll.getVvalue());
+          System.out.println(mapScroll.getHvalue());
+          xCoordField.setText(String.valueOf((click.getSceneX() - 480) / scale));
+          yCoordField.setText(String.valueOf((click.getSceneY() - 200) / scale));
+          clickPane.setStyle("-fx-background-color: rgba(0,0,0,0)");
+          clickPane.setDisable(true);
+          try {
+            editNode();
+          } catch (IOException | NullPointerException e) {
+          }
+        });
   }
 }
