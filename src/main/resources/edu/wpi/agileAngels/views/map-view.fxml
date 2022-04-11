@@ -41,7 +41,7 @@
          </font></Button>
       <ScrollPane fx:id="mapScroll" hbarPolicy="NEVER" layoutX="460.0" layoutY="60.0" pannable="true" prefHeight="578.0" prefWidth="821.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="458.79999999999995" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
          <content>
-            <Pane fx:id="mapPane" prefHeight="426.0" prefWidth="700.0">
+            <Pane fx:id="mapPane" prefHeight="659.0" prefWidth="1088.0">
                <children>
                   <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="658.0" fitWidth="1282.0" preserveRatio="true">
                      <image>
@@ -91,8 +91,8 @@
          </graphic>
       </Button>
       <Label fx:id="floorLabel" layoutX="307.0" layoutY="139.0" prefHeight="30.0" prefWidth="127.0" text="Floor 1" />
-      <Button fx:id="zoomIn" layoutX="1194.0" layoutY="558.0" mnemonicParsing="false" onAction="#zoomableMap" prefHeight="30.0" prefWidth="32.0" text="+" AnchorPane.bottomAnchor="132.0" AnchorPane.rightAnchor="54.0" />
-      <Button fx:id="zoomOut" layoutX="1194.0" layoutY="588.0" mnemonicParsing="false" onAction="#zoomableMap" prefHeight="30.0" prefWidth="32.0" text="-" AnchorPane.bottomAnchor="102.0" AnchorPane.rightAnchor="54.0" />
+      <Button fx:id="zoomIn" layoutX="1194.0" layoutY="558.0" mnemonicParsing="false" onAction="#zoomableMap" prefHeight="30.0" prefWidth="32.0" text="+" AnchorPane.bottomAnchor="132.0" AnchorPane.rightAnchor="20.0" />
+      <Button fx:id="zoomOut" layoutX="1194.0" layoutY="588.0" mnemonicParsing="false" onAction="#zoomableMap" prefHeight="30.0" prefWidth="32.0" text="-" AnchorPane.bottomAnchor="102.0" AnchorPane.rightAnchor="20.0" />
       <VBox layoutX="58.0" layoutY="205.0" prefHeight="358.0" prefWidth="200.0" spacing="20.0">
          <children>
             <Label fx:id="nodeIDField" prefHeight="40.0" prefWidth="270.0" />
