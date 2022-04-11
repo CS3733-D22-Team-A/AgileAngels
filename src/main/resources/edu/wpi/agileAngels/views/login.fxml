@@ -21,7 +21,7 @@
             <VBox alignment="CENTER" prefHeight="555.0" prefWidth="270.0" spacing="40.0">
                <children>
                   <TextField fx:id="username" prefHeight="50.0" prefWidth="270.0" promptText="Username:" />
-                  <PasswordField fx:id="passwordBox" prefHeight="50.0" prefWidth="270.0" promptText="Password:" />
+                  <PasswordField fx:id="passwordBox" onAction="#login" prefHeight="50.0" prefWidth="270.0" promptText="Password:" />
                   <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0">
                      <children>
                         <Button fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
