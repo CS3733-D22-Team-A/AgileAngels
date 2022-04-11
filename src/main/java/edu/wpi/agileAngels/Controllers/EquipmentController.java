@@ -3,11 +3,10 @@ package edu.wpi.agileAngels.Controllers;
 import edu.wpi.agileAngels.Database.*;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -20,12 +19,14 @@ import javafx.scene.layout.Pane;
 public class EquipmentController extends MainController implements Initializable {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
-  @FXML
-  private TextField equipLocation, equipmentEmployeeText, equipmentStatus, deleteName, editRequest;
+  @FXML private TextField equipmentEmployeeText, equipmentStatus, deleteName, editRequest;
   @FXML private Label equipmentConfirmation, dropdownButtonText;
   @FXML private TableView equipmentTable;
   @FXML Button clear;
   @FXML Pane drop, drop2;
+  @FXML MenuButton equipLocation;
+
+  private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private RequestDAOImpl MedrequestImpl =
@@ -47,6 +48,20 @@ public class EquipmentController extends MainController implements Initializable
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
+    HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
+    ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
+    for (Location loc : locationsList) {
+      MenuItem item = new MenuItem(loc.getNodeID());
+      item.setOnAction(this::locationMenu);
+      equipLocation.getItems().add(item);
+    }
+
+    // connection = DBconnection.getConnection();
+
+    // Implement DAO here.
+
+    // HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
@@ -195,5 +210,11 @@ public class EquipmentController extends MainController implements Initializable
 
       equipmentTable.setItems(medData);
     }
+  }
+
+  @FXML
+  public void locationMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    equipLocation.setText(button.getText());
   }
 }

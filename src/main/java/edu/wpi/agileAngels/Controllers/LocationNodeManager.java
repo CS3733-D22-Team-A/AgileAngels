@@ -6,15 +6,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class NodeManager {
+public class LocationNodeManager {
 
   private MapsController mapsController;
   private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
-  private HashMap<String, Node> nodes = new HashMap<>();
+  private HashMap<String, LocationNode> nodes = new HashMap<>();
   private int[][] typeCounts = new int[15][5];
   private HashMap<String, Integer> floorsAndTypes = new HashMap<>();
 
-  public NodeManager(MapsController mapsController) throws SQLException {
+  public LocationNodeManager(MapsController mapsController) throws SQLException {
     this.mapsController = mapsController;
 
     // initialize list of location floors and types
@@ -49,8 +49,9 @@ public class NodeManager {
 
   void deleteNode(String nodeID) {
     nodes.remove(nodeID);
-    // locationDAO.deleteLocation(currentNode.getLocation());
-    // adb.deleteLocation(location)
+    HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
+    Location location = locationsHash.get(nodeID);
+    locationDAO.deleteLocation(location);
   }
 
   // gets all locations from the DB and creates nodes from them
@@ -61,7 +62,7 @@ public class NodeManager {
       typeCounts[floorsAndTypes.get(location.getNodeType())][
               floorsAndTypes.get(location.getFloor())] +=
           1;
-      mapsController.displayNode(addNode(location));
+      mapsController.displayLocationNode(addNode(location));
     }
   }
 
@@ -70,20 +71,27 @@ public class NodeManager {
     return typeCounts[floorsAndTypes.get(type)][floorsAndTypes.get(floor)];
   }
 
-  Node addNode(Location location) {
-    Node node = new Node(location, this);
-    nodes.put(node.getNodeID(), node);
-    return node;
+  LocationNode addNode(Location location) {
+    LocationNode locationNode = new LocationNode(location, this);
+    nodes.put(locationNode.getNodeID(), locationNode);
+
     // add the new location to the database
+    locationDAO.addLocation(location);
+
+    return locationNode;
   }
 
-  void editNode(Node node) {
+  void editNode(
+      LocationNode locationNode, Double xCoord, Double yCoord, String longName, String type) {
     // edit the corresponding location in the backend
-
+    locationDAO.updateLocationXCoord(locationNode.getLocation(), xCoord);
+    locationDAO.updateLocationYCoord(locationNode.getLocation(), yCoord);
+    locationDAO.updateLocationLongName(locationNode.getLocation(), longName);
+    locationDAO.updateLocationType(locationNode.getLocation(), type);
   }
 
   // gets called on button press and gets the node data
-  void loadNode(Node node) {
-    mapsController.populateNodeData(node);
+  void loadNode(LocationNode locationNode) {
+    mapsController.populateLocationNodeData(locationNode);
   }
 }
