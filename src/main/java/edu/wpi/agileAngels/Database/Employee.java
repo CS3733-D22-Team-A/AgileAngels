@@ -41,4 +41,13 @@ public class Employee {
   public void removeRequest(Request oldReq) {
     this.requests.remove(oldReq);
   }
+
+  public String requestsToString() {
+    String ret = " ";
+    for (int i = 0; i < getRequests().size(); i++) {
+      Request request = getRequests().get(i);
+      ret = ret + request.getName();
+    }
+    return ret;
+  }
 }

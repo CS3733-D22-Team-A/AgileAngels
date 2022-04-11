@@ -1,5 +1,7 @@
 package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.Employee;
+import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import edu.wpi.agileAngels.Database.Request;
 import edu.wpi.agileAngels.Database.RequestDAOImpl;
 import java.net.URL;
@@ -34,6 +36,9 @@ public class GiftsController extends MainController implements Initializable {
   @FXML Button addButton, editButton, deleteButton;
   @FXML private Label giftConfirm;
   private RequestDAOImpl giftDAO;
+  private HashMap<String, Employee> employeeHashMap = new HashMap<>();
+  private EmployeeManager empDAO = new EmployeeManager(employeeHashMap);
+  private LocationDAOImpl locDAO = new LocationDAOImpl();
   // TODO make gift table in the UI
   @FXML private TableView giftTable;
   private static ObservableList<Request> giftData =
@@ -250,8 +255,8 @@ public class GiftsController extends MainController implements Initializable {
     Request request =
         new Request(
             "",
-            giftEmployeeText.getText(),
-            giftRecipient.getText(),
+            empDAO.getEmployee(giftEmployeeText.getText()),
+            locDAO.getLocation(giftRecipient.getText()),
             dropdownButtonText.getText(),
             giftStatus.getText(),
             giftMessage.getText(),

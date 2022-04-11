@@ -1,9 +1,9 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Request;
-import edu.wpi.agileAngels.Database.RequestDAOImpl;
+import edu.wpi.agileAngels.Database.*;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -20,6 +20,9 @@ public class LabController extends MainController implements Initializable {
   @FXML private TextField labTestLocation, labEmployeeText, labStatus, labDelete, labEdit;
 
   private RequestDAOImpl LabDAO = RequestDAOImpl.getInstance("LabRequest");
+  private LocationDAOImpl locDAO = new LocationDAOImpl();
+  private HashMap<String, Employee> employeeHashMap = new HashMap<>();
+  private EmployeeManager empDAO = new EmployeeManager(employeeHashMap);
   private static ObservableList<Request> labData = FXCollections.observableArrayList();
   @FXML private TableView labTable;
   @FXML
@@ -107,8 +110,9 @@ public class LabController extends MainController implements Initializable {
             + " by "
             + employee
             + ".");
-    // Request request = new Request("", available, dropDown, location, employee, status, "", "");
-    Request request = new Request("", employee, location, dropDown, status, "", "", "");
+    Location loc = locDAO.getLocation(location);
+    Employee emp = empDAO.getEmployee(employee);
+    Request request = new Request("", emp, loc, dropDown, status, "", "", "");
 
     LabDAO.addRequest(request);
     labData.add(request);
@@ -131,12 +135,13 @@ public class LabController extends MainController implements Initializable {
         LabDAO.updateType(found, dropDown);
       }
       if (!location.isEmpty()) {
-        found.setLocation(location);
-        LabDAO.updateLocation(found, location);
+        Location loc = locDAO.getLocation(location);
+        found.setLocation(loc);
+        LabDAO.updateLocation(found, loc);
       }
       if (!employee.isEmpty()) {
-        found.setEmployee(employee);
-        LabDAO.updateEmployeeName(found, employee);
+        found.setEmployee(empDAO.getEmployee(employee));
+        LabDAO.updateEmployeeName(found, employee); // uhhh will this work?
       }
       if (!status.isEmpty()) {
         found.setStatus(employee);
@@ -159,13 +164,13 @@ public class LabController extends MainController implements Initializable {
           LabDAO.updateType(found, type);
         }
         if (!labTestLocation.getText().isEmpty()) {
-          // String location = labTestLocation.getText();
-          found.setLocation(location);
-          LabDAO.updateLocation(found, location);
+          Location loc = locDAO.getLocation(location);
+          found.setLocation(loc);
+          LabDAO.updateLocation(found, loc);
         }
         if (!labEmployeeText.getText().isEmpty()) {
           // String employee = labEmployeeText.getText();
-          found.setEmployee(employee);
+          found.setEmployee(empDAO.getEmployee(employee));
           LabDAO.updateEmployeeName(found, employee);
         }
         labData.set(num, found);
@@ -182,7 +187,9 @@ public class LabController extends MainController implements Initializable {
               + " by "
               + labEmployeeText.getText()
               + ".");
-      Request request = new Request("", employee, location, dropDown, status, "", "", "");
+      Location loc = locDAO.getLocation(location);
+      Employee emp = empDAO.getEmployee(employee);
+      Request request = new Request("", emp, loc, dropDown, status, "", "", "");
 
       LabDAO.addRequest(request);
 
