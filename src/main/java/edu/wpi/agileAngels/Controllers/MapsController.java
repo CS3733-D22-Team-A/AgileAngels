@@ -16,7 +16,12 @@ import javafx.scene.layout.*;
 
 public class MapsController extends MainController implements Initializable {
 
-  @FXML private ImageView floorTwoMap, floorThreeMap, lowerLevelOneMap, lowerLevelTwoMap;
+  @FXML
+  private ImageView floorTwoMap,
+      floorThreeMap,
+      lowerLevelOneMap,
+      lowerLevelTwoMap,
+      floorThreeDetailMap;
   @FXML
   private Button floorTwo,
       floorThree,
@@ -61,6 +66,7 @@ public class MapsController extends MainController implements Initializable {
     pane2.setVisible(true);
     mapPane.getChildren().add(pane3);
     pane3.getChildren().add((floorThreeMap));
+    pane3.getChildren().add(floorThreeDetailMap);
     pane3.setVisible(false);
     mapPane.getChildren().add(paneL1);
     paneL1.getChildren().add((lowerLevelOneMap));

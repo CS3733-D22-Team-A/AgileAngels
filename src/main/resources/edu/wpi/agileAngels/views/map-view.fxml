@@ -57,6 +57,11 @@
                   <Image url="@../assets/Lower level 2.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="floorThreeDetailMap" fitHeight="117.0" fitWidth="177.0" layoutX="93.0" layoutY="67.0" opacity="0.5">
+               <image>
+                  <Image url="@../assets/Tower - Floor 3 Detail.jpg" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <TextField layoutX="58.0" layoutY="406.0" prefHeight="33.0" prefWidth="60.0" promptText="x-coordinate" fx:id="xCoordField" />
