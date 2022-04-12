@@ -15,6 +15,7 @@ public class Request {
   private String description;
   private String attribute1;
   private String attribute2;
+  private MedicalEquip medicalEquip;
 
   public Request(
       String Name,
@@ -105,5 +106,13 @@ public class Request {
 
   public void setAttribute2(String attribute) {
     this.attribute2 = attribute;
+  }
+
+  public MedicalEquip getMedicalEquip() {
+    return medicalEquip;
+  }
+
+  public void setMedicalEquip(MedicalEquip medicalEquip) {
+    this.medicalEquip = medicalEquip;
   }
 }
