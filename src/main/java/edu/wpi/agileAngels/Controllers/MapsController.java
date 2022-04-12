@@ -298,6 +298,7 @@ public class MapsController extends MainController implements Initializable {
           xCoordField.setText(String.valueOf((click.getSceneX() - 480) / scale));
           yCoordField.setText(String.valueOf((click.getSceneY() - 200) / scale));
           clickPane.setStyle("-fx-background-color: rgba(0,0,0,0)");
+          System.out.println(mapPane.getWidth() * mapPane.getScaleX());
           clickPane.setDisable(true);
           try {
             editNode();
