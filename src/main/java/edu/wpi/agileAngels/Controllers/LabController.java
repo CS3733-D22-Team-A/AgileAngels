@@ -47,7 +47,7 @@ public class LabController extends MainController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
+    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
@@ -58,8 +58,9 @@ public class LabController extends MainController implements Initializable {
       LabDAO.csvRead();
       Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
 
-      while (var3.hasNext()) {
-        Map.Entry<String, Request> entry = (Map.Entry) var3.next();
+      // while (var3.hasNext()) {
+      for (Map.Entry<String, Request> entry : LabDAO.getAllRequests().entrySet()) {
+        // Map.Entry<String, Request> entry = (Map.Entry) var3.next();
         Request object = (Request) entry.getValue();
         labData.add(object);
       }
@@ -82,7 +83,7 @@ public class LabController extends MainController implements Initializable {
     } else if (!labEdit.getText().isEmpty()) {
       editLabRequest(dropDown, location, employee, status);
     } else {
-      addLabRequest("available", dropDown, location, employee, status);
+      addLabRequest("available", dropDown, location, empDAO.getEmployee(employee), status);
     }
   }
 
@@ -101,17 +102,17 @@ public class LabController extends MainController implements Initializable {
   }
 
   private void addLabRequest(
-      String available, String dropDown, String location, String employee, String status) {
+      String available, String dropDown, String location, Employee employee, String status) {
     labTestConfirmation.setText(
         "Thank you! Your "
             + dropDown
             + " you requested will be delivered shortly to "
             + location
             + " by "
-            + employee
+            + employee.getName()
             + ".");
     Location loc = locDAO.getLocation(location);
-    Employee emp = empDAO.getEmployee(employee);
+    Employee emp = empDAO.getEmployee(employee.getName());
     Request request = new Request("", emp, loc, dropDown, status, "", "", "");
 
     LabDAO.addRequest(request);

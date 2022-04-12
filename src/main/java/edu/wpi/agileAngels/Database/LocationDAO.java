@@ -1,5 +1,6 @@
 package edu.wpi.agileAngels.Database;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 
 // includes the four DOA methods
@@ -25,5 +26,5 @@ public interface LocationDAO {
 
   public void deleteLocation(Location location);
 
-  public void addLocation(Location location);
+  public void addLocation(Location location) throws SQLException;
 }

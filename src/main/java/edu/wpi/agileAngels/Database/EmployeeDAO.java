@@ -1,4 +1,4 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Database;
 
 import edu.wpi.agileAngels.Database.Employee;
 import java.util.HashMap;
