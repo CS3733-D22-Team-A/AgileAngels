@@ -19,7 +19,7 @@ public class LocationDAOImpl implements LocationDAO {
   private static HashMap<String, Location> data;
   private static LocationDAOImpl locationDAO = null;
 
-  public static LocationDAOImpl getInstance() throws SQLException {
+  public static LocationDAOImpl getInstance() {
     if (locationDAO == null) {
       HashMap<String, Location> data = new HashMap<>();
       locationDAO = new LocationDAOImpl(data);

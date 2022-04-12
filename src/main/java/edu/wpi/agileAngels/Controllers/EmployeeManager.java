@@ -5,7 +5,6 @@ import edu.wpi.agileAngels.Database.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,7 +19,7 @@ public class EmployeeManager implements EmployeeDAO {
     this.count = count;
   }
 
-  public static EmployeeManager getInstance() throws SQLException {
+  public static EmployeeManager getInstance() {
     if (employeeManagerDAO == null) {
       HashMap<String, Employee> Employeedata = new HashMap<>();
       employeeManagerDAO = new EmployeeManager(Employeedata, 0);

@@ -12,6 +12,7 @@ public class DatabaseTests {
   public static void main(String[] args) throws SQLException {
     database = new Adb();
     database.initialize();
+    DBconnection.switchConnection();
     testMedicalEquipmentTable();
     testEmployeesTable();
     testLocationsTable();
