@@ -37,10 +37,9 @@ public class EquipmentNodeManager {
     mapsController.populateEquipmentNodeData(equipNode);
   }
 
-  EquipmentNode makeClean(EquipmentNode node) {
+  void makeClean(EquipmentNode node) {
     MedicalEquip equip = node.getMedEquip();
     equipDAO.updateMedicalCleanliness(equip, equip.isClean());
     equipDAO.updateEquipmentLocation(equip, equip.getLocation());
-    return node;
   }
 }

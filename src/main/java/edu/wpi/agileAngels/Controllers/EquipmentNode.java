@@ -38,6 +38,11 @@ public class EquipmentNode {
     equipmentNodeManager.loadNode(this);
   }
 
+  public void resetLocation() {
+    button.setLayoutX((this.location.getXCoord() - 800) / 5);
+    button.setLayoutY((this.location.getYCoord() - 350) / 5);
+  }
+
   public MedicalEquip getMedEquip() {
     return medEquip;
   }
@@ -75,7 +80,7 @@ public class EquipmentNode {
     return medEquip.getStatus();
   }
 
-  public EquipmentNode makeClean() {
+  public void makeClean() {
     if (!medEquip.isClean()) {
       medEquip.setClean(true);
       if (medEquip.getType().equals("XRayMachine") || medEquip.getType().equals("InfusionPump")) {
@@ -84,6 +89,5 @@ public class EquipmentNode {
         medEquip.setLocation(locationsHash.get("ASTOR00303"));
       }
     }
-    return equipmentNodeManager.makeClean(this);
   }
 }
