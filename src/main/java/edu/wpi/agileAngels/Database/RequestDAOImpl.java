@@ -3,7 +3,11 @@ package edu.wpi.agileAngels.Database;
 import edu.wpi.agileAngels.Adb;
 import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import java.io.*;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 
 // Implementation of RequestDAO
@@ -188,5 +192,59 @@ public class RequestDAOImpl implements RequestDAO {
     HashMap<String, Location> locationData = locDAO.getAllLocations();
     location = locationData.get(value);
     return location;
+  }
+
+  public void outputCSVFile() {
+    String csvFilePath = "./RequestsOUT.csv";
+
+    try {
+
+      String sql = "SELECT * FROM ServiceRequests";
+
+      Connection connection = DBconnection.getConnection();
+
+      Statement statement = connection.createStatement();
+
+      ResultSet result = statement.executeQuery(sql);
+
+      BufferedWriter fileWriter = new BufferedWriter(new FileWriter(csvFilePath));
+
+      // write header line containing column names
+      fileWriter.write("name,employee,location,type,status,description, attribute1, attribute2");
+
+      while (result.next()) {
+        String name = result.getString("Name");
+        String employee = result.getString("employeename");
+        String location = result.getString("location");
+        String type = result.getString("type");
+        String status = result.getString("status");
+        String description = result.getString("description");
+        String attribute1 = result.getString("attribute1");
+        String attribute2 = result.getString("attribute2");
+        String[] att =
+            new String[] {
+              name, employee, location, type, status, description, attribute1, attribute2
+            };
+        for (int i = 0; i < att.length; i++) {
+          if (att[i].compareTo(" ") == 0) {
+            att[i] = "None";
+          }
+        }
+        String line =
+            String.format(
+                "%s,%s,%s, %s, %s, %s, %s,%s",
+                att[0], att[1], att[2], att[3], att[4], att[5], att[6], att[7]);
+
+        fileWriter.newLine();
+        fileWriter.write(line);
+      }
+
+      statement.close();
+      fileWriter.close();
+
+    } catch (SQLException | IOException e) {
+      System.out.println("Datababse error:");
+      e.printStackTrace();
+    }
   }
 }

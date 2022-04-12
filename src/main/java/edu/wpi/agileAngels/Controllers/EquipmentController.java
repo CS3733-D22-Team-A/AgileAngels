@@ -112,6 +112,8 @@ public class EquipmentController extends MainController implements Initializable
       addEquipRequest(dropDownString, location, employee, statusString);
       //  System.out.println(location.getNodeID() + " " + employee.getName());
     }
+
+    MedrequestImpl.outputCSVFile();
   }
 
   private void addEquipRequest(
