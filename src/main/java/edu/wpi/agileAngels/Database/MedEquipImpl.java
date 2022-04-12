@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels.Database;
 
 import edu.wpi.agileAngels.Adb;
-import java.sql.SQLException;
 import java.util.HashMap;
 
 public class MedEquipImpl implements MedEquipDAO {
@@ -17,7 +16,6 @@ public class MedEquipImpl implements MedEquipDAO {
     return MedEquipData;
   }
 
-
   public static MedEquipImpl getInstance() {
     if (MedEquipDAO == null) {
       HashMap<String, MedicalEquip> Data = new HashMap<>();
@@ -25,7 +23,6 @@ public class MedEquipImpl implements MedEquipDAO {
     }
     return MedEquipDAO;
   }
-
 
   @Override
   public void addEquipment(MedicalEquip medicalEquip) {
