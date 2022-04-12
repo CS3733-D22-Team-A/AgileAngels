@@ -63,7 +63,7 @@ public class EquipmentController extends MainController implements Initializable
 
     // HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
 
-    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -114,16 +114,12 @@ public class EquipmentController extends MainController implements Initializable
       editEquipmentRequest(
           editString, dropDownString, locationString, employeeString, statusString);
     } else {
-      addEquipRequest("available", dropDownString, locationString, employeeString, statusString);
+      addEquipRequest(dropDownString, locationString, employeeString, statusString);
     }
   }
 
   private void addEquipRequest(
-      String availableString,
-      String dropDownString,
-      String locationString,
-      String employeeString,
-      String statusString) {
+      String dropDownString, String locationString, String employeeString, String statusString) {
     System.out.println("ADD DEVICE");
     equipmentConfirmation.setText(
         "Thank you, the "
@@ -154,7 +150,6 @@ public class EquipmentController extends MainController implements Initializable
 
   private void deleteEquipRequest(String deleteString) {
     if (!deleteString.isEmpty()) {
-      System.out.println("DELETE REQUEST");
       for (int i = 0; i < medData.size(); i++) {
         Request object = medData.get(i);
         if (0 == deleteString.compareTo(object.getName())) {
