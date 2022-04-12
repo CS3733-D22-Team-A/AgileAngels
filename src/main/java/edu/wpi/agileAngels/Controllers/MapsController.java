@@ -130,7 +130,7 @@ public class MapsController extends MainController implements Initializable {
   public void populateEquipmentNodeData(EquipmentNode equipmentNode) {
     System.out.println(equipmentNode.getID());
     nodeIDField.setText(equipmentNode.getID());
-    nameField.setText(equipmentNode.getType());
+    nameField.setText(equipmentNode.getClean());
     typeField.setText(equipmentNode.getStatus());
     xCoordField.setText(Double.toString(equipmentNode.getLocation().getXCoord()));
     yCoordField.setText(Double.toString(equipmentNode.getLocation().getYCoord()));

@@ -51,11 +51,16 @@ public class EquipmentNode {
   }
 
   public String getID() {
-    return medEquip.getID();
+    String str = medEquip.getID() + " " + medEquip.getType();
+    return str;
   }
 
-  public String getType() {
-    return medEquip.getType();
+  public String getClean() {
+    String str = "Dirty";
+    if (medEquip.isClean()) {
+      str = "Clean";
+    }
+    return str;
   }
 
   public String getStatus() {
