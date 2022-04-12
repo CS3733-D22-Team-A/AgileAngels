@@ -107,4 +107,12 @@ public class Request {
   public void setAttribute2(String attribute) {
     this.attribute2 = attribute;
   }
+
+  public MedicalEquip getMedicalEquip() {
+    return medicalEquip;
+  }
+
+  public void setMedicalEquip(MedicalEquip medicalEquip) {
+    this.medicalEquip = medicalEquip;
+  }
 }
