@@ -82,7 +82,8 @@ public class LabController extends MainController implements Initializable {
     } else if (!labEdit.getText().isEmpty()) {
       editLabRequest(dropDown, location, employee, status);
     } else {
-      System.out.println(locDAO.getLocation(location) + " " + empDAO.getEmployee(employee));
+      System.out.println(
+          locDAO.getLocation(location).getLongName() + " " + empDAO.getEmployee(employee));
       addLabRequest(
           "available",
           dropDown,
