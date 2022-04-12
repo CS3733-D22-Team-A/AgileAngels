@@ -31,7 +31,7 @@ public class EquipmentNode {
                     isClicked();
                 });
 
-        button.setStyle("-fx-background-color: #6a78fc; ");
+        button.setStyle("-fx-background-color: #797979; ");
     }
 
     public void isClicked() {
