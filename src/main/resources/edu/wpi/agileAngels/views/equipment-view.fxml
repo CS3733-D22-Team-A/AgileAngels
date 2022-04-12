@@ -88,10 +88,10 @@
                         </Pane>
                         <MenuButton fx:id="equipmentType" layoutX="35.0" layoutY="3.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="198.0" text="Equipment Type">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="XRayMachine" onAction="#typeMenu" />
-                            <MenuItem mnemonicParsing="false" text="InfusionPump" onAction="#typeMenu" />
-                              <MenuItem mnemonicParsing="false" text="Recliner" onAction="#typeMenu" />
-                              <MenuItem mnemonicParsing="false" text="Bed" onAction="#typeMenu" />
+                            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="XRayMachine" />
+                            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="InfusionPump" />
+                              <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Recliner" />
+                              <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Bed" />
                           </items>
                         </MenuButton>
                      </children>
@@ -103,12 +103,22 @@
                   </MenuButton>
                   <MenuButton fx:id="equipmentStatus" mnemonicParsing="false" prefHeight="41.0" prefWidth="199.0" text="Status">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="notStarted" onAction="#statusMenu" />
-                      <MenuItem mnemonicParsing="false" text="inProgress" onAction="#statusMenu" />
-                        <MenuItem mnemonicParsing="false" text="complete" onAction="#statusMenu" />
+                      <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="notStarted" />
+                      <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="inProgress" />
+                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="complete" />
                     </items>
                   </MenuButton>
-                  <TextField fx:id="equipmentEmployeeText" prefHeight="50.0" prefWidth="270.0" promptText="Employee" />
+                  <MenuButton fx:id="equipmentEmployeeText" mnemonicParsing="false" prefHeight="41.0" prefWidth="199.0" text="Employee">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="James" />
+                        <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="Liam" />
+                        <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="Harriot" />
+                        <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="Ariana" />
+                        <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="Carly" />
+                        <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="Tom" />
+                        <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="Alex" />
+                     </items>
+                  </MenuButton>
                   <TextField fx:id="deleteName" prefHeight="50.0" prefWidth="270.0" promptText="delete index" />
                   <TextField fx:id="editRequest" prefHeight="50.0" prefWidth="270.0" promptText="edit by index" />
                   <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0">
