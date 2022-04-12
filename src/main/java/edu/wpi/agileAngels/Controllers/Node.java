@@ -16,8 +16,8 @@ public class Node {
     this.location = location;
     this.nodeManager = nodeManager;
 
-    button.setLayoutX((this.getXCoord() - 800) / 5);
-    button.setLayoutY((this.getYCoord() - 350) / 5);
+    button.setLayoutX((this.getXCoord() - 775) / 3.225);
+    button.setLayoutY((this.getYCoord() - 320) / 3.232);
     button.setText(String.valueOf(location.getNodeType().charAt(0)));
     button.setStyle("-fx-font-size: 8");
     button.setOnAction(
