@@ -8,8 +8,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -88,34 +86,14 @@
                               </VBox>
                            </children>
                         </Pane>
-                        <Button fx:id="dropButton" mnemonicParsing="false" onAction="#enterDropdown" prefHeight="50.0" prefWidth="270.0">
-                           <graphic>
-                              <HBox alignment="CENTER_LEFT" layoutX="100.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Label fx:id="dropdownButtonText" prefHeight="26.0" prefWidth="344.0" text="Select Equipment" textFill="#868686">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                    </Label>
-                                    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
-                                       <children>
-                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../assets/icons/dropdown.png" />
-                                             </image>
-                                             <HBox.margin>
-                                                <Insets right="10.0" />
-                                             </HBox.margin>
-                                          </ImageView>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </HBox>
-                           </graphic>
-                        </Button>
+                        <MenuButton fx:id="equipmentType" layoutX="35.0" layoutY="3.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="198.0" text="Equipment Type">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="XRayMachine" onAction="#typeMenu" />
+                            <MenuItem mnemonicParsing="false" text="InfusionPump" onAction="#typeMenu" />
+                              <MenuItem mnemonicParsing="false" text="Recliner" onAction="#typeMenu" />
+                              <MenuItem mnemonicParsing="false" text="Bed" onAction="#typeMenu" />
+                          </items>
+                        </MenuButton>
                      </children>
                   </Pane>
             
@@ -123,8 +101,14 @@
                      <items>
                      </items>
                   </MenuButton>
+                  <MenuButton fx:id="equipmentStatus" mnemonicParsing="false" prefHeight="41.0" prefWidth="199.0" text="Status">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="notStarted" onAction="#statusMenu" />
+                      <MenuItem mnemonicParsing="false" text="inProgress" onAction="#statusMenu" />
+                        <MenuItem mnemonicParsing="false" text="complete" onAction="#statusMenu" />
+                    </items>
+                  </MenuButton>
                   <TextField fx:id="equipmentEmployeeText" prefHeight="50.0" prefWidth="270.0" promptText="Employee" />
-                  <TextField fx:id="equipmentStatus" prefHeight="50.0" prefWidth="270.0" promptText="Status" />
                   <TextField fx:id="deleteName" prefHeight="50.0" prefWidth="270.0" promptText="delete index" />
                   <TextField fx:id="editRequest" prefHeight="50.0" prefWidth="270.0" promptText="edit by index" />
                   <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0">

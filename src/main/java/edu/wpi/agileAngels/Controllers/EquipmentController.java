@@ -19,12 +19,12 @@ import javafx.scene.layout.Pane;
 public class EquipmentController extends MainController implements Initializable {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
-  @FXML private TextField equipmentEmployeeText, equipmentStatus, deleteName, editRequest;
-  @FXML private Label equipmentConfirmation, dropdownButtonText;
+  @FXML private TextField equipmentEmployeeText, deleteName, editRequest;
+  @FXML private Label equipmentConfirmation;
   @FXML private TableView equipmentTable;
   @FXML Button clear;
   @FXML Pane drop, drop2;
-  @FXML MenuButton equipLocation;
+  @FXML MenuButton equipLocation, equipmentType, equipmentStatus;
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
@@ -101,7 +101,7 @@ public class EquipmentController extends MainController implements Initializable
   private void submitEquipment() throws SQLException {
     // first sees if all of the attributes are empty
     // gets all inputs and converts into string
-    String dropDownString = dropdownButtonText.getText();
+    String dropDownString = equipmentType.getText();
     String locationString = equipLocation.getText();
     // get location obj
     Location location = locDAO.getLocation(locationString);
@@ -225,7 +225,7 @@ public class EquipmentController extends MainController implements Initializable
     }
     if (found != null) {
       if (!dropDownString.isEmpty()) {
-        // String type = dropdownButtonText.getText();
+        // String type = equipmentType.getText();
         found.setType(dropDownString);
         MedrequestImpl.updateType(found, dropDownString);
       }
@@ -266,5 +266,17 @@ public class EquipmentController extends MainController implements Initializable
   public void locationMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     equipLocation.setText(button.getText());
+  }
+
+  @FXML
+  public void typeMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    equipmentType.setText(button.getText());
+  }
+
+  @FXML
+  public void statusMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    equipmentStatus.setText(button.getText());
   }
 }
