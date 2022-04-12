@@ -36,6 +36,7 @@ public class GiftsController extends MainController implements Initializable {
   @FXML Button addButton, editButton, deleteButton;
   @FXML private Label giftConfirm;
   private RequestDAOImpl giftDAO;
+  private MainController mainController = MainController.getInstance();
 
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
@@ -196,7 +197,7 @@ public class GiftsController extends MainController implements Initializable {
   @FXML
   /** Submits fields to a Java gifts Request Object */
   private void submitGift() {
-    String dropDown = dropdownButtonText.getText();
+    String dropDown = mainController.dropdownButtonText.getText();
     String sender = giftSender.getText();
     String recipient = giftRecipient.getText();
     String employee = giftEmployeeText.getText();
@@ -218,7 +219,7 @@ public class GiftsController extends MainController implements Initializable {
               + ", "
               + giftEmployeeText.getText()
               + " will deliver "
-              + dropdownButtonText.getText()
+              + mainController.dropdownButtonText.getText()
               + " to "
               + giftRecipient.getText()
               + " soon. ");
@@ -259,7 +260,7 @@ public class GiftsController extends MainController implements Initializable {
             "",
             empDAO.getEmployee(giftEmployeeText.getText()),
             locDAO.getLocation(giftRecipient.getText()),
-            dropdownButtonText.getText(),
+            mainController.dropdownButtonText.getText(),
             giftStatus.getText(),
             giftMessage.getText(),
             giftSender.getText(),

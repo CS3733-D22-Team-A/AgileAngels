@@ -2,6 +2,7 @@ package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.DBconnection;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Stack;
 import javafx.application.Platform;
@@ -23,9 +24,9 @@ import javafx.stage.Stage;
 public class MainController {
   // TODO: Change bars to pretty stuff
 
-  @FXML Button back, close, clear, equipRequest, viewRequest, map;
-  @FXML Button userButton, userIDIcon, dropButton, op1, op2, op3, op4;
-  @FXML Label dropdownButtonText, op1Label, op2Label, op3Label, op4Label;
+  @FXML public Button back, close, clear, equipRequest, viewRequest, map;
+  @FXML public Button userButton, userIDIcon, dropButton, op1, op2, op3, op4;
+  @FXML public Label dropdownButtonText, op1Label, op2Label, op3Label, op4Label;
 
   @FXML AnchorPane anchor;
 
@@ -37,6 +38,17 @@ public class MainController {
   public static Boolean loggedIn = false;
 
   public int floorToDisp;
+
+  private static MainController mainController = null;
+
+  public MainController() {}
+
+  public static MainController getInstance() throws SQLException {
+    if (mainController == null) {
+      mainController = new MainController();
+    }
+    return mainController;
+  }
 
   @FXML
   private void closeApp() {
