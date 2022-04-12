@@ -34,9 +34,12 @@ public class EquipmentController extends MainController implements Initializable
   // only way to update the UI is ObservableList
   private static ObservableList<Request> medData =
       FXCollections.observableArrayList(); // list of requests
-  // hashmap of all medical equipment
+  // hashmap and arrayList of all medical equipment
   HashMap<String, MedicalEquip> equipHash = equipDAO.getAllMedicalEquipment();
   ArrayList<MedicalEquip> allMedEquip = new ArrayList<>(equipHash.values());
+  // hashMap and arrayList of all locations
+  HashMap<String, Location> locationsHash = locDAO.getAllLocations();
+  ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
 
   @FXML
   private TableColumn nameColumn,
@@ -51,9 +54,6 @@ public class EquipmentController extends MainController implements Initializable
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-
-    HashMap<String, Location> locationsHash = locDAO.getAllLocations();
-    ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
     for (Location loc : locationsList) {
       if (loc.getFloor().equals("3")) {
         MenuItem item = new MenuItem(loc.getNodeID());
@@ -127,7 +127,7 @@ public class EquipmentController extends MainController implements Initializable
   private void addEquipRequest(
       String dropDownString, String locationString, String employeeString, String statusString) {
 
-    MedicalEquip equip;
+    MedicalEquip equip = null;
     Boolean foundEquip = false;
     int i = 0;
     while (!foundEquip) {
@@ -151,8 +151,6 @@ public class EquipmentController extends MainController implements Initializable
                       + employeeString
                       + ".");
 
-      // TODO assign the equip to the request and change the equip's location and status
-
       String placeholder = "?";
       Request medDevice =
               new Request(
@@ -163,7 +161,20 @@ public class EquipmentController extends MainController implements Initializable
                       statusString,
                       "describe",
                       "something",
-                      "");
+                      "",
+                      equip);
+
+      // set the status and location of the medicalEquipment object corresponding to the request
+      if (statusString.equals("not started")) {
+        equip.setStatus("inUse");
+      } else if (statusString.equals("in progress")) {
+        equip.setStatus("inUse");
+        equip.setLocation(medDevice.getLocation());
+      } else if (statusString.equals("completed")) {
+        equip.setClean(false);
+        equip.setStatus("available");
+        equip.setLocation(locationsHash.get("ADIRT00103"));
+      }
 
       MedrequestImpl.addRequest(medDevice); // add to hashmap
 
@@ -171,7 +182,7 @@ public class EquipmentController extends MainController implements Initializable
       equipmentTable.setItems(medData);
     } else {
       equipmentConfirmation.setText(
-              "I'm sorry, there are currently no "
+              "Sorry, there are currently no "
                       + dropDownString
                       + "s available. ");
     }
@@ -182,6 +193,11 @@ public class EquipmentController extends MainController implements Initializable
       for (int i = 0; i < medData.size(); i++) {
         Request object = medData.get(i);
         if (0 == deleteString.compareTo(object.getName())) {
+          // update the corresponding medicalEquip object
+          object.getMedicalEquip().setClean(false);
+          object.getMedicalEquip().setStatus("available");
+          object.getMedicalEquip().setLocation(locationsHash.get("ADIRT00103"));
+          // delete the request
           medData.remove(i);
           MedrequestImpl.deleteRequest(object);
         }
@@ -229,6 +245,19 @@ public class EquipmentController extends MainController implements Initializable
         // String employee = emp.getText();
         found.setStatus(statusString);
         MedrequestImpl.updateStatus(found, statusString);
+
+        // set the status and location of the medicalEquipment object corresponding to the request
+        if (statusString.equals("not started")) {
+          found.getMedicalEquip().setStatus("inUse");
+        } else if (statusString.equals("in progress")) {
+          found.getMedicalEquip().setStatus("inUse");
+          found.getMedicalEquip().setLocation(found.getLocation());
+        } else if (statusString.equals("completed")) {
+          found.getMedicalEquip().setClean(false);
+          found.getMedicalEquip().setStatus("available");
+          found.getMedicalEquip().setLocation(locationsHash.get("ADIRT00103"));
+        }
+
       }
       medData.set(num, found);
 

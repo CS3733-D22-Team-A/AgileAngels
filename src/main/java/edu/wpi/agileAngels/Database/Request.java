@@ -17,6 +17,29 @@ public class Request {
   private String attribute2;
   private MedicalEquip medicalEquip;
 
+  // constructor for medical requests
+  public Request(
+          String Name,
+          Employee employee,
+          Location location,
+          String type,
+          String status,
+          String description,
+          String attribute1,
+          String attribute2,
+          MedicalEquip medicalEquip) {
+    this.name = Name;
+    this.employee = employee;
+    this.location = location;
+    this.type = type;
+    this.status = status;
+    this.description = description;
+    this.attribute1 = attribute1;
+    this.attribute2 = attribute2;
+    this.medicalEquip = medicalEquip;
+  }
+
+  // constructor for all other request types
   public Request(
       String Name,
       Employee employee,
