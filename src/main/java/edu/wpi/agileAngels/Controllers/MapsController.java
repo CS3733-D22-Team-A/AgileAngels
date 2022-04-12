@@ -96,7 +96,6 @@ public class MapsController extends MainController implements Initializable {
    * @param locationNode the node whose data is populated
    */
   public void populateLocationNodeData(LocationNode locationNode) {
-    System.out.println(locationNode.getNodeID());
     nodeIDField.setText(locationNode.getNodeID());
     nameField.setText(locationNode.getName());
     typeField.setText(locationNode.getNodeType());
@@ -112,7 +111,6 @@ public class MapsController extends MainController implements Initializable {
    * @param requestNode the node whose data is populated
    */
   public void populateRequestNodeData(RequestNode requestNode) {
-    System.out.println(requestNode.getName());
     nodeIDField.setText(requestNode.getName());
     nameField.setText(requestNode.getEmployee());
     typeField.setText(requestNode.getStatus());
@@ -128,7 +126,6 @@ public class MapsController extends MainController implements Initializable {
    * @param equipmentNode the node whose data is populated
    */
   public void populateEquipmentNodeData(EquipmentNode equipmentNode) {
-    System.out.println(equipmentNode.getID());
     nodeIDField.setText(equipmentNode.getID());
     nameField.setText(equipmentNode.getClean());
     typeField.setText(equipmentNode.getStatus());
