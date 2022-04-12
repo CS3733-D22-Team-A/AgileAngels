@@ -16,7 +16,6 @@ import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
 import javax.swing.*;
 
-
 public class MapsController extends MainController implements Initializable {
 
   @FXML
@@ -25,7 +24,6 @@ public class MapsController extends MainController implements Initializable {
       lowerLevelOneMap,
       lowerLevelTwoMap,
       floorThreeDetailMap;
-  private ImageView floorOneMap, floorTwoMap, floorThreeMap, lowerLevelOneMap, lowerLevelTwoMap;
   @FXML private ScrollPane mapScroll;
   @FXML
   private Button floorTwo,
@@ -210,7 +208,7 @@ public class MapsController extends MainController implements Initializable {
       editButton.setVisible(false);
       removeButton.setVisible(false);
       switchToAddButton.setText("Delete/Edit");
-      currentNode = null;
+      currentLocationNode = null;
       clearFields();
     } else {
       addButton.setVisible(false);
@@ -218,7 +216,7 @@ public class MapsController extends MainController implements Initializable {
       editButton.setVisible(true);
       removeButton.setVisible(true);
       switchToAddButton.setText("Add");
-      currentNode = null;
+      currentLocationNode = null;
       clearFields();
     }
   }
@@ -309,13 +307,13 @@ public class MapsController extends MainController implements Initializable {
       Scale scaleTransform = new Scale(1.05, 1.05, 0, 0);
       scale *= 1.05;
       contentGroup.getTransforms().add(scaleTransform);
-      nodeManager.resizeAll(0.95);
+      locationNodeManager.resizeAll(0.95);
 
     } else if (event.getSource() == zoomOut && scale >= 1.05) {
       Scale scaleTransform = new Scale(.95, .95, 0, 0);
       scale *= 0.95;
       contentGroup.getTransforms().add(scaleTransform);
-      nodeManager.resizeAll(1.05);
+      locationNodeManager.resizeAll(1.05);
       if (mapScroll.getHvalue() > 0.8 || mapScroll.getVvalue() > 0.8) {
         mapScroll.setHvalue(0.6);
         mapScroll.setVvalue(0.6);

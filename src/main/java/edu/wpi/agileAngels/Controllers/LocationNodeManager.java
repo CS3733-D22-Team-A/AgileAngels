@@ -72,7 +72,7 @@ public class LocationNodeManager {
   }
 
   void resizeAll(double factor) {
-    for (Node node : nodes.values()) {
+    for (LocationNode node : nodes.values()) {
       node.resizeButton(factor);
     }
   }
