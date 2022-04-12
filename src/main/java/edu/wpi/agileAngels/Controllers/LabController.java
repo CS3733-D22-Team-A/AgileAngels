@@ -17,7 +17,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 // similar to equip controller
 public class LabController extends MainController implements Initializable {
 
-  @FXML private TextField labTestLocation, labEmployeeText, labStatus, labDelete, labEdit;
+  @FXML
+  private TextField labTestLocation, labEmployeeText, labStatus, labDelete, labEdit, labDescription;
 
   private RequestDAOImpl LabDAO = RequestDAOImpl.getInstance("LabRequest");
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
@@ -68,6 +69,7 @@ public class LabController extends MainController implements Initializable {
     labTable.setItems(labData);
   }
 
+  /** Will add/edit/delete requests by calling upon other methods. */
   @FXML
   private void submitLabTest() {
     String dropDown = dropdownButtonText.getText();
@@ -76,16 +78,22 @@ public class LabController extends MainController implements Initializable {
     String status = labStatus.getText();
     String delete = labDelete.getText();
     String edit = labEdit.getText();
+    String description = labDescription.getText();
     //  boolean logic = (dropDown.isEmpty() || location.isEmpty() || employee.isEmpty());
     if (!delete.isEmpty()) {
       deleteLabRequest(delete);
     } else if (!labEdit.getText().isEmpty()) {
-      editLabRequest(dropDown, location, employee, status);
+      editLabRequest(dropDown, location, employee, status, description);
     } else {
-      addLabRequest("available", dropDown, location, employee, status);
+      addLabRequest("available", dropDown, location, employee, status, description);
     }
   }
 
+  /**
+   * Removes requests off the UI and the database.
+   *
+   * @param deleteString
+   */
   private void deleteLabRequest(String deleteString) {
     if (!deleteString.isEmpty()) {
       System.out.println("DELETE REQUEST");
@@ -100,8 +108,23 @@ public class LabController extends MainController implements Initializable {
     }
   }
 
+  /**
+   * Add method for labrequest, will add information onto the UI and database within here and set
+   * the confirmation text to display for the user.
+   *
+   * @param available
+   * @param dropDown
+   * @param location
+   * @param employee
+   * @param status
+   */
   private void addLabRequest(
-      String available, String dropDown, String location, String employee, String status) {
+      String available,
+      String dropDown,
+      String location,
+      String employee,
+      String status,
+      String description) {
     labTestConfirmation.setText(
         "Thank you! Your "
             + dropDown
@@ -112,14 +135,24 @@ public class LabController extends MainController implements Initializable {
             + ".");
     Location loc = locDAO.getLocation(location);
     Employee emp = empDAO.getEmployee(employee);
-    Request request = new Request("", emp, loc, dropDown, status, "", "", "");
+    Request request = new Request("", emp, loc, dropDown, status, description, "", "");
 
     LabDAO.addRequest(request);
     labData.add(request);
     labTable.setItems(labData);
   }
 
-  private void editLabRequest(String dropDown, String location, String employee, String status) {
+  /**
+   * edits the labRequest on the UI/database, takes in elements from the textfield and sets them.
+   *
+   * @param dropDown
+   * @param location
+   * @param employee
+   * @param status
+   * @param description
+   */
+  private void editLabRequest(
+      String dropDown, String location, String employee, String status, String description) {
     Request found = null;
     int num = 0;
     for (int i = 0; i < labData.size(); i++) {
@@ -147,6 +180,10 @@ public class LabController extends MainController implements Initializable {
         found.setStatus(employee);
         LabDAO.updateStatus(found, status);
       }
+      if (!description.isEmpty()) { // New description field.
+        found.setDescription(description);
+        LabDAO.updateDescription(found, description);
+      }
       labData.set(num, found);
       // Request found = null;
       // int num = 0;
@@ -172,6 +209,10 @@ public class LabController extends MainController implements Initializable {
           // String employee = labEmployeeText.getText();
           found.setEmployee(empDAO.getEmployee(employee));
           LabDAO.updateEmployeeName(found, employee);
+        }
+        if (!labDescription.getText().isEmpty()) { // New Description for whatever this part is.
+          found.setDescription(description);
+          found.setDescription(description); // I am unsure if this is correct.
         }
         labData.set(num, found);
 
