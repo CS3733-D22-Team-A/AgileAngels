@@ -39,6 +39,7 @@ public class MapsController extends MainController implements Initializable {
 
   LocationNode currentLocationNode = null;
   RequestNode currentRequestNode = null;
+  EquipmentNode currentEquipmentNode = null;
   private String currentFloor = "1";
 
   Pane pane1 = new Pane();
@@ -120,6 +121,16 @@ public class MapsController extends MainController implements Initializable {
     yCoordField.setText(Double.toString(requestNode.getLocation().getYCoord()));
 
     currentRequestNode = requestNode;
+  }
+
+  /**
+   * Populates the text fields on the page with data of a node
+   *
+   * @param equipmentNode the node whose data is populated
+   */
+  public void populateEquipmentNodeData(EquipmentNode equipmentNode) {
+    System.out.println(equipmentNode.getID());
+    currentEquipmentNode = equipmentNode;
   }
 
   @FXML
@@ -247,6 +258,16 @@ public class MapsController extends MainController implements Initializable {
       paneL2.getChildren().add(node.getButton());
     }
   }
+
+  /**
+   * Adds the button for an equipment node to the pane corresponding to its floor
+   *
+   * @param node the node whose button is added to a pane
+   */
+  public void displayEquipmentNode(EquipmentNode node) {
+
+  }
+
 
   /**
    * Switches between the panes for each floor when the button for each floor is pressed
