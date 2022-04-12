@@ -165,8 +165,8 @@ public class EquipmentController extends MainController implements Initializable
               statusString,
               "describe",
               "something",
-              "");
-      // equip);
+              "",
+              equip);
 
       // set the status and location of the medicalEquipment object corresponding to the request
       if (statusString.equals("notStarted")) {
