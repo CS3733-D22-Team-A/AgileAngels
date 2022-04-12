@@ -35,7 +35,7 @@ public class MapsController extends MainController implements Initializable {
       switchToEditButton,
       zoomIn,
       zoomOut;
-  @FXML private TextField nameField, xCoordField, yCoordField, typeField;
+  @FXML private TextField nameField, typeField, xCoordField, yCoordField;
   @FXML Pane mapPane, clickPane;
   @FXML AnchorPane anchor;
   @FXML Label floorLabel, nodeIDField;
@@ -180,18 +180,20 @@ public class MapsController extends MainController implements Initializable {
    */
   @FXML
   private void switchMode(ActionEvent event) {
-    if (event.getSource() == switchToAddButton) {
-      switchToAddButton.setVisible(false);
-      switchToEditButton.setVisible(true);
+    if (editButton.isVisible() == true) {
       addButton.setVisible(true);
       editButton.setVisible(false);
       removeButton.setVisible(false);
+      switchToAddButton.setText("Delete/Edit");
+      currentNode = null;
+      clearFields();
     } else {
-      switchToAddButton.setVisible(true);
-      switchToEditButton.setVisible(false);
       addButton.setVisible(false);
       editButton.setVisible(true);
       removeButton.setVisible(true);
+      switchToAddButton.setText("Add");
+      currentNode = null;
+      clearFields();
     }
   }
 
@@ -250,10 +252,10 @@ public class MapsController extends MainController implements Initializable {
 
   void clearFields() {
     nameField.clear();
-    xCoordField.clear();
-    yCoordField.clear();
-    typeDropdown.setText("");
-    nodeIDField.setText("");
+    xCoordField.setText("X-Coordinate:");
+    yCoordField.setText("Y-Coordinate:");
+    typeDropdown.setText("Node Type");
+    nodeIDField.setText("Node ID:");
   }
 
   public void typeMenu(ActionEvent event) {
@@ -307,11 +309,13 @@ public class MapsController extends MainController implements Initializable {
           System.out.println(scale);
 
           if (scale == 1) {
-            xCoordField.setText(String.valueOf(((click.getSceneX() - 460) / scale) + panX));
-            yCoordField.setText(String.valueOf(((click.getSceneY() - 60) / scale) + panY));
+            xCoordField.setText(String.valueOf(((click.getSceneX() - 460) / scale) + panX - 8));
+            yCoordField.setText(String.valueOf(((click.getSceneY() - 60) / scale) + panY - 8));
           } else {
-            xCoordField.setText(String.valueOf(((click.getSceneX() - 460) / scale) + panX - panX2));
-            yCoordField.setText(String.valueOf(((click.getSceneY() - 60) / scale) + panY - panY2));
+            xCoordField.setText(
+                String.valueOf(((click.getSceneX() - 460) / scale) + panX - panX2 - 8));
+            yCoordField.setText(
+                String.valueOf(((click.getSceneY() - 60) / scale) + panY - panY2 - 8));
           }
           clickPane.setStyle("-fx-background-color: rgba(0,0,0,0)");
           clickPane.setDisable(true);

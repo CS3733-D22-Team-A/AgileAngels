@@ -26,7 +26,8 @@
             </Button>
             <Button id="menuButton" fx:id="equipRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="163.0" text="Equipment Request" />
             <Button id="menuButton" fx:id="viewRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="127.0" text="Edit Requests" />
-            <Button id="menuButton" fx:id="map" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="68.0" text="Map" />
+            <Button id="menuButton" fx:id="map" mnemonicParsing="false" onAction="#menuItem" prefHeight="31.0" prefWidth="52.0" text="Map" />
+            <Button id="menuButton" fx:id="map1" mnemonicParsing="false" onAction="#menuItem" prefHeight="31.0" prefWidth="144.0" text="Embedded Server" />
          </children>
          <padding>
             <Insets left="30.0" />
