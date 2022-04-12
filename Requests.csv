@@ -1,8 +1,8 @@
 name,employee,location,type,status,description, attribute1, attribute2
-Med1,James,HHALL00202,medicine,complete,describe, something, something
-Med2,Liam,HHALL00302,bloodtest,Progress,describe, something, something
-Med3,Harriot,HHALL01002,Pills,NotStarted,describe, something, something
-Med4,Ariana,HSTAI00102,COVIDTest,Complete,Describe, something, something
-Lab1,Carly,HBATH00103,bloodtest,Progress,describe, something, something
-Lab2,Tom,HHALL00403,Pills,NotStarted,describe,something, something
-Lab3,Alex,HHALL01203,COVIDTest,Complete,Describe, something, something
+Med1,James,HHALL00203,medicine,complete,describe, something, something
+Med2,Liam,HHALL00303,bloodtest,Progress,describe, something, something
+Med3,Harriot,HHALL01003,Pills,NotStarted,describe, something, something
+Med4,Ariana,HSTAI00103,COVIDTest,Complete,Describe, something, something
+Lab1,Carly,HDEPT00102,bloodtest,Progress,describe, something, something
+Lab2,Tom,CDEPT002L1,Pills,NotStarted,describe,something, something
+Lab3,Alex,CHALL005L2,COVIDTest,Complete,Describe, something, something

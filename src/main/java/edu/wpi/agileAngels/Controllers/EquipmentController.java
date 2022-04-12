@@ -26,7 +26,6 @@ public class EquipmentController extends MainController implements Initializable
   @FXML Pane drop, drop2;
   @FXML MenuButton equipLocation;
 
-  private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private MedEquipImpl equipDAO = MedEquipImpl.getInstance();
@@ -35,6 +34,8 @@ public class EquipmentController extends MainController implements Initializable
   // only way to update the UI is ObservableList
   private static ObservableList<Request> medData =
       FXCollections.observableArrayList(); // list of requests
+  // hashmap of all medical equipment
+  HashMap<String, MedicalEquip> allMedEquip = equipDAO.getAllMedicalEquipment();
 
   @FXML
   private TableColumn nameColumn,
@@ -50,12 +51,14 @@ public class EquipmentController extends MainController implements Initializable
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
+    HashMap<String, Location> locationsHash = locDAO.getAllLocations();
     ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
     for (Location loc : locationsList) {
-      MenuItem item = new MenuItem(loc.getNodeID());
-      item.setOnAction(this::locationMenu);
-      equipLocation.getItems().add(item);
+      if (loc.getFloor().equals("3")) {
+        MenuItem item = new MenuItem(loc.getNodeID());
+        item.setOnAction(this::locationMenu);
+        equipLocation.getItems().add(item);
+      }
     }
     equipDAO.readCSV();
 
