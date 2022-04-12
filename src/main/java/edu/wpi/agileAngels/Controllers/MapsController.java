@@ -295,8 +295,18 @@ public class MapsController extends MainController implements Initializable {
         (MouseEvent click) -> {
           System.out.println(mapScroll.getVvalue());
           System.out.println(mapScroll.getHvalue());
-          xCoordField.setText(String.valueOf((click.getSceneX() - 480) / scale));
-          yCoordField.setText(String.valueOf((click.getSceneY() - 200) / scale));
+          xCoordField.setText(
+              String.valueOf(
+                  ((click.getSceneX() - mapScroll.getLayoutX()) / scale)
+                      + scale
+                          * (mapScroll.getHvalue()
+                              * ((mapPane.getWidth() - mapScroll.getWidth())))));
+          yCoordField.setText(
+              String.valueOf(
+                  ((click.getSceneY() - mapScroll.getLayoutY()) / scale)
+                      + scale
+                          * (mapScroll.getVvalue()
+                              * (mapPane.getHeight() - mapScroll.getHeight()))));
           clickPane.setStyle("-fx-background-color: rgba(0,0,0,0)");
           System.out.println(mapPane.getWidth() * mapPane.getScaleX());
           clickPane.setDisable(true);
