@@ -85,6 +85,7 @@ public class GiftsController extends MainController implements Initializable {
         }
       }
   */
+
   @FXML
   private void deleteGiftRequest(ActionEvent event) {
     /* //USE THIS FOR DELETE! Make sure you set deleteString somewhere outside!

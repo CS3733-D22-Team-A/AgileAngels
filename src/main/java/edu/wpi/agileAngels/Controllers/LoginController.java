@@ -42,7 +42,7 @@ public class LoginController extends MainController implements Initializable {
 
     if (employeeManager.getUsername(username.getText())
         && passwordBox.getText().equals(employeeManager.getPassword(username.getText()))) {
-      // loggedIn = true;
+      loggedIn = true;
       loadPage("../views/home-view.fxml", login);
     } else {
       invalid.setTextFill(Color.rgb(220, 80, 80));
