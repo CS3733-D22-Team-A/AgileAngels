@@ -40,7 +40,7 @@ public class EquipmentNode {
 
   public void resetLocation() {
     double x = ((this.location.getXCoord() - 800) / 5);
-    double y = ((this.location.getYCoord() - 800) / 5);
+    double y = ((this.location.getYCoord() - 350) / 5);
     button.setLayoutX(x);
     button.setLayoutY(y);
   }
