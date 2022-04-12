@@ -31,7 +31,7 @@ public class DBconnection {
           connection.close();
           database = DBConnectionEnum.CLIENT_SERVER;
           connection =
-              DriverManager.getConnection("jdbc:derby://localhost:1527/myCSDB;create=true");
+              DriverManager.getConnection("jdbc:derby://130.215.9.58:1527/myCSDB;create=true");
           System.out.println("Switching to client-server.");
           break;
         case CLIENT_SERVER:
