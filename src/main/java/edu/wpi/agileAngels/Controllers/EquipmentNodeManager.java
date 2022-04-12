@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class EquipmentNodeManager {
     private MapsController mapsController;
-    private MedEquipImpl equipDAO = new MedEquipImpl();
+    private MedEquipImpl equipDAO = MedEquipImpl.getInstance();
     private HashMap<String, EquipmentNode> nodes = new HashMap<>();
 
     public EquipmentNodeManager(MapsController mapsController) throws SQLException {
