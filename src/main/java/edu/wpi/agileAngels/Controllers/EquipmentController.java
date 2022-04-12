@@ -54,7 +54,7 @@ public class EquipmentController extends MainController implements Initializable
     HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
     ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
     for (Location loc : locationsList) {
-      MenuItem item = new MenuItem(loc.getShortName());
+      MenuItem item = new MenuItem(loc.getNodeID());
       item.setOnAction(this::locationMenu);
       equipLocation.getItems().add(item);
     }
@@ -109,14 +109,16 @@ public class EquipmentController extends MainController implements Initializable
       editEquipmentRequest(
           editString, dropDownString, locationString, employeeString, statusString);
     } else {
-      // addEquipRequest(dropDownString, location, employee, statusString);
-      System.out.println(location.getNodeID() + " " + employee.getName());
+      addEquipRequest(dropDownString, location, employee, statusString);
+      //  System.out.println(location.getNodeID() + " " + employee.getName());
     }
   }
 
   private void addEquipRequest(
       String dropDownString, Location location, Employee employee, String statusString) {
+
     System.out.println("ADD DEVICE");
+
     equipmentConfirmation.setText(
         "Thank you, the "
             + dropDownString
@@ -129,14 +131,7 @@ public class EquipmentController extends MainController implements Initializable
     String placeholder = "?";
     Request medDevice =
         new Request(
-            placeholder,
-            employee,
-            location,
-            dropDownString,
-            statusString,
-            "describe",
-            "something",
-            "");
+            "", employee, location, dropDownString, statusString, "describe", "something", "");
 
     MedrequestImpl.addRequest(medDevice); // add to hashmap
 
