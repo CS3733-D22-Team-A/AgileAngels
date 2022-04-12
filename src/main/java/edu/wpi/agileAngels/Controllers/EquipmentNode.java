@@ -34,6 +34,10 @@ public class EquipmentNode {
     equipmentNodeManager.loadNode(this);
   }
 
+  public MedicalEquip getMedEquip() {
+    return this.medEquip;
+  }
+
   public JFXButton getButton() {
     return this.button;
   }

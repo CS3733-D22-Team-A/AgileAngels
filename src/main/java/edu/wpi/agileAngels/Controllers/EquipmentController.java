@@ -169,9 +169,9 @@ public class EquipmentController extends MainController implements Initializable
       // equip);
 
       // set the status and location of the medicalEquipment object corresponding to the request
-      if (statusString.equals("not started")) {
+      if (statusString.equals("notStarted")) {
         equip.setStatus("inUse");
-      } else if (statusString.equals("in progress")) {
+      } else if (statusString.equals("inProgress")) {
         equip.setStatus("inUse");
         equip.setLocation(medDevice.getLocation());
       } else if (statusString.equals("completed")) {
@@ -249,9 +249,9 @@ public class EquipmentController extends MainController implements Initializable
         MedrequestImpl.updateStatus(found, statusString);
 
         // set the status and location of the medicalEquipment object corresponding to the request
-        if (statusString.equals("not started")) {
+        if (statusString.equals("notStarted")) {
           found.getMedicalEquip().setStatus("inUse");
-        } else if (statusString.equals("in progress")) {
+        } else if (statusString.equals("inProgress")) {
           found.getMedicalEquip().setStatus("inUse");
           found.getMedicalEquip().setLocation(found.getLocation());
         } else if (statusString.equals("completed")) {

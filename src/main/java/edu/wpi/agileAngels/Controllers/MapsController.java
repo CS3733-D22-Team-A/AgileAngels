@@ -31,7 +31,8 @@ public class MapsController extends MainController implements Initializable {
       addButton,
       removeButton,
       switchToAddButton,
-      switchToEditButton;
+      switchToEditButton,
+      clean;
   @FXML private TextField nameField, xCoordField, yCoordField, typeField;
 
   @FXML Pane mapPane;
@@ -63,6 +64,9 @@ public class MapsController extends MainController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
+    clean.setVisible(false);
+
     mapPane.getChildren().add(pane2);
     pane2.getChildren().add((floorTwoMap));
     pane2.setVisible(true);
@@ -126,6 +130,7 @@ public class MapsController extends MainController implements Initializable {
    * @param equipmentNode the node whose data is populated
    */
   public void populateEquipmentNodeData(EquipmentNode equipmentNode) {
+    clean.setVisible(true);
     nodeIDField.setText(equipmentNode.getID());
     nameField.setText(equipmentNode.getClean());
     typeField.setText(equipmentNode.getStatus());
@@ -298,5 +303,10 @@ public class MapsController extends MainController implements Initializable {
       currentFloor = "L2";
       floorLabel.setText("Lower Level 2");
     }
+  }
+
+  @FXML
+  public void cleanEquip() {
+    equipmentNodeManager.makeClean(currentEquipmentNode);
   }
 }
