@@ -170,14 +170,14 @@ public class EquipmentController extends MainController implements Initializable
 
       // set the status and location of the medicalEquipment object corresponding to the request
       if (statusString.equals("notStarted")) {
-        equip.setStatus("inUse");
+        equipDAO.updateStatus(equip, "inUse");
       } else if (statusString.equals("inProgress")) {
-        equip.setStatus("inUse");
-        equip.setLocation(medDevice.getLocation());
-      } else if (statusString.equals("completed")) {
-        equip.setClean(false);
-        equip.setStatus("available");
-        equip.setLocation(locationsHash.get("ADIRT00103"));
+        equipDAO.updateStatus(equip, "inUse");
+        equipDAO.updateEquipmentLocation(equip, medDevice.getLocation());
+      } else if (statusString.equals("complete")) {
+        equipDAO.updateMedicalCleanliness(equip, false);
+        equipDAO.updateStatus(equip, "available");
+        equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00103"));
       }
 
       MedrequestImpl.addRequest(medDevice); // add to hashmap
@@ -196,9 +196,10 @@ public class EquipmentController extends MainController implements Initializable
         Request object = medData.get(i);
         if (0 == deleteString.compareTo(object.getName())) {
           // update the corresponding medicalEquip object
-          object.getMedicalEquip().setClean(false);
-          object.getMedicalEquip().setStatus("available");
-          object.getMedicalEquip().setLocation(locationsHash.get("ADIRT00103"));
+          equipDAO.updateMedicalCleanliness(object.getMedicalEquip(), false);
+          equipDAO.updateStatus(object.getMedicalEquip(), "available");
+          equipDAO.updateEquipmentLocation(
+              object.getMedicalEquip(), locationsHash.get("ADIRT00103"));
           // delete the request
           medData.remove(i);
           MedrequestImpl.deleteRequest(object);
@@ -250,14 +251,15 @@ public class EquipmentController extends MainController implements Initializable
 
         // set the status and location of the medicalEquipment object corresponding to the request
         if (statusString.equals("notStarted")) {
-          found.getMedicalEquip().setStatus("inUse");
+          equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
         } else if (statusString.equals("inProgress")) {
-          found.getMedicalEquip().setStatus("inUse");
-          found.getMedicalEquip().setLocation(found.getLocation());
-        } else if (statusString.equals("completed")) {
-          found.getMedicalEquip().setClean(false);
-          found.getMedicalEquip().setStatus("available");
-          found.getMedicalEquip().setLocation(locationsHash.get("ADIRT00103"));
+          equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
+          equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
+        } else if (statusString.equals("complete")) {
+          equipDAO.updateMedicalCleanliness(found.getMedicalEquip(), false);
+          equipDAO.updateStatus(found.getMedicalEquip(), "available");
+          equipDAO.updateEquipmentLocation(
+              found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
         }
       }
       medData.set(num, found);
