@@ -25,7 +25,7 @@ public class Aapp extends Application {
     adb = new Adb(); // ADB class
     String[] args = new String[1];
     adb.main(args);
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("views/map-view.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("views/login.fxml"));
     Parent root = loader.load();
     Scene defaultScene = new Scene(root);
     //    Pane pane = new Pane();
