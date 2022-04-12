@@ -1,13 +1,18 @@
 package edu.wpi.agileAngels.Database;
 
 import edu.wpi.agileAngels.Adb;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 public class MedEquipImpl implements MedEquipDAO {
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private static MedEquipImpl MedEquipDAO = null;
   private HashMap<String, MedicalEquip> MedEquipData;
 
-  public MedEquipImpl(HashMap<String, MedicalEquip> data) {
+  public MedEquipImpl(HashMap<String, MedicalEquip> data) throws SQLException {
     this.MedEquipData = data;
   }
 
@@ -16,7 +21,7 @@ public class MedEquipImpl implements MedEquipDAO {
     return MedEquipData;
   }
 
-  public static MedEquipImpl getInstance() {
+  public static MedEquipImpl getInstance() throws SQLException {
     if (MedEquipDAO == null) {
       HashMap<String, MedicalEquip> Data = new HashMap<>();
       MedEquipDAO = new MedEquipImpl(Data);
@@ -57,5 +62,49 @@ public class MedEquipImpl implements MedEquipDAO {
     medicalEquip.setClean(clean);
     Adb.updateMedicalEquipment(medicalEquip);
     System.out.println("MedicalEquipment" + medicalEquip.isClean() + " is clean");
+  }
+
+  public void readCSV() {
+    String line = "";
+    String splitBy = ",";
+
+    try {
+      BufferedReader br = new BufferedReader(new FileReader("./MedEquip.csv"));
+      boolean OnHeader = false;
+      line.split(splitBy);
+
+      while ((line = br.readLine()) != null) {
+        if (OnHeader) {
+          String[] values = line.split(splitBy);
+          makeEquip(values);
+        } else {
+          OnHeader = true;
+        }
+      }
+    } catch (IOException var7) {
+      var7.printStackTrace();
+    } catch (SQLException var8) {
+      var8.printStackTrace();
+    }
+  }
+
+  private void makeEquip(String[] values) throws SQLException {
+    boolean clean = true;
+    if (values[2].compareTo("false") == 0) {
+      clean = false;
+    }
+    MedicalEquip medEquip =
+        new MedicalEquip(values[0], values[1], clean, findLocation(values[3]), values[4]);
+    this.MedEquipData.put(values[0], medEquip);
+    Adb.addMedicalEquipment(medEquip);
+  }
+
+  private Location findLocation(String value) {
+
+    Location location;
+    HashMap<String, Location> locationData = locDAO.getAllLocations();
+    location = locationData.get(value);
+    System.out.println("Location Value " + location.getLongName());
+    return location;
   }
 }
