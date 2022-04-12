@@ -3,13 +3,12 @@ package edu.wpi.agileAngels.Controllers;
 import edu.wpi.agileAngels.Database.Request;
 import edu.wpi.agileAngels.Database.RequestDAOImpl;
 import java.net.URL;
-import java.util.HashMap;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -37,38 +36,39 @@ public class GiftsController extends MainController implements Initializable {
   @FXML Button addButton, editButton, deleteButton;
   @FXML private Label giftConfirm;
   private RequestDAOImpl GiftrequestImpl =
-          RequestDAOImpl.getInstance("GiftRequest"); // instance of RequestDAOImpl to access functions
+      RequestDAOImpl.getInstance("GiftRequest"); // instance of RequestDAOImpl to access functions
   @FXML private TableView giftTable;
 
   private static ObservableList<Request> giftData =
       FXCollections.observableArrayList(); // list of requests
 
+  public GiftsController() throws SQLException {}
 
-      @Override
-      public void initialize(URL location, ResourceBundle resources) {
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
 
-        senderColumn.setCellValueFactory(new PropertyValueFactory<>("sender"));
-        recipientColumn.setCellValueFactory(new PropertyValueFactory<>("recipent"));
-        employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
-        locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        messageColumn.setCellValueFactory(new PropertyValueFactory<>("message"));
+    senderColumn.setCellValueFactory(new PropertyValueFactory<>("sender"));
+    recipientColumn.setCellValueFactory(new PropertyValueFactory<>("recipent"));
+    employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
+    locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+    statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    messageColumn.setCellValueFactory(new PropertyValueFactory<>("message"));
 
-        if (giftData.isEmpty()) {
-          System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
-          GiftrequestImpl.csvRead();
-          Iterator var3 = GiftrequestImpl.getAllRequests().entrySet().iterator();
+    if (giftData.isEmpty()) {
+      System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
+      GiftrequestImpl.csvRead();
+      Iterator var3 = GiftrequestImpl.getAllRequests().entrySet().iterator();
 
-          for (Map.Entry<String, Request> entry : GiftrequestImpl.getAllRequests().entrySet()) {
-            Request req = entry.getValue();
-            giftData.add(req);
-          }
-        }
-
-        giftTable.setItems(giftData);
+      for (Map.Entry<String, Request> entry : GiftrequestImpl.getAllRequests().entrySet()) {
+        Request req = entry.getValue();
+        giftData.add(req);
       }
+    }
+
+    giftTable.setItems(giftData);
+  }
   /*
       @FXML
     //   Submits fields to a Java gifts Request Object
@@ -95,7 +95,7 @@ public class GiftsController extends MainController implements Initializable {
       }
   */
   @FXML
-  private void deleteGiftRequest(String deleteString){
+  private void deleteGiftRequest(String deleteString) {
     if (!deleteString.isEmpty()) {
       System.out.println("DELETE REQUEST");
       for (int i = 0; i < giftData.size(); i++) {
@@ -111,11 +111,11 @@ public class GiftsController extends MainController implements Initializable {
 
   @FXML
   private void editGiftRequest(
-                               String editString,
-                               String dropDownString,
-                               String locationString,
-                               String employeeString,
-                               String statusString) {
+      String editString,
+      String dropDownString,
+      String locationString,
+      String employeeString,
+      String statusString) {
     System.out.println("EDIT REQUEST");
     Request found = null;
     int num = 0;
@@ -151,7 +151,6 @@ public class GiftsController extends MainController implements Initializable {
 
       giftTable.setItems(giftData);
     }
-
   }
 
   /*
@@ -198,14 +197,14 @@ public class GiftsController extends MainController implements Initializable {
 
   */
 
- // @Override
- // public void initialize(URL location, ResourceBundle resources) {
+  // @Override
+  // public void initialize(URL location, ResourceBundle resources) {
   //  HashMap<String, Request> giftData = new HashMap<>();
-    /**
-     * try { giftDAO = new RequestDAOImpl("./GIFT.CSV", giftData, 0); } catch (SQLException e) {
-     * e.printStackTrace(); }*
-     */
- // }
+  /**
+   * try { giftDAO = new RequestDAOImpl("./GIFT.CSV", giftData, 0); } catch (SQLException e) {
+   * e.printStackTrace(); }*
+   */
+  // }
 
   @FXML
   /** Submits fields to a Java gifts Request Object */
@@ -271,9 +270,8 @@ public class GiftsController extends MainController implements Initializable {
 
     String placeholder = "?";
     Request gift =
-            new Request(
-                    placeholder, employee, location, dropDown, status, message, sender, recipient);
-    //todo is this right?
+        new Request(placeholder, employee, location, dropDown, status, message, sender, recipient);
+    // todo is this right?
     GiftrequestImpl.addRequest(gift); // add to hashmap
     giftData.add(gift); // add to the UI
     giftTable.setItems(giftData);
