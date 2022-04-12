@@ -1,6 +1,5 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.AppController;
 import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import edu.wpi.agileAngels.Database.Request;
 import edu.wpi.agileAngels.Database.RequestDAOImpl;

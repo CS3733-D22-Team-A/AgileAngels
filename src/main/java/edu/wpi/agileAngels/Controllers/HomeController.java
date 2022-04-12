@@ -1,6 +1,5 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.AppController;
 import java.io.IOException;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
