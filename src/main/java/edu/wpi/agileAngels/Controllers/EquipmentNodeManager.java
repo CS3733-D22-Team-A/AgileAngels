@@ -16,11 +16,10 @@ public class EquipmentNodeManager {
 
   // gets all equipment from the DB and creates nodes from them
   void createNodesFromDB() throws SQLException {
-    HashMap<String, MedicalEquip> equipHash = equipDAO.getAllMedicalEquipment();
-    ArrayList<MedicalEquip> equipList = new ArrayList<>(equipHash.values());
+    equipDAO.readCSV();
+    ArrayList<MedicalEquip> equipList = new ArrayList<>(equipDAO.getAllMedicalEquipment().values());
     System.out.println(equipList);
     for (MedicalEquip equip : equipList) {
-      System.out.println(equip.getID());
       mapsController.displayEquipmentNode(addNode(equip));
     }
   }

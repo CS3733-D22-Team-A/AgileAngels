@@ -54,6 +54,8 @@ public class EquipmentController extends MainController implements Initializable
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    equipDAO.readCSV();
+
     for (Location loc : locationsList) {
       if (loc.getFloor().equals("3")) {
         MenuItem item = new MenuItem(loc.getNodeID());
@@ -127,20 +129,20 @@ public class EquipmentController extends MainController implements Initializable
   private void addEquipRequest(
       String dropDownString, String locationString, String employeeString, String statusString) {
 
-    MedicalEquip equip = null;
-    Boolean foundEquip = false;
-    int i = 0;
-    while (!foundEquip) {
-      MedicalEquip medEquip = allMedEquip.get(i);
-      if (medEquip.getType().equals(dropDownString)
-          && medEquip.getStatus().equals("available")
-          && medEquip.isClean()) {
-        equip = medEquip;
-        foundEquip = true;
-      }
-      i++;
-    }
-    //    if (foundEquip) {
+    //    MedicalEquip equip = null;
+    //    Boolean foundEquip = false;
+    //    int i = 0;
+    //    while (!foundEquip) {
+    //      MedicalEquip medEquip = allMedEquip.get(i);
+    //      if (medEquip.getType().equals(dropDownString)
+    //          && medEquip.getStatus().equals("available")
+    //          && medEquip.isClean()) {
+    //        equip = medEquip;
+    //        foundEquip = true;
+    //      }
+    //      i++;
+    //    }
+    // if (foundEquip) {
     System.out.println("ADD DEVICE");
     equipmentConfirmation.setText(
         "Thank you, the "
@@ -183,7 +185,7 @@ public class EquipmentController extends MainController implements Initializable
     //    } else {
     //      equipmentConfirmation.setText(
     //          "Sorry, there are currently no " + dropDownString + "s available. ");
-    //    }
+    // }
   }
 
   private void deleteEquipRequest(String deleteString) {
