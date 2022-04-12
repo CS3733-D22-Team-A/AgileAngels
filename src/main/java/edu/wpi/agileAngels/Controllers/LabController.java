@@ -46,23 +46,21 @@ public class LabController extends MainController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
-    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-    locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+    nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
+    locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     if (labData.isEmpty()) {
-      System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
       LabDAO.csvRead();
       Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
 
-      // while (var3.hasNext()) {
       for (Map.Entry<String, Request> entry : LabDAO.getAllRequests().entrySet()) {
-        // Map.Entry<String, Request> entry = (Map.Entry) var3.next();
-        Request object = (Request) entry.getValue();
-        labData.add(object);
+        Request req = entry.getValue();
+
+        labData.add(req);
       }
     }
 
