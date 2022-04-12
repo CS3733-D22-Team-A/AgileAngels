@@ -35,7 +35,8 @@ public class EquipmentController extends MainController implements Initializable
   private static ObservableList<Request> medData =
       FXCollections.observableArrayList(); // list of requests
   // hashmap of all medical equipment
-  HashMap<String, MedicalEquip> allMedEquip = equipDAO.getAllMedicalEquipment();
+  HashMap<String, MedicalEquip> equipHash = equipDAO.getAllMedicalEquipment();
+  ArrayList<MedicalEquip> allMedEquip = new ArrayList<>(equipHash.values());
 
   @FXML
   private TableColumn nameColumn,
@@ -125,32 +126,52 @@ public class EquipmentController extends MainController implements Initializable
 
   private void addEquipRequest(
       String dropDownString, String locationString, String employeeString, String statusString) {
-    System.out.println("ADD DEVICE");
-    equipmentConfirmation.setText(
-        "Thank you, the "
-            + dropDownString
-            + " you requested will be delivered shortly to "
-            + locationString
-            + " by "
-            + employeeString
-            + ".");
 
-    String placeholder = "?";
-    Request medDevice =
-        new Request(
-            placeholder,
-            empDAO.getEmployee(employeeString),
-            locDAO.getLocation(locationString),
-            dropDownString,
-            statusString,
-            "describe",
-            "something",
-            "");
+    MedicalEquip equip;
+    Boolean foundEquip = false;
+    int i = 0;
+    while (!foundEquip) {
+      MedicalEquip medEquip = allMedEquip.get(i);
+      if (medEquip.getType().equals(dropDownString)
+              && medEquip.getStatus().equals("available")
+              && medEquip.isClean()) {
+        equip = medEquip;
+        foundEquip = true;
+      }
+      i++;
+    }
+    if (foundEquip) {
+      System.out.println("ADD DEVICE");
+      equipmentConfirmation.setText(
+              "Thank you, the "
+                      + dropDownString
+                      + " you requested will be delivered shortly to "
+                      + locationString
+                      + " by "
+                      + employeeString
+                      + ".");
 
-    MedrequestImpl.addRequest(medDevice); // add to hashmap
+      // TODO assign the equip to the request and change the equip's location and status
 
-    medData.add(medDevice); // add to the UI
-    equipmentTable.setItems(medData);
+      String placeholder = "?";
+      Request medDevice =
+              new Request(
+                      placeholder,
+                      empDAO.getEmployee(employeeString),
+                      locDAO.getLocation(locationString),
+                      dropDownString,
+                      statusString,
+                      "describe",
+                      "something",
+                      "");
+
+      MedrequestImpl.addRequest(medDevice); // add to hashmap
+
+      medData.add(medDevice); // add to the UI
+      equipmentTable.setItems(medData);
+    } else {
+      // TODO print a message that there is none of the equipment requested available
+    }
   }
 
   private void deleteEquipRequest(String deleteString) {
