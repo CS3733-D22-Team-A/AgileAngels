@@ -53,7 +53,7 @@ public class EquipmentController extends MainController implements Initializable
     HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
     ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
     for (Location loc : locationsList) {
-      MenuItem item = new MenuItem(loc.getNodeID());
+      MenuItem item = new MenuItem(loc.getShortName());
       item.setOnAction(this::locationMenu);
       equipLocation.getItems().add(item);
     }
