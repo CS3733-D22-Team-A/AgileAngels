@@ -26,6 +26,7 @@ public class LabController extends MainController implements Initializable {
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private static ObservableList<Request> labData = FXCollections.observableArrayList();
   @FXML private TableView labTable;
+
   @FXML
   private TableColumn nameColumn,
       availableColumn,
@@ -75,8 +76,6 @@ public class LabController extends MainController implements Initializable {
 
     labTable.setItems(labData);
   }
-
-  /** Will add/edit/delete requests by calling upon other methods. */
   @FXML
   private void submitLabTest() {
     String dropDown = dropdownButtonText.getText();
