@@ -263,9 +263,7 @@ public class MapsController extends MainController implements Initializable {
    * @param node the node whose button is added to a pane
    */
   public void displayEquipmentNode(EquipmentNode node) {
-    if (node.getFloor().equals("1")) {
-      pane1.getChildren().add(node.getButton());
-    } else if (node.getFloor().equals("2")) {
+    if (node.getFloor().equals("2")) {
       pane2.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("3")) {
       pane3.getChildren().add(node.getButton());
