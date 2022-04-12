@@ -2,7 +2,6 @@ package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.DBconnection;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Stack;
 import javafx.application.Platform;
@@ -36,19 +35,6 @@ public class MainController {
   private static String username;
   private static String userID;
   public static Boolean loggedIn = false;
-
-  public int floorToDisp;
-
-  private static MainController mainController = null;
-
-  public MainController() {}
-
-  public static MainController getInstance() throws SQLException {
-    if (mainController == null) {
-      mainController = new MainController();
-    }
-    return mainController;
-  }
 
   @FXML
   private void closeApp() {

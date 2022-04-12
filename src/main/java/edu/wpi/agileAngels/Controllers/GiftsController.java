@@ -1,5 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.AppController;
 import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import edu.wpi.agileAngels.Database.Request;
 import edu.wpi.agileAngels.Database.RequestDAOImpl;
@@ -36,7 +37,7 @@ public class GiftsController extends MainController implements Initializable {
   @FXML Button addButton, editButton, deleteButton;
   @FXML private Label giftConfirm;
   private RequestDAOImpl giftDAO;
-  private MainController mainController = MainController.getInstance();
+  private AppController appController = AppController.getInstance();
 
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
@@ -198,7 +199,7 @@ public class GiftsController extends MainController implements Initializable {
   @FXML
   /** Submits fields to a Java gifts Request Object */
   private void submitGift() {
-    String dropDown = mainController.dropdownButtonText.getText();
+    String dropDown = dropdownButtonText.getText();
     String sender = giftSender.getText();
     String recipient = giftRecipient.getText();
     String employee = giftEmployeeText.getText();
@@ -220,7 +221,7 @@ public class GiftsController extends MainController implements Initializable {
               + ", "
               + giftEmployeeText.getText()
               + " will deliver "
-              + mainController.dropdownButtonText.getText()
+              + dropdownButtonText.getText()
               + " to "
               + giftRecipient.getText()
               + " soon. ");
@@ -261,7 +262,7 @@ public class GiftsController extends MainController implements Initializable {
             "",
             empDAO.getEmployee(giftEmployeeText.getText()),
             locDAO.getLocation(giftRecipient.getText()),
-            mainController.dropdownButtonText.getText(),
+            dropdownButtonText.getText(),
             giftStatus.getText(),
             giftMessage.getText(),
             giftSender.getText(),

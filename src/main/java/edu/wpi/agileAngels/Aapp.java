@@ -12,12 +12,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Aapp extends Application {
 
+  public Aapp() throws SQLException {}
+
   @Override
   public void init() {
     log.info("Starting Up");
   }
 
   public Adb adb;
+
+  AppController appController = AppController.getInstance();
 
   // Creates and displays default scene
   @Override
@@ -27,13 +31,13 @@ public class Aapp extends Application {
     FXMLLoader loader = new FXMLLoader(getClass().getResource("views/login.fxml"));
     Parent root = loader.load();
     Scene defaultScene = new Scene(root);
-    //    Pane pane = new Pane();
-    //    pane.getChildren().add(build())
+    appController.setPrimaryStage(primaryStage);
 
     defaultScene
         .getStylesheets()
         .add(
             "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
     primaryStage.setScene(defaultScene);
     primaryStage.setResizable(false);
     primaryStage.show();

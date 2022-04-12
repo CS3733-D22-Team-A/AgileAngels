@@ -17,7 +17,7 @@ import javax.swing.*;
 
 // TODO: Close app button is broken when displaying floor 1
 
-public class MapsController extends MainController implements Initializable {
+public class MapsController implements Initializable {
 
   @FXML
   private ImageView floorOneMap, floorTwoMap, floorThreeMap, lowerLevelOneMap, lowerLevelTwoMap;
@@ -236,4 +236,6 @@ public class MapsController extends MainController implements Initializable {
       floorLabel.setText("Lower Level 2");
     }
   }
+
+  public void clearPage(ActionEvent event) {}
 }
