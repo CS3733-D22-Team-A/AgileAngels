@@ -1,9 +1,8 @@
 package edu.wpi.agileAngels;
 
+import edu.wpi.agileAngels.Controllers.AppController;
 import java.io.IOException;
 import java.sql.SQLException;
-
-import edu.wpi.agileAngels.Controllers.AppController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,19 +29,8 @@ public class Aapp extends Application {
   public void start(Stage primaryStage) throws IOException, SQLException {
     adb = new Adb(); // ADB class
     adb.initialize();
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("views/login.fxml"));
-    Parent root = loader.load();
-    Scene defaultScene = new Scene(root);
-    appController.setPrimaryStage(primaryStage);
 
-    defaultScene
-        .getStylesheets()
-        .add(
-            "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
-
-    primaryStage.setScene(defaultScene);
-    primaryStage.setResizable(false);
-    primaryStage.show();
+    appController.init(primaryStage);
   }
 
   @Override

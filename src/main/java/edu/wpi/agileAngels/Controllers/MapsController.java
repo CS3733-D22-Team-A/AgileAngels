@@ -3,6 +3,7 @@ package edu.wpi.agileAngels.Controllers;
 import edu.wpi.agileAngels.Database.Location;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -54,6 +55,8 @@ public class MapsController extends MainController implements Initializable {
   NodeManager nodeManager = new NodeManager(this);
 
   double scale = 1;
+
+  public MapsController() throws SQLException {}
   // Map zoom
   // ZoomableMap zoomableMap = new ZoomableMap(mapScroll.getContent());
   /**
@@ -270,13 +273,11 @@ public class MapsController extends MainController implements Initializable {
       Scale scaleTransform = new Scale(1.05, 1.05, 0, 0);
       scale *= 1.05;
       contentGroup.getTransforms().add(scaleTransform);
-      nodeManager.resieAll(0.95);
 
     } else if (event.getSource() == zoomOut) {
       Scale scaleTransform = new Scale(.95, .95, 0, 0);
       scale *= 0.95;
       contentGroup.getTransforms().add(scaleTransform);
-      nodeManager.resieAll(1.05);
     }
   }
 
@@ -298,13 +299,11 @@ public class MapsController extends MainController implements Initializable {
           xCoordField.setText(
               String.valueOf(
                   ((click.getSceneX() - mapScroll.getLayoutX()) / scale)
-                      + (mapScroll.getHvalue()
-                              * ((mapPane.getWidth() - mapScroll.getWidth())))));
+                      + (mapScroll.getHvalue() * ((mapPane.getWidth() - mapScroll.getWidth())))));
           yCoordField.setText(
               String.valueOf(
                   ((click.getSceneY() - mapScroll.getLayoutY()) / scale)
-                      + (mapScroll.getVvalue()
-                              * (mapPane.getHeight() - mapScroll.getHeight()))));
+                      + (mapScroll.getVvalue() * (mapPane.getHeight() - mapScroll.getHeight()))));
           clickPane.setStyle("-fx-background-color: rgba(0,0,0,0)");
           System.out.println(mapPane.getWidth() * mapPane.getScaleX());
           clickPane.setDisable(true);

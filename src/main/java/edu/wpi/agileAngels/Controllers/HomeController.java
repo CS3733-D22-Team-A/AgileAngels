@@ -17,7 +17,7 @@ public class HomeController {
   @FXML
   private void homeButton(ActionEvent event) throws IOException {
     if (event.getSource() == serviceButton) {
-      appController.loadPage("../views/serviceRequest-view.fxml");
+      appController.loadPage("../views/test-view.fxml");
     } else if (event.getSource() == mapButton) {
       appController.loadPage("../views/dashboard-view.fxml");
     }
