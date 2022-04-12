@@ -2,8 +2,10 @@ package edu.wpi.agileAngels.Controllers;
 
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.agileAngels.Database.Location;
+import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import edu.wpi.agileAngels.Database.MedicalEquip;
 import java.sql.SQLException;
+import java.util.HashMap;
 import javafx.event.ActionEvent;
 
 public class EquipmentNode {
@@ -12,6 +14,8 @@ public class EquipmentNode {
   private Location location;
   private EquipmentNodeManager equipmentNodeManager;
   private JFXButton button = new JFXButton();
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
+  HashMap<String, Location> locationsHash = locDAO.getAllLocations();
 
   public EquipmentNode(MedicalEquip medEquip, EquipmentNodeManager equipmentNodeManager)
       throws SQLException {
@@ -35,7 +39,7 @@ public class EquipmentNode {
   }
 
   public MedicalEquip getMedEquip() {
-    return this.medEquip;
+    return medEquip;
   }
 
   public JFXButton getButton() {
@@ -69,5 +73,19 @@ public class EquipmentNode {
 
   public String getStatus() {
     return medEquip.getStatus();
+  }
+
+  public void makeClean() {
+    System.out.println("node makeClean");
+    if (!medEquip.isClean()) {
+      medEquip.setClean(true);
+      if (medEquip.getType().equals("XRayMachine") || medEquip.getType().equals("InfusionPump")) {
+        System.out.println("node if");
+        medEquip.setLocation(locationsHash.get("ASTOR00103"));
+      } else {
+        System.out.println("node else");
+        medEquip.setLocation(locationsHash.get("ASTOR00303"));
+      }
+    }
   }
 }
