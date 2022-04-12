@@ -2,10 +2,8 @@ package edu.wpi.agileAngels.Controllers;
 
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.agileAngels.Database.Location;
-import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import edu.wpi.agileAngels.Database.MedicalEquip;
 import java.sql.SQLException;
-import java.util.HashMap;
 import javafx.event.ActionEvent;
 
 public class EquipmentNode {
