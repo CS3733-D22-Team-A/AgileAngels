@@ -160,7 +160,10 @@ public class EquipmentController extends MainController implements Initializable
       String statusString) {
     System.out.println("EDIT REQUEST");
 
-    Request found = null;
+    Request found = MedrequestImpl.getAllRequests().get(editString);
+    System.out.println(found.getName());
+
+    // null;
     int num = 0;
     for (int i = 0; i < medData.size(); i++) {
       Request device = medData.get(i);
@@ -174,31 +177,32 @@ public class EquipmentController extends MainController implements Initializable
     System.out.println(employee.getName() + " " + location.getNodeID());
 
     if (found != null) {
-
+      System.out.println("1");
       if (!dropDownString.isEmpty()) {
-        // String type = dropdownButtonText.getText();
+
         found.setType(dropDownString);
         MedrequestImpl.updateType(found, dropDownString);
       }
 
       if (!locationString.isEmpty()) {
         found.setLocation(location);
-        MedrequestImpl.updateLocation(found, location);
+        // MedrequestImpl.updateLocation(found, location);
       }
       if (!employeeString.isEmpty()) {
-
-        MedrequestImpl.updateEmployeeName(found, employee.getName());
+        System.out.println(employee.getName());
+        found.setEmployee(employee);
+        //        MedrequestImpl.updateEmployeeName(found, employee.getName());
       }
 
       if (!statusString.isEmpty()) {
 
         found.setStatus(statusString);
-        MedrequestImpl.updateStatus(found, statusString);
+        //  MedrequestImpl.updateStatus(found, statusString);
       }
-      System.out.println(num);
+      // System.out.println(num);
       medData.set(num, found);
 
-      equipmentTable.setItems(medData);
+      //  equipmentTable.setItems(medData);
     }
   }
 

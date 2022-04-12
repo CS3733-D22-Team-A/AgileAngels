@@ -178,8 +178,8 @@ public class LabController extends MainController implements Initializable {
           LabDAO.updateLocation(found, loc);
         }
         if (!labEmployeeText.getText().isEmpty()) {
-          // String employee = labEmployeeText.getText();
-          found.setEmployee(empDAO.getEmployee(employee));
+          Employee emp = empDAO.getEmployee(employee);
+          found.setEmployee(emp);
           LabDAO.updateEmployeeName(found, employee);
         }
         labData.set(num, found);
