@@ -122,8 +122,8 @@ public class MapsController extends MainController implements Initializable {
     Location newLocation =
         new Location(
             nodeID,
-            Double.parseDouble(xCoordField.getText()),
-            Double.parseDouble(yCoordField.getText()),
+            (Double.parseDouble(xCoordField.getText()) * 3.225) + 775,
+            (Double.parseDouble(yCoordField.getText()) * 3.232) + 320,
             currentFloor,
             "TOWER",
             typeDropdown.getText(),
@@ -182,6 +182,7 @@ public class MapsController extends MainController implements Initializable {
   private void switchMode(ActionEvent event) {
     if (editButton.isVisible() == true) {
       addButton.setVisible(true);
+      addButton.setViewOrder(-1000);
       editButton.setVisible(false);
       removeButton.setVisible(false);
       switchToAddButton.setText("Delete/Edit");
@@ -189,6 +190,7 @@ public class MapsController extends MainController implements Initializable {
       clearFields();
     } else {
       addButton.setVisible(false);
+      addButton.setViewOrder(100);
       editButton.setVisible(true);
       removeButton.setVisible(true);
       switchToAddButton.setText("Add");

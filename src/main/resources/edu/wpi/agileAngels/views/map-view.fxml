@@ -94,7 +94,7 @@
       <Label fx:id="floorLabel" layoutX="307.0" layoutY="139.0" prefHeight="30.0" prefWidth="127.0" text="Floor 1" />
       <Button fx:id="zoomIn" layoutX="1194.0" layoutY="558.0" mnemonicParsing="false" onAction="#zoomableMap" prefHeight="30.0" prefWidth="32.0" text="+" AnchorPane.bottomAnchor="132.0" AnchorPane.rightAnchor="20.0" />
       <Button fx:id="zoomOut" layoutX="1194.0" layoutY="588.0" mnemonicParsing="false" onAction="#zoomableMap" prefHeight="30.0" prefWidth="32.0" text="-" AnchorPane.bottomAnchor="102.0" AnchorPane.rightAnchor="20.0" />
-      <VBox layoutX="59.0" layoutY="164.0" prefHeight="461.0" prefWidth="200.0" spacing="20.0">
+      <VBox layoutX="59.0" layoutY="164.0" prefHeight="472.0" prefWidth="200.0" spacing="20.0">
          <children>
             <Label fx:id="nodeIDField" prefHeight="40.0" prefWidth="270.0" />
             <TextField fx:id="nameField" prefHeight="40.0" prefWidth="270.0" promptText="name" />
@@ -147,7 +147,7 @@
                   </HBox>
                </children>
             </Pane>
-            <Button fx:id="switchToAddButton" mnemonicParsing="false" onAction="#switchMode" prefHeight="40.0" prefWidth="282.0" text="Add Node" />
+            <Button fx:id="switchToAddButton" mnemonicParsing="false" onAction="#switchMode" prefHeight="40.0" prefWidth="282.0" text="Switch to Add Node" />
          </children>
       </VBox>
       <Pane id="topBar" prefHeight="60.0" prefWidth="1546.0" styleClass="minimize" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
