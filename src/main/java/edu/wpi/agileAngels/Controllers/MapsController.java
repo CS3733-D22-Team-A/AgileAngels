@@ -134,7 +134,7 @@ public class MapsController extends MainController implements Initializable {
     System.out.println(equipmentNode.getID());
     nodeIDField.setText(equipmentNode.getID());
     nameField.setText(equipmentNode.getType());
-    typeField.setText(equipmentNode.getClean());
+    typeField.setText(equipmentNode.getStatus());
     xCoordField.setText(Double.toString(equipmentNode.getLocation().getXCoord()));
     yCoordField.setText(Double.toString(equipmentNode.getLocation().getYCoord()));
     currentEquipmentNode = equipmentNode;

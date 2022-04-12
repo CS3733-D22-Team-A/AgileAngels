@@ -14,14 +14,12 @@ public class EquipmentNode {
   private Location location;
   private EquipmentNodeManager equipmentNodeManager;
   private JFXButton button = new JFXButton();
-  private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
-  HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
 
   public EquipmentNode(MedicalEquip medEquip, EquipmentNodeManager equipmentNodeManager)
       throws SQLException {
     this.medEquip = medEquip;
     this.equipmentNodeManager = equipmentNodeManager;
-    this.location = locationsHash.get(medEquip.getLocation());
+    this.location = medEquip.getLocation();
 
     button.setLayoutX((this.location.getXCoord() - 800) / 5);
     button.setLayoutY((this.location.getYCoord() - 350) / 5);
@@ -62,11 +60,7 @@ public class EquipmentNode {
     return medEquip.getType();
   }
 
-  public String getClean() {
-    String clean = "Dirty";
-    if (medEquip.isClean()) {
-      clean = "Clean";
-    }
-    return clean;
+  public String getStatus() {
+    return medEquip.getStatus();
   }
 }
