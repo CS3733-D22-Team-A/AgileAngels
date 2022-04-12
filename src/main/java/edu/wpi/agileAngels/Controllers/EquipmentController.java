@@ -133,8 +133,8 @@ public class EquipmentController extends MainController implements Initializable
     while (!foundEquip) {
       MedicalEquip medEquip = allMedEquip.get(i);
       if (medEquip.getType().equals(dropDownString)
-              && medEquip.getStatus().equals("available")
-              && medEquip.isClean()) {
+          && medEquip.getStatus().equals("available")
+          && medEquip.isClean()) {
         equip = medEquip;
         foundEquip = true;
       }
@@ -143,26 +143,26 @@ public class EquipmentController extends MainController implements Initializable
     if (foundEquip) {
       System.out.println("ADD DEVICE");
       equipmentConfirmation.setText(
-              "Thank you, the "
-                      + dropDownString
-                      + " you requested will be delivered shortly to "
-                      + locationString
-                      + " by "
-                      + employeeString
-                      + ".");
+          "Thank you, the "
+              + dropDownString
+              + " you requested will be delivered shortly to "
+              + locationString
+              + " by "
+              + employeeString
+              + ".");
 
       String placeholder = "?";
       Request medDevice =
-              new Request(
-                      placeholder,
-                      empDAO.getEmployee(employeeString),
-                      locDAO.getLocation(locationString),
-                      dropDownString,
-                      statusString,
-                      "describe",
-                      "something",
-                      "",
-                      equip);
+          new Request(
+              placeholder,
+              empDAO.getEmployee(employeeString),
+              locDAO.getLocation(locationString),
+              dropDownString,
+              statusString,
+              "describe",
+              "something",
+              "",
+              equip);
 
       // set the status and location of the medicalEquipment object corresponding to the request
       if (statusString.equals("not started")) {
@@ -182,9 +182,7 @@ public class EquipmentController extends MainController implements Initializable
       equipmentTable.setItems(medData);
     } else {
       equipmentConfirmation.setText(
-              "Sorry, there are currently no "
-                      + dropDownString
-                      + "s available. ");
+          "Sorry, there are currently no " + dropDownString + "s available. ");
     }
   }
 
@@ -257,7 +255,6 @@ public class EquipmentController extends MainController implements Initializable
           found.getMedicalEquip().setStatus("available");
           found.getMedicalEquip().setLocation(locationsHash.get("ADIRT00103"));
         }
-
       }
       medData.set(num, found);
 

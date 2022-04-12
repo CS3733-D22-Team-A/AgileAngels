@@ -19,15 +19,15 @@ public class Request {
 
   // constructor for medical requests
   public Request(
-          String Name,
-          Employee employee,
-          Location location,
-          String type,
-          String status,
-          String description,
-          String attribute1,
-          String attribute2,
-          MedicalEquip medicalEquip) {
+      String Name,
+      Employee employee,
+      Location location,
+      String type,
+      String status,
+      String description,
+      String attribute1,
+      String attribute2,
+      MedicalEquip medicalEquip) {
     this.name = Name;
     this.employee = employee;
     this.location = location;
