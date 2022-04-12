@@ -24,7 +24,7 @@ public class Adb {
     System.out.println("-------Embedded Apache Derby Connection Testing --------");
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-      Class.forName("org.apache.derby.jdbc.ClientDriver");
+      // Class.forName("org.apache.derby.jdbc.ClientDriver");
     } catch (ClassNotFoundException e) {
       System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
       System.out.println("For IntelliJ do the following:");
@@ -44,8 +44,8 @@ public class Adb {
     employeeTable = getEmployeeTableInstance();
 
     initializeHelper();
-    DBconnection.switchConnection();
-    initializeHelper();
+    // DBconnection.switchConnection();
+    // initializeHelper();
     // After: should be embedded connection
 
     // Tries to get a connection

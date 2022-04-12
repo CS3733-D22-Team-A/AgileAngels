@@ -49,7 +49,8 @@ public class EquipmentController extends MainController implements Initializable
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-
+    locDAO.getAllLocations();
+    empDAO.getAllEmployees();
     HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
     ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
     for (Location loc : locationsList) {
@@ -58,12 +59,6 @@ public class EquipmentController extends MainController implements Initializable
       equipLocation.getItems().add(item);
     }
     equipDAO.readCSV();
-
-    // connection = DBconnection.getConnection();
-
-    // Implement DAO here.
-
-    // HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
@@ -102,12 +97,10 @@ public class EquipmentController extends MainController implements Initializable
     // get location obj
     Location location = locDAO.getLocation(locationString);
     String employeeString = equipmentEmployeeText.getText();
+    Employee employee = empDAO.getEmployee(employeeString);
     String statusString = equipmentStatus.getText();
     String deleteString = deleteName.getText();
     String editString = editRequest.getText();
-    // logic to see if the entries in the buttons are empty
-    // boolean logic = (dropDownString.isEmpty() || locationString.isEmpty() ||
-    // employeeString.isEmpty());
     // if the fields are empty or to delete input is not empty
     if (!deleteString.isEmpty()) {
       deleteEquipRequest(deleteString);
@@ -116,28 +109,29 @@ public class EquipmentController extends MainController implements Initializable
       editEquipmentRequest(
           editString, dropDownString, locationString, employeeString, statusString);
     } else {
-      addEquipRequest(dropDownString, locationString, employeeString, statusString);
+      // addEquipRequest(dropDownString, location, employee, statusString);
+      System.out.println(location.getNodeID() + " " + employee.getName());
     }
   }
 
   private void addEquipRequest(
-      String dropDownString, String locationString, String employeeString, String statusString) {
+      String dropDownString, Location location, Employee employee, String statusString) {
     System.out.println("ADD DEVICE");
     equipmentConfirmation.setText(
         "Thank you, the "
             + dropDownString
             + " you requested will be delivered shortly to "
-            + locationString
+            + location.getLongName()
             + " by "
-            + employeeString
+            + employee.getName()
             + ".");
 
     String placeholder = "?";
     Request medDevice =
         new Request(
             placeholder,
-            empDAO.getEmployee(employeeString),
-            locDAO.getLocation(locationString),
+            employee,
+            location,
             dropDownString,
             statusString,
             "describe",
@@ -171,8 +165,6 @@ public class EquipmentController extends MainController implements Initializable
       String statusString) {
     System.out.println("EDIT REQUEST");
 
-    Location location = locDAO.getLocation(locationString);
-
     Request found = null;
     int num = 0;
     for (int i = 0; i < medData.size(); i++) {
@@ -182,27 +174,33 @@ public class EquipmentController extends MainController implements Initializable
         num = i;
       }
     }
+    Employee employee = empDAO.getEmployee(employeeString);
+    Location location = locDAO.getLocation(locationString);
+    System.out.println(employee.getName() + " " + location.getNodeID());
+
     if (found != null) {
+
       if (!dropDownString.isEmpty()) {
         // String type = dropdownButtonText.getText();
         found.setType(dropDownString);
         MedrequestImpl.updateType(found, dropDownString);
       }
+
       if (!locationString.isEmpty()) {
-        Location loc = locDAO.getLocation(locationString);
         found.setLocation(location);
-        MedrequestImpl.updateLocation(found, loc);
+        MedrequestImpl.updateLocation(found, location);
       }
       if (!employeeString.isEmpty()) {
-        // String employee = emp.getText();
-        found.setEmployee(empDAO.getEmployee(employeeString));
-        MedrequestImpl.updateEmployeeName(found, employeeString);
+
+        MedrequestImpl.updateEmployeeName(found, employee.getName());
       }
+
       if (!statusString.isEmpty()) {
-        // String employee = emp.getText();
+
         found.setStatus(statusString);
         MedrequestImpl.updateStatus(found, statusString);
       }
+      System.out.println(num);
       medData.set(num, found);
 
       equipmentTable.setItems(medData);

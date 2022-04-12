@@ -1,68 +1,84 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Request;
-import edu.wpi.agileAngels.Database.RequestDAOImpl;
+import edu.wpi.agileAngels.Database.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 
 public class SanitationController extends MainController {
   // Test
   @FXML private TextField sanIssue, sanLocation, sanitationEmployeeText, sanitationStatus;
   @FXML private Label sanitationConfirmation;
-
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
+  private EmployeeManager empDAO = EmployeeManager.getInstance();
+  // @FXML private TableView sanTable;
+  private static ObservableList<Request> sanData =
+      FXCollections.observableArrayList(); // list of requests
   private RequestDAOImpl sanDAO;
+  @FXML
+  private TableColumn nameColumn,
+      employeeColumn, // change to employeeColumn
+      locationColumn,
+      typeColumn,
+      statusColumn,
+      descriptionColumn,
+      availableColumn;
+
+  public SanitationController() throws SQLException {}
 
   public void initialize(URL location, ResourceBundle resources) throws SQLException {
     HashMap<String, Request> sanData = new HashMap<String, Request>();
+    sanDAO.getAllRequests();
     // sanDAO = new RequestDAOImpl("./san.csv", sanData, 0);
   }
 
   @FXML
   private void submitSanitation() {
     String issue = sanIssue.getText();
-    String location = sanLocation.getText();
-    String employee = sanitationEmployeeText.getText();
-    // String status = sanitationStatus.getText(); //This is broken help!
-    // String dropDown = dropdownButtonText.getText();
-    if (sanIssue.getText().isEmpty()
+    locDAO.getAllLocations();
+    empDAO.getAllEmployees();
+    Location location = locDAO.getLocation(sanLocation.getText());
+    Employee employee = empDAO.getEmployee(sanitationEmployeeText.getText());
+    // String status = sanitationStatus.getText(); // This is broken help!
+    //  String dropDown = dropdownButtonText.getText();
+    /*if (sanIssue.getText().isEmpty()
         || sanLocation.getText().isEmpty()
         || sanitationEmployeeText.getText().isEmpty()) {
       sanitationConfirmation.setText("Please fill out all the required fields");
     } else {
-      sanitationConfirmation.setText(
-          "Thank you, "
-              + sanitationEmployeeText.getText()
-              + " will be sent to "
-              + sanLocation.getText()
-              + " to sanitize "
-              + sanIssue.getText()
-              + ".");
-      /**
-       * SanitationRequest request = new SanitationRequest( "", sanitationEmployeeText.getText(),
-       * sanLocation.getText(), sanIssue.getText(), sanitationStatus.getText(), "");
-       * sanDAO.addRequest(request);*
-       */
-      //  Request request = new Request("", employee, location, "dropDown", status, issue, "", "");
-    }
-  }
-  /*
-    private void addSaniRequest(
-        String employee, String location, String dropDown, String status, String issue) {
-      sanitationConfirmation.setText(
-          "Thank you, "
-              + sanitationEmployeeText.getText()
-              + " will be sent to "
-              + sanLocation.getText()
-              + " to sanitize "
-              + sanIssue.getText()
-              + ".");
-      // Request request = new Request("", employee, location, dropDown, status, issue, "", "");
-    }
-  */
+    *?
+     */
+    System.out.println(employee.getName() + " " + location.getLongName());
+    addSaniRequest(employee, location, issue);
 
+    /**
+     * SanitationRequest request = new SanitationRequest( "", sanitationEmployeeText.getText(),
+     * sanLocation.getText(), sanIssue.getText(), sanitationStatus.getText(), "");
+     * sanDAO.addRequest(request);*
+     */
+    //  Request request = new Request("", employee, location, "dropDown", status, issue, "", "");
+    // }
+  }
+
+  private void addSaniRequest(Employee employee, Location location, String issue) {
+    sanitationConfirmation.setText(
+        "Thank you, "
+            + sanitationEmployeeText.getText()
+            + " will be sent to "
+            + location.getLongName()
+            + " to sanitize "
+            + sanIssue.getText()
+            + ".");
+    Request request = new Request("", employee, location, "dropDown", "status", issue, "", "");
+    sanDAO.addRequest(request); // there is an error here
+    // sanData.add(request);
+    // sanTable.setItems(sanData);
+  }
 }
