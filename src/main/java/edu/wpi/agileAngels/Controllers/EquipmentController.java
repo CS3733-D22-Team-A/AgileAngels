@@ -170,7 +170,10 @@ public class EquipmentController extends MainController implements Initializable
       medData.add(medDevice); // add to the UI
       equipmentTable.setItems(medData);
     } else {
-      // TODO print a message that there is none of the equipment requested available
+      equipmentConfirmation.setText(
+              "I'm sorry, there are currently no "
+                      + dropDownString
+                      + "s available. ");
     }
   }
 
