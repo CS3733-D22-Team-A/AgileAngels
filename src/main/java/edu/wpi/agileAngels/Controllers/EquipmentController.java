@@ -29,6 +29,7 @@ public class EquipmentController extends MainController implements Initializable
   private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
+  private MedEquipImpl equipDAO = MedEquipImpl.getInstance();
   private RequestDAOImpl MedrequestImpl =
       RequestDAOImpl.getInstance("MedRequest"); // instance of RequestDAOImpl to access functions
   // only way to update the UI is ObservableList
@@ -56,6 +57,7 @@ public class EquipmentController extends MainController implements Initializable
       item.setOnAction(this::locationMenu);
       equipLocation.getItems().add(item);
     }
+    equipDAO.readCSV();
 
     // connection = DBconnection.getConnection();
 
@@ -138,8 +140,8 @@ public class EquipmentController extends MainController implements Initializable
             locDAO.getLocation(locationString),
             dropDownString,
             statusString,
-            "",
-            "",
+            "describe",
+            "something",
             "");
 
     MedrequestImpl.addRequest(medDevice); // add to hashmap
