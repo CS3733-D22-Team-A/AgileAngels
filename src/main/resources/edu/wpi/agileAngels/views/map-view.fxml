@@ -43,27 +43,27 @@
          <content>
             <Pane fx:id="mapPane" prefHeight="659.0" prefWidth="1088.0">
                <children>
-                  <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="658.0" fitWidth="1282.0" preserveRatio="true">
+                  <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="580.0" fitWidth="1088.0" preserveRatio="true">
                      <image>
                         <Image url="@../assets/Floor 1.png" />
                      </image>
                   </ImageView>
-                  <ImageView id="floorTwoMap" fx:id="floorTwoMap" fitHeight="700.0" fitWidth="1089.0" preserveRatio="true">
+                  <ImageView id="floorTwoMap" fx:id="floorTwoMap" fitHeight="580.0" fitWidth="1088.0" preserveRatio="true">
                      <image>
                         <Image url="@../assets/Floor 2.png" />
                      </image>
                   </ImageView>
-                  <ImageView id="floorThreeMap" fx:id="floorThreeMap" fitHeight="698.0" fitWidth="1089.0" preserveRatio="true">
+                  <ImageView id="floorThreeMap" fx:id="floorThreeMap" fitHeight="580.0" fitWidth="1088.0" preserveRatio="true">
                      <image>
                         <Image url="@../assets/Floor 3.png" />
                      </image>
                   </ImageView>
-                  <ImageView id="lowerLevelOne" fx:id="lowerLevelOneMap" fitHeight="762.0" fitWidth="1087.0" preserveRatio="true">
+                  <ImageView id="lowerLevelOne" fx:id="lowerLevelOneMap" fitHeight="580.0" fitWidth="1088.0" preserveRatio="true">
                      <image>
                         <Image url="@../assets/Lower level 1.png" />
                      </image>
                   </ImageView>
-                  <ImageView id="lowerLevelTwo" fx:id="lowerLevelTwoMap" fitHeight="774.0" fitWidth="1087.0" preserveRatio="true">
+                  <ImageView id="lowerLevelTwo" fx:id="lowerLevelTwoMap" fitHeight="580.0" fitWidth="1088.0" preserveRatio="true">
                      <image>
                         <Image url="@../assets/Lower level 2.png" />
                      </image>
