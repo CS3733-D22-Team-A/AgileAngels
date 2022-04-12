@@ -39,8 +39,10 @@ public class EquipmentNode {
   }
 
   public void resetLocation() {
-    button.setLayoutX((this.location.getXCoord() - 800) / 5);
-    button.setLayoutY((this.location.getYCoord() - 350) / 5);
+    double x = ((this.location.getXCoord() - 800) / 5);
+    double y = ((this.location.getYCoord() - 800) / 5);
+    button.setLayoutX(x);
+    button.setLayoutY(y);
   }
 
   public MedicalEquip getMedEquip() {

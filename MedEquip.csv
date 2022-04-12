@@ -24,7 +24,7 @@ B06,Bed,true,ASTOR00303,available
 B07,Bed,true,ASTOR00303,available
 B08,Bed,true,ASTOR00303,available
 B09,Bed,true,ASTOR00303,available
-B10,Bed,true,ASTOR00303,available
+B10,Bed,false,ADIRT00103,available
 R01,Recliner,true,ASTOR00303,available
 R02,Recliner,true,ASTOR00303,available
 R03,Recliner,true,ASTOR00303,available

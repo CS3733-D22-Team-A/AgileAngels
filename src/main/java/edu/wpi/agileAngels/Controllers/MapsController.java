@@ -311,6 +311,5 @@ public class MapsController extends MainController implements Initializable {
     equipmentNodeManager.makeClean(currentEquipmentNode);
     currentEquipmentNode.resetLocation();
     populateEquipmentNodeData(currentEquipmentNode);
-    currentEquipmentNode = null;
   }
 }
