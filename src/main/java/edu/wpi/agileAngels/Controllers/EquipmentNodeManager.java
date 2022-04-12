@@ -38,17 +38,8 @@ public class EquipmentNodeManager {
   }
 
   void makeClean(EquipmentNode node) {
-    System.out.println("manager makeClean");
     MedicalEquip equip = node.getMedEquip();
-    if (!equip.isClean()) {
-      equipDAO.updateMedicalCleanliness(equip, true);
-      if (equip.getType().equals("XRayMachine") || equip.getType().equals("InfusionPump")) {
-        System.out.println("manager if");
-        equipDAO.updateEquipmentLocation(equip, locationsHash.get("ASTOR00103"));
-      } else {
-        System.out.println("manager else");
-        equipDAO.updateEquipmentLocation(equip, locationsHash.get("ASTOR00303"));
-      }
-    }
+    equipDAO.updateMedicalCleanliness(equip, equip.isClean());
+    equipDAO.updateEquipmentLocation(equip, equip.getLocation());
   }
 }
