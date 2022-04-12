@@ -285,7 +285,6 @@ public class MapsController extends MainController implements Initializable {
     }
   }
 
-
   /**
    * Switches between the panes for each floor when the button for each floor is pressed
    *
