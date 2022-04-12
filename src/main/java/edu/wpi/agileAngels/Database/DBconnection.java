@@ -26,7 +26,7 @@ public class DBconnection {
   /** Shuts the connection down */
   public static void shutdown() {
     try {
-      connection = DriverManager.getConnection("jdbc:derby:myDB;shutdown=true");
+      connection.close();
     } catch (SQLException e) {
       System.out.println("Shutdown unsuccessful.");
     }
