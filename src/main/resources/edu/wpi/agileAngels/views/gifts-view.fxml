@@ -179,7 +179,7 @@
             <TableColumn fx:id="messageColumn" prefWidth="85.0" text="Message" />
         </columns>
       </TableView>
-      <TextField fx:id="editRequest" layoutX="272.0" layoutY="597.0" onAction="#editGiftRequest" promptText="Edit Name" />
-      <TextField fx:id="deleteName" layoutX="572.0" layoutY="597.0" onAction="#deleteGiftRequest" promptText="Delete Name" />
+      <TextField fx:id="deleteName" layoutX="572.0" layoutY="597.0" promptText="Delete Name" />
+      <TextField fx:id="editRequest" layoutX="311.0" layoutY="597.0" promptText="Edit Name" />
    </children>
 </AnchorPane>

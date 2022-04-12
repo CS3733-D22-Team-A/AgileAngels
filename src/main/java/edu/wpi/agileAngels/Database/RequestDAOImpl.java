@@ -29,7 +29,12 @@ public class RequestDAOImpl implements RequestDAO {
       data = new HashMap();
       requestDAO = new RequestDAOImpl("./MedData.csv", data, 1, "MedRequest");
       return requestDAO;
+    } else if (requestDAO == null && 0 == type.compareTo("GiftRequest")) {
+      data = new HashMap();
+      requestDAO = new RequestDAOImpl("./GiftData.csv", data, 1, "GiftRequest");
+      return requestDAO;
     } else {
+
       return requestDAO;
     }
   }
