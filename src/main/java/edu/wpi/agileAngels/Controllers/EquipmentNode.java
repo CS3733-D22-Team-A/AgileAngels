@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import edu.wpi.agileAngels.Database.Location;
 import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import edu.wpi.agileAngels.Database.MedicalEquip;
-import edu.wpi.agileAngels.Database.Request;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -36,7 +35,7 @@ public class EquipmentNode {
     }
 
     public void isClicked() {
-        // equipmentNodeManager.loadNode(this);
+        equipmentNodeManager.loadNode(this);
     }
 
     public JFXButton getButton() {

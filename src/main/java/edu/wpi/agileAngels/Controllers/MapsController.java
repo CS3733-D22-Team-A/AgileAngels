@@ -50,6 +50,7 @@ public class MapsController extends MainController implements Initializable {
 
   LocationNodeManager locationNodeManager = new LocationNodeManager(this);
   RequestNodeManager requestNodeManager = new RequestNodeManager(this);
+  EquipmentNodeManager equipmentNodeManager = new EquipmentNodeManager(this);
 
   public MapsController() throws SQLException {}
 
@@ -86,6 +87,7 @@ public class MapsController extends MainController implements Initializable {
     locationNodeManager.createNodesFromDB();
     try {
       requestNodeManager.createNodesFromDB();
+      equipmentNodeManager.createNodesFromDB();
     } catch (SQLException e) {
       e.printStackTrace();
     }

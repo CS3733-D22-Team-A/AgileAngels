@@ -14,7 +14,7 @@ public class EquipmentNodeManager {
         this.mapsController = mapsController;
     }
 
-    // gets all locations from the DB and creates nodes from them
+    // gets all equipment from the DB and creates nodes from them
     void createNodesFromDB() throws SQLException {
         ArrayList<MedicalEquip> equipList = new ArrayList<>(equipDAO.getAllMedicalEquipment().values());
         for (MedicalEquip equip : equipList) {
