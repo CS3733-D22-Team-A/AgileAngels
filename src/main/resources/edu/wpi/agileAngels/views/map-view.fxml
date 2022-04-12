@@ -41,7 +41,7 @@
          </font></Button>
       <ScrollPane fx:id="mapScroll" hbarPolicy="NEVER" layoutX="460.0" layoutY="60.0" pannable="true" prefHeight="578.0" prefWidth="821.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="458.79999999999995" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
          <content>
-            <Pane fx:id="mapPane" prefHeight="659.0" prefWidth="1088.0">
+            <Pane fx:id="mapPane" prefHeight="580.0" prefWidth="960.0">
                <children>
                   <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="580.0" fitWidth="980.0" preserveRatio="true">
                      <image>
@@ -68,7 +68,7 @@
                         <Image url="@../assets/Lower level 2.png" />
                      </image>
                   </ImageView>
-                  <Pane fx:id="clickPane" layoutX="-7.0" layoutY="1.0" prefHeight="580.0" prefWidth="960.0" />
+                  <Pane fx:id="clickPane" prefHeight="580.0" prefWidth="960.0" />
                </children>
             </Pane>
          </content>
