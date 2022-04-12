@@ -23,9 +23,9 @@ import javafx.stage.Stage;
 public class MainController {
   // TODO: Change bars to pretty stuff
 
-  @FXML public Button back, close, clear, equipRequest, viewRequest, map;
-  @FXML public Button userButton, userIDIcon, dropButton, op1, op2, op3, op4;
-  @FXML public Label dropdownButtonText, op1Label, op2Label, op3Label, op4Label;
+  @FXML Button back, close, clear, equipRequest, viewRequest, map;
+  @FXML Button userButton, userIDIcon, dropButton, op1, op2, op3, op4;
+  @FXML Label dropdownButtonText, op1Label, op2Label, op3Label, op4Label;
 
   @FXML AnchorPane anchor;
 
@@ -35,6 +35,8 @@ public class MainController {
   private static String username;
   private static String userID;
   public static Boolean loggedIn = false;
+
+  public int floorToDisp;
 
   @FXML
   private void closeApp() {

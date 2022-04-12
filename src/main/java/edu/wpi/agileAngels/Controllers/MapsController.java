@@ -3,24 +3,25 @@ package edu.wpi.agileAngels.Controllers;
 import edu.wpi.agileAngels.Database.Location;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.Group;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.transform.Scale;
 import javax.swing.*;
 
 // TODO: Close app button is broken when displaying floor 1
 
-public class MapsController implements Initializable {
+public class MapsController extends MainController implements Initializable {
 
   @FXML
   private ImageView floorOneMap, floorTwoMap, floorThreeMap, lowerLevelOneMap, lowerLevelTwoMap;
+  @FXML private ScrollPane mapScroll;
   @FXML
   private Button floorOne,
       floorTwo,
@@ -31,12 +32,15 @@ public class MapsController implements Initializable {
       addButton,
       removeButton,
       switchToAddButton,
-      switchToEditButton;
+      switchToEditButton,
+      zoomIn,
+      zoomOut;
   @FXML private TextField nameField, xCoordField, yCoordField, typeField;
-
-  @FXML Pane mapPane;
+  @FXML Pane mapPane, clickPane;
   @FXML AnchorPane anchor;
   @FXML Label floorLabel, nodeIDField;
+  @FXML MenuItem pati, stor, dirt, hall, elev, rest, stai, dept, labs, info, conf, exit, retl, serv;
+  @FXML MenuButton typeDropdown;
 
   Node currentNode = null;
   private String currentFloor = "1";
@@ -49,8 +53,9 @@ public class MapsController implements Initializable {
 
   NodeManager nodeManager = new NodeManager(this);
 
-  public MapsController() throws SQLException {}
-
+  double scale = 1;
+  // Map zoom
+  // ZoomableMap zoomableMap = new ZoomableMap(mapScroll.getContent());
   /**
    * Called on page load, creates panes for each map, adds the images for each map to its pane, and
    * sets their initial visibility
@@ -82,6 +87,8 @@ public class MapsController implements Initializable {
     lowerLevelTwo.setViewOrder(-100);
 
     nodeManager.createNodesFromDB();
+
+    // this.ZoomableMap(mapScroll);
   }
 
   /**
@@ -90,10 +97,10 @@ public class MapsController implements Initializable {
    * @param node the node whose data is populated
    */
   public void populateNodeData(Node node) {
-    System.out.println(node.getNodeID());
+    // System.out.println(node.getNodeID());
     nodeIDField.setText(node.getNodeID());
     nameField.setText(node.getName());
-    typeField.setText(node.getNodeType());
+    typeDropdown.setText(node.getNodeType());
     xCoordField.setText(Double.toString(node.getXCoord()));
     yCoordField.setText(Double.toString(node.getYCoord()));
 
@@ -103,11 +110,11 @@ public class MapsController implements Initializable {
   @FXML
   private void addNode() throws IOException {
 
-    int typeCount = (nodeManager.getTypeCount(typeField.getText(), currentFloor));
+    int typeCount = (nodeManager.getTypeCount(typeDropdown.getText(), currentFloor));
 
     String nodeID =
         "A"
-            + typeField.getText()
+            + typeDropdown.getText()
             + String.format("%03d", typeCount)
             + ((currentFloor.length() == 1) ? ("0" + currentFloor) : (currentFloor));
 
@@ -118,10 +125,11 @@ public class MapsController implements Initializable {
             Double.parseDouble(yCoordField.getText()),
             currentFloor,
             "TOWER",
-            typeField.getText(),
+            typeDropdown.getText(),
             nameField.getText(),
             nodeID);
     displayNode(nodeManager.addNode(newLocation));
+    clearFields();
   }
 
   /**
@@ -134,10 +142,11 @@ public class MapsController implements Initializable {
     currentNode.changeLocationXCoord(Double.parseDouble(xCoordField.getText()));
     currentNode.changeLocationYCoord(Double.parseDouble(yCoordField.getText()));
     currentNode.changeLocationName(nameField.getText());
-    currentNode.changeLocationType(typeField.getText());
+    currentNode.changeLocationType(typeDropdown.getText());
     currentNode.resetLocation();
     currentNode = null;
     nodeManager.editNode(currentNode);
+    clearFields();
   }
 
   /**
@@ -158,6 +167,7 @@ public class MapsController implements Initializable {
       paneL1.getChildren().remove(currentNode.getButton());
     }
     nodeManager.deleteNode(currentNode.getNodeID());
+    clearFields();
   }
 
   /**
@@ -237,5 +247,71 @@ public class MapsController implements Initializable {
     }
   }
 
-  public void clearPage(ActionEvent event) {}
+  void clearFields() {
+    nameField.clear();
+    xCoordField.clear();
+    yCoordField.clear();
+    typeDropdown.setText("");
+    nodeIDField.setText("");
+  }
+
+  public void typeMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    typeDropdown.setText(button.getText());
+  }
+
+  public void zoomableMap(ActionEvent event) {
+
+    javafx.scene.Node content = mapScroll.getContent();
+    Group contentGroup = new Group();
+    contentGroup.getChildren().add(content);
+    mapScroll.setContent(contentGroup);
+    if (event.getSource() == zoomIn) {
+      Scale scaleTransform = new Scale(1.05, 1.05, 0, 0);
+      scale *= 1.05;
+      contentGroup.getTransforms().add(scaleTransform);
+      nodeManager.resieAll(0.95);
+
+    } else if (event.getSource() == zoomOut) {
+      Scale scaleTransform = new Scale(.95, .95, 0, 0);
+      scale *= 0.95;
+      contentGroup.getTransforms().add(scaleTransform);
+      nodeManager.resieAll(1.05);
+    }
+  }
+
+  public void setCoords(ActionEvent event) {
+    // Pane pane = new Pane();
+    // pane.setPrefSize(700, 426);
+    // pane.setLayoutX(480);
+    // pane.setLayoutY(200);
+    // System.out.println("button pressed");
+    // mapScroll.setContent(pane);
+    clickPane.setDisable(false);
+    clickPane.setViewOrder(-1000);
+    clickPane.setStyle("-fx-background-color: rgba(0,0,0, .15)");
+
+    clickPane.setOnMouseClicked(
+        (MouseEvent click) -> {
+          System.out.println(mapScroll.getVvalue());
+          System.out.println(mapScroll.getHvalue());
+          xCoordField.setText(
+              String.valueOf(
+                  ((click.getSceneX() - mapScroll.getLayoutX()) / scale)
+                      + (mapScroll.getHvalue()
+                              * ((mapPane.getWidth() - mapScroll.getWidth())))));
+          yCoordField.setText(
+              String.valueOf(
+                  ((click.getSceneY() - mapScroll.getLayoutY()) / scale)
+                      + (mapScroll.getVvalue()
+                              * (mapPane.getHeight() - mapScroll.getHeight()))));
+          clickPane.setStyle("-fx-background-color: rgba(0,0,0,0)");
+          System.out.println(mapPane.getWidth() * mapPane.getScaleX());
+          clickPane.setDisable(true);
+          try {
+            editNode();
+          } catch (IOException | NullPointerException e) {
+          }
+        });
+  }
 }
