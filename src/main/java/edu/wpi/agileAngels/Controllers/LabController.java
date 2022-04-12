@@ -44,6 +44,13 @@ public class LabController extends MainController implements Initializable {
 
   public LabController() throws SQLException {}
 
+  /**
+   * Will check if the table is empty and if so will populate it.Otherwise, just calls upon the
+   * database for the data.
+   *
+   * @param location
+   * @param resources
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
