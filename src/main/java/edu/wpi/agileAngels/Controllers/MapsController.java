@@ -14,15 +14,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
-// TODO: Close app button is broken when displaying floor 1
-
 public class MapsController extends MainController implements Initializable {
 
   @FXML
-  private ImageView floorOneMap, floorTwoMap, floorThreeMap, lowerLevelOneMap, lowerLevelTwoMap;
+  private ImageView floorTwoMap,
+      floorThreeMap,
+      lowerLevelOneMap,
+      lowerLevelTwoMap,
+      floorThreeDetailMap;
   @FXML
-  private Button floorOne,
-      floorTwo,
+  private Button floorTwo,
       floorThree,
       lowerLevelOne,
       lowerLevelTwo,
@@ -39,10 +40,9 @@ public class MapsController extends MainController implements Initializable {
 
   LocationNode currentLocationNode = null;
   RequestNode currentRequestNode = null;
+  private String currentFloor = "2";
   EquipmentNode currentEquipmentNode = null;
-  private String currentFloor = "1";
 
-  Pane pane1 = new Pane();
   Pane pane2 = new Pane();
   Pane pane3 = new Pane();
   Pane paneL1 = new Pane();
@@ -63,14 +63,12 @@ public class MapsController extends MainController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    mapPane.getChildren().add(pane1);
-    pane1.getChildren().add((floorOneMap));
-    pane1.setVisible(true);
     mapPane.getChildren().add(pane2);
     pane2.getChildren().add((floorTwoMap));
-    pane2.setVisible(false);
+    pane2.setVisible(true);
     mapPane.getChildren().add(pane3);
     pane3.getChildren().add((floorThreeMap));
+    pane3.getChildren().add(floorThreeDetailMap);
     pane3.setVisible(false);
     mapPane.getChildren().add(paneL1);
     paneL1.getChildren().add((lowerLevelOneMap));
@@ -78,7 +76,6 @@ public class MapsController extends MainController implements Initializable {
     paneL2.getChildren().add((lowerLevelTwoMap));
     mapPane.getChildren().add(paneL2);
     paneL2.setVisible(false);
-    floorOne.setViewOrder(-100);
     floorTwo.setViewOrder(-100);
     floorThree.setViewOrder(-100);
     lowerLevelOne.setViewOrder(-100);
@@ -190,9 +187,7 @@ public class MapsController extends MainController implements Initializable {
    */
   @FXML
   private void removeNode() {
-    if (currentLocationNode.getFloor().equals("1")) {
-      pane1.getChildren().remove(currentLocationNode.getButton());
-    } else if (currentLocationNode.getFloor().equals("2")) {
+    if (currentLocationNode.getFloor().equals("2")) {
       pane2.getChildren().remove(currentLocationNode.getButton());
     } else if (currentLocationNode.getFloor().equals("3")) {
       pane3.getChildren().remove(currentLocationNode.getButton());
@@ -234,9 +229,7 @@ public class MapsController extends MainController implements Initializable {
    * @param node the node whose button is added to a pane
    */
   public void displayLocationNode(LocationNode node) {
-    if (node.getFloor().equals("1")) {
-      pane1.getChildren().add(node.getButton());
-    } else if (node.getFloor().equals("2")) {
+    if (node.getFloor().equals("2")) {
       pane2.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("3")) {
       pane3.getChildren().add(node.getButton());
@@ -253,9 +246,7 @@ public class MapsController extends MainController implements Initializable {
    * @param node the node whose button is added to a pane
    */
   public void displayRequestNode(RequestNode node) {
-    if (node.getFloor().equals("1")) {
-      pane1.getChildren().add(node.getButton());
-    } else if (node.getFloor().equals("2")) {
+    if (node.getFloor().equals("2")) {
       pane2.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("3")) {
       pane3.getChildren().add(node.getButton());
@@ -291,16 +282,11 @@ public class MapsController extends MainController implements Initializable {
    * @param event one of the floor buttons
    */
   public void changeMap(ActionEvent event) {
-    pane1.setVisible(false);
     pane2.setVisible(false);
     pane3.setVisible(false);
     paneL1.setVisible(false);
     paneL2.setVisible(false);
-    if (event.getSource() == floorOne) {
-      pane1.setVisible(true);
-      currentFloor = "1";
-      floorLabel.setText("Floor 1");
-    } else if (event.getSource() == floorTwo) {
+    if (event.getSource() == floorTwo) {
       pane2.setVisible(true);
       currentFloor = "2";
       floorLabel.setText("Floor 2");
