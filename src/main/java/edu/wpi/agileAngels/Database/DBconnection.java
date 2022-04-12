@@ -15,7 +15,7 @@ public class DBconnection {
   static {
     try {
       database = DBConnectionEnum.CLIENT_SERVER;
-      connection = DriverManager.getConnection("jdbc:derby://localhost:1527/myCSDB;create=true");
+      connection = DriverManager.getConnection("jdbc:derby://130.215.9.58:1527/myCSDB;create=true");
 
     } catch (SQLException e) {
       System.out.println("Establishing embedded connection failed.");
