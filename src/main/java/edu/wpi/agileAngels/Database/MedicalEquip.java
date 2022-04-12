@@ -4,13 +4,32 @@ public class MedicalEquip {
   private final String ID;
   private String type;
   private boolean clean;
-  private String location;
+  private Location location;
+  private String status;
 
-  public MedicalEquip(String id, String typeIn, boolean cleanIn, String locationIn) {
+  public MedicalEquip(
+      String id, String typeIn, boolean cleanIn, Location locationIn, String statusIn) {
     this.ID = id;
     this.type = typeIn;
     this.clean = cleanIn;
     this.location = locationIn;
+    this.status = statusIn;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  public void setLocation(Location location) {
+    this.location = location;
+  }
+
+  public Location getLocation() {
+    return this.location;
   }
 
   public String getID() {
@@ -31,13 +50,5 @@ public class MedicalEquip {
 
   public void setClean(boolean clean) {
     this.clean = clean;
-  }
-
-  public String getLocation() {
-    return location;
-  }
-
-  public void setLocation(String location) {
-    this.location = location;
   }
 }
