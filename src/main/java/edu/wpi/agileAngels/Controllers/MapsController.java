@@ -273,13 +273,17 @@ public class MapsController extends MainController implements Initializable {
       Scale scaleTransform = new Scale(1.05, 1.05, 0, 0);
       scale *= 1.05;
       contentGroup.getTransforms().add(scaleTransform);
-      nodeManager.resieAll(0.95);
+      nodeManager.resizeAll(0.95);
 
-    } else if (event.getSource() == zoomOut) {
+    } else if (event.getSource() == zoomOut && scale >= 1.05) {
       Scale scaleTransform = new Scale(.95, .95, 0, 0);
       scale *= 0.95;
       contentGroup.getTransforms().add(scaleTransform);
-      nodeManager.resieAll(1.05);
+      nodeManager.resizeAll(1.05);
+      if (mapScroll.getHvalue() > 0.8 || mapScroll.getVvalue() > 0.8) {
+        mapScroll.setHvalue(0.6);
+        mapScroll.setVvalue(0.6);
+      }
     }
   }
 
@@ -302,11 +306,7 @@ public class MapsController extends MainController implements Initializable {
 
     clickPane.setOnMouseClicked(
         (MouseEvent click) -> {
-          System.out.println(mapScroll.getHvalue());
-          System.out.println(mapScroll.getVvalue());
-          System.out.println(panX);
-          System.out.println(panY);
-          System.out.println(scale);
+          System.out.println(mapScroll.getViewportBounds());
 
           if (scale == 1) {
             xCoordField.setText(String.valueOf(((click.getSceneX() - 460) / scale) + panX - 8));

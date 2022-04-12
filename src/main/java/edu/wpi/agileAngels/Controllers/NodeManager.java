@@ -69,7 +69,7 @@ public class NodeManager {
     return typeCounts[floorsAndTypes.get(type)][floorsAndTypes.get(floor)];
   }
 
-  void resieAll(double factor) {
+  void resizeAll(double factor) {
     for (Node node : nodes.values()) {
       node.resizeButton(factor);
     }

@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MapsController">
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MapsController">
    <children>
 
       <Button id="floorThree" fx:id="floorThree" layoutX="286.0" layoutY="207.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 3">
@@ -41,34 +41,34 @@
          </font></Button>
       <ScrollPane fx:id="mapScroll" hbarPolicy="NEVER" layoutX="460.0" layoutY="60.0" pannable="true" prefHeight="578.0" prefWidth="821.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="458.79999999999995" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
          <content>
-            <Pane fx:id="mapPane" prefHeight="580.0" prefWidth="960.0">
+            <Pane fx:id="mapPane" prefHeight="659.0" prefWidth="1088.0">
                <children>
-                  <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="580.0" fitWidth="980.0" preserveRatio="true">
+                  <ImageView id="floorOneMap" fx:id="floorOneMap" fitHeight="735.0" fitWidth="1089.0" preserveRatio="true">
                      <image>
                         <Image url="@../assets/Floor 1.png" />
                      </image>
                   </ImageView>
-                  <ImageView id="floorTwoMap" fx:id="floorTwoMap" fitHeight="580.0" fitWidth="960.0" preserveRatio="true">
+                  <ImageView id="floorTwoMap" fx:id="floorTwoMap" fitHeight="734.0" fitWidth="1091.0" preserveRatio="true">
                      <image>
                         <Image url="@../assets/Floor 2.png" />
                      </image>
                   </ImageView>
-                  <ImageView id="floorThreeMap" fx:id="floorThreeMap" fitHeight="580.0" fitWidth="960.0" preserveRatio="true">
+                  <ImageView id="floorThreeMap" fx:id="floorThreeMap" fitHeight="718.0" fitWidth="1092.0" preserveRatio="true">
                      <image>
                         <Image url="@../assets/Floor 3.png" />
                      </image>
                   </ImageView>
-                  <ImageView id="lowerLevelOne" fx:id="lowerLevelOneMap" fitHeight="580.0" fitWidth="960.0" preserveRatio="true">
+                  <ImageView id="lowerLevelOne" fx:id="lowerLevelOneMap" fitHeight="708.0" fitWidth="1091.0" preserveRatio="true">
                      <image>
                         <Image url="@../assets/Lower level 1.png" />
                      </image>
                   </ImageView>
-                  <ImageView id="lowerLevelTwo" fx:id="lowerLevelTwoMap" fitHeight="580.0" fitWidth="960.0" preserveRatio="true">
+                  <ImageView id="lowerLevelTwo" fx:id="lowerLevelTwoMap" fitHeight="725.0" fitWidth="1091.0" preserveRatio="true">
                      <image>
                         <Image url="@../assets/Lower level 2.png" />
                      </image>
                   </ImageView>
-                  <Pane fx:id="clickPane" prefHeight="580.0" prefWidth="960.0" />
+                  <Pane fx:id="clickPane" prefHeight="658.0" prefWidth="1090.0" />
                </children>
             </Pane>
          </content>
