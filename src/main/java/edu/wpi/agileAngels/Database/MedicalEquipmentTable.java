@@ -79,8 +79,8 @@ public class MedicalEquipmentTable implements TableI {
         preparedStatement.setString(2, "Dirty");
       }
       preparedStatement.setString(3, medE.getLocation().getLongName());
-      preparedStatement.setString(4, medE.getID());
-      preparedStatement.setString(5, medE.getStatus());
+      preparedStatement.setString(4, medE.getStatus());
+      preparedStatement.setString(5, medE.getID());
       preparedStatement.execute();
       return true;
     } catch (SQLException e) {
