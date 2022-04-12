@@ -12,5 +12,7 @@ public interface MedEquipDAO {
 
   public void updateMedicalCleanliness(MedicalEquip medicalEquip, Boolean clean);
 
-  public void updateEquipmentLocation(MedicalEquip medicalEquip, String location);
+  public void updateEquipmentLocation(MedicalEquip medicalEquip, Location location);
+
+  public void updateStatus(MedicalEquip medicalEquip, String statusIn);
 }

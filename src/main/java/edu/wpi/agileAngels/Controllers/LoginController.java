@@ -1,9 +1,8 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Employee;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,8 +20,9 @@ public class LoginController extends MainController implements Initializable {
   @FXML private Button login;
   @FXML private PasswordField passwordBox;
 
-  private HashMap<String, Employee> employeeHashMap = new HashMap<>();
-  private EmployeeManager employeeManager = new EmployeeManager(employeeHashMap);
+  private EmployeeManager employeeManager = EmployeeManager.getInstance();
+
+  public LoginController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -52,18 +52,6 @@ public class LoginController extends MainController implements Initializable {
       invalid.setText("Invalid username or password:\nPlease try again");
       passwordBox.clear();
     }
-
-    /*
-    if (username.getText().equals(passwordBox.getText()) && !username.getText().isEmpty()) {
-      loggedIn = true;
-      setUsername(username.getText());
-      loadPage("views/home-view.fxml", login);
-    } else {
-      invalid.setTextFill(Color.rgb(220, 80, 80));
-      invalid.setText("Invalid username or password:\nPlease try again");
-    }
-
-     */
   }
 
   @FXML

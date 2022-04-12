@@ -91,4 +91,9 @@ public class Location {
   public void setShortName(String ShortNameIn) {
     this.shortName = ShortNameIn;
   }
+
+  @Override
+  public String toString() {
+    return getLongName();
+  }
 }

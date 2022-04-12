@@ -34,7 +34,7 @@ public class LocationController extends MainController implements Initializable 
       shortNameColumn;
 
   private ObservableList<Location> locationData = FXCollections.observableArrayList();
-  private LocationDAOImpl locationDAO;
+  private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
   private Connection connection;
 
   @FXML private TableView locationTable;

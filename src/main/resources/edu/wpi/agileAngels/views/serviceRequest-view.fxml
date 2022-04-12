@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -78,10 +79,28 @@
       </HBox>
       <VBox alignment="CENTER" layoutY="151.0" prefHeight="663.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.799999999999955">
          <children>
-            <HBox alignment="CENTER" prefHeight="449.0" prefWidth="1281.0">
+            <HBox prefHeight="62.0" prefWidth="1280.0">
+               <children>
+                  <JFXToggleButton fx:id="toggleButton" onAction="#showCreators" prefHeight="60.0" prefWidth="189.0" style="-fx-font-size: 15;" text="Contributors" toggleColor="#009ca6">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXToggleButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="serviceTitle" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="1264.0" style="-fx-font-size: 24pt; -fx-font-weight: bold;" text="Service Request Systems" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="449.0" prefWidth="1209.0">
                <children>
             
-            
+                  
                   <GridPane alignment="CENTER" prefHeight="402.0" prefWidth="1000.0">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -102,7 +121,12 @@
                                           <Image url="@../assets/icons/equipment.png" />
                                        </image>
                                     </ImageView>
-                                    <Label text="Equipment Request" />
+                                    <Label prefHeight="26.0" prefWidth="167.0" text="Equipment Request" />
+                                    <Label fx:id="harmoniLabel" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Harmoni" textAlignment="RIGHT" textOverrun="CLIP" visible="false" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="5.0" />
+                                       </HBox.margin>
+                                    </Label>
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -120,6 +144,11 @@
                                        </image>
                                     </ImageView>
                                     <Label text="Lab Request" />
+                                    <Label fx:id="justinLabel" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Justin" textAlignment="RIGHT" textOverrun="CLIP" visible="false" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="5.0" />
+                                       </HBox.margin>
+                                    </Label>
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -137,6 +166,11 @@
                                        </image>
                                     </ImageView>
                                     <Label text="Sanitation Request" />
+                                    <Label fx:id="basharLabel" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Bashar" textOverrun="CLIP" visible="false" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="5.0" />
+                                       </HBox.margin>
+                                    </Label>
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -154,6 +188,11 @@
                                        </image>
                                     </ImageView>
                                     <Label text="Meal Request" />
+                                    <Label fx:id="jakobLabel" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Jakob" textAlignment="RIGHT" textOverrun="CLIP" visible="false" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="5.0" />
+                                       </HBox.margin>
+                                    </Label>
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -171,6 +210,11 @@
                                        </image>
                                     </ImageView>
                                     <Label text="Gift Request" />
+                                    <Label fx:id="danielLabel" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="82.0" text="Daniel" textAlignment="RIGHT" textOverrun="CLIP" visible="false" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="5.0" />
+                                       </HBox.margin>
+                                    </Label>
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -188,6 +232,11 @@
                                        </image>
                                     </ImageView>
                                     <Label text="Test Button" />
+                                    <Label fx:id="jakobLabel2" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="58.0" text="Jakob" textAlignment="RIGHT" textOverrun="CLIP" visible="false" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="5.0" />
+                                       </HBox.margin>
+                                    </Label>
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />

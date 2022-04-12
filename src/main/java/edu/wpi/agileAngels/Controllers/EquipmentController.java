@@ -1,14 +1,12 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Request;
-import edu.wpi.agileAngels.Database.RequestDAOImpl;
+import edu.wpi.agileAngels.Database.*;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -18,18 +16,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
-// TODO make sure controllers work without connections :)
-// TODO create helper methods to avoid confusion
 public class EquipmentController extends MainController implements Initializable {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
-  @FXML
-  private TextField equipLocation, equipmentEmployeeText, equipmentStatus, deleteName, editRequest;
+  @FXML private TextField equipmentEmployeeText, equipmentStatus, deleteName, editRequest;
   @FXML private Label equipmentConfirmation, dropdownButtonText;
   @FXML private TableView equipmentTable;
   @FXML Button clear;
   @FXML Pane drop, drop2;
+  @FXML MenuButton equipLocation;
 
+  private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
+  private EmployeeManager empDAO = EmployeeManager.getInstance();
+  private MedEquipImpl equipDAO = MedEquipImpl.getInstance();
   private RequestDAOImpl MedrequestImpl =
       RequestDAOImpl.getInstance("MedRequest"); // instance of RequestDAOImpl to access functions
   // only way to update the UI is ObservableList
@@ -38,38 +38,42 @@ public class EquipmentController extends MainController implements Initializable
 
   @FXML
   private TableColumn nameColumn,
-      availableColumn,
-      typeColumn,
+      employeeColumn, // change to employeeColumn
       locationColumn,
-      employeeColumn,
+      typeColumn,
       statusColumn,
-      descriptionColumn;
+      descriptionColumn,
+      availableColumn;
 
   public EquipmentController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    locDAO.getAllLocations();
+    empDAO.getAllEmployees();
+    HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
+    ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
+    for (Location loc : locationsList) {
+      MenuItem item = new MenuItem(loc.getNodeID());
+      item.setOnAction(this::locationMenu);
+      equipLocation.getItems().add(item);
+    }
+    equipDAO.readCSV();
 
-    // connection = DBconnection.getConnection();
-
-    // Implement DAO here.
-
-    // HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
-
-    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
-    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-    locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+    nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
+    locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     if (medData.isEmpty()) {
-      System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
       MedrequestImpl.csvRead();
       Iterator var3 = MedrequestImpl.getAllRequests().entrySet().iterator();
 
       for (Map.Entry<String, Request> entry : MedrequestImpl.getAllRequests().entrySet()) {
         Request req = entry.getValue();
+
         medData.add(req);
       }
     }
@@ -90,13 +94,13 @@ public class EquipmentController extends MainController implements Initializable
     // gets all inputs and converts into string
     String dropDownString = dropdownButtonText.getText();
     String locationString = equipLocation.getText();
+    // get location obj
+    Location location = locDAO.getLocation(locationString);
     String employeeString = equipmentEmployeeText.getText();
+    Employee employee = empDAO.getEmployee(employeeString);
     String statusString = equipmentStatus.getText();
     String deleteString = deleteName.getText();
     String editString = editRequest.getText();
-    // logic to see if the entries in the buttons are empty
-    // boolean logic = (dropDownString.isEmpty() || locationString.isEmpty() ||
-    // employeeString.isEmpty());
     // if the fields are empty or to delete input is not empty
     if (!deleteString.isEmpty()) {
       deleteEquipRequest(deleteString);
@@ -105,38 +109,38 @@ public class EquipmentController extends MainController implements Initializable
       editEquipmentRequest(
           editString, dropDownString, locationString, employeeString, statusString);
     } else {
-      addEquipRequest("available", dropDownString, locationString, employeeString, statusString);
+      addEquipRequest(dropDownString, location, employee, statusString);
+      //  System.out.println(location.getNodeID() + " " + employee.getName());
     }
   }
 
   private void addEquipRequest(
-      String availableString,
-      String dropDownString,
-      String locationString,
-      String employeeString,
-      String statusString) {
+      String dropDownString, Location location, Employee employee, String statusString) {
+
     System.out.println("ADD DEVICE");
+
     equipmentConfirmation.setText(
         "Thank you, the "
             + dropDownString
             + " you requested will be delivered shortly to "
-            + locationString
+            + location.getLongName()
             + " by "
-            + employeeString
+            + employee.getName()
             + ".");
 
     String placeholder = "?";
     Request medDevice =
         new Request(
-            placeholder, employeeString, locationString, dropDownString, statusString, "", "", "");
+            "", employee, location, dropDownString, statusString, "describe", "something", "");
+
     MedrequestImpl.addRequest(medDevice); // add to hashmap
+
     medData.add(medDevice); // add to the UI
     equipmentTable.setItems(medData);
   }
 
   private void deleteEquipRequest(String deleteString) {
     if (!deleteString.isEmpty()) {
-      System.out.println("DELETE REQUEST");
       for (int i = 0; i < medData.size(); i++) {
         Request object = medData.get(i);
         if (0 == deleteString.compareTo(object.getName())) {
@@ -155,7 +159,11 @@ public class EquipmentController extends MainController implements Initializable
       String employeeString,
       String statusString) {
     System.out.println("EDIT REQUEST");
-    Request found = null;
+
+    Request found = MedrequestImpl.getAllRequests().get(editString);
+    System.out.println(found.getName());
+
+    // null;
     int num = 0;
     for (int i = 0; i < medData.size(); i++) {
       Request device = medData.get(i);
@@ -164,30 +172,43 @@ public class EquipmentController extends MainController implements Initializable
         num = i;
       }
     }
+    Employee employee = empDAO.getEmployee(employeeString);
+    Location location = locDAO.getLocation(locationString);
+    System.out.println(employee.getName() + " " + location.getNodeID());
+
     if (found != null) {
+      System.out.println("1");
       if (!dropDownString.isEmpty()) {
-        // String type = dropdownButtonText.getText();
+
         found.setType(dropDownString);
         MedrequestImpl.updateType(found, dropDownString);
       }
+
       if (!locationString.isEmpty()) {
-        // String location = equipLocation.getText();
-        found.setLocation(locationString);
-        MedrequestImpl.updateLocation(found, locationString);
+        found.setLocation(location);
+        // MedrequestImpl.updateLocation(found, location);
       }
       if (!employeeString.isEmpty()) {
-        // String employee = emp.getText();
-        found.setEmployee(employeeString);
-        MedrequestImpl.updateEmployeeName(found, employeeString);
+        System.out.println(employee.getName());
+        found.setEmployee(employee);
+        //        MedrequestImpl.updateEmployeeName(found, employee.getName());
       }
+
       if (!statusString.isEmpty()) {
-        // String employee = emp.getText();
+
         found.setStatus(statusString);
-        MedrequestImpl.updateStatus(found, statusString);
+        //  MedrequestImpl.updateStatus(found, statusString);
       }
+      // System.out.println(num);
       medData.set(num, found);
 
-      equipmentTable.setItems(medData);
+      //  equipmentTable.setItems(medData);
     }
+  }
+
+  @FXML
+  public void locationMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    equipLocation.setText(button.getText());
   }
 }

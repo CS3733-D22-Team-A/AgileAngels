@@ -7,26 +7,27 @@ package edu.wpi.agileAngels.Database;
 
 public class Request {
   private String name;
-  private String employeeName;
-  private String location;
+  private Employee employee;
+  private Location location;
   private String type;
   private int requestType;
   private String status;
   private String description;
   private String attribute1;
   private String attribute2;
+  private MedicalEquip medicalEquip;
 
   public Request(
       String Name,
-      String employeeName,
-      String location,
+      Employee employee,
+      Location location,
       String type,
       String status,
       String description,
       String attribute1,
       String attribute2) {
     this.name = Name;
-    this.employeeName = employeeName;
+    this.employee = employee;
     this.location = location;
     this.type = type;
     this.status = status;
@@ -51,11 +52,11 @@ public class Request {
     return this.description;
   }
 
-  public String getEmployee() {
-    return this.employeeName;
+  public Employee getEmployee() {
+    return this.employee;
   }
 
-  public String getLocation() {
+  public Location getLocation() {
     return this.location;
   }
 
@@ -63,11 +64,11 @@ public class Request {
     return this.type;
   }
 
-  public void setEmployee(String employeeName) {
-    this.employeeName = employeeName;
+  public void setEmployee(Employee employee) {
+    this.employee = employee;
   }
 
-  public void setLocation(String location) {
+  public void setLocation(Location location) {
     this.location = location;
   }
 
@@ -105,5 +106,13 @@ public class Request {
 
   public void setAttribute2(String attribute) {
     this.attribute2 = attribute;
+  }
+
+  public MedicalEquip getMedicalEquip() {
+    return medicalEquip;
+  }
+
+  public void setMedicalEquip(MedicalEquip medicalEquip) {
+    this.medicalEquip = medicalEquip;
   }
 }
