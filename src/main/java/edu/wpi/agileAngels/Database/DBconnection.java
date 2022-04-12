@@ -16,6 +16,7 @@ public class DBconnection {
     try {
       database = DBConnectionEnum.CLIENT_SERVER;
       connection = DriverManager.getConnection("jdbc:derby://localhost:1527/myCSDB;create=true");
+
     } catch (SQLException e) {
       System.out.println("Establishing embedded connection failed.");
       e.printStackTrace();
@@ -25,7 +26,6 @@ public class DBconnection {
   // Switching from current connection to the other connection
   public static void switchConnection() {
     try {
-
       switch (database) {
         case EMBEDDED:
           connection.close();
