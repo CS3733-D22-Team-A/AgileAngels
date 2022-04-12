@@ -1,6 +1,5 @@
 package edu.wpi.agileAngels.Controllers;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,9 +14,9 @@ public class HomeController {
   public HomeController() throws SQLException {}
 
   @FXML
-  private void homeButton(ActionEvent event) throws IOException {
+  private void homeButton(ActionEvent event) {
     if (event.getSource() == serviceButton) {
-      appController.loadPage("../views/test-view.fxml");
+      appController.loadPage("../views/serviceRequest-view.fxml");
     } else if (event.getSource() == mapButton) {
       appController.loadPage("../views/dashboard-view.fxml");
     }

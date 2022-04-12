@@ -50,20 +50,15 @@ public class ServiceRequestController implements Initializable {
   public void requestButton(ActionEvent event) {
     if (event.getSource() == equipmentRequest) {
       appController.loadPage("../views/equipment-view.fxml");
-    }
-    else if (event.getSource() == labRequest) {
+    } else if (event.getSource() == labRequest) {
       appController.loadPage("../views/lab-view.fxml");
-    }
-    else if (event.getSource() == sanRequest) {
+    } else if (event.getSource() == sanRequest) {
       appController.loadPage("../views/sanitation-view.fxml");
-    }
-    else if (event.getSource() == mealRequest) {
+    } else if (event.getSource() == mealRequest) {
       appController.loadPage("../views/mealRequest-view.fxml");
-    }
-    else if (event.getSource() == giftRequest) {
+    } else if (event.getSource() == giftRequest) {
       appController.loadPage("../views/gifts-view.fxml");
-    }
-    else if (event.getSource() == testButton) {
+    } else if (event.getSource() == testButton) {
       appController.loadPage("../views/test-view.fxml");
     }
   }

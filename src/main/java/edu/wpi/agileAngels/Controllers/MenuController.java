@@ -2,26 +2,31 @@ package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.DBconnection;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
+import javafx.scene.layout.Pane;
 
-public class MenuController {
+public class MenuController implements Initializable {
 
-  @FXML HBox menuButtons;
-  @FXML Button back, close, clear, equipRequest, viewRequest, map;
+  @FXML Button back, close, equipRequest, viewRequest, map;
+  @FXML Pane menuPane;
+
+  AppController appController = AppController.getInstance();
 
   public MenuController() {
+    appController.setCurrentMenuController(this);
+  }
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
     close.setViewOrder(-1000);
     back.setViewOrder(-1000);
-    menuButtons.setViewOrder(-1000);
+    menuPane.setViewOrder(-1000);
   }
 
   @FXML
@@ -30,31 +35,10 @@ public class MenuController {
     Platform.exit();
   }
 
-  // TODO: why is there 2 load pages
-  public void loadPage(String view, Control item) throws IOException {
-
-    //    if (item == back) {
-    //    } else if (pageHistory.empty()) {
-    //      pageHistory.push("../views/home-view.fxml");
-    //      pageHistory.push(view);
-    //    } else if (view != pageHistory.peek()) {
-    //      pageHistory.push(view);
-    //    }
-
-    Stage stage;
-    Parent root;
-    stage = (Stage) close.getScene().getWindow();
-    root = FXMLLoader.load(getClass().getResource(view));
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.setResizable(true);
-    stage.show();
-  }
-
   @FXML
-  public void back() throws IOException {
-    //    pageHistory.pop();
-    //    loadPage(pageHistory.peek(), back);
+  public void back() {
+    appController.pageHistory.pop();
+    appController.loadPage(appController.pageHistory.peek());
   }
 
   @FXML
@@ -67,13 +51,13 @@ public class MenuController {
   @FXML
   private void menuItem(ActionEvent event) throws IOException {
     if (event.getSource() == equipRequest) {
-      loadPage("../views/equipment-view.fxml", close);
+      appController.loadPage("../views/equipment-view.fxml");
     }
     if (event.getSource() == viewRequest) {
-      loadPage("../views/equipmentEdit-view.fxml", close);
+      appController.loadPage("../views/equipmentEdit-view.fxml");
     }
     if (event.getSource() == map) {
-      loadPage("../views/map-view.fxml", close);
+      appController.loadPage("../views/map-view.fxml");
     }
   }
 

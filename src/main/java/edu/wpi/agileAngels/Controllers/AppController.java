@@ -2,7 +2,6 @@ package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.DBconnection;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Stack;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,10 +15,11 @@ public class AppController {
   public static Stack<String> pageHistory = new Stack<>();
 
   private static AppController appController = null;
+  private MenuController menuController;
 
   public AppController() {}
 
-  public static AppController getInstance(){
+  public static AppController getInstance() {
     if (appController == null) {
       appController = new AppController();
     }
@@ -28,9 +28,9 @@ public class AppController {
 
   Stage primaryStage;
 
-  public void init(Stage primaryStage){
+  public void init(Stage primaryStage) {
     this.primaryStage = primaryStage;
-    loadPage("../views/login-view.fxml");
+    loadPage("../views/login.fxml");
   }
 
   public void closeApp() {
@@ -38,7 +38,7 @@ public class AppController {
     Platform.exit();
   }
 
-  public void loadPage(String view){
+  public void loadPage(String view) {
 
     if (pageHistory.isEmpty()) {
       pageHistory.push(view);
@@ -53,25 +53,24 @@ public class AppController {
       Scene defaultScene = new Scene(root);
 
       defaultScene
-              .getStylesheets()
-              .add(
-                      "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+          .getStylesheets()
+          .add(
+              "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
       primaryStage.setScene(defaultScene);
-      primaryStage.setResizable(false);
+      primaryStage.setResizable(true);
       primaryStage.show();
     } catch (IOException e) {
       e.printStackTrace();
     }
-
   }
 
-  public void back(){
+  public void back() {
     pageHistory.pop();
     loadPage(pageHistory.peek());
   }
 
-  public void clearPage(){
+  public void clearPage() {
     loadPage(pageHistory.peek());
   }
 
@@ -79,7 +78,15 @@ public class AppController {
     loadPage("../views/login.fxml");
   }
 
-  private void goHome(ActionEvent event){
+  private void goHome(ActionEvent event) {
     loadPage("../views/home-view.fxml");
+  }
+
+  public void setCurrentMenuController(MenuController menuController) {
+    this.menuController = menuController;
+  }
+
+  public MenuController getMenuController() {
+    return menuController;
   }
 }
