@@ -140,8 +140,8 @@ public class EquipmentController extends MainController implements Initializable
             locDAO.getLocation(locationString),
             dropDownString,
             statusString,
-            "",
-            "",
+            "describe",
+            "something",
             "");
 
     MedrequestImpl.addRequest(medDevice); // add to hashmap
