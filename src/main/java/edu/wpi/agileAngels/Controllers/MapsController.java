@@ -130,6 +130,11 @@ public class MapsController extends MainController implements Initializable {
    */
   public void populateEquipmentNodeData(EquipmentNode equipmentNode) {
     System.out.println(equipmentNode.getID());
+    nodeIDField.setText(equipmentNode.getID());
+    nameField.setText(equipmentNode.getType());
+    typeField.setText(equipmentNode.getClean());
+    xCoordField.setText(Double.toString(equipmentNode.getLocation().getXCoord()));
+    yCoordField.setText(Double.toString(equipmentNode.getLocation().getYCoord()));
     currentEquipmentNode = equipmentNode;
   }
 
@@ -265,7 +270,17 @@ public class MapsController extends MainController implements Initializable {
    * @param node the node whose button is added to a pane
    */
   public void displayEquipmentNode(EquipmentNode node) {
-
+    if (node.getFloor().equals("1")) {
+      pane1.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("2")) {
+      pane2.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("3")) {
+      pane3.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("L1")) {
+      paneL1.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("L2")) {
+      paneL2.getChildren().add(node.getButton());
+    }
   }
 
 

@@ -39,6 +39,10 @@ public class EquipmentNode {
         // equipmentNodeManager.loadNode(this);
     }
 
+    public JFXButton getButton() {
+        return this.button;
+    }
+
     public Location getLocation() {
         return this.location;
     }
@@ -59,7 +63,11 @@ public class EquipmentNode {
         return medEquip.getType();
     }
 
-    public boolean getClean() {
-        return medEquip.isClean();
+    public String getClean() {
+        String clean = "Dirty";
+        if (medEquip.isClean()) {
+            clean = "Clean";
+        }
+        return clean;
     }
 }
