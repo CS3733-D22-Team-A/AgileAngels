@@ -15,6 +15,7 @@ public class Request {
   private String description;
   private String attribute1;
   private String attribute2;
+  private MedicalEquip medicalEquip;
 
   public Request(
       String Name,

@@ -20,12 +20,16 @@ public class DatabaseTests {
   }
 
   public static void testMedicalEquipmentTable() {
-
-    MedicalEquip mE = new MedicalEquip("R1", "X-Ray Machine", true, "Tower");
-    MedicalEquip mE2 = new MedicalEquip("R2", "X-Ray Machine", false, "Hall");
-    MedicalEquip mE3 = new MedicalEquip("R3", "Bed", true, "Hall");
-    MedicalEquip mE4 = new MedicalEquip("R4", "Bed", false, "Tower");
-    MedicalEquip mE5 = new MedicalEquip("R5", "Recliner", false, "Tower");
+    Location loc1 = new Location("TOW101", 90.8, 70.8, "Floor 3", "Tower", "??", "Hallway", "HALL");
+    Location loc2 =
+        new Location("TOW102", 95.7, 70.8, "Floor 3", "Tower", "??", "Room 34", "ROOM34");
+    Location loc3 =
+        new Location("TOW103", 100.8, 70.8, "Floor 3", "Tower", "??", "Room 35", "ROOM35");
+    MedicalEquip mE = new MedicalEquip("R1", "X-Ray Machine", true, loc1, "Complete");
+    MedicalEquip mE2 = new MedicalEquip("R2", "X-Ray Machine", false, loc1, "In Progress");
+    MedicalEquip mE3 = new MedicalEquip("R3", "Bed", true, loc3, "Not Started");
+    MedicalEquip mE4 = new MedicalEquip("R4", "Bed", false, loc3, "Complete");
+    MedicalEquip mE5 = new MedicalEquip("R5", "Recliner", false, loc2, "Complete");
 
     // Add
     Adb.addMedicalEquipment(mE);
@@ -40,8 +44,9 @@ public class DatabaseTests {
 
     // Update
     mE3.setClean(false);
+    // System.out.println(mE3.getID() + "'s clean is " + mE3.isClean());
     Adb.updateMedicalEquipment(mE3);
-    mE4.setLocation("Cafeteria");
+    mE4.setLocation(loc2);
     Adb.updateMedicalEquipment(mE4);
   }
 
