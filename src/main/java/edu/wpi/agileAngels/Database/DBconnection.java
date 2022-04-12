@@ -14,9 +14,9 @@ public class DBconnection {
   // Client-server is the default connection
   static {
     try {
-      database = DBConnectionEnum.EMBEDDED;
-      connection = DriverManager.getConnection("jdbc:derby://130.215.9.58:1527/myCSDB;create=true");
-      connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+      database = DBConnectionEnum.CLIENT_SERVER;
+      connection = DriverManager.getConnection("jdbc:derby://localhost:1527/myCSDB;create=true");
+
     } catch (SQLException e) {
       System.out.println("Establishing embedded connection failed.");
       e.printStackTrace();
@@ -26,13 +26,12 @@ public class DBconnection {
   // Switching from current connection to the other connection
   public static void switchConnection() {
     try {
-
       switch (database) {
         case EMBEDDED:
           connection.close();
           database = DBConnectionEnum.CLIENT_SERVER;
           connection =
-              DriverManager.getConnection("jdbc:derby://130.215.9.58:1527/myCSDB;create=true");
+              DriverManager.getConnection("jdbc:derby://localhost:1527/myCSDB;create=true");
           System.out.println("Switching to client-server.");
           break;
         case CLIENT_SERVER:
