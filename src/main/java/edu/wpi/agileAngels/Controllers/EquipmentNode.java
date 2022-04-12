@@ -75,7 +75,7 @@ public class EquipmentNode {
     return medEquip.getStatus();
   }
 
-  public void makeClean() {
+  public EquipmentNode makeClean() {
     if (!medEquip.isClean()) {
       medEquip.setClean(true);
       if (medEquip.getType().equals("XRayMachine") || medEquip.getType().equals("InfusionPump")) {
@@ -84,6 +84,6 @@ public class EquipmentNode {
         medEquip.setLocation(locationsHash.get("ASTOR00303"));
       }
     }
-    equipmentNodeManager.makeClean(this);
+    return equipmentNodeManager.makeClean(this);
   }
 }
