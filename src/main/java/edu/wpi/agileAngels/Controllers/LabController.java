@@ -3,10 +3,7 @@ package edu.wpi.agileAngels.Controllers;
 import edu.wpi.agileAngels.Database.*;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,6 +22,7 @@ public class LabController extends MainController implements Initializable {
   private HashMap<String, Employee> employeeHashMap = new HashMap<>();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private static ObservableList<Request> labData = FXCollections.observableArrayList();
+  private int statusNotStarted, statusInProgress, statusComplete;
   @FXML private TableView labTable;
 
   @FXML
@@ -38,6 +36,11 @@ public class LabController extends MainController implements Initializable {
   @FXML
   private Label labTestConfirmation,
       dropdownButtonText,
+      completedLabel,
+      inProgressLabel,
+      notStartedNumber,
+      inProgressNumber,
+      completedNumbers,
       bloodLabel,
       urineLabel,
       tumorLabel,
@@ -71,11 +74,40 @@ public class LabController extends MainController implements Initializable {
         Map.Entry<String, Request> entry = (Map.Entry) var3.next();
         Request object = (Request) entry.getValue();
         labData.add(object);
+        /*
+               if (entry.getValue().getStatus().equals("inProgress")) {
+                 statusInProgress++;
+               }
+               if (entry.getValue().getStatus().equals("notStarted")) {
+                 statusNotStarted++;
+               }
+               if (entry.getValue().getStatus().equals("completed")) {
+                 statusComplete++;
+               }
+               setDashboard(statusNotStarted, statusInProgress, statusComplete);
+
+        */
       }
     }
-
-    labTable.setItems(labData);
   }
+
+  /**
+   * Will set the dashboard's numbers to the certain types of status's.
+   *
+   * @param notStarted
+   * @param inProgress
+   * @param complete
+   */
+  @FXML
+  private void setDashboard(int notStarted, int inProgress, int complete) {
+    // Should put the numbers on the not started area on the dashboard.
+    notStartedNumber.setText(String.valueOf(notStarted));
+    // Should put the numbers on the in progress area of dash.
+    inProgressNumber.setText(String.valueOf(inProgress));
+    // Should put the numbers of the completed statuses into dash.
+    completedNumbers.setText(String.valueOf(complete));
+  }
+
   @FXML
   private void submitLabTest() {
     String dropDown = dropdownButtonText.getText();
