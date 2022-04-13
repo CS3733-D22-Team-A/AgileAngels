@@ -100,6 +100,7 @@ public class MapsController extends MainController implements Initializable {
    * @param locationNode the node whose data is populated
    */
   public void populateLocationNodeData(LocationNode locationNode) {
+    clean.setVisible(false);
     nodeIDField.setText(locationNode.getNodeID());
     nameField.setText(locationNode.getName());
     typeField.setText(locationNode.getNodeType());
@@ -115,6 +116,7 @@ public class MapsController extends MainController implements Initializable {
    * @param requestNode the node whose data is populated
    */
   public void populateRequestNodeData(RequestNode requestNode) {
+    clean.setVisible(false);
     nodeIDField.setText(requestNode.getName());
     nameField.setText(requestNode.getEmployee());
     typeField.setText(requestNode.getStatus());
@@ -307,9 +309,7 @@ public class MapsController extends MainController implements Initializable {
 
   @FXML
   public void cleanEquip() {
-    System.out.println(currentEquipmentNode.getLocation().getLongName());
     equipmentNodeManager.makeClean(currentEquipmentNode);
-    System.out.println(currentEquipmentNode.getLocation().getLongName());
     currentEquipmentNode.resetLocation();
     populateEquipmentNodeData(currentEquipmentNode);
   }
