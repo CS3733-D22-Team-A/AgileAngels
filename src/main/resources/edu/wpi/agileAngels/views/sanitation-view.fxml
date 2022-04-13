@@ -14,7 +14,7 @@
 
 <AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.SanitationController">
    <children>
-      <fx:include source="menu-bar.fxml" />
+      <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
 
       <Accordion />
       <Label fx:id="sanitationConfirmation" alignment="CENTER" layoutX="424.0" layoutY="618.0" prefHeight="76.0" prefWidth="586.0" wrapText="true">

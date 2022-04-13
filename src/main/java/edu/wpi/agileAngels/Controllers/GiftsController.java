@@ -14,7 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
-public class GiftsController extends MainController implements Initializable {
+public class GiftsController implements Initializable {
   @FXML
   private TextField giftSender,
       giftRecipient,
@@ -33,9 +33,10 @@ public class GiftsController extends MainController implements Initializable {
       typeColumn,
       nameColumn,
       messageColumn;
-  @FXML Button addButton, editButton, deleteButton;
+  @FXML Button addButton, editButton, deleteButton, dropdownButtonText;
   @FXML private Label giftConfirm;
   private RequestDAOImpl giftDAO;
+  private AppController appController = AppController.getInstance();
 
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
@@ -84,6 +85,7 @@ public class GiftsController extends MainController implements Initializable {
         }
       }
   */
+
   @FXML
   private void deleteGiftRequest(ActionEvent event) {
     /* //USE THIS FOR DELETE! Make sure you set deleteString somewhere outside!
@@ -266,5 +268,9 @@ public class GiftsController extends MainController implements Initializable {
             giftRecipient.getText());
 
     giftDAO.addRequest(request);
+  }
+
+  public void clearPage(ActionEvent actionEvent) {
+    appController.clearPage();
   }
 }
