@@ -369,10 +369,11 @@ public class MapsController implements Initializable {
 
   public void getPanChange() {}
 
+  @FXML
   public void setCoords(ActionEvent event) {
     // Pane pane = new Pane();
     // pane.setPrefSize(700, 426);
-    // pane.setLayoutX(480);
+    // pane.setLayoutX(480);set
     // pane.setLayoutY(200);
     // System.out.println("button pressed");
     // mapScroll.setContent(pane);

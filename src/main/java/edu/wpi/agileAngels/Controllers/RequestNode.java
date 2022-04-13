@@ -18,9 +18,10 @@ public class RequestNode {
     this.requestNodeManager = requestNodeManager;
     this.location = request.getLocation();
 
-    button.setLayoutX((this.location.getXCoord() - 800) / 5);
-    button.setLayoutY((this.location.getYCoord() - 350) / 5);
+    button.setLayoutX((this.location.getXCoord() - 775) / 3.225);
+    button.setLayoutY((this.location.getYCoord() - 320) / 3.232);
     button.setText(String.valueOf(request.getName().charAt(0)));
+    button.setStyle("-fx-font-size: 8");
     button.setOnAction(
         (ActionEvent event2) -> {
           isClicked();

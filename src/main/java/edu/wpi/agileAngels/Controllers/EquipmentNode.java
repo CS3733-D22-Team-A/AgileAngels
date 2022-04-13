@@ -23,9 +23,10 @@ public class EquipmentNode {
     this.equipmentNodeManager = equipmentNodeManager;
     this.location = medEquip.getLocation();
 
-    button.setLayoutX((this.location.getXCoord() - 800) / 5);
-    button.setLayoutY((this.location.getYCoord() - 350) / 5);
+    button.setLayoutX((this.location.getXCoord() - 775) / 3.225);
+    button.setLayoutY((this.location.getYCoord() - 320) / 3.232);
     button.setText(String.valueOf(medEquip.getType().charAt(0)));
+    button.setStyle("-fx-font-size: 8");
     button.setOnAction(
         (ActionEvent event2) -> {
           isClicked();
@@ -39,8 +40,8 @@ public class EquipmentNode {
   }
 
   public void resetLocation() {
-    double x = ((this.location.getXCoord() - 800) / 5);
-    double y = ((this.location.getYCoord() - 350) / 5);
+    double x = ((this.location.getXCoord() - 775) / 3.225);
+    double y = ((this.location.getYCoord() - 320) / 3.232);
     button.setLayoutX(x);
     button.setLayoutY(y);
   }
