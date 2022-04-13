@@ -193,41 +193,43 @@ public class GiftsController implements Initializable {
         num = i;
       }
     }
+    Employee emp = employeeDAO.getEmployee(employeeString);
+    Location loc = locDAO.getLocation(locationString);
     if (found != null) {
       if (!dropDownString.isEmpty()) {
         // String type = dropdownButtonText.getText();
         found.setType(dropDownString);
-        GiftrequestImpl.updateType(found, dropDownString);
+        // GiftrequestImpl.updateType(found, dropDownString);
       }
       if (!locationString.isEmpty()) {
         // String location = equipLocation.getText();
-        found.setLocation(locationsHash.get(locationString));
-        GiftrequestImpl.updateLocation(found, locationsHash.get(locationString));
+        found.setLocation(loc);
+        // GiftrequestImpl.updateLocation(found, locationsHash.get(locationString));
       }
       if (!employeeString.isEmpty()) {
         // String employee = emp.getText();
-        found.setEmployee(employeesHash.get(employeeString));
-        GiftrequestImpl.updateEmployeeName(found, employeeString);
+        found.setEmployee(emp);
+        // GiftrequestImpl.updateEmployeeName(found, employeeString);
       }
       if (!statusString.isEmpty()) {
         // String employee = emp.getText();
         found.setStatus(statusString);
-        GiftrequestImpl.updateStatus(found, statusString);
+        //  GiftrequestImpl.updateStatus(found, statusString);
       }
       if (!senderString.isEmpty()) {
         // String sender = emp.getText();
         found.setAttribute1(senderString);
-        GiftrequestImpl.updateStatus(found, senderString);
+        //  GiftrequestImpl.updateStatus(found, senderString);
       }
       if (!recipientString.isEmpty()) {
         // String recipent = emp.getText();
         found.setAttribute2(recipientString);
-        GiftrequestImpl.updateStatus(found, recipientString);
+        // GiftrequestImpl.updateStatus(found, recipientString);
       }
       if (!messageString.isEmpty()) {
         // String description = emp.getText();
         found.setDescription(messageString);
-        GiftrequestImpl.updateStatus(found, messageString);
+        // GiftrequestImpl.updateStatus(found, messageString);
       }
       giftData.set(num, found);
 
