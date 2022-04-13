@@ -297,4 +297,8 @@ public class EquipmentController implements Initializable {
     MenuItem button = (MenuItem) event.getSource();
     equipmentEmployeeText.setText(button.getText());
   }
+
+  public void clearPage(ActionEvent actionEvent) {
+    appController.clearPage();
+  }
 }

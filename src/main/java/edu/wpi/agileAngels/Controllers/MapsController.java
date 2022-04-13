@@ -317,4 +317,8 @@ public class MapsController implements Initializable {
     currentEquipmentNode.resetLocation();
     populateEquipmentNodeData(currentEquipmentNode);
   }
+
+  public void clearPage(ActionEvent actionEvent) {
+    appController.clearPage();
+  }
 }

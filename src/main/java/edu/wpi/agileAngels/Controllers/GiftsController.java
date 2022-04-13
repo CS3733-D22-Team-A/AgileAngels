@@ -45,7 +45,6 @@ public class GiftsController implements Initializable {
   private static ObservableList<Request> giftData =
       FXCollections.observableArrayList(); // list of requests
 
-
   public GiftsController() throws SQLException {}
 
   /*
@@ -269,5 +268,9 @@ public class GiftsController implements Initializable {
             giftRecipient.getText());
 
     giftDAO.addRequest(request);
+  }
+
+  public void clearPage(ActionEvent actionEvent) {
+    appController.clearPage();
   }
 }

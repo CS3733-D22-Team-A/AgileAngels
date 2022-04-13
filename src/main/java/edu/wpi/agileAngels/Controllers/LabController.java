@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -208,5 +209,9 @@ public class LabController implements Initializable {
       labData.add(request);
       labTable.setItems(labData);
     }
+  }
+
+  public void clearPage(ActionEvent actionEvent) {
+    appController.clearPage();
   }
 }

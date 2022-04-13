@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -81,5 +82,9 @@ public class SanitationController {
     sanDAO.addRequest(request); // there is an error here
     // sanData.add(request);
     // sanTable.setItems(sanData);
+  }
+
+  public void clearPage(ActionEvent actionEvent) {
+    appController.clearPage();
   }
 }
