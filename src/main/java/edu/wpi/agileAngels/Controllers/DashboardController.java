@@ -125,31 +125,31 @@ public class DashboardController implements Initializable {
   public void loadFloorMap(ActionEvent event) throws IOException {
 
     if (event.getSource() == dash1) {
-      appController.loadPage("../views/map-viewBACKUP.fxml");
+      appController.loadPage("../views/map-view.fxml");
     }
 
     if (event.getSource() == dash2) {
-      appController.loadPage("../views/map-viewBACKUP.fxml");
+      appController.loadPage("../views/map-view.fxml");
     }
 
     if (event.getSource() == dash3) {
-      appController.loadPage("../views/map-viewBACKUP.fxml");
+      appController.loadPage("../views/map-view.fxml");
     }
 
     if (event.getSource() == dash4) {
-      appController.loadPage("../views/map-viewBACKUP.fxml");
+      appController.loadPage("../views/map-view.fxml");
     }
 
     if (event.getSource() == dash5) {
-      appController.loadPage("../views/map-viewBACKUP.fxml");
+      appController.loadPage("../views/map-view.fxml");
     }
 
     if (event.getSource() == dashL1) {
-      appController.loadPage("../views/map-viewBACKUP.fxml");
+      appController.loadPage("../views/map-view.fxml");
     }
 
     if (event.getSource() == dashL2) {
-      appController.loadPage("../views/map-viewBACKUP.fxml");
+      appController.loadPage("../views/map-view.fxml");
     }
   }
 }

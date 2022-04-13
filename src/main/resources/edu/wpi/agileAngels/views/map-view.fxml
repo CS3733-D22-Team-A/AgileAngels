@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -10,116 +12,144 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MapsController">
-   <children>
-      <Button id="floorThree" fx:id="floorThree" layoutX="286.0" layoutY="207.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 3">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Button>
-      <Button id="floorTwo" fx:id="floorTwo" layoutX="286.0" layoutY="322.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 2">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Button>
-      <Button id="lowerLevelOne" fx:id="lowerLevelOne" layoutX="286.0" layoutY="435.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Lower Level 1">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Button>
-      <Button id="lowerLevelTwo" fx:id="lowerLevelTwo" layoutX="286.0" layoutY="550.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Lower Level 2">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Button>
-      <ScrollPane fx:id="mapScroll" pannable="true" prefHeight="578.0" prefWidth="820.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="460.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
-         <content>
-            <Pane fx:id="mapPane" prefHeight="426.0" prefWidth="700.0">
-               <children>
-                  <ImageView id="floorTwoMap" fx:id="floorTwoMap" fitHeight="687.0" fitWidth="1090.0" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/Floor 2.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView id="floorThreeMap" fx:id="floorThreeMap" fitHeight="754.0" fitWidth="1090.0" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/Floor 3.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView id="lowerLevelOne" fx:id="lowerLevelOneMap" fitHeight="777.0" fitWidth="1092.0" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/Lower level 1.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView id="lowerLevelTwo" fx:id="lowerLevelTwoMap" fitHeight="770.0" fitWidth="1091.0" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/Lower level 2.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="floorThreeDetailMap" fitHeight="181.0" fitWidth="276.0" layoutX="145.0" layoutY="105.0" opacity="0.5" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/Tower - Floor 3 Detail.jpg" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-         </content>
-      </ScrollPane>
-      <TextField layoutX="58.0" layoutY="406.0" prefHeight="33.0" prefWidth="60.0" promptText="x-coordinate" fx:id="xCoordField" />
-      <Label fx:id="nodeIDField" layoutX="58.0" layoutY="213.0" />
-      <TextField fx:id="nameField" layoutX="58.0" layoutY="275.0" promptText="name" />
-      <TextField fx:id="typeField" layoutX="58.0" layoutY="341.0" promptText="type" />
-      <TextField fx:id="yCoordField" layoutX="58.0" layoutY="466.0" prefHeight="33.0" prefWidth="61.0" promptText="y-coordinate" />
-      <Button id="lowerLevelOne" fx:id="removeButton" layoutX="176.0" layoutY="522.0" mnemonicParsing="false" onAction="#removeNode" prefHeight="38.0" prefWidth="82.0" text="Delete">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Button>
-      <Button id="lowerLevelOne" fx:id="editButton" layoutX="58.0" layoutY="522.0" mnemonicParsing="false" onAction="#editNode" prefHeight="38.0" prefWidth="82.0" text="Edit">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Button>
-      <Button id="lowerLevelOne" fx:id="addButton" layoutX="117.0" layoutY="522.0" mnemonicParsing="false" onAction="#addNode" prefHeight="38.0" prefWidth="82.0" text="Add" visible="false">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Button>
-      <Button id="lowerLevelOne" fx:id="switchToAddButton" layoutX="57.0" layoutY="576.0" mnemonicParsing="false" onAction="#switchMode" prefHeight="38.0" prefWidth="201.0" text="Add a Location">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Button>
-      <Button id="lowerLevelOne" fx:id="switchToEditButton" layoutX="57.0" layoutY="576.0" mnemonicParsing="false" onAction="#switchMode" prefHeight="38.0" prefWidth="201.0" text="Edit/Delete a Location" visible="false">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Button>
-      <Button fx:id="clear" alignment="CENTER" layoutX="176.0" layoutY="640.0" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-         <font>
-            <Font size="10.0" />
-         </font>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <graphic>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Clear" />
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </HBox>
-         </graphic>
-      </Button>
-      <Label fx:id="floorLabel" layoutX="747.0" layoutY="133.0" prefHeight="30.0" prefWidth="127.0" text="Floor 2" />
-      <Button fx:id="clean" layoutX="158.0" layoutY="413.0" mnemonicParsing="false" onAction="#cleanEquip" prefHeight="75.0" prefWidth="82.0" text="Wash Equipment" textAlignment="CENTER" wrapText="true" />
-      <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
-      <!--
-      <Button layoutX="141.0" layoutY="408.0" mnemonicParsing="false" onAction="#setNewPoint" prefHeight="92.0" prefWidth="113.0" text="Set new coord" />
-      -->
-   </children>
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MapsController">
+    <children>
+      <fx:include source="menu-bar.fxml" />
+
+        <Button id="floorThree" fx:id="floorThree" layoutX="286.0" layoutY="207.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 3">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </Button>
+        <Button id="floorTwo" fx:id="floorTwo" layoutX="286.0" layoutY="322.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 2">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </Button>
+        <Button id="lowerLevelOne" fx:id="lowerLevelOne" layoutX="286.0" layoutY="435.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Lower Level 1">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </Button>
+        <Button id="lowerLevelTwo" fx:id="lowerLevelTwo" layoutX="286.0" layoutY="550.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Lower Level 2">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </Button>
+        <ScrollPane fx:id="mapScroll" hbarPolicy="NEVER" layoutX="460.0" layoutY="60.0" pannable="true" prefHeight="578.0" prefWidth="821.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="458.79999999999995" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+            <content>
+                <Pane fx:id="mapPane" prefHeight="659.0" prefWidth="1088.0">
+                    <children>
+                        <ImageView id="floorTwoMap" fx:id="floorTwoMap" fitHeight="734.0" fitWidth="1091.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/Floor 2.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView id="floorThreeMap" fx:id="floorThreeMap" fitHeight="718.0" fitWidth="1092.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/Floor 3.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView id="lowerLevelOne" fx:id="lowerLevelOneMap" fitHeight="708.0" fitWidth="1091.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/Lower level 1.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView id="lowerLevelTwo" fx:id="lowerLevelTwoMap" fitHeight="725.0" fitWidth="1091.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/Lower level 2.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="floorThreeDetailMap" fitHeight="181.0" fitWidth="276.0" layoutX="145.0" layoutY="105.0" opacity="0.5" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/Tower - Floor 3 Detail.jpg" />
+                            </image>
+                        </ImageView>
+                        <Pane fx:id="clickPane" prefHeight="658.0" prefWidth="1090.0" />
+                    </children>
+                </Pane>
+            </content>
+        </ScrollPane>
+        <Button fx:id="clear" alignment="CENTER" layoutX="176.0" layoutY="640.0" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+            <font>
+                <Font size="10.0" />
+            </font>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <graphic>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label text="Clear" />
+                    </children>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </HBox>
+            </graphic>
+        </Button>
+        <Button fx:id="zoomIn" layoutX="1194.0" layoutY="558.0" mnemonicParsing="false" onAction="#zoomableMap" prefHeight="30.0" prefWidth="32.0" text="+" AnchorPane.bottomAnchor="132.0" AnchorPane.rightAnchor="20.0" />
+        <Button fx:id="zoomOut" layoutX="1194.0" layoutY="588.0" mnemonicParsing="false" onAction="#zoomableMap" prefHeight="30.0" prefWidth="32.0" text="-" AnchorPane.bottomAnchor="102.0" AnchorPane.rightAnchor="20.0" />
+        <VBox layoutX="59.0" layoutY="164.0" prefHeight="472.0" prefWidth="200.0" spacing="20.0">
+            <children>
+                <Label fx:id="nodeIDField" prefHeight="40.0" prefWidth="270.0" />
+                <TextField fx:id="nameField" prefHeight="40.0" prefWidth="270.0" promptText="name" />
+                <MenuButton fx:id="typeDropdown" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Node Type">
+                    <items>
+                        <MenuItem fx:id="pati" mnemonicParsing="false" onAction="#typeMenu" text="PATI" />
+                        <MenuItem fx:id="stor" mnemonicParsing="false" onAction="#typeMenu" text="STOR" />
+                        <MenuItem fx:id="dirt" mnemonicParsing="false" onAction="#typeMenu" text="DIRT" />
+                        <MenuItem fx:id="hall" mnemonicParsing="false" onAction="#typeMenu" text="HALL" />
+                        <MenuItem fx:id="elev" mnemonicParsing="false" onAction="#typeMenu" text="ELEV" />
+                        <MenuItem fx:id="rest" mnemonicParsing="false" onAction="#typeMenu" text="REST" />
+                        <MenuItem fx:id="stai" mnemonicParsing="false" onAction="#typeMenu" text="STAI" />
+                        <MenuItem fx:id="dept" mnemonicParsing="false" onAction="#typeMenu" text="DEPT" />
+                        <MenuItem fx:id="labs" mnemonicParsing="false" onAction="#typeMenu" text="LABS" />
+                        <MenuItem fx:id="info" mnemonicParsing="false" onAction="#typeMenu" text="INFO" />
+                        <MenuItem fx:id="conf" mnemonicParsing="false" onAction="#typeMenu" text="CONF" />
+                        <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#typeMenu" text="EXIT" />
+                        <MenuItem fx:id="retl" mnemonicParsing="false" onAction="#typeMenu" text="RETL" />
+                        <MenuItem fx:id="serv" mnemonicParsing="false" onAction="#typeMenu" text="SERV" />
+                    </items>
+                </MenuButton>
+                <TextField accessibleRole="TEXT_FIELD" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="270.0" promptText="X-Coord" fx:id="xCoordField" />
+                <TextField fx:id="yCoordField" accessibleRole="TEXT_FIELD" layoutX="10.0" layoutY="342.0" prefHeight="40.0" prefWidth="270.0" promptText="Y-Coord" />
+
+                <Button mnemonicParsing="false" onAction="#setCoords" prefHeight="40.0" prefWidth="282.0" text="Set New Location" />
+                <Pane prefHeight="40.0" prefWidth="100.0">
+                    <children>
+                        <HBox prefHeight="40.0" prefWidth="200.0" spacing="20.0">
+                            <children>
+                                <Button id="lowerLevelOne" fx:id="removeButton" mnemonicParsing="false" onAction="#removeNode" prefHeight="40.0" prefWidth="90.0" text="Delete">
+                                    <font>
+                                        <Font size="17.0" />
+                                    </font>
+                                </Button>
+                                <Button id="lowerLevelOne" fx:id="editButton" mnemonicParsing="false" onAction="#editNode" prefHeight="40.0" prefWidth="90.0" text="Edit">
+                                    <font>
+                                        <Font size="17.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </HBox>
+                        <HBox fx:id="addButtonBox" alignment="CENTER" prefHeight="40.0" prefWidth="200.0">
+                            <children>
+                                <Button id="lowerLevelOne" fx:id="addButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addNode" prefHeight="40.0" prefWidth="221.0" text="Add" visible="false">
+                                    <font>
+                                        <Font size="17.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </HBox>
+                    </children>
+                </Pane>
+                <Button fx:id="switchModeButton" mnemonicParsing="false" onAction="#switchMode" prefHeight="40.0" prefWidth="282.0" text="Switch to Add Node" />
+            </children>
+        </VBox>
+        <Label fx:id="floorLabel" layoutX="316.0" layoutY="141.0" prefHeight="30.0" prefWidth="127.0" text="Floor 2" />
+      <Button fx:id="clean" layoutX="331.0" layoutY="640.0" mnemonicParsing="false" onAction="#cleanEquip" prefHeight="50.0" prefWidth="82.0" text="Wash Equipment" textAlignment="CENTER" wrapText="true" />
+    </children>
 </AnchorPane>
