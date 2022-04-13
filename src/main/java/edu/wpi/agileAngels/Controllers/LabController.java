@@ -9,16 +9,13 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 // similar to equip controller
-public class LabController implements Initializable {
-
-  AppController appController = AppController.getInstance();
+public class LabController extends MainController implements Initializable {
 
   @FXML private TextField labTestLocation, labEmployeeText, labStatus, labDelete, labEdit;
 
@@ -73,7 +70,8 @@ public class LabController implements Initializable {
 
   @FXML
   private void submitLabTest() {
-    String dropDown = dropdownButtonText.getText();
+    // String dropDown = dropdownButtonText.getText();
+    String dropDown = "test";
     String location = labTestLocation.getText();
     String employee = labEmployeeText.getText();
     String status = labStatus.getText();
@@ -85,8 +83,7 @@ public class LabController implements Initializable {
     } else if (!labEdit.getText().isEmpty()) {
       editLabRequest(dropDown, location, employee, status);
     } else {
-      System.out.println(
-          locDAO.getLocation(location).getLongName() + " " + empDAO.getEmployee(employee));
+      System.out.println(locDAO.getLocation(location) + " " + empDAO.getEmployee(employee));
       addLabRequest(
           "available",
           dropDown,
@@ -148,7 +145,7 @@ public class LabController implements Initializable {
     if (found != null) {
       if (!dropDown.isEmpty()) {
         found.setType(dropDown);
-        LabDAO.updateType(found, dropDown);
+        // LabDAO.updateType(found, dropDown);
       }
       if (!location.isEmpty()) {
         // Location loc = locDAO.getLocation(location);
@@ -161,7 +158,7 @@ public class LabController implements Initializable {
       }
       if (!status.isEmpty()) {
         found.setStatus(employee);
-        LabDAO.updateStatus(found, status);
+        // LabDAO.updateStatus(found, status);
       }
       labData.set(num, found);
       // Request found = null;
@@ -177,17 +174,17 @@ public class LabController implements Initializable {
         if (!dropdownButtonText.getText().isEmpty()) {
           String type = dropdownButtonText.getText();
           found.setType(type);
-          //  LabDAO.updateType(found, type);
+          LabDAO.updateType(found, type);
         }
         if (!labTestLocation.getText().isEmpty()) {
           // Location loc = locDAO.getLocation(location);
           found.setLocation(loc);
-          // LabDAO.updateLocation(found, loc);
+          LabDAO.updateLocation(found, loc);
         }
         if (!labEmployeeText.getText().isEmpty()) {
           // Employee emp = empDAO.getEmployee(employee);
           found.setEmployee(emp);
-          // LabDAO.updateEmployeeName(found, employee);
+          LabDAO.updateEmployeeName(found, employee);
         }
         labData.set(num, found);
 
@@ -210,9 +207,5 @@ public class LabController implements Initializable {
       labData.add(request);
       labTable.setItems(labData);
     }
-  }
-
-  public void clearPage(ActionEvent actionEvent) {
-    appController.clearPage();
   }
 }
