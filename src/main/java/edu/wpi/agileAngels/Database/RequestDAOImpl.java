@@ -12,17 +12,17 @@ import java.util.HashMap;
 // Implementation of RequestDAO
 public class RequestDAOImpl implements RequestDAO {
   private String CSV_FILE_PATH;
-  private HashMap<String, Request> reqData;
+  private HashMap<String, Request> reqData = new HashMap();
   private int count;
-  // private String DAOtype;
+  private String DAOtype;
 
   private static EmployeeManager empManager = null;
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
-  private String DAOtype = null;
   private static RequestDAOImpl MedrequestDAO = null;
   private static RequestDAOImpl LabrequestDAO = null;
   private static RequestDAOImpl SanrequestDAO = null;
   private static RequestDAOImpl MealDAO = null;
+  private static RequestDAOImpl GiftDAO = null;
 
   public RequestDAOImpl(HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
@@ -39,20 +39,21 @@ public class RequestDAOImpl implements RequestDAO {
         MedrequestDAO = new RequestDAOImpl(data, 1, "MedRequest");
       }
       return MedrequestDAO;
-    }
-    if (0 == type.compareTo("LabRequest")) {
+    } else if (GiftDAO == null && 0 == type.compareTo("GiftRequest")) {
+      data = new HashMap();
+      GiftDAO = new RequestDAOImpl(data, 1, "GiftRequest");
+      return GiftDAO;
+    } else if (0 == type.compareTo("LabRequest")) {
       if (LabrequestDAO == null) {
         LabrequestDAO = new RequestDAOImpl(data, 1, "LabRequest");
       }
       return LabrequestDAO;
-    }
-    if (0 == type.compareTo("ServiceRequest")) {
+    } else if (0 == type.compareTo("ServiceRequest")) {
       if (SanrequestDAO == null) {
         SanrequestDAO = new RequestDAOImpl(data, 1, "SanRequest");
       }
       return SanrequestDAO;
-    }
-    if (0 == type.compareTo("MealRequest")) {
+    } else if (0 == type.compareTo("MealRequest")) {
       if (MealDAO == null) {
         MealDAO = new RequestDAOImpl(data, 1, "MealRequest");
       }
@@ -66,6 +67,7 @@ public class RequestDAOImpl implements RequestDAO {
   }
 
   public void updateEmployeeName(Request request, String newName) {
+    empManager.getAllEmployees();
     request.setEmployee(empManager.getEmployee(newName));
     Adb.updateRequest(request, "EmployeeName", newName);
   }
@@ -113,6 +115,8 @@ public class RequestDAOImpl implements RequestDAO {
       letter = "Sanitation";
     } else if (0 == DAOtype.compareTo("MealRequest")) {
       letter = "Meal";
+    } else if (0 == DAOtype.compareTo("GiftRequest")) {
+      letter = "Gift";
     }
 
     letter = letter + Integer.toString(this.count);

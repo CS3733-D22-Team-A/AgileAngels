@@ -1,11 +1,11 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.LocationDAOImpl;
-import edu.wpi.agileAngels.Database.Request;
-import edu.wpi.agileAngels.Database.RequestDAOImpl;
+import edu.wpi.agileAngels.Database.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class GiftsController implements Initializable {
   @FXML
@@ -33,206 +34,89 @@ public class GiftsController implements Initializable {
       typeColumn,
       nameColumn,
       messageColumn;
-  @FXML Button addButton, editButton, deleteButton, dropdownButtonText;
+  @FXML MenuButton giftType;
+  @FXML MenuItem baloons, flowers, card;
+  @FXML Button addButton, editButton, deleteButton;
   @FXML private Label giftConfirm;
-  private RequestDAOImpl giftDAO;
+  private RequestDAOImpl GiftrequestImpl =
+      RequestDAOImpl.getInstance("GiftRequest"); // instance of RequestDAOImpl to access functions
+
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
+  private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
+
+  private EmployeeManager employeeDAO = EmployeeManager.getInstance();
+  private HashMap<String, Employee> employeesHash = employeeDAO.getAllEmployees();
+
+  @FXML private TableView giftTable;
   private AppController appController = AppController.getInstance();
 
-  private EmployeeManager empDAO = EmployeeManager.getInstance();
-  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
-  // TODO make gift table in the UI
-  @FXML private TableView giftTable;
   private static ObservableList<Request> giftData =
       FXCollections.observableArrayList(); // list of requests
 
   public GiftsController() throws SQLException {}
 
-  /*
-      @Override
-      public void initialize(URL location, ResourceBundle resources) {
-
-        HashMap<String, Request> data = new HashMap<>();
-        GiftRequest giftRequest = new GiftRequest("?", "?", "?", "?", "?", "?", "?", "?");
-        data.put("0", giftRequest);
-        try {
-          giftDAO = new RequestDAOImpl("./MedData.csv", data, 0);
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
-      }
-
-      @FXML
-    //   Submits fields to a Java gifts Request Object
-      private void submitGift() {
-        String dropDown = dropdownButtonText.getText();
-        String sender = giftSender.getText();
-        String recipient = giftRecipient.getText();
-        String employee = giftEmployeeText.getText();
-        String location = giftLocation.getText();
-        String message = giftMessage.getText();
-        String delete = deleteName.getText();
-        String edit = editRequest.getText();
-        String status = giftStatus.getText();
-
-        // if the fields are empty or to delete input is not empty
-        if (!delete.isEmpty()) {
-          deleteGiftRequest(delete);
-          // editing a request
-        } else if (!edit.isEmpty()) {
-          editGiftRequest(edit, dropDown, "location", employee, status, sender, recipient);
-        } else {
-          addGiftRequest("available", dropDown, location, employee, status, message, sender, recipient);
-        }
-      }
-  */
-
-  @FXML
-  private void deleteGiftRequest(ActionEvent event) {
-    /* //USE THIS FOR DELETE! Make sure you set deleteString somewhere outside!
-    String deleteString
-    if (!deleteString.isEmpty()) {
-      System.out.println("DELETE REQUEST");
-      for (int i = 0; i < giftData.size(); i++) {
-        Request object = giftData.get(i);
-        if (0 == deleteString.compareTo(object.getName())) {
-          giftData.remove(i);
-          giftDAO.deleteRequest(object);
-        }
-      }
-      // giftTable.setItems(giftData);
-    }
-    */
-  }
-
-  @FXML
-  private void editGiftRequest(ActionEvent action) { // Use this
-    System.out.println("EDIT REQUEST");
-    /*
-    Request found = null;
-    int num = 0;
-    for (int i = 0; i < giftData.size(); i++) {
-      Request device = giftData.get(i);
-      if (0 == editRequest.getText().compareTo(device.getName())) {
-        found = device;
-        num = i;
-      }
-    }
-    if (found != null) {
-      if (!dropDownString.isEmpty()) {
-        found.setType(dropDownString);
-        giftDAO.updateType(found, dropDownString);
-      }
-      if (!locationString.isEmpty()) {
-        found.setLocation(locationString);
-        giftDAO.updateLocation(found, locationString);
-      }
-      if (!employeeString.isEmpty()) {
-        found.setEmployee(employeeString);
-        giftDAO.updateEmployeeName(found, employeeString);
-      }
-      if (!statusString.isEmpty()) {
-        found.setStatus(statusString);
-        giftDAO.updateStatus(found, statusString);
-      }
-      // TODO edit sender and recipient
-      giftData.set(num, found);
-
-      // giftTable.setItems(giftData);
-    }
-
-     */
-  }
-
-  /*
-
-    private void addGiftRequest(
-        String name,
-        String employee,
-        String location,
-        String type,
-        String status,
-        String description,
-        String sender,
-        String recipient) {
-      if (sender.isEmpty()
-          || employee.isEmpty()
-          || type.isEmpty()
-          || location.isEmpty()
-          || recipient.isEmpty()) { // TODO do we need a gift recipient???
-        giftConfirm.setText("Please fill out all of the required fields");
-      } else {
-        giftConfirm.setText(
-            "Thank you, "
-                + sender
-                + ", "
-                + employee
-                + " will deliver "
-                + type
-                + " to "
-                + recipient
-                + " soon. ");
-        GiftRequest request =
-            new GiftRequest("", employee, location, type, status, description, sender, recipient);
-
-        giftDAO.addRequest(request);
-      }
-    }
-
-    @FXML
-    private void clearPage() throws IOException, InterruptedException {
-      loadPage("views/gifts-view.fxml", giftConfirm);
-    }
-  }
-
-
-  */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    HashMap<String, Request> giftData = new HashMap<>();
-    /**
-     * try { giftDAO = new RequestDAOImpl("./GIFT.CSV", giftData, 0); } catch (SQLException e) {
-     * e.printStackTrace(); }*
-     */
+
+    senderColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
+    recipientColumn.setCellValueFactory(new PropertyValueFactory<>("attribute2"));
+    employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
+    locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+    statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    messageColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+    if (giftData.isEmpty()) {
+      System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
+      GiftrequestImpl.csvRead();
+      Iterator var3 = GiftrequestImpl.getAllRequests().entrySet().iterator();
+
+      for (Map.Entry<String, Request> entry : GiftrequestImpl.getAllRequests().entrySet()) {
+        Request req = entry.getValue();
+        giftData.add(req);
+      }
+    }
+
+    giftTable.setItems(giftData);
   }
 
   @FXML
   /** Submits fields to a Java gifts Request Object */
   private void submitGift() {
-    String dropDown = dropdownButtonText.getText();
+    String dropDown = giftType.getText();
     String sender = giftSender.getText();
     String recipient = giftRecipient.getText();
     String employee = giftEmployeeText.getText();
-    // String location = giftLocation.getText();
+    String location = giftLocation.getText();
     String message = giftMessage.getText();
-    // String delete = deleteName.getText();
-    // String edit = editRequest.getText();
+    String delete = deleteName.getText();
+    String edit = editRequest.getText();
     String status = giftStatus.getText();
     // attributes arent all filled
-    if (giftSender.getText().isEmpty()
+    if (!delete.isEmpty()) {
+      deleteGiftRequest(delete);
+      // editing a request
+    } else if (!edit.isEmpty()) {
+      editGiftRequest(edit, dropDown, sender, recipient, employee, location, message, status);
+    } else if (giftSender.getText().isEmpty()
         || employee.isEmpty()
         || dropDown.isEmpty()
         || recipient.isEmpty()) {
       giftConfirm.setText("Please fill out all of the required fields");
     } else {
+      addGiftRequest(dropDown, sender, recipient, employee, location, message, status);
       giftConfirm.setText(
           "Thank you, "
               + giftSender.getText()
               + ", "
               + giftEmployeeText.getText()
               + " will deliver "
-              + dropdownButtonText.getText()
+              + giftType.getText()
               + " to "
               + giftRecipient.getText()
               + " soon. ");
-      /**
-       * GiftRequest request = new GiftRequest( "", giftEmployeeText.getText(),
-       * giftRecipient.getText(), dropdownButtonText.getText(), giftStatus.getText(),
-       * giftMessage.getText(), giftSender.getText());
-       *
-       * <p>giftDAO.addRequest(request);*
-       */
     }
-    addGiftRequest(dropDown, sender, recipient, employee, "location", message, status);
   }
 
   private void addGiftRequest(
@@ -256,21 +140,109 @@ public class GiftsController implements Initializable {
             // + " to "
             // + location
             + " soon. ");
-    Request request =
-        new Request(
-            "",
-            empDAO.getEmployee(giftEmployeeText.getText()),
-            locDAO.getLocation(giftRecipient.getText()),
-            dropdownButtonText.getText(),
-            giftStatus.getText(),
-            giftMessage.getText(),
-            giftSender.getText(),
-            giftRecipient.getText());
 
-    giftDAO.addRequest(request);
+    String placeholder = "?";
+    Request gift =
+        new Request(
+            placeholder,
+            employeesHash.get(employee),
+            locationsHash.get(location),
+            dropDown,
+            status,
+            message,
+            sender,
+            recipient);
+    // todo is this right?
+    GiftrequestImpl.addRequest(gift); // add to hashmap
+    giftData.add(gift); // add to the UI
+    giftTable.setItems(giftData);
   }
 
-  public void clearPage(ActionEvent actionEvent) {
+  @FXML
+  private void deleteGiftRequest(String deleteString) {
+    if (!deleteString.isEmpty()) {
+      System.out.println("DELETE REQUEST");
+      for (int i = 0; i < giftData.size(); i++) {
+        Request object = giftData.get(i);
+        if (0 == deleteString.compareTo(object.getName())) {
+          giftData.remove(i);
+          GiftrequestImpl.deleteRequest(object);
+        }
+      }
+      giftTable.setItems(giftData);
+    }
+  }
+
+  @FXML
+  private void editGiftRequest(
+      String editString,
+      String dropDownString,
+      String senderString,
+      String recipientString,
+      String employeeString,
+      String locationString,
+      String messageString,
+      String statusString) {
+    System.out.println("EDIT REQUEST");
+    Request found = null;
+    int num = 0;
+    for (int i = 0; i < giftData.size(); i++) {
+      Request device = giftData.get(i);
+      if (0 == editRequest.getText().compareTo(device.getName())) {
+        found = device;
+        num = i;
+      }
+    }
+    Employee emp = employeeDAO.getEmployee(employeeString);
+    Location loc = locDAO.getLocation(locationString);
+    if (found != null) {
+      if (!dropDownString.isEmpty()) {
+        // String type = dropdownButtonText.getText();
+        found.setType(dropDownString);
+        // GiftrequestImpl.updateType(found, dropDownString);
+      }
+      if (!locationString.isEmpty()) {
+        // String location = equipLocation.getText();
+        found.setLocation(loc);
+        // GiftrequestImpl.updateLocation(found, locationsHash.get(locationString));
+      }
+      if (!employeeString.isEmpty()) {
+        // String employee = emp.getText();
+        found.setEmployee(emp);
+        // GiftrequestImpl.updateEmployeeName(found, employeeString);
+      }
+      if (!statusString.isEmpty()) {
+        // String employee = emp.getText();
+        found.setStatus(statusString);
+        //  GiftrequestImpl.updateStatus(found, statusString);
+      }
+      if (!senderString.isEmpty()) {
+        // String sender = emp.getText();
+        found.setAttribute1(senderString);
+        //  GiftrequestImpl.updateStatus(found, senderString);
+      }
+      if (!recipientString.isEmpty()) {
+        // String recipent = emp.getText();
+        found.setAttribute2(recipientString);
+        // GiftrequestImpl.updateStatus(found, recipientString);
+      }
+      if (!messageString.isEmpty()) {
+        // String description = emp.getText();
+        found.setDescription(messageString);
+        // GiftrequestImpl.updateStatus(found, messageString);
+      }
+      giftData.set(num, found);
+
+      giftTable.setItems(giftData);
+    }
+  }
+
+  public void clearPage(ActionEvent event) {
     appController.clearPage();
+  }
+
+  public void giftType(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    giftType.setText(button.getText());
   }
 }
