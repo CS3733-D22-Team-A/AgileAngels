@@ -1,8 +1,5 @@
-package edu.wpi.agileAngels;
+package edu.wpi.agileAngels.Database;
 
-import edu.wpi.agileAngels.Database.Employee;
-import edu.wpi.agileAngels.Database.Request;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface EmployeeDAO {
@@ -17,10 +14,4 @@ public interface EmployeeDAO {
   void updateEmployeeName(String userID, String newName);
 
   void updateEmployeePassword(String userID, String newPW);
-
-  ArrayList<Request> getRequests(String userID);
-
-  void addRequest(String userID, Request newReq);
-
-  void removeRequest(String userID, Request oldReq);
 }

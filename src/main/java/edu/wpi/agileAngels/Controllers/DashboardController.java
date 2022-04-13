@@ -11,11 +11,12 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-public class DashboardController extends MainController implements Initializable {
+public class DashboardController implements Initializable {
 
   @FXML Button dash1, dash2, dash3, dash4, dash5, dashL1, dashL2;
   @FXML Pane stackDash5, stackDash4, stackDash3, stackDash2, stackDash1, stackDashL1, stackDashL2;
 
+  AppController appController = AppController.getInstance();
   ArrayList<Pane> panes = new ArrayList<>();
 
   @Override
@@ -124,31 +125,31 @@ public class DashboardController extends MainController implements Initializable
   public void loadFloorMap(ActionEvent event) throws IOException {
 
     if (event.getSource() == dash1) {
-      loadPage("../views/map-view.fxml", dash1);
+      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
     }
 
     if (event.getSource() == dash2) {
-      loadPage("../views/map-view.fxml", dash2);
+      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
     }
 
     if (event.getSource() == dash3) {
-      loadPage("../views/map-view.fxml", dash3);
+      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
     }
 
     if (event.getSource() == dash4) {
-      loadPage("../views/map-view.fxml", dash4);
+      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
     }
 
     if (event.getSource() == dash5) {
-      loadPage("../views/map-view.fxml", dash5);
+      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
     }
 
     if (event.getSource() == dashL1) {
-      loadPage("../views/map-view.fxml", dashL1);
+      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
     }
 
     if (event.getSource() == dashL2) {
-      loadPage("../views/map-view.fxml", dashL2);
+      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
     }
   }
 }

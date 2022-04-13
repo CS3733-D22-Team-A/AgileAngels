@@ -1,21 +1,36 @@
 package edu.wpi.agileAngels.Controllers;
 
-import java.io.IOException;
+import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-// service request and map button (page with two buttons 4/6/2022)
-public class HomeController extends MainController {
+public class HomeController {
 
   @FXML Button serviceButton, mapButton;
 
+  AppController appController = AppController.getInstance();
+
+  public HomeController() throws SQLException {}
+
   @FXML
-  private void homeButton(ActionEvent event) throws IOException {
+  private void homeButton(ActionEvent event) {
     if (event.getSource() == serviceButton) {
-      loadPage("../views/serviceRequest-view.fxml", serviceButton);
+      appController.loadPage("/edu/wpi/agileAngels/views/serviceRequest-view.fxml");
     } else if (event.getSource() == mapButton) {
-      loadPage("../views/dashboard-view.fxml", mapButton);
+      appController.loadPage("/edu/wpi/agileAngels/views/dashboard-view.fxml");
     }
   }
+
+  @FXML
+  public void goHome(ActionEvent event) {}
+
+  @FXML
+  public void menuItem(ActionEvent event) {}
+
+  @FXML
+  public void profile(ActionEvent event) {}
+
+  @FXML
+  public void closeApp(ActionEvent event) {}
 }

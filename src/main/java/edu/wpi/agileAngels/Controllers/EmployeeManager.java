@@ -1,17 +1,30 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Employee;
-import edu.wpi.agileAngels.Database.Request;
-import edu.wpi.agileAngels.EmployeeDAO;
+import edu.wpi.agileAngels.Adb;
+import edu.wpi.agileAngels.Database.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EmployeeManager implements EmployeeDAO {
+  private static EmployeeManager employeeManagerDAO = null;
+  private int count;
 
   private HashMap<String, Employee> employeeHashMap;
 
-  public EmployeeManager(HashMap<String, Employee> employeeHashMap) {
+  public EmployeeManager(HashMap<String, Employee> employeeHashMap, int count) {
     this.employeeHashMap = employeeHashMap;
+    this.count = count;
+  }
+
+  public static EmployeeManager getInstance() {
+    if (employeeManagerDAO == null) {
+      HashMap<String, Employee> Employeedata = new HashMap<>();
+      employeeManagerDAO = new EmployeeManager(Employeedata, 0);
+    }
+    return employeeManagerDAO;
   }
 
   /**
@@ -56,7 +69,7 @@ public class EmployeeManager implements EmployeeDAO {
   /** Adds Employee into hash . */
   public void addEmployee(String name, String username, String password) {
     ArrayList<Request> newERequest = new ArrayList<Request>();
-    Employee newEmployee = new Employee(name, password, newERequest);
+    Employee newEmployee = new Employee(name, password);
     employeeHashMap.put(username, newEmployee);
   }
 
@@ -70,18 +83,30 @@ public class EmployeeManager implements EmployeeDAO {
     employeeHashMap.get(username).setPassword(newPW);
   }
 
-  /** Gets Employee's list of Requests. */
-  public ArrayList<Request> getRequests(String username) {
-    return employeeHashMap.get(username).getRequests();
-  }
+  public void readCSV() {
+    String line = "";
+    String splitBy = ",";
 
-  /** Adds Request to Employee's list of Requests. */
-  public void addRequest(String username, Request newReq) {
-    employeeHashMap.get(username).addRequest(newReq);
-  }
+    try {
+      BufferedReader br = new BufferedReader(new FileReader("./Employees.csv"));
+      boolean OnHeader = false;
+      line.split(splitBy);
 
-  /** Removes Request from Employee's list of Requests. */
-  public void removeRequest(String username, Request oldReq) {
-    employeeHashMap.get(username).removeRequest(oldReq);
+      while ((line = br.readLine()) != null) {
+        if (OnHeader) {
+          String[] values = line.split(splitBy);
+
+          ++this.count;
+          Employee employee = new Employee(values[0], values[1]);
+          this.employeeHashMap.put(values[0], employee);
+          Adb.addEmployee(employee);
+
+        } else {
+          OnHeader = true;
+        }
+      }
+    } catch (IOException var7) {
+      var7.printStackTrace();
+    }
   }
 }

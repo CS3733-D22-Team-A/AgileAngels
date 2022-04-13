@@ -46,12 +46,12 @@ public class MainController {
 
   ArrayList<Circle> newList = new ArrayList<Circle>();
 
-  // TODO: why mis there 2 load pages
+  // TODO: why is there 2 load pages
   public void loadPage(String view, Control item) throws IOException {
 
     if (item == back) {
     } else if (pageHistory.empty()) {
-      pageHistory.push("../views/home-view.fxml");
+      pageHistory.push("/edu/wpi/agileAngels/views/home-view.fxml");
       pageHistory.push(view);
     } else if (view != pageHistory.peek()) {
       pageHistory.push(view);
@@ -88,24 +88,24 @@ public class MainController {
   @FXML
   private void menuItem(ActionEvent event) throws IOException {
     if (event.getSource() == equipRequest) {
-      loadPage("../views/equipment-view.fxml", close);
+      loadPage("/edu/wpi/agileAngels/views/equipment-view.fxml", close);
     }
     if (event.getSource() == viewRequest) {
-      loadPage("../views/equipmentEdit-view.fxml", close);
+      loadPage("/edu/wpi/agileAngels/views/equipmentEdit-view.fxml", close);
     }
     if (event.getSource() == map) {
-      loadPage("../views/map-view.fxml", close);
+      loadPage("/edu/wpi/agileAngels/views/map-view.fxml", close);
     }
   }
 
   @FXML
   private void profile() throws IOException {
-    loadPage("../views/login.fxml", close);
+    loadPage("/edu/wpi/agileAngels/views/login.fxml", close);
   }
 
   @FXML
   private void goHome(ActionEvent event) throws IOException {
-    loadPage("../views/home-view.fxml", close);
+    loadPage("/edu/wpi/agileAngels/views/home-view.fxml", close);
   }
 
   public void enterDropdown() {

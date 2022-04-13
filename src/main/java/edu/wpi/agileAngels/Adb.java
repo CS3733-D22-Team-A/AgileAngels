@@ -1,5 +1,6 @@
 package edu.wpi.agileAngels;
 
+import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import edu.wpi.agileAngels.Database.*;
 import java.sql.*;
 
@@ -17,12 +18,13 @@ public class Adb {
    *
    * @throws SQLException
    */
-  public void initialize() {
+  public void initialize() throws SQLException {
 
     // Apache Derby and table creation
     System.out.println("-------Embedded Apache Derby Connection Testing --------");
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+      Class.forName("org.apache.derby.jdbc.ClientDriver");
     } catch (ClassNotFoundException e) {
       System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
       System.out.println("For IntelliJ do the following:");
@@ -36,26 +38,36 @@ public class Adb {
     }
 
     System.out.println("Apache Derby driver registered!");
-
-    // Create instances of all database table managers
     locationsTable = getLocationsTableInstance();
     medicalEquipmentTable = getMedicalEquipmentTableInstance();
     serviceRequestTable = getServiceRequestTableInstance();
     employeeTable = getEmployeeTableInstance();
 
-    // Create all database tables
-    locationsTable.createTable();
-    medicalEquipmentTable.createTable();
-    serviceRequestTable.createTable();
-    employeeTable.createTable();
+    initializeHelper();
+    DBconnection.switchConnection();
+    initializeHelper();
+    // After: should be embedded connection
 
     // Tries to get a connection
+
     if (DBconnection.getConnection() == null) {
       System.out.println("Connection has failed.");
       return;
     }
 
     System.out.println("Apache Derby connection established!");
+  }
+
+  private static void initializeHelper() {
+    // Create all database tables
+    locationsTable.createTable();
+    medicalEquipmentTable.createTable();
+    serviceRequestTable.createTable();
+    employeeTable.createTable();
+    EmployeeManager employeeManager = EmployeeManager.getInstance();
+    employeeManager.readCSV();
+    LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
+    locationDAO.csvRead();
   }
 
   /**
@@ -95,7 +107,6 @@ public class Adb {
     if (serviceRequestTable == null) {
 
       serviceRequestTable = new ServiceRequestTable();
-      return serviceRequestTable;
     }
     return serviceRequestTable;
   }
@@ -109,7 +120,6 @@ public class Adb {
     if (employeeTable == null) {
 
       employeeTable = new EmployeeTable();
-      return employeeTable;
     }
     return employeeTable;
   }
@@ -123,6 +133,7 @@ public class Adb {
   public static boolean addRequest(Request request) {
     return serviceRequestTable.add(request);
   }
+  //  return serviceRequestTable.add(request)
 
   /**
    * Removes a request from the request database table.

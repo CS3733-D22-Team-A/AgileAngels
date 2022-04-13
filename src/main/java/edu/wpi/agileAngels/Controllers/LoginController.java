@@ -1,26 +1,31 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Employee;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
-public class LoginController extends MainController implements Initializable {
+public class LoginController implements Initializable {
   @FXML private TextField username;
   @FXML private Label invalid;
   @FXML private Button login;
   @FXML private PasswordField passwordBox;
 
-  private HashMap<String, Employee> employeeHashMap = new HashMap<>();
-  private EmployeeManager employeeManager = new EmployeeManager(employeeHashMap);
+  AppController appController = AppController.getInstance();
+
+  private EmployeeManager employeeManager = EmployeeManager.getInstance();
+
+  public LoginController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -29,6 +34,7 @@ public class LoginController extends MainController implements Initializable {
     employeeManager.addEmployee("Nurse", "Nurse", "Nurse");
     employeeManager.addEmployee("Justin", "Justin", "Password");
     employeeManager.addEmployee("Staff", "Staff", "Staff");
+    employeeManager.addEmployee("dummy", "", "");
   }
 
   /**
@@ -42,24 +48,20 @@ public class LoginController extends MainController implements Initializable {
 
     if (employeeManager.getUsername(username.getText())
         && passwordBox.getText().equals(employeeManager.getPassword(username.getText()))) {
-      // loggedIn = true;
-      loadPage("../views/home-view.fxml", login);
+
+      appController.loadPage("/edu/wpi/agileAngels/views/home-view.fxml");
     } else {
       invalid.setTextFill(Color.rgb(220, 80, 80));
       invalid.setText("Invalid username or password:\nPlease try again");
+      passwordBox.clear();
     }
+  }
 
-    /*
-    if (username.getText().equals(passwordBox.getText()) && !username.getText().isEmpty()) {
-      loggedIn = true;
-      setUsername(username.getText());
-      loadPage("views/home-view.fxml", login);
-    } else {
-      invalid.setTextFill(Color.rgb(220, 80, 80));
-      invalid.setText("Invalid username or password:\nPlease try again");
+  @FXML
+  private void loginWithEnter(KeyEvent event) throws IOException {
+    if (event.getCode().equals(KeyCode.ENTER)) {
+      login();
     }
-
-     */
   }
 
   /**
@@ -94,6 +96,14 @@ public class LoginController extends MainController implements Initializable {
       }
     }
     return initials;
+  }
+
+  public void closeApp(ActionEvent event) {
+    appController.closeApp();
+  }
+
+  public void clearPage(ActionEvent event) throws IOException {
+    appController.clearPage();
   }
 }
 

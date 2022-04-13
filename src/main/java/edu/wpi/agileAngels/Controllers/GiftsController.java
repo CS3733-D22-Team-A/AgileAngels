@@ -6,6 +6,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Map;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class GiftsController extends MainController implements Initializable {
+public class GiftsController implements Initializable {
   @FXML
   private TextField giftSender,
       giftRecipient,
@@ -38,6 +40,7 @@ public class GiftsController extends MainController implements Initializable {
   private RequestDAOImpl GiftrequestImpl =
       RequestDAOImpl.getInstance("GiftRequest"); // instance of RequestDAOImpl to access functions
   @FXML private TableView giftTable;
+  private AppController appController = AppController.getInstance();
 
   private static ObservableList<Request> giftData =
       FXCollections.observableArrayList(); // list of requests
@@ -214,5 +217,9 @@ public class GiftsController extends MainController implements Initializable {
 
       giftTable.setItems(giftData);
     }
+  }
+
+  public void clearPage(ActionEvent actionEvent) {
+    appController.clearPage();
   }
 }
