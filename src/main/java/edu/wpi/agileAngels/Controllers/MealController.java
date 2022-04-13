@@ -13,7 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
-public class MealController extends MainController {
+public class MealController{
+  AppController appController = AppController.getInstance();
   @FXML private Button mealDropdown, pasta, steak, burger, pizza;
   @FXML private TextField roomInput, mealEmployeeText, mealStatus, restrictions;
   @FXML private Label dropdownButtonText, confirm, pastaLabel, stealLabel, burgerLabel, pizzaLabel;

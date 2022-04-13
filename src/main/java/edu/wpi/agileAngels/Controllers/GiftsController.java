@@ -14,7 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
-public class GiftsController extends MainController implements Initializable {
+public class GiftsController implements Initializable {
   @FXML
   private TextField giftSender,
       giftRecipient,
@@ -33,7 +33,7 @@ public class GiftsController extends MainController implements Initializable {
       typeColumn,
       nameColumn,
       messageColumn;
-  @FXML Button addButton, editButton, deleteButton;
+  @FXML Button addButton, editButton, deleteButton, dropdownButtonText;
   @FXML private Label giftConfirm;
   private RequestDAOImpl giftDAO;
   private AppController appController = AppController.getInstance();
@@ -44,6 +44,7 @@ public class GiftsController extends MainController implements Initializable {
   @FXML private TableView giftTable;
   private static ObservableList<Request> giftData =
       FXCollections.observableArrayList(); // list of requests
+
 
   public GiftsController() throws SQLException {}
 

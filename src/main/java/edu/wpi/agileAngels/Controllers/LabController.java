@@ -15,7 +15,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 // similar to equip controller
-public class LabController extends MainController implements Initializable {
+public class LabController implements Initializable {
+
+  AppController appController = AppController.getInstance();
 
   @FXML private TextField labTestLocation, labEmployeeText, labStatus, labDelete, labEdit;
 
