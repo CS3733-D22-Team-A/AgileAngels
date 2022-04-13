@@ -1,5 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.DBconnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -7,5 +8,7 @@ import javafx.fxml.FXML;
 public class TestController extends MainController {
 
   @FXML
-  public void switchConnection(ActionEvent event) {}
+  public void switchConnection(ActionEvent event) {
+    DBconnection.switchConnection();
+  }
 }
