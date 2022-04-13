@@ -177,10 +177,6 @@ public class EquipmentController extends MainController implements Initializable
         equipDAO.updateStatus(equip, "available");
         equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00103"));
       }
-    String placeholder = "?";
-    Request medDevice =
-        new Request(
-            "", employee, location, dropDownString, "In Progress", "describe", "something", "None");
 
       MedrequestImpl.addRequest(medDevice); // add to hashmap
 
