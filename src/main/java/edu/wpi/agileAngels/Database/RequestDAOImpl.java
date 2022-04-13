@@ -3,7 +3,6 @@ package edu.wpi.agileAngels.Database;
 import edu.wpi.agileAngels.Adb;
 import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import java.io.*;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -82,11 +81,13 @@ public class RequestDAOImpl implements RequestDAO {
 
   public void updateLocation(Request request, Location newLocation) {
     request.setLocation(newLocation);
+    Adb.updateRequest(request);
     // Adb.updateRequest(request, "Location", newLocation);
   }
 
   public void updateDescription(Request request, String description) {
     request.setDescription(description);
+    // Adb.updateRequest(request);
     Adb.updateRequest(request, "Description", description);
   }
 
@@ -220,7 +221,7 @@ public class RequestDAOImpl implements RequestDAO {
         String status = result.getString("status");
         String description = result.getString("description");
         String attribute1 = result.getString("attribute1");
-        String attribute2 = result.getString("attribute2");
+        String attribute2 = "NONE";
         String[] att =
             new String[] {
               name, employee, location, type, status, description, attribute1, attribute2

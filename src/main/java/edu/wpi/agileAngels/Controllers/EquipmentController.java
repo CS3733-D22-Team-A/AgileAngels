@@ -133,7 +133,7 @@ public class EquipmentController extends MainController implements Initializable
     String placeholder = "?";
     Request medDevice =
         new Request(
-            "", employee, location, dropDownString, statusString, "describe", "something", "");
+            "", employee, location, dropDownString, "In Progress", "describe", "something", "None");
 
     MedrequestImpl.addRequest(medDevice); // add to hashmap
 
