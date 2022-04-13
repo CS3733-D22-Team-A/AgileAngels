@@ -9,31 +9,53 @@ import java.util.HashMap;
 // Implementation of RequestDAO
 public class RequestDAOImpl implements RequestDAO {
   private String CSV_FILE_PATH;
-  private HashMap<String, Request> reqData = new HashMap();
+  private HashMap<String, Request> reqData;
   private int count;
   // private String DAOtype;
 
   private static EmployeeManager empManager = null;
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
-  private static String DAOtype = null;
-  private static RequestDAOImpl requestDAO;
+  private String DAOtype = null;
+  private static RequestDAOImpl MedrequestDAO = null;
+  private static RequestDAOImpl LabrequestDAO = null;
+  private static RequestDAOImpl SanrequestDAO = null;
+  private static RequestDAOImpl MealDAO = null;
 
-  public RequestDAOImpl(
-      String CSV_FILE_PATH, HashMap<String, Request> reqData, int count, String type)
+  public RequestDAOImpl(HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
-    this.CSV_FILE_PATH = CSV_FILE_PATH;
+    this.CSV_FILE_PATH = "./Requests.csv";
     this.reqData = reqData;
     this.count = count;
     this.DAOtype = type;
   }
 
   public static RequestDAOImpl getInstance(String type) throws SQLException {
-    HashMap data;
-    if (requestDAO == null && 0 == type.compareTo("MedRequest")) {
-      data = new HashMap();
-      requestDAO = new RequestDAOImpl("./MedData.csv", data, 1, "MedRequest");
+    HashMap<String, Request> data = new HashMap();
+    if (0 == type.compareTo("MedRequest")) {
+      if (MedrequestDAO == null) {
+        MedrequestDAO = new RequestDAOImpl(data, 1, "MedRequest");
+      }
+      return MedrequestDAO;
     }
-    return requestDAO;
+    if (0 == type.compareTo("LabRequest")) {
+      if (LabrequestDAO == null) {
+        LabrequestDAO = new RequestDAOImpl(data, 1, "LabRequest");
+      }
+      return LabrequestDAO;
+    }
+    if (0 == type.compareTo("ServiceRequest")) {
+      if (SanrequestDAO == null) {
+        SanrequestDAO = new RequestDAOImpl(data, 1, "SanRequest");
+      }
+      return SanrequestDAO;
+    }
+    if (0 == type.compareTo("MealRequest")) {
+      if (MealDAO == null) {
+        MealDAO = new RequestDAOImpl(data, 1, "MealRequest");
+      }
+      return MealDAO;
+    }
+    return null;
   }
 
   public HashMap<String, Request> getAllRequests() {
@@ -77,16 +99,21 @@ public class RequestDAOImpl implements RequestDAO {
 
   public void addRequest(Request request) {
     ++this.count;
-    String letter;
+    String letter = "";
     if (0 == DAOtype.compareTo("MedRequest")) {
       letter = "Med";
-    } else {
+    } else if (0 == DAOtype.compareTo("LabRequest")) {
       letter = "Lab";
+    } else if (0 == DAOtype.compareTo("SanRequest")) {
+      letter = "Sanitation";
+    } else if (0 == DAOtype.compareTo("MealRequest")) {
+      letter = "Meal";
     }
 
     letter = letter + Integer.toString(this.count);
     request.setName(letter);
     this.reqData.put(letter, request);
+
     Adb.addRequest(request);
   }
 
@@ -102,7 +129,7 @@ public class RequestDAOImpl implements RequestDAO {
       while ((line = br.readLine()) != null) {
         if (OnHeader) {
           String[] values = line.split(splitBy);
-          this.typeofDAO(values);
+          typeofDAO(values);
         } else {
           OnHeader = true;
         }
@@ -116,7 +143,23 @@ public class RequestDAOImpl implements RequestDAO {
   // UHHHH fix this
   private void typeofDAO(String[] values) throws SQLException {
     ++this.count;
+    if (values[0].substring(0, 3).compareTo("Med") == 0 && DAOtype.compareTo("MedRequest") == 0) {
+      makeRequest(values);
+    }
 
+    if (values[0].substring(0, 4).compareTo("Meal") == 0) {}
+
+    if (values[0].substring(0, 1).compareTo("L") == 0 && DAOtype.compareTo("LabRequest") == 0) {
+      makeRequest(values);
+    }
+
+    if (values[0].substring(0, 1).compareTo("G") == 0) {}
+
+    if (values[0].substring(0, 1).compareTo("S") == 0) {}
+    return;
+  }
+
+  private void makeRequest(String[] values) throws SQLException {
     Request request =
         new Request(
             values[0],
@@ -128,21 +171,19 @@ public class RequestDAOImpl implements RequestDAO {
             values[6],
             values[7]);
     this.reqData.put(values[0], request);
-    System.out.println("Request name " + request.getName());
-    System.out.println("Request Employee " + request.getEmployee().getName());
     Adb.addRequest(request);
   }
 
   private Employee findEmployee(String value) throws SQLException {
     Employee employee;
     HashMap<String, Employee> employeeData = EmployeeManager.getInstance().getAllEmployees();
-    System.out.println("Anything in Map? " + value);
 
     employee = employeeData.get(value);
     return employee;
   }
 
   private Location findLocation(String value) {
+    System.out.println("Location Value " + value);
     Location location;
     HashMap<String, Location> locationData = locDAO.getAllLocations();
     location = locationData.get(value);

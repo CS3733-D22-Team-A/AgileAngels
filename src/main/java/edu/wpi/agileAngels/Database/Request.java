@@ -7,7 +7,7 @@ package edu.wpi.agileAngels.Database;
 
 public class Request {
   private String name;
-  private Employee employeeName;
+  private Employee employee;
   private Location location;
   private String type;
   private int requestType;
@@ -15,10 +15,34 @@ public class Request {
   private String description;
   private String attribute1;
   private String attribute2;
+  private MedicalEquip medicalEquip;
 
+  // constructor for medical requests
   public Request(
       String Name,
-      Employee employeeName,
+      Employee employee,
+      Location location,
+      String type,
+      String status,
+      String description,
+      String attribute1,
+      String attribute2,
+      MedicalEquip medicalEquip) {
+    this.name = Name;
+    this.employee = employee;
+    this.location = location;
+    this.type = type;
+    this.status = status;
+    this.description = description;
+    this.attribute1 = attribute1;
+    this.attribute2 = attribute2;
+    this.medicalEquip = medicalEquip;
+  }
+
+  // constructor for all other request types
+  public Request(
+      String Name,
+      Employee employee,
       Location location,
       String type,
       String status,
@@ -26,7 +50,7 @@ public class Request {
       String attribute1,
       String attribute2) {
     this.name = Name;
-    this.employeeName = employeeName;
+    this.employee = employee;
     this.location = location;
     this.type = type;
     this.status = status;
@@ -52,7 +76,7 @@ public class Request {
   }
 
   public Employee getEmployee() {
-    return this.employeeName;
+    return this.employee;
   }
 
   public Location getLocation() {
@@ -63,8 +87,8 @@ public class Request {
     return this.type;
   }
 
-  public void setEmployee(Employee employeeName) {
-    this.employeeName = employeeName;
+  public void setEmployee(Employee employee) {
+    this.employee = employee;
   }
 
   public void setLocation(Location location) {
@@ -105,5 +129,13 @@ public class Request {
 
   public void setAttribute2(String attribute) {
     this.attribute2 = attribute;
+  }
+
+  public MedicalEquip getMedicalEquip() {
+    return medicalEquip;
+  }
+
+  public void setMedicalEquip(MedicalEquip medicalEquip) {
+    this.medicalEquip = medicalEquip;
   }
 }

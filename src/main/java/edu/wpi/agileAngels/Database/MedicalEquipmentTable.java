@@ -6,6 +6,12 @@ import java.sql.Statement;
 
 public class MedicalEquipmentTable implements TableI {
 
+  /**
+   * Adds a MedicalEquip to the table
+   *
+   * @param obj MedicalEquip
+   * @return True if successful, false if not
+   */
   @Override
   public boolean add(Object obj) {
     try {
@@ -13,7 +19,7 @@ public class MedicalEquipmentTable implements TableI {
         return false;
       }
       MedicalEquip medE = (MedicalEquip) obj;
-      String add = "INSERT INTO MedicalEquipment(ID,Type,Clean,Location)VALUES(?,?,?,?)";
+      String add = "INSERT INTO MedicalEquipment(ID,Type,Clean,Location,Status)VALUES(?,?,?,?,?)";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
       preparedStatement.setString(1, medE.getID());
       preparedStatement.setString(2, medE.getType());
@@ -22,7 +28,8 @@ public class MedicalEquipmentTable implements TableI {
       } else {
         preparedStatement.setString(3, "Dirty");
       }
-      preparedStatement.setString(4, medE.getLocation());
+      preparedStatement.setString(4, medE.getLocation().getLongName());
+      preparedStatement.setString(5, medE.getStatus());
       preparedStatement.execute();
       return true;
     } catch (SQLException e) {
@@ -30,6 +37,12 @@ public class MedicalEquipmentTable implements TableI {
     }
   }
 
+  /**
+   * Deletes a MedicalEquip from the table
+   *
+   * @param str MedicalEquip ID
+   * @return True if successful, false if not
+   */
   @Override
   public boolean delete(String str) {
     try {
@@ -43,6 +56,12 @@ public class MedicalEquipmentTable implements TableI {
     }
   }
 
+  /**
+   * Updates the MedicalEquip entry by ID
+   *
+   * @param obj MedicalEquip
+   * @return True if successful, false if not
+   */
   @Override
   public boolean update(Object obj) {
     try {
@@ -50,7 +69,8 @@ public class MedicalEquipmentTable implements TableI {
         return false;
       }
       MedicalEquip medE = (MedicalEquip) obj;
-      String update = "UPDATE MedicalEquipment SET Type = ?, Clean = ?, Location = ? WHERE ID = ?";
+      String update =
+          "UPDATE MedicalEquipment SET Type = ?, Clean = ?, Location = ?, Status = ? WHERE ID = ?";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(update);
       preparedStatement.setString(1, medE.getType());
       if (medE.isClean()) {
@@ -58,8 +78,9 @@ public class MedicalEquipmentTable implements TableI {
       } else {
         preparedStatement.setString(2, "Dirty");
       }
-      preparedStatement.setString(3, medE.getLocation());
-      preparedStatement.setString(4, medE.getID());
+      preparedStatement.setString(3, medE.getLocation().getLongName());
+      preparedStatement.setString(4, medE.getStatus());
+      preparedStatement.setString(5, medE.getID());
       preparedStatement.execute();
       return true;
     } catch (SQLException e) {
@@ -67,6 +88,11 @@ public class MedicalEquipmentTable implements TableI {
     }
   }
 
+  /**
+   * Creates a new MedicalEquipment table
+   *
+   * @return True if successful, false if not
+   */
   @Override
   public boolean createTable() {
     try {
@@ -76,7 +102,8 @@ public class MedicalEquipmentTable implements TableI {
               + "ID VARCHAR(50),"
               + "Type VARCHAR(50),"
               + "Clean VARCHAR(50),"
-              + "Location VARCHAR(50))";
+              + "Location VARCHAR(50),"
+              + "Status VARCHAR(50))";
       queryEquip.execute(queryEq);
       return true;
     } catch (SQLException e) {
@@ -84,6 +111,11 @@ public class MedicalEquipmentTable implements TableI {
     }
   }
 
+  /**
+   * Drops an existing MedicalEquipment table from the database
+   *
+   * @return True if successful, false if not
+   */
   @Override
   public boolean dropTable() {
     try {

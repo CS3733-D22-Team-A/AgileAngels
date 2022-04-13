@@ -21,6 +21,7 @@ public class LabController extends MainController implements Initializable {
 
   private RequestDAOImpl LabDAO = RequestDAOImpl.getInstance("LabRequest");
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
+
   private HashMap<String, Employee> employeeHashMap = new HashMap<>();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private static ObservableList<Request> labData = FXCollections.observableArrayList();
@@ -45,23 +46,22 @@ public class LabController extends MainController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-
-    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
-    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-    locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+    locDAO.getAllLocations();
+    nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
+    locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     if (labData.isEmpty()) {
-      System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
       LabDAO.csvRead();
       Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
 
-      while (var3.hasNext()) {
-        Map.Entry<String, Request> entry = (Map.Entry) var3.next();
-        Request object = (Request) entry.getValue();
-        labData.add(object);
+      for (Map.Entry<String, Request> entry : LabDAO.getAllRequests().entrySet()) {
+        Request req = entry.getValue();
+
+        labData.add(req);
       }
     }
 
@@ -82,7 +82,13 @@ public class LabController extends MainController implements Initializable {
     } else if (!labEdit.getText().isEmpty()) {
       editLabRequest(dropDown, location, employee, status);
     } else {
-      addLabRequest("available", dropDown, location, employee, status);
+      System.out.println(locDAO.getLocation(location) + " " + empDAO.getEmployee(employee));
+      addLabRequest(
+          "available",
+          dropDown,
+          locDAO.getLocation(location),
+          empDAO.getEmployee(employee),
+          status);
     }
   }
 
@@ -101,18 +107,21 @@ public class LabController extends MainController implements Initializable {
   }
 
   private void addLabRequest(
-      String available, String dropDown, String location, String employee, String status) {
+      String available, String dropDown, Location location, Employee employee, String status) {
+
     labTestConfirmation.setText(
         "Thank you! Your "
             + dropDown
             + " you requested will be delivered shortly to "
-            + location
+            + location.getLongName()
             + " by "
-            + employee
+            + employee.getName()
             + ".");
-    Location loc = locDAO.getLocation(location);
-    Employee emp = empDAO.getEmployee(employee);
-    Request request = new Request("", emp, loc, dropDown, status, "", "", "");
+
+    // String loc = location.getLongName();
+    // String emp = employee.getName();
+    Request request =
+        new Request("", employee, location, dropDown, status, "description", "available", "");
 
     LabDAO.addRequest(request);
     labData.add(request);
@@ -129,19 +138,22 @@ public class LabController extends MainController implements Initializable {
         num = i;
       }
     }
+    Employee emp = empDAO.getEmployee(employee);
+    Location loc = locDAO.getLocation(location);
+
     if (found != null) {
       if (!dropDown.isEmpty()) {
         found.setType(dropDown);
         LabDAO.updateType(found, dropDown);
       }
       if (!location.isEmpty()) {
-        Location loc = locDAO.getLocation(location);
+        // Location loc = locDAO.getLocation(location);
         found.setLocation(loc);
-        LabDAO.updateLocation(found, loc);
+        // LabDAO.updateLocation(found, loc);
       }
       if (!employee.isEmpty()) {
         found.setEmployee(empDAO.getEmployee(employee));
-        LabDAO.updateEmployeeName(found, employee); // uhhh will this work?
+        // LabDAO.updateEmployeeName(found, employee); // uhhh will this work?
       }
       if (!status.isEmpty()) {
         found.setStatus(employee);
@@ -161,17 +173,17 @@ public class LabController extends MainController implements Initializable {
         if (!dropdownButtonText.getText().isEmpty()) {
           String type = dropdownButtonText.getText();
           found.setType(type);
-          LabDAO.updateType(found, type);
+          //  LabDAO.updateType(found, type);
         }
         if (!labTestLocation.getText().isEmpty()) {
-          Location loc = locDAO.getLocation(location);
+          // Location loc = locDAO.getLocation(location);
           found.setLocation(loc);
-          LabDAO.updateLocation(found, loc);
+          // LabDAO.updateLocation(found, loc);
         }
         if (!labEmployeeText.getText().isEmpty()) {
-          // String employee = labEmployeeText.getText();
-          found.setEmployee(empDAO.getEmployee(employee));
-          LabDAO.updateEmployeeName(found, employee);
+          // Employee emp = empDAO.getEmployee(employee);
+          found.setEmployee(emp);
+          // LabDAO.updateEmployeeName(found, employee);
         }
         labData.set(num, found);
 
@@ -187,14 +199,11 @@ public class LabController extends MainController implements Initializable {
               + " by "
               + labEmployeeText.getText()
               + ".");
-      Location loc = locDAO.getLocation(location);
-      Employee emp = empDAO.getEmployee(employee);
+
       Request request = new Request("", emp, loc, dropDown, status, "", "", "");
 
       LabDAO.addRequest(request);
-
       labData.add(request);
-
       labTable.setItems(labData);
     }
   }

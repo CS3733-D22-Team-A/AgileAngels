@@ -1,19 +1,17 @@
 package edu.wpi.agileAngels.Database;
 
-import java.util.ArrayList;
-
 public class Employee {
 
   private String name;
   private String password;
 
-  public Employee(String name, String password, ArrayList<Request> requests) {
+  public Employee(String name, String password) {
     this.name = name;
     this.password = password;
   }
 
   public String getName() {
-    return this.name;
+    return name;
   }
 
   public void setName(String name) {
@@ -26,5 +24,10 @@ public class Employee {
 
   public void setPassword(String pass) {
     this.password = pass;
+  }
+
+  @Override
+  public String toString() {
+    return getName();
   }
 }

@@ -1,13 +1,10 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Adb;
-import edu.wpi.agileAngels.Database.Employee;
-import edu.wpi.agileAngels.Database.Request;
-import edu.wpi.agileAngels.EmployeeDAO;
+import edu.wpi.agileAngels.Database.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,7 +19,7 @@ public class EmployeeManager implements EmployeeDAO {
     this.count = count;
   }
 
-  public static EmployeeManager getInstance() throws SQLException {
+  public static EmployeeManager getInstance() {
     if (employeeManagerDAO == null) {
       HashMap<String, Employee> Employeedata = new HashMap<>();
       employeeManagerDAO = new EmployeeManager(Employeedata, 0);
@@ -72,7 +69,7 @@ public class EmployeeManager implements EmployeeDAO {
   /** Adds Employee into hash . */
   public void addEmployee(String name, String username, String password) {
     ArrayList<Request> newERequest = new ArrayList<Request>();
-    Employee newEmployee = new Employee(name, password, newERequest);
+    Employee newEmployee = new Employee(name, password);
     employeeHashMap.put(username, newEmployee);
   }
 
@@ -98,10 +95,9 @@ public class EmployeeManager implements EmployeeDAO {
       while ((line = br.readLine()) != null) {
         if (OnHeader) {
           String[] values = line.split(splitBy);
-          ArrayList<Request> allRequests = new ArrayList<>();
 
           ++this.count;
-          Employee employee = new Employee(values[0], values[1], allRequests);
+          Employee employee = new Employee(values[0], values[1]);
           this.employeeHashMap.put(values[0], employee);
           Adb.addEmployee(employee);
 

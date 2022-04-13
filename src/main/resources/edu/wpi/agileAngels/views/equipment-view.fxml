@@ -3,11 +3,11 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -86,39 +86,39 @@
                               </VBox>
                            </children>
                         </Pane>
-                        <Button fx:id="dropButton" mnemonicParsing="false" onAction="#enterDropdown" prefHeight="50.0" prefWidth="270.0">
-                           <graphic>
-                              <HBox alignment="CENTER_LEFT" layoutX="100.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Label fx:id="dropdownButtonText" prefHeight="26.0" prefWidth="344.0" text="Select Equipment" textFill="#868686">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                    </Label>
-                                    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
-                                       <children>
-                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../assets/icons/dropdown.png" />
-                                             </image>
-                                             <HBox.margin>
-                                                <Insets right="10.0" />
-                                             </HBox.margin>
-                                          </ImageView>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </HBox>
-                           </graphic>
-                        </Button>
+                        <MenuButton fx:id="equipmentType" layoutX="35.0" layoutY="3.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="198.0" text="Equipment Type">
+                          <items>
+                            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="XRayMachine" />
+                            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="InfusionPump" />
+                              <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Recliner" />
+                              <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Bed" />
+                          </items>
+                        </MenuButton>
                      </children>
                   </Pane>
-                  <TextField fx:id="equipLocation" prefHeight="50.0" prefWidth="270.0" promptText="Delivery Location" />
-                  <TextField fx:id="equipmentEmployeeText" prefHeight="50.0" prefWidth="270.0" promptText="Employee" />
-                  <TextField fx:id="equipmentStatus" prefHeight="50.0" prefWidth="270.0" promptText="Status" />
+            
+                  <MenuButton fx:id="equipLocation" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Delivery Location">
+                     <items>
+                     </items>
+                  </MenuButton>
+                  <MenuButton fx:id="equipmentStatus" mnemonicParsing="false" prefHeight="41.0" prefWidth="199.0" text="Status">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="notStarted" />
+                      <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="inProgress" />
+                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="complete" />
+                    </items>
+                  </MenuButton>
+                  <MenuButton fx:id="equipmentEmployeeText" mnemonicParsing="false" prefHeight="41.0" prefWidth="199.0" text="Employee">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="James" />
+                        <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="Liam" />
+                        <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="Harriot" />
+                        <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="Ariana" />
+                        <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="Carly" />
+                        <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="Tom" />
+                        <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="Alex" />
+                     </items>
+                  </MenuButton>
                   <TextField fx:id="deleteName" prefHeight="50.0" prefWidth="270.0" promptText="delete index" />
                   <TextField fx:id="editRequest" prefHeight="50.0" prefWidth="270.0" promptText="edit by index" />
                   <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0">

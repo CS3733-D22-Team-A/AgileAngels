@@ -2,14 +2,10 @@ package edu.wpi.agileAngels.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 
 // test button on the front end
-public class TestController {
+public class TestController extends MainController {
 
-  @FXML Button button;
-
-  AppController appController = AppController.getInstance();
-
-  public void doThing(ActionEvent event) {}
+  @FXML
+  public void switchConnection(ActionEvent event) {}
 }

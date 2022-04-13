@@ -16,10 +16,10 @@ import org.apache.commons.csv.CSVRecord;
 public class LocationDAOImpl implements LocationDAO {
   // List is working as a database
   private final String CSV_FILE_PATH = "./TowerLocations.csv";
-  private HashMap<String, Location> data;
+  private static HashMap<String, Location> data;
   private static LocationDAOImpl locationDAO = null;
 
-  public static LocationDAOImpl getInstance() throws SQLException {
+  public static LocationDAOImpl getInstance() {
     if (locationDAO == null) {
       HashMap<String, Location> data = new HashMap<>();
       locationDAO = new LocationDAOImpl(data);
