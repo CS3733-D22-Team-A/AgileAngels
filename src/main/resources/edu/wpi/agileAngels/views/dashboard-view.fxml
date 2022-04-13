@@ -15,6 +15,7 @@
 
 <AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.DashboardController">
    <children>
+      <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
       <Pane fx:id="sideViewPane" layoutX="508.0" layoutY="34.0" prefHeight="655.0" prefWidth="454.0" AnchorPane.bottomAnchor="30.799999999999955">
          <children>
             <ImageView fitHeight="1218.0" fitWidth="890.0" layoutX="-65.0" layoutY="-692.0" preserveRatio="true">
@@ -29,65 +30,6 @@
             <Button id="dash31" fx:id="dash3" layoutX="46.0" layoutY="237.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="43.0" prefWidth="375.0" text="3" />
             <Button id="dash41" fx:id="dash4" layoutX="111.0" layoutY="189.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="44.0" prefWidth="269.0" text="4" />
             <Button id="dash51" fx:id="dash5" layoutX="111.0" layoutY="142.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="43.0" prefWidth="268.0" text="5" />
-         </children>
-      </Pane>
-      <Button fx:id="close" mnemonicParsing="false" onAction="#closeApp" prefHeight="44.0" prefWidth="124.0" styleClass="topButton" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
-         <graphic>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
-               <children>
-                  <Label text="Close App">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-         </graphic>
-      </Button>
-      <Pane id="topBar" prefHeight="60.0" prefWidth="1611.0" styleClass="minimize" stylesheets="@style.css" AnchorPane.leftAnchor="0.0">
-         <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="770.0" spacing="30.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#goHome" styleClass="topBarIcon">
-                     <graphic>
-                        <ImageView fitHeight="59.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/smallLogo.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button id="menuButton" fx:id="equipRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="163.0" text="Equipment Request" />
-                  <Button id="menuButton" fx:id="viewRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="127.0" text="Edit Requests" />
-                  <Button id="menuButton" fx:id="map" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="68.0" text="Map" />
-               </children>
-               <padding>
-                  <Insets left="30.0" />
-               </padding>
-            </HBox>
-            <Button fx:id="userButton" layoutX="1199.0" layoutY="5.0" mnemonicParsing="false" onAction="#profile" prefHeight="36.0" prefWidth="38.0" styleClass="topBarIcon">
-               <graphic>
-                  <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/profile.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="userIDIcon" layoutX="1207.0" layoutY="9.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="34.0" text="J" visible="false" />
-            <Button graphicTextGap="0.0" layoutX="1020.0" layoutY="-5.0" mnemonicParsing="false" onAction="#goHome">
-               <graphic>
-                  <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/logo.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <styleClass>
-                  <String fx:value="image" />
-                  <String fx:value="topBarIcon" />
-               </styleClass>
-            </Button>
          </children>
       </Pane>
       <StackPane fx:id="stackDash" layoutX="23.0" layoutY="140.0" prefHeight="549.0" prefWidth="615.0">

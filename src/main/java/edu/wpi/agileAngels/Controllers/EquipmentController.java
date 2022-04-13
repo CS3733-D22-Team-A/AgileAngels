@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -19,7 +20,7 @@ import javafx.scene.layout.Pane;
 
 // TODO make sure controllers work without connections :)
 // TODO create helper methods to avoid confusion
-public class EquipmentController extends MainController implements Initializable {
+public class EquipmentController implements Initializable {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
   @FXML
@@ -36,6 +37,7 @@ public class EquipmentController extends MainController implements Initializable
   private static ObservableList<Request> medData =
       FXCollections.observableArrayList(); // list of requests
 
+  AppController appController = AppController.getInstance();
   @FXML
   private TableColumn nameColumn,
       employeeColumn,
@@ -196,5 +198,9 @@ public class EquipmentController extends MainController implements Initializable
 
       equipmentTable.setItems(medData);
     }
+  }
+
+  public void menuItemSelected(ActionEvent event) {
+    // chanhge this later
   }
 }

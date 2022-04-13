@@ -13,7 +13,7 @@ import javafx.scene.layout.Pane;
 
 public class MenuController implements Initializable {
 
-  @FXML Button back, close, equipRequest, viewRequest, map;
+  @FXML Button back, close, equipRequest, viewRequest, map, homeImage, userButton;
   @FXML Pane menuPane;
 
   AppController appController = AppController.getInstance();
@@ -25,8 +25,10 @@ public class MenuController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     close.setViewOrder(-1000);
-    back.setViewOrder(-1000);
-    menuPane.setViewOrder(-1000);
+    back.setViewOrder(-1001);
+    menuPane.setViewOrder(-1002);
+    homeImage.setViewOrder(-1003);
+    userButton.setViewOrder(-1004);
   }
 
   @FXML
@@ -42,13 +44,6 @@ public class MenuController implements Initializable {
   }
 
   @FXML
-  public void clearPage() throws IOException {
-    //    loadPage(pageHistory.peek(), clear);
-  }
-
-  // three bars at the top of the page
-  // TODO rework the menu bar
-  @FXML
   private void menuItem(ActionEvent event) throws IOException {
     if (event.getSource() == equipRequest) {
       appController.loadPage("../views/equipment-view.fxml");
@@ -61,7 +56,9 @@ public class MenuController implements Initializable {
     }
   }
 
-  public void goHome(ActionEvent event) {}
-
   public void profile(ActionEvent event) {}
+
+  public void goHome(ActionEvent event) {
+    appController.loadPage("../views/home-view.fxml");
+  }
 }

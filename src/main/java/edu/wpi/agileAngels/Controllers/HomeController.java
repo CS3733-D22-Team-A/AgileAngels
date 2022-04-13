@@ -22,11 +22,15 @@ public class HomeController {
     }
   }
 
+  @FXML
   public void goHome(ActionEvent event) {}
 
+  @FXML
   public void menuItem(ActionEvent event) {}
 
+  @FXML
   public void profile(ActionEvent event) {}
 
+  @FXML
   public void closeApp(ActionEvent event) {}
 }
