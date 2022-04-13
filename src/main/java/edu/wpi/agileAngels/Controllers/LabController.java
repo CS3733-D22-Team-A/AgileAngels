@@ -3,10 +3,7 @@ package edu.wpi.agileAngels.Controllers;
 import edu.wpi.agileAngels.Database.*;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,14 +14,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 // similar to equip controller
 public class LabController extends MainController implements Initializable {
 
-  @FXML private TextField labTestLocation, labEmployeeText, labStatus, labDelete, labEdit;
+  @FXML
+  private TextField labTestLocation, labEmployeeText, labStatus, labDelete, labEdit, labDescription;
 
   private RequestDAOImpl LabDAO = RequestDAOImpl.getInstance("LabRequest");
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
-
   private HashMap<String, Employee> employeeHashMap = new HashMap<>();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private static ObservableList<Request> labData = FXCollections.observableArrayList();
+  private int statusNotStarted, statusInProgress, statusComplete;
+
   @FXML private TableView labTable;
   @FXML
   private TableColumn nameColumn,
@@ -37,6 +36,11 @@ public class LabController extends MainController implements Initializable {
   @FXML
   private Label labTestConfirmation,
       dropdownButtonText,
+      completedLabel,
+      inProgressLabel,
+      notStartedNumber,
+      inProgressNumber,
+      completedNumber,
       bloodLabel,
       urineLabel,
       tumorLabel,
@@ -44,8 +48,22 @@ public class LabController extends MainController implements Initializable {
 
   public LabController() throws SQLException {}
 
+  /**
+   * Will check if the table is empty and if so will populate it.Otherwise, just calls upon the
+   * database for the data.
+   *
+   * @param location
+   * @param resources
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    statusNotStarted = 0;
+    statusInProgress = 0;
+    statusComplete = 0;
+    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
+    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+    locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
     locDAO.getAllLocations();
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
@@ -55,6 +73,7 @@ public class LabController extends MainController implements Initializable {
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     if (labData.isEmpty()) {
+      System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
       LabDAO.csvRead();
       Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
 
@@ -62,10 +81,67 @@ public class LabController extends MainController implements Initializable {
         Request req = entry.getValue();
 
         labData.add(req);
+        if (entry.getValue().getStatus().equals("inProgress")) {
+          statusInProgress++;
+        }
+        if (entry.getValue().getStatus().equals("notStarted")
+            || entry.getValue().getStatus().equals("Not Started")) {
+          statusNotStarted++;
+        }
+        if (entry.getValue().getStatus().equals("Complete")
+            || entry.getValue().getStatus().equals("complete")) {
+          statusComplete++;
+        }
+        System.out.println(entry.getValue().getStatus());
       }
+      // System.out.println("I'm gay");
+      setDashboard(statusNotStarted, statusInProgress, statusComplete);
     }
-
+    if (notStartedNumber.getText().equals("-")
+        && inProgressNumber.getText().equals("-")
+        && completedNumber.getText().equals("-")) {
+      System.out.println("THE NUMBERS ARE EMPTY, RELEASE THE HOUNDS");
+      LabDAO.csvRead();
+      Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
+      while (var3.hasNext()) {
+        Map.Entry<String, Request> entry = (Map.Entry) var3.next();
+        Request object = (Request) entry.getValue();
+        if (entry.getValue().getStatus().equals("Progress")) {
+          statusInProgress++;
+        }
+        if (entry.getValue().getStatus().equals("NotStarted")) {
+          statusNotStarted++;
+        }
+        if (entry.getValue().getStatus().equals("Complete")
+            || entry.getValue().getStatus().equals("complete")) {
+          statusComplete++;
+        }
+        System.out.println(entry.getValue().getStatus());
+      }
+      // System.out.println("I'm gay");
+      setDashboard(statusNotStarted, statusInProgress, statusComplete);
+    }
     labTable.setItems(labData);
+  }
+
+  /**
+   * Will set the dashboard's numbers to the certain types of status's.
+   *
+   * @param notStarted
+   * @param inProgress
+   * @param complete
+   */
+  @FXML
+  private void setDashboard(int notStarted, int inProgress, int complete) {
+    String notStart = Integer.toString(notStarted);
+    String inProg = Integer.toString(inProgress);
+    String comp = Integer.toString(complete);
+    // Should put the numbers on the not started area on the dashboard.
+    notStartedNumber.setText(notStart); // perhaps string value?
+    // Should put the numbers on the in progress area of dash.
+    inProgressNumber.setText(inProg);
+    // Should put the numbers of the completed statuses into dash.
+    completedNumber.setText(comp);
   }
 
   @FXML
@@ -77,11 +153,12 @@ public class LabController extends MainController implements Initializable {
     String status = labStatus.getText();
     String delete = labDelete.getText();
     String edit = labEdit.getText();
+    String description = labDescription.getText();
     //  boolean logic = (dropDown.isEmpty() || location.isEmpty() || employee.isEmpty());
     if (!delete.isEmpty()) {
       deleteLabRequest(delete);
     } else if (!labEdit.getText().isEmpty()) {
-      editLabRequest(dropDown, location, employee, status);
+      editLabRequest(dropDown, location, employee, status, description);
     } else {
       System.out.println(locDAO.getLocation(location) + " " + empDAO.getEmployee(employee));
       addLabRequest(
@@ -89,10 +166,16 @@ public class LabController extends MainController implements Initializable {
           dropDown,
           locDAO.getLocation(location),
           empDAO.getEmployee(employee),
-          status);
+          status,
+          description);
     }
   }
 
+  /**
+   * Removes requests off the UI and the database.
+   *
+   * @param deleteString
+   */
   private void deleteLabRequest(String deleteString) {
     if (!deleteString.isEmpty()) {
       System.out.println("DELETE REQUEST");
@@ -104,12 +187,38 @@ public class LabController extends MainController implements Initializable {
         }
       }
       labTable.setItems(labData);
+
+      String status = LabDAO.getAllRequests().get(deleteString).getStatus();
+      if (status.equals("inProgress")) {
+        statusInProgress--;
+      }
+      if (status.equals("complete")) {
+        statusComplete--;
+      }
+      if (status.equals("notStarted")) {
+        statusNotStarted--;
+      }
+      setDashboard(statusNotStarted, statusInProgress, statusComplete);
     }
   }
 
+  /**
+   * Add method for labrequest, will add information onto the UI and database within here and set
+   * the confirmation text to display for the user.
+   *
+   * @param available
+   * @param dropDown
+   * @param location
+   * @param employee
+   * @param status
+   */
   private void addLabRequest(
-      String available, String dropDown, Location location, Employee employee, String status) {
-
+      String available,
+      String dropDown,
+      Location location,
+      Employee employee,
+      String status,
+      String description) {
     labTestConfirmation.setText(
         "Thank you! Your "
             + dropDown
@@ -119,17 +228,26 @@ public class LabController extends MainController implements Initializable {
             + employee.getName()
             + ".");
 
-    // String loc = location.getLongName();
-    // String emp = employee.getName();
     Request request =
-        new Request("", employee, location, dropDown, status, "description", "available", "");
+        new Request("", employee, location, dropDown, status, description, "available", "");
 
     LabDAO.addRequest(request);
     labData.add(request);
     labTable.setItems(labData);
+    if (status.equals("inProgress")) {
+      statusInProgress++;
+    }
+    if (status.equals("complete")) {
+      statusComplete++;
+    }
+    if (status.equals("notStarted")) {
+      statusNotStarted++;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
   }
 
-  private void editLabRequest(String dropDown, String location, String employee, String status) {
+  private void editLabRequest(
+      String dropDown, String location, String employee, String status, String description) {
     Request found = null;
     int num = 0;
     for (int i = 0; i < labData.size(); i++) {
@@ -160,6 +278,11 @@ public class LabController extends MainController implements Initializable {
         found.setStatus(employee);
         // LabDAO.updateStatus(found, status);
       }
+
+      if (!description.isEmpty()) { // New description field.
+        found.setDescription(description);
+        LabDAO.updateDescription(found, description);
+      }
       labData.set(num, found);
       // Request found = null;
       // int num = 0;
@@ -186,6 +309,10 @@ public class LabController extends MainController implements Initializable {
           found.setEmployee(emp);
           LabDAO.updateEmployeeName(found, employee);
         }
+        if (!labDescription.getText().isEmpty()) { // New Description for whatever this part is.
+          found.setDescription(description);
+          found.setDescription(description); // I am unsure if this is correct.
+        }
         labData.set(num, found);
 
         labTable.setItems(labData);
@@ -204,7 +331,9 @@ public class LabController extends MainController implements Initializable {
       Request request = new Request("", emp, loc, dropDown, status, "", "", "");
 
       LabDAO.addRequest(request);
+
       labData.add(request);
+
       labTable.setItems(labData);
     }
   }
