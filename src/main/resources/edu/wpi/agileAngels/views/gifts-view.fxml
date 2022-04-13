@@ -24,7 +24,7 @@
          </font></Label>
       <HBox layoutX="65.0" layoutY="201.0" prefHeight="320.0" prefWidth="590.0" spacing="50.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="550.0" prefWidth="270.0" spacing="40.0">
+            <VBox alignment="CENTER" prefHeight="346.0" prefWidth="274.0" spacing="40.0">
                <children>
                   <Pane fx:id="dropButtonPane" prefHeight="50.0" prefWidth="270.0">
                      <children>
@@ -116,6 +116,7 @@
                   </Pane>
                   <TextField fx:id="giftRecipient" prefHeight="50.0" prefWidth="270.0" promptText="To:" />
                   <TextField fx:id="giftSender" prefHeight="50.0" prefWidth="128.0" promptText="From:" />
+                  <TextField fx:id="giftLocation" prefHeight="50.0" prefWidth="128.0" promptText="Location" />
                   <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0">
                      <children>
                         <Button fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">

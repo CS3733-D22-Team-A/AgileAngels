@@ -47,14 +47,14 @@ public class GiftsController extends MainController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    senderColumn.setCellValueFactory(new PropertyValueFactory<>("sender"));
-    recipientColumn.setCellValueFactory(new PropertyValueFactory<>("recipent"));
+    senderColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
+    recipientColumn.setCellValueFactory(new PropertyValueFactory<>("attribute2"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    messageColumn.setCellValueFactory(new PropertyValueFactory<>("message"));
+    messageColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
 
     if (giftData.isEmpty()) {
       System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
@@ -77,18 +77,24 @@ public class GiftsController extends MainController implements Initializable {
     String sender = giftSender.getText();
     String recipient = giftRecipient.getText();
     String employee = giftEmployeeText.getText();
-    // String location = giftLocation.getText();
+    String location = giftLocation.getText();
     String message = giftMessage.getText();
-    // String delete = deleteName.getText();
-    // String edit = editRequest.getText();
+    String delete = deleteName.getText();
+    String edit = editRequest.getText();
     String status = giftStatus.getText();
     // attributes arent all filled
-    if (giftSender.getText().isEmpty()
+    if (!delete.isEmpty()) {
+      deleteGiftRequest(delete);
+      // editing a request
+    } else if (!edit.isEmpty()) {
+      editGiftRequest(edit, dropDown, sender, recipient, employee, location, message, status);
+    } else if (giftSender.getText().isEmpty()
         || employee.isEmpty()
         || dropDown.isEmpty()
         || recipient.isEmpty()) {
       giftConfirm.setText("Please fill out all of the required fields");
     } else {
+      addGiftRequest(dropDown, sender, recipient, employee, location, message, status);
       giftConfirm.setText(
           "Thank you, "
               + giftSender.getText()
@@ -100,7 +106,6 @@ public class GiftsController extends MainController implements Initializable {
               + giftRecipient.getText()
               + " soon. ");
     }
-    addGiftRequest(dropDown, sender, recipient, employee, "location", message, status);
   }
 
   private void addGiftRequest(
@@ -153,8 +158,11 @@ public class GiftsController extends MainController implements Initializable {
   private void editGiftRequest(
       String editString,
       String dropDownString,
-      String locationString,
+      String senderString,
+      String recipientString,
       String employeeString,
+      String locationString,
+      String messageString,
       String statusString) {
     System.out.println("EDIT REQUEST");
     Request found = null;
@@ -186,6 +194,21 @@ public class GiftsController extends MainController implements Initializable {
         // String employee = emp.getText();
         found.setStatus(statusString);
         GiftrequestImpl.updateStatus(found, statusString);
+      }
+      if (!senderString.isEmpty()) {
+        // String sender = emp.getText();
+        found.setAttribute1(senderString);
+        GiftrequestImpl.updateStatus(found, senderString);
+      }
+      if (!recipientString.isEmpty()) {
+        // String recipent = emp.getText();
+        found.setAttribute2(recipientString);
+        GiftrequestImpl.updateStatus(found, recipientString);
+      }
+      if (!messageString.isEmpty()) {
+        // String description = emp.getText();
+        found.setDescription(messageString);
+        GiftrequestImpl.updateStatus(found, messageString);
       }
       giftData.set(num, found);
 

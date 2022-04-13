@@ -1,2 +1,2 @@
-name,sender,recipient,employee,location,status,type,message
-Gift1,Joe,Tim,James,Boston,open,flowers,hello
+name,employee,location,type,status,message,sender,recipent
+Gift1,WorkerJoe,4thFloor,Flowers,delivered,happy birthday!,Mom,Tim
