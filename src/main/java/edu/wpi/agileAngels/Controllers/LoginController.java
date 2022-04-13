@@ -49,7 +49,7 @@ public class LoginController implements Initializable {
     if (employeeManager.getUsername(username.getText())
         && passwordBox.getText().equals(employeeManager.getPassword(username.getText()))) {
 
-      appController.loadPage("../views/home-view.fxml");
+      appController.loadPage("/edu/wpi/agileAngels/views/home-view.fxml");
     } else {
       invalid.setTextFill(Color.rgb(220, 80, 80));
       invalid.setText("Invalid username or password:\nPlease try again");

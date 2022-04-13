@@ -123,8 +123,6 @@ public class EquipmentController implements Initializable {
     } else {
       addEquipRequest(dropDownString, locationString, employeeString, statusString);
     }
-
-    MedrequestImpl.outputCSVFile();
   }
 
   private void addEquipRequest(

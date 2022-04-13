@@ -30,7 +30,7 @@ public class AppController {
 
   public void init(Stage primaryStage) {
     this.primaryStage = primaryStage;
-    loadPage("../views/login.fxml");
+    loadPage("/edu/wpi/agileAngels/views/login.fxml");
   }
 
   public void closeApp() {
@@ -75,11 +75,11 @@ public class AppController {
   }
 
   private void profile() throws IOException {
-    loadPage("../views/login.fxml");
+    loadPage("/edu/wpi/agileAngels/views/login.fxml");
   }
 
   private void goHome(ActionEvent event) {
-    loadPage("../views/home-view.fxml");
+    loadPage("/edu/wpi/agileAngels/views/home-view.fxml");
   }
 
   public void setCurrentMenuController(MenuController menuController) {

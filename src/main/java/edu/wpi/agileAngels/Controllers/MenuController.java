@@ -46,19 +46,19 @@ public class MenuController implements Initializable {
   @FXML
   private void menuItem(ActionEvent event) throws IOException {
     if (event.getSource() == equipRequest) {
-      appController.loadPage("../views/equipment-view.fxml");
+      appController.loadPage("/edu/wpi/agileAngels/views/equipment-view.fxml");
     }
     if (event.getSource() == viewRequest) {
-      appController.loadPage("../views/equipmentEdit-view.fxml");
+      appController.loadPage("/edu/wpi/agileAngels/views/equipmentEdit-view.fxml");
     }
     if (event.getSource() == map) {
-      appController.loadPage("../views/map-view.fxml");
+      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
     }
   }
 
   public void profile(ActionEvent event) {}
 
   public void goHome(ActionEvent event) {
-    appController.loadPage("../views/home-view.fxml");
+    appController.loadPage("/edu/wpi/agileAngels/views/home-view.fxml");
   }
 }

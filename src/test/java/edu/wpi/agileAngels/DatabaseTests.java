@@ -17,7 +17,7 @@ public class DatabaseTests {
     testEmployeesTable();
     testLocationsTable();
     testServiceRequestsTable();
-    DBconnection.shutdown();
+    // DBconnection.shutdown();
   }
 
   public static void testMedicalEquipmentTable() {
