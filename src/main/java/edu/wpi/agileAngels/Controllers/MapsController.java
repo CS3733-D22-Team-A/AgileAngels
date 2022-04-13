@@ -62,8 +62,6 @@ public class MapsController implements Initializable {
 
   AppController appController = AppController.getInstance();
 
-  double scale = 1;
-
   public MapsController() throws SQLException {}
 
   double scale = 1;
