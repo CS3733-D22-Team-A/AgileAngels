@@ -1,16 +1,16 @@
 package edu.wpi.agileAngels;
 
+import edu.wpi.agileAngels.Controllers.AppController;
 import java.io.IOException;
 import java.sql.SQLException;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Aapp extends Application {
+
+  AppController appController = AppController.getInstance();
 
   @Override
   public void init() {
@@ -24,19 +24,7 @@ public class Aapp extends Application {
   public void start(Stage primaryStage) throws IOException, SQLException {
     adb = new Adb(); // ADB class
     adb.initialize();
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("views/map-view.fxml"));
-    Parent root = loader.load();
-    Scene defaultScene = new Scene(root);
-    //    Pane pane = new Pane();
-    //    pane.getChildren().add(build())
-
-    defaultScene
-        .getStylesheets()
-        .add(
-            "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
-    primaryStage.setScene(defaultScene);
-    primaryStage.setResizable(false);
-    primaryStage.show();
+    appController.init(primaryStage);
   }
 
   @Override
