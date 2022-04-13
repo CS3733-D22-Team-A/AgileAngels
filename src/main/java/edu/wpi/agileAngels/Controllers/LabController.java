@@ -23,6 +23,7 @@ public class LabController extends MainController implements Initializable {
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private static ObservableList<Request> labData = FXCollections.observableArrayList();
   private int statusNotStarted, statusInProgress, statusComplete;
+
   @FXML private TableView labTable;
   @FXML
   private TableColumn nameColumn,
@@ -80,10 +81,11 @@ public class LabController extends MainController implements Initializable {
         Request req = entry.getValue();
 
         labData.add(req);
-        if (entry.getValue().getStatus().equals("Progress")) {
+        if (entry.getValue().getStatus().equals("inProgress")) {
           statusInProgress++;
         }
-        if (entry.getValue().getStatus().equals("NotStarted")) {
+        if (entry.getValue().getStatus().equals("notStarted")
+            || entry.getValue().getStatus().equals("Not Started")) {
           statusNotStarted++;
         }
         if (entry.getValue().getStatus().equals("Complete")
@@ -156,7 +158,7 @@ public class LabController extends MainController implements Initializable {
     if (!delete.isEmpty()) {
       deleteLabRequest(delete);
     } else if (!labEdit.getText().isEmpty()) {
-      editLabRequest(dropDown, location, employee, status);
+      editLabRequest(dropDown, location, employee, status, description);
     } else {
       System.out.println(locDAO.getLocation(location) + " " + empDAO.getEmployee(employee));
       addLabRequest(
@@ -164,7 +166,8 @@ public class LabController extends MainController implements Initializable {
           dropDown,
           locDAO.getLocation(location),
           empDAO.getEmployee(employee),
-          status, description);
+          status,
+          description);
     }
   }
 
@@ -184,6 +187,18 @@ public class LabController extends MainController implements Initializable {
         }
       }
       labTable.setItems(labData);
+
+      String status = LabDAO.getAllRequests().get(deleteString).getStatus();
+      if (status.equals("inProgress")) {
+        statusInProgress--;
+      }
+      if (status.equals("complete")) {
+        statusComplete--;
+      }
+      if (status.equals("notStarted")) {
+        statusNotStarted--;
+      }
+      setDashboard(statusNotStarted, statusInProgress, statusComplete);
     }
   }
 
@@ -212,21 +227,27 @@ public class LabController extends MainController implements Initializable {
             + " by "
             + employee.getName()
             + ".");
-    Location loc = locDAO.getLocation(location);
-    Employee emp = empDAO.getEmployee(employee);
-    Request request = new Request("", emp, loc, dropDown, status, description, "", "");
 
-    // String loc = location.getLongName();
-    // String emp = employee.getName();
     Request request =
-        new Request("", employee, location, dropDown, status, "description", "available", "");
+        new Request("", employee, location, dropDown, status, description, "available", "");
 
     LabDAO.addRequest(request);
     labData.add(request);
     labTable.setItems(labData);
+    if (status.equals("inProgress")) {
+      statusInProgress++;
+    }
+    if (status.equals("complete")) {
+      statusComplete++;
+    }
+    if (status.equals("notStarted")) {
+      statusNotStarted++;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
   }
 
-  private void editLabRequest(String dropDown, String location, String employee, String status) {
+  private void editLabRequest(
+      String dropDown, String location, String employee, String status, String description) {
     Request found = null;
     int num = 0;
     for (int i = 0; i < labData.size(); i++) {
@@ -257,6 +278,7 @@ public class LabController extends MainController implements Initializable {
         found.setStatus(employee);
         // LabDAO.updateStatus(found, status);
       }
+
       if (!description.isEmpty()) { // New description field.
         found.setDescription(description);
         LabDAO.updateDescription(found, description);
