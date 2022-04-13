@@ -307,8 +307,9 @@ public class MapsController extends MainController implements Initializable {
 
   @FXML
   public void cleanEquip() {
-    currentEquipmentNode.makeClean();
+    System.out.println(currentEquipmentNode.getLocation().getLongName());
     equipmentNodeManager.makeClean(currentEquipmentNode);
+    System.out.println(currentEquipmentNode.getLocation().getLongName());
     currentEquipmentNode.resetLocation();
     populateEquipmentNodeData(currentEquipmentNode);
   }
