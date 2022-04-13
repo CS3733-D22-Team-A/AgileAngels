@@ -219,17 +219,17 @@
                         <Insets left="15.0" />
                      </GridPane.margin>
                   </Rectangle>
-                  <Label fx:id="notStartedNumber" text="123" GridPane.columnIndex="1">
+                  <Label fx:id="notStartedNumber" text="-" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets bottom="25.0" left="40.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="inProgressNumber" text="456" GridPane.columnIndex="2">
+                  <Label fx:id="inProgressNumber" text="-" GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets bottom="25.0" left="42.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="completedNumber" text="789" GridPane.columnIndex="3">
+                  <Label fx:id="completedNumber" text="-" GridPane.columnIndex="3">
                      <GridPane.margin>
                         <Insets bottom="25.0" left="47.0" />
                      </GridPane.margin>

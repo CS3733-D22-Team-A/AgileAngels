@@ -76,18 +76,41 @@ public class LabController extends MainController implements Initializable {
         Map.Entry<String, Request> entry = (Map.Entry) var3.next();
         Request object = (Request) entry.getValue();
         labData.add(object);
-        if (entry.getValue().getStatus().equals("inProgress")) {
-          System.out.println("Cock hungy");
+        if (entry.getValue().getStatus().equals("Progress")) {
           statusInProgress++;
         }
-        if (entry.getValue().getStatus().equals("notStarted")) {
-          System.out.println("Pussy boy");
+        if (entry.getValue().getStatus().equals("NotStarted")) {
           statusNotStarted++;
         }
-        if (entry.getValue().getStatus().equals("completed")) {
-          System.out.println("VORN");
+        if (entry.getValue().getStatus().equals("Complete")
+            || entry.getValue().getStatus().equals("complete")) {
           statusComplete++;
         }
+        System.out.println(entry.getValue().getStatus());
+      }
+      // System.out.println("I'm gay");
+      setDashboard(statusNotStarted, statusInProgress, statusComplete);
+    }
+    if (notStartedNumber.getText().equals("-")
+        && inProgressNumber.getText().equals("-")
+        && completedNumber.getText().equals("-")) {
+      System.out.println("THE NUMBERS ARE EMPTY, RELEASE THE HOUNDS");
+      LabDAO.csvRead();
+      Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
+      while (var3.hasNext()) {
+        Map.Entry<String, Request> entry = (Map.Entry) var3.next();
+        Request object = (Request) entry.getValue();
+        if (entry.getValue().getStatus().equals("Progress")) {
+          statusInProgress++;
+        }
+        if (entry.getValue().getStatus().equals("NotStarted")) {
+          statusNotStarted++;
+        }
+        if (entry.getValue().getStatus().equals("Complete")
+            || entry.getValue().getStatus().equals("complete")) {
+          statusComplete++;
+        }
+        System.out.println(entry.getValue().getStatus());
       }
       // System.out.println("I'm gay");
       setDashboard(statusNotStarted, statusInProgress, statusComplete);
