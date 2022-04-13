@@ -1,7 +1,7 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Request;
-import edu.wpi.agileAngels.Database.RequestDAOImpl;
+import edu.wpi.agileAngels.Database.*;
+
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Iterator;
@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -35,10 +36,22 @@ public class GiftsController implements Initializable {
       typeColumn,
       nameColumn,
       messageColumn;
+  @FXML MenuButton giftType;
+  @FXML MenuItem baloons, flowers, card;
+
   @FXML Button addButton, editButton, deleteButton;
   @FXML private Label giftConfirm;
   private RequestDAOImpl GiftrequestImpl =
       RequestDAOImpl.getInstance("GiftRequest"); // instance of RequestDAOImpl to access functions
+
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
+  private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
+
+  private EmployeeManager employeeDAO = EmployeeManager.getInstance();
+  private HashMap<String, Employee> employeesHash = employeeDAO.getAllEmployees();
+
+
+
   @FXML private TableView giftTable;
   private AppController appController = AppController.getInstance();
 
@@ -73,10 +86,11 @@ public class GiftsController implements Initializable {
     giftTable.setItems(giftData);
   }
 
+
   @FXML
   /** Submits fields to a Java gifts Request Object */
   private void submitGift() {
-    String dropDown = dropdownButtonText.getText();
+    String dropDown = giftType.getText();
     String sender = giftSender.getText();
     String recipient = giftRecipient.getText();
     String employee = giftEmployeeText.getText();
@@ -104,7 +118,7 @@ public class GiftsController implements Initializable {
               + ", "
               + giftEmployeeText.getText()
               + " will deliver "
-              + dropdownButtonText.getText()
+              + giftType.getText()
               + " to "
               + giftRecipient.getText()
               + " soon. ");
@@ -135,7 +149,7 @@ public class GiftsController implements Initializable {
 
     String placeholder = "?";
     Request gift =
-        new Request(placeholder, employee, location, dropDown, status, message, sender, recipient);
+        new Request(placeholder, employeesHash.get(employee), locationsHash.get(location), dropDown, status, message, sender, recipient);
     // todo is this right?
     GiftrequestImpl.addRequest(gift); // add to hashmap
     giftData.add(gift); // add to the UI
@@ -185,12 +199,12 @@ public class GiftsController implements Initializable {
       }
       if (!locationString.isEmpty()) {
         // String location = equipLocation.getText();
-        found.setLocation(locationString);
-        GiftrequestImpl.updateLocation(found, locationString);
+        found.setLocation(locationsHash.get(locationString));
+        GiftrequestImpl.updateLocation(found, locationsHash.get(locationString));
       }
       if (!employeeString.isEmpty()) {
         // String employee = emp.getText();
-        found.setEmployee(employeeString);
+        found.setEmployee(employeesHash.get(employeeString));
         GiftrequestImpl.updateEmployeeName(found, employeeString);
       }
       if (!statusString.isEmpty()) {
@@ -219,7 +233,13 @@ public class GiftsController implements Initializable {
     }
   }
 
-  public void clearPage(ActionEvent actionEvent) {
+  public void clearPage(ActionEvent event) {
     appController.clearPage();
   }
+
+  public void giftType(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    giftType.setText(button.getText());
+    }
+
 }

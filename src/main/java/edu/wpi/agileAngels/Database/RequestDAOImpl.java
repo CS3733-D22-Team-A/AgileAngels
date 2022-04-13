@@ -18,7 +18,6 @@ public class RequestDAOImpl implements RequestDAO {
 
   private static EmployeeManager empManager = null;
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
-  private String DAOtype = null;
   private static RequestDAOImpl MedrequestDAO = null;
   private static RequestDAOImpl LabrequestDAO = null;
   private static RequestDAOImpl SanrequestDAO = null;
