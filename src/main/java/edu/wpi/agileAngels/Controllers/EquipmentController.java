@@ -263,7 +263,7 @@ public class EquipmentController extends MainController implements Initializable
           equipDAO.updateMedicalCleanliness(found.getMedicalEquip(), false);
           equipDAO.updateStatus(found.getMedicalEquip(), "available");
           equipDAO.updateEquipmentLocation(
-                  found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+              found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
         }
       }
       // System.out.println(num);
