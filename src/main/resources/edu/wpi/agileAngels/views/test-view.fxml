@@ -10,9 +10,9 @@
     <fx:include source="menu-bar.fxml" />
       <HBox alignment="CENTER" layoutX="-5.0" layoutY="281.0" prefHeight="100.0" prefWidth="1284.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#newCircle" prefHeight="100.0" prefWidth="337.0" text="New Circle" />
+            <Button mnemonicParsing="false" onAction="#switchConnection" prefHeight="100.0" prefWidth="337.0" text="New Circle" />
          </children>
       </HBox>
-      <Circle layoutX="185.0" layoutY="169.0" radius="19.0" />
+
     </children>
 </AnchorPane>
