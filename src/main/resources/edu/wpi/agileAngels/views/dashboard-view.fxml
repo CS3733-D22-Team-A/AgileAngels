@@ -169,23 +169,5 @@
             </Pane>
          </children>
       </StackPane>
-      <Button fx:id="back" mnemonicParsing="false" onAction="#back" prefHeight="44.0" prefWidth="104.0" styleClass="topButton" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
-         <graphic>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/back.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="Back">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-         </graphic>
-      </Button>
    </children>
 </AnchorPane>
