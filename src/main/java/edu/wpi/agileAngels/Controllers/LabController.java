@@ -40,7 +40,7 @@ public class LabController extends MainController implements Initializable {
       inProgressLabel,
       notStartedNumber,
       inProgressNumber,
-      completedNumbers,
+      completedNumber,
       bloodLabel,
       urineLabel,
       tumorLabel,
@@ -57,7 +57,9 @@ public class LabController extends MainController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-
+    statusNotStarted = 0;
+    statusInProgress = 0;
+    statusComplete = 0;
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -74,21 +76,23 @@ public class LabController extends MainController implements Initializable {
         Map.Entry<String, Request> entry = (Map.Entry) var3.next();
         Request object = (Request) entry.getValue();
         labData.add(object);
-        /*
-               if (entry.getValue().getStatus().equals("inProgress")) {
-                 statusInProgress++;
-               }
-               if (entry.getValue().getStatus().equals("notStarted")) {
-                 statusNotStarted++;
-               }
-               if (entry.getValue().getStatus().equals("completed")) {
-                 statusComplete++;
-               }
-               setDashboard(statusNotStarted, statusInProgress, statusComplete);
-
-        */
+        if (entry.getValue().getStatus().equals("inProgress")) {
+          System.out.println("Cock hungy");
+          statusInProgress++;
+        }
+        if (entry.getValue().getStatus().equals("notStarted")) {
+          System.out.println("Pussy boy");
+          statusNotStarted++;
+        }
+        if (entry.getValue().getStatus().equals("completed")) {
+          System.out.println("VORN");
+          statusComplete++;
+        }
       }
+      // System.out.println("I'm gay");
+      setDashboard(statusNotStarted, statusInProgress, statusComplete);
     }
+    labTable.setItems(labData);
   }
 
   /**
@@ -100,12 +104,15 @@ public class LabController extends MainController implements Initializable {
    */
   @FXML
   private void setDashboard(int notStarted, int inProgress, int complete) {
+    String notStart = Integer.toString(notStarted);
+    String inProg = Integer.toString(inProgress);
+    String comp = Integer.toString(complete);
     // Should put the numbers on the not started area on the dashboard.
-    notStartedNumber.setText(String.valueOf(notStarted));
+    notStartedNumber.setText(notStart); // perhaps string value?
     // Should put the numbers on the in progress area of dash.
-    inProgressNumber.setText(String.valueOf(inProgress));
+    inProgressNumber.setText(inProg);
     // Should put the numbers of the completed statuses into dash.
-    completedNumbers.setText(String.valueOf(complete));
+    completedNumber.setText(comp);
   }
 
   @FXML
