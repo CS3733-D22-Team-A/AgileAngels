@@ -13,7 +13,7 @@ import javafx.scene.layout.Pane;
 
 public class MenuController implements Initializable {
 
-  @FXML Button back, close, equipRequest, viewRequest, map, homeImage, userButton;
+  @FXML Button back, close, equipRequest, viewRequest, map, homeImage, userButton, emergency;
   @FXML Pane menuPane;
 
   AppController appController = AppController.getInstance();
@@ -48,12 +48,14 @@ public class MenuController implements Initializable {
     if (event.getSource() == equipRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/equipment-view.fxml");
     }
-    if (event.getSource() == viewRequest) {
+    else if (event.getSource() == viewRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/equipmentEdit-view.fxml");
-    }
-    if (event.getSource() == map) {
+    } else if (event.getSource() == map) {
       appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
+    }else if (event.getSource() == emergency) {
+      appController.loadPage("/edu/wpi/agileAngels/views/emergency-view.fxml");
     }
+
   }
 
   public void profile(ActionEvent event) {}
