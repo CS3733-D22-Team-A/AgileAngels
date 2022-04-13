@@ -39,7 +39,7 @@ public class MapsController implements Initializable {
       zoomIn,
       zoomOut,
       clean;
-  @FXML private TextField nameField, xCoordField, yCoordField, typeField;
+  @FXML private TextField nameField, xCoordField, yCoordField;
   @FXML Pane mapPane, clickPane;
   @FXML AnchorPane anchor;
   @FXML Label floorLabel, nodeIDField;
@@ -116,7 +116,7 @@ public class MapsController implements Initializable {
     clean.setVisible(false);
     nodeIDField.setText(locationNode.getNodeID());
     nameField.setText(locationNode.getName());
-    typeField.setText(locationNode.getNodeType());
+    typeDropdown.setText(locationNode.getNodeType());
     xCoordField.setText(Double.toString(locationNode.getXCoord()));
     yCoordField.setText(Double.toString(locationNode.getYCoord()));
 
@@ -132,7 +132,7 @@ public class MapsController implements Initializable {
     clean.setVisible(false);
     nodeIDField.setText(requestNode.getName());
     nameField.setText(requestNode.getEmployee());
-    typeField.setText(requestNode.getStatus());
+    typeDropdown.setText(requestNode.getStatus());
     xCoordField.setText(Double.toString(requestNode.getLocation().getXCoord()));
     yCoordField.setText(Double.toString(requestNode.getLocation().getYCoord()));
 
@@ -148,7 +148,7 @@ public class MapsController implements Initializable {
     clean.setVisible(true);
     nodeIDField.setText(equipmentNode.getID());
     nameField.setText(equipmentNode.getClean());
-    typeField.setText(equipmentNode.getStatus());
+    typeDropdown.setText(equipmentNode.getStatus());
     xCoordField.setText(Double.toString(equipmentNode.getLocation().getXCoord()));
     yCoordField.setText(Double.toString(equipmentNode.getLocation().getYCoord()));
     currentEquipmentNode = equipmentNode;
@@ -157,7 +157,7 @@ public class MapsController implements Initializable {
   @FXML
   private void addNode() throws IOException {
 
-    int typeCount = (locationNodeManager.getTypeCount(typeField.getText(), currentFloor));
+    int typeCount = (locationNodeManager.getTypeCount(typeDropdown.getText(), currentFloor));
 
     String nodeID =
         "A"
@@ -189,11 +189,12 @@ public class MapsController implements Initializable {
     Double xCoord = Double.parseDouble(xCoordField.getText());
     Double yCoord = Double.parseDouble(yCoordField.getText());
     String name = nameField.getText();
-    String type = typeField.getText();
+    String type = typeDropdown.getText();
     currentLocationNode.changeLocationXCoord(xCoord);
     currentLocationNode.changeLocationYCoord(yCoord);
     currentLocationNode.changeLocationName(name);
     currentLocationNode.changeLocationType(type);
+
     currentLocationNode.resetLocation();
     currentLocationNode = null;
     locationNodeManager.editNode(currentLocationNode, xCoord, yCoord, name, type);
