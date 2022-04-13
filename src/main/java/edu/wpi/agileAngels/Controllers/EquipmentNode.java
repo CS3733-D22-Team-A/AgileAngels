@@ -26,13 +26,12 @@ public class EquipmentNode {
     button.setLayoutX((this.location.getXCoord() - 775) / 3.225);
     button.setLayoutY((this.location.getYCoord() - 320) / 3.232);
     button.setText(String.valueOf(medEquip.getType().charAt(0)));
-    button.setStyle("-fx-font-size: 8");
     button.setOnAction(
         (ActionEvent event2) -> {
           isClicked();
         });
 
-    button.setStyle("-fx-background-color: #797979; ");
+    button.setStyle("-fx-background-color: #797979;-fx-font-size: 8");
   }
 
   public void isClicked() {

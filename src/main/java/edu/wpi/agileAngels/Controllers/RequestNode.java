@@ -21,13 +21,12 @@ public class RequestNode {
     button.setLayoutX((this.location.getXCoord() - 775) / 3.225);
     button.setLayoutY((this.location.getYCoord() - 320) / 3.232);
     button.setText(String.valueOf(request.getName().charAt(0)));
-    button.setStyle("-fx-font-size: 8");
     button.setOnAction(
         (ActionEvent event2) -> {
           isClicked();
         });
 
-    button.setStyle("-fx-background-color: #6a78fc; ");
+    button.setStyle("-fx-background-color: #6a78fc;-fx-font-size: 8");
   }
 
   public void isClicked() {
