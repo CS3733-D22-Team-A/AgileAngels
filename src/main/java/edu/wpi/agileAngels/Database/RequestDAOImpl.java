@@ -83,6 +83,8 @@ public class RequestDAOImpl implements RequestDAO {
     String letter;
     if (0 == DAOtype.compareTo("MedRequest")) {
       letter = "Med";
+    } else if (0 == DAOtype.compareTo("GiftRequest")) {
+      letter = "Gift";
     } else {
       letter = "Lab";
     }
