@@ -413,6 +413,7 @@ public class MapsController implements Initializable {
     equipmentNodeManager.makeClean(currentEquipmentNode);
     currentEquipmentNode.resetLocation();
     populateEquipmentNodeData(currentEquipmentNode);
+    nameField.setText("Clean");
   }
 
   public void clearPage(ActionEvent actionEvent) {
