@@ -95,7 +95,7 @@ public class MedEquipImpl implements MedEquipDAO {
     }
     MedicalEquip medEquip =
         new MedicalEquip(values[0], values[1], clean, findLocation(values[3]), values[4]);
-    this.MedEquipData.put(values[0], medEquip);
+    MedEquipData.put(values[0], medEquip);
     Adb.addMedicalEquipment(medEquip);
   }
 

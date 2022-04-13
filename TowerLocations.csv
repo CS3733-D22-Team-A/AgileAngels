@@ -67,9 +67,9 @@ WELEV00LL2,1785,924,L2,Tower,ELEV,Elevator L Floor L2,Elevator LL2
 WELEV00ML2,1820,1280,L2,Tower,ELEV,Elevator M Floor L2,Elevator ML2
 WHALL001L2,1745,1524,L2,Tower,HALL,Hallway Connector 1 Floor L2,Hallway W01L2
 ASTOR001L1,1670,860,L1,Tower,STOR,OR Bed Park,Bed Park
-ASTOR00103,1498,786,3,Tower,STOR,Pod B clean equiptment srotsage,Clean pumps 00103
-ASTOR00203,1502,1063,3,Tower,STOR,Pod C clean equiptment srotsage,Clean pumps 00203
-ADIRT00103,1527,942,3,Tower,DIRT,Soiled equiptment storage,Dirty pumps
+ASTOR00103,1498,786,3,Tower,STOR,Pod B clean equiptment storage,Clean pumps 00103
+ASTOR00203,1502,1063,3,Tower,STOR,Pod C clean equiptment storage,Clean pumps 00203
+ADIRT00103,1527,942,3,Tower,DIRT,Soiled equipment storage,Dirty pumps
 APATI00103,1491,864,3,Tower,PATI,Patient room pod B 1,Patient 00103
 APATI00203,1454,844,3,Tower,PATI,Patient room pod B 2,Patient 00203
 APATI00303,1422,798,3,Tower,PATI,Patient room pod B 3,Patient 00303

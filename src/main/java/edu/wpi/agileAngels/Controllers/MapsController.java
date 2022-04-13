@@ -31,7 +31,8 @@ public class MapsController extends MainController implements Initializable {
       addButton,
       removeButton,
       switchToAddButton,
-      switchToEditButton;
+      switchToEditButton,
+      clean;
   @FXML private TextField nameField, xCoordField, yCoordField, typeField;
 
   @FXML Pane mapPane;
@@ -41,6 +42,7 @@ public class MapsController extends MainController implements Initializable {
   LocationNode currentLocationNode = null;
   RequestNode currentRequestNode = null;
   private String currentFloor = "2";
+  EquipmentNode currentEquipmentNode = null;
 
   Pane pane2 = new Pane();
   Pane pane3 = new Pane();
@@ -49,6 +51,7 @@ public class MapsController extends MainController implements Initializable {
 
   LocationNodeManager locationNodeManager = new LocationNodeManager(this);
   RequestNodeManager requestNodeManager = new RequestNodeManager(this);
+  EquipmentNodeManager equipmentNodeManager = new EquipmentNodeManager(this);
 
   public MapsController() throws SQLException {}
 
@@ -61,6 +64,9 @@ public class MapsController extends MainController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
+    clean.setVisible(false);
+
     mapPane.getChildren().add(pane2);
     pane2.getChildren().add((floorTwoMap));
     pane2.setVisible(true);
@@ -82,6 +88,7 @@ public class MapsController extends MainController implements Initializable {
     locationNodeManager.createNodesFromDB();
     try {
       requestNodeManager.createNodesFromDB();
+      equipmentNodeManager.createNodesFromDB();
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -93,7 +100,7 @@ public class MapsController extends MainController implements Initializable {
    * @param locationNode the node whose data is populated
    */
   public void populateLocationNodeData(LocationNode locationNode) {
-    System.out.println(locationNode.getNodeID());
+    clean.setVisible(false);
     nodeIDField.setText(locationNode.getNodeID());
     nameField.setText(locationNode.getName());
     typeField.setText(locationNode.getNodeType());
@@ -109,7 +116,7 @@ public class MapsController extends MainController implements Initializable {
    * @param requestNode the node whose data is populated
    */
   public void populateRequestNodeData(RequestNode requestNode) {
-    System.out.println(requestNode.getName());
+    clean.setVisible(false);
     nodeIDField.setText(requestNode.getName());
     nameField.setText(requestNode.getEmployee());
     typeField.setText(requestNode.getStatus());
@@ -117,6 +124,21 @@ public class MapsController extends MainController implements Initializable {
     yCoordField.setText(Double.toString(requestNode.getLocation().getYCoord()));
 
     currentRequestNode = requestNode;
+  }
+
+  /**
+   * Populates the text fields on the page with data of a node
+   *
+   * @param equipmentNode the node whose data is populated
+   */
+  public void populateEquipmentNodeData(EquipmentNode equipmentNode) {
+    clean.setVisible(true);
+    nodeIDField.setText(equipmentNode.getID());
+    nameField.setText(equipmentNode.getClean());
+    typeField.setText(equipmentNode.getStatus());
+    xCoordField.setText(Double.toString(equipmentNode.getLocation().getXCoord()));
+    yCoordField.setText(Double.toString(equipmentNode.getLocation().getYCoord()));
+    currentEquipmentNode = equipmentNode;
   }
 
   @FXML
@@ -240,6 +262,23 @@ public class MapsController extends MainController implements Initializable {
   }
 
   /**
+   * Adds the button for an equipment node to the pane corresponding to its floor
+   *
+   * @param node the node whose button is added to a pane
+   */
+  public void displayEquipmentNode(EquipmentNode node) {
+    if (node.getFloor().equals("2")) {
+      pane2.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("3")) {
+      pane3.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("L1")) {
+      paneL1.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("L2")) {
+      paneL2.getChildren().add(node.getButton());
+    }
+  }
+
+  /**
    * Switches between the panes for each floor when the button for each floor is pressed
    *
    * @param event one of the floor buttons
@@ -266,5 +305,12 @@ public class MapsController extends MainController implements Initializable {
       currentFloor = "L2";
       floorLabel.setText("Lower Level 2");
     }
+  }
+
+  @FXML
+  public void cleanEquip() {
+    equipmentNodeManager.makeClean(currentEquipmentNode);
+    currentEquipmentNode.resetLocation();
+    populateEquipmentNodeData(currentEquipmentNode);
   }
 }
