@@ -26,6 +26,7 @@ public class MapsController implements Initializable {
       lowerLevelTwoMap,
       floorThreeDetailMap;
   @FXML private ScrollPane mapScroll;
+  @FXML HBox addButtonBox;
   @FXML
   private Button floorTwo,
       floorThree,
@@ -34,8 +35,7 @@ public class MapsController implements Initializable {
       editButton,
       addButton,
       removeButton,
-      switchToAddButton,
-      switchToEditButton,
+      switchModeButton,
       zoomIn,
       zoomOut,
       clean;
@@ -79,6 +79,7 @@ public class MapsController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     clean.setVisible(false);
+    addButtonBox.setVisible(false);
 
     mapPane.getChildren().add(pane2);
     pane2.getChildren().add((floorTwoMap));
@@ -229,19 +230,21 @@ public class MapsController implements Initializable {
   @FXML
   private void switchMode(ActionEvent event) {
     if (editButton.isVisible() == true) {
+      addButtonBox.setVisible(true);
       addButton.setVisible(true);
       addButton.setViewOrder(-1000);
       editButton.setVisible(false);
       removeButton.setVisible(false);
-      switchToAddButton.setText("Delete/Edit");
+      switchModeButton.setText("Delete/Edit");
       currentLocationNode = null;
       clearFields();
     } else {
       addButton.setVisible(false);
+      addButtonBox.setVisible(false);
       addButton.setViewOrder(100);
       editButton.setVisible(true);
       removeButton.setVisible(true);
-      switchToAddButton.setText("Add");
+      switchModeButton.setText("Add");
       currentLocationNode = null;
       clearFields();
     }

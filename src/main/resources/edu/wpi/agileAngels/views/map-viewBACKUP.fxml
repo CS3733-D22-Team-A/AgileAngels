@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MapsController">
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MapsController">
     <children>
       <fx:include source="menu-bar.fxml" />
 
@@ -135,7 +135,7 @@
                                 </Button>
                             </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0">
+                        <HBox fx:id="addButtonBox" alignment="CENTER" prefHeight="40.0" prefWidth="200.0">
                             <children>
                                 <Button id="lowerLevelOne" fx:id="addButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addNode" prefHeight="40.0" prefWidth="221.0" text="Add" visible="false">
                                     <font>
@@ -146,10 +146,10 @@
                         </HBox>
                     </children>
                 </Pane>
-                <Button fx:id="switchToAddButton" mnemonicParsing="false" onAction="#switchMode" prefHeight="40.0" prefWidth="282.0" text="Switch to Add Node" />
+                <Button fx:id="switchModeButton" mnemonicParsing="false" onAction="#switchMode" prefHeight="40.0" prefWidth="282.0" text="Switch to Add Node" />
             </children>
         </VBox>
         <Label fx:id="floorLabel" layoutX="316.0" layoutY="141.0" prefHeight="30.0" prefWidth="127.0" text="Floor 2" />
-      <Button fx:id="clean" layoutX="111.0" layoutY="119.0" mnemonicParsing="false" onAction="#cleanEquip" prefHeight="75.0" prefWidth="82.0" text="Wash Equipment" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="clean" layoutX="331.0" layoutY="640.0" mnemonicParsing="false" onAction="#cleanEquip" prefHeight="50.0" prefWidth="82.0" text="Wash Equipment" textAlignment="CENTER" wrapText="true" />
     </children>
 </AnchorPane>
