@@ -47,15 +47,13 @@ public class MenuController implements Initializable {
   private void menuItem(ActionEvent event) throws IOException {
     if (event.getSource() == equipRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/equipment-view.fxml");
-    }
-    else if (event.getSource() == viewRequest) {
+    } else if (event.getSource() == viewRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/equipmentEdit-view.fxml");
     } else if (event.getSource() == map) {
       appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
-    }else if (event.getSource() == emergency) {
+    } else if (event.getSource() == emergency) {
       appController.loadPage("/edu/wpi/agileAngels/views/emergency-view.fxml");
     }
-
   }
 
   public void profile(ActionEvent event) {}
