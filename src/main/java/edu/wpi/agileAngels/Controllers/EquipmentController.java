@@ -58,6 +58,10 @@ public class EquipmentController extends MainController implements Initializable
     equipHash = equipDAO.getAllMedicalEquipment();
     allMedEquip = new ArrayList<>(equipHash.values());
 
+    locDAO.getAllLocations();
+    empDAO.getAllEmployees();
+    HashMap<String, Location> locationsHash = locDAO.getAllLocations();
+    ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
     for (Location loc : locationsList) {
       if (loc.getFloor().equals("3")) {
         MenuItem item = new MenuItem(loc.getNodeID());
@@ -66,12 +70,6 @@ public class EquipmentController extends MainController implements Initializable
       }
     }
     equipDAO.readCSV();
-
-    // connection = DBconnection.getConnection();
-
-    // Implement DAO here.
-
-    // HashMap<String, MedDevice> data = medDAO.getAllMedicalEquipmentRequests();
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
@@ -110,12 +108,10 @@ public class EquipmentController extends MainController implements Initializable
     // get location obj
     Location location = locDAO.getLocation(locationString);
     String employeeString = equipmentEmployeeText.getText();
+    Employee employee = empDAO.getEmployee(employeeString);
     String statusString = equipmentStatus.getText();
     String deleteString = deleteName.getText();
     String editString = editRequest.getText();
-    // logic to see if the entries in the buttons are empty
-    // boolean logic = (dropDownString.isEmpty() || locationString.isEmpty() ||
-    // employeeString.isEmpty());
     // if the fields are empty or to delete input is not empty
     if (!deleteString.isEmpty()) {
       deleteEquipRequest(deleteString);
@@ -217,9 +213,10 @@ public class EquipmentController extends MainController implements Initializable
       String statusString) {
     System.out.println("EDIT REQUEST");
 
-    Location location = locDAO.getLocation(locationString);
+    Request found = MedrequestImpl.getAllRequests().get(editString);
+    System.out.println(found.getName());
 
-    Request found = null;
+    // null;
     int num = 0;
     for (int i = 0; i < medData.size(); i++) {
       Request device = medData.get(i);
@@ -228,26 +225,33 @@ public class EquipmentController extends MainController implements Initializable
         num = i;
       }
     }
+    Employee employee = empDAO.getEmployee(employeeString);
+    Location location = locDAO.getLocation(locationString);
+    System.out.println(employee.getName() + " " + location.getNodeID());
+
     if (found != null) {
+      System.out.println("1");
       if (!dropDownString.isEmpty()) {
         // String type = equipmentType.getText();
+
         found.setType(dropDownString);
         MedrequestImpl.updateType(found, dropDownString);
       }
+
       if (!locationString.isEmpty()) {
-        Location loc = locDAO.getLocation(locationString);
         found.setLocation(location);
-        MedrequestImpl.updateLocation(found, loc);
+        // MedrequestImpl.updateLocation(found, location);
       }
       if (!employeeString.isEmpty()) {
-        // String employee = emp.getText();
-        found.setEmployee(empDAO.getEmployee(employeeString));
-        MedrequestImpl.updateEmployeeName(found, employeeString);
+        System.out.println(employee.getName());
+        found.setEmployee(employee);
+        //        MedrequestImpl.updateEmployeeName(found, employee.getName());
       }
+
       if (!statusString.isEmpty()) {
-        // String employee = emp.getText();
+
         found.setStatus(statusString);
-        MedrequestImpl.updateStatus(found, statusString);
+        //  MedrequestImpl.updateStatus(found, statusString);
 
         // set the status and location of the medicalEquipment object corresponding to the request
         if (statusString.equals("notStarted")) {
@@ -259,12 +263,13 @@ public class EquipmentController extends MainController implements Initializable
           equipDAO.updateMedicalCleanliness(found.getMedicalEquip(), false);
           equipDAO.updateStatus(found.getMedicalEquip(), "available");
           equipDAO.updateEquipmentLocation(
-              found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+                  found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
         }
       }
+      // System.out.println(num);
       medData.set(num, found);
 
-      equipmentTable.setItems(medData);
+      //  equipmentTable.setItems(medData);
     }
   }
 
