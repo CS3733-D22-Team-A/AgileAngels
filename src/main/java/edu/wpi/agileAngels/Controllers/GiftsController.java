@@ -1,13 +1,11 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.*;
-
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,7 +36,6 @@ public class GiftsController implements Initializable {
       messageColumn;
   @FXML MenuButton giftType;
   @FXML MenuItem baloons, flowers, card;
-
   @FXML Button addButton, editButton, deleteButton;
   @FXML private Label giftConfirm;
   private RequestDAOImpl GiftrequestImpl =
@@ -49,8 +46,6 @@ public class GiftsController implements Initializable {
 
   private EmployeeManager employeeDAO = EmployeeManager.getInstance();
   private HashMap<String, Employee> employeesHash = employeeDAO.getAllEmployees();
-
-
 
   @FXML private TableView giftTable;
   private AppController appController = AppController.getInstance();
@@ -85,7 +80,6 @@ public class GiftsController implements Initializable {
 
     giftTable.setItems(giftData);
   }
-
 
   @FXML
   /** Submits fields to a Java gifts Request Object */
@@ -149,7 +143,15 @@ public class GiftsController implements Initializable {
 
     String placeholder = "?";
     Request gift =
-        new Request(placeholder, employeesHash.get(employee), locationsHash.get(location), dropDown, status, message, sender, recipient);
+        new Request(
+            placeholder,
+            employeesHash.get(employee),
+            locationsHash.get(location),
+            dropDown,
+            status,
+            message,
+            sender,
+            recipient);
     // todo is this right?
     GiftrequestImpl.addRequest(gift); // add to hashmap
     giftData.add(gift); // add to the UI
@@ -240,6 +242,5 @@ public class GiftsController implements Initializable {
   public void giftType(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     giftType.setText(button.getText());
-    }
-
+  }
 }

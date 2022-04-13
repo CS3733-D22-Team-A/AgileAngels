@@ -24,7 +24,6 @@ public class RequestDAOImpl implements RequestDAO {
   private static RequestDAOImpl MealDAO = null;
   private static RequestDAOImpl GiftDAO = null;
 
-
   public RequestDAOImpl(HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
     this.CSV_FILE_PATH = "./Requests.csv";
@@ -42,21 +41,19 @@ public class RequestDAOImpl implements RequestDAO {
       return MedrequestDAO;
     } else if (GiftDAO == null && 0 == type.compareTo("GiftRequest")) {
       data = new HashMap();
-      GiftDAO = new RequestDAOImpl( data, 1, "GiftRequest");
+      GiftDAO = new RequestDAOImpl(data, 1, "GiftRequest");
       return GiftDAO;
-    }
-     else if (0 == type.compareTo("LabRequest")) {
+    } else if (0 == type.compareTo("LabRequest")) {
       if (LabrequestDAO == null) {
         LabrequestDAO = new RequestDAOImpl(data, 1, "LabRequest");
       }
       return LabrequestDAO;
-    }else if (0 == type.compareTo("ServiceRequest")) {
+    } else if (0 == type.compareTo("ServiceRequest")) {
       if (SanrequestDAO == null) {
         SanrequestDAO = new RequestDAOImpl(data, 1, "SanRequest");
       }
       return SanrequestDAO;
-    }
-   else if (0 == type.compareTo("MealRequest")) {
+    } else if (0 == type.compareTo("MealRequest")) {
       if (MealDAO == null) {
         MealDAO = new RequestDAOImpl(data, 1, "MealRequest");
       }
