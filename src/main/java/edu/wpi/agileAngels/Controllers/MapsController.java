@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -35,11 +36,10 @@ public class MapsController extends MainController implements Initializable {
       removeButton,
       switchToAddButton,
       switchToEditButton,
-          zoomIn,
-          zoomOut,
+      zoomIn,
+      zoomOut,
       clean;
   @FXML private TextField nameField, xCoordField, yCoordField, typeField;
-
   @FXML Pane mapPane, clickPane;
   @FXML AnchorPane anchor;
   @FXML Label floorLabel, nodeIDField;
@@ -339,7 +339,7 @@ public class MapsController extends MainController implements Initializable {
 
   public void zoomableMap(ActionEvent event) {
 
-    javafx.scene.Node content = mapScroll.getContent();
+    Node content = mapScroll.getContent();
     Group contentGroup = new Group();
     contentGroup.getChildren().add(content);
     mapScroll.setContent(contentGroup);

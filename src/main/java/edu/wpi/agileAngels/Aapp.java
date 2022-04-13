@@ -24,7 +24,7 @@ public class Aapp extends Application {
   public void start(Stage primaryStage) throws IOException, SQLException {
     adb = new Adb(); // ADB class
     adb.initialize();
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("views/map-view.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("views/login.fxml"));
     Parent root = loader.load();
     Scene defaultScene = new Scene(root);
     //    Pane pane = new Pane();
