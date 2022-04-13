@@ -17,7 +17,7 @@ import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
 import javax.swing.*;
 
-public class MapsController extends MainController implements Initializable {
+public class MapsController implements Initializable {
 
   @FXML
   private ImageView floorTwoMap,
@@ -59,6 +59,10 @@ public class MapsController extends MainController implements Initializable {
   LocationNodeManager locationNodeManager = new LocationNodeManager(this);
   RequestNodeManager requestNodeManager = new RequestNodeManager(this);
   EquipmentNodeManager equipmentNodeManager = new EquipmentNodeManager(this);
+
+  AppController appController = AppController.getInstance();
+
+  double scale = 1;
 
   public MapsController() throws SQLException {}
 
@@ -406,5 +410,9 @@ public class MapsController extends MainController implements Initializable {
     equipmentNodeManager.makeClean(currentEquipmentNode);
     currentEquipmentNode.resetLocation();
     populateEquipmentNodeData(currentEquipmentNode);
+  }
+
+  public void clearPage(ActionEvent actionEvent) {
+    appController.clearPage();
   }
 }

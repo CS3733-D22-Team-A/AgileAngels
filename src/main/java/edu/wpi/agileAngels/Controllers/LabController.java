@@ -9,13 +9,16 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 // similar to equip controller
-public class LabController extends MainController implements Initializable {
+public class LabController implements Initializable {
+
+  AppController appController = AppController.getInstance();
 
   @FXML private TextField labTestLocation, labEmployeeText, labStatus, labDelete, labEdit;
 
@@ -82,7 +85,8 @@ public class LabController extends MainController implements Initializable {
     } else if (!labEdit.getText().isEmpty()) {
       editLabRequest(dropDown, location, employee, status);
     } else {
-      System.out.println(locDAO.getLocation(location) + " " + empDAO.getEmployee(employee));
+      System.out.println(
+          locDAO.getLocation(location).getLongName() + " " + empDAO.getEmployee(employee));
       addLabRequest(
           "available",
           dropDown,
@@ -206,5 +210,9 @@ public class LabController extends MainController implements Initializable {
       labData.add(request);
       labTable.setItems(labData);
     }
+  }
+
+  public void clearPage(ActionEvent actionEvent) {
+    appController.clearPage();
   }
 }

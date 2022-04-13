@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,11 +15,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
-public class LoginController extends MainController implements Initializable {
+public class LoginController implements Initializable {
   @FXML private TextField username;
   @FXML private Label invalid;
   @FXML private Button login;
   @FXML private PasswordField passwordBox;
+
+  AppController appController = AppController.getInstance();
 
   private EmployeeManager employeeManager = EmployeeManager.getInstance();
 
@@ -45,8 +48,8 @@ public class LoginController extends MainController implements Initializable {
 
     if (employeeManager.getUsername(username.getText())
         && passwordBox.getText().equals(employeeManager.getPassword(username.getText()))) {
-      // loggedIn = true;
-      loadPage("../views/home-view.fxml", login);
+
+      appController.loadPage("../views/home-view.fxml");
     } else {
       invalid.setTextFill(Color.rgb(220, 80, 80));
       invalid.setText("Invalid username or password:\nPlease try again");
@@ -93,6 +96,14 @@ public class LoginController extends MainController implements Initializable {
       }
     }
     return initials;
+  }
+
+  public void closeApp(ActionEvent event) {
+    appController.closeApp();
+  }
+
+  public void clearPage(ActionEvent event) throws IOException {
+    appController.clearPage();
   }
 }
 

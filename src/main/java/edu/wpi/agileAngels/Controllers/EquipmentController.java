@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
-public class EquipmentController extends MainController implements Initializable {
+public class EquipmentController implements Initializable {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
   @FXML private TextField deleteName, editRequest;
@@ -41,6 +41,7 @@ public class EquipmentController extends MainController implements Initializable
   HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
 
+  AppController appController = AppController.getInstance();
   @FXML
   private TableColumn nameColumn,
       employeeColumn, // change to employeeColumn
@@ -122,6 +123,8 @@ public class EquipmentController extends MainController implements Initializable
     } else {
       addEquipRequest(dropDownString, locationString, employeeString, statusString);
     }
+
+    MedrequestImpl.outputCSVFile();
   }
 
   private void addEquipRequest(
@@ -295,5 +298,9 @@ public class EquipmentController extends MainController implements Initializable
   public void employeeMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     equipmentEmployeeText.setText(button.getText());
+  }
+
+  public void clearPage(ActionEvent actionEvent) {
+    appController.clearPage();
   }
 }

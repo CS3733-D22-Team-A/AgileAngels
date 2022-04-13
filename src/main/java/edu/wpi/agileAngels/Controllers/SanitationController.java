@@ -7,12 +7,14 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 
-public class SanitationController extends MainController {
+public class SanitationController {
+  AppController appController = AppController.getInstance();
   // Test
   @FXML private TextField sanIssue, sanLocation, sanitationEmployeeText, sanitationStatus;
   @FXML private Label sanitationConfirmation;
@@ -80,5 +82,9 @@ public class SanitationController extends MainController {
     sanDAO.addRequest(request); // there is an error here
     // sanData.add(request);
     // sanTable.setItems(sanData);
+  }
+
+  public void clearPage(ActionEvent actionEvent) {
+    appController.clearPage();
   }
 }

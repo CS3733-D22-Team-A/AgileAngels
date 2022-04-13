@@ -13,7 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 // brings you to pages
-public class ServiceRequestController extends MainController implements Initializable {
+public class ServiceRequestController implements Initializable {
 
   @FXML Button equipmentRequest, labRequest, sanRequest, mealRequest, giftRequest, testButton;
   @FXML private JFXToggleButton toggleButton;
@@ -21,6 +21,7 @@ public class ServiceRequestController extends MainController implements Initiali
   // These are/will be the hidden labels for the toggleable switch.
   @FXML private Label harmoniLabel, jakobLabel, justinLabel, danielLabel, basharLabel, jakobLabel2;
 
+  AppController appController = AppController.getInstance();
   /**
    * showCreators() will make invisible labels displaying people's names visible again. And turn
    * them off. "I don't know why, I don't want to know why" - TF2 source code. btw don't touch this,
@@ -46,24 +47,19 @@ public class ServiceRequestController extends MainController implements Initiali
    * @param event
    * @throws IOException
    */
-  public void requestButton(ActionEvent event) throws IOException {
+  public void requestButton(ActionEvent event) {
     if (event.getSource() == equipmentRequest) {
-      loadPage("../views/equipment-view.fxml", equipmentRequest);
-    }
-    if (event.getSource() == labRequest) {
-      loadPage("../views/lab-view.fxml", equipmentRequest);
-    }
-    if (event.getSource() == sanRequest) {
-      loadPage("../views/sanitation-view.fxml", equipmentRequest);
-    }
-    if (event.getSource() == mealRequest) {
-      loadPage("../views/mealRequest-view.fxml", equipmentRequest);
-    }
-    if (event.getSource() == giftRequest) {
-      loadPage("../views/gifts-view.fxml", equipmentRequest);
-    }
-    if (event.getSource() == testButton) {
-      loadPage("../views/test-view.fxml", equipmentRequest);
+      appController.loadPage("../views/equipment-view.fxml");
+    } else if (event.getSource() == labRequest) {
+      appController.loadPage("../views/lab-view.fxml");
+    } else if (event.getSource() == sanRequest) {
+      appController.loadPage("../views/sanitation-view.fxml");
+    } else if (event.getSource() == mealRequest) {
+      appController.loadPage("../views/mealRequest-view.fxml");
+    } else if (event.getSource() == giftRequest) {
+      appController.loadPage("../views/gifts-view.fxml");
+    } else if (event.getSource() == testButton) {
+      appController.loadPage("../views/test-view.fxml");
     }
   }
 
