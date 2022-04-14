@@ -46,14 +46,14 @@ public class MedEquipImpl implements MedEquipDAO {
 
   @Override
   public void updateEquipmentLocation(MedicalEquip medicalEquip, Location location) {
-    // medicalEquip.setLocation(location);
+    medicalEquip.setLocation(location);
     Adb.updateMedicalEquipment(medicalEquip);
-    // System.out.println("MedicalEquipment" + medicalEquip.getID() + " location is updated");
+    System.out.println("MedicalEquipment " + medicalEquip.getID() + " location is updated");
   }
 
   @Override
   public void updateStatus(MedicalEquip medicalEquip, String statusIn) {
-    // medicalEquip.setStatus(statusIn);
+    medicalEquip.setStatus(statusIn);
     Adb.updateMedicalEquipment(medicalEquip);
   }
 
@@ -61,7 +61,7 @@ public class MedEquipImpl implements MedEquipDAO {
   public void updateMedicalCleanliness(MedicalEquip medicalEquip, Boolean clean) {
     medicalEquip.setClean(clean);
     Adb.updateMedicalEquipment(medicalEquip);
-    System.out.println("MedicalEquipment" + medicalEquip.isClean() + " is clean");
+    System.out.println("MedicalEquipment " + medicalEquip.getID() + " cleanliness is updated");
   }
 
   public void readCSV() {
@@ -100,7 +100,6 @@ public class MedEquipImpl implements MedEquipDAO {
   }
 
   private Location findLocation(String value) {
-
     Location location;
     HashMap<String, Location> locationData = locDAO.getAllLocations();
     location = locationData.get(value);
