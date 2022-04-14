@@ -102,6 +102,8 @@ public class EquipmentController implements Initializable {
    */
   @FXML
   private void submitEquipment() throws SQLException {
+    equipmentConfirmation.setText("");
+
     // first sees if all of the attributes are empty
     // gets all inputs and converts into string
     String dropDownString = equipmentType.getText();
@@ -237,8 +239,27 @@ public class EquipmentController implements Initializable {
       if (!dropDownString.isEmpty()) {
         // String type = equipmentType.getText();
 
-        found.setType(dropDownString);
-        MedrequestImpl.updateType(found, dropDownString);
+        MedicalEquip equip = null;
+        Boolean foundEquip = false;
+        int i = 0;
+        while (!foundEquip && i < allMedEquip.size()) {
+          MedicalEquip medEquip = allMedEquip.get(i);
+          if (medEquip.getType().equals(dropDownString)
+                  && medEquip.getStatus().equals("available")
+                  && medEquip.isClean()) {
+            equip = medEquip;
+            foundEquip = true;
+          }
+          i++;
+        }
+        if (foundEquip) {
+          found.setType(dropDownString);
+          found.setMedicalEquip(equip);
+          MedrequestImpl.updateType(found, dropDownString);
+        } else {
+          equipmentConfirmation.setText(
+                  "Sorry, there are currently no " + dropDownString + "s available.");
+        }
       }
 
       if (!locationString.isEmpty()) {
