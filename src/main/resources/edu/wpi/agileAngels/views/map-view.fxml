@@ -17,7 +17,6 @@
 
 <AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MapsController">
     <children>
-      <fx:include source="menu-bar.fxml" />
 
         <Button id="floorThree" fx:id="floorThree" layoutX="286.0" layoutY="207.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 3">
             <font>
@@ -151,5 +150,6 @@
         </VBox>
         <Label fx:id="floorLabel" layoutX="316.0" layoutY="141.0" prefHeight="30.0" prefWidth="127.0" text="Floor 2" />
       <Button fx:id="clean" layoutX="331.0" layoutY="640.0" mnemonicParsing="false" onAction="#cleanEquip" prefHeight="50.0" prefWidth="82.0" text="Wash Equipment" textAlignment="CENTER" wrapText="true" />
+        <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
     </children>
 </AnchorPane>

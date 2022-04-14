@@ -9,12 +9,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class MenuController implements Initializable {
 
-  @FXML Button back, close, equipRequest, viewRequest, map, homeImage, userButton, emergency;
+  @FXML Button back, close, equipRequest, labRequest, map, homeImage, userButton, emergency;
   @FXML Pane menuPane;
+  @FXML AnchorPane anchor;
 
   AppController appController = AppController.getInstance();
 
@@ -24,11 +26,7 @@ public class MenuController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    close.setViewOrder(-1000);
-    back.setViewOrder(-1001);
-    menuPane.setViewOrder(-1002);
-    homeImage.setViewOrder(-1003);
-    userButton.setViewOrder(-1004);
+    anchor.setPickOnBounds(false);
   }
 
   @FXML
@@ -47,8 +45,8 @@ public class MenuController implements Initializable {
   private void menuItem(ActionEvent event) throws IOException {
     if (event.getSource() == equipRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/equipment-view.fxml");
-    } else if (event.getSource() == viewRequest) {
-      appController.loadPage("/edu/wpi/agileAngels/views/equipmentEdit-view.fxml");
+    } else if (event.getSource() == labRequest) {
+      appController.loadPage("/edu/wpi/agileAngels/views/lab-view.fxml");
     } else if (event.getSource() == map) {
       appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
     } else if (event.getSource() == emergency) {
