@@ -11,7 +11,7 @@ public class LocationNodeManager {
   private MapsController mapsController;
   private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
   private HashMap<String, LocationNode> nodes = new HashMap<>();
-  private int[][] typeCounts = new int[15][5];
+  private int[][] typeCounts = new int[15][6];
   private HashMap<String, Integer> floorsAndTypes = new HashMap<>();
 
   public LocationNodeManager(MapsController mapsController) throws SQLException {
@@ -33,15 +33,16 @@ public class LocationNodeManager {
     floorsAndTypes.put("RETL", 12);
     floorsAndTypes.put("SERV", 13);
     floorsAndTypes.put("BATH", 14);
-    floorsAndTypes.put("1", 0);
-    floorsAndTypes.put("2", 1);
-    floorsAndTypes.put("3", 2);
-    floorsAndTypes.put("L1", 3);
-    floorsAndTypes.put("L2", 4);
+    floorsAndTypes.put("2", 0);
+    floorsAndTypes.put("3", 1);
+    floorsAndTypes.put("4", 2);
+    floorsAndTypes.put("5", 3);
+    floorsAndTypes.put("L1", 4);
+    floorsAndTypes.put("L2", 5);
 
     // initialize counts for each type of location to zero
     for (int i = 0; i < 15; i++) {
-      for (int j = 0; j < 5; j++) {
+      for (int j = 0; j < 6; j++) {
         typeCounts[i][j] = 0;
       }
     }
@@ -56,14 +57,14 @@ public class LocationNodeManager {
 
   // gets all locations from the DB and creates nodes from them
   void createNodesFromDB() {
-        HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
-        ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
-        for (Location location : locationsList) {
-          typeCounts[floorsAndTypes.get(location.getNodeType())][
-                  floorsAndTypes.get(location.getFloor())] +=
-              1;
-          mapsController.displayLocationNode(addNode(location));
-        }
+    HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
+    ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
+    for (Location location : locationsList) {
+      typeCounts[floorsAndTypes.get(location.getNodeType())][
+              floorsAndTypes.get(location.getFloor())] +=
+          1;
+      mapsController.displayLocationNode(addNode(location));
+    }
   }
 
   Integer getTypeCount(String type, String floor) {
