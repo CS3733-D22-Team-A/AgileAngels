@@ -14,7 +14,6 @@ public class EquipmentNodeManager {
 
   public EquipmentNodeManager(MapsController mapsController) throws SQLException {
     this.mapsController = mapsController;
-    equipDAO.readCSV();
   }
 
   // gets all equipment from the DB and creates nodes from them
