@@ -112,7 +112,7 @@
                                        </image>
                                     </ImageView>
                                     <Label text="Sanitation Request" />
-                                    <Label fx:id="basharLabel" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Bashar" textOverrun="CLIP" visible="false" HBox.hgrow="ALWAYS">
+                                    <Label fx:id="danielLabel" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Daniel" textOverrun="CLIP" visible="false" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets left="10.0" right="5.0" />
                                        </HBox.margin>
@@ -156,7 +156,7 @@
                                        </image>
                                     </ImageView>
                                     <Label text="Gift Request" />
-                                    <Label fx:id="danielLabel" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="82.0" text="Daniel" textAlignment="RIGHT" textOverrun="CLIP" visible="false" HBox.hgrow="ALWAYS">
+                                    <Label fx:id="basharLabel" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="82.0" text="Bashar" textAlignment="RIGHT" textOverrun="CLIP" visible="false" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets left="10.0" right="5.0" />
                                        </HBox.margin>
