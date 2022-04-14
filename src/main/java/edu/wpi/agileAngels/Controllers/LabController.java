@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -23,6 +24,8 @@ public class LabController extends MainController implements Initializable {
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private static ObservableList<Request> labData = FXCollections.observableArrayList();
   private int statusNotStarted, statusInProgress, statusComplete;
+
+  AppController appController = AppController.getInstance();
 
   @FXML private TableView labTable;
   @FXML
@@ -336,5 +339,9 @@ public class LabController extends MainController implements Initializable {
 
       labTable.setItems(labData);
     }
+  }
+
+  public void clearPage(ActionEvent actionEvent) {
+    appController.clearPage();
   }
 }
