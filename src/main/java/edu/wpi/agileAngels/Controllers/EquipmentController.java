@@ -64,7 +64,7 @@ public class EquipmentController implements Initializable {
     HashMap<String, Location> locationsHash = locDAO.getAllLocations();
     ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
     for (Location loc : locationsList) {
-      if (loc.getFloor().equals("3")) {
+      if (loc.getFloor().equals("3") || loc.getFloor().equals("4") || loc.getFloor().equals("5")) {
         MenuItem item = new MenuItem(loc.getNodeID());
         item.setOnAction(this::locationMenu);
         equipLocation.getItems().add(item);
@@ -193,10 +193,10 @@ public class EquipmentController implements Initializable {
         Request object = medData.get(i);
         if (0 == deleteString.compareTo(object.getName())) {
           // update the corresponding medicalEquip object
-          // equipDAO.updateMedicalCleanliness(object.getMedicalEquip(), false);
-          // equipDAO.updateStatus(object.getMedicalEquip(), "available");
-          //  equipDAO.updateEquipmentLocation(
-          //     object.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+          equipDAO.updateMedicalCleanliness(object.getMedicalEquip(), false);
+          equipDAO.updateStatus(object.getMedicalEquip(), "available");
+          equipDAO.updateEquipmentLocation(
+              object.getMedicalEquip(), locationsHash.get("ADIRT00103"));
           // delete the request
           medData.remove(i);
           MedrequestImpl.deleteRequest(object);
@@ -261,7 +261,7 @@ public class EquipmentController implements Initializable {
           equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
           equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
         } else if (statusString.equals("complete")) {
-          //  equipDAO.updateMedicalCleanliness(found.getMedicalEquip(), false);
+          equipDAO.updateMedicalCleanliness(found.getMedicalEquip(), false);
           equipDAO.updateStatus(found.getMedicalEquip(), "available");
           equipDAO.updateEquipmentLocation(
               found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
