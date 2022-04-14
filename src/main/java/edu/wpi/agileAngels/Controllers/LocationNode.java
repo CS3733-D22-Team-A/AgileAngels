@@ -26,13 +26,9 @@ public class LocationNode {
         });
   }
 
-  public void resizeButton(double scaleFactor) {
-    // button.setStyle("-fx-font-size: 6");
-  }
-
   public void resetLocation() {
-    button.setLayoutX(this.getXCoord());
-    button.setLayoutY(this.getYCoord());
+    button.setLayoutX((this.getXCoord() - 775) / 3.225);
+    button.setLayoutY((this.getYCoord() - 320) / 3.232);
 
     button.setText(String.valueOf(location.getNodeType().charAt(0)));
   }

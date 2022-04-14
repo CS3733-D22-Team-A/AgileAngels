@@ -71,12 +71,6 @@ public class LocationNodeManager {
     return typeCounts[floorsAndTypes.get(type)][floorsAndTypes.get(floor)];
   }
 
-  void resizeAll(double factor) {
-    for (LocationNode node : nodes.values()) {
-      node.resizeButton(factor);
-    }
-  }
-
   LocationNode addNode(Location location) {
     LocationNode locationNode = new LocationNode(location, this);
     nodes.put(locationNode.getNodeID(), locationNode);
