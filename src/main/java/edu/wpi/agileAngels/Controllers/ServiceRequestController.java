@@ -31,7 +31,9 @@ public class ServiceRequestController implements Initializable {
     ArrayList<Label> creatorLabels =
         new ArrayList<>(
             Arrays.asList(
-                harmoniLabel, jakobLabel, justinLabel, danielLabel, basharLabel, jakobLabel2));
+                harmoniLabel, justinLabel, danielLabel, basharLabel
+                /** ,jakobLabel,jakobLabel2 */
+                ));
     if (toggleButton.isSelected()) {
       // Will turn off names.
       creatorLabels.forEach((coder) -> coder.setVisible(true));
