@@ -56,14 +56,14 @@ public class LocationNodeManager {
 
   // gets all locations from the DB and creates nodes from them
   void createNodesFromDB() {
-    HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
-    ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
-    for (Location location : locationsList) {
-      typeCounts[floorsAndTypes.get(location.getNodeType())][
-              floorsAndTypes.get(location.getFloor())] +=
-          1;
-      mapsController.displayLocationNode(addNode(location));
-    }
+        HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
+        ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
+        for (Location location : locationsList) {
+          typeCounts[floorsAndTypes.get(location.getNodeType())][
+                  floorsAndTypes.get(location.getFloor())] +=
+              1;
+          mapsController.displayLocationNode(addNode(location));
+        }
   }
 
   Integer getTypeCount(String type, String floor) {

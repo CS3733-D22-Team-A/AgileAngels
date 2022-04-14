@@ -22,6 +22,8 @@ public class MapsController implements Initializable {
   @FXML
   private ImageView floorTwoMap,
       floorThreeMap,
+      floorFourMap,
+      floorFiveMap,
       lowerLevelOneMap,
       lowerLevelTwoMap,
       floorThreeDetailMap;
@@ -30,6 +32,8 @@ public class MapsController implements Initializable {
   @FXML
   private Button floorTwo,
       floorThree,
+      floorFour,
+      floorFive,
       lowerLevelOne,
       lowerLevelTwo,
       editButton,
@@ -53,6 +57,8 @@ public class MapsController implements Initializable {
 
   Pane pane2 = new Pane();
   Pane pane3 = new Pane();
+  Pane pane4 = new Pane();
+  Pane pane5 = new Pane();
   Pane paneL1 = new Pane();
   Pane paneL2 = new Pane();
 
@@ -86,8 +92,13 @@ public class MapsController implements Initializable {
     pane2.setVisible(true);
     mapPane.getChildren().add(pane3);
     pane3.getChildren().add((floorThreeMap));
-    pane3.getChildren().add(floorThreeDetailMap);
     pane3.setVisible(false);
+    mapPane.getChildren().add(pane4);
+    pane4.getChildren().add((floorFourMap));
+    pane4.setVisible(false);
+    mapPane.getChildren().add(pane5);
+    pane5.getChildren().add((floorFiveMap));
+    pane5.setVisible(false);
     mapPane.getChildren().add(paneL1);
     paneL1.getChildren().add((lowerLevelOneMap));
     paneL1.setVisible(false);
@@ -96,6 +107,8 @@ public class MapsController implements Initializable {
     paneL2.setVisible(false);
     floorTwo.setViewOrder(-100);
     floorThree.setViewOrder(-100);
+    floorFour.setViewOrder(-100);
+    floorFive.setViewOrder(-100);
     lowerLevelOne.setViewOrder(-100);
     lowerLevelTwo.setViewOrder(-100);
 
@@ -210,6 +223,10 @@ public class MapsController implements Initializable {
       pane2.getChildren().remove(currentLocationNode.getButton());
     } else if (currentLocationNode.getFloor().equals("3")) {
       pane3.getChildren().remove(currentLocationNode.getButton());
+    } else if (currentLocationNode.getFloor().equals("4")) {
+      pane3.getChildren().remove(currentLocationNode.getButton());
+    } else if (currentLocationNode.getFloor().equals("5")) {
+      pane3.getChildren().remove(currentLocationNode.getButton());
     } else if (currentLocationNode.getFloor().equals("L1")) {
       paneL1.getChildren().remove(currentLocationNode.getButton());
     } else if (currentLocationNode.getFloor().equals("L2")) {
@@ -257,6 +274,10 @@ public class MapsController implements Initializable {
   public void displayLocationNode(LocationNode node) {
     if (node.getFloor().equals("2")) {
       pane2.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("5")) {
+      pane5.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("4")) {
+      pane4.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("3")) {
       pane3.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("L1")) {
@@ -274,6 +295,10 @@ public class MapsController implements Initializable {
   public void displayRequestNode(RequestNode node) {
     if (node.getFloor().equals("2")) {
       pane2.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("5")) {
+      pane5.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("4")) {
+      pane4.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("3")) {
       pane3.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("L1")) {
@@ -291,6 +316,10 @@ public class MapsController implements Initializable {
   public void displayEquipmentNode(EquipmentNode node) {
     if (node.getFloor().equals("2")) {
       pane2.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("5")) {
+      pane5.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("4")) {
+      pane4.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("3")) {
       pane3.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("L1")) {
@@ -308,6 +337,8 @@ public class MapsController implements Initializable {
   public void changeMap(ActionEvent event) {
     pane2.setVisible(false);
     pane3.setVisible(false);
+    pane4.setVisible(false);
+    pane5.setVisible(false);
     paneL1.setVisible(false);
     paneL2.setVisible(false);
     if (event.getSource() == floorTwo) {
@@ -318,6 +349,14 @@ public class MapsController implements Initializable {
       pane3.setVisible(true);
       currentFloor = "3";
       floorLabel.setText("Floor 3");
+    } else if (event.getSource() == floorFour) {
+      pane4.setVisible(true);
+      currentFloor = "4";
+      floorLabel.setText("Floor 4");
+    } else if (event.getSource() == floorFive) {
+      pane5.setVisible(true);
+      currentFloor = "5";
+      floorLabel.setText("Floor 5");
     } else if (event.getSource() == lowerLevelOne) {
       paneL1.setVisible(true);
       currentFloor = "L1";
