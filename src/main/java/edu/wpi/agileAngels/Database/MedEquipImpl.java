@@ -59,7 +59,7 @@ public class MedEquipImpl implements MedEquipDAO {
 
   @Override
   public void updateMedicalCleanliness(MedicalEquip medicalEquip, Boolean clean) {
-    //    medicalEquip.setClean(clean);
+    medicalEquip.setClean(clean);
     Adb.updateMedicalEquipment(medicalEquip);
     System.out.println("MedicalEquipment" + medicalEquip.isClean() + " is clean");
   }
