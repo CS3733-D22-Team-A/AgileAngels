@@ -242,6 +242,7 @@ public class EquipmentController implements Initializable {
       if (!locationString.isEmpty()) {
         found.setLocation(location);
         // MedrequestImpl.updateLocation(found, location);
+        equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
       }
       if (!employeeString.isEmpty()) {
         System.out.println(employee.getName());

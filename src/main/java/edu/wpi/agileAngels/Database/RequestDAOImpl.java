@@ -99,7 +99,7 @@ public class RequestDAOImpl implements RequestDAO {
   }
 
   public void deleteRequest(Request request) {
-    this.reqData.remove(request.getDescription());
+    this.reqData.remove(request.getName());
     String name = request.getName();
     Adb.removeRequest(name);
   }
