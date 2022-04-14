@@ -20,7 +20,6 @@ public class EquipmentNodeManager {
   void createNodesFromDB() throws SQLException {
     equipDAO.readCSV();
     ArrayList<MedicalEquip> equipList = new ArrayList<>(equipDAO.getAllMedicalEquipment().values());
-    System.out.println(equipList);
     for (MedicalEquip equip : equipList) {
       mapsController.displayEquipmentNode(addNode(equip));
     }

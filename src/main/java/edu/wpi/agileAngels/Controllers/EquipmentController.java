@@ -245,8 +245,8 @@ public class EquipmentController implements Initializable {
         while (!foundEquip && i < allMedEquip.size()) {
           MedicalEquip medEquip = allMedEquip.get(i);
           if (medEquip.getType().equals(dropDownString)
-                  && medEquip.getStatus().equals("available")
-                  && medEquip.isClean()) {
+              && medEquip.getStatus().equals("available")
+              && medEquip.isClean()) {
             equip = medEquip;
             foundEquip = true;
           }
@@ -258,7 +258,7 @@ public class EquipmentController implements Initializable {
           MedrequestImpl.updateType(found, dropDownString);
         } else {
           equipmentConfirmation.setText(
-                  "Sorry, there are currently no " + dropDownString + "s available.");
+              "Sorry, there are currently no " + dropDownString + "s available.");
         }
       }
 

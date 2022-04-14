@@ -14,7 +14,7 @@ P11,InfusionPump,true,ASTOR00103,available
 P12,InfusionPump,true,ASTOR00103,available
 P13,InfusionPump,true,ASTOR00103,available
 P14,InfusionPump,true,ASTOR00103,available
-P15,InfusionPump,true,ADIRT00103,available
+P15,InfusionPump,false,ADIRT00103,available
 B01,Bed,true,ASTOR00303,available
 B02,Bed,true,ASTOR00303,available
 B03,Bed,true,ASTOR00303,available
