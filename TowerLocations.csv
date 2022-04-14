@@ -92,3 +92,43 @@ APATI01903,1442,1000,3,Tower,PATI,Patient room pod C 9,Patient 01903
 APATI02003,1491,977,3,Tower,PATI,Patient room pod C 10,Patient 02003
 ASTOR00303,1679,806,3,Tower,STOR,Bed recliner storage for Pod A and B,Bed storage 00303
 ASTOR00403,1668,1041,3,Tower,STOR,Bed recliner storage for Pod C and D,Bed storage 00403
+APATI00104	1491	864	4	Tower	PATI	Patient room pod B 1	Patient 00104
+APATI00204	1454	844	4	Tower	PATI	Patient room pod B 2	Patient 00204
+APATI00304	1422	798	4	Tower	PATI	Patient room pod B 3	Patient 00304
+APATI00404	1416	755	4	Tower	PATI	Patient room pod B 4	Patient 00404
+APATI00504	1436	710	4	Tower	PATI	Patient room pod B 5	Patient 00504
+APATI00604	1461	682	4	Tower	PATI	Patient room pod B 6	Patient 00604
+APATI00704	1510	665	4	Tower	PATI	Patient room pod B 7	Patient 00704
+APATI00804	1552	670	4	Tower	PATI	Patient room pod B 8	Patient 00804
+APATI00904	1600	698	4	Tower	PATI	Patient room pod B 9	Patient 00904
+APATI01004	1625	743	4	Tower	PATI	Patient room pod B 10	Patient 01004
+APATI01104	1619	1106	4	Tower	PATI	Patient room pod C 1	Patient 01104
+APATI01204	1599	1150	4	Tower	PATI	Patient room pod C 2	Patient 01204
+APATI01304	1552	1177	4	Tower	PATI	Patient room pod C 3	Patient 01304
+APATI01404	1503	1183	4	Tower	PATI	Patient room pod C 4	Patient 01404
+APATI01504	1460	1162	4	Tower	PATI	Patient room pod C 5	Patient 01504
+APATI01604	1428	1133	4	Tower	PATI	Patient room pod C 6	Patient 01604
+APATI01704	1416	1090	4	Tower	PATI	Patient room pod C 7	Patient 01704
+APATI01804	1416	1047	4	Tower	PATI	Patient room pod C 8	Patient 01804
+APATI01904	1442	1000	4	Tower	PATI	Patient room pod C 9	Patient 01904
+APATI02004	1491	977	4	Tower	PATI	Patient room pod C 10	Patient 02004
+APATI00105	1491	864	5	Tower	PATI	Patient room pod B 1	Patient 00105
+APATI00205	1454	844	5	Tower	PATI	Patient room pod B 2	Patient 00205
+APATI00305	1422	798	5	Tower	PATI	Patient room pod B 3	Patient 00305
+APATI00405	1416	755	5	Tower	PATI	Patient room pod B 4	Patient 00405
+APATI00505	1436	710	5	Tower	PATI	Patient room pod B 5	Patient 00505
+APATI00605	1461	682	5	Tower	PATI	Patient room pod B 6	Patient 00605
+APATI00705	1510	665	5	Tower	PATI	Patient room pod B 7	Patient 00705
+APATI00805	1552	670	5	Tower	PATI	Patient room pod B 8	Patient 00805
+APATI00905	1600	698	5	Tower	PATI	Patient room pod B 9	Patient 00905
+APATI01005	1625	743	5	Tower	PATI	Patient room pod B 10	Patient 01005
+APATI01105	1619	1106	5	Tower	PATI	Patient room pod C 1	Patient 01105
+APATI01205	1599	1150	5	Tower	PATI	Patient room pod C 2	Patient 01205
+APATI01305	1552	1177	5	Tower	PATI	Patient room pod C 3	Patient 01305
+APATI01405	1503	1183	5	Tower	PATI	Patient room pod C 4	Patient 01405
+APATI01505	1460	1162	5	Tower	PATI	Patient room pod C 5	Patient 01505
+APATI01605	1428	1133	5	Tower	PATI	Patient room pod C 6	Patient 01605
+APATI01705	1416	1090	5	Tower	PATI	Patient room pod C 7	Patient 01705
+APATI01805	1416	1047	5	Tower	PATI	Patient room pod C 8	Patient 01805
+APATI01905	1442	1000	5	Tower	PATI	Patient room pod C 9	Patient 01905
+APATI02005	1491	977	5	Tower	PATI	Patient room pod C 10	Patient 02005
