@@ -182,8 +182,8 @@ public class MapsController implements Initializable {
     Location newLocation =
         new Location(
             nodeID,
-            (Double.parseDouble(xCoordField.getText()) * 3.225) + 775,
-            (Double.parseDouble(yCoordField.getText()) * 3.232) + 320,
+            (Double.parseDouble(xCoordField.getText())),
+            (Double.parseDouble(yCoordField.getText())),
             currentFloor,
             "TOWER",
             typeDropdown.getText(),
