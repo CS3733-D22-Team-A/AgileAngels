@@ -53,7 +53,8 @@ public class LabController extends MainController implements Initializable {
 
   /**
    * Will check if the table is empty and if so will populate it.Otherwise, just calls upon the
-   * database for the data.
+   * database for the data. This also contains a dashboardLoad function that will make the numbers
+   * on the dashboard appear.
    *
    * @param location
    * @param resources
@@ -79,27 +80,24 @@ public class LabController extends MainController implements Initializable {
       System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
       LabDAO.csvRead();
       Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
-
       for (Map.Entry<String, Request> entry : LabDAO.getAllRequests().entrySet()) {
         Request req = entry.getValue();
-
+        dashboardLoad();
         labData.add(req);
-        if (entry.getValue().getStatus().equals("inProgress")) {
-          statusInProgress++;
-        }
-        if (entry.getValue().getStatus().equals("notStarted")
-            || entry.getValue().getStatus().equals("Not Started")) {
-          statusNotStarted++;
-        }
-        if (entry.getValue().getStatus().equals("Complete")
-            || entry.getValue().getStatus().equals("complete")) {
-          statusComplete++;
-        }
-        System.out.println(entry.getValue().getStatus());
       }
-      // System.out.println("I'm gay");
-      setDashboard(statusNotStarted, statusInProgress, statusComplete);
     }
+    // This has to be here for when you do: -> Back -> Lab Request. It'll load the numbers again. -
+    // Justin
+    dashboardLoad();
+    labTable.setItems(labData);
+  }
+
+  /**
+   * This is the cleaner version of Justin's dashboard code. Note that it may need a for loop as
+   * shown on line 83/84 if used elsewhere. Note: Unlikely.
+   */
+  @FXML
+  private void dashboardLoad() {
     if (notStartedNumber.getText().equals("-")
         && inProgressNumber.getText().equals("-")
         && completedNumber.getText().equals("-")) {
@@ -109,26 +107,29 @@ public class LabController extends MainController implements Initializable {
       while (var3.hasNext()) {
         Map.Entry<String, Request> entry = (Map.Entry) var3.next();
         Request object = (Request) entry.getValue();
-        if (entry.getValue().getStatus().equals("Progress")) {
+        if (entry.getValue().getStatus().equals("inProgress")) {
           statusInProgress++;
+          System.out.println("beep");
         }
-        if (entry.getValue().getStatus().equals("NotStarted")) {
+        if (entry.getValue().getStatus().equals("notStarted")) {
           statusNotStarted++;
+          System.out.println("boop");
         }
         if (entry.getValue().getStatus().equals("Complete")
             || entry.getValue().getStatus().equals("complete")) {
           statusComplete++;
+          System.out.println("hi");
         }
         System.out.println(entry.getValue().getStatus());
       }
       // System.out.println("I'm gay");
       setDashboard(statusNotStarted, statusInProgress, statusComplete);
     }
-    labTable.setItems(labData);
   }
 
   /**
-   * Will set the dashboard's numbers to the certain types of status's.
+   * Will set the dashboard's numbers to the certain types of status's, literally is just a setter
+   * method to keep things clean. - Justin
    *
    * @param notStarted
    * @param inProgress
@@ -147,6 +148,7 @@ public class LabController extends MainController implements Initializable {
     completedNumber.setText(comp);
   }
 
+  /** Takes in employee fields by the textfields. And submits it. */
   @FXML
   private void submitLabTest() {
     // String dropDown = dropdownButtonText.getText();
@@ -175,7 +177,8 @@ public class LabController extends MainController implements Initializable {
   }
 
   /**
-   * Removes requests off the UI and the database.
+   * Removes requests off the UI and the database, will call upon dashBoardLoad() to decrement the
+   * dashboard.
    *
    * @param deleteString
    */
@@ -191,6 +194,9 @@ public class LabController extends MainController implements Initializable {
       }
       labTable.setItems(labData);
 
+      // This cannot be a helper since it DECREASES the dashboard. It could but that's just more if
+      // statements.
+      // This is easier to read :)
       String status = LabDAO.getAllRequests().get(deleteString).getStatus();
       if (status.equals("inProgress")) {
         statusInProgress--;
@@ -207,7 +213,9 @@ public class LabController extends MainController implements Initializable {
 
   /**
    * Add method for labrequest, will add information onto the UI and database within here and set
-   * the confirmation text to display for the user.
+   * the confirmation text to display for the user. Note the location has to be specific.. until
+   * dropdowns are done. Use this location for debugging: CREST002L1 Will also call upon
+   * dashboardLoad() to update the dashboard.
    *
    * @param available
    * @param dropDown
@@ -237,6 +245,10 @@ public class LabController extends MainController implements Initializable {
     LabDAO.addRequest(request);
     labData.add(request);
     labTable.setItems(labData);
+
+    // This is for the dashboard on the LabRequest page. can't have dashboardLoad() because atm am
+    // too smol brain.
+    // To think of how to know the number increased.
     if (status.equals("inProgress")) {
       statusInProgress++;
     }
@@ -249,6 +261,16 @@ public class LabController extends MainController implements Initializable {
     setDashboard(statusNotStarted, statusInProgress, statusComplete);
   }
 
+  /**
+   * edits any existing requests. Dev Note: Make sure you use the EXACT capitalization or it won't
+   * work. This may need to have a dashboardLoad() somewhere.
+   *
+   * @param dropDown
+   * @param location
+   * @param employee
+   * @param status
+   * @param description
+   */
   private void editLabRequest(
       String dropDown, String location, String employee, String status, String description) {
     Request found = null;
