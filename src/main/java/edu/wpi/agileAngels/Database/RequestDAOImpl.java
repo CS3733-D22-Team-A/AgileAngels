@@ -72,7 +72,7 @@ public class RequestDAOImpl implements RequestDAO {
     Adb.updateRequest(request, "EmployeeName", newName);
   }
 
-  public void updateRequestType(Request request, int requestType) {
+  public void updateRequestType(Request request, String requestType) {
     request.setRequestType(requestType);
   }
 

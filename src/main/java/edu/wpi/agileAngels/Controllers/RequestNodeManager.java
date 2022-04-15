@@ -5,6 +5,7 @@ import edu.wpi.agileAngels.Database.RequestDAOImpl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.scene.input.MouseEvent;
 
 public class RequestNodeManager {
 
@@ -35,5 +36,33 @@ public class RequestNodeManager {
   // gets called on button press and gets the node data
   void loadNode(RequestNode requestNode) {
     mapsController.populateRequestNodeData(requestNode);
+  }
+
+  public double getCroppedMapXOffset() {
+    return mapsController.getCroppedMapXOffset();
+  }
+
+  public double getCroppedMapYOffset() {
+    return mapsController.getCroppedMapYOffset();
+  }
+
+  public double getCroppedMapWidth() {
+    return mapsController.getCroppedMapWidth();
+  }
+
+  public double getImagePaneWidth() {
+    return mapsController.getImagePaneWidth();
+  }
+
+  public double getMapXCoordFromClick(MouseEvent click) {
+    return mapsController.getMapXCoordFromClick(click);
+  }
+
+  public double getMapYCoordFromClick(MouseEvent click) {
+    return mapsController.getMapYCoordFromClick(click);
+  }
+
+  public void setDraggedNodeCoords(MouseEvent mouseEvent) {
+    mapsController.setCoordsOnMouseEvent(mouseEvent);
   }
 }

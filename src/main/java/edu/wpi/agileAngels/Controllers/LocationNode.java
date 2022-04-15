@@ -35,7 +35,7 @@ public class LocationNode {
         .hoverProperty()
         .addListener(
             l -> {
-              button.setPrefSize(200, 50);
+              button.setPrefSize(250, 50);
               button.setStyle(
                   "-fx-font-size: 15; -fx-background-color: rgba(73, 67, 112, 1); -fx-background-radius: 0 25 25 25; -fx-text-alignment: left; -fx-text-fill: white");
               button.setAlignment(Pos.CENTER_LEFT);
