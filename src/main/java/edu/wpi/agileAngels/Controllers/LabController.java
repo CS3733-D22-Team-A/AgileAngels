@@ -395,7 +395,7 @@ public class LabController extends MainController implements Initializable {
   }
 
   /**
-   * Filters out requests in medData based on the given Employee.
+   * Filters out requests in labData based on the given Employee.
    *
    * @param employeeName The Employee that the requests must have to be in the new list.
    * @return The new filtered list.
