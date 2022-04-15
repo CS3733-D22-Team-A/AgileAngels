@@ -115,7 +115,7 @@
                <children>
                   <ImageView id="icon" fitHeight="48.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/Vector.png" />
+                        <Image url="@../assets/exit.png" />
                      </image>
                   </ImageView>
                </children>
