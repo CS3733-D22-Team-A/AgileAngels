@@ -22,6 +22,8 @@ public class MapsController implements Initializable {
   @FXML
   private ImageView floorTwoMap,
       floorThreeMap,
+      floorFourMap,
+      floorFiveMap,
       lowerLevelOneMap,
       lowerLevelTwoMap,
       floorThreeDetailMap;
@@ -30,6 +32,8 @@ public class MapsController implements Initializable {
   @FXML
   private Button floorTwo,
       floorThree,
+      floorFour,
+      floorFive,
       lowerLevelOne,
       lowerLevelTwo,
       editButton,
@@ -53,6 +57,8 @@ public class MapsController implements Initializable {
 
   Pane pane2 = new Pane();
   Pane pane3 = new Pane();
+  Pane pane4 = new Pane();
+  Pane pane5 = new Pane();
   Pane paneL1 = new Pane();
   Pane paneL2 = new Pane();
 
@@ -86,8 +92,13 @@ public class MapsController implements Initializable {
     pane2.setVisible(true);
     mapPane.getChildren().add(pane3);
     pane3.getChildren().add((floorThreeMap));
-    pane3.getChildren().add(floorThreeDetailMap);
     pane3.setVisible(false);
+    mapPane.getChildren().add(pane4);
+    pane4.getChildren().add((floorFourMap));
+    pane4.setVisible(false);
+    mapPane.getChildren().add(pane5);
+    pane5.getChildren().add((floorFiveMap));
+    pane5.setVisible(false);
     mapPane.getChildren().add(paneL1);
     paneL1.getChildren().add((lowerLevelOneMap));
     paneL1.setVisible(false);
@@ -96,6 +107,8 @@ public class MapsController implements Initializable {
     paneL2.setVisible(false);
     floorTwo.setViewOrder(-100);
     floorThree.setViewOrder(-100);
+    floorFour.setViewOrder(-100);
+    floorFive.setViewOrder(-100);
     lowerLevelOne.setViewOrder(-100);
     lowerLevelTwo.setViewOrder(-100);
 
@@ -169,8 +182,8 @@ public class MapsController implements Initializable {
     Location newLocation =
         new Location(
             nodeID,
-            (Double.parseDouble(xCoordField.getText()) * 3.225) + 775,
-            (Double.parseDouble(yCoordField.getText()) * 3.232) + 320,
+            (Double.parseDouble(xCoordField.getText())),
+            (Double.parseDouble(yCoordField.getText())),
             currentFloor,
             "TOWER",
             typeDropdown.getText(),
@@ -187,18 +200,17 @@ public class MapsController implements Initializable {
    */
   @FXML
   private void editNode() throws IOException {
-    Double xCoord = Double.parseDouble(xCoordField.getText());
-    Double yCoord = Double.parseDouble(yCoordField.getText());
+    Double xCoord = (Double.parseDouble(xCoordField.getText()));
+    Double yCoord = (Double.parseDouble(yCoordField.getText()));
     String name = nameField.getText();
     String type = typeDropdown.getText();
     currentLocationNode.changeLocationXCoord(xCoord);
     currentLocationNode.changeLocationYCoord(yCoord);
     currentLocationNode.changeLocationName(name);
     currentLocationNode.changeLocationType(type);
-
+    locationNodeManager.editNode(currentLocationNode, xCoord, yCoord, name, type);
     currentLocationNode.resetLocation();
     currentLocationNode = null;
-    locationNodeManager.editNode(currentLocationNode, xCoord, yCoord, name, type);
   }
 
   /**
@@ -210,6 +222,10 @@ public class MapsController implements Initializable {
     if (currentLocationNode.getFloor().equals("2")) {
       pane2.getChildren().remove(currentLocationNode.getButton());
     } else if (currentLocationNode.getFloor().equals("3")) {
+      pane3.getChildren().remove(currentLocationNode.getButton());
+    } else if (currentLocationNode.getFloor().equals("4")) {
+      pane3.getChildren().remove(currentLocationNode.getButton());
+    } else if (currentLocationNode.getFloor().equals("5")) {
       pane3.getChildren().remove(currentLocationNode.getButton());
     } else if (currentLocationNode.getFloor().equals("L1")) {
       paneL1.getChildren().remove(currentLocationNode.getButton());
@@ -258,6 +274,10 @@ public class MapsController implements Initializable {
   public void displayLocationNode(LocationNode node) {
     if (node.getFloor().equals("2")) {
       pane2.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("5")) {
+      pane5.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("4")) {
+      pane4.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("3")) {
       pane3.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("L1")) {
@@ -275,6 +295,10 @@ public class MapsController implements Initializable {
   public void displayRequestNode(RequestNode node) {
     if (node.getFloor().equals("2")) {
       pane2.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("5")) {
+      pane5.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("4")) {
+      pane4.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("3")) {
       pane3.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("L1")) {
@@ -292,6 +316,10 @@ public class MapsController implements Initializable {
   public void displayEquipmentNode(EquipmentNode node) {
     if (node.getFloor().equals("2")) {
       pane2.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("5")) {
+      pane5.getChildren().add(node.getButton());
+    } else if (node.getFloor().equals("4")) {
+      pane4.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("3")) {
       pane3.getChildren().add(node.getButton());
     } else if (node.getFloor().equals("L1")) {
@@ -309,6 +337,8 @@ public class MapsController implements Initializable {
   public void changeMap(ActionEvent event) {
     pane2.setVisible(false);
     pane3.setVisible(false);
+    pane4.setVisible(false);
+    pane5.setVisible(false);
     paneL1.setVisible(false);
     paneL2.setVisible(false);
     if (event.getSource() == floorTwo) {
@@ -319,6 +349,14 @@ public class MapsController implements Initializable {
       pane3.setVisible(true);
       currentFloor = "3";
       floorLabel.setText("Floor 3");
+    } else if (event.getSource() == floorFour) {
+      pane4.setVisible(true);
+      currentFloor = "4";
+      floorLabel.setText("Floor 4");
+    } else if (event.getSource() == floorFive) {
+      pane5.setVisible(true);
+      currentFloor = "5";
+      floorLabel.setText("Floor 5");
     } else if (event.getSource() == lowerLevelOne) {
       paneL1.setVisible(true);
       currentFloor = "L1";
@@ -353,13 +391,11 @@ public class MapsController implements Initializable {
       Scale scaleTransform = new Scale(1.05, 1.05, 0, 0);
       scale *= 1.05;
       contentGroup.getTransforms().add(scaleTransform);
-      locationNodeManager.resizeAll(0.95);
 
     } else if (event.getSource() == zoomOut && scale >= 1.05) {
       Scale scaleTransform = new Scale(.95, .95, 0, 0);
       scale *= 0.95;
       contentGroup.getTransforms().add(scaleTransform);
-      locationNodeManager.resizeAll(1.05);
       if (mapScroll.getHvalue() > 0.8 || mapScroll.getVvalue() > 0.8) {
         mapScroll.setHvalue(0.6);
         mapScroll.setVvalue(0.6);
@@ -367,16 +403,28 @@ public class MapsController implements Initializable {
     }
   }
 
-  public void getPanChange() {}
+  public double getMapXCoordFromClick(MouseEvent click) {
+    panX = mapScroll.getHvalue() * (mapPane.getWidth() - mapScroll.getWidth() / scale);
+    double panX2 = mapScroll.getHvalue() * 48;
+    if (scale == 1) {
+      return (((click.getSceneX() - 460) / scale) + panX - 8) * 3.225 + 775;
+    } else {
+      return (((click.getSceneX() - 460) / scale) + panX - panX2 - 8) * 3.225 + 775;
+    }
+  }
+
+  public double getMapYCoordFromClick(MouseEvent click) {
+    panY = mapScroll.getVvalue() * (mapPane.getHeight() - mapScroll.getHeight() / scale);
+    double panY2 = mapScroll.getVvalue() * 28.6;
+    if (scale == 1) {
+      return (((click.getSceneY() - 60) / scale) + panY - 8) * 3.225 + 320;
+    } else {
+      return (((click.getSceneY() - 60) / scale) + panY - panY2 - 8) * 3.225 + 320;
+    }
+  }
 
   @FXML
   public void setCoords(ActionEvent event) {
-    // Pane pane = new Pane();
-    // pane.setPrefSize(700, 426);
-    // pane.setLayoutX(480);set
-    // pane.setLayoutY(200);
-    // System.out.println("button pressed");
-    // mapScroll.setContent(pane);
     clickPane.setDisable(false);
     clickPane.setViewOrder(-1000);
     clickPane.setStyle("-fx-background-color: rgba(0,0,0, .15)");
@@ -387,16 +435,16 @@ public class MapsController implements Initializable {
 
     clickPane.setOnMouseClicked(
         (MouseEvent click) -> {
-          System.out.println(mapScroll.getViewportBounds());
+          System.out.print(click.getSceneX());
+          System.out.print(", ");
+          System.out.println(((click.getSceneX() - 460) / scale) + panX - 8);
 
           if (scale == 1) {
-            xCoordField.setText(String.valueOf(((click.getSceneX() - 460) / scale) + panX - 8));
-            yCoordField.setText(String.valueOf(((click.getSceneY() - 60) / scale) + panY - 8));
+            xCoordField.setText(String.valueOf(getMapXCoordFromClick(click)));
+            yCoordField.setText(String.valueOf(getMapYCoordFromClick(click)));
           } else {
-            xCoordField.setText(
-                String.valueOf(((click.getSceneX() - 460) / scale) + panX - panX2 - 8));
-            yCoordField.setText(
-                String.valueOf(((click.getSceneY() - 60) / scale) + panY - panY2 - 8));
+            xCoordField.setText(String.valueOf(getMapXCoordFromClick(click)));
+            yCoordField.setText(String.valueOf(getMapYCoordFromClick(click)));
           }
           clickPane.setStyle("-fx-background-color: rgba(0,0,0,0)");
           clickPane.setDisable(true);

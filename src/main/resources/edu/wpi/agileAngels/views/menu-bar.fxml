@@ -27,8 +27,9 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button id="menuButton" fx:id="equipRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="163.0" text="Equipment Request" />
-                  <Button id="menuButton" fx:id="viewRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="127.0" text="Edit Requests" />
+                  <Button id="menuButton" fx:id="emergency" mnemonicParsing="false" onAction="#menuItem" prefHeight="31.0" prefWidth="120.0" text="Emergency" />
+                  <Button id="menuButton" fx:id="equipRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="37.0" prefWidth="191.0" text="Equipment Request" />
+                  <Button id="menuButton" fx:id="labRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="37.0" prefWidth="147.0" text="Lab Request" />
                   <Button id="menuButton" fx:id="map" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="68.0" text="Map" />
                </children>
                <padding>

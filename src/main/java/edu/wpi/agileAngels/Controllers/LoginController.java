@@ -52,7 +52,7 @@ public class LoginController implements Initializable {
       appController.loadPage("/edu/wpi/agileAngels/views/home-view.fxml");
     } else {
       invalid.setTextFill(Color.rgb(220, 80, 80));
-      invalid.setText("Invalid username or password:\nPlease try again");
+      invalid.setText("Invalid username or password.");
       passwordBox.clear();
     }
   }

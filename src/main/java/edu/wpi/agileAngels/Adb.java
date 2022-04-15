@@ -58,7 +58,7 @@ public class Adb {
     System.out.println("Apache Derby connection established!");
   }
 
-  private static void initializeHelper() {
+  private static void initializeHelper() throws SQLException {
     // Create all database tables
     locationsTable.createTable();
     medicalEquipmentTable.createTable();
@@ -68,6 +68,12 @@ public class Adb {
     employeeManager.readCSV();
     LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
     locationDAO.csvRead();
+    RequestDAOImpl medRequestDAO = RequestDAOImpl.getInstance("MedRequest");
+    medRequestDAO.csvRead();
+    RequestDAOImpl labRequestDAO = RequestDAOImpl.getInstance("LabRequest");
+    labRequestDAO.csvRead();
+    MedEquipImpl equipmentDAO = MedEquipImpl.getInstance();
+    equipmentDAO.readCSV();
   }
 
   /**

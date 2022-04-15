@@ -9,7 +9,8 @@ import java.util.HashMap;
 public class RequestNodeManager {
 
   private MapsController mapsController;
-  private RequestDAOImpl requestDAO = RequestDAOImpl.getInstance("MedRequest");
+  private RequestDAOImpl medRequestDAO = RequestDAOImpl.getInstance("MedRequest");
+  private RequestDAOImpl labRequestDAO = RequestDAOImpl.getInstance("LabRequest");
   private HashMap<String, RequestNode> nodes = new HashMap<>();
 
   public RequestNodeManager(MapsController mapsController) throws SQLException {
@@ -18,8 +19,8 @@ public class RequestNodeManager {
 
   // gets all locations from the DB and creates nodes from them
   void createNodesFromDB() throws SQLException {
-    requestDAO.csvRead();
-    ArrayList<Request> requestsList = new ArrayList<>(requestDAO.getAllRequests().values());
+    ArrayList<Request> requestsList = new ArrayList<>(medRequestDAO.getAllRequests().values());
+    requestsList.addAll(labRequestDAO.getAllRequests().values());
     for (Request request : requestsList) {
       mapsController.displayRequestNode(addNode(request));
     }
