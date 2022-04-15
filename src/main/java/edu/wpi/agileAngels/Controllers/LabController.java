@@ -372,7 +372,9 @@ public class LabController extends MainController implements Initializable {
   /** Does filterReqsTable when "Submit Requests" is clicked, or "onAction." */
   @FXML
   public void filterReqEmpOnAction() {
-    filterReqsTable(employeeFilterField.getText());
+    if (!employeeFilterField.getText().isEmpty()) {
+      filterReqsTable(employeeFilterField.getText());
+    }
   }
 
   /**
