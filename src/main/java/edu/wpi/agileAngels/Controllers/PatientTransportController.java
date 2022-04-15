@@ -67,7 +67,7 @@ public class PatientTransportController implements Initializable {
       if (loc.getFloor().equals("3") || loc.getFloor().equals("4") || loc.getFloor().equals("5")) {
         MenuItem item = new MenuItem(loc.getNodeID());
         item.setOnAction(this::locationMenu);
-        equipLocation.getItems().add(item);
+        // equipLocation.getItems().add(item);
       }
     }
 
