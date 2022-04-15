@@ -6,16 +6,16 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import org.controlsfx.control.textfield.TextFields;
 
 // test button on the front end
-public class TestController extends MainController implements Initializable {
+public class TestController implements Initializable {
 
-  @FXML private TextField input;
+  // Remove these to use test controler, this dosn't work here for some reason
+  // :shrug:
+  // @FXML public TextField searchbar;
 
-  @FXML private AnchorPane main;
+  // @FXML public AnchorPane main;
+  //
 
   @FXML
   public void switchConnection(ActionEvent event) {
@@ -24,7 +24,7 @@ public class TestController extends MainController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    String[] words = {"Test", "This", "Text"};
-    TextFields.bindAutoCompletion(input, words);
+    // String[] words = {"Test", "This", "Text"};
+    // TextFields.bindAutoCompletion(searchbar, words);
   }
 }
