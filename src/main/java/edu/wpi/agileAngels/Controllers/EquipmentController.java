@@ -1,6 +1,10 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.*;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
@@ -8,15 +12,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class EquipmentController implements Initializable {
+public class EquipmentController implements Initializable, PropertyChangeListener {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
   @FXML private TextField deleteName, editRequest, employeeFilterField;
@@ -25,6 +31,7 @@ public class EquipmentController implements Initializable {
   @FXML Button clear, submitFilters;
   @FXML Pane drop, drop2;
   @FXML MenuButton equipLocation, equipmentType, equipmentStatus, equipmentEmployeeText;
+  @FXML AnchorPane anchor;
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
@@ -56,6 +63,8 @@ public class EquipmentController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    appController.addPropertyChangeListener(this);
+
     equipHash = equipDAO.getAllMedicalEquipment();
     allMedEquip = new ArrayList<>(equipHash.values());
 
@@ -89,6 +98,22 @@ public class EquipmentController implements Initializable {
     }
 
     equipmentTable.setItems(medData);
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent stateEvent) {
+    String changeType = stateEvent.getPropertyName();
+    int newValue = (int) stateEvent.getNewValue();
+    if (appController.alertNeeded(changeType, newValue)) {
+      AlertController alertController = appController.getAlert(changeType);
+      AnchorPane pane;
+      try {
+        pane = FXMLLoader.load(getClass().getResource("/edu/wpi/agileAngels/views/dirtyBedAlert-view.fxml"));
+        anchor.getChildren().addAll(pane);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   /**

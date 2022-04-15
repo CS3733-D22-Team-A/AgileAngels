@@ -18,7 +18,6 @@ public class AppController {
   public static Stack<String> pageHistory = new Stack<>();
   private static AppController appController = null;
   private MenuController menuController;
-  private AlertController alertController;
   private PropertyChangeSupport support;
   private Stage primaryStage;
   private int[] dirtyBeds = new int[4];
@@ -188,24 +187,19 @@ public class AppController {
     }
   }
 
-  public void displayAlert(String page, String type, String floor) {
+  public boolean alertNeeded(String type, int newValue) {
+    return true;
+  }
+
+  public AlertController getAlert(String type) {
     ArrayList<AlertController> alerts = new ArrayList<>();
     // TODO add controllers
     ArrayList<String> types = new ArrayList<String>();
-    types.add("dirtyBed");
-    types.add("dirtyInfusionPump");
-    types.add("dirtyRecliner");
-    types.add("dirtyXRay");
-    types.add("availableBed");
-    types.add("availableInfusionPump");
-    types.add("availableRecliner");
-    types.add("availableXRay");
-    currentFloor = floor;
-    this.alertController = alerts.get(types.indexOf(type));
-  }
-
-  public AlertController getAlertController() {
-    return alertController;
+    types.add("dirtyBeds");
+    types.add("dirtyInfusionPumps");
+    types.add("dirtyRecliners");
+    types.add("dirtyXRays");
+    return alerts.get(types.indexOf(type));
   }
 
   public int getDirtyBeds(String floor) {
