@@ -15,7 +15,16 @@ import javafx.scene.control.Label;
 // brings you to pages
 public class ServiceRequestController implements Initializable {
 
-  @FXML Button equipmentRequest, labRequest, sanRequest, mealRequest, giftRequest, testButton;
+  @FXML
+  Button equipmentRequest,
+      labRequest,
+      sanRequest,
+      mealRequest,
+      giftRequest,
+      mbgRequest,
+      maintenanceRequest,
+      morgueRequest,
+      patientTransportRequest;
   @FXML private JFXToggleButton toggleButton;
 
   // These are/will be the hidden labels for the toggleable switch.
@@ -60,9 +69,19 @@ public class ServiceRequestController implements Initializable {
       appController.loadPage("/edu/wpi/agileAngels/views/mealRequest-view.fxml");
     } else if (event.getSource() == giftRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/gifts-view.fxml");
-    } else if (event.getSource() == testButton) {
-      appController.loadPage("/edu/wpi/agileAngels/views/test-view.fxml");
+    } else if (event.getSource() == maintenanceRequest) {
+      appController.loadPage("/edu/wpi/agileAngels/views/maintenance-view.fxml");
+    } else if (event.getSource() == mbgRequest) {
+      appController.loadPage("/edu/wpi/agileAngels/views/mbg-view.fxml");
+    } else if (event.getSource() == morgueRequest) {
+      appController.loadPage("/edu/wpi/agileAngels/views/morgue-view.fxml");
+    } else if (event.getSource() == patientTransportRequest) {
+      appController.loadPage("/edu/wpi/agileAngels/views/patientTransport-view.fxml");
     }
+
+    /*else if (event.getSource() == testButton) {
+      appController.loadPage("/edu/wpi/agileAngels/views/test-view.fxml");
+    }*/
   }
 
   @Override
