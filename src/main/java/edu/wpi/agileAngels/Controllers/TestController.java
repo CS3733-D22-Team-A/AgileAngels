@@ -3,6 +3,8 @@ package edu.wpi.agileAngels.Controllers;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -58,5 +60,8 @@ public class TestController extends MainController implements Initializable {
     return Math.sqrt(
         Math.pow((node1.getLayoutX() - node2.getLayoutX()), 2)
             + Math.pow((node1.getLayoutY() - node2.getLayoutY()), 2));
+  }
+
+  public void switchConnection(ActionEvent event) {
   }
 }
