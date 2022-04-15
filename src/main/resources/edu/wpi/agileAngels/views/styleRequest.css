@@ -213,12 +213,12 @@ Note that these labels lock your font size.
     -fx-text-background-color: red;
 }
 .table-row-cell:odd{
-    -fx-background-color: #81A3A5;
+    -fx-background-color: #C2D5D8;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
 }
 .table-row-cell:even{
-    -fx-background-color: #E6F4F1;
+    -fx-background-color: #FFFFFF;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
 }

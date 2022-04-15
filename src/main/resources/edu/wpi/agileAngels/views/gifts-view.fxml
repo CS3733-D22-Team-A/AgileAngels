@@ -61,7 +61,7 @@
             <MenuItem fx:id="card" mnemonicParsing="false" onAction="#giftType" text="Card" />
         </items>
       </MenuButton>
-      <TextField fx:id="employeeFilterField" layoutX="671.0" layoutY="543.0" prefHeight="50.0" prefWidth="270.0" promptText="Filter by Employee" />
+      <TextField fx:id="employeeFilterField" layoutX="671.0" layoutY="543.0" prefHeight="50.0" prefWidth="154.0" promptText="Filter by Employee" />
       <Button fx:id="clear" alignment="CENTER" layoutX="63.0" layoutY="565.0" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
          <font>
             <Font size="10.0" />
@@ -98,7 +98,7 @@
             </HBox>
          </graphic>
       </Button>
-      <Button alignment="CENTER" layoutX="972.0" layoutY="543.0" mnemonicParsing="false" onAction="#filterReqEmpOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+      <Button alignment="CENTER" layoutX="994.0" layoutY="543.0" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
          <font>
             <Font size="10.0" />
          </font>
@@ -134,5 +134,6 @@
             </HBox>
          </graphic>
       </Button>
+      <TextField fx:id="statusFilterField" layoutX="839.0" layoutY="543.0" prefHeight="50.0" prefWidth="142.0" promptText="Filter by Status" />
    </children>
 </AnchorPane>

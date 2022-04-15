@@ -127,6 +127,9 @@ public class RequestDAOImpl implements RequestDAO {
       letter = "Sanitation";
     } else if (0 == DAOtype.compareTo("MealRequest")) {
       letter = "Meal";
+
+    } else if (0 == DAOtype.compareTo("TransportRequest")) {
+      letter = "Transport";
     } else if (0 == DAOtype.compareTo("GiftRequest")) {
       letter = "Gift";
     } else if (0 == DAOtype.compareTo("MaintenanceRequest")) {
@@ -169,7 +172,10 @@ public class RequestDAOImpl implements RequestDAO {
     if (values[0].substring(0, 3).compareTo("Med") == 0 && DAOtype.compareTo("MedRequest") == 0) {
       makeRequest(values);
     }
-
+    if (values[0].substring(0, 3).compareTo("Trans") == 0
+        && DAOtype.compareTo("TransportRequest") == 0) {
+      makeRequest(values);
+    }
     if (values[0].substring(0, 4).compareTo("Meal") == 0) {}
 
     if (values[0].substring(0, 1).compareTo("L") == 0 && DAOtype.compareTo("LabRequest") == 0) {
