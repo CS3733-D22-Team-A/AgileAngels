@@ -32,12 +32,12 @@
                 </TableView>
             </children>
         </HBox>
-            <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0" />
-      <Label layoutX="132.0" layoutY="132.0" text="Patient Transport Request" textFill="WHITE">
+      <Label layoutX="132.0" layoutY="101.0" style="-fx-font-weight: bold; -fx-font-size: 48;" text="Patient Transport Request" textFill="WHITE">
          <font>
-            <Font name="Monospaced Regular" size="71.0" />
+            <Font name="Bodoni MT Bold" size="64.0" />
          </font>
       </Label>
+            <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0" />
 
     </children>
 </AnchorPane>
