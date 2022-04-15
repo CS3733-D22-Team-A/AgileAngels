@@ -169,7 +169,7 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="mgbRequest" mnemonicParsing="false" onAction="#requestButton" prefHeight="80.0" prefWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Button fx:id="mbgRequest" mnemonicParsing="false" onAction="#requestButton" prefHeight="80.0" prefWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <graphic>
                               <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="135.0" spacing="20.0">
                                  <children>
