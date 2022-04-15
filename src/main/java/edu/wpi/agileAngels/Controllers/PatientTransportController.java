@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
-public class EquipmentController implements Initializable {
+public class PatientTransportController implements Initializable {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
   @FXML private TextField deleteName, editRequest, employeeFilterField;
@@ -52,7 +52,7 @@ public class EquipmentController implements Initializable {
       descriptionColumn,
       availableColumn;
 
-  public EquipmentController() throws SQLException {}
+  public PatientTransportController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -67,7 +67,7 @@ public class EquipmentController implements Initializable {
       if (loc.getFloor().equals("3") || loc.getFloor().equals("4") || loc.getFloor().equals("5")) {
         MenuItem item = new MenuItem(loc.getNodeID());
         item.setOnAction(this::locationMenu);
-        equipLocation.getItems().add(item);
+        // equipLocation.getItems().add(item);
       }
     }
 
@@ -198,9 +198,7 @@ public class EquipmentController implements Initializable {
   /** Does filterReqsTable when "Submit Requests" is clicked, or "onAction." */
   @FXML
   public void filterReqEmpOnAction() {
-    if (!employeeFilterField.getText().isEmpty()) {
-      filterReqsTable(employeeFilterField.getText());
-    }
+    filterReqsTable(employeeFilterField.getText());
   }
 
   /**
