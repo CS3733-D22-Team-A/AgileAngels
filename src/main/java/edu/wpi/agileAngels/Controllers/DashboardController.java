@@ -2,6 +2,9 @@ package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.MedEquipImpl;
 import edu.wpi.agileAngels.Database.MedicalEquip;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,7 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
-public class DashboardController implements Initializable {
+public class DashboardController implements Initializable, PropertyChangeListener {
 
   @FXML
   Label cleanPump,
@@ -30,12 +33,33 @@ public class DashboardController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    appController.addPropertyChangeListener(this);
 
     try {
       this.updateCleanDirty();
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    String changeType = evt.getPropertyName();
+    int newValue = (int) evt.getNewValue();
+    if (changeType.equals("dirtyBedsAll")) {
+      dirtyBeds.setText(String.valueOf(newValue));
+      cleanBeds.setText(String.valueOf(10 - newValue));
+    } else if (changeType.equals("dirtyReclinersAll")) {
+      dirtyRecliner.setText(String.valueOf(newValue));
+      cleanRecliner.setText(String.valueOf(5 - newValue));
+    } else if (changeType.equals("dirtyInfusionPumpsAll")) {
+      dirtyPump.setText(String.valueOf(newValue));
+      cleanPump.setText(String.valueOf(15 - newValue));
+    } else if (changeType.equals("dirtyXRaysAll")) {
+      dirtyXRay.setText(String.valueOf(newValue));
+      cleanXRay.setText(String.valueOf(1 - newValue));
+    }
+
   }
 
   //  public void swapFloorDash(MouseEvent event) {
