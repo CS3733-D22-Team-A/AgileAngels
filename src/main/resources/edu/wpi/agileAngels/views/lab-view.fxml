@@ -95,7 +95,7 @@
       </TableView>
    </children>
 </HBox>
-<Label fx:id="labTestConfirmation" alignment="TOP_LEFT" layoutX="467.0" layoutY="600.0" prefHeight="100.0" prefWidth="523.0" wrapText="true">
+<Label fx:id="labTestConfirmation" alignment="TOP_LEFT" layoutX="144.0" layoutY="598.0" prefHeight="100.0" prefWidth="523.0" wrapText="true">
    <font>
       <Font size="16.0" />
    </font></Label>
@@ -257,6 +257,43 @@
             </GridPane>
          </children>
       </HBox>
+      <TextField fx:id="employeeFilterField" layoutX="505.0" layoutY="620.0" prefHeight="50.0" prefWidth="270.0" promptText="Filter by Employee" />
+      <Button alignment="CENTER" layoutX="818.0" layoutY="620.0" mnemonicParsing="false" onAction="#filterReqEmpOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Submit Filter" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </graphic>
+      </Button>
+      <Button alignment="CENTER" layoutX="978.0" layoutY="620.0" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Clear Filters" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </graphic>
+      </Button>
 
 
    </children>
