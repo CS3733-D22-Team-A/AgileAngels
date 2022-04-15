@@ -43,7 +43,6 @@ public class DashboardController implements Initializable {
     stackDash5.setVisible(false);
     stackDashL1.setVisible(false);
     stackDashL2.setVisible(false);
-
   }
 
   public void swapFloorDash(MouseEvent event) {
