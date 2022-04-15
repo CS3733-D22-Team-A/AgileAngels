@@ -59,8 +59,8 @@ public class RequestDAOImpl implements RequestDAO {
         MealDAO = new RequestDAOImpl(data, 1, "MealRequest");
       }
       return MealDAO;
-    }else if(0 == type.compareTo("MaintenanceRequest")){
-      if(MaintenanceDAO == null){
+    } else if (0 == type.compareTo("MaintenanceRequest")) {
+      if (MaintenanceDAO == null) {
         MaintenanceDAO = new RequestDAOImpl(data, 1, "MaintenanceRequest");
       }
       return MaintenanceDAO;
@@ -123,7 +123,7 @@ public class RequestDAOImpl implements RequestDAO {
       letter = "Meal";
     } else if (0 == DAOtype.compareTo("GiftRequest")) {
       letter = "Gift";
-    } else if(0 == DAOtype.compareTo("MaintenanceRequest")){
+    } else if (0 == DAOtype.compareTo("MaintenanceRequest")) {
       letter = "Main";
     }
 

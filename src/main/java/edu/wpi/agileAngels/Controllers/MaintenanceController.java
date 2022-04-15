@@ -1,32 +1,32 @@
 package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
-
-import edu.wpi.agileAngels.Database.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 
 public class MaintenanceController implements Initializable {
   @FXML private Button addMaintenanceRequest;
   @FXML private TableView maintenanceTable;
+  @FXML private Pane popOut;
   @FXML
   private TableColumn nameColumn,
-          employeeColumn, // change to employeeColumn
-          locationColumn,
-          typeColumn,
-          statusColumn,
-          descriptionColumn,
-          availableColumn;
+      employeeColumn, // change to employeeColumn
+      locationColumn,
+      typeColumn,
+      statusColumn,
+      descriptionColumn,
+      availableColumn;
 
   private static ObservableList<Request> maintenanceData = FXCollections.observableArrayList();
 
@@ -43,6 +43,7 @@ public class MaintenanceController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    popOut.setVisible(false);
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -65,5 +66,9 @@ public class MaintenanceController implements Initializable {
   }
 
   @FXML
-  public void addRequest(ActionEvent event) {}
+  public void addRequest(ActionEvent event) {
+    popOut.setVisible(true);
+  }
+
+  // on action event set visibility for vbox
 }
