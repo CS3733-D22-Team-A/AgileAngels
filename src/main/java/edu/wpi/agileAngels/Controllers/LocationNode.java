@@ -3,6 +3,7 @@ package edu.wpi.agileAngels.Controllers;
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.agileAngels.Database.Location;
 import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 
 public class LocationNode {
 
@@ -11,6 +12,12 @@ public class LocationNode {
   private JFXButton button = new JFXButton();
 
   private double fontSize = 10;
+
+  double xOffset;
+  double yOffset;
+  double buttonX;
+  double buttonY;
+  Boolean dragged = false;
 
   public LocationNode(Location location, LocationNodeManager locationNodeManager) {
     this.location = location;
@@ -23,6 +30,27 @@ public class LocationNode {
     button.setOnAction(
         (ActionEvent event2) -> {
           isClicked();
+        });
+
+    button.setOnMousePressed(
+        (MouseEvent mouseEvent) -> {
+          xOffset = (button.getLayoutX() - mouseEvent.getSceneX());
+          yOffset = (button.getLayoutY() - mouseEvent.getSceneY());
+
+          buttonX = button.getLayoutX();
+          buttonY = button.getLayoutY();
+        });
+    button.setOnMouseDragged(
+        (MouseEvent mouseEvent) -> {
+          button.setLayoutX((locationNodeManager.getMapXCoordFromClick(mouseEvent) - 775) / 3.225);
+          button.setLayoutY((locationNodeManager.getMapYCoordFromClick(mouseEvent) - 320) / 3.232);
+          dragged = true;
+        });
+    button.setOnMouseReleased(
+        (MouseEvent mouseEvent) -> {
+          dragged = false;
+          locationNodeManager.setDraggedNodeCoords(mouseEvent);
+          System.out.println("hello");
         });
   }
 

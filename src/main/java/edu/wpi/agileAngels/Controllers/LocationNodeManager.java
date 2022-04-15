@@ -5,10 +5,11 @@ import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.scene.input.MouseEvent;
 
 public class LocationNodeManager {
 
-  private MapsController mapsController;
+  public MapsController mapsController;
   private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
   private HashMap<String, LocationNode> nodes = new HashMap<>();
   private int[][] typeCounts = new int[15][6];
@@ -46,6 +47,18 @@ public class LocationNodeManager {
         typeCounts[i][j] = 0;
       }
     }
+  }
+
+  public double getMapXCoordFromClick(MouseEvent click) {
+    return mapsController.getMapXCoordFromClick(click);
+  }
+
+  public double getMapYCoordFromClick(MouseEvent click) {
+    return mapsController.getMapYCoordFromClick(click);
+  }
+
+  public void setCoordsOnMouseEvent(MouseEvent click) {
+    mapsController.setCoordsOnMouseEvent(click);
   }
 
   void deleteNode(String nodeID) {
@@ -94,5 +107,13 @@ public class LocationNodeManager {
   // gets called on button press and gets the node data
   void loadNode(LocationNode locationNode) {
     mapsController.populateLocationNodeData(locationNode);
+  }
+
+  public void setDraggedNodeCoords(MouseEvent mouseEvent) {
+    mapsController.setCoordsOnMouseEvent(mouseEvent);
+  }
+
+  public double getScale() {
+    return mapsController.getScale();
   }
 }
