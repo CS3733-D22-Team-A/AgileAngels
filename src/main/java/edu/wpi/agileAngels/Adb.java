@@ -77,6 +77,8 @@ public class Adb {
     labRequestDAO.csvRead();
     MedEquipImpl equipmentDAO = MedEquipImpl.getInstance();
     equipmentDAO.readCSV();
+    RequestDAOImpl mainRequestImpl = RequestDAOImpl.getInstance("MaintenanceRequest");
+    mainRequestImpl.csvRead();
   }
 
   /**

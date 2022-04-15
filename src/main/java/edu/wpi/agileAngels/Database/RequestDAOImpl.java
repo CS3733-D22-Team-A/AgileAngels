@@ -23,6 +23,7 @@ public class RequestDAOImpl implements RequestDAO {
   private static RequestDAOImpl SanrequestDAO = null;
   private static RequestDAOImpl MealDAO = null;
   private static RequestDAOImpl GiftDAO = null;
+  private static RequestDAOImpl MaintenanceDAO = null;
   private static RequestDAOImpl MorgueDAO = null;
 
   public RequestDAOImpl(HashMap<String, Request> reqData, int count, String type)
@@ -59,6 +60,11 @@ public class RequestDAOImpl implements RequestDAO {
         MealDAO = new RequestDAOImpl(data, 1, "MealRequest");
       }
       return MealDAO;
+    } else if (0 == type.compareTo("MaintenanceRequest")) {
+      if (MaintenanceDAO == null) {
+        MaintenanceDAO = new RequestDAOImpl(data, 1, "MaintenanceRequest");
+      }
+      return MaintenanceDAO;
     } else if (0 == type.compareTo("MorgueRequest")) {
       if (MorgueDAO == null) {
         MorgueDAO = new RequestDAOImpl(data, 1, "MorgueRequest");
@@ -123,6 +129,8 @@ public class RequestDAOImpl implements RequestDAO {
       letter = "Meal";
     } else if (0 == DAOtype.compareTo("GiftRequest")) {
       letter = "Gift";
+    } else if (0 == DAOtype.compareTo("MaintenanceRequest")) {
+      letter = "Main";
     }
 
     letter = letter + Integer.toString(this.count);
