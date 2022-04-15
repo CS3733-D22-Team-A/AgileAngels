@@ -195,10 +195,8 @@ public class EquipmentController implements Initializable {
     }
   }
 
-  // **************************************** FILTER METHODS BEYOND HERE
-  // **************************************** //
-
-  // Employee-based
+  // ***************************************FILTER METHODS BEYOND
+  // HERE***************************************//
 
   /** Does filterReqsTable methods when "Submit Filters" is clicked, or "onAction." */
   @FXML
@@ -210,6 +208,15 @@ public class EquipmentController implements Initializable {
       filterReqsTableStatus(statusFilterField.getText());
     }
   }
+
+  /** Puts all of the requests back on the table, "clearing the requests." */
+  @FXML
+  public void clearFilters() {
+    // Puts everything back on table.
+    equipmentTable.setItems(medData);
+  }
+
+  // Employee-based
 
   /**
    * Filters requests in the equipment table so only those with the given Employee remain.
@@ -241,13 +248,6 @@ public class EquipmentController implements Initializable {
     return newList;
   }
 
-  /** Puts all of the requests back on the table, "clearing the requests." */
-  @FXML
-  public void clearFilters() {
-    // Puts everything back on table.
-    equipmentTable.setItems(medData);
-  }
-
   // Status-based
 
   /**
@@ -276,12 +276,11 @@ public class EquipmentController implements Initializable {
         newList.add(req);
       }
     }
-
     return newList;
   }
 
-  // **************************************** NO MORE FILTER METHODS BEYOND HERE
-  // **************************************** //
+  // ***************************************FILTER METHODS BEYOND
+  // HERE***************************************//
 
   private void deleteEquipRequest(String deleteString) {
     if (!deleteString.isEmpty()) {
