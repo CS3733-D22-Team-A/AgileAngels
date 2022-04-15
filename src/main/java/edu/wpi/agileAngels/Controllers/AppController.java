@@ -29,6 +29,7 @@ public class AppController {
   private int[] availableInfusionPumps = new int[4];
   private int[] availableRecliners = new int[4];
   private int[] availableXRays = new int[4];
+  private String currentFloor = "";
 
   public AppController() {
     support = new PropertyChangeSupport(this);
@@ -187,7 +188,7 @@ public class AppController {
     }
   }
 
-  public void displayAlert(String page, String type) {
+  public void displayAlert(String page, String type, String floor) {
     ArrayList<AlertController> alerts = new ArrayList<>();
     // TODO add controllers
     ArrayList<String> types = new ArrayList<String>();
@@ -199,11 +200,21 @@ public class AppController {
     types.add("availableInfusionPump");
     types.add("availableRecliner");
     types.add("availableXRay");
+    currentFloor = floor;
     this.alertController = alerts.get(types.indexOf(type));
   }
 
   public AlertController getAlertController() {
     return alertController;
+  }
+
+  public int getDirtyBeds(String floor) {
+    int floorInt = getFloorInt(floor);
+    return dirtyBeds[floorInt];
+  }
+
+  public String getCurrentFloor() {
+    return this.currentFloor;
   }
 
   private int getFloorInt(String floor) {
