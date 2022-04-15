@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@styleRequest.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MaintenanceController">
     <children>
 
         <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f9f9fb" height="643.0" layoutX="13.0" layoutY="18.0" stroke="#f9f9fb" strokeType="INSIDE" width="1257.0" />
-        <HBox alignment="CENTER" layoutX="-34.0" layoutY="104.0" prefHeight="545.0" prefWidth="1293.0" spacing="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="21.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f9f9fb" height="679.0" layoutX="30.0" layoutY="22.0" stroke="#f9f9fb" strokeType="INSIDE" width="1223.0" />
+        <HBox alignment="CENTER" layoutX="-34.0" layoutY="104.0" prefHeight="545.0" prefWidth="1259.0" spacing="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
                 <TableView fx:id="equipmentTable" prefHeight="519.0" prefWidth="1143.0" stylesheets="@styleRequest.css">
                     <columns>
@@ -26,6 +29,20 @@
                 </TableView>
             </children>
         </HBox>
+      <HBox layoutX="70.0" layoutY="32.0" prefHeight="68.0" prefWidth="1144.0">
+         <children>
+            <Label prefHeight="72.0" prefWidth="536.0" style="-fx-font-weight: bold; -fx-font-size: 48;" text="Maintenance Request" textFill="#355a70">
+               <font>
+                  <Font name="Bodoni MT Bold" size="64.0" />
+               </font>
+            </Label>
+            <Button fx:id="helpButton" alignment="CENTER" mnemonicParsing="false" onAction="#displayHelpMessage" prefHeight="39.0" prefWidth="255.0" text="Add" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
 
     </children>
 </AnchorPane>
