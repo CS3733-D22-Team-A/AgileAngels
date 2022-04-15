@@ -71,7 +71,7 @@ public class LabController extends MainController implements Initializable {
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
-    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    // nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));

@@ -245,7 +245,7 @@ public class GiftsController implements Initializable {
   @FXML
   public void filterReqOnAction() {
     if (!employeeFilterField.getText().isEmpty()) {
-      filterReqsTable(employeeFilterField.getText());
+      filterReqsTableEmployee(employeeFilterField.getText());
     }
     if (!statusFilterField.getText().isEmpty()) {
       filterReqsTableStatus(statusFilterField.getText());
@@ -259,12 +259,14 @@ public class GiftsController implements Initializable {
     giftTable.setItems(giftData);
   }
 
+  /* Employee-based */
+
   /**
    * Filters requests in the equipment table so only those with the given Employee remain.
    *
    * @param employeeName The Employee the requests must have to remain on the table.
    */
-  private void filterReqsTable(String employeeName) {
+  private void filterReqsTableEmployee(String employeeName) {
     ObservableList<Request> filteredList = filterReqEmployee(employeeName);
 
     // Sets table to only have contents of the filtered list.
@@ -285,9 +287,10 @@ public class GiftsController implements Initializable {
         newList.add(req);
       }
     }
-
     return newList;
   }
+
+  /* Status-based */
 
   /**
    * Filters requests in the equipment table so only those with the given status remain.
