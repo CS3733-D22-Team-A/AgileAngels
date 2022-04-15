@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="background" stylesheets="@DashCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.DashboardController">
@@ -30,7 +34,89 @@
                   <Font size="28.0" />
                </font>
             </Label>
-            <ScrollPane layoutY="51.0" opacity="0.0" prefHeight="202.0" prefWidth="322.0" stylesheets="@DashCSS.css" />
+            <ScrollPane layoutX="3.0" layoutY="48.0" prefHeight="203.0" prefWidth="326.0" stylesheets="@DashCSS.css">
+               <content>
+                  <Pane prefHeight="200.0" prefWidth="320.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="324.0">
+                           <children>
+                              <HBox prefHeight="37.0" prefWidth="323.0">
+                                 <children>
+                                    <Button id="message-button" mnemonicParsing="false" prefHeight="37.0" prefWidth="322.0" styleClass="message-button" stylesheets="@DashCSS.css" textFill="WHITE">
+                                       <graphic>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                             <children>
+                                                <Label alignment="CENTER_RIGHT" text="ALERT:">
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../assets/warning.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Label>
+                                                <Label text="ALERT MESSAGE" />
+                                             </children>
+                                          </HBox>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="37.0" prefWidth="323.0">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <Button id="message-button" mnemonicParsing="false" prefHeight="37.0" prefWidth="322.0" styleClass="message-button" stylesheets="@DashCSS.css" textFill="WHITE">
+                                       <graphic>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                             <children>
+                                                <Label alignment="CENTER_RIGHT" text="ALERT:">
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../assets/warning.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Label>
+                                                <Label text="ALERT MESSAGE" />
+                                             </children>
+                                          </HBox>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="37.0" prefWidth="324.0">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <Button id="message-button" mnemonicParsing="false" prefHeight="37.0" prefWidth="322.0" styleClass="message-button" stylesheets="@DashCSS.css" textFill="WHITE">
+                                       <graphic>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                             <children>
+                                                <Label alignment="CENTER_RIGHT" text="ALERT:">
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../assets/warning.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Label>
+                                                <Label text="ALERT MESSAGE" />
+                                             </children>
+                                          </HBox>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+               </content></ScrollPane>
          </children>
       </Pane>
       <Pane layoutX="695.0" layoutY="98.0" prefHeight="152.0" prefWidth="564.0" styleClass="pane" stylesheets="@DashCSS.css">
@@ -40,7 +126,59 @@
                   <Font size="28.0" />
                </font>
             </Label>
-            <ScrollPane layoutX="-1.0" layoutY="50.0" opacity="0.0" prefHeight="103.0" prefWidth="564.0" stylesheets="@DashCSS.css" />
+            <ScrollPane layoutX="-1.0" layoutY="48.0" prefHeight="109.0" prefWidth="566.0" stylesheets="@DashCSS.css">
+               <content>
+                  <Pane prefHeight="104.0" prefWidth="563.0">
+                     <children>
+                        <VBox layoutX="3.0" layoutY="-6.0" prefHeight="114.0" prefWidth="565.0">
+                           <children>
+                              <HBox prefHeight="25.0" prefWidth="565.0" styleClass="nurse-button" stylesheets="@DashCSS.css">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="560.0" styleClass="nurse-button">
+                                       <graphic>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="543.0" spacing="10.0">
+                                             <children>
+                                                <ImageView fitHeight="53.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/placeholder.jpg" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label text="Wilson Wong" />
+                                                <Label text="Position" />
+                                             </children>
+                                          </HBox>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="66.0" prefWidth="563.0" styleClass="nurse-button">
+                                       <graphic>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                             <children>
+                                                <ImageView fitHeight="52.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/placeholder.jpg" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label text="Nathan">
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label text="Position" />
+                                             </children>
+                                          </HBox>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+               </content></ScrollPane>
          </children>
       </Pane>
       <Pane layoutX="29.0" layoutY="95.0" prefHeight="254.0" prefWidth="317.0" styleClass="pane" stylesheets="@DashCSS.css">
@@ -50,13 +188,158 @@
                   <Font size="28.0" />
                </font>
             </Label>
-            <ScrollPane layoutY="51.0" opacity="0.0" prefHeight="203.0" prefWidth="318.0" stylesheets="@DashCSS.css">
+            <ScrollPane layoutY="51.0" prefHeight="203.0" prefWidth="318.0" stylesheets="@DashCSS.css">
                <content>
-                  <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="316.0">
+                  <Pane prefHeight="200.0" prefWidth="316.0">
                      <children>
-                        <Button id="roomButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="315.0" styleClass="roomButton" stylesheets="@DashCSS.css" text="I'm here" textFill="WHITE" />
+                        <VBox prefHeight="200.0" prefWidth="318.0">
+                           <children>
+                              <HBox id="roomButton" alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="323.0" stylesheets="@DashCSS.css">
+                                 <children>
+                                    <Button id="roomButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="325.0" styleClass="roomButton" stylesheets="@DashCSS.css" textFill="WHITE">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                       <graphic>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                             <children>
+                                                <ImageView fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/food_symbol.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label text="James" />
+                                                <ImageView fitHeight="15.0" fitWidth="13.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/letter-p.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label layoutX="50.0" layoutY="17.0" text="Room 205">
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="76.0" styleClass="pending-button" stylesheets="@DashCSS.css">
+                                                   <graphic>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="21.0" prefWidth="60.0" spacing="5.0">
+                                                         <children>
+                                                            <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../assets/clock.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                            <Label styleClass="pending-button" text="Pending" />
+                                                         </children>
+                                                      </HBox>
+                                                   </graphic>
+                                                   <HBox.margin>
+                                                      <Insets left="40.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox id="roomButton" alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="323.0" stylesheets="@DashCSS.css">
+                                 <children>
+                                    <Button id="roomButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="318.0" styleClass="roomButton" stylesheets="@DashCSS.css" textFill="WHITE">
+                                       <graphic>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                             <children>
+                                                <Label text="Tom">
+                                                   <graphic>
+                                                      <ImageView fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../assets/food_symbol.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Label>
+                                                <ImageView fitHeight="15.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/letter-p.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label text="Room 113" />
+                                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="76.0" styleClass="progress-button" stylesheets="@DashCSS.css">
+                                                   <graphic>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="21.0" prefWidth="60.0" spacing="5.0">
+                                                         <children>
+                                                            <ImageView fitHeight="10.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../assets/progress_photo.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                            <Label styleClass="progress-button" text="Pending" />
+                                                         </children>
+                                                      </HBox>
+                                                   </graphic>
+                                                   <HBox.margin>
+                                                      <Insets left="62.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox id="roomButton" prefHeight="37.0" prefWidth="323.0" stylesheets="@DashCSS.css">
+                                 <children>
+                                    <Button id="roomButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="320.0" styleClass="roomButton" stylesheets="@DashCSS.css" textFill="WHITE">
+                                       <graphic>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="300.0" spacing="10.0">
+                                             <children>
+                                                <Label text="Tom">
+                                                   <graphic>
+                                                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../assets/flask_symbol.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Label>
+                                                <ImageView fitHeight="15.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../assets/letter-l.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label text="Lab 2" />
+                                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="76.0" styleClass="pending-button" stylesheets="@DashCSS.css">
+                                                   <graphic>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="21.0" prefWidth="60.0" spacing="5.0">
+                                                         <children>
+                                                            <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../assets/clock.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                            <Label styleClass="pending-button" text="Pending" />
+                                                         </children>
+                                                      </HBox>
+                                                   </graphic>
+                                                   <HBox.margin>
+                                                      <Insets left="85.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
+                        </VBox>
                      </children>
-                  </HBox>
+                  </Pane>
                </content></ScrollPane>
          </children>
       </Pane>
