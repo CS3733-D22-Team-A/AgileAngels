@@ -17,16 +17,15 @@
       <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
 
       <Accordion />
-      <Label fx:id="sanitationConfirmation" alignment="CENTER" layoutX="424.0" layoutY="618.0" prefHeight="76.0" prefWidth="586.0" wrapText="true">
+      <Label fx:id="laundryConfirmation" alignment="CENTER" layoutX="424.0" layoutY="618.0" prefHeight="76.0" prefWidth="586.0" wrapText="true">
          <font>
             <Font size="16.0" />
          </font></Label>
       <VBox alignment="CENTER" layoutX="56.0" layoutY="108.0" prefHeight="511.0" prefWidth="270.0" spacing="40.0">
          <children>
-            <TextField fx:id="sanIssue" alignment="TOP_LEFT" prefHeight="150.0" prefWidth="270.0" promptText="Describe the Issue" />
-            <TextField fx:id="sanLocation" prefHeight="50.0" prefWidth="270.0" promptText="Sanitation Location" />
-            <TextField fx:id="sanitationEmployeeText" prefHeight="50.0" prefWidth="270.0" promptText="Employee" />
-            <TextField fx:id="sanittionStatus" prefHeight="50.0" prefWidth="270.0" promptText="Status" />
+            <TextField fx:id="laundryLocation" prefHeight="50.0" prefWidth="270.0" promptText="Location" />
+            <TextField fx:id="laundryEmployeeText" prefHeight="50.0" prefWidth="270.0" promptText="Employee" />
+            <TextField fx:id="laundryStatus" prefHeight="50.0" prefWidth="270.0" promptText="Status" />
             <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0">
                <children>
                   <Button fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
