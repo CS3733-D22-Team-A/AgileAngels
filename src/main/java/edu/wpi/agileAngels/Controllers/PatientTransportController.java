@@ -18,7 +18,6 @@ import javafx.scene.layout.Pane;
 
 public class PatientTransportController implements Initializable {
 
-
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton, addButton;
   @FXML private TextField deleteName, editRequest, employeeFilterField;
   @FXML private Label equipmentConfirmation;
