@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="edu.wpi.agileAngels.Controllers.PatientTransportRequest"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@styleRequest.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.PatientTransportController">
+    <children>
 
+        <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
+
+        <Label fx:id="equipmentConfirmation" alignment="TOP_LEFT" layoutX="461.0" layoutY="595.0" prefHeight="86.0" prefWidth="302.0" textAlignment="CENTER" wrapText="true">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <HBox alignment="CENTER" layoutX="54.0" layoutY="171.0" prefHeight="484.0" prefWidth="1165.0" spacing="50.0" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="61.0">
+            <children>
+                <TableView fx:id="equipmentTable" prefHeight="484.0" prefWidth="1011.0">
+                    <columns>
+                        <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
+                        <TableColumn fx:id="availableColumn" maxWidth="123.0" minWidth="54.0" prefWidth="123.0" resizable="false" text="Available" />
+                        <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="41.0" prefWidth="123.0" resizable="false" text="Type" />
+                        <TableColumn fx:id="locationColumn" maxWidth="123.0" minWidth="52.0" prefWidth="123.0" resizable="false" text="Location" />
+                        <TableColumn fx:id="employeeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Employee" />
+                        <TableColumn fx:id="statusColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Status" />
+                        <TableColumn fx:id="descriptionColumn" maxWidth="295.0" minWidth="115.2000732421875" prefWidth="280.0" resizable="false" text="Description" />
+                    </columns>
+                </TableView>
+            </children>
+        </HBox>
+      <Label layoutX="132.0" layoutY="101.0" style="-fx-font-weight: bold; -fx-font-size: 48;" text="Patient Transport Request" textFill="WHITE">
+         <font>
+            <Font name="Bodoni MT Bold" size="64.0" />
+         </font>
+      </Label>
+            <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0" />
+
+    </children>
 </AnchorPane>

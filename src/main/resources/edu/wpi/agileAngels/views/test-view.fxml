@@ -10,7 +10,7 @@
     <fx:include source="menu-bar.fxml" />
       <HBox alignment="CENTER" layoutX="-5.0" layoutY="281.0" prefHeight="100.0" prefWidth="1284.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#switchConnection" prefHeight="100.0" prefWidth="337.0" text="New Circle" />
+            <Button mnemonicParsing="false" onAction="#switchConnection" prefHeight="100.0" prefWidth="337.0" text="Toggle Server" />
          </children>
       </HBox>
 
