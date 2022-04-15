@@ -1,0 +1,19 @@
+
+@font-face {
+    font-family: Roboto;
+    src: url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);
+
+}
+
+.background{
+    -fx-background-color: #356C70;
+
+}
+
+
+.pane{
+    -fx-background-radius: 20 20 20 20;
+    -fx-background-color: linear-gradient(to bottom, #3D7D82, #356C70);
+    -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 16, 0, 4, 0);
+}
+

@@ -28,46 +28,9 @@
                   <TextField fx:id="giftRecipient" prefHeight="50.0" prefWidth="270.0" promptText="To:" />
                   <TextField fx:id="giftSender" prefHeight="50.0" prefWidth="128.0" promptText="From:" />
                   <TextField fx:id="giftLocation" prefHeight="50.0" prefWidth="128.0" promptText="Location" />
-                  <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0">
-                     <children>
-                        <Button fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                           <font>
-                              <Font size="10.0" />
-                           </font>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <graphic>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Clear" />
-                                 </children>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </HBox>
-                           </graphic>
-                        </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#submitGift" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                           <font>
-                              <Font size="10.0" />
-                           </font>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <graphic>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Submit" />
-                                 </children>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </HBox>
-                           </graphic>
-                        </Button>
-                     </children>
-                  </HBox>
+                  <TextField fx:id="editRequest" promptText="Edit Name" />
+                  <TextField fx:id="deleteName" promptText="Delete Name" />
+                  <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0" />
                </children>
             </VBox>
             <VBox prefHeight="550.0" prefWidth="270.0" spacing="40.0">
@@ -91,8 +54,6 @@
             <TableColumn fx:id="messageColumn" prefWidth="85.0" text="Message" />
         </columns>
       </TableView>
-      <TextField fx:id="deleteName" layoutX="572.0" layoutY="597.0" promptText="Delete Name" />
-      <TextField fx:id="editRequest" layoutX="311.0" layoutY="597.0" promptText="Edit Name" />
       <MenuButton fx:id="giftType" layoutX="63.0" layoutY="118.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="270.0" text="Gift Type">
         <items>
           <MenuItem fx:id="baloons" mnemonicParsing="false" onAction="#giftType" text="Balloons" />
@@ -100,5 +61,79 @@
             <MenuItem fx:id="card" mnemonicParsing="false" onAction="#giftType" text="Card" />
         </items>
       </MenuButton>
+      <TextField fx:id="employeeFilterField" layoutX="671.0" layoutY="543.0" prefHeight="50.0" prefWidth="154.0" promptText="Filter by Employee" />
+      <Button fx:id="clear" alignment="CENTER" layoutX="63.0" layoutY="565.0" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Clear" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </graphic>
+      </Button>
+      <Button alignment="CENTER" layoutX="212.0" layoutY="568.0" mnemonicParsing="false" onAction="#submitGift" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Submit" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </graphic>
+      </Button>
+      <Button alignment="CENTER" layoutX="994.0" layoutY="543.0" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Submit Filter" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </graphic>
+      </Button>
+      <Button alignment="CENTER" layoutX="1138.0" layoutY="543.0" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Clear Filters" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </graphic>
+      </Button>
+      <TextField fx:id="statusFilterField" layoutX="839.0" layoutY="543.0" prefHeight="50.0" prefWidth="142.0" promptText="Filter by Status" />
    </children>
 </AnchorPane>

@@ -19,7 +19,7 @@
 
       <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
 
-      <Label fx:id="equipmentConfirmation" alignment="TOP_LEFT" layoutX="461.0" layoutY="595.0" prefHeight="86.0" prefWidth="302.0" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="equipmentConfirmation" alignment="TOP_LEFT" layoutX="150.0" layoutY="613.0" prefHeight="86.0" prefWidth="302.0" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="16.0" />
          </font>
@@ -120,6 +120,44 @@
             </TableView>
          </children>
       </HBox>
+      <TextField fx:id="employeeFilterField" layoutX="379.0" layoutY="613.0" prefHeight="50.0" prefWidth="200.0" promptText="Filter by Employee" />
+      <Button fx:id="clearFilter" alignment="CENTER" layoutX="996.0" layoutY="613.0" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Clear Filters" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </graphic>
+      </Button>
+      <Button alignment="CENTER" layoutX="846.0" layoutY="613.0" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Submit Filters" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </graphic>
+      </Button>
+      <TextField fx:id="statusFilterField" layoutX="611.0" layoutY="613.0" prefHeight="50.0" prefWidth="200.0" promptText="Filter by Status" />
 
    </children>
 </AnchorPane>
