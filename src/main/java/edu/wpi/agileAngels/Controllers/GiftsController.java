@@ -244,10 +244,16 @@ public class GiftsController implements Initializable {
   /** Does filterReqsTable when "Submit Filters" is clicked, or "onAction." */
   @FXML
   public void filterReqOnAction() {
-    if (!employeeFilterField.getText().isEmpty()) {
-      filterReqsTable(employeeFilterField.getText());
-    }
-    if (!statusFilterField.getText().isEmpty()) {
+    if (!employeeFilterField.getText().isEmpty() && !statusFilterField.getText().isEmpty()) {
+      ObservableList<Request> empFilteredList = filterReqEmployee(employeeFilterField.getText());
+      ObservableList<Request> trueFilteredList =
+          filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
+
+      // Di-rectly touching equipment table in n-filter cases.
+      giftTable.setItems(trueFilteredList);
+    } else if (!employeeFilterField.getText().isEmpty()) {
+      filterReqsTableEmployee(employeeFilterField.getText());
+    } else if (!statusFilterField.getText().isEmpty()) {
       filterReqsTableStatus(statusFilterField.getText());
     }
   }
@@ -259,12 +265,14 @@ public class GiftsController implements Initializable {
     giftTable.setItems(giftData);
   }
 
+  /* Employee-based */
+
   /**
    * Filters requests in the equipment table so only those with the given Employee remain.
    *
    * @param employeeName The Employee the requests must have to remain on the table.
    */
-  private void filterReqsTable(String employeeName) {
+  private void filterReqsTableEmployee(String employeeName) {
     ObservableList<Request> filteredList = filterReqEmployee(employeeName);
 
     // Sets table to only have contents of the filtered list.
@@ -285,9 +293,10 @@ public class GiftsController implements Initializable {
         newList.add(req);
       }
     }
-
     return newList;
   }
+
+  /* Status-based */
 
   /**
    * Filters requests in the equipment table so only those with the given status remain.
@@ -315,6 +324,47 @@ public class GiftsController implements Initializable {
         newList.add(req);
       }
     }
+    return newList;
+  }
+
+  /* Methods to filter lists n times */
+
+  /**
+   * Filters out requests in medData based on the given status.
+   *
+   * @param reqStatus The status that the requests must have to be in the new list.
+   * @param filteredList The list that was presumably filtered.
+   * @return The new filtered list.
+   */
+  private ObservableList<Request> filterFilteredReqListStatus(
+      String reqStatus, ObservableList<Request> filteredList) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : filteredList) {
+      if (req.getStatus().equals(reqStatus)) {
+        newList.add(req);
+      }
+    }
+    return newList;
+  }
+
+  /**
+   * Filters out requests in medData based on the given Employee.
+   *
+   * @param employeeName The Employee that the requests must have to be in the new list.
+   * @param filteredList The list that was presumably filtered.
+   * @return The new filtered list.
+   */
+  private ObservableList<Request> filterFilteredReqListEmployee(
+      String employeeName, ObservableList<Request> filteredList) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : filteredList) {
+      if (req.getEmployee().getName().equals(employeeName)) {
+        newList.add(req);
+      }
+    }
+
     return newList;
   }
 
