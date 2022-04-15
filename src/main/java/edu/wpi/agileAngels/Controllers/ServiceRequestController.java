@@ -1,6 +1,8 @@
 package edu.wpi.agileAngels.Controllers;
 
 import com.jfoenix.controls.JFXToggleButton;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 // brings you to pages
-public class ServiceRequestController implements Initializable {
+public class ServiceRequestController implements Initializable, PropertyChangeListener {
 
   @FXML
   Button equipmentRequest,
@@ -31,6 +33,20 @@ public class ServiceRequestController implements Initializable {
   @FXML private Label harmoniLabel, jakobLabel, justinLabel, danielLabel, basharLabel, jakobLabel2;
 
   AppController appController = AppController.getInstance();
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    appController.addPropertyChangeListener(this);
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    String changeType = evt.getPropertyName();
+    System.out.println(changeType);
+    int newValue = (int) evt.getNewValue();
+    System.out.println(newValue);
+  }
+
   /**
    * showCreators() will make invisible labels displaying people's names visible again. And turn
    * them off. "I don't know why, I don't want to know why" - TF2 source code. btw don't touch this,
@@ -83,7 +99,4 @@ public class ServiceRequestController implements Initializable {
       appController.loadPage("/edu/wpi/agileAngels/views/test-view.fxml");
     }*/
   }
-
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {}
 }

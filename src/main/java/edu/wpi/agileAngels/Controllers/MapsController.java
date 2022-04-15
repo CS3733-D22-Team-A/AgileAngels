@@ -1,6 +1,8 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.Location;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -17,7 +19,7 @@ import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
 import javax.swing.*;
 
-public class MapsController implements Initializable {
+public class MapsController implements Initializable, PropertyChangeListener {
 
   @FXML
   private ImageView floorTwoMap,
@@ -29,6 +31,7 @@ public class MapsController implements Initializable {
 
   @FXML private ScrollPane mapScroll;
   @FXML HBox addButtonBox;
+
   @FXML
   private Button floorTwo,
       floorThree,
@@ -75,6 +78,29 @@ public class MapsController implements Initializable {
   public double panX = 0;
   public double panY = 0;
 
+  private double croppedMapXOffset = 1054;
+  private double croppedMapYOffset = 544;
+
+  private double croppedMapWidth = 2000;
+
+  private double imagePaneWidth = 1400;
+
+  public double getCroppedMapXOffset() {
+    return croppedMapXOffset;
+  }
+
+  public double getCroppedMapYOffset() {
+    return croppedMapYOffset;
+  }
+
+  public double getCroppedMapWidth() {
+    return croppedMapWidth;
+  }
+
+  public double getImagePaneWidth() {
+    return imagePaneWidth;
+  }
+
   /**
    * Called on page load, creates panes for each map, adds the images for each map to its pane, and
    * sets their initial visibility
@@ -84,6 +110,8 @@ public class MapsController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
+    appController.addPropertyChangeListener(this);
 
     clean.setVisible(false);
     addButtonBox.setVisible(false);
@@ -120,6 +148,14 @@ public class MapsController implements Initializable {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    String changeType = evt.getPropertyName();
+    System.out.println(changeType);
+    int newValue = (int) evt.getNewValue();
+    System.out.println(newValue);
   }
 
   /**
@@ -410,21 +446,31 @@ public class MapsController implements Initializable {
 
   public double getMapXCoordFromClick(MouseEvent click) {
     panX = mapScroll.getHvalue() * (mapPane.getWidth() - mapScroll.getWidth() / scale);
-    double panX2 = mapScroll.getHvalue() * 48;
+    double panX2 =
+        mapScroll.getHvalue() * 244; // no idea what these numbers are i guessed and checked
     if (scale == 1) {
-      return (((click.getSceneX() - 460) / scale) + panX - 8) * 3.225 + 775;
+      return (((click.getSceneX() - mapScroll.getLayoutX()) / scale) + panX - 8)
+              * (croppedMapWidth / imagePaneWidth)
+          + croppedMapXOffset;
     } else {
-      return (((click.getSceneX() - 460) / scale) + panX - panX2 - 8) * 3.225 + 775;
+      return (((click.getSceneX() - mapScroll.getLayoutX()) / scale) + panX + panX2 - 8)
+              * (croppedMapWidth / imagePaneWidth)
+          + croppedMapXOffset;
     }
   }
 
   public double getMapYCoordFromClick(MouseEvent click) {
     panY = mapScroll.getVvalue() * (mapPane.getHeight() - mapScroll.getHeight() / scale);
-    double panY2 = mapScroll.getVvalue() * 28.6;
+    double panY2 =
+        mapScroll.getVvalue() * 10; // no idea what these numbers are i guessed and checked
     if (scale == 1) {
-      return (((click.getSceneY() - 60) / scale) + panY - 8) * 3.225 + 320;
+      return (((click.getSceneY() - mapScroll.getLayoutY()) / scale) + panY - 8)
+              * (croppedMapWidth / imagePaneWidth)
+          + croppedMapYOffset;
     } else {
-      return (((click.getSceneY() - 60) / scale) + panY - panY2 - 8) * 3.225 + 320;
+      return (((click.getSceneY() - mapScroll.getLayoutY()) / scale) + panY + panY2 - 8)
+              * (croppedMapWidth / imagePaneWidth)
+          + croppedMapYOffset;
     }
   }
 
