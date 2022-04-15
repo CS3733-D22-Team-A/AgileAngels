@@ -9,15 +9,31 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 public class AppController {
 
   public static Stack<String> pageHistory = new Stack<>();
-
   private static AppController appController = null;
   private MenuController menuController;
+  private PropertyChangeSupport support;
+  private Stage primaryStage;
+  private int[] dirtyBeds = new int[4];
+  private int[] dirtyInfusionPumps = new int[4];
+  private int[] dirtyRecliners = new int[4];
+  private int[] dirtyXRays = new int[4];
 
-  public AppController() {}
+  public AppController() {
+    support = new PropertyChangeSupport(this);
+
+    for (int i = 0; i < 4; i++) {
+      dirtyBeds[i] = 0;
+      dirtyInfusionPumps[i] = 0;
+      dirtyRecliners[i] = 0;
+      dirtyXRays[i] = 0;
+    }
+  }
 
   public static AppController getInstance() {
     if (appController == null) {
@@ -26,7 +42,84 @@ public class AppController {
     return appController;
   }
 
-  Stage primaryStage;
+  public void addPropertyChangeListener(PropertyChangeListener pcl) {
+    support.addPropertyChangeListener(pcl);
+  }
+
+  public void removePropertyChangeListener(PropertyChangeListener pcl) {
+    support.removePropertyChangeListener(pcl);
+  }
+
+  public void incrementDirtyBeds(String floor, int increment) {
+    int floorInt = getFloorInt(floor);
+    try {
+        support.firePropertyChange("dirtyBeds" + floor,
+                this.dirtyBeds[floorInt], this.dirtyBeds[floorInt] + increment);
+        this.dirtyBeds[floorInt] = this.dirtyBeds[floorInt] + increment;
+        support.firePropertyChange("dirtyBedsAll",
+                this.dirtyBeds[0], this.dirtyBeds[0] + increment);
+        this.dirtyBeds[0] = this.dirtyBeds[0] + increment;
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void incrementDirtyInfusionPumps(String floor, int increment) {
+    int floorInt = getFloorInt(floor);
+    try {
+        support.firePropertyChange("dirtyPumps" + floor,
+                this.dirtyInfusionPumps[floorInt],
+                this.dirtyInfusionPumps[floorInt] + increment);
+        this.dirtyInfusionPumps[floorInt] = this.dirtyInfusionPumps[floorInt] + increment;
+        support.firePropertyChange("dirtyPumpsAll",
+                this.dirtyInfusionPumps[0], this.dirtyInfusionPumps[0] + increment);
+        this.dirtyInfusionPumps[0] = this.dirtyInfusionPumps[0] + increment;
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void incrementDirtyRecliners(String floor, int increment) {
+    int floorInt = getFloorInt(floor);
+    try {
+      support.firePropertyChange("dirtyRecliners" + floor,
+              this.dirtyRecliners[floorInt],
+              this.dirtyRecliners[floorInt] + increment);
+      this.dirtyRecliners[floorInt] = this.dirtyRecliners[floorInt] + increment;
+      support.firePropertyChange("dirtyReclinersAll",
+              this.dirtyRecliners[0], this.dirtyRecliners[0] + increment);
+      this.dirtyRecliners[0] = this.dirtyRecliners[0] + increment;
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void incrementDirtyXRays(String floor, int increment) {
+    int floorInt = getFloorInt(floor);
+    try {
+      support.firePropertyChange("dirtyXRays" + floor,
+              this.dirtyXRays[floorInt],
+              this.dirtyXRays[floorInt] + increment);
+      this.dirtyXRays[floorInt] = this.dirtyXRays[floorInt] + increment;
+      support.firePropertyChange("dirtyXRaysAll",
+              this.dirtyXRays[0], this.dirtyXRays[0] + increment);
+      this.dirtyXRays[0] = this.dirtyXRays[0] + increment;
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private int getFloorInt(String floor) {
+    int floorInt = -1;
+    if (floor.equals("3")) {
+      floorInt = 1;
+    } else if (floor.equals("4")) {
+      floorInt = 2;
+    } else if (floor.equals("5")) {
+      floorInt = 3;
+    }
+    return floorInt;
+  }
 
   public void init(Stage primaryStage) {
     this.primaryStage = primaryStage;
