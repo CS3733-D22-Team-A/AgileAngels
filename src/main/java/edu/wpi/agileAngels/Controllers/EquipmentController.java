@@ -25,7 +25,7 @@ import javafx.scene.layout.Pane;
 public class EquipmentController implements Initializable, PropertyChangeListener {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
-  @FXML private TextField deleteName, editRequest, employeeFilterField;
+  @FXML private TextField deleteName, editRequest, employeeFilterField, statusFilterField;
   @FXML private Label equipmentConfirmation;
   @FXML private TableView equipmentTable;
   @FXML Button clear, submitFilters;
@@ -220,13 +220,27 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     }
   }
 
-  /** Does filterReqsTable when "Submit Requests" is clicked, or "onAction." */
+  /* FILTER METHODS BEYOND HERE */
+
+  /** Does filterReqsTable methods when "Submit Filters" is clicked, or "onAction." */
   @FXML
-  public void filterReqEmpOnAction() {
+  public void filterReqOnAction() {
     if (!employeeFilterField.getText().isEmpty()) {
       filterReqsTable(employeeFilterField.getText());
     }
+    if (!statusFilterField.getText().isEmpty()) {
+      filterReqsTableStatus(statusFilterField.getText());
+    }
   }
+
+  /** Puts all of the requests back on the table, "clearing the requests." */
+  @FXML
+  public void clearFilters() {
+    // Puts everything back on table.
+    equipmentTable.setItems(medData);
+  }
+
+  // Employee-based
 
   /**
    * Filters requests in the equipment table so only those with the given Employee remain.
@@ -238,13 +252,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
     // Sets table to only have contents of the filtered list.
     equipmentTable.setItems(filteredList);
-  }
-
-  /** Puts all of the requests back on the table, "clearing the requests." */
-  @FXML
-  public void clearFilters() {
-    // Puts everything back on table.
-    equipmentTable.setItems(medData);
   }
 
   /**
@@ -264,6 +271,39 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
     return newList;
   }
+
+  // Status-based
+
+  /**
+   * Filters requests in the equipment table so only those with the given status remain.
+   *
+   * @param reqStatus The status the requests must have to remain on the table.
+   */
+  private void filterReqsTableStatus(String reqStatus) {
+    ObservableList<Request> filteredList = filterReqStatus(reqStatus);
+
+    // Sets table to only have contents of the filtered list.
+    equipmentTable.setItems(filteredList);
+  }
+
+  /**
+   * Filters out requests in medData based on the given status.
+   *
+   * @param reqStatus The status that the requests must have to be in the new list.
+   * @return The new filtered list.
+   */
+  private ObservableList<Request> filterReqStatus(String reqStatus) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : medData) {
+      if (req.getStatus().equals(reqStatus)) {
+        newList.add(req);
+      }
+    }
+    return newList;
+  }
+
+  /* FILTER METHODS ABOVE HERE */
 
   private void deleteEquipRequest(String deleteString) {
     if (!deleteString.isEmpty()) {

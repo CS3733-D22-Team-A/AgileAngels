@@ -257,8 +257,8 @@
             </GridPane>
          </children>
       </HBox>
-      <TextField fx:id="employeeFilterField" layoutX="505.0" layoutY="620.0" prefHeight="50.0" prefWidth="270.0" promptText="Filter by Employee" />
-      <Button alignment="CENTER" layoutX="818.0" layoutY="620.0" mnemonicParsing="false" onAction="#filterReqEmpOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+      <TextField fx:id="employeeFilterField" layoutX="397.0" layoutY="623.0" prefHeight="50.0" prefWidth="192.0" promptText="Filter by Employee" />
+      <Button alignment="CENTER" layoutX="842.0" layoutY="620.0" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
          <font>
             <Font size="10.0" />
          </font>
@@ -276,7 +276,7 @@
             </HBox>
          </graphic>
       </Button>
-      <Button alignment="CENTER" layoutX="978.0" layoutY="620.0" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+      <Button alignment="CENTER" layoutX="998.0" layoutY="620.0" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
          <font>
             <Font size="10.0" />
          </font>
@@ -294,6 +294,7 @@
             </HBox>
          </graphic>
       </Button>
+      <TextField fx:id="statusFilterField" layoutX="615.0" layoutY="623.0" prefHeight="50.0" prefWidth="192.0" promptText="Filter by Status" />
 
 
    </children>
