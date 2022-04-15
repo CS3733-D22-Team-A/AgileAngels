@@ -5,7 +5,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,18 +40,14 @@ public class SanitationController implements Initializable, PropertyChangeListen
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
-
-    HashMap<String, Request> sanData = new HashMap<String, Request>();
-    sanDAO.getAllRequests();
-    // sanDAO = new RequestDAOImpl("./san.csv", sanData, 0);
   }
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-        String changeType = evt.getPropertyName();
-        System.out.println(changeType);
-        int newValue = (int) evt.getNewValue();
-        System.out.println(newValue);
+    String changeType = evt.getPropertyName();
+    System.out.println(changeType);
+    int newValue = (int) evt.getNewValue();
+    System.out.println(newValue);
   }
 
   @FXML
