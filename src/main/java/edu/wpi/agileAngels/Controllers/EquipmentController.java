@@ -64,7 +64,7 @@ public class EquipmentController implements Initializable {
     HashMap<String, Location> locationsHash = locDAO.getAllLocations();
     ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
     for (Location loc : locationsList) {
-      if (loc.getFloor().equals("3")) {
+      if (loc.getFloor().equals("3") || loc.getFloor().equals("4") || loc.getFloor().equals("5")) {
         MenuItem item = new MenuItem(loc.getNodeID());
         item.setOnAction(this::locationMenu);
         equipLocation.getItems().add(item);
@@ -102,6 +102,8 @@ public class EquipmentController implements Initializable {
    */
   @FXML
   private void submitEquipment() throws SQLException {
+    equipmentConfirmation.setText("");
+
     // first sees if all of the attributes are empty
     // gets all inputs and converts into string
     String dropDownString = equipmentType.getText();
@@ -193,10 +195,12 @@ public class EquipmentController implements Initializable {
         Request object = medData.get(i);
         if (0 == deleteString.compareTo(object.getName())) {
           // update the corresponding medicalEquip object
-          // equipDAO.updateMedicalCleanliness(object.getMedicalEquip(), false);
-          // equipDAO.updateStatus(object.getMedicalEquip(), "available");
-          //  equipDAO.updateEquipmentLocation(
-          //     object.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+          if (object.getMedicalEquip() != null) {
+            equipDAO.updateMedicalCleanliness(object.getMedicalEquip(), false);
+            equipDAO.updateStatus(object.getMedicalEquip(), "available");
+            equipDAO.updateEquipmentLocation(
+                object.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+          }
           // delete the request
           medData.remove(i);
           MedrequestImpl.deleteRequest(object);
@@ -235,13 +239,35 @@ public class EquipmentController implements Initializable {
       if (!dropDownString.isEmpty()) {
         // String type = equipmentType.getText();
 
-        found.setType(dropDownString);
-        MedrequestImpl.updateType(found, dropDownString);
+        MedicalEquip equip = null;
+        Boolean foundEquip = false;
+        int i = 0;
+        while (!foundEquip && i < allMedEquip.size()) {
+          MedicalEquip medEquip = allMedEquip.get(i);
+          if (medEquip.getType().equals(dropDownString)
+              && medEquip.getStatus().equals("available")
+              && medEquip.isClean()) {
+            equip = medEquip;
+            foundEquip = true;
+          }
+          i++;
+        }
+        if (foundEquip) {
+          found.setType(dropDownString);
+          found.setMedicalEquip(equip);
+          MedrequestImpl.updateType(found, dropDownString);
+        } else {
+          equipmentConfirmation.setText(
+              "Sorry, there are currently no " + dropDownString + "s available.");
+        }
       }
 
       if (!locationString.isEmpty()) {
         found.setLocation(location);
         // MedrequestImpl.updateLocation(found, location);
+        if (found.getMedicalEquip() != null) {
+          equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
+        }
       }
       if (!employeeString.isEmpty()) {
         System.out.println(employee.getName());
@@ -255,16 +281,18 @@ public class EquipmentController implements Initializable {
         //  MedrequestImpl.updateStatus(found, statusString);
 
         // set the status and location of the medicalEquipment object corresponding to the request
-        if (statusString.equals("notStarted")) {
-          equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
-        } else if (statusString.equals("inProgress")) {
-          equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
-          equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
-        } else if (statusString.equals("complete")) {
-          //  equipDAO.updateMedicalCleanliness(found.getMedicalEquip(), false);
-          equipDAO.updateStatus(found.getMedicalEquip(), "available");
-          equipDAO.updateEquipmentLocation(
-              found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+        if (found.getMedicalEquip() != null) {
+          if (statusString.equals("notStarted")) {
+            equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
+          } else if (statusString.equals("inProgress")) {
+            equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
+            equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
+          } else if (statusString.equals("complete")) {
+            equipDAO.updateMedicalCleanliness(found.getMedicalEquip(), false);
+            equipDAO.updateStatus(found.getMedicalEquip(), "available");
+            equipDAO.updateEquipmentLocation(
+                found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+          }
         }
       }
       // System.out.println(num);

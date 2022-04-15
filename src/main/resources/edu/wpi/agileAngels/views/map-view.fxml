@@ -15,30 +15,43 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MapsController">
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MapsController">
     <children>
-      <fx:include source="menu-bar.fxml" />
-
-        <Button id="floorThree" fx:id="floorThree" layoutX="286.0" layoutY="207.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 3">
-            <font>
-                <Font size="17.0" />
-            </font>
-        </Button>
-        <Button id="floorTwo" fx:id="floorTwo" layoutX="286.0" layoutY="322.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 2">
-            <font>
-                <Font size="17.0" />
-            </font>
-        </Button>
-        <Button id="lowerLevelOne" fx:id="lowerLevelOne" layoutX="286.0" layoutY="435.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Lower Level 1">
-            <font>
-                <Font size="17.0" />
-            </font>
-        </Button>
-        <Button id="lowerLevelTwo" fx:id="lowerLevelTwo" layoutX="286.0" layoutY="550.0" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Lower Level 2">
-            <font>
-                <Font size="17.0" />
-            </font>
-        </Button>
+      <VBox layoutX="286.0" layoutY="187.0" prefHeight="418.0" prefWidth="127.0" spacing="20.0">
+         <children>
+      
+              <Button id="floorThree" fx:id="floorFive" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 5">
+                  <font>
+                      <Font size="17.0" />
+                  </font>
+              </Button>
+             <Button id="floorThree" fx:id="floorFour" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 4">
+                  <font>
+                      <Font size="17.0" />
+                  </font>
+              </Button>
+             <Button id="floorThree" fx:id="floorThree" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 3">
+                  <font>
+                      <Font size="17.0" />
+                  </font>
+              </Button>
+              <Button id="floorTwo" fx:id="floorTwo" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Floor 2">
+                  <font>
+                      <Font size="17.0" />
+                  </font>
+              </Button>
+              <Button id="lowerLevelOne" fx:id="lowerLevelOne" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Lower Level 1">
+                  <font>
+                      <Font size="17.0" />
+                  </font>
+              </Button>
+              <Button id="lowerLevelTwo" fx:id="lowerLevelTwo" mnemonicParsing="false" onAction="#changeMap" prefHeight="75.0" prefWidth="127.0" text="Lower Level 2">
+                  <font>
+                      <Font size="17.0" />
+                  </font>
+              </Button>
+         </children>
+      </VBox>
         <ScrollPane fx:id="mapScroll" hbarPolicy="NEVER" layoutX="460.0" layoutY="60.0" pannable="true" prefHeight="578.0" prefWidth="821.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="458.79999999999995" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
             <content>
                 <Pane fx:id="mapPane" prefHeight="659.0" prefWidth="1088.0">
@@ -46,6 +59,16 @@
                         <ImageView id="floorTwoMap" fx:id="floorTwoMap" fitHeight="734.0" fitWidth="1091.0" preserveRatio="true">
                             <image>
                                 <Image url="@../assets/Floor 2.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView id="floorTwoMap" fx:id="floorFourMap" fitHeight="734.0" fitWidth="1091.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/Floor 4.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView id="floorTwoMap" fx:id="floorFiveMap" fitHeight="734.0" fitWidth="1091.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/Floor 5.png" />
                             </image>
                         </ImageView>
                         <ImageView id="floorThreeMap" fx:id="floorThreeMap" fitHeight="718.0" fitWidth="1092.0" preserveRatio="true">
@@ -61,11 +84,6 @@
                         <ImageView id="lowerLevelTwo" fx:id="lowerLevelTwoMap" fitHeight="725.0" fitWidth="1091.0" preserveRatio="true">
                             <image>
                                 <Image url="@../assets/Lower level 2.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView fx:id="floorThreeDetailMap" fitHeight="181.0" fitWidth="276.0" layoutX="145.0" layoutY="105.0" opacity="0.5" preserveRatio="true">
-                            <image>
-                                <Image url="@../assets/Tower - Floor 3 Detail.jpg" />
                             </image>
                         </ImageView>
                         <Pane fx:id="clickPane" prefHeight="658.0" prefWidth="1090.0" />
@@ -151,5 +169,6 @@
         </VBox>
         <Label fx:id="floorLabel" layoutX="316.0" layoutY="141.0" prefHeight="30.0" prefWidth="127.0" text="Floor 2" />
       <Button fx:id="clean" layoutX="331.0" layoutY="640.0" mnemonicParsing="false" onAction="#cleanEquip" prefHeight="50.0" prefWidth="82.0" text="Wash Equipment" textAlignment="CENTER" wrapText="true" />
+        <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
     </children>
 </AnchorPane>
