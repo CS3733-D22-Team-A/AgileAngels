@@ -1,10 +1,8 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.*;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
@@ -48,6 +46,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
   HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
+  AnchorPane alertPane;
 
   AppController appController = AppController.getInstance();
   @FXML
@@ -102,15 +101,17 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   @Override
   public void propertyChange(PropertyChangeEvent stateEvent) {
+    System.out.println("propertyChange");
     String changeType = stateEvent.getPropertyName();
+    System.out.println(changeType);
     int newValue = (int) stateEvent.getNewValue();
+    System.out.println(newValue);
     if (appController.alertNeeded(changeType, newValue)) {
-      AlertController alertController = appController.getAlert(changeType);
-      AnchorPane pane;
       try {
-        pane = FXMLLoader.load(getClass().getResource("/edu/wpi/agileAngels/views/dirtyBedAlert-view.fxml"));
-        anchor.getChildren().addAll(pane);
-      } catch (IOException e) {
+        String alertView = appController.getAlert(changeType);
+        alertPane = FXMLLoader.load(getClass().getResource(alertView));
+        anchor.getChildren().addAll(alertPane);
+      } catch (Exception e) {
         e.printStackTrace();
       }
     }
@@ -204,7 +205,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
           equipDAO.updateStatus(equip, "inUse");
           equipDAO.updateEquipmentLocation(equip, medDevice.getLocation());
         } else if (statusString.equals("complete")) {
-          // equipDAO.updateMedicalCleanliness(equip, false);
+          equipDAO.updateMedicalCleanliness(equip, false);
           equipDAO.updateStatus(equip, "available");
           equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00103"));
         }

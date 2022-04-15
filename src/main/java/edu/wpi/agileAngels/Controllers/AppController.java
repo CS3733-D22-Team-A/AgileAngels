@@ -4,6 +4,7 @@ import edu.wpi.agileAngels.Database.DBconnection;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Stack;
 import javafx.application.Platform;
@@ -20,6 +21,7 @@ public class AppController {
   private MenuController menuController;
   private PropertyChangeSupport support;
   private Stage primaryStage;
+  private String currentFloor;
   private int[] dirtyBeds = new int[4];
   private int[] dirtyInfusionPumps = new int[4];
   private int[] dirtyRecliners = new int[4];
@@ -28,20 +30,19 @@ public class AppController {
   private int[] availableInfusionPumps = new int[4];
   private int[] availableRecliners = new int[4];
   private int[] availableXRays = new int[4];
-  private String currentFloor = "";
 
   public AppController() {
     support = new PropertyChangeSupport(this);
 
     for (int i = 0; i < 4; i++) {
-      dirtyBeds[i] = 0;
-      dirtyInfusionPumps[i] = 0;
+      dirtyBeds[i] = 1;
+      dirtyInfusionPumps[i] = 1;
       dirtyRecliners[i] = 0;
       dirtyXRays[i] = 0;
-      availableBeds[i] = 0;
-      availableInfusionPumps[i] = 0;
-      availableRecliners[i] = 0;
-      availableXRays[i] = 0;
+      availableBeds[i] = 10;
+      availableInfusionPumps[i] = 15;
+      availableRecliners[i] = 5;
+      availableXRays[i] = 1;
     }
   }
 
@@ -53,6 +54,7 @@ public class AppController {
   }
 
   public void addPropertyChangeListener(PropertyChangeListener pcl) {
+    System.out.println("addPropertyChangeListener");
     support.addPropertyChangeListener(pcl);
   }
 
@@ -61,6 +63,7 @@ public class AppController {
   }
 
   public void incrementDirtyBeds(String floor, int increment) {
+    System.out.println("incrementDirtyBeds");
     int floorInt = getFloorInt(floor);
     try {
       support.firePropertyChange(
@@ -120,6 +123,7 @@ public class AppController {
   }
 
   public void incrementAvailableBeds(String floor, int increment) {
+    System.out.println("incrementAvailableBeds");
     int floorInt = getFloorInt(floor);
     try {
       support.firePropertyChange(
@@ -188,27 +192,33 @@ public class AppController {
   }
 
   public boolean alertNeeded(String type, int newValue) {
-    return true;
+    boolean bool = false;
+    System.out.println("alertNeeded");
+    if (type.equals("dirtyBeds3") || type.equals("dirtyBeds4") || type.equals("dirtyBeds5")) {
+      bool = true;
+    }
+    return bool;
   }
 
-  public AlertController getAlert(String type) {
-    ArrayList<AlertController> alerts = new ArrayList<>();
-    // TODO add controllers
+  public String getAlert(String type) throws SQLException {
+    System.out.println("getAlert");
+    ArrayList<String> alerts = new ArrayList<>();
+    alerts.add("/edu/wpi/agileAngels/views/dirtyBedAlert-view.fxml");
+    alerts.add("/edu/wpi/agileAngels/views/dirtyBedAlert-view.fxml");
+    alerts.add("/edu/wpi/agileAngels/views/dirtyBedAlert-view.fxml");
+    // TODO add views
     ArrayList<String> types = new ArrayList<String>();
-    types.add("dirtyBeds");
-    types.add("dirtyInfusionPumps");
-    types.add("dirtyRecliners");
-    types.add("dirtyXRays");
+    types.add("dirtyBeds3");
+    types.add("dirtyBeds4");
+    types.add("dirtyBeds5");
+    currentFloor = Character.toString(type.charAt(type.length() - 1));
     return alerts.get(types.indexOf(type));
   }
 
   public int getDirtyBeds(String floor) {
+    System.out.println("getDirtyBeds");
     int floorInt = getFloorInt(floor);
     return dirtyBeds[floorInt];
-  }
-
-  public String getCurrentFloor() {
-    return this.currentFloor;
   }
 
   private int getFloorInt(String floor) {
@@ -221,6 +231,10 @@ public class AppController {
       floorInt = 3;
     }
     return floorInt;
+  }
+
+  public String getCurrentFloor() {
+    return currentFloor;
   }
 
   public void init(Stage primaryStage) {

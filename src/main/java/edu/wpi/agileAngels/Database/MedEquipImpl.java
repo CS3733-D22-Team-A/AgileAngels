@@ -2,7 +2,6 @@ package edu.wpi.agileAngels.Database;
 
 import edu.wpi.agileAngels.Adb;
 import edu.wpi.agileAngels.Controllers.AppController;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -67,7 +66,7 @@ public class MedEquipImpl implements MedEquipDAO {
     Adb.updateMedicalEquipment(medicalEquip);
   }
 
-  private void incrementAvailable (String type, String floor, int i) {
+  private void incrementAvailable(String type, String floor, int i) {
     if (type.equals("XRay")) {
       appController.incrementAvailableXRays(floor, i);
     } else if (type.equals("InfusionPump")) {
@@ -93,7 +92,7 @@ public class MedEquipImpl implements MedEquipDAO {
     System.out.println("MedicalEquipment " + medicalEquip.getID() + " cleanliness is updated");
   }
 
-  private void incrementDirty (String type, String floor, int i) {
+  private void incrementDirty(String type, String floor, int i) {
     if (type.equals("XRay")) {
       appController.incrementDirtyXRays(floor, i);
     } else if (type.equals("InfusionPump")) {
