@@ -4,6 +4,7 @@ import edu.wpi.agileAngels.Database.DBconnection;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Stack;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ public class AppController {
   public static Stack<String> pageHistory = new Stack<>();
   private static AppController appController = null;
   private MenuController menuController;
+  private AlertController alertController;
   private PropertyChangeSupport support;
   private Stage primaryStage;
   private int[] dirtyBeds = new int[4];
@@ -183,6 +185,25 @@ public class AppController {
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
+  }
+
+  public void displayAlert(String page, String type) {
+    ArrayList<AlertController> alerts = new ArrayList<>();
+    // TODO add controllers
+    ArrayList<String> types = new ArrayList<String>();
+    types.add("dirtyBed");
+    types.add("dirtyInfusionPump");
+    types.add("dirtyRecliner");
+    types.add("dirtyXRay");
+    types.add("availableBed");
+    types.add("availableInfusionPump");
+    types.add("availableRecliner");
+    types.add("availableXRay");
+    this.alertController = alerts.get(types.indexOf(type));
+  }
+
+  public AlertController getAlertController() {
+    return alertController;
   }
 
   private int getFloorInt(String floor) {
