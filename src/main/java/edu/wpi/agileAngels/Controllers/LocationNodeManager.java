@@ -49,6 +49,22 @@ public class LocationNodeManager {
     }
   }
 
+  public double getCroppedMapXOffset() {
+    return mapsController.getCroppedMapXOffset();
+  }
+
+  public double getCroppedMapYOffset() {
+    return mapsController.getCroppedMapYOffset();
+  }
+
+  public double getCroppedMapWidth() {
+    return mapsController.getCroppedMapWidth();
+  }
+
+  public double getImagePaneWidth() {
+    return mapsController.getImagePaneWidth();
+  }
+
   public double getMapXCoordFromClick(MouseEvent click) {
     return mapsController.getMapXCoordFromClick(click);
   }
