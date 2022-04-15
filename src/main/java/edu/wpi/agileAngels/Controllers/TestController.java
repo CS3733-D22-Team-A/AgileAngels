@@ -37,10 +37,7 @@ public class TestController extends MainController implements Initializable {
     circles.add(circle3);
   }
 
-  public void buttonPreessed(MouseEvent mouseEvent) {
-    x = button.getLayoutX() - mouseEvent.getSceneX();
-    y = button.getLayoutY() - mouseEvent.getSceneY();
-  }
+  public void buttonPreessed(MouseEvent mouseEvent) {}
 
   public void buttonRelease(MouseEvent mouseEvent) {
 

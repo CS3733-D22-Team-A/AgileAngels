@@ -25,8 +25,8 @@ public class MapsController implements Initializable {
       floorFourMap,
       floorFiveMap,
       lowerLevelOneMap,
-      lowerLevelTwoMap,
-      floorThreeDetailMap;
+      lowerLevelTwoMap;
+
   @FXML private ScrollPane mapScroll;
   @FXML HBox addButtonBox;
   @FXML
@@ -70,7 +70,8 @@ public class MapsController implements Initializable {
 
   public MapsController() throws SQLException {}
 
-  double scale = 1;
+  private double scale = 1;
+
   double panX = 0;
   double panY = 0;
 
@@ -135,6 +136,10 @@ public class MapsController implements Initializable {
     yCoordField.setText(Double.toString(locationNode.getYCoord()));
 
     currentLocationNode = locationNode;
+  }
+
+  public double getScale() {
+    return scale;
   }
 
   /**
@@ -435,25 +440,38 @@ public class MapsController implements Initializable {
 
     clickPane.setOnMouseClicked(
         (MouseEvent click) -> {
-          System.out.print(click.getSceneX());
-          System.out.print(", ");
-          System.out.println(((click.getSceneX() - 460) / scale) + panX - 8);
-
-          if (scale == 1) {
-            xCoordField.setText(String.valueOf(getMapXCoordFromClick(click)));
-            yCoordField.setText(String.valueOf(getMapYCoordFromClick(click)));
-          } else {
-            xCoordField.setText(String.valueOf(getMapXCoordFromClick(click)));
-            yCoordField.setText(String.valueOf(getMapYCoordFromClick(click)));
-          }
-          clickPane.setStyle("-fx-background-color: rgba(0,0,0,0)");
-          clickPane.setDisable(true);
-
-          try {
-            editNode();
-          } catch (IOException | NullPointerException e) {
-          }
+          setCoordsOnMouseEvent(click);
+          //          System.out.print(click.getSceneX());
+          //          System.out.print(", ");
+          //          System.out.println(((click.getSceneX() - 460) / scale) + panX - 8);
+          //
+          //          if (scale == 1) {
+          //            xCoordField.setText(String.valueOf(getMapXCoordFromClick(click)));
+          //            yCoordField.setText(String.valueOf(getMapYCoordFromClick(click)));
+          //          } else {
+          //            xCoordField.setText(String.valueOf(getMapXCoordFromClick(click)));
+          //            yCoordField.setText(String.valueOf(getMapYCoordFromClick(click)));
+          //          }
+          //          clickPane.setStyle("-fx-background-color: rgba(0,0,0,0)");
+          //          clickPane.setDisable(true);
+          //
+          //          try {
+          //            editNode();
+          //          } catch (IOException | NullPointerException e) {
+          //          }
         });
+  }
+
+  public void setCoordsOnMouseEvent(MouseEvent click) {
+    xCoordField.setText(String.valueOf(getMapXCoordFromClick(click)));
+    yCoordField.setText(String.valueOf(getMapYCoordFromClick(click)));
+    clickPane.setStyle("-fx-background-color: rgba(0,0,0,0)");
+    clickPane.setDisable(true);
+
+    try {
+      editNode();
+    } catch (IOException | NullPointerException e) {
+    }
   }
 
   @FXML

@@ -5,6 +5,7 @@ import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.scene.input.MouseEvent;
 
 public class LocationNodeManager {
 
@@ -94,5 +95,13 @@ public class LocationNodeManager {
   // gets called on button press and gets the node data
   void loadNode(LocationNode locationNode) {
     mapsController.populateLocationNodeData(locationNode);
+  }
+
+  public void setDraggedNodeCoords(MouseEvent mouseEvent) {
+    mapsController.setCoordsOnMouseEvent(mouseEvent);
+  }
+
+  public double getScale() {
+    return mapsController.getScale();
   }
 }
