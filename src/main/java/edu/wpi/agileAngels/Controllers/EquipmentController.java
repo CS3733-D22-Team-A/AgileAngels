@@ -108,6 +108,7 @@ public class EquipmentController implements Initializable {
     String statusString = equipmentStatus.getText();
     String deleteString = deleteName.getText();
     String editString = editRequest.getText();
+
     // if the fields are empty or to delete input is not empty
     if (!deleteString.isEmpty()) {
       deleteEquipRequest(deleteString);
@@ -117,8 +118,8 @@ public class EquipmentController implements Initializable {
     } else {
       addEquipRequest(dropDownString, locationString, employeeString, statusString);
     }
-    equipLocation.setText("Equipment Type");
-    equipmentType.setText("Delivery Location");
+    equipmentType.setText("Equipment Type");
+    equipLocation.setText("Delivery Location");
     equipmentStatus.setText("Status");
     editRequest.setText("");
     deleteName.setText("");
@@ -221,6 +222,7 @@ public class EquipmentController implements Initializable {
       String locationString,
       String employeeString,
       String statusString) {
+
     System.out.println("EDIT REQUEST");
 
     Request found = MedrequestImpl.getAllRequests().get(editString);
@@ -235,13 +237,11 @@ public class EquipmentController implements Initializable {
         num = i;
       }
     }
-    Employee employee = empDAO.getEmployee(employeeString);
-    Location location = locDAO.getLocation(locationString);
-    System.out.println(location.getNodeID());
 
     if (found != null) {
       System.out.println("1");
       if (!dropDownString.equals("Equipment Type")) {
+        System.out.println("if(!dropDownString.equals(\"Equipment Type\"))");
         // String type = equipmentType.getText();
 
         MedicalEquip equip = null;
@@ -268,6 +268,9 @@ public class EquipmentController implements Initializable {
       }
 
       if (!locationString.equals("Delivery Location")) {
+        System.out.println("if (!locationString.equals(\"Delivery Location\"))");
+        Location location = locDAO.getLocation(locationString);
+        System.out.println(location.getNodeID());
         found.setLocation(location);
         // MedrequestImpl.updateLocation(found, location);
         if (found.getMedicalEquip() != null) {
@@ -275,17 +278,20 @@ public class EquipmentController implements Initializable {
         }
       }
       if (!employeeString.equals("Employee")) {
+        System.out.println("if (!employeeString.equals(\"Employee\"))");
+        Employee employee = empDAO.getEmployee(employeeString);
         System.out.println(employee.getName());
         found.setEmployee(employee);
         //        MedrequestImpl.updateEmployeeName(found, employee.getName());
       }
 
       if (!statusString.equals("Status")) {
-
+        System.out.println("if (!statusString.equals(\"Status\"))");
         found.setStatus(statusString);
         //  MedrequestImpl.updateStatus(found, statusString);
 
-        // set the status and location of the medicalEquipment object corresponding to the request
+        // set the status and location of the medicalEquipment object corresponding to the
+        // request
         if (found.getMedicalEquip() != null) {
           if (statusString.equals("notStarted")) {
             equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
