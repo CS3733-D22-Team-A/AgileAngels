@@ -19,10 +19,10 @@ import javafx.scene.layout.Pane;
 public class EquipmentController implements Initializable {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
-  @FXML private TextField deleteName, editRequest;
+  @FXML private TextField deleteName, editRequest, employeeFilterField;
   @FXML private Label equipmentConfirmation;
   @FXML private TableView equipmentTable;
-  @FXML Button clear;
+  @FXML Button clear, submitFilters;
   @FXML Pane drop, drop2;
   @FXML MenuButton equipLocation, equipmentType, equipmentStatus, equipmentEmployeeText;
 
@@ -187,6 +187,15 @@ public class EquipmentController implements Initializable {
     }
   }
 
+
+  /**
+   * Does filterReqsTable when "Submit Requests" is clicked, or "onAction."
+   */
+  @FXML
+  public void filterReqEmpOnAction() {
+    filterReqsTable(employeeFilterField.getText());
+  }
+
   /**
    * Filters requests in the equipment table so only those with the given Employee remain.
    * @param employeeName The Employee the requests must have to remain on the table.
@@ -208,7 +217,6 @@ public class EquipmentController implements Initializable {
 
   /**
    * Filters out requests in medData based on the given Employee.
-   *
    * @param employeeName The Employee that the requests must have to be in the new list.
    * @return The new filtered list.
    */

@@ -120,6 +120,15 @@
             </TableView>
          </children>
       </HBox>
+      <TextField fx:id="employeeFilterField" layoutX="492.0" layoutY="613.0" prefHeight="50.0" prefWidth="270.0" promptText="Filter by Employee" />
+      <Button alignment="CENTER" layoutX="802.0" layoutY="613.0" mnemonicParsing="false" onAction="#filterReqEmpOnAction" prefHeight="50.0" prefWidth="127.0" text="Submit Filter" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
 
    </children>
 </AnchorPane>
