@@ -41,11 +41,26 @@
                         <Font name="Bodoni MT Bold" size="64.0" />
                     </font>
                 </Label>
-                <Pane prefHeight="70.0" prefWidth="265.0" HBox.hgrow="ALWAYS" />
-                <Button fx:id="addMaintenanceRequest" alignment="CENTER" mnemonicParsing="false" onAction="#addRequest" prefHeight="51.0" prefWidth="242.0" text="Add" textAlignment="CENTER">
+                <Button fx:id="addMaintenanceRequest" alignment="CENTER" mnemonicParsing="false" onAction="#addRequest" prefHeight="51.0" prefWidth="113.0" style="-fx-font-weight: bold;" text="Add" textAlignment="CENTER">
                     <font>
                         <Font size="24.0" />
                     </font>
+                </Button>
+                <Button fx:id="deleteRequest" alignment="CENTER" layoutX="546.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteRequest" prefHeight="51.0" prefWidth="113.0" style="-fx-font-weight: bold;" text="Delete" textAlignment="CENTER">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets left="10.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="editRequest" alignment="CENTER" layoutX="659.0" layoutY="10.0" mnemonicParsing="false" onAction="#editRequest" prefHeight="51.0" prefWidth="113.0" style="-fx-font-weight: bold;" text="Edit" textAlignment="CENTER">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets left="10.0" />
+                    </HBox.margin>
                 </Button>
             </children>
         </HBox>

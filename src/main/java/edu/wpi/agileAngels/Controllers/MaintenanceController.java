@@ -82,5 +82,13 @@ public class MaintenanceController implements Initializable {
     popOut.setVisible(false);
   }
 
+  public void deleteRequest(ActionEvent actionEvent) {
+    // when button is clicked
+  }
+
+  public void editRequest(ActionEvent actionEvent) {
+    // when button is clicked
+  }
+
   // on action event set visibility for vbox
 }
