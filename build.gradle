@@ -60,7 +60,8 @@ dependencies {
             'org.apache.derby:derbyclient:10.15.2.0',
             'org.slf4j:slf4j-api:1.7.30',
             'org.slf4j:slf4j-simple:1.7.30',
-            "org.apache.commons:commons-csv:1.5"
+            "org.apache.commons:commons-csv:1.5",
+            'org.controlsfx:controlsfx:11.1.1'
     )
     implementation 'org.jetbrains:annotations:20.1.0'
 
@@ -70,6 +71,12 @@ dependencies {
             'org.testfx:testfx-junit5:4.0.16-alpha',
 
     )
+}
+
+run {
+    jvmArgs = ['--add-exports=javafx.base/com.sun.javafx.runtime=controlsfx',
+               '--add-exports=javafx.base/com.sun.javafx.event=controlsfx',
+    ]
 }
 
 
