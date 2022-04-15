@@ -41,11 +41,26 @@
                   <Font name="Bodoni MT Bold" size="64.0" />
                </font>
             </Label>
-            <Pane prefHeight="70.0" prefWidth="361.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="addMaintenanceRequest" alignment="CENTER" mnemonicParsing="false" onAction="#addRequest" prefHeight="51.0" prefWidth="242.0" text="Add" textAlignment="CENTER">
+            <Button fx:id="addMaintenanceRequest" alignment="CENTER" mnemonicParsing="false" onAction="#addRequest" prefHeight="51.0" prefWidth="113.0" style="-fx-font-weight: bold;" text="Add" textAlignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>
+            </Button>
+            <Button fx:id="deleteRequest" alignment="CENTER" layoutX="546.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteRequest" prefHeight="51.0" prefWidth="113.0" style="-fx-font-weight: bold;" text="Delete" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="editRequest" alignment="CENTER" layoutX="659.0" layoutY="10.0" mnemonicParsing="false" onAction="#editRequest" prefHeight="51.0" prefWidth="113.0" style="-fx-font-weight: bold;" text="Edit" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
             </Button>
          </children>
       </HBox>
@@ -55,7 +70,7 @@
                <children>
                   <VBox alignment="CENTER" layoutX="-1.0" prefHeight="398.0" prefWidth="366.0">
                      <children>
-                        <HBox prefHeight="67.0" prefWidth="366.0">
+                        <HBox prefHeight="59.0" prefWidth="366.0">
                            <children>
                               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="90.0" text="ID" textFill="#019ba5" />
                               <Label alignment="CENTER_RIGHT" prefHeight="66.0" prefWidth="187.0" text="..." />
@@ -64,7 +79,7 @@
                         <HBox prefHeight="67.0" prefWidth="366.0">
                            <children>
                               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="118.0" text="Location" textFill="#019ba5" />
-                              <MenuButton alignment="CENTER" mnemonicParsing="false" text="Location">
+                              <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="227.0" text="Location">
                                 <items>
                                   <MenuItem mnemonicParsing="false" text="Action 1" />
                                   <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -77,41 +92,33 @@
                         </HBox>
                         <HBox prefHeight="67.0" prefWidth="366.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="127.0" text="Location ID" textFill="#019ba5" />
-                              <MenuButton mnemonicParsing="false" text="NodeID">
-                                <items>
-                                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                                  <MenuItem mnemonicParsing="false" text="Action 2" />
-                                </items>
-                                 <HBox.margin>
-                                    <Insets top="10.0" />
-                                 </HBox.margin>
-                              </MenuButton>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="67.0" prefWidth="366.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="127.0" text="Employee" textFill="#019ba5" />
-                              <MenuButton mnemonicParsing="false" text="Employee">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="127.0" text="Employee" textFill="#019ba5" />
+                              <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="213.0" text="Employee" textAlignment="CENTER">
                                  <items>
                                     <MenuItem mnemonicParsing="false" text="Action 1" />
                                     <MenuItem mnemonicParsing="false" text="Action 2" />
                                  </items>
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
                               </MenuButton>
                            </children></HBox>
                         <HBox prefHeight="67.0" prefWidth="366.0">
                            <children>
                               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="127.0" text="Status" textFill="#019ba5" />
-                              <MenuButton mnemonicParsing="false" text="Not Started">
+                              <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="215.0" text="Not Started" textAlignment="CENTER">
                                  <items>
                                     <MenuItem mnemonicParsing="false" text="Action 1" />
                                     <MenuItem mnemonicParsing="false" text="Action 2" />
                                  </items>
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
                               </MenuButton>
                            </children></HBox>
-                        <HBox prefHeight="67.0" prefWidth="366.0">
+                        <HBox prefHeight="91.0" prefWidth="366.0">
                            <children>
-                              <TextField prefHeight="66.0" prefWidth="315.0" text="Description">
+                              <TextField prefHeight="95.0" prefWidth="306.0" promptText="Description">
                                  <HBox.margin>
                                     <Insets left="30.0" right="30.0" />
                                  </HBox.margin>
@@ -121,12 +128,12 @@
                   </VBox>
                   <HBox layoutX="13.0" layoutY="425.0" prefHeight="51.0" prefWidth="353.0">
                      <children>
-                        <Button fx:id="addMaintenanceRequest1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addRequest" prefHeight="26.0" prefWidth="162.0" text="Clear" textAlignment="CENTER">
+                        <Button fx:id="clearRequest" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clearRequest" prefHeight="26.0" prefWidth="162.0" text="Clear" textAlignment="CENTER">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Button>
-                        <Button fx:id="addMaintenanceRequest11" alignment="CENTER" mnemonicParsing="false" onAction="#addRequest" prefHeight="51.0" prefWidth="162.0" text="Submit" textAlignment="CENTER">
+                        <Button fx:id="submitRequest" alignment="CENTER" mnemonicParsing="false" onAction="#submitRequest" prefHeight="51.0" prefWidth="162.0" text="Submit" textAlignment="CENTER">
                            <font>
                               <Font size="24.0" />
                            </font>
