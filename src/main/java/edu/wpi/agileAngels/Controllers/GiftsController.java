@@ -25,7 +25,8 @@ public class GiftsController implements Initializable {
       giftStatus,
       deleteName,
       editRequest,
-      employeeFilterField;
+      employeeFilterField,
+      statusFilterField;
   @FXML
   private TableColumn senderColumn,
       recipientColumn,
@@ -238,12 +239,24 @@ public class GiftsController implements Initializable {
     }
   }
 
-  /** Does filterReqsTable when "Submit Requests" is clicked, or "onAction." */
+  /* FILTER METHODS BEYOND HERE */
+
+  /** Does filterReqsTable when "Submit Filters" is clicked, or "onAction." */
   @FXML
-  public void filterReqEmpOnAction() {
+  public void filterReqOnAction() {
     if (!employeeFilterField.getText().isEmpty()) {
       filterReqsTable(employeeFilterField.getText());
     }
+    if (!statusFilterField.getText().isEmpty()) {
+      filterReqsTableStatus(statusFilterField.getText());
+    }
+  }
+
+  /** Puts all of the requests back on the table, "clearing the requests." */
+  @FXML
+  public void clearFilters() {
+    // Puts everything back on table.
+    giftTable.setItems(giftData);
   }
 
   /**
@@ -256,13 +269,6 @@ public class GiftsController implements Initializable {
 
     // Sets table to only have contents of the filtered list.
     giftTable.setItems(filteredList);
-  }
-
-  /** Puts all of the requests back on the table, "clearing the requests." */
-  @FXML
-  public void clearFilters() {
-    // Puts everything back on table.
-    giftTable.setItems(giftData);
   }
 
   /**
@@ -282,6 +288,37 @@ public class GiftsController implements Initializable {
 
     return newList;
   }
+
+  /**
+   * Filters requests in the equipment table so only those with the given status remain.
+   *
+   * @param reqStatus The status the requests must have to remain on the table.
+   */
+  private void filterReqsTableStatus(String reqStatus) {
+    ObservableList<Request> filteredList = filterReqStatus(reqStatus);
+
+    // Sets table to only have contents of the filtered list.
+    giftTable.setItems(filteredList);
+  }
+
+  /**
+   * Filters out requests in medData based on the given status.
+   *
+   * @param reqStatus The status that the requests must have to be in the new list.
+   * @return The new filtered list.
+   */
+  private ObservableList<Request> filterReqStatus(String reqStatus) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : giftData) {
+      if (req.getStatus().equals(reqStatus)) {
+        newList.add(req);
+      }
+    }
+    return newList;
+  }
+
+  /* FILTER METHODS ABOVE HERE */
 
   public void clearPage(ActionEvent event) {
     appController.clearPage();
