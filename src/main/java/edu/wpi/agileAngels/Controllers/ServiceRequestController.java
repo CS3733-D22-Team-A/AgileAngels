@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
 import com.jfoenix.controls.JFXToggleButton;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;

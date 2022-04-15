@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.Location;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;

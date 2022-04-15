@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.*;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
@@ -50,10 +49,10 @@ public class SanitationController implements Initializable, PropertyChangeListen
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    String changeType = evt.getPropertyName();
-    System.out.println(changeType);
-    int newValue = (int) evt.getNewValue();
-    System.out.println(newValue);
+        String changeType = evt.getPropertyName();
+        System.out.println(changeType);
+        int newValue = (int) evt.getNewValue();
+        System.out.println(newValue);
   }
 
   @FXML
