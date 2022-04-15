@@ -187,10 +187,7 @@ public class EquipmentController implements Initializable {
     }
   }
 
-
-  /**
-   * Does filterReqsTable when "Submit Requests" is clicked, or "onAction."
-   */
+  /** Does filterReqsTable when "Submit Requests" is clicked, or "onAction." */
   @FXML
   public void filterReqEmpOnAction() {
     filterReqsTable(employeeFilterField.getText());
@@ -198,6 +195,7 @@ public class EquipmentController implements Initializable {
 
   /**
    * Filters requests in the equipment table so only those with the given Employee remain.
+   *
    * @param employeeName The Employee the requests must have to remain on the table.
    */
   private void filterReqsTable(String employeeName) {
@@ -207,16 +205,16 @@ public class EquipmentController implements Initializable {
     equipmentTable.setItems(filteredList);
   }
 
-  /**
-   * Puts all of the requests back on the table, "clearing the requests."
-   */
-  private void clearFilters(){
+  /** Puts all of the requests back on the table, "clearing the requests." */
+  @FXML
+  public void clearFilters() {
     // Puts everything back on table.
     equipmentTable.setItems(medData);
   }
 
   /**
    * Filters out requests in medData based on the given Employee.
+   *
    * @param employeeName The Employee that the requests must have to be in the new list.
    * @return The new filtered list.
    */

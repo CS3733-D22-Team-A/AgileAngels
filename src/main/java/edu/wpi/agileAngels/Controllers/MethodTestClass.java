@@ -1,6 +1,5 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Employee;
 import edu.wpi.agileAngels.Database.Request;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

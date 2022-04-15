@@ -97,15 +97,15 @@ public class DefaultTest {
 
     Request hReq1 = new Request("hReq1", harmoni, unityHall, "ooh", "eee", "ooh", "aah", "ahh");
     Request hReq2 =
-            new Request("hReq1", harmoni, unityHall, "BALLS", "JAKOB", "TOUCHES", "HIS", "BIKE");
+        new Request("hReq1", harmoni, unityHall, "BALLS", "JAKOB", "TOUCHES", "HIS", "BIKE");
     Request notHReq =
-            new Request("hReq1", aaron, unityHall, "BALLS", "JAKOB", "DRINKS", "HIS", "BIKE");
+        new Request("hReq1", aaron, unityHall, "BALLS", "JAKOB", "DRINKS", "HIS", "BIKE");
     Request notHReq2 =
-            new Request("hReq1", aaron, unityHall, "BALLS", "JAKOB", "CONSUMES", "HIS", "BIKE");
+        new Request("hReq1", aaron, unityHall, "BALLS", "JAKOB", "CONSUMES", "HIS", "BIKE");
     Request notHReq3 =
-            new Request("hReq1", aaron, unityHall, "BALLS", "JAKOB", "DABS", "HIS", "BIKE");
+        new Request("hReq1", aaron, unityHall, "BALLS", "JAKOB", "DABS", "HIS", "BIKE");
     Request notHReq4 =
-            new Request("hReq1", aaron, unityHall, "BALLS", "JAKOB", "FLINGS", "HIS", "BIKE");
+        new Request("hReq1", aaron, unityHall, "BALLS", "JAKOB", "FLINGS", "HIS", "BIKE");
 
     dansList.add(hReq1);
     dansList.add(hReq2);

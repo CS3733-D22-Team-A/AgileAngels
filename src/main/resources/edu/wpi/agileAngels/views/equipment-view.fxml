@@ -121,13 +121,41 @@
          </children>
       </HBox>
       <TextField fx:id="employeeFilterField" layoutX="492.0" layoutY="613.0" prefHeight="50.0" prefWidth="270.0" promptText="Filter by Employee" />
-      <Button alignment="CENTER" layoutX="802.0" layoutY="613.0" mnemonicParsing="false" onAction="#filterReqEmpOnAction" prefHeight="50.0" prefWidth="127.0" text="Submit Filter" textAlignment="CENTER">
+      <Button fx:id="clearFilter" alignment="CENTER" layoutX="970.0" layoutY="613.0" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
          <font>
-            <Font size="18.0" />
+            <Font size="10.0" />
          </font>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Clear Filters" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </graphic>
+      </Button>
+      <Button alignment="CENTER" layoutX="800.0" layoutY="613.0" mnemonicParsing="false" onAction="#filterReqEmpOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Submit Filter" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </graphic>
       </Button>
 
    </children>
