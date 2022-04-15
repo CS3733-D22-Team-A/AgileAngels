@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.SanitationController">
+   <children>
+      <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
+
+      <Accordion />
+      <Label fx:id="sanitationConfirmation" alignment="CENTER" layoutX="424.0" layoutY="618.0" prefHeight="76.0" prefWidth="586.0" wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <VBox alignment="CENTER" layoutX="56.0" layoutY="108.0" prefHeight="511.0" prefWidth="270.0" spacing="40.0">
+         <children>
+            <TextField fx:id="sanIssue" alignment="TOP_LEFT" prefHeight="150.0" prefWidth="270.0" promptText="Describe the Issue" />
+            <TextField fx:id="sanLocation" prefHeight="50.0" prefWidth="270.0" promptText="Sanitation Location" />
+            <TextField fx:id="sanitationEmployeeText" prefHeight="50.0" prefWidth="270.0" promptText="Employee" />
+            <TextField fx:id="sanittionStatus" prefHeight="50.0" prefWidth="270.0" promptText="Status" />
+            <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0">
+               <children>
+                  <Button fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <graphic>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Clear" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                     </graphic>
+                  </Button>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#submitSanitation" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <graphic>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Submit" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <TableView fx:id="equipmentTable" layoutX="385.0" layoutY="193.0" prefHeight="410.0" prefWidth="838.0">
+         <columns>
+            <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
+            <TableColumn fx:id="availableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Available" />
+            <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Type" />
+            <TableColumn fx:id="locationColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Location" />
+            <TableColumn fx:id="employeeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Employee" />
+            <TableColumn fx:id="statusColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Status" />
+            <TableColumn fx:id="descriptionColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Description" />
+         </columns>
+      </TableView>
+
+   </children>
+</AnchorPane>
