@@ -34,7 +34,6 @@ public class DashboardController implements Initializable, PropertyChangeListene
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
 
-
     try {
       this.updateCleanDirty();
     } catch (SQLException e) {
