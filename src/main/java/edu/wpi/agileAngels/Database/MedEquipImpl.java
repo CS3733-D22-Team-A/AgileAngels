@@ -1,6 +1,8 @@
 package edu.wpi.agileAngels.Database;
 
 import edu.wpi.agileAngels.Adb;
+import edu.wpi.agileAngels.Controllers.AppController;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,6 +13,7 @@ public class MedEquipImpl implements MedEquipDAO {
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private static MedEquipImpl MedEquipDAO = null;
   private HashMap<String, MedicalEquip> MedEquipData;
+  private AppController appController = AppController.getInstance();
 
   public MedEquipImpl(HashMap<String, MedicalEquip> data) throws SQLException {
     this.MedEquipData = data;
@@ -53,15 +56,53 @@ public class MedEquipImpl implements MedEquipDAO {
 
   @Override
   public void updateStatus(MedicalEquip medicalEquip, String statusIn) {
+    String type = medicalEquip.getType();
+    String floor = medicalEquip.getLocation().getFloor();
+    if (statusIn.equals("available")) {
+      incrementAvailable(type, floor, 1);
+    } else {
+      incrementAvailable(type, floor, -1);
+    }
     medicalEquip.setStatus(statusIn);
     Adb.updateMedicalEquipment(medicalEquip);
   }
 
+  private void incrementAvailable (String type, String floor, int i) {
+    if (type.equals("XRay")) {
+      appController.incrementAvailableXRays(floor, i);
+    } else if (type.equals("InfusionPump")) {
+      appController.incrementAvailableInfusionPumps(floor, i);
+    } else if (type.equals("Bed")) {
+      appController.incrementAvailableBeds(floor, i);
+    } else if (type.equals("Recliner")) {
+      appController.incrementAvailableRecliners(floor, i);
+    }
+  }
+
   @Override
   public void updateMedicalCleanliness(MedicalEquip medicalEquip, Boolean clean) {
+    String type = medicalEquip.getType();
+    String floor = medicalEquip.getLocation().getFloor();
+    if (clean) {
+      incrementDirty(type, floor, 1);
+    } else {
+      incrementDirty(type, floor, -1);
+    }
     medicalEquip.setClean(clean);
     Adb.updateMedicalEquipment(medicalEquip);
     System.out.println("MedicalEquipment " + medicalEquip.getID() + " cleanliness is updated");
+  }
+
+  private void incrementDirty (String type, String floor, int i) {
+    if (type.equals("XRay")) {
+      appController.incrementDirtyXRays(floor, i);
+    } else if (type.equals("InfusionPump")) {
+      appController.incrementDirtyInfusionPumps(floor, i);
+    } else if (type.equals("Bed")) {
+      appController.incrementDirtyBeds(floor, i);
+    } else if (type.equals("Recliner")) {
+      appController.incrementDirtyRecliners(floor, i);
+    }
   }
 
   public void readCSV() {

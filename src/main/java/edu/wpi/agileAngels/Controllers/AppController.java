@@ -1,6 +1,8 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.DBconnection;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.Stack;
 import javafx.application.Platform;
@@ -9,8 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 public class AppController {
 
@@ -61,12 +61,11 @@ public class AppController {
   public void incrementDirtyBeds(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
-        support.firePropertyChange("dirtyBeds" + floor,
-                this.dirtyBeds[floorInt], this.dirtyBeds[floorInt] + increment);
-        this.dirtyBeds[floorInt] = this.dirtyBeds[floorInt] + increment;
-        support.firePropertyChange("dirtyBedsAll",
-                this.dirtyBeds[0], this.dirtyBeds[0] + increment);
-        this.dirtyBeds[0] = this.dirtyBeds[0] + increment;
+      support.firePropertyChange(
+          "dirtyBeds" + floor, this.dirtyBeds[floorInt], this.dirtyBeds[floorInt] + increment);
+      this.dirtyBeds[floorInt] = this.dirtyBeds[floorInt] + increment;
+      support.firePropertyChange("dirtyBedsAll", this.dirtyBeds[0], this.dirtyBeds[0] + increment);
+      this.dirtyBeds[0] = this.dirtyBeds[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
@@ -75,13 +74,14 @@ public class AppController {
   public void incrementDirtyInfusionPumps(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
-        support.firePropertyChange("dirtyPumps" + floor,
-                this.dirtyInfusionPumps[floorInt],
-                this.dirtyInfusionPumps[floorInt] + increment);
-        this.dirtyInfusionPumps[floorInt] = this.dirtyInfusionPumps[floorInt] + increment;
-        support.firePropertyChange("dirtyPumpsAll",
-                this.dirtyInfusionPumps[0], this.dirtyInfusionPumps[0] + increment);
-        this.dirtyInfusionPumps[0] = this.dirtyInfusionPumps[0] + increment;
+      support.firePropertyChange(
+          "dirtyPumps" + floor,
+          this.dirtyInfusionPumps[floorInt],
+          this.dirtyInfusionPumps[floorInt] + increment);
+      this.dirtyInfusionPumps[floorInt] = this.dirtyInfusionPumps[floorInt] + increment;
+      support.firePropertyChange(
+          "dirtyPumpsAll", this.dirtyInfusionPumps[0], this.dirtyInfusionPumps[0] + increment);
+      this.dirtyInfusionPumps[0] = this.dirtyInfusionPumps[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
@@ -90,12 +90,13 @@ public class AppController {
   public void incrementDirtyRecliners(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
-      support.firePropertyChange("dirtyRecliners" + floor,
-              this.dirtyRecliners[floorInt],
-              this.dirtyRecliners[floorInt] + increment);
+      support.firePropertyChange(
+          "dirtyRecliners" + floor,
+          this.dirtyRecliners[floorInt],
+          this.dirtyRecliners[floorInt] + increment);
       this.dirtyRecliners[floorInt] = this.dirtyRecliners[floorInt] + increment;
-      support.firePropertyChange("dirtyReclinersAll",
-              this.dirtyRecliners[0], this.dirtyRecliners[0] + increment);
+      support.firePropertyChange(
+          "dirtyReclinersAll", this.dirtyRecliners[0], this.dirtyRecliners[0] + increment);
       this.dirtyRecliners[0] = this.dirtyRecliners[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
@@ -105,12 +106,11 @@ public class AppController {
   public void incrementDirtyXRays(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
-      support.firePropertyChange("dirtyXRays" + floor,
-              this.dirtyXRays[floorInt],
-              this.dirtyXRays[floorInt] + increment);
+      support.firePropertyChange(
+          "dirtyXRays" + floor, this.dirtyXRays[floorInt], this.dirtyXRays[floorInt] + increment);
       this.dirtyXRays[floorInt] = this.dirtyXRays[floorInt] + increment;
-      support.firePropertyChange("dirtyXRaysAll",
-              this.dirtyXRays[0], this.dirtyXRays[0] + increment);
+      support.firePropertyChange(
+          "dirtyXRaysAll", this.dirtyXRays[0], this.dirtyXRays[0] + increment);
       this.dirtyXRays[0] = this.dirtyXRays[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
@@ -120,11 +120,13 @@ public class AppController {
   public void incrementAvailableBeds(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
-      support.firePropertyChange("availableBeds" + floor,
-              this.availableBeds[floorInt], this.availableBeds[floorInt] + increment);
+      support.firePropertyChange(
+          "availableBeds" + floor,
+          this.availableBeds[floorInt],
+          this.availableBeds[floorInt] + increment);
       this.availableBeds[floorInt] = this.availableBeds[floorInt] + increment;
-      support.firePropertyChange("availableBedsAll",
-              this.availableBeds[0], this.availableBeds[0] + increment);
+      support.firePropertyChange(
+          "availableBedsAll", this.availableBeds[0], this.availableBeds[0] + increment);
       this.availableBeds[0] = this.availableBeds[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
@@ -134,12 +136,15 @@ public class AppController {
   public void incrementAvailableInfusionPumps(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
-      support.firePropertyChange("availablePumps" + floor,
-              this.availableInfusionPumps[floorInt],
-              this.availableInfusionPumps[floorInt] + increment);
+      support.firePropertyChange(
+          "availablePumps" + floor,
+          this.availableInfusionPumps[floorInt],
+          this.availableInfusionPumps[floorInt] + increment);
       this.availableInfusionPumps[floorInt] = this.availableInfusionPumps[floorInt] + increment;
-      support.firePropertyChange("availablePumpsAll",
-              this.availableInfusionPumps[0], this.availableInfusionPumps[0] + increment);
+      support.firePropertyChange(
+          "availablePumpsAll",
+          this.availableInfusionPumps[0],
+          this.availableInfusionPumps[0] + increment);
       this.availableInfusionPumps[0] = this.availableInfusionPumps[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
@@ -149,12 +154,15 @@ public class AppController {
   public void incrementAvailableRecliners(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
-      support.firePropertyChange("availableRecliners" + floor,
-              this.availableRecliners[floorInt],
-              this.availableRecliners[floorInt] + increment);
+      support.firePropertyChange(
+          "availableRecliners" + floor,
+          this.availableRecliners[floorInt],
+          this.availableRecliners[floorInt] + increment);
       this.availableRecliners[floorInt] = this.availableRecliners[floorInt] + increment;
-      support.firePropertyChange("availableReclinersAll",
-              this.availableRecliners[0], this.availableRecliners[0] + increment);
+      support.firePropertyChange(
+          "availableReclinersAll",
+          this.availableRecliners[0],
+          this.availableRecliners[0] + increment);
       this.availableRecliners[0] = this.availableRecliners[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
@@ -164,12 +172,13 @@ public class AppController {
   public void incrementAvailableXRays(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
-      support.firePropertyChange("availableXRays" + floor,
-              this.availableXRays[floorInt],
-              this.availableXRays[floorInt] + increment);
+      support.firePropertyChange(
+          "availableXRays" + floor,
+          this.availableXRays[floorInt],
+          this.availableXRays[floorInt] + increment);
       this.availableXRays[floorInt] = this.availableXRays[floorInt] + increment;
-      support.firePropertyChange("availableXRaysAll",
-              this.availableXRays[0], this.availableXRays[0] + increment);
+      support.firePropertyChange(
+          "availableXRaysAll", this.availableXRays[0], this.availableXRays[0] + increment);
       this.availableXRays[0] = this.availableXRays[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
