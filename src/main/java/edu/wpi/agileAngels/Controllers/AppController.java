@@ -30,7 +30,7 @@ public class AppController {
 
   public void init(Stage primaryStage) {
     this.primaryStage = primaryStage;
-    loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
+    loadPage("/edu/wpi/agileAngels/views/login.fxml");
   }
 
   public void closeApp() {
