@@ -1,6 +1,7 @@
 package edu.wpi.agileAngels.Database;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -128,6 +129,49 @@ public class ServiceRequestTable implements TableI {
       return true;
     } catch (SQLException sqlException) {
       return false;
+    }
+  }
+
+  public static void sortRequests(String employee) throws SQLException {
+    PreparedStatement preparedStatement =
+        DBconnection.getConnection()
+            .prepareStatement("SELECT * FROM ServiceRequests WHERE EmployeeName = ?");
+    preparedStatement.setString(1, employee);
+    ResultSet rs = preparedStatement.executeQuery();
+    while (rs.next()) {
+      System.out.println("Name:" + rs.getString("Name"));
+      System.out.println("EmployeeName:" + rs.getString("EmployeeName"));
+      System.out.println("Location:" + rs.getString("Location"));
+      System.out.println("Attribute1:" + rs.getString("Attribute1"));
+      System.out.println("Type:" + rs.getString("Type"));
+      System.out.println("Status:" + rs.getString("Status"));
+      System.out.println("Description:" + rs.getString("Description"));
+    }
+  }
+
+  public static void filterRequests() throws SQLException {
+    Statement statement = DBconnection.getConnection().createStatement();
+    String queryFilter = "SELECT * FROM ServiceRequests ORDER BY Status, EmployeeName";
+    ResultSet rs = statement.executeQuery(queryFilter);
+    while (rs.next()) {
+      System.out.println("Name:" + rs.getString("Name"));
+      System.out.println("EmployeeName:" + rs.getString("EmployeeName"));
+      System.out.println("Location:" + rs.getString("Location"));
+      System.out.println("Attribute1:" + rs.getString("Attribute1"));
+      System.out.println("Type:" + rs.getString("Type"));
+      System.out.println("Status:" + rs.getString("Status"));
+      System.out.println("Description:" + rs.getString("Description"));
+      System.out.println("\n");
+    }
+  }
+
+  public static void freeEmployees() throws SQLException {
+    Statement statement = DBconnection.getConnection().createStatement();
+    String freeEmployee =
+        "SELECT Employees.Name FROM Employees left outer join ServiceRequests on ServiceRequests.EmployeeName = Employees.Name WHERE ServiceRequests.EmployeeName IS NULL ";
+    ResultSet rs = statement.executeQuery(freeEmployee);
+    while (rs.next()) {
+      System.out.println("EmployeeName:" + rs.getString("Name"));
     }
   }
 }

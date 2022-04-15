@@ -56,6 +56,9 @@ public class Adb {
     }
 
     System.out.println("Apache Derby connection established!");
+    // serviceRequestTable.sortRequests("Liam");
+    // serviceRequestTable.filterRequests();
+    //serviceRequestTable.freeEmployees();
   }
 
   private static void initializeHelper() throws SQLException {
