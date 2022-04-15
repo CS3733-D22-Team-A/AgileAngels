@@ -15,6 +15,8 @@ public class LocationNode {
 
   double xOffset;
   double yOffset;
+  double buttonX;
+  double buttonY;
   Boolean dragged = false;
 
   public LocationNode(Location location, LocationNodeManager locationNodeManager) {
@@ -32,13 +34,16 @@ public class LocationNode {
 
     button.setOnMousePressed(
         (MouseEvent mouseEvent) -> {
-          xOffset = button.getLayoutX() - mouseEvent.getSceneX();
-          yOffset = button.getLayoutY() - mouseEvent.getSceneY();
+          xOffset = (button.getLayoutX() - mouseEvent.getSceneX());
+          yOffset = (button.getLayoutY() - mouseEvent.getSceneY());
+
+          buttonX = button.getLayoutX();
+          buttonY = button.getLayoutY();
         });
     button.setOnMouseDragged(
         (MouseEvent mouseEvent) -> {
-          button.setLayoutX(mouseEvent.getSceneX() + xOffset);
-          button.setLayoutY(mouseEvent.getSceneY() + yOffset);
+          button.setLayoutX((mouseEvent.getSceneX() + xOffset) / locationNodeManager.getScale());
+          button.setLayoutY((mouseEvent.getSceneY() + yOffset) / locationNodeManager.getScale());
           dragged = true;
         });
     button.setOnMouseReleased(
