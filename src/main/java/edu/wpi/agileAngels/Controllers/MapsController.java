@@ -31,6 +31,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
   @FXML private ScrollPane mapScroll;
   @FXML HBox addButtonBox;
+
   @FXML
   private Button floorTwo,
       floorThree,

@@ -34,6 +34,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
 
+
     try {
       this.updateCleanDirty();
     } catch (SQLException e) {
@@ -60,6 +61,86 @@ public class DashboardController implements Initializable, PropertyChangeListene
     }
   }
 
+  //  public void swapFloorDash(MouseEvent event) {
+  //
+  //    panes.add(stackDash1);
+  //    panes.add(stackDash2);
+  //    panes.add(stackDash3);
+  //    panes.add(stackDash4);
+  //    panes.add(stackDash5);
+  //    panes.add(stackDashL1);
+  //    panes.add(stackDashL2);
+  //
+  //    if (event.getSource() == dash1) {
+  //      for (Pane pane : panes) {
+  //        if (pane == stackDash1) {
+  //          pane.setVisible(true);
+  //        } else {
+  //          pane.setVisible(false);
+  //        }
+  //      }
+  //    }
+  //
+  //    if (event.getSource() == dash2) {
+  //      for (Pane pane : panes) {
+  //        if (pane == stackDash2) {
+  //          pane.setVisible(true);
+  //        } else {
+  //          pane.setVisible(false);
+  //        }
+  //      }
+  //    }
+  //
+  //    if (event.getSource() == dash3) {
+  //      for (Pane pane : panes) {
+  //        if (pane == stackDash3) {
+  //          pane.setVisible(true);
+  //        } else {
+  //          pane.setVisible(false);
+  //        }
+  //      }
+  //    }
+  //
+  //    if (event.getSource() == dash4) {
+  //      for (Pane pane : panes) {
+  //        if (pane == stackDash4) {
+  //          pane.setVisible(true);
+  //        } else {
+  //          pane.setVisible(false);
+  //        }
+  //      }
+  //    }
+  //
+  //    if (event.getSource() == dash5) {
+  //      for (Pane pane : panes) {
+  //        if (pane == stackDash5) {
+  //          pane.setVisible(true);
+  //        } else {
+  //          pane.setVisible(false);
+  //        }
+  //      }
+  //    }
+  //
+  //    if (event.getSource() == dashL1) {
+  //      for (Pane pane : panes) {
+  //        if (pane == stackDashL1) {
+  //          pane.setVisible(true);
+  //        } else {
+  //          pane.setVisible(false);
+  //        }
+  //      }
+  //    }
+  //
+  //    if (event.getSource() == dashL2) {
+  //      for (Pane pane : panes) {
+  //        if (pane == stackDashL2) {
+  //          pane.setVisible(true);
+  //        } else {
+  //          pane.setVisible(false);
+  //        }
+  //      }
+  //    }
+  //  }
   //  public void swapFloorDash(MouseEvent event) {
   //
   //    panes.add(stackDash1);
