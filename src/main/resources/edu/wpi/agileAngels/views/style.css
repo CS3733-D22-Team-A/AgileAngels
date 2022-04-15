@@ -9,6 +9,8 @@
    -fx-font-family: "Roboto Light";
     -fx-background-color: rgb(243, 243, 243);
 }
+
+
 #title{
     -fx-font-family: "Roboto Thin";
 }
@@ -19,6 +21,7 @@
 TODO: Clean up CSS and specificity.
 Note that these labels lock your font size.
  */
+
 #closeApp{
     -fx-font-size: 12.0;
 }
