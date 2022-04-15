@@ -220,5 +220,5 @@ Note that these labels lock your font size.
     -fx-padding: 0.0em;
 }
 .linear-grad-to-bottom{
-    -fx-background-color: linear-gradient(to bottom, #453F6A, #019BA5);
+    -fx-border-color: linear-gradient(to bottom, #453F6A, #019BA5);
 }
