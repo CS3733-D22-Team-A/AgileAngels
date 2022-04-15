@@ -2,7 +2,6 @@ package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.MedEquipImpl;
 import edu.wpi.agileAngels.Database.MedicalEquip;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
@@ -59,7 +58,6 @@ public class DashboardController implements Initializable, PropertyChangeListene
       dirtyXRay.setText(String.valueOf(newValue));
       cleanXRay.setText(String.valueOf(1 - newValue));
     }
-
   }
 
   //  public void swapFloorDash(MouseEvent event) {
