@@ -40,6 +40,7 @@ public class EquipmentController implements Initializable {
   // hashMap and arrayList of all locations
   HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
+  HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
 
   AppController appController = AppController.getInstance();
   @FXML
@@ -100,15 +101,10 @@ public class EquipmentController implements Initializable {
   @FXML
   private void submitEquipment() throws SQLException {
     equipmentConfirmation.setText("");
-
-    // first sees if all of the attributes are empty
     // gets all inputs and converts into string
     String dropDownString = equipmentType.getText();
     String locationString = equipLocation.getText();
-    // get location obj
-    Location location = locDAO.getLocation(locationString);
     String employeeString = equipmentEmployeeText.getText();
-    Employee employee = empDAO.getEmployee(employeeString);
     String statusString = equipmentStatus.getText();
     String deleteString = deleteName.getText();
     String editString = editRequest.getText();
@@ -124,6 +120,8 @@ public class EquipmentController implements Initializable {
     equipLocation.setText("Equipment Type");
     equipmentType.setText("Delivery Location");
     equipmentStatus.setText("Status");
+    editRequest.setText("");
+    deleteName.setText("");
     equipmentEmployeeText.setText("Employee");
   }
 
@@ -134,7 +132,7 @@ public class EquipmentController implements Initializable {
         || locationString.equals("Delivery Location")
         || statusString.equals("Status")
         || employeeString.equals("Employee")) {
-      equipmentConfirmation.setText("One or more of the required fields is filled in.");
+      equipmentConfirmation.setText("One or more of the required fields is not filled in.");
     } else {
       MedicalEquip equip = null;
       Boolean foundEquip = false;
@@ -282,7 +280,7 @@ public class EquipmentController implements Initializable {
         //        MedrequestImpl.updateEmployeeName(found, employee.getName());
       }
 
-      if (!statusString.equals("Employee")) {
+      if (!statusString.equals("Status")) {
 
         found.setStatus(statusString);
         //  MedrequestImpl.updateStatus(found, statusString);
