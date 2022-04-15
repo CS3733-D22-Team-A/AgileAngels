@@ -4,8 +4,6 @@ import edu.wpi.agileAngels.Database.DBconnection;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Stack;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,7 +19,6 @@ public class AppController {
   private MenuController menuController;
   private PropertyChangeSupport support;
   private Stage primaryStage;
-  private String currentFloor;
   private int[] dirtyBeds = new int[4];
   private int[] dirtyInfusionPumps = new int[4];
   private int[] dirtyRecliners = new int[4];
@@ -123,7 +120,6 @@ public class AppController {
   }
 
   public void incrementAvailableBeds(String floor, int increment) {
-    System.out.println("incrementAvailableBeds");
     int floorInt = getFloorInt(floor);
     try {
       support.firePropertyChange(
@@ -191,36 +187,6 @@ public class AppController {
     }
   }
 
-  public boolean alertNeeded(String type, int newValue) {
-    boolean bool = false;
-    System.out.println("alertNeeded");
-    if (type.equals("dirtyBeds3") || type.equals("dirtyBeds4") || type.equals("dirtyBeds5")) {
-      bool = true;
-    }
-    return bool;
-  }
-
-  public String getAlert(String type) throws SQLException {
-    System.out.println("getAlert");
-    ArrayList<String> alerts = new ArrayList<>();
-    alerts.add("/edu/wpi/agileAngels/views/dirtyBedAlert-view.fxml");
-    alerts.add("/edu/wpi/agileAngels/views/dirtyBedAlert-view.fxml");
-    alerts.add("/edu/wpi/agileAngels/views/dirtyBedAlert-view.fxml");
-    // TODO add views
-    ArrayList<String> types = new ArrayList<String>();
-    types.add("dirtyBeds3");
-    types.add("dirtyBeds4");
-    types.add("dirtyBeds5");
-    currentFloor = Character.toString(type.charAt(type.length() - 1));
-    return alerts.get(types.indexOf(type));
-  }
-
-  public int getDirtyBeds(String floor) {
-    System.out.println("getDirtyBeds");
-    int floorInt = getFloorInt(floor);
-    return dirtyBeds[floorInt];
-  }
-
   private int getFloorInt(String floor) {
     int floorInt = -1;
     if (floor.equals("3")) {
@@ -231,10 +197,6 @@ public class AppController {
       floorInt = 3;
     }
     return floorInt;
-  }
-
-  public String getCurrentFloor() {
-    return currentFloor;
   }
 
   public void init(Stage primaryStage) {

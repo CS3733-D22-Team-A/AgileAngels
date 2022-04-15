@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -20,7 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class EquipmentController implements Initializable, PropertyChangeListener {
+public class EquipmentController implements Initializable {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
   @FXML private TextField deleteName, editRequest, employeeFilterField, statusFilterField;
@@ -62,7 +61,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    appController.addPropertyChangeListener(this);
 
     equipHash = equipDAO.getAllMedicalEquipment();
     allMedEquip = new ArrayList<>(equipHash.values());
@@ -97,24 +95,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     }
 
     equipmentTable.setItems(medData);
-  }
-
-  @Override
-  public void propertyChange(PropertyChangeEvent stateEvent) {
-    System.out.println("propertyChange");
-    String changeType = stateEvent.getPropertyName();
-    System.out.println(changeType);
-    int newValue = (int) stateEvent.getNewValue();
-    System.out.println(newValue);
-    if (appController.alertNeeded(changeType, newValue)) {
-      try {
-        String alertView = appController.getAlert(changeType);
-        alertPane = FXMLLoader.load(getClass().getResource(alertView));
-        anchor.getChildren().addAll(alertPane);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
   }
 
   /**
