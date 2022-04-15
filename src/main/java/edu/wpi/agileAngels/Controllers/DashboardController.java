@@ -44,11 +44,6 @@ public class DashboardController implements Initializable {
     stackDashL1.setVisible(false);
     stackDashL2.setVisible(false);
 
-    try {
-      this.updateCleanDirty();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
   }
 
   public void swapFloorDash(MouseEvent event) {
