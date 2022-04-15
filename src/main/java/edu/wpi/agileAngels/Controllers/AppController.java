@@ -23,6 +23,10 @@ public class AppController {
   private int[] dirtyInfusionPumps = new int[4];
   private int[] dirtyRecliners = new int[4];
   private int[] dirtyXRays = new int[4];
+  private int[] availableBeds = new int[4];
+  private int[] availableInfusionPumps = new int[4];
+  private int[] availableRecliners = new int[4];
+  private int[] availableXRays = new int[4];
 
   public AppController() {
     support = new PropertyChangeSupport(this);
@@ -32,6 +36,10 @@ public class AppController {
       dirtyInfusionPumps[i] = 0;
       dirtyRecliners[i] = 0;
       dirtyXRays[i] = 0;
+      availableBeds[i] = 0;
+      availableInfusionPumps[i] = 0;
+      availableRecliners[i] = 0;
+      availableXRays[i] = 0;
     }
   }
 
@@ -104,6 +112,65 @@ public class AppController {
       support.firePropertyChange("dirtyXRaysAll",
               this.dirtyXRays[0], this.dirtyXRays[0] + increment);
       this.dirtyXRays[0] = this.dirtyXRays[0] + increment;
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void incrementAvailableBeds(String floor, int increment) {
+    int floorInt = getFloorInt(floor);
+    try {
+      support.firePropertyChange("availableBeds" + floor,
+              this.availableBeds[floorInt], this.availableBeds[floorInt] + increment);
+      this.availableBeds[floorInt] = this.availableBeds[floorInt] + increment;
+      support.firePropertyChange("availableBedsAll",
+              this.availableBeds[0], this.availableBeds[0] + increment);
+      this.availableBeds[0] = this.availableBeds[0] + increment;
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void incrementAvailableInfusionPumps(String floor, int increment) {
+    int floorInt = getFloorInt(floor);
+    try {
+      support.firePropertyChange("availablePumps" + floor,
+              this.availableInfusionPumps[floorInt],
+              this.availableInfusionPumps[floorInt] + increment);
+      this.availableInfusionPumps[floorInt] = this.availableInfusionPumps[floorInt] + increment;
+      support.firePropertyChange("availablePumpsAll",
+              this.availableInfusionPumps[0], this.availableInfusionPumps[0] + increment);
+      this.availableInfusionPumps[0] = this.availableInfusionPumps[0] + increment;
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void incrementAvailableRecliners(String floor, int increment) {
+    int floorInt = getFloorInt(floor);
+    try {
+      support.firePropertyChange("availableRecliners" + floor,
+              this.availableRecliners[floorInt],
+              this.availableRecliners[floorInt] + increment);
+      this.availableRecliners[floorInt] = this.availableRecliners[floorInt] + increment;
+      support.firePropertyChange("availableReclinersAll",
+              this.availableRecliners[0], this.availableRecliners[0] + increment);
+      this.availableRecliners[0] = this.availableRecliners[0] + increment;
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void incrementAvailableXRays(String floor, int increment) {
+    int floorInt = getFloorInt(floor);
+    try {
+      support.firePropertyChange("availableXRays" + floor,
+              this.availableXRays[floorInt],
+              this.availableXRays[floorInt] + increment);
+      this.availableXRays[floorInt] = this.availableXRays[floorInt] + increment;
+      support.firePropertyChange("availableXRaysAll",
+              this.availableXRays[0], this.availableXRays[0] + increment);
+      this.availableXRays[0] = this.availableXRays[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
