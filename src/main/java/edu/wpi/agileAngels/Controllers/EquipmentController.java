@@ -195,8 +195,7 @@ public class EquipmentController implements Initializable {
     }
   }
 
-  // ***************************************FILTER METHODS BEYOND
-  // HERE***************************************//
+  /* FILTER METHODS BEYOND HERE */
 
   /** Does filterReqsTable methods when "Submit Filters" is clicked, or "onAction." */
   @FXML
@@ -279,8 +278,7 @@ public class EquipmentController implements Initializable {
     return newList;
   }
 
-  // ***************************************FILTER METHODS BEYOND
-  // HERE***************************************//
+  /* FILTER METHODS ABOVE HERE */
 
   private void deleteEquipRequest(String deleteString) {
     if (!deleteString.isEmpty()) {

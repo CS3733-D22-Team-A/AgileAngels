@@ -370,10 +370,9 @@ public class LabController extends MainController implements Initializable {
     }
   }
 
-  // ***************************************FILTER METHODS BEYOND
-  // HERE***************************************//
+  /* FILTER METHODS BEYOND HERE */
 
-  /** Does filterReqsTable when "Submit Requests" is clicked, or "onAction." */
+  /** Does filterReqsTable when "Submit Filters" is clicked, or "onAction." */
   @FXML
   public void filterReqOnAction() {
     if (!employeeFilterField.getText().isEmpty()) {
@@ -452,7 +451,7 @@ public class LabController extends MainController implements Initializable {
     return newList;
   }
 
-  //***************************************FILTER METHODS ABOVE HERE***************************************//
+  /* FILTER METHODS ABOVE HERE */
 
   public void clearPage(ActionEvent actionEvent) {
     appController.clearPage();
