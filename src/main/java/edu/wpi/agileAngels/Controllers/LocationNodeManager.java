@@ -9,7 +9,7 @@ import javafx.scene.input.MouseEvent;
 
 public class LocationNodeManager {
 
-  private MapsController mapsController;
+  public MapsController mapsController;
   private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
   private HashMap<String, LocationNode> nodes = new HashMap<>();
   private int[][] typeCounts = new int[15][6];
@@ -47,6 +47,18 @@ public class LocationNodeManager {
         typeCounts[i][j] = 0;
       }
     }
+  }
+
+  public double getMapXCoordFromClick(MouseEvent click) {
+    return mapsController.getMapXCoordFromClick(click);
+  }
+
+  public double getMapYCoordFromClick(MouseEvent click) {
+    return mapsController.getMapYCoordFromClick(click);
+  }
+
+  public void setCoordsOnMouseEvent(MouseEvent click) {
+    mapsController.setCoordsOnMouseEvent(click);
   }
 
   void deleteNode(String nodeID) {

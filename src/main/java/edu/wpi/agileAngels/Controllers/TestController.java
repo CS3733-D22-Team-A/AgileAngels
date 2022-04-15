@@ -3,7 +3,6 @@ package edu.wpi.agileAngels.Controllers;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,8 +29,8 @@ public class TestController extends MainController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     button.setOnMouseDragged(
         (MouseEvent mouseEvent) -> {
-          button.setLayoutX(mouseEvent.getSceneX() + x);
-          button.setLayoutY(mouseEvent.getSceneY() + y);
+          button.setLayoutX(mouseEvent.getSceneX());
+          button.setLayoutY(mouseEvent.getSceneY());
         });
 
     circles.add(circle1);
@@ -62,6 +61,5 @@ public class TestController extends MainController implements Initializable {
             + Math.pow((node1.getLayoutY() - node2.getLayoutY()), 2));
   }
 
-  public void switchConnection(ActionEvent event) {
-  }
+  public void switchConnection(ActionEvent event) {}
 }

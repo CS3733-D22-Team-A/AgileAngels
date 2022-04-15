@@ -42,8 +42,8 @@ public class LocationNode {
         });
     button.setOnMouseDragged(
         (MouseEvent mouseEvent) -> {
-          button.setLayoutX((mouseEvent.getSceneX() + xOffset) / locationNodeManager.getScale());
-          button.setLayoutY((mouseEvent.getSceneY() + yOffset) / locationNodeManager.getScale());
+          button.setLayoutX((locationNodeManager.getMapXCoordFromClick(mouseEvent) - 775) / 3.225);
+          button.setLayoutY((locationNodeManager.getMapYCoordFromClick(mouseEvent) - 320) / 3.232);
           dragged = true;
         });
     button.setOnMouseReleased(
