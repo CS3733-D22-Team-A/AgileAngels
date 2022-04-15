@@ -16,4 +16,10 @@
     -fx-background-color: linear-gradient(to bottom, #3D7D82, #356C70);
     -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 16, 0, 4, 0);
 }
+.roomButton{
+    -fx-background-color: linear-gradient(from 1px 0px to 100px 100px, #B66262, #51959B);
+}
 
+.scroll-pane{
+    -fx-background: #356C70;
+}

@@ -18,7 +18,7 @@ public class HomeController {
     if (event.getSource() == serviceButton) {
       appController.loadPage("/edu/wpi/agileAngels/views/serviceRequest-view.fxml");
     } else if (event.getSource() == mapButton) {
-      appController.loadPage("/edu/wpi/agileAngels/views/dashboard-view.fxml");
+      appController.loadPage("/edu/wpi/agileAngels/views/map-dashboard.fxml");
     }
   }
 
