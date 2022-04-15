@@ -120,8 +120,8 @@
             </TableView>
          </children>
       </HBox>
-      <TextField fx:id="employeeFilterField" layoutX="492.0" layoutY="613.0" prefHeight="50.0" prefWidth="270.0" promptText="Filter by Employee" />
-      <Button fx:id="clearFilter" alignment="CENTER" layoutX="970.0" layoutY="613.0" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+      <TextField fx:id="employeeFilterField" layoutX="379.0" layoutY="613.0" prefHeight="50.0" prefWidth="200.0" promptText="Filter by Employee" />
+      <Button fx:id="clearFilter" alignment="CENTER" layoutX="996.0" layoutY="613.0" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
          <font>
             <Font size="10.0" />
          </font>
@@ -139,7 +139,7 @@
             </HBox>
          </graphic>
       </Button>
-      <Button alignment="CENTER" layoutX="800.0" layoutY="613.0" mnemonicParsing="false" onAction="#filterReqEmpOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+      <Button alignment="CENTER" layoutX="846.0" layoutY="613.0" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
          <font>
             <Font size="10.0" />
          </font>
@@ -149,7 +149,7 @@
          <graphic>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Submit Filter" />
+                  <Label text="Submit Filters" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -157,6 +157,7 @@
             </HBox>
          </graphic>
       </Button>
+      <TextField fx:id="statusFilterField" layoutX="611.0" layoutY="613.0" prefHeight="50.0" prefWidth="200.0" promptText="Filter by Status" />
 
    </children>
 </AnchorPane>
