@@ -187,6 +187,12 @@ public class EquipmentController implements Initializable {
     }
   }
 
+  /**
+   * Filters out requests in medData based on the given Employee.
+   *
+   * @param employee The Employee that the requests must have to be in the new list.
+   * @return The new filtered list.
+   */
   private ObservableList<Request> filterReqEmployee(Employee employee) {
     ObservableList<Request> newList = FXCollections.observableArrayList();
 
