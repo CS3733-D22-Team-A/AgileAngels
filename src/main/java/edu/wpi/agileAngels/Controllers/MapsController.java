@@ -29,6 +29,7 @@ public class MapsController implements Initializable {
 
   @FXML private ScrollPane mapScroll;
   @FXML HBox addButtonBox;
+
   @FXML
   private Button floorTwo,
       floorThree,
