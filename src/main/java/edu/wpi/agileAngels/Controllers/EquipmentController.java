@@ -180,11 +180,23 @@ public class EquipmentController implements Initializable {
       MedrequestImpl.addRequest(medDevice); // add to hashmap
 
       medData.add(medDevice); // add to the UI
-      equipmentTable.setItems(medData);
+      equipmentTable.setItems(medData); // Adds requests in mdeData to the TableView
     } else {
       equipmentConfirmation.setText(
           "Sorry, there are currently no " + dropDownString + "s available. ");
     }
+  }
+
+  private ObservableList<Request> filterReqEmployee(Employee employee) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : medData) {
+      if (req.getEmployee().equals(employee)) {
+        newList.add(req);
+      }
+    }
+
+    return newList;
   }
 
   private void deleteEquipRequest(String deleteString) {
