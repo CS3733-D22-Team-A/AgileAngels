@@ -146,7 +146,8 @@ public class EquipmentController implements Initializable {
         MedicalEquip medEquip = allMedEquip.get(i);
         if (medEquip.getType().equals(dropDownString)
             && medEquip.getStatus().equals("available")
-            && medEquip.isClean()) {
+            && medEquip.isClean()
+            && medEquip.getLocation().getFloor().equals(locationsHash.get(locationString))) {
           equip = medEquip;
           foundEquip = true;
         }
@@ -387,7 +388,8 @@ public class EquipmentController implements Initializable {
           MedicalEquip medEquip = allMedEquip.get(i);
           if (medEquip.getType().equals(dropDownString)
               && medEquip.getStatus().equals("available")
-              && medEquip.isClean()) {
+              && medEquip.isClean()
+              && medEquip.getLocation().getFloor().equals(locationsHash.get(locationString))) {
             equip = medEquip;
             foundEquip = true;
           }
