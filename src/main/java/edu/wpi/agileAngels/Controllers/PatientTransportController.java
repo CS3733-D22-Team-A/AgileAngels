@@ -18,10 +18,10 @@ import javafx.scene.layout.Pane;
 
 public class PatientTransportController implements Initializable {
 
-  @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
+  @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton, addButton;
   @FXML private TextField deleteName, editRequest, employeeFilterField;
   @FXML private Label equipmentConfirmation;
-  @FXML private TableView equipmentTable;
+  @FXML private TableView patientTable;
   @FXML Button clear, submitFilters;
   @FXML Pane drop, drop2;
   @FXML MenuButton equipLocation, equipmentType, equipmentStatus, equipmentEmployeeText;
@@ -29,10 +29,10 @@ public class PatientTransportController implements Initializable {
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private MedEquipImpl equipDAO = MedEquipImpl.getInstance();
-  private RequestDAOImpl MedrequestImpl =
+  private RequestDAOImpl transportDAO =
       RequestDAOImpl.getInstance("MedRequest"); // instance of RequestDAOImpl to access functions
   // only way to update the UI is ObservableList
-  private static ObservableList<Request> medData =
+  private static ObservableList<Request> transportData =
       FXCollections.observableArrayList(); // list of requests
   // hashmap and arrayList of all medical equipment
   HashMap<String, MedicalEquip> equipHash;
@@ -78,17 +78,17 @@ public class PatientTransportController implements Initializable {
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
-    if (medData.isEmpty()) {
-      Iterator var3 = MedrequestImpl.getAllRequests().entrySet().iterator();
+    if (transportData.isEmpty()) {
+      Iterator var3 = transportDAO.getAllRequests().entrySet().iterator();
 
-      for (Map.Entry<String, Request> entry : MedrequestImpl.getAllRequests().entrySet()) {
+      for (Map.Entry<String, Request> entry : transportDAO.getAllRequests().entrySet()) {
         Request req = entry.getValue();
 
-        medData.add(req);
+        transportData.add(req);
       }
     }
 
-    equipmentTable.setItems(medData);
+    patientTable.setItems(transportData);
   }
 
   /**
@@ -184,10 +184,10 @@ public class PatientTransportController implements Initializable {
           equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00103"));
         }
 
-        MedrequestImpl.addRequest(medDevice); // add to hashmap
+        transportDAO.addRequest(medDevice); // add to hashmap
 
-        medData.add(medDevice); // add to the UI
-        equipmentTable.setItems(medData);
+        transportData.add(medDevice); // add to the UI
+        patientTable.setItems(transportData);
       } else {
         equipmentConfirmation.setText(
             "Sorry, there are currently no " + dropDownString + "s available. ");
@@ -210,14 +210,14 @@ public class PatientTransportController implements Initializable {
     ObservableList<Request> filteredList = filterReqEmployee(employeeName);
 
     // Sets table to only have contents of the filtered list.
-    equipmentTable.setItems(filteredList);
+    patientTable.setItems(filteredList);
   }
 
   /** Puts all of the requests back on the table, "clearing the requests." */
   @FXML
   public void clearFilters() {
     // Puts everything back on table.
-    equipmentTable.setItems(medData);
+    patientTable.setItems(transportData);
   }
 
   /**
@@ -229,7 +229,7 @@ public class PatientTransportController implements Initializable {
   private ObservableList<Request> filterReqEmployee(String employeeName) {
     ObservableList<Request> newList = FXCollections.observableArrayList();
 
-    for (Request req : medData) {
+    for (Request req : transportData) {
       if (req.getEmployee().getName().equals(employeeName)) {
         newList.add(req);
       }
@@ -240,8 +240,8 @@ public class PatientTransportController implements Initializable {
 
   private void deleteEquipRequest(String deleteString) {
     if (!deleteString.isEmpty()) {
-      for (int i = 0; i < medData.size(); i++) {
-        Request object = medData.get(i);
+      for (int i = 0; i < transportData.size(); i++) {
+        Request object = transportData.get(i);
         if (0 == deleteString.compareTo(object.getName())) {
           // update the corresponding medicalEquip object
           if (object.getMedicalEquip() != null) {
@@ -251,11 +251,11 @@ public class PatientTransportController implements Initializable {
                 object.getMedicalEquip(), locationsHash.get("ADIRT00103"));
           }
           // delete the request
-          medData.remove(i);
-          MedrequestImpl.deleteRequest(object);
+          transportData.remove(i);
+          transportDAO.deleteRequest(object);
         }
       }
-      equipmentTable.setItems(medData);
+      patientTable.setItems(transportData);
     }
   }
 
@@ -268,13 +268,13 @@ public class PatientTransportController implements Initializable {
 
     System.out.println("EDIT REQUEST");
 
-    Request found = MedrequestImpl.getAllRequests().get(editString);
+    Request found = transportDAO.getAllRequests().get(editString);
     System.out.println(found.getName());
 
     // null;
     int num = 0;
-    for (int i = 0; i < medData.size(); i++) {
-      Request device = medData.get(i);
+    for (int i = 0; i < transportData.size(); i++) {
+      Request device = transportData.get(i);
       if (0 == editRequest.getText().compareTo(device.getName())) {
         found = device;
         num = i;
@@ -303,7 +303,7 @@ public class PatientTransportController implements Initializable {
         if (foundEquip) {
           found.setType(dropDownString);
           found.setMedicalEquip(equip);
-          MedrequestImpl.updateType(found, dropDownString);
+          transportDAO.updateType(found, dropDownString);
         } else {
           equipmentConfirmation.setText(
               "Sorry, there are currently no " + dropDownString + "s available.");
@@ -350,7 +350,7 @@ public class PatientTransportController implements Initializable {
         }
       }
       // System.out.println(num);
-      medData.set(num, found);
+      transportData.set(num, found);
 
       //  equipmentTable.setItems(medData);
     }

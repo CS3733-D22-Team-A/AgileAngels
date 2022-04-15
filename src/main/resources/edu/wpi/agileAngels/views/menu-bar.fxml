@@ -31,6 +31,7 @@
                   <Button id="menuButton" fx:id="equipRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="37.0" prefWidth="191.0" text="Equipment Request" />
                   <Button id="menuButton" fx:id="labRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="37.0" prefWidth="147.0" text="Lab Request" />
                   <Button id="menuButton" fx:id="map" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="68.0" text="Map" />
+                  <Button id="menuButton" fx:id="test" mnemonicParsing="false" onAction="#menuItem" prefHeight="30.0" prefWidth="68.0" text="Test" />
                </children>
                <padding>
                   <Insets left="30.0" />

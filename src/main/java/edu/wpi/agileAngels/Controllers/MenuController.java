@@ -14,7 +14,7 @@ import javafx.scene.layout.Pane;
 
 public class MenuController implements Initializable {
 
-  @FXML Button back, close, equipRequest, labRequest, map, homeImage, userButton, emergency;
+  @FXML Button back, close, equipRequest, labRequest, map, homeImage, userButton, emergency, test;
   @FXML Pane menuPane;
   @FXML AnchorPane anchor;
 
@@ -51,6 +51,8 @@ public class MenuController implements Initializable {
       appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
     } else if (event.getSource() == emergency) {
       appController.loadPage("/edu/wpi/agileAngels/views/emergency-view.fxml");
+    } else if (event.getSource() == test) {
+      appController.loadPage("/edu/wpi/agileAngels/views/test-view.fxml");
     }
   }
 
