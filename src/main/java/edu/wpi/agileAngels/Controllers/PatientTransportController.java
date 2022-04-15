@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
-public class EquipmentController implements Initializable {
+public class PatientTransportController implements Initializable {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
   @FXML private TextField deleteName, editRequest;
@@ -51,7 +51,7 @@ public class EquipmentController implements Initializable {
       descriptionColumn,
       availableColumn;
 
-  public EquipmentController() throws SQLException {}
+  public PatientTransportController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
