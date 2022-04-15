@@ -6,6 +6,8 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@styleRequest.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.PatientTransportController">
@@ -39,7 +41,12 @@
          </font>
       </Label>
             <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0" />
-      <Button fx:id="addButton" layoutX="866.0" layoutY="101.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="127.0" style="-fx-font-weight: bold;" text="Add Request" />
+      <Button fx:id="addButton" layoutX="866.0" layoutY="101.0" mnemonicParsing="false" onAction="#testButton" prefHeight="50.0" prefWidth="127.0" style="-fx-font-weight: bold;" text="Add Request" />
+      <VBox layoutX="999.0" prefHeight="654.0" prefWidth="281.0">
+         <children>
+            <Pane prefHeight="654.0" prefWidth="212.0" style="-fx-background-color: #f3f5f7;" />
+         </children>
+      </VBox>
 
     </children>
 </AnchorPane>
