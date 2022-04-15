@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import org.controlsfx.control.textfield.TextFields;
 
 public class LoginController implements Initializable {
   @FXML private TextField username;
@@ -29,6 +30,11 @@ public class LoginController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
+    //Remove this later, just for convience + to prove it works
+    String[] words = {"Admin", "Staff"};
+    TextFields.bindAutoCompletion(username, words);
+    //
 
     employeeManager.addEmployee("Administrator", "Admin", "Admin");
     employeeManager.addEmployee("Nurse", "Nurse", "Nurse");
