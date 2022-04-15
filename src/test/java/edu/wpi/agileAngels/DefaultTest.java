@@ -77,7 +77,7 @@ public class DefaultTest {
     dansList.add(notHReq3);
     dansList.add(notHReq4);
 
-    ObservableList filterList = dansMTC.filterReqEmployeeNoMedData(harmoni, dansList);
+    ObservableList filterList = dansMTC.filterReqEmployeeNoMedData(harmoni.getName(), dansList);
 
     assertTrue(filterList.contains(hReq1) && filterList.contains(hReq2));
   }
@@ -114,7 +114,7 @@ public class DefaultTest {
     dansList.add(notHReq3);
     dansList.add(notHReq4);
 
-    ObservableList filterList = dansMTC.filterReqEmployeeNoMedData(harmoni, dansList);
+    ObservableList filterList = dansMTC.filterReqEmployeeNoMedData(harmoni.getName(), dansList);
 
     assertTrue(
         !filterList.contains(notHReq)
@@ -155,7 +155,7 @@ public class DefaultTest {
     dansList.add(notHReq3);
     dansList.add(notHReq4);
 
-    ObservableList filterList = dansMTC.filterReqEmployeeNoMedData(joe, dansList);
+    ObservableList filterList = dansMTC.filterReqEmployeeNoMedData(joe.getName(), dansList);
 
     assertTrue(filterList.isEmpty());
   }

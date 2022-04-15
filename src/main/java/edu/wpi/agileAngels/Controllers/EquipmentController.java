@@ -188,16 +188,35 @@ public class EquipmentController implements Initializable {
   }
 
   /**
+   * Filters requests in the equipment table so only those with the given Employee remain.
+   * @param employeeName The Employee the requests must have to remain on the table.
+   */
+  private void filterReqsTable(String employeeName) {
+    ObservableList<Request> filteredList = filterReqEmployee(employeeName);
+
+    // Sets table to only have contents of the filtered list.
+    equipmentTable.setItems(filteredList);
+  }
+
+  /**
+   * Puts all of the requests back on the table, "clearing the requests."
+   */
+  private void clearFilters(){
+    // Puts everything back on table.
+    equipmentTable.setItems(medData);
+  }
+
+  /**
    * Filters out requests in medData based on the given Employee.
    *
-   * @param employee The Employee that the requests must have to be in the new list.
+   * @param employeeName The Employee that the requests must have to be in the new list.
    * @return The new filtered list.
    */
-  private ObservableList<Request> filterReqEmployee(Employee employee) {
+  private ObservableList<Request> filterReqEmployee(String employeeName) {
     ObservableList<Request> newList = FXCollections.observableArrayList();
 
     for (Request req : medData) {
-      if (req.getEmployee().equals(employee)) {
+      if (req.getEmployee().getName().equals(employeeName)) {
         newList.add(req);
       }
     }

@@ -13,11 +13,11 @@ public class MethodTestClass {
   }
 
   public ObservableList<Request> filterReqEmployeeNoMedData(
-      Employee employee, ObservableList<Request> listChecked) {
+      String employeeName, ObservableList<Request> listChecked) {
     ObservableList<Request> newList = FXCollections.observableArrayList();
 
     for (Request req : listChecked) {
-      if (req.getEmployee().equals(employee)) {
+      if (req.getEmployee().getName().equals(employeeName)) {
         newList.add(req);
       }
     }
