@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class EquipmentController implements Initializable {
@@ -25,6 +26,7 @@ public class EquipmentController implements Initializable {
   @FXML Button clear, submitFilters;
   @FXML Pane drop, drop2;
   @FXML MenuButton equipLocation, equipmentType, equipmentStatus, equipmentEmployeeText;
+  @FXML AnchorPane anchor;
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
@@ -41,6 +43,7 @@ public class EquipmentController implements Initializable {
   HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
   HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
+  AnchorPane alertPane;
 
   AppController appController = AppController.getInstance();
   @FXML
@@ -56,6 +59,7 @@ public class EquipmentController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
     equipHash = equipDAO.getAllMedicalEquipment();
     allMedEquip = new ArrayList<>(equipHash.values());
 
@@ -179,7 +183,7 @@ public class EquipmentController implements Initializable {
           equipDAO.updateStatus(equip, "inUse");
           equipDAO.updateEquipmentLocation(equip, medDevice.getLocation());
         } else if (statusString.equals("complete")) {
-          // equipDAO.updateMedicalCleanliness(equip, false);
+          equipDAO.updateMedicalCleanliness(equip, false);
           equipDAO.updateStatus(equip, "available");
           equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00103"));
         }

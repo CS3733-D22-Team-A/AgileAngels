@@ -1,19 +1,21 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 
-public class SanitationController {
+public class SanitationController implements Initializable, PropertyChangeListener {
   AppController appController = AppController.getInstance();
   // Test
   @FXML private TextField sanIssue, sanLocation, sanitationEmployeeText, sanitationStatus;
@@ -35,10 +37,17 @@ public class SanitationController {
 
   public SanitationController() throws SQLException {}
 
-  public void initialize(URL location, ResourceBundle resources) throws SQLException {
-    HashMap<String, Request> sanData = new HashMap<String, Request>();
-    sanDAO.getAllRequests();
-    // sanDAO = new RequestDAOImpl("./san.csv", sanData, 0);
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    appController.addPropertyChangeListener(this);
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    String changeType = evt.getPropertyName();
+    System.out.println(changeType);
+    int newValue = (int) evt.getNewValue();
+    System.out.println(newValue);
   }
 
   @FXML
