@@ -67,7 +67,11 @@ public class MaintenanceController implements Initializable {
 
   @FXML
   public void addRequest(ActionEvent event) {
-    popOut.setVisible(true);
+    if (popOut.visibleProperty().get()) {
+      popOut.setVisible(false);
+    } else {
+      popOut.setVisible(true);
+    }
   }
 
   // on action event set visibility for vbox
