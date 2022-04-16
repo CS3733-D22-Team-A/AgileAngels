@@ -4,9 +4,8 @@ import edu.wpi.agileAngels.Database.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
-import java.util.*;
-import javafx.fxml.Initializable;
 import java.sql.SQLException;
+import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,8 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
-
-public class MaintenanceController implements Initializable, PropertyChangeListener  {
+public class MaintenanceController implements Initializable, PropertyChangeListener {
   @FXML private Button addMain, deleteMain, editMain, submitRequest, clearRequest;
   @FXML private TableView maintenanceTable;
   @FXML private Pane addPane, editPane, deletePane;
@@ -48,8 +46,8 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-      appController.addPropertyChangeListener(this);
-      addPane.setVisible(false);
+    appController.addPropertyChangeListener(this);
+    addPane.setVisible(false);
     editPane.setVisible(false);
     deletePane.setVisible(false);
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -86,13 +84,13 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     maintenanceTable.setItems(maintenanceData);
   }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        String changeType = evt.getPropertyName();
-        System.out.println(changeType);
-        int newValue = (int) evt.getNewValue();
-        System.out.println(newValue);
-    }
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    String changeType = evt.getPropertyName();
+    System.out.println(changeType);
+    int newValue = (int) evt.getNewValue();
+    System.out.println(newValue);
+  }
 
   @FXML
   public void addRequest(ActionEvent event) {

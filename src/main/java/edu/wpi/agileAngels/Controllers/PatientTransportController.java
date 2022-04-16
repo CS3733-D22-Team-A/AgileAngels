@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
 public class PatientTransportController implements Initializable, PropertyChangeListener {
@@ -21,12 +22,12 @@ public class PatientTransportController implements Initializable, PropertyChange
   @FXML private Pane popOut;
   @FXML
   private TableColumn nameColumn,
-          employeeColumn, // change to employeeColumn
-          locationColumn,
-          typeColumn,
-          statusColumn,
-          descriptionColumn,
-          availableColumn;
+      employeeColumn, // change to employeeColumn
+      locationColumn,
+      typeColumn,
+      statusColumn,
+      descriptionColumn,
+      availableColumn;
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
@@ -45,25 +46,8 @@ public class PatientTransportController implements Initializable, PropertyChange
   HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
 
   AppController appController = AppController.getInstance();
-  @FXML
-  private TableColumn nameColumn,
-      employeeColumn, // change to employeeColumn
-      locationColumn,
-      typeColumn,
-      statusColumn,
-      descriptionColumn,
-      availableColumn;
 
   private static ObservableList<Request> maintenanceData = FXCollections.observableArrayList();
-
-  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
-  private EmployeeManager empDAO = EmployeeManager.getInstance();
-  private RequestDAOImpl mainRequestImpl = RequestDAOImpl.getInstance("MaintenanceRequest");
-  HashMap<String, Location> locationsHash = locDAO.getAllLocations();
-  ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
-  HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
-
-  AppController appController = AppController.getInstance();
 
   public PatientTransportController() throws SQLException {}
 
@@ -81,7 +65,7 @@ public class PatientTransportController implements Initializable, PropertyChange
     for (Location loc : locationsList) {
       if (loc.getFloor().equals("3") || loc.getFloor().equals("4") || loc.getFloor().equals("5")) {
         MenuItem item = new MenuItem(loc.getNodeID());
-        item.setOnAction(this::locationMenu);
+        // item.setOnAction(this::locationMenu);
         // equipLocation.getItems().add(item);
       }
     }
@@ -94,18 +78,6 @@ public class PatientTransportController implements Initializable, PropertyChange
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
-
-    if (maintenanceData.isEmpty()) {
-      Iterator var3 = mainRequestImpl.getAllRequests().entrySet().iterator();
-
-      for (Map.Entry<String, Request> entry : mainRequestImpl.getAllRequests().entrySet()) {
-        Request req = entry.getValue();
-
-        maintenanceData.add(req);
-      }
-    }
-
-    maintenanceTable.setItems(maintenanceData);
   }
 
   @Override
