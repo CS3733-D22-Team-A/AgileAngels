@@ -179,6 +179,11 @@ public class RequestDAOImpl implements RequestDAO {
     if (values[0].substring(0, 1).compareTo("G") == 0) {}
 
     if (values[0].substring(0, 1).compareTo("S") == 0) {}
+
+    if (values[0].substring(0, 4).compareTo("Main") == 0
+        && DAOtype.compareTo("MaintenanceRequest") == 0) {
+      makeRequest(values);
+    }
     return;
   }
 
