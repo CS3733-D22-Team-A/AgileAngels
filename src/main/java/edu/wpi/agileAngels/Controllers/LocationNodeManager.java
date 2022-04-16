@@ -12,6 +12,8 @@ public class LocationNodeManager {
   public MapsController mapsController;
   private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
   private HashMap<String, LocationNode> nodes = new HashMap<>();
+  HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
+  ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
   private int[][] typeCounts = new int[15][6];
   private HashMap<String, Integer> floorsAndTypes = new HashMap<>();
 

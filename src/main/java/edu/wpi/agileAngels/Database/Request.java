@@ -10,7 +10,7 @@ public class Request {
   private Employee employee;
   private Location location;
   private String type;
-  private String requestType;
+  private int requestType;
   private String status;
   private String description;
   private String attribute1;
@@ -59,7 +59,7 @@ public class Request {
     this.attribute2 = attribute2;
   }
 
-  public void setRequestType(String requestType) {
+  public void setRequestType(int requestType) {
     this.requestType = requestType;
   }
 
@@ -67,7 +67,7 @@ public class Request {
     return this.status;
   }
 
-  public String getRequestType() {
+  public int getRequestType() {
     return this.requestType;
   }
 

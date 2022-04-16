@@ -21,6 +21,8 @@ public class RequestNode {
   double buttonY;
   Boolean dragged = false;
 
+  Location closest;
+
   public RequestNode(Request request, RequestNodeManager requestNodeManager) throws SQLException {
     this.request = request;
     this.requestNodeManager = requestNodeManager;
@@ -29,24 +31,23 @@ public class RequestNode {
     button.setLayoutX((this.location.getXCoord() - 775) / 3.225);
     button.setLayoutY((this.location.getYCoord() - 320) / 3.232);
     button.setText(String.valueOf(request.getName().charAt(0)));
+
     button.setOnAction(
         (ActionEvent event2) -> {
           isClicked();
         });
 
-    button.setStyle("-fx-background-color: #6a78fc;-fx-font-size: 8");
-
     button.setStyle(
-        "-fx-font-size: 12; -fx-background-radius: 0 8 8 8; -fx-background-color: rgba(129, 239, 219, 1); -fx-text-fill: white");
+        "-fx-font-size: 12; -fx-background-radius: 0 8 8 8; -fx-background-color: rgba(44, 217, 186, 1); -fx-text-fill: white");
     button
         .hoverProperty()
         .addListener(
             l -> {
-              button.setPrefSize(250, 50);
+              button.setPrefSize(150, 50);
               button.setStyle(
-                  "-fx-font-size: 15; -fx-background-color: rgba(129, 239, 219, 1); -fx-background-radius: 0 25 25 25; -fx-text-alignment: left; -fx-text-fill: white");
+                  "-fx-font-size: 15; -fx-background-color: rgba(44, 217, 186, 1); -fx-background-radius: 0 25 25 25; -fx-text-alignment: left; -fx-text-fill: white");
               button.setAlignment(Pos.CENTER_LEFT);
-              button.setText(location.getLongName());
+              button.setText(request.getName());
               button.setViewOrder(-1000);
             });
 
@@ -54,9 +55,9 @@ public class RequestNode {
         l -> {
           button.setPrefSize(8, 8);
           button.setStyle(
-              "-fx-font-size: 12; -fx-background-color: rgba(129, 239, 219, 1) ;-fx-background-radius: 0 5 5 5; -fx-text-alignment: left; -fx-text-fill: white");
+              "-fx-font-size: 12; -fx-background-color: rgba(44, 217, 186, 1) ;-fx-background-radius: 0 5 5 5; -fx-text-alignment: left; -fx-text-fill: white");
           button.setAlignment(Pos.CENTER);
-          button.setText(String.valueOf(location.getNodeType().charAt(0)));
+          button.setText(String.valueOf(request.getName().charAt(0)));
           button.setViewOrder(-100);
         });
 
@@ -67,12 +68,13 @@ public class RequestNode {
 
           buttonX = button.getLayoutX();
           buttonY = button.getLayoutY();
+
+          dragged = false;
         });
     button.setOnMouseDragged(
         (MouseEvent mouseEvent) -> {
           button.setLayoutX(
               getPaneXfromcoords((requestNodeManager.getMapXCoordFromClick(mouseEvent))));
-
           button.setLayoutY(
               getPaneYfromcoords((requestNodeManager.getMapYCoordFromClick(mouseEvent))));
           dragged = true;
@@ -81,18 +83,41 @@ public class RequestNode {
         (MouseEvent mouseEvent) -> {
           if (dist(
                   buttonX,
-                  requestNodeManager.getMapXCoordFromClick(mouseEvent),
+                  getPaneXfromcoords(requestNodeManager.getMapXCoordFromClick(mouseEvent)),
                   buttonY,
-                  requestNodeManager.getMapYCoordFromClick(mouseEvent))
-              < 20) {
+                  getPaneYfromcoords(requestNodeManager.getMapYCoordFromClick(mouseEvent)))
+              < 50) {
             button.setLayoutX(buttonX);
             button.setLayoutY(buttonY);
           } else {
-            dragged = false;
+            placeOnClosestNode(mouseEvent);
             requestNodeManager.setDraggedNodeCoords(mouseEvent);
-            System.out.println("hello");
           }
         });
+    dragged = false;
+  }
+
+  public void placeOnClosestNode(MouseEvent mouseEvent) {
+
+    double smallest = 0;
+
+    for (Location location : requestNodeManager.getLocationsList()) {
+      double dist =
+          dist(
+              requestNodeManager.getMapXCoordFromClick(mouseEvent),
+              location.getXCoord(),
+              requestNodeManager.getMapYCoordFromClick(mouseEvent),
+              location.getYCoord());
+
+      if (((dist < smallest) && (this.location.getFloor().equals(location.getFloor())))
+          || smallest == 0) {
+        smallest = dist;
+        closest = location;
+      }
+    }
+
+    button.setLayoutX(getPaneXfromcoords(closest.getXCoord()));
+    button.setLayoutY(getPaneYfromcoords(closest.getYCoord()));
   }
 
   private double dist(double x1, double x2, double y1, double y2) {

@@ -1,5 +1,7 @@
 package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.Location;
+import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import edu.wpi.agileAngels.Database.Request;
 import edu.wpi.agileAngels.Database.RequestDAOImpl;
 import java.sql.SQLException;
@@ -13,9 +15,16 @@ public class RequestNodeManager {
   private RequestDAOImpl medRequestDAO = RequestDAOImpl.getInstance("MedRequest");
   private RequestDAOImpl labRequestDAO = RequestDAOImpl.getInstance("LabRequest");
   private HashMap<String, RequestNode> nodes = new HashMap<>();
+  private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
+  HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
+  ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
 
   public RequestNodeManager(MapsController mapsController) throws SQLException {
     this.mapsController = mapsController;
+  }
+
+  public ArrayList<Location> getLocationsList() {
+    return locationsList;
   }
 
   // gets all locations from the DB and creates nodes from them
