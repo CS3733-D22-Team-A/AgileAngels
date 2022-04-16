@@ -23,8 +23,10 @@ public class LocationNode {
     this.location = location;
     this.locationNodeManager = locationNodeManager;
 
-    button.setLayoutX((this.getXCoord() - 775) / 3.225);
-    button.setLayoutY((this.getYCoord() - 320) / 3.232);
+    // button.setLayoutX((this.getXCoord() - croppedMapXOffset) / (croppedMapWidth /
+    // imagePaneWidth));
+    button.setLayoutX(getPaneXfromcoords(this.getXCoord()));
+    button.setLayoutY(getPaneYfromcoords(this.getYCoord()));
     button.setText(String.valueOf(location.getNodeType().charAt(0)));
     button.setStyle("-fx-font-size: 8");
     button.setOnAction(
@@ -42,8 +44,12 @@ public class LocationNode {
         });
     button.setOnMouseDragged(
         (MouseEvent mouseEvent) -> {
-          button.setLayoutX((locationNodeManager.getMapXCoordFromClick(mouseEvent) - 775) / 3.225);
-          button.setLayoutY((locationNodeManager.getMapYCoordFromClick(mouseEvent) - 320) / 3.232);
+          button.setLayoutX(
+              getPaneXfromcoords((locationNodeManager.getMapXCoordFromClick(mouseEvent))));
+
+          button.setLayoutY(
+              getPaneYfromcoords((locationNodeManager.getMapYCoordFromClick(mouseEvent))));
+
           dragged = true;
         });
     button.setOnMouseReleased(
@@ -54,9 +60,19 @@ public class LocationNode {
         });
   }
 
+  public double getPaneXfromcoords(double x) {
+    return ((x - locationNodeManager.getCroppedMapXOffset())
+        / (locationNodeManager.getCroppedMapWidth() / locationNodeManager.getImagePaneWidth()));
+  }
+
+  public double getPaneYfromcoords(double y) {
+    return ((y - locationNodeManager.getCroppedMapYOffset())
+        / (locationNodeManager.getCroppedMapWidth() / locationNodeManager.getImagePaneWidth()));
+  }
+
   public void resetLocation() {
-    button.setLayoutX((this.getXCoord() - 775) / 3.225);
-    button.setLayoutY((this.getYCoord() - 320) / 3.232);
+    button.setLayoutX(getPaneXfromcoords(this.getXCoord()));
+    button.setLayoutY(getPaneYfromcoords(this.getYCoord()));
 
     button.setText(String.valueOf(location.getNodeType().charAt(0)));
   }

@@ -78,11 +78,9 @@ public class PatientTransportController implements Initializable {
     popOut.setVisible(false);
   }
 
-  public void deleteRequest(ActionEvent actionEvent) {
-  }
+  public void deleteRequest(ActionEvent actionEvent) {}
 
-  public void editRequest(ActionEvent actionEvent) {
-  }
+  public void editRequest(ActionEvent actionEvent) {}
 
   // on action event set visibility for vbox
 }
