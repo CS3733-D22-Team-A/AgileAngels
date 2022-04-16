@@ -197,9 +197,9 @@
                </children></Pane>
          </children>
       </VBox>
-      <VBox layoutX="916.0" layoutY="148.0" prefHeight="511.0" prefWidth="365.0" visible="false">
+      <VBox layoutX="916.0" layoutY="148.0" prefHeight="511.0" prefWidth="365.0">
          <children>
-            <Pane fx:id="deletePane" prefHeight="1558.0" prefWidth="365.0" style="-fx-background-color: #F3F5F7;" visible="false">
+            <Pane fx:id="deletePane" prefHeight="1558.0" prefWidth="365.0" style="-fx-background-color: #F3F5F7;">
                <children>
                   <VBox alignment="CENTER" prefHeight="398.0" prefWidth="366.0">
                      <children>

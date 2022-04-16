@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class ServiceRequestTable implements TableI {
 
@@ -165,13 +166,15 @@ public class ServiceRequestTable implements TableI {
     }
   }
 
-  public static void freeEmployees() throws SQLException {
+  public static ArrayList<String> freeEmployees() throws SQLException {
     Statement statement = DBconnection.getConnection().createStatement();
+    ArrayList<String> employees = new ArrayList<>();
     String freeEmployee =
         "SELECT Employees.Name FROM Employees left outer join ServiceRequests on ServiceRequests.EmployeeName = Employees.Name WHERE ServiceRequests.EmployeeName IS NULL ";
     ResultSet rs = statement.executeQuery(freeEmployee);
     while (rs.next()) {
-      System.out.println("EmployeeName:" + rs.getString("Name"));
+      employees.add(rs.getString("Name"));
     }
+    return employees;
   }
 }

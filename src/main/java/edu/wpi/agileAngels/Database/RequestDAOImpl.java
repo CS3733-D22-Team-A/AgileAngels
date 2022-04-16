@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 // Implementation of RequestDAO
@@ -134,6 +135,8 @@ public class RequestDAOImpl implements RequestDAO {
       letter = "Gift";
     } else if (0 == DAOtype.compareTo("MaintenanceRequest")) {
       letter = "Main";
+    } else if (0 == DAOtype.compareTo("MorgueRequest")) {
+      letter = "Morgue";
     }
 
     letter = letter + Integer.toString(this.count);
@@ -271,5 +274,9 @@ public class RequestDAOImpl implements RequestDAO {
       System.out.println("Datababse error:");
       e.printStackTrace();
     }
+  }
+
+  public ArrayList<String> getFreeEmployees() throws SQLException {
+    return Adb.getFreeEmployees();
   }
 }
