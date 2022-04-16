@@ -147,7 +147,10 @@ public class EquipmentController implements Initializable {
         if (medEquip.getType().equals(dropDownString)
             && medEquip.getStatus().equals("available")
             && medEquip.isClean()
-            && medEquip.getLocation().getFloor().equals(locationsHash.get(locationString))) {
+            && medEquip
+                .getLocation()
+                .getFloor()
+                .equals(locationsHash.get(locationString).getFloor())) {
           equip = medEquip;
           foundEquip = true;
         }
@@ -186,7 +189,13 @@ public class EquipmentController implements Initializable {
         } else if (statusString.equals("complete")) {
           equipDAO.updateMedicalCleanliness(equip, false);
           equipDAO.updateStatus(equip, "available");
-          equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00103"));
+          if (locationsHash.get(locationString).getFloor().equals("3")) {
+            equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00103"));
+          } else if (locationsHash.get(locationString).getFloor().equals("4")) {
+            equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00104"));
+          } else if (locationsHash.get(locationString).getFloor().equals("5")) {
+            equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00105"));
+          }
         }
 
         MedrequestImpl.addRequest(medDevice); // add to hashmap
@@ -341,8 +350,16 @@ public class EquipmentController implements Initializable {
           if (object.getMedicalEquip() != null) {
             equipDAO.updateMedicalCleanliness(object.getMedicalEquip(), false);
             equipDAO.updateStatus(object.getMedicalEquip(), "available");
-            equipDAO.updateEquipmentLocation(
-                object.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+            if (object.getLocation().getFloor().equals("3")) {
+              equipDAO.updateEquipmentLocation(
+                  object.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+            } else if (object.getLocation().getFloor().equals("4")) {
+              equipDAO.updateEquipmentLocation(
+                  object.getMedicalEquip(), locationsHash.get("ADIRT00104"));
+            } else if (object.getLocation().getFloor().equals("5")) {
+              equipDAO.updateEquipmentLocation(
+                  object.getMedicalEquip(), locationsHash.get("ADIRT00105"));
+            }
           }
           // delete the request
           medData.remove(i);
@@ -389,7 +406,7 @@ public class EquipmentController implements Initializable {
           if (medEquip.getType().equals(dropDownString)
               && medEquip.getStatus().equals("available")
               && medEquip.isClean()
-              && medEquip.getLocation().getFloor().equals(locationsHash.get(locationString))) {
+              && medEquip.getLocation().getFloor().equals(locationsHash.get(locationString).getFloor())) {
             equip = medEquip;
             foundEquip = true;
           }
@@ -439,8 +456,16 @@ public class EquipmentController implements Initializable {
           } else if (statusString.equals("complete")) {
             equipDAO.updateMedicalCleanliness(found.getMedicalEquip(), false);
             equipDAO.updateStatus(found.getMedicalEquip(), "available");
-            equipDAO.updateEquipmentLocation(
-                found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+            if (found.getLocation().getFloor().equals("3")) {
+              equipDAO.updateEquipmentLocation(
+                  found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+            } else if (found.getLocation().getFloor().equals("4")) {
+              equipDAO.updateEquipmentLocation(
+                  found.getMedicalEquip(), locationsHash.get("ADIRT00104"));
+            } else if (found.getLocation().getFloor().equals("5")) {
+              equipDAO.updateEquipmentLocation(
+                  found.getMedicalEquip(), locationsHash.get("ADIRT00105"));
+            }
           }
         }
       }
