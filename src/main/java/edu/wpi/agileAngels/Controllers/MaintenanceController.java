@@ -9,16 +9,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
 public class MaintenanceController implements Initializable {
-  @FXML private Button addMaintenanceRequest;
+  @FXML private Button addMain, deleteMain, editMain, submitRequest, clearRequest;
   @FXML private TableView maintenanceTable;
-  @FXML private Pane popOut;
+  @FXML private Pane addPane, editPane, deletePane;
+  @FXML private Label mainID;
+  @FXML MenuButton mainLocation, mainEmployee, mainStatus;
+  @FXML private TextField mainDescription;
   @FXML
   private TableColumn nameColumn,
       employeeColumn, // change to employeeColumn
@@ -43,7 +44,9 @@ public class MaintenanceController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    popOut.setVisible(false);
+    addPane.setVisible(false);
+    editPane.setVisible(false);
+    deletePane.setVisible(false);
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -62,33 +65,68 @@ public class MaintenanceController implements Initializable {
       }
     }
 
+    for (Location loc : locationsList) {
+      MenuItem item = new MenuItem(loc.getNodeID());
+      item.setOnAction(this::locationMenu);
+      mainLocation.getItems().add(item);
+    }
+
+    for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+      Employee emp = entry.getValue();
+      MenuItem item = new MenuItem(emp.getName());
+      item.setOnAction(this::employeeMenu);
+      mainEmployee.getItems().add(item);
+    }
+
     maintenanceTable.setItems(maintenanceData);
   }
 
   @FXML
   public void addRequest(ActionEvent event) {
-    if (popOut.visibleProperty().get()) {
-      popOut.setVisible(false);
-    } else {
-      popOut.setVisible(true);
-    }
+    deletePane.setVisible(false);
+    editPane.setVisible(false);
+    addPane.setVisible(true);
   }
 
   public void submitRequest(ActionEvent actionEvent) {
-    popOut.setVisible(false);
+    addPane.setVisible(false);
   }
 
   public void clearRequest(ActionEvent actionEvent) {
-    popOut.setVisible(false);
+    // addPane.setVisible(false);
+    mainLocation.setText("Location");
+    mainStatus.setText("Status");
+    mainEmployee.setText("Employee");
   }
 
   public void deleteRequest(ActionEvent actionEvent) {
-    // when button is clicked
+    addPane.setVisible(false);
+    editPane.setVisible(false);
+    deletePane.setVisible(true);
   }
 
   public void editRequest(ActionEvent actionEvent) {
-    // when button is clicked
+    deletePane.setVisible(false);
+    addPane.setVisible(false);
+    editPane.setVisible(true);
   }
 
+  @FXML
+  public void locationMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    mainLocation.setText(button.getText());
+  }
+
+  @FXML
+  public void employeeMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    mainEmployee.setText(button.getText());
+  }
+
+  @FXML
+  public void statusMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    mainStatus.setText(button.getText());
+  }
   // on action event set visibility for vbox
 }
