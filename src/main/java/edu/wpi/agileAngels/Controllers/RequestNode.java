@@ -28,8 +28,8 @@ public class RequestNode {
     this.requestNodeManager = requestNodeManager;
     this.location = request.getLocation();
 
-    button.setLayoutX((this.location.getXCoord() - 775) / 3.225);
-    button.setLayoutY((this.location.getYCoord() - 320) / 3.232);
+    button.setLayoutX(getPaneXfromcoords(this.location.getXCoord()));
+    button.setLayoutY(getPaneYfromcoords(this.location.getYCoord()));
     button.setText(String.valueOf(request.getName().charAt(0)));
 
     button.setOnAction(
