@@ -1,10 +1,13 @@
 package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.Location;
+import edu.wpi.agileAngels.Database.LocationDAOImpl;
 import edu.wpi.agileAngels.Database.Request;
 import edu.wpi.agileAngels.Database.RequestDAOImpl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.scene.input.MouseEvent;
 
 public class RequestNodeManager {
 
@@ -12,9 +15,16 @@ public class RequestNodeManager {
   private RequestDAOImpl medRequestDAO = RequestDAOImpl.getInstance("MedRequest");
   private RequestDAOImpl labRequestDAO = RequestDAOImpl.getInstance("LabRequest");
   private HashMap<String, RequestNode> nodes = new HashMap<>();
+  private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
+  HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
+  ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
 
   public RequestNodeManager(MapsController mapsController) throws SQLException {
     this.mapsController = mapsController;
+  }
+
+  public ArrayList<Location> getLocationsList() {
+    return locationsList;
   }
 
   // gets all locations from the DB and creates nodes from them
@@ -35,5 +45,33 @@ public class RequestNodeManager {
   // gets called on button press and gets the node data
   void loadNode(RequestNode requestNode) {
     mapsController.populateRequestNodeData(requestNode);
+  }
+
+  public double getCroppedMapXOffset() {
+    return mapsController.getCroppedMapXOffset();
+  }
+
+  public double getCroppedMapYOffset() {
+    return mapsController.getCroppedMapYOffset();
+  }
+
+  public double getCroppedMapWidth() {
+    return mapsController.getCroppedMapWidth();
+  }
+
+  public double getImagePaneWidth() {
+    return mapsController.getImagePaneWidth();
+  }
+
+  public double getMapXCoordFromClick(MouseEvent click) {
+    return mapsController.getMapXCoordFromClick(click);
+  }
+
+  public double getMapYCoordFromClick(MouseEvent click) {
+    return mapsController.getMapYCoordFromClick(click);
+  }
+
+  public void setDraggedNodeCoords(MouseEvent mouseEvent) {
+    mapsController.setCoordsOnMouseEvent(mouseEvent);
   }
 }
