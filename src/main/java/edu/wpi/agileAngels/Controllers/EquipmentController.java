@@ -406,7 +406,10 @@ public class EquipmentController implements Initializable {
           if (medEquip.getType().equals(dropDownString)
               && medEquip.getStatus().equals("available")
               && medEquip.isClean()
-              && medEquip.getLocation().getFloor().equals(locationsHash.get(locationString).getFloor())) {
+              && medEquip
+                  .getLocation()
+                  .getFloor()
+                  .equals(locationsHash.get(locationString).getFloor())) {
             equip = medEquip;
             foundEquip = true;
           }
