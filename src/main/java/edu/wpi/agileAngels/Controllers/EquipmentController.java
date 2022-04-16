@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class EquipmentController implements Initializable {
@@ -25,6 +26,7 @@ public class EquipmentController implements Initializable {
   @FXML Button clear, submitFilters;
   @FXML Pane drop, drop2;
   @FXML MenuButton equipLocation, equipmentType, equipmentStatus, equipmentEmployeeText;
+  @FXML AnchorPane anchor;
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
@@ -41,6 +43,7 @@ public class EquipmentController implements Initializable {
   HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
   HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
+  AnchorPane alertPane;
 
   AppController appController = AppController.getInstance();
   @FXML
@@ -56,6 +59,7 @@ public class EquipmentController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
     equipHash = equipDAO.getAllMedicalEquipment();
     allMedEquip = new ArrayList<>(equipHash.values());
 
@@ -142,7 +146,11 @@ public class EquipmentController implements Initializable {
         MedicalEquip medEquip = allMedEquip.get(i);
         if (medEquip.getType().equals(dropDownString)
             && medEquip.getStatus().equals("available")
-            && medEquip.isClean()) {
+            && medEquip.isClean()
+            && medEquip
+                .getLocation()
+                .getFloor()
+                .equals(locationsHash.get(locationString).getFloor())) {
           equip = medEquip;
           foundEquip = true;
         }
@@ -179,9 +187,15 @@ public class EquipmentController implements Initializable {
           equipDAO.updateStatus(equip, "inUse");
           equipDAO.updateEquipmentLocation(equip, medDevice.getLocation());
         } else if (statusString.equals("complete")) {
-          // equipDAO.updateMedicalCleanliness(equip, false);
+          equipDAO.updateMedicalCleanliness(equip, false);
           equipDAO.updateStatus(equip, "available");
-          equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00103"));
+          if (locationsHash.get(locationString).getFloor().equals("3")) {
+            equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00103"));
+          } else if (locationsHash.get(locationString).getFloor().equals("4")) {
+            equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00104"));
+          } else if (locationsHash.get(locationString).getFloor().equals("5")) {
+            equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00105"));
+          }
         }
 
         MedrequestImpl.addRequest(medDevice); // add to hashmap
@@ -200,10 +214,16 @@ public class EquipmentController implements Initializable {
   /** Does filterReqsTable methods when "Submit Filters" is clicked, or "onAction." */
   @FXML
   public void filterReqOnAction() {
-    if (!employeeFilterField.getText().isEmpty()) {
-      filterReqsTable(employeeFilterField.getText());
-    }
-    if (!statusFilterField.getText().isEmpty()) {
+    if (!employeeFilterField.getText().isEmpty() && !statusFilterField.getText().isEmpty()) {
+      ObservableList<Request> empFilteredList = filterReqEmployee(employeeFilterField.getText());
+      ObservableList<Request> trueFilteredList =
+          filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
+
+      // Directly touching equipment table in n-filter cases.
+      equipmentTable.setItems(trueFilteredList);
+    } else if (!employeeFilterField.getText().isEmpty()) {
+      filterReqsTableEmployee(employeeFilterField.getText());
+    } else if (!statusFilterField.getText().isEmpty()) {
       filterReqsTableStatus(statusFilterField.getText());
     }
   }
@@ -222,7 +242,7 @@ public class EquipmentController implements Initializable {
    *
    * @param employeeName The Employee the requests must have to remain on the table.
    */
-  private void filterReqsTable(String employeeName) {
+  private void filterReqsTableEmployee(String employeeName) {
     ObservableList<Request> filteredList = filterReqEmployee(employeeName);
 
     // Sets table to only have contents of the filtered list.
@@ -278,6 +298,47 @@ public class EquipmentController implements Initializable {
     return newList;
   }
 
+  /* Methods to filter lists n times */
+
+  /**
+   * Filters out requests in medData based on the given status.
+   *
+   * @param reqStatus The status that the requests must have to be in the new list.
+   * @param filteredList The list that was presumably filtered.
+   * @return The new filtered list.
+   */
+  private ObservableList<Request> filterFilteredReqListStatus(
+      String reqStatus, ObservableList<Request> filteredList) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : filteredList) {
+      if (req.getStatus().equals(reqStatus)) {
+        newList.add(req);
+      }
+    }
+    return newList;
+  }
+
+  /**
+   * Filters out requests in medData based on the given Employee.
+   *
+   * @param employeeName The Employee that the requests must have to be in the new list.
+   * @param filteredList The list that was presumably filtered.
+   * @return The new filtered list.
+   */
+  private ObservableList<Request> filterFilteredReqListEmployee(
+      String employeeName, ObservableList<Request> filteredList) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : filteredList) {
+      if (req.getEmployee().getName().equals(employeeName)) {
+        newList.add(req);
+      }
+    }
+
+    return newList;
+  }
+
   /* FILTER METHODS ABOVE HERE */
 
   private void deleteEquipRequest(String deleteString) {
@@ -289,8 +350,16 @@ public class EquipmentController implements Initializable {
           if (object.getMedicalEquip() != null) {
             equipDAO.updateMedicalCleanliness(object.getMedicalEquip(), false);
             equipDAO.updateStatus(object.getMedicalEquip(), "available");
-            equipDAO.updateEquipmentLocation(
-                object.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+            if (object.getLocation().getFloor().equals("3")) {
+              equipDAO.updateEquipmentLocation(
+                  object.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+            } else if (object.getLocation().getFloor().equals("4")) {
+              equipDAO.updateEquipmentLocation(
+                  object.getMedicalEquip(), locationsHash.get("ADIRT00104"));
+            } else if (object.getLocation().getFloor().equals("5")) {
+              equipDAO.updateEquipmentLocation(
+                  object.getMedicalEquip(), locationsHash.get("ADIRT00105"));
+            }
           }
           // delete the request
           medData.remove(i);
@@ -336,7 +405,11 @@ public class EquipmentController implements Initializable {
           MedicalEquip medEquip = allMedEquip.get(i);
           if (medEquip.getType().equals(dropDownString)
               && medEquip.getStatus().equals("available")
-              && medEquip.isClean()) {
+              && medEquip.isClean()
+              && medEquip
+                  .getLocation()
+                  .getFloor()
+                  .equals(locationsHash.get(locationString).getFloor())) {
             equip = medEquip;
             foundEquip = true;
           }
@@ -386,8 +459,16 @@ public class EquipmentController implements Initializable {
           } else if (statusString.equals("complete")) {
             equipDAO.updateMedicalCleanliness(found.getMedicalEquip(), false);
             equipDAO.updateStatus(found.getMedicalEquip(), "available");
-            equipDAO.updateEquipmentLocation(
-                found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+            if (found.getLocation().getFloor().equals("3")) {
+              equipDAO.updateEquipmentLocation(
+                  found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+            } else if (found.getLocation().getFloor().equals("4")) {
+              equipDAO.updateEquipmentLocation(
+                  found.getMedicalEquip(), locationsHash.get("ADIRT00104"));
+            } else if (found.getLocation().getFloor().equals("5")) {
+              equipDAO.updateEquipmentLocation(
+                  found.getMedicalEquip(), locationsHash.get("ADIRT00105"));
+            }
           }
         }
       }

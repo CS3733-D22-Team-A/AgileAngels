@@ -1,6 +1,8 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
@@ -13,13 +15,35 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
-public class MaintenanceController implements Initializable {
-  @FXML private Button addMain, deleteMain, editMain, submitRequest, clearRequest;
+public class MaintenanceController implements Initializable, PropertyChangeListener {
+  // FXML Elements for the page
+  @FXML
+  private Button addMain,
+      deleteMain,
+      editMain,
+      submitRequest,
+      clearRequest,
+      submitEditRequest,
+      clearEditRequest,
+      delete;
   @FXML private TableView maintenanceTable;
   @FXML private Pane addPane, editPane, deletePane;
-  @FXML private Label mainID;
-  @FXML MenuButton mainLocation, mainEmployee, mainStatus;
-  @FXML private TextField mainDescription;
+  @FXML
+  private Label mainID,
+      mainEditID,
+      mainDeleteLocation,
+      mainDeleteEmployee,
+      mainDeleteStatus,
+      mainDeleteDescription;
+  @FXML
+  MenuButton mainLocation,
+      mainEmployee,
+      mainStatus,
+      mainEditLocation,
+      mainEditEmployee,
+      mainEditStatus,
+      mainDeleteID;
+  @FXML private TextField mainDescription, mainEditDescription;
   @FXML
   private TableColumn nameColumn,
       employeeColumn, // change to employeeColumn
@@ -34,9 +58,9 @@ public class MaintenanceController implements Initializable {
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private RequestDAOImpl mainRequestImpl = RequestDAOImpl.getInstance("MaintenanceRequest");
-  HashMap<String, Location> locationsHash = locDAO.getAllLocations();
-  ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
-  HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
+  private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
+  private ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
+  private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
 
   AppController appController = AppController.getInstance();
 
@@ -44,6 +68,7 @@ public class MaintenanceController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    appController.addPropertyChangeListener(this);
     addPane.setVisible(false);
     editPane.setVisible(false);
     deletePane.setVisible(false);
@@ -56,36 +81,55 @@ public class MaintenanceController implements Initializable {
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
 
     if (maintenanceData.isEmpty()) {
-      Iterator var3 = mainRequestImpl.getAllRequests().entrySet().iterator();
+      // Iterator var3 = mainRequestImpl.getAllRequests().entrySet().iterator();
 
       for (Map.Entry<String, Request> entry : mainRequestImpl.getAllRequests().entrySet()) {
         Request req = entry.getValue();
-
         maintenanceData.add(req);
       }
-    }
-
-    for (Location loc : locationsList) {
-      MenuItem item = new MenuItem(loc.getNodeID());
-      item.setOnAction(this::locationMenu);
-      mainLocation.getItems().add(item);
-    }
-
-    for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
-      Employee emp = entry.getValue();
-      MenuItem item = new MenuItem(emp.getName());
-      item.setOnAction(this::employeeMenu);
-      mainEmployee.getItems().add(item);
     }
 
     maintenanceTable.setItems(maintenanceData);
   }
 
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    String changeType = evt.getPropertyName();
+    System.out.println(changeType);
+    int newValue = (int) evt.getNewValue();
+    System.out.println(newValue);
+  }
+
+  /**
+   * Sets up pane for creating a new maintenance request.
+   *
+   * @param event ActionEvent
+   */
   @FXML
   public void addRequest(ActionEvent event) {
+    // Sets other panes (if open) to hidden
     deletePane.setVisible(false);
     editPane.setVisible(false);
     addPane.setVisible(true);
+
+    // Populates locations dropdown
+    for (Location loc : locationsList) {
+      MenuItem item = new MenuItem(loc.getNodeID());
+      item.setOnAction(this::addLocationMenu);
+      mainLocation.getItems().add(item);
+    }
+    System.out.println("Locations?");
+
+    // Populates employees dropdown
+    for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+      Employee emp = entry.getValue();
+      MenuItem item = new MenuItem(emp.getName());
+      item.setOnAction(this::addEmployeeMenu);
+      mainEmployee.getItems().add(item);
+    }
+
+    // Generates a nodeID
+    mainID.setText("Main" + (maintenanceData.size() + 1));
   }
 
   public void submitRequest(ActionEvent actionEvent) {
@@ -112,19 +156,19 @@ public class MaintenanceController implements Initializable {
   }
 
   @FXML
-  public void locationMenu(ActionEvent event) {
+  public void addLocationMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     mainLocation.setText(button.getText());
   }
 
   @FXML
-  public void employeeMenu(ActionEvent event) {
+  public void addEmployeeMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     mainEmployee.setText(button.getText());
   }
 
   @FXML
-  public void statusMenu(ActionEvent event) {
+  public void addStatusMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     mainStatus.setText(button.getText());
   }

@@ -1,6 +1,8 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.Location;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -17,7 +19,7 @@ import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
 import javax.swing.*;
 
-public class MapsController implements Initializable {
+public class MapsController implements Initializable, PropertyChangeListener {
 
   @FXML
   private ImageView floorTwoMap,
@@ -29,6 +31,7 @@ public class MapsController implements Initializable {
 
   @FXML private ScrollPane mapScroll;
   @FXML HBox addButtonBox;
+
   @FXML
   private Button floorTwo,
       floorThree,
@@ -108,6 +111,8 @@ public class MapsController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
+    appController.addPropertyChangeListener(this);
+
     clean.setVisible(false);
     addButtonBox.setVisible(false);
 
@@ -143,6 +148,14 @@ public class MapsController implements Initializable {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    String changeType = evt.getPropertyName();
+    System.out.println(changeType);
+    int newValue = (int) evt.getNewValue();
+    System.out.println(newValue);
   }
 
   /**
