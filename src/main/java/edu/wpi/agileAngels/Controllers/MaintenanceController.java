@@ -1,9 +1,12 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.*;
+import javafx.fxml.Initializable;
+import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +16,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
-public class MaintenanceController implements Initializable {
+
+public class MaintenanceController implements Initializable, PropertyChangeListener  {
   @FXML private Button addMain, deleteMain, editMain, submitRequest, clearRequest;
   @FXML private TableView maintenanceTable;
   @FXML private Pane addPane, editPane, deletePane;
@@ -44,7 +48,8 @@ public class MaintenanceController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    addPane.setVisible(false);
+      appController.addPropertyChangeListener(this);
+      addPane.setVisible(false);
     editPane.setVisible(false);
     deletePane.setVisible(false);
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -80,6 +85,14 @@ public class MaintenanceController implements Initializable {
 
     maintenanceTable.setItems(maintenanceData);
   }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        String changeType = evt.getPropertyName();
+        System.out.println(changeType);
+        int newValue = (int) evt.getNewValue();
+        System.out.println(newValue);
+    }
 
   @FXML
   public void addRequest(ActionEvent event) {
