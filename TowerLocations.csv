@@ -132,3 +132,10 @@ APATI01705,1416,1090,5,Tower,PATI,Patient room pod C 7,Patient 01705
 APATI01805,1416,1047,5,Tower,PATI,Patient room pod C 8,Patient 01805
 APATI01905,1442,1000,5,Tower,PATI,Patient room pod C 9,Patient 01905
 APATI02005,1491,977,5,Tower,PATI,Patient room pod C 10,Patient 02005
+ASTOR001L1,1670,860,L1,Tower,STOR,OR Bed Park,Bed Park
+ASTOR00104,1498,786,4,Tower,STOR,Pod B clean equiptment storage,Clean pumps 0010r
+ASTOR00304,1679,806,4,Tower,STOR,Bed recliner storage for Pod A and B,Bed storage 0030r
+ADIRT00104,1527,942,4,Tower,DIRT,Soiled equipment storage,Dirty pumps
+ASTOR00105,1498,786,5,Tower,STOR,Pod B clean equiptment storage,Clean pumps 00105
+ASTOR00305,1679,806,5,Tower,STOR,Bed recliner storage for Pod A and B,Bed storage 00305
+ADIRT00105,1527,942,5,Tower,DIRT,Soiled equipment storage,Dirty pumps

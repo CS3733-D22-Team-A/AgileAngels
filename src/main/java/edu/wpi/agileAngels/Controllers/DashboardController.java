@@ -12,12 +12,13 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 
 public class DashboardController implements Initializable, PropertyChangeListener {
+
+  @FXML ScrollPane scrollPane = new ScrollPane();
 
   @FXML
   Label cleanPump,
@@ -35,6 +36,10 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    // This is to get rid of the scroll bars on the dashboard.
+    scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+    scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+
     appController.addPropertyChangeListener(this);
 
     try {

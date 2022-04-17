@@ -17,5 +17,11 @@
             <Button mnemonicParsing="false" onAction="#switchConnection" prefHeight="100.0" prefWidth="337.0" text="Toggle Server" />
         </children>
     </HBox>
+      <Button fx:id="button1" layoutX="917.0" layoutY="179.0" mnemonicParsing="false" onMouseEntered="#hover" onMouseExited="#unhover" prefHeight="135.0" prefWidth="222.0" style="-fx-background-color: rgb(255,0,0);" text="Button" />
+      <Button fx:id="button2" layoutX="952.0" layoutY="225.0" mnemonicParsing="false" onMouseEntered="#hover" onMouseExited="#unhover" prefHeight="135.0" prefWidth="222.0" style="-fx-background-color: rgb(255,100,0);" text="Button" />
+      <Button fx:id="button3" layoutX="1007.0" layoutY="273.0" mnemonicParsing="false" onMouseEntered="#hover" onMouseExited="#unhover" prefHeight="135.0" prefWidth="222.0" style="-fx-background-color: rgb(255,255,0);" text="Button" />
+      <Button fx:id="button4" layoutX="1057.0" layoutY="293.0" mnemonicParsing="false" onMouseEntered="#hover" onMouseExited="#unhover" prefHeight="135.0" prefWidth="222.0" style="-fx-background-color: rgb(125,255,0);" text="Button" />
+
+    
     </children>
 </AnchorPane>

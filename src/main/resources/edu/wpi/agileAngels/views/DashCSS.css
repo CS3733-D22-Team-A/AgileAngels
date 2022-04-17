@@ -6,14 +6,14 @@
 }
 
 .background{
-    -fx-background-color: #356C70;
+    -fx-background-color: #E5E5E5;
 
 }
 
 
 .pane{
     -fx-background-radius: 20 20 20 20;
-    -fx-background-color: linear-gradient(to bottom, #3D7D82, #356C70);
+    -fx-background-color: #E2E2E2;
     -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 16, 0, 4, 0);
 }
 .squareButton{
@@ -22,16 +22,18 @@
     -fx-shape: "m 0 25 L 50 0 L 0 -25 L -50 0 Z";
 }
 .roomButton{
-    -fx-background-color: linear-gradient(to right, #B66262, #51959B 15%);
+    -fx-background-color: #FFFFFF;
     -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 16, 0, 4, 0);
+    -fx-background-radius:  15 15 15 15;
 }
 
 .scroll-pane{
-    -fx-background: #356C70;
+    -fx-background: #E2E2E2;
 }
 .message-button{
-    -fx-background-color: #609EA4;
+    -fx-background-color: #FFFFFF;
     -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 16, 0, 4, 0);
+    -fx-background-radius:  15 15 15 15;
 }
 .pending-button{
     -fx-background-color: #F3CBB8;
@@ -42,6 +44,6 @@
     -fx-text-fill: #655555;
 }
 .nurse-button{
-    -fx-background-color: #356C70;
+    -fx-background-color: #609EA4;
     -fx-font-size: 25;
 }
