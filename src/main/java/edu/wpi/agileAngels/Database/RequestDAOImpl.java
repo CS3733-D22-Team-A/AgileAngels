@@ -126,6 +126,8 @@ public class RequestDAOImpl implements RequestDAO {
       letter = "Transport";
     } else if (0 == DAOtype.compareTo("GiftRequest")) {
       letter = "Gift";
+    } else if (0 == DAOtype.compareTo("LaundryRequest")) {
+      letter = "Laundry";
     }
 
     letter = letter + Integer.toString(this.count);

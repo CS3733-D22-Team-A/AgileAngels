@@ -80,7 +80,7 @@ public class LaundryController implements Initializable {
 
   @FXML
   /** Submits fields to a Java gifts Request Object */
-  private void submitlaundry() {
+  private void submitLaundry() {
     String type = laundryType.getText();
     String employee = laundryEmployee.getText();
     String location = laundryLocation.getText();
