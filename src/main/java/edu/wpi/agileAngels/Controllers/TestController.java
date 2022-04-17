@@ -14,8 +14,7 @@ import javafx.scene.shape.Circle;
 // test button on the front end
 public class TestController extends MainController implements Initializable {
 
-  @FXML Button button;
-
+  @FXML Button button, button1, button2, button3, button4;
   @FXML Circle circle1, circle2, circle3;
 
   ArrayList<Circle> circles = new ArrayList<>();
@@ -62,4 +61,29 @@ public class TestController extends MainController implements Initializable {
   }
 
   public void switchConnection(ActionEvent event) {}
+
+  public void hover(MouseEvent mouseEvent) {
+    Button activeButton = (Button) mouseEvent.getSource();
+    // activeButton.setViewOrder(-1000);
+    activeButton.setPrefSize(activeButton.getWidth() + 20, activeButton.getHeight() + 20);
+    activeButton.setLayoutX(activeButton.getLayoutX() - 10);
+    activeButton.setLayoutY(activeButton.getLayoutY() - 10);
+  }
+
+  public void unhover(MouseEvent mouseEvent) {
+    Button activeButton = (Button) mouseEvent.getSource();
+    activeButton.setPrefSize(activeButton.getWidth() - 20, activeButton.getHeight() - 20);
+    activeButton.setLayoutX(activeButton.getLayoutX() + 10);
+    activeButton.setLayoutY(activeButton.getLayoutY() + 10);
+
+    if (activeButton == button1) {
+      // activeButton.setViewOrder(-2);
+    } else if (activeButton == button2) {
+      // activeButton.setViewOrder(-3);
+    } else if (activeButton == button3) {
+      // activeButton.setViewOrder(-4);
+    } else if (activeButton == button4) {
+      // activeButton.setViewOrder(-5);
+    }
+  }
 }

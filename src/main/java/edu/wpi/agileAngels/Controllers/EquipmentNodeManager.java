@@ -40,11 +40,27 @@ public class EquipmentNodeManager {
     if (!medEquip.isClean()) {
       equipDAO.updateMedicalCleanliness(medEquip, true);
       if (medEquip.getType().equals("XRayMachine") || medEquip.getType().equals("InfusionPump")) {
-        equipDAO.updateEquipmentLocation(medEquip, locationsHash.get("ASTOR00103"));
-        node.setLocation(locationsHash.get("ASTOR00103"));
+        if (medEquip.getLocation().getFloor().equals("3")) {
+          equipDAO.updateEquipmentLocation(medEquip, locationsHash.get("ASTOR00103"));
+          node.setLocation(locationsHash.get("ASTOR00103"));
+        } else if (medEquip.getLocation().getFloor().equals("4")) {
+          equipDAO.updateEquipmentLocation(medEquip, locationsHash.get("ASTOR00104"));
+          node.setLocation(locationsHash.get("ASTOR00104"));
+        } else if (medEquip.getLocation().getFloor().equals("5")) {
+          equipDAO.updateEquipmentLocation(medEquip, locationsHash.get("ASTOR00105"));
+          node.setLocation(locationsHash.get("ASTOR00105"));
+        }
       } else {
-        equipDAO.updateEquipmentLocation(medEquip, locationsHash.get("ASTOR00303"));
-        node.setLocation(locationsHash.get("ASTOR00303"));
+        if (medEquip.getLocation().getFloor().equals("3")) {
+          equipDAO.updateEquipmentLocation(medEquip, locationsHash.get("ASTOR00303"));
+          node.setLocation(locationsHash.get("ASTOR00303"));
+        } else if (medEquip.getLocation().getFloor().equals("4")) {
+          equipDAO.updateEquipmentLocation(medEquip, locationsHash.get("ASTOR00304"));
+          node.setLocation(locationsHash.get("ASTOR00304"));
+        } else if (medEquip.getLocation().getFloor().equals("5")) {
+          equipDAO.updateEquipmentLocation(medEquip, locationsHash.get("ASTOR00305"));
+          node.setLocation(locationsHash.get("ASTOR00305"));
+        }
       }
     }
   }
