@@ -23,6 +23,7 @@ public class RequestDAOImpl implements RequestDAO {
   private static RequestDAOImpl SanrequestDAO = null;
   private static RequestDAOImpl MealDAO = null;
   private static RequestDAOImpl GiftDAO = null;
+  private static RequestDAOImpl LaundryDAO = null;
 
   public RequestDAOImpl(HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
@@ -58,6 +59,11 @@ public class RequestDAOImpl implements RequestDAO {
         MealDAO = new RequestDAOImpl(data, 1, "MealRequest");
       }
       return MealDAO;
+    } else if (0 == type.compareTo("LaundryRequest")) {
+      if (LaundryDAO == null) {
+        LaundryDAO = new RequestDAOImpl(data, 1, "LaundryRequest");
+      }
+      return LaundryDAO;
     }
     return null;
   }

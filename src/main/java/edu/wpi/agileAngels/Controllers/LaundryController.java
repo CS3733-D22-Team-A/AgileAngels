@@ -1,6 +1,12 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.*;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,40 +15,29 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 public class LaundryController implements Initializable {
   @FXML
-  private TextField giftSender,
-      giftRecipient,
-      giftMessage,
-      giftEmployeeText,
-      giftLocation,
-      giftStatus,
+  private TextField laundryLocation,
+      laundryType,
+      laundryEmployee,
+      laundryStatus,
+      laundryDescription,
       deleteName,
-      editRequest,
-      employeeFilterField,
-      statusFilterField;
+      editRequest;
   @FXML
-  private TableColumn senderColumn,
-      recipientColumn,
-      employeeColumn,
-      locationColumn,
-      statusColumn,
+  private TableColumn nameColumn,
+      availableColumn,
       typeColumn,
-      nameColumn,
-      messageColumn;
-  @FXML MenuButton giftType;
-  @FXML MenuItem baloons, flowers, card;
+      locationColumn,
+      employeeColumn,
+      statusColumn,
+      descriptionColumn;
+  // todo add edit/delete?
   @FXML Button addButton, editButton, deleteButton;
-  @FXML private Label giftConfirm;
-  private RequestDAOImpl GiftrequestImpl =
-      RequestDAOImpl.getInstance("GiftRequest"); // instance of RequestDAOImpl to access functions
+  // @FXML private Label giftConfirm;
+  private RequestDAOImpl LaundryrequestImpl =
+      RequestDAOImpl.getInstance(
+          "LaundryRequest"); // instance of RequestDAOImpl to access functions
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
@@ -50,10 +45,10 @@ public class LaundryController implements Initializable {
   private EmployeeManager employeeDAO = EmployeeManager.getInstance();
   private HashMap<String, Employee> employeesHash = employeeDAO.getAllEmployees();
 
-  @FXML private TableView giftTable;
+  @FXML private TableView laundryTable;
   private AppController appController = AppController.getInstance();
 
-  private static ObservableList<Request> giftData =
+  private static ObservableList<Request> laundryData =
       FXCollections.observableArrayList(); // list of requests
 
   public LaundryController() throws SQLException {}
@@ -61,136 +56,96 @@ public class LaundryController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    senderColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
-    recipientColumn.setCellValueFactory(new PropertyValueFactory<>("attribute2"));
+    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    messageColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+    descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-    if (giftData.isEmpty()) {
+    if (laundryData.isEmpty()) {
       System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
-      GiftrequestImpl.csvRead();
-      Iterator var3 = GiftrequestImpl.getAllRequests().entrySet().iterator();
+      LaundryrequestImpl.csvRead();
+      Iterator var3 = LaundryrequestImpl.getAllRequests().entrySet().iterator();
 
-      for (Map.Entry<String, Request> entry : GiftrequestImpl.getAllRequests().entrySet()) {
+      for (Map.Entry<String, Request> entry : LaundryrequestImpl.getAllRequests().entrySet()) {
         Request req = entry.getValue();
-        giftData.add(req);
+        laundryData.add(req);
       }
     }
 
-    giftTable.setItems(giftData);
+    laundryTable.setItems(laundryData);
   }
 
   @FXML
   /** Submits fields to a Java gifts Request Object */
-  private void submitGift() {
-    String dropDown = giftType.getText();
-    String sender = giftSender.getText();
-    String recipient = giftRecipient.getText();
-    String employee = giftEmployeeText.getText();
-    String location = giftLocation.getText();
-    String message = giftMessage.getText();
+  private void submitlaundry() {
+    String type = laundryType.getText();
+    String employee = laundryEmployee.getText();
+    String location = laundryLocation.getText();
+    String description = laundryDescription.getText();
     String delete = deleteName.getText();
     String edit = editRequest.getText();
-    String status = giftStatus.getText();
+    String status = laundryStatus.getText();
     // attributes arent all filled
     if (!delete.isEmpty()) {
-      deleteGiftRequest(delete);
+      deleteLaundryRequest(delete);
       // editing a request
     } else if (!edit.isEmpty()) {
-      editGiftRequest(edit, dropDown, sender, recipient, employee, location, message, status);
-    } else if (giftSender.getText().isEmpty()
-        || employee.isEmpty()
-        || dropDown.isEmpty()
-        || recipient.isEmpty()) {
-      giftConfirm.setText("Please fill out all of the required fields");
+      editLaundryRequest(edit, type, employee, location, description, status);
     } else {
-      addGiftRequest(dropDown, sender, recipient, employee, location, message, status);
-      giftConfirm.setText(
-          "Thank you, "
-              + giftSender.getText()
-              + ", "
-              + giftEmployeeText.getText()
-              + " will deliver "
-              + giftType.getText()
-              + " to "
-              + giftRecipient.getText()
-              + " soon. ");
+      addLaundryRequest(type, employee, location, description, status);
     }
   }
 
-  private void addGiftRequest(
-      String dropDown,
-      String sender,
-      String recipient,
-      String employee,
-      String location,
-      String message,
-      String status) {
-
-    giftConfirm.setText(
-        "Thank you, "
-            + sender
-            + ", "
-            + employee
-            + " will deliver "
-            + dropDown
-            + " to "
-            + recipient
-            // + " to "
-            // + location
-            + " soon. ");
+  private void addLaundryRequest(
+      String type, String employee, String location, String description, String status) {
 
     String placeholder = "?";
-    Request gift =
+    Request laundry =
         new Request(
             placeholder,
             employeesHash.get(employee),
             locationsHash.get(location),
-            dropDown,
+            type,
             status,
-            message,
-            sender,
-            recipient);
-    // todo is this right?
-    GiftrequestImpl.addRequest(gift); // add to hashmap
-    giftData.add(gift); // add to the UI
-    giftTable.setItems(giftData);
+            description,
+            "",
+            "");
+    LaundryrequestImpl.addRequest(laundry); // add to hashmap
+    laundryData.add(laundry); // add to the UI
+    laundryTable.setItems(laundryData);
   }
 
   @FXML
-  private void deleteGiftRequest(String deleteString) {
+  private void deleteLaundryRequest(String deleteString) {
     if (!deleteString.isEmpty()) {
       System.out.println("DELETE REQUEST");
-      for (int i = 0; i < giftData.size(); i++) {
-        Request object = giftData.get(i);
+      for (int i = 0; i < laundryData.size(); i++) {
+        Request object = laundryData.get(i);
         if (0 == deleteString.compareTo(object.getName())) {
-          giftData.remove(i);
-          GiftrequestImpl.deleteRequest(object);
+          laundryData.remove(i);
+          LaundryrequestImpl.deleteRequest(object);
         }
       }
-      giftTable.setItems(giftData);
+      laundryTable.setItems(laundryData);
     }
   }
 
   @FXML
-  private void editGiftRequest(
+  private void editLaundryRequest(
       String editString,
-      String dropDownString,
-      String senderString,
-      String recipientString,
+      String typeString,
       String employeeString,
       String locationString,
-      String messageString,
+      String descriptionString,
       String statusString) {
     System.out.println("EDIT REQUEST");
     Request found = null;
     int num = 0;
-    for (int i = 0; i < giftData.size(); i++) {
-      Request device = giftData.get(i);
+    for (int i = 0; i < laundryData.size(); i++) {
+      Request device = laundryData.get(i);
       if (0 == editRequest.getText().compareTo(device.getName())) {
         found = device;
         num = i;
@@ -199,50 +154,41 @@ public class LaundryController implements Initializable {
     Employee emp = employeeDAO.getEmployee(employeeString);
     Location loc = locDAO.getLocation(locationString);
     if (found != null) {
-      if (!dropDownString.isEmpty()) {
-        // String type = dropdownButtonText.getText();
-        found.setType(dropDownString);
-        // GiftrequestImpl.updateType(found, dropDownString);
+      if (!typeString.isEmpty()) {
+        // String type = typeButtonText.getText();
+        found.setType(typeString);
+        // LaundryrequestImpl.updateType(found, typeString);
       }
       if (!locationString.isEmpty()) {
         // String location = equipLocation.getText();
         found.setLocation(loc);
-        // GiftrequestImpl.updateLocation(found, locationsHash.get(locationString));
+        // LaundryrequestImpl.updateLocation(found, locationsHash.get(locationString));
       }
       if (!employeeString.isEmpty()) {
         // String employee = emp.getText();
         found.setEmployee(emp);
-        // GiftrequestImpl.updateEmployeeName(found, employeeString);
+        // LaundryrequestImpl.updateEmployeeName(found, employeeString);
       }
       if (!statusString.isEmpty()) {
         // String employee = emp.getText();
         found.setStatus(statusString);
-        //  GiftrequestImpl.updateStatus(found, statusString);
+        //  LaundryrequestImpl.updateStatus(found, statusString);
       }
-      if (!senderString.isEmpty()) {
-        // String sender = emp.getText();
-        found.setAttribute1(senderString);
-        //  GiftrequestImpl.updateStatus(found, senderString);
-      }
-      if (!recipientString.isEmpty()) {
-        // String recipent = emp.getText();
-        found.setAttribute2(recipientString);
-        // GiftrequestImpl.updateStatus(found, recipientString);
-      }
-      if (!messageString.isEmpty()) {
+      if (!descriptionString.isEmpty()) {
         // String description = emp.getText();
-        found.setDescription(messageString);
-        // GiftrequestImpl.updateStatus(found, messageString);
+        found.setDescription(descriptionString);
+        // LaundryrequestImpl.updateStatus(found, descriptionString);
       }
-      giftData.set(num, found);
+      laundryData.set(num, found);
 
-      giftTable.setItems(giftData);
+      laundryTable.setItems(laundryData);
     }
   }
 
   /* FILTER METHODS BEYOND HERE */
 
   /** Does filterReqsTable when "Submit Filters" is clicked, or "onAction." */
+  /*
   @FXML
   public void filterReqOnAction() {
     if (!employeeFilterField.getText().isEmpty() && !statusFilterField.getText().isEmpty()) {
@@ -251,7 +197,7 @@ public class LaundryController implements Initializable {
           filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
 
       // Di-rectly touching equipment table in n-filter cases.
-      giftTable.setItems(trueFilteredList);
+      laundryTable.setItems(trueFilteredList);
     } else if (!employeeFilterField.getText().isEmpty()) {
       filterReqsTableEmployee(employeeFilterField.getText());
     } else if (!statusFilterField.getText().isEmpty()) {
@@ -259,37 +205,45 @@ public class LaundryController implements Initializable {
     }
   }
 
+  */
   /** Puts all of the requests back on the table, "clearing the requests." */
+  /*
   @FXML
   public void clearFilters() {
     // Puts everything back on table.
-    giftTable.setItems(giftData);
+    laundryTable.setItems(laundryData);
   }
 
+  */
   /* Employee-based */
+  /*
 
+  */
   /**
    * Filters requests in the equipment table so only those with the given Employee remain.
    *
    * @param employeeName The Employee the requests must have to remain on the table.
    */
+  /*
   private void filterReqsTableEmployee(String employeeName) {
     ObservableList<Request> filteredList = filterReqEmployee(employeeName);
 
     // Sets table to only have contents of the filtered list.
-    giftTable.setItems(filteredList);
+    laundryTable.setItems(filteredList);
   }
 
+  */
   /**
    * Filters out requests in labData based on the given Employee.
    *
    * @param employeeName The Employee that the requests must have to be in the new list.
    * @return The new filtered list.
    */
+  /*
   private ObservableList<Request> filterReqEmployee(String employeeName) {
     ObservableList<Request> newList = FXCollections.observableArrayList();
 
-    for (Request req : giftData) {
+    for (Request req : laundryData) {
       if (req.getEmployee().getName().equals(employeeName)) {
         newList.add(req);
       }
@@ -297,30 +251,36 @@ public class LaundryController implements Initializable {
     return newList;
   }
 
+  */
   /* Status-based */
+  /*
 
+  */
   /**
    * Filters requests in the equipment table so only those with the given status remain.
    *
    * @param reqStatus The status the requests must have to remain on the table.
    */
+  /*
   private void filterReqsTableStatus(String reqStatus) {
     ObservableList<Request> filteredList = filterReqStatus(reqStatus);
 
     // Sets table to only have contents of the filtered list.
-    giftTable.setItems(filteredList);
+    laundryTable.setItems(filteredList);
   }
 
+  */
   /**
    * Filters out requests in medData based on the given status.
    *
    * @param reqStatus The status that the requests must have to be in the new list.
    * @return The new filtered list.
    */
+  /*
   private ObservableList<Request> filterReqStatus(String reqStatus) {
     ObservableList<Request> newList = FXCollections.observableArrayList();
 
-    for (Request req : giftData) {
+    for (Request req : laundryData) {
       if (req.getStatus().equals(reqStatus)) {
         newList.add(req);
       }
@@ -328,8 +288,11 @@ public class LaundryController implements Initializable {
     return newList;
   }
 
+  */
   /* Methods to filter lists n times */
+  /*
 
+  */
   /**
    * Filters out requests in medData based on the given status.
    *
@@ -337,6 +300,7 @@ public class LaundryController implements Initializable {
    * @param filteredList The list that was presumably filtered.
    * @return The new filtered list.
    */
+  /*
   private ObservableList<Request> filterFilteredReqListStatus(
       String reqStatus, ObservableList<Request> filteredList) {
     ObservableList<Request> newList = FXCollections.observableArrayList();
@@ -349,6 +313,7 @@ public class LaundryController implements Initializable {
     return newList;
   }
 
+  */
   /**
    * Filters out requests in medData based on the given Employee.
    *
@@ -356,6 +321,7 @@ public class LaundryController implements Initializable {
    * @param filteredList The list that was presumably filtered.
    * @return The new filtered list.
    */
+  /*
   private ObservableList<Request> filterFilteredReqListEmployee(
       String employeeName, ObservableList<Request> filteredList) {
     ObservableList<Request> newList = FXCollections.observableArrayList();
@@ -367,7 +333,7 @@ public class LaundryController implements Initializable {
     }
 
     return newList;
-  }
+  }*/
 
   /* FILTER METHODS ABOVE HERE */
 
@@ -375,8 +341,8 @@ public class LaundryController implements Initializable {
     appController.clearPage();
   }
 
-  public void giftType(ActionEvent event) {
+  public void laundryType(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    giftType.setText(button.getText());
+    laundryType.setText(button.getText());
   }
 }

@@ -12,20 +12,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.SanitationController">
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.LaundryController">
    <children>
       <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
 
       <Accordion />
-      <Label fx:id="laundryConfirmation" alignment="CENTER" layoutX="424.0" layoutY="618.0" prefHeight="76.0" prefWidth="586.0" wrapText="true">
+      <Label fx:id="laundryConfirmation" alignment="CENTER" layoutX="503.0" layoutY="615.0" prefHeight="76.0" prefWidth="586.0" wrapText="true">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <VBox alignment="CENTER" layoutX="56.0" layoutY="108.0" prefHeight="511.0" prefWidth="270.0" spacing="40.0">
+      <VBox alignment="CENTER" layoutX="56.0" layoutY="101.0" prefHeight="514.0" prefWidth="270.0" spacing="40.0">
          <children>
             <TextField fx:id="laundryLocation" prefHeight="50.0" prefWidth="270.0" promptText="Location" />
-            <TextField fx:id="laundryEmployeeText" prefHeight="50.0" prefWidth="270.0" promptText="Employee" />
+            <TextField fx:id="laundryType" prefHeight="50.0" prefWidth="270.0" promptText="Type" />
+            <TextField fx:id="laundryEmployee" prefHeight="50.0" prefWidth="270.0" promptText="Employee" />
             <TextField fx:id="laundryStatus" prefHeight="50.0" prefWidth="270.0" promptText="Status" />
+            <TextField fx:id="laundryDescription" alignment="TOP_LEFT" prefHeight="138.0" prefWidth="270.0" promptText="Description" />
             <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0">
                <children>
                   <Button fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
@@ -46,7 +48,7 @@
                         </HBox>
                      </graphic>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#submitSanitation" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                  <Button fx:id="submitLaundry" alignment="CENTER" mnemonicParsing="false" onAction="#submitLaundry" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -68,7 +70,7 @@
             </HBox>
          </children>
       </VBox>
-      <TableView fx:id="equipmentTable" layoutX="385.0" layoutY="193.0" prefHeight="410.0" prefWidth="838.0">
+      <TableView fx:id="laundryTable" layoutX="370.0" layoutY="161.0" prefHeight="366.0" prefWidth="852.0">
          <columns>
             <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
             <TableColumn fx:id="availableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Available" />
@@ -79,6 +81,8 @@
             <TableColumn fx:id="descriptionColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Description" />
          </columns>
       </TableView>
+      <TextField fx:id="editRequest" layoutX="439.0" layoutY="576.0" promptText="Edit Name" />
+      <TextField fx:id="deleteName" layoutX="696.0" layoutY="576.0" promptText="Delete Name" />
 
    </children>
 </AnchorPane>
