@@ -193,6 +193,10 @@ public class RequestDAOImpl implements RequestDAO {
         && DAOtype.compareTo("MaintenanceRequest") == 0) {
       makeRequest(values);
     }
+    if (values[0].substring(0, 3).compareTo("Mor") == 0
+        && DAOtype.compareTo("MorgueRequest") == 0) {
+      makeRequest(values);
+    }
     return;
   }
 
