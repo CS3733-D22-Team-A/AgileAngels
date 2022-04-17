@@ -185,7 +185,7 @@ Note that these labels lock your font size.
 }
 
 .table-view{
-    -fx-background-color: #white; /*background of the table */
+    -fx-background-color: white;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
