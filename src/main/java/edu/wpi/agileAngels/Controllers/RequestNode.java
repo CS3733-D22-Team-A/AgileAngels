@@ -53,9 +53,9 @@ public class RequestNode {
 
     button.setOnMouseExited(
         l -> {
-          button.setPrefSize(8, 8);
           button.setStyle(
               "-fx-font-size: 12; -fx-background-color: rgba(44, 217, 186, 1) ;-fx-background-radius: 0 5 5 5; -fx-text-alignment: left; -fx-text-fill: white");
+          button.setPrefSize(0, 0);
           button.setAlignment(Pos.CENTER);
           button.setText(String.valueOf(request.getName().charAt(0)));
           button.setViewOrder(-100);
@@ -118,6 +118,9 @@ public class RequestNode {
 
     button.setLayoutX(getPaneXfromcoords(closest.getXCoord()));
     button.setLayoutY(getPaneYfromcoords(closest.getYCoord()));
+    requestNodeManager.editRequest(this, closest);
+
+    // requestNodeManager.updateLocation(this);
   }
 
   private double dist(double x1, double x2, double y1, double y2) {
@@ -151,6 +154,10 @@ public class RequestNode {
 
   public String getFloor() {
     return this.location.getFloor();
+  }
+
+  public Request getRequest() {
+    return request;
   }
 
   public void setLocation(Location location) {

@@ -36,6 +36,17 @@ public class RequestNodeManager {
     }
   }
 
+  public void editRequest(RequestNode request, Location newLocation) {
+
+    if (request.getName().substring(0, 3).equals("Lab")) {
+      request.setLocation(newLocation);
+      labRequestDAO.updateLocation(request.getRequest(), newLocation);
+    } else if (request.getName().substring(0, 3).equals("Med")) {
+      request.setLocation(newLocation);
+      medRequestDAO.updateLocation(request.getRequest(), newLocation);
+    }
+  }
+
   RequestNode addNode(Request request) throws SQLException {
     RequestNode requestNode = new RequestNode(request, this);
     nodes.put(requestNode.getName(), requestNode);
