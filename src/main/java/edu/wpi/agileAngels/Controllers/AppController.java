@@ -50,6 +50,18 @@ public class AppController {
     support.removePropertyChangeListener(pcl);
   }
 
+  public void incrementDirty(String type, String floor, int i) {
+    if (type.equals("XRayMachine")) {
+      appController.incrementDirtyXRays(floor, i);
+    } else if (type.equals("InfusionPump")) {
+      appController.incrementDirtyInfusionPumps(floor, i);
+    } else if (type.equals("Bed")) {
+      appController.incrementDirtyBeds(floor, i);
+    } else if (type.equals("Recliner")) {
+      appController.incrementDirtyRecliners(floor, i);
+    }
+  }
+
   public void incrementDirtyBeds(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
@@ -106,6 +118,51 @@ public class AppController {
       this.dirtyXRays[0] = this.dirtyXRays[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
+    }
+  }
+
+  public void displayAlert() {
+    String view = "";
+    if (dirtyBeds[1] > 6) {
+      view = "/edu/wpi/agileAngels/views/bed-alert-view.fxml";
+    }
+    if (dirtyBeds[2] > 6) {
+      view = "/edu/wpi/agileAngels/views/bed-alert-view.fxml";
+    }
+    if (dirtyBeds[3] > 6) {
+      view = "/edu/wpi/agileAngels/views/bed-alert-view.fxml";
+    }
+    if (dirtyInfusionPumps[1] > 10) {
+      view = "/edu/wpi/agileAngels/views/pump-alert-view.fxml";
+    }
+    if (dirtyInfusionPumps[2] > 10) {
+      view = "/edu/wpi/agileAngels/views/pump-alert-view.fxml";
+    }
+    if (dirtyInfusionPumps[3] > 10) {
+      view = "/edu/wpi/agileAngels/views/pump-alert-view.fxml";
+    }
+    if (!view.equals("")) {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource(view));
+      try {
+        Scene secondScene = new Scene(loader.load());
+
+        secondScene
+            .getStylesheets()
+            .add(
+                "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Second Stage");
+        newWindow.setScene(secondScene);
+
+        newWindow.setX(primaryStage.getX() + 200);
+        newWindow.setY(primaryStage.getY() + 100);
+
+        newWindow.show();
+
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
   }
 
