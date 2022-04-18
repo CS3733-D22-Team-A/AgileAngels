@@ -73,7 +73,6 @@ public class AppController {
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
-    System.out.println("increment dirty beds " + dirtyBeds[floorInt]);
   }
 
   public void incrementDirtyInfusionPumps(String floor, int increment) {
@@ -90,7 +89,6 @@ public class AppController {
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
-    System.out.println("increment dirty pumps");
   }
 
   public void incrementDirtyRecliners(String floor, int increment) {
@@ -107,7 +105,6 @@ public class AppController {
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
-    System.out.println("increment dirty recliners");
   }
 
   public void incrementDirtyXRays(String floor, int increment) {
@@ -122,11 +119,9 @@ public class AppController {
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
-    System.out.println("increment dirty x-rays");
   }
 
   public void displayAlert() {
-    System.out.println("display alert start");
     String view = "";
     if (dirtyBeds[1] > 6) {
       view = "/edu/wpi/agileAngels/views/bed-alert-view.fxml";
@@ -147,7 +142,6 @@ public class AppController {
       view = "/edu/wpi/agileAngels/views/pump-alert-view.fxml";
     }
     if (!view.equals("")) {
-      System.out.println("display alert if");
       FXMLLoader loader = new FXMLLoader(getClass().getResource(view));
       try {
         Scene secondScene = new Scene(loader.load());
@@ -170,7 +164,6 @@ public class AppController {
         e.printStackTrace();
       }
     }
-    System.out.println("display alert end");
   }
 
   private int getFloorInt(String floor) {

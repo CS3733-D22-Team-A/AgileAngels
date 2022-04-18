@@ -11,7 +11,6 @@ public class AlertController {
   @FXML
   public void makeRequests() {
     // make requests
-    System.out.println("make requests here");
 
     closeWindow();
   }

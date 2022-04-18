@@ -61,6 +61,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    appController.addPropertyChangeListener(this);
 
     equipHash = equipDAO.getAllMedicalEquipment();
     allMedEquip = new ArrayList<>(equipHash.values());
@@ -104,7 +105,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     System.out.println(changeType);
     int newValue = (int) evt.getNewValue();
     System.out.println(newValue);
-    // appController.displayAlert();
+    appController.displayAlert();
   }
 
   /**
@@ -169,7 +170,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         i++;
       }
       if (foundEquip) {
-        System.out.println("ADD DEVICE");
         equipmentConfirmation.setText(
             "Thank you, the "
                 + dropDownString
@@ -219,7 +219,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
             "Sorry, there are currently no " + dropDownString + "s available. ");
       }
     }
-    appController.displayAlert();
   }
 
   /* FILTER METHODS BEYOND HERE */
@@ -390,10 +389,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       String employeeString,
       String statusString) {
 
-    System.out.println("EDIT REQUEST");
-
     Request found = MedrequestImpl.getAllRequests().get(editString);
-    System.out.println(found.getName());
 
     // null;
     int num = 0;
@@ -406,9 +402,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     }
 
     if (found != null) {
-      System.out.println("1");
       if (!dropDownString.equals("Equipment Type")) {
-        System.out.println("if(!dropDownString.equals(\"Equipment Type\"))");
         // String type = equipmentType.getText();
 
         MedicalEquip equip = null;
@@ -439,9 +433,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       }
 
       if (!locationString.equals("Delivery Location")) {
-        System.out.println("if (!locationString.equals(\"Delivery Location\"))");
         Location location = locDAO.getLocation(locationString);
-        System.out.println(location.getNodeID());
         found.setLocation(location);
         // MedrequestImpl.updateLocation(found, location);
         if (found.getMedicalEquip() != null) {
@@ -449,15 +441,12 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         }
       }
       if (!employeeString.equals("Employee")) {
-        System.out.println("if (!employeeString.equals(\"Employee\"))");
         Employee employee = empDAO.getEmployee(employeeString);
-        System.out.println(employee.getName());
         found.setEmployee(employee);
         //        MedrequestImpl.updateEmployeeName(found, employee.getName());
       }
 
       if (!statusString.equals("Status")) {
-        System.out.println("if (!statusString.equals(\"Status\"))");
         found.setStatus(statusString);
         //  MedrequestImpl.updateStatus(found, statusString);
 
@@ -485,7 +474,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
           }
         }
       }
-      // System.out.println(num);
       medData.set(num, found);
 
       //  equipmentTable.setItems(medData);
