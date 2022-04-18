@@ -12,13 +12,12 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public class DashboardController implements Initializable, PropertyChangeListener {
-
-  @FXML ScrollPane scrollPane = new ScrollPane();
 
   @FXML
   Label cleanPump,
@@ -29,16 +28,13 @@ public class DashboardController implements Initializable, PropertyChangeListene
       dirtyBeds,
       dirtyXRay,
       dirtyRecliner;
+  @FXML Button floor5, floor4, floor3, floor2, floorLL1, floorLL2;
 
   AppController appController = AppController.getInstance();
   ArrayList<Pane> panes = new ArrayList<>();
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    // This is to get rid of the scroll bars on the dashboard.
-    scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
-    scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
-
     appController.addPropertyChangeListener(this);
 
     try {
@@ -65,179 +61,24 @@ public class DashboardController implements Initializable, PropertyChangeListene
       dirtyXRay.setText(String.valueOf(newValue));
       cleanXRay.setText(String.valueOf(1 - newValue));
     }
+    appController.displayAlert();
   }
 
-  //  public void swapFloorDash(MouseEvent event) {
-  //
-  //    panes.add(stackDash1);
-  //    panes.add(stackDash2);
-  //    panes.add(stackDash3);
-  //    panes.add(stackDash4);
-  //    panes.add(stackDash5);
-  //    panes.add(stackDashL1);
-  //    panes.add(stackDashL2);
-  //
-  //    if (event.getSource() == dash1) {
-  //      for (Pane pane : panes) {
-  //        if (pane == stackDash1) {
-  //          pane.setVisible(true);
-  //        } else {
-  //          pane.setVisible(false);
-  //        }
-  //      }
-  //    }
-  //
-  //    if (event.getSource() == dash2) {
-  //      for (Pane pane : panes) {
-  //        if (pane == stackDash2) {
-  //          pane.setVisible(true);
-  //        } else {
-  //          pane.setVisible(false);
-  //        }
-  //      }
-  //    }
-  //
-  //    if (event.getSource() == dash3) {
-  //      for (Pane pane : panes) {
-  //        if (pane == stackDash3) {
-  //          pane.setVisible(true);
-  //        } else {
-  //          pane.setVisible(false);
-  //        }
-  //      }
-  //    }
-  //
-  //    if (event.getSource() == dash4) {
-  //      for (Pane pane : panes) {
-  //        if (pane == stackDash4) {
-  //          pane.setVisible(true);
-  //        } else {
-  //          pane.setVisible(false);
-  //        }
-  //      }
-  //    }
-  //
-  //    if (event.getSource() == dash5) {
-  //      for (Pane pane : panes) {
-  //        if (pane == stackDash5) {
-  //          pane.setVisible(true);
-  //        } else {
-  //          pane.setVisible(false);
-  //        }
-  //      }
-  //    }
-  //
-  //    if (event.getSource() == dashL1) {
-  //      for (Pane pane : panes) {
-  //        if (pane == stackDashL1) {
-  //          pane.setVisible(true);
-  //        } else {
-  //          pane.setVisible(false);
-  //        }
-  //      }
-  //    }
-  //
-  //    if (event.getSource() == dashL2) {
-  //      for (Pane pane : panes) {
-  //        if (pane == stackDashL2) {
-  //          pane.setVisible(true);
-  //        } else {
-  //          pane.setVisible(false);
-  //        }
-  //      }
-  //    }
-  //  }
-  //  public void swapFloorDash(MouseEvent event) {
-  //
-  //    panes.add(stackDash1);
-  //    panes.add(stackDash2);
-  //    panes.add(stackDash3);
-  //    panes.add(stackDash4);
-  //    panes.add(stackDash5);
-  //    panes.add(stackDashL1);
-  //    panes.add(stackDashL2);
-  //
-  //    if (event.getSource() == dash1) {
-  //      for (Pane pane : panes) {
-  //        if (pane == stackDash1) {
-  //          pane.setVisible(true);
-  //        } else {
-  //          pane.setVisible(false);
-  //        }
-  //      }
-  //    }
-  //
-  //    if (event.getSource() == dash2) {
-  //      for (Pane pane : panes) {
-  //        if (pane == stackDash2) {
-  //          pane.setVisible(true);
-  //        } else {
-  //          pane.setVisible(false);
-  //        }
-  //      }
-  //    }
-  //
-  //    if (event.getSource() == dash3) {
-  //      for (Pane pane : panes) {
-  //        if (pane == stackDash3) {
-  //          pane.setVisible(true);
-  //        } else {
-  //          pane.setVisible(false);
-  //        }
-  //      }
-  //    }
-  //
-  //    if (event.getSource() == dash4) {
-  //      for (Pane pane : panes) {
-  //        if (pane == stackDash4) {
-  //          pane.setVisible(true);
-  //        } else {
-  //          pane.setVisible(false);
-  //        }
-  //      }
-  //    }
-  //
-  //    if (event.getSource() == dash5) {
-  //      for (Pane pane : panes) {
-  //        if (pane == stackDash5) {
-  //          pane.setVisible(true);
-  //        } else {
-  //          pane.setVisible(false);
-  //        }
-  //      }
-  //    }
-  //
-  //    if (event.getSource() == dashL1) {
-  //      for (Pane pane : panes) {
-  //        if (pane == stackDashL1) {
-  //          pane.setVisible(true);
-  //        } else {
-  //          pane.setVisible(false);
-  //        }
-  //      }
-  //    }
-  //
-  //    if (event.getSource() == dashL2) {
-  //      for (Pane pane : panes) {
-  //        if (pane == stackDashL2) {
-  //          pane.setVisible(true);
-  //        } else {
-  //          pane.setVisible(false);
-  //        }
-  //      }
-  //    }
-  //  }
+  @FXML
+  public void bigFloor(MouseEvent event) {
 
-  /* public void unhover(MouseEvent event) {
-      stackDash1.setVisible(false);
-      stackDash2.setVisible(false);
-      stackDash3.setVisible(false);
-      stackDash4.setVisible(false);
-      stackDash5.setVisible(false);
-      stackDashL1.setVisible(false);
-      stackDashL2.setVisible(false);
+    if (event.getSource() == floor4) {
+      floor4.setTranslateY(25);
     }
-  */
+  }
+
+  public void unhover(MouseEvent event) {
+
+    if (event.getSource() == floor4) {
+      floor4.setTranslateY(-25);
+    }
+  }
+
   /*  public void loadFloorMap(ActionEvent event) throws IOException {
 
     if (event.getSource() == dash1) {

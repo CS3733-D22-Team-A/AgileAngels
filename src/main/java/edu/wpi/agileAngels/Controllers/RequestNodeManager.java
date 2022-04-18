@@ -36,7 +36,7 @@ public class RequestNodeManager {
     }
   }
 
-  public void editRequest(RequestNode request, Location newLocation) {
+  public void editRequestLocation(RequestNode request, Location newLocation) {
 
     if (request.getName().substring(0, 3).equals("Lab")) {
       request.setLocation(newLocation);

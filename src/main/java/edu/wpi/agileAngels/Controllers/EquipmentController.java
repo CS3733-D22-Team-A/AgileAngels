@@ -1,6 +1,8 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
@@ -17,7 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class EquipmentController implements Initializable {
+public class EquipmentController implements Initializable, PropertyChangeListener {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
   @FXML private TextField deleteName, editRequest, employeeFilterField, statusFilterField;
@@ -59,6 +61,7 @@ public class EquipmentController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    appController.addPropertyChangeListener(this);
 
     equipHash = equipDAO.getAllMedicalEquipment();
     allMedEquip = new ArrayList<>(equipHash.values());
@@ -93,6 +96,16 @@ public class EquipmentController implements Initializable {
     }
 
     equipmentTable.setItems(medData);
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    System.out.println("property change");
+    String changeType = evt.getPropertyName();
+    System.out.println(changeType);
+    int newValue = (int) evt.getNewValue();
+    System.out.println(newValue);
+    appController.displayAlert();
   }
 
   /**
@@ -157,7 +170,6 @@ public class EquipmentController implements Initializable {
         i++;
       }
       if (foundEquip) {
-        System.out.println("ADD DEVICE");
         equipmentConfirmation.setText(
             "Thank you, the "
                 + dropDownString
@@ -377,10 +389,7 @@ public class EquipmentController implements Initializable {
       String employeeString,
       String statusString) {
 
-    System.out.println("EDIT REQUEST");
-
     Request found = MedrequestImpl.getAllRequests().get(editString);
-    System.out.println(found.getName());
 
     // null;
     int num = 0;
@@ -393,9 +402,7 @@ public class EquipmentController implements Initializable {
     }
 
     if (found != null) {
-      System.out.println("1");
       if (!dropDownString.equals("Equipment Type")) {
-        System.out.println("if(!dropDownString.equals(\"Equipment Type\"))");
         // String type = equipmentType.getText();
 
         MedicalEquip equip = null;
@@ -426,9 +433,7 @@ public class EquipmentController implements Initializable {
       }
 
       if (!locationString.equals("Delivery Location")) {
-        System.out.println("if (!locationString.equals(\"Delivery Location\"))");
         Location location = locDAO.getLocation(locationString);
-        System.out.println(location.getNodeID());
         found.setLocation(location);
         // MedrequestImpl.updateLocation(found, location);
         if (found.getMedicalEquip() != null) {
@@ -436,15 +441,12 @@ public class EquipmentController implements Initializable {
         }
       }
       if (!employeeString.equals("Employee")) {
-        System.out.println("if (!employeeString.equals(\"Employee\"))");
         Employee employee = empDAO.getEmployee(employeeString);
-        System.out.println(employee.getName());
         found.setEmployee(employee);
         //        MedrequestImpl.updateEmployeeName(found, employee.getName());
       }
 
       if (!statusString.equals("Status")) {
-        System.out.println("if (!statusString.equals(\"Status\"))");
         found.setStatus(statusString);
         //  MedrequestImpl.updateStatus(found, statusString);
 
@@ -472,7 +474,6 @@ public class EquipmentController implements Initializable {
           }
         }
       }
-      // System.out.println(num);
       medData.set(num, found);
 
       //  equipmentTable.setItems(medData);

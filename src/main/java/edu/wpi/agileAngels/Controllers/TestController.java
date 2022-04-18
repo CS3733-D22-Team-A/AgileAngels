@@ -1,5 +1,7 @@
 package edu.wpi.agileAngels.Controllers;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -12,7 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 
 // test button on the front end
-public class TestController extends MainController implements Initializable {
+public class TestController extends MainController
+    implements Initializable, PropertyChangeListener {
 
   @FXML Button button, button1, button2, button3, button4;
   @FXML Circle circle1, circle2, circle3;
@@ -24,8 +27,12 @@ public class TestController extends MainController implements Initializable {
 
   Circle closest = null;
 
+  AppController appController = AppController.getInstance();
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    appController.addPropertyChangeListener(this);
+
     button.setOnMouseDragged(
         (MouseEvent mouseEvent) -> {
           button.setLayoutX(mouseEvent.getSceneX());
@@ -35,6 +42,13 @@ public class TestController extends MainController implements Initializable {
     circles.add(circle1);
     circles.add(circle2);
     circles.add(circle3);
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    String changeType = evt.getPropertyName();
+    int newValue = (int) evt.getNewValue();
+    appController.displayAlert();
   }
 
   public void buttonPreessed(MouseEvent mouseEvent) {}
