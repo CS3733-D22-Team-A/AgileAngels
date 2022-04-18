@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.*;
-import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
@@ -12,71 +11,47 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 public class MorgueController implements Initializable, PropertyChangeListener {
   AppController appController = AppController.getInstance();
   // @FXML private Button addButton;
-  @FXML private TextField morgueDescription, morgueEditDescription;
-  @FXML private VBox addBox, deleteBox, editBox;
-  @FXML private Label morgueID, morgueDeleteStatus, morgueDeleteEmployee, morgueDeleteLocation;
-  @FXML private Pane addPane, editPane, deletePane;
+  @FXML Pane popOut;
+  @FXML MenuButton morgueID, morgueLocation, morgueEmployee, morgueStatus;
+  @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
+  @FXML TableView morgueTable;
   @FXML
-  private MenuButton morgueLocation,
-      morgueEmployee,
-      morgueStatus,
-      morgueDeleteID,
-      morgueEditID,
-      morgueEditEmployee,
-      morgueEditLocation,
-      morgueEditStatus;
+  private TableColumn nameColumn,
+      availableColumn,
+      typeColumn,
+      locationColumn,
+      employeeColumn,
+      statusColumn,
+      descriptionColumn;
+  @FXML TextField morgueDescription, employeeFilterField, statusFilterField;
+  @FXML Label notStartedNumber, inProgressNumber, completedNumber;
 
-  /*
-     mainEditLocation,
-     mainEditEmployee,
-     mainEditStatus,
-     mainDeleteID;
-
-  */
-  @FXML private TableView morgueTable;
-  // @FXML private Label requestConfirmation
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private RequestDAOImpl MorguerequestImpl = RequestDAOImpl.getInstance("MorgueRequest");
   private static ObservableList<Request> morgueData = FXCollections.observableArrayList();
   HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
-  HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
+  private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
   ArrayList<String> freeEmployees = MorguerequestImpl.getFreeEmployees();
-  @FXML
-  private TableColumn nameColumn,
-      typeColumn,
-      locationColumn,
-      employeeColumn,
-      statusColumn,
-      descriptionColumn,
-      availableColumn;
+  private int statusNotStarted, statusInProgress, statusComplete;
 
   public MorgueController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    System.out.println("Test");
     appController.addPropertyChangeListener(this);
-    addBox.setVisible(false);
-    editBox.setVisible(false);
-    deleteBox.setVisible(false);
-    addPane.setVisible(true);
-    editPane.setVisible(true);
-    deletePane.setVisible(true);
+    popOut.setVisible(false);
+    statusNotStarted = 0;
+    statusInProgress = 0;
+    statusComplete = 0;
     locDAO.getAllLocations();
     empDAO.getAllEmployees();
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -88,15 +63,14 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
 
     if (morgueData.isEmpty()) {
-      Iterator var3 = MorguerequestImpl.getAllRequests().entrySet().iterator();
       System.out.println("Filling Data");
 
       for (Map.Entry<String, Request> entry : MorguerequestImpl.getAllRequests().entrySet()) {
         Request req = entry.getValue();
-
         morgueData.add(req);
       }
     }
+    dashboardLoad();
     morgueTable.setItems(morgueData);
   }
 
@@ -108,181 +82,205 @@ public class MorgueController implements Initializable, PropertyChangeListener {
   }
 
   @FXML
-  private void addRequest() {
-    deleteBox.setVisible(false);
-    editBox.setVisible(false);
-    addBox.setVisible(true);
+  public void modifyRequest(ActionEvent event) {
+    popOut.setVisible(true);
+    // Populates locations dropdown
     morgueLocation.getItems().clear();
     for (Location loc : locationsList) {
-      javafx.scene.control.MenuItem item = new MenuItem(loc.getNodeID());
+      MenuItem item = new MenuItem(loc.getNodeID());
       item.setOnAction(this::locationMenu);
       morgueLocation.getItems().add(item);
     }
+    // Populates employees dropdown
     morgueEmployee.getItems().clear();
     for (String emp : freeEmployees) {
       MenuItem item = new MenuItem(emp);
       item.setOnAction(this::employeeMenu);
       morgueEmployee.getItems().add(item);
     }
-    morgueID.setText("Morgue" + (morgueData.size() + 1));
+    // Populates ID dropdown
+    morgueID.getItems().clear();
+    for (Request req : morgueData) {
+      MenuItem item = new MenuItem(req.getName());
+      item.setOnAction(this::morgueIDMenu);
+      morgueID.getItems().add(item);
+    }
+    MenuItem item1 = new MenuItem("Add New Request");
+    item1.setOnAction(this::morgueIDMenu);
+    morgueID.getItems().add(item1);
   }
 
-  public void submitRequest(ActionEvent actionEvent) throws SQLException {
-    addBox.setVisible(false);
-    String morgueID = "Morgue";
-    String empString = morgueEmployee.getText();
-    String locString = morgueLocation.getText();
-    String statString = morgueStatus.getText();
-    String desString = morgueDescription.getText();
-    String typeString = "N/A";
-    String att1 = "N/A";
-    String att2 = "";
-
-    if (empString.equals("Employee")
-        || locString.equals("Location")
-        || statString.equals("Status")) {
-      System.out.println("Wrong");
-    } else {
-      Request morgueReq =
+  @FXML
+  public void submit(ActionEvent event) throws SQLException {
+    String loc = morgueLocation.getText();
+    String emp = morgueEmployee.getText();
+    String stat = morgueStatus.getText();
+    String desc = morgueDescription.getText();
+    // Adding
+    if (morgueID.getText().equals("Add New Request")) {
+      Request req =
           new Request(
-              morgueID,
-              empDAO.getEmployee(empString),
-              locDAO.getLocation(locString),
-              typeString,
-              statString,
-              desString,
-              att1,
-              att2);
-      MorguerequestImpl.addRequest(morgueReq);
-      morgueData.add(morgueReq);
-      morgueTable.setItems(morgueData);
+              "", employeeHash.get(emp), locationsHash.get(loc), "N/A", stat, desc, "N/A", "N/A");
+      morgueData.add(req);
+      MorguerequestImpl.addRequest(req);
+
+      morgueID.getItems().remove(0, morgueID.getItems().size());
+      // Populates ID dropdown
+      for (Request request : morgueData) {
+        MenuItem item = new MenuItem(request.getName());
+        item.setOnAction(this::morgueIDMenu);
+        morgueID.getItems().add(item);
+      }
+      MenuItem item1 = new MenuItem("Add New Request");
+      item1.setOnAction(this::morgueIDMenu);
+      morgueID.getItems().add(item1);
+
+    } else { // Editing
+      Request req = MorguerequestImpl.getAllRequests().get(morgueID.getText());
+      if (!req.getLocation().getNodeID().equals(loc)) {
+        Location newLoc = locationsHash.get(loc);
+        MorguerequestImpl.updateLocation(req, newLoc);
+      }
+      if (!req.getEmployee().getName().equals(emp)) {
+        MorguerequestImpl.updateEmployeeName(req, emp);
+      }
+      if (!req.getStatus().equals(stat)) {
+        MorguerequestImpl.updateStatus(req, stat);
+      }
+      if (!req.getDescription().equals(desc)) {
+        MorguerequestImpl.updateDescription(req, desc);
+      }
+
+      for (int i = 0; i < morgueData.size(); i++) {
+        if (morgueData.get(i).getName().equals(req.getName())) {
+          morgueData.set(i, req);
+        }
+      }
     }
     freeEmployees.clear();
     freeEmployees = MorguerequestImpl.getFreeEmployees();
-    morgueLocation.setText("Location");
-    morgueStatus.setText("Status");
-    morgueEmployee.setText("Employee");
+    clear(event);
+    popOut.setVisible(false);
   }
 
-  public void clearRequest(ActionEvent event) {
+  @FXML
+  public void clear(ActionEvent event) {
+    morgueID.setText("ID");
     morgueLocation.setText("Location");
-    morgueStatus.setText("Status");
     morgueEmployee.setText("Employee");
-    morgueEditLocation.setText("Location");
-    morgueEditStatus.setText("Status");
-    morgueEditEmployee.setText("Employee");
+    morgueStatus.setText("Status");
+    morgueDescription.setText("");
+    morgueDescription.setPromptText("Description");
   }
 
-  public void submitDelete(ActionEvent actionEvent) {
-    String deleteID = morgueDeleteID.getText();
-    for (int i = 0; i < morgueData.size(); i++) {
-      Request obj = morgueData.get(i);
-      if (0 == deleteID.compareTo(obj.getName())) {
-        morgueData.remove(i);
-        MorguerequestImpl.deleteRequest(obj);
-      }
+  @FXML
+  public void cancel(ActionEvent event) {
+    clear(event);
+    popOut.setVisible(false);
+  }
+
+  @FXML
+  public void filterReqOnAction(ActionEvent event) {
+    if (!employeeFilterField.getText().isEmpty() && !statusFilterField.getText().isEmpty()) {
+
+      ObservableList<Request> empFilteredList = filterReqEmployee(employeeFilterField.getText());
+      ObservableList<Request> trueFilteredList =
+          filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
+
+      morgueTable.setItems(trueFilteredList);
+    } else if (!employeeFilterField.getText().isEmpty()) {
+      filterReqsTableEmployee(employeeFilterField.getText());
+    } else if (!statusFilterField.getText().isEmpty()) {
+      filterReqsTableStatus(statusFilterField.getText());
     }
+  }
+
+  private void filterReqsTableEmployee(String employeeName) {
+    ObservableList<Request> filteredList = filterReqEmployee(employeeName);
+
+    // Sets table to only have contents of the filtered list.
+    morgueTable.setItems(filteredList);
+  }
+
+  @FXML
+  public void clearFilters(ActionEvent event) {
     morgueTable.setItems(morgueData);
-    deleteBox.setVisible(false);
-    morgueDeleteID.setText("ID");
   }
 
-  public void deleteRequest(ActionEvent actionEvent) {
-    addBox.setVisible(false);
-    editBox.setVisible(false);
-    deleteBox.setVisible(true);
-    morgueDeleteID.getItems().clear();
+  @FXML
+  public void delete(ActionEvent event) throws SQLException {
+    String id = morgueID.getText();
+
+    // removes the request from the table and dropdown
     for (int i = 0; i < morgueData.size(); i++) {
-      Request obj = morgueData.get(i);
-      MenuItem item = new MenuItem(morgueData.get(i).getName());
-      item.setOnAction(this::deleteIDMenu);
-      morgueDeleteID.getItems().add(item);
+      if (morgueData.get(i).getName().equals(id)) {
+        morgueData.remove(i);
+        morgueID.getItems().remove(i);
+      }
+      freeEmployees.clear();
+      freeEmployees = MorguerequestImpl.getFreeEmployees();
+      clear(event);
+      popOut.setVisible(false);
     }
+
+    // delete from hash map and database table
+    MorguerequestImpl.deleteRequest(MorguerequestImpl.getAllRequests().get(id));
+
+    clear(event);
   }
 
-  public void editRequest(ActionEvent actionEvent) {
-    deleteBox.setVisible(false);
-    addBox.setVisible(false);
-    editBox.setVisible(true);
-    morgueEditID.getItems().clear();
-    for (int i = 0; i < morgueData.size(); i++) {
-      Request obj = morgueData.get(i);
-      MenuItem item = new MenuItem(morgueData.get(i).getName());
-      item.setOnAction(this::editIDMenu);
-      morgueEditID.getItems().add(item);
+  private ObservableList<Request> filterReqEmployee(String employeeName) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : morgueData) {
+      if (req.getEmployee().getName().equals(employeeName)) {
+        newList.add(req);
+      }
     }
-    morgueEditLocation.getItems().clear();
-    for (Location loc : locationsList) {
-      javafx.scene.control.MenuItem item = new MenuItem(loc.getNodeID());
-      item.setOnAction(this::editLocationMenu);
-      morgueEditLocation.getItems().add(item);
-    }
-    morgueEditEmployee.getItems().clear();
-    for (String emp : freeEmployees) {
-      MenuItem item = new MenuItem(emp);
-      item.setOnAction(this::editEmployeeMenu);
-      morgueEditEmployee.getItems().add(item);
-    }
+
+    return newList;
   }
 
-  public void submitEditReq() {
-    String editID = morgueEditID.getText();
-    String editEmployee = "";
-    String editLocation = "";
-    String editStatus = "";
-    String editDescription = morgueEditDescription.getText();
-    int num = 0;
-    if (editID.equals("ID")) {
-      System.out.println("Need ID");
-      return;
-    }
-    if (morgueEditLocation.getText().equals("Location")) {
-      for (int i = 0; i < morgueData.size(); i++) {
-        Request req = morgueData.get(i);
-        if (0 == editID.compareTo(req.getName())) {
-          editLocation = req.getLocation().getNodeID();
-          num = i;
-        }
+  private void filterReqsTableStatus(String reqStatus) {
+    ObservableList<Request> filteredList = filterReqStatus(reqStatus);
+    // Sets table to only have contents of the filtered list.
+    morgueTable.setItems(filteredList);
+  }
+
+  private ObservableList<Request> filterReqStatus(String reqStatus) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : morgueData) {
+      if (req.getStatus().equals(reqStatus)) {
+        newList.add(req);
       }
     }
-    if (!morgueEditLocation.getText().equals("Location")) {
-      editLocation = morgueEditLocation.getText();
-    }
-    if (morgueEditEmployee.getText().equals("Employee")) {
-      for (int i = 0; i < morgueData.size(); i++) {
-        Request req = morgueData.get(i);
-        if (0 == editID.compareTo(req.getName())) {
-          editEmployee = req.getEmployee().getName();
-        }
+    return newList;
+  }
+
+  private ObservableList<Request> filterFilteredReqListStatus(
+      String reqStatus, ObservableList<Request> filteredList) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : filteredList) {
+      if (req.getStatus().equals(reqStatus)) {
+        newList.add(req);
       }
     }
-    if (!morgueEditEmployee.getText().equals("Employee")) {
-      editEmployee = morgueEditEmployee.getText();
-    }
-    if (morgueEditStatus.getText().equals("Status")) {
-      for (int i = 0; i < morgueData.size(); i++) {
-        Request req = morgueData.get(i);
-        if (0 == editID.compareTo(req.getName())) {
-          editStatus = req.getStatus();
-        }
+    return newList;
+  }
+
+  private ObservableList<Request> filterFilteredReqListEmployee(
+      String employeeName, ObservableList<Request> filteredList) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : filteredList) {
+      if (req.getEmployee().getName().equals(employeeName)) {
+        newList.add(req);
       }
     }
-    if (!morgueEditStatus.getText().equals("Status")) {
-      editStatus = morgueEditStatus.getText();
-    }
-    Request edited =
-        new Request(
-            editID,
-            empDAO.getEmployee(editEmployee),
-            locDAO.getLocation(editLocation),
-            "N/A",
-            editStatus,
-            editDescription,
-            "N/A",
-            "");
-    morgueData.set(num, edited);
-    MorguerequestImpl.updateRequest(edited);
-    editBox.setVisible(false);
+
+    return newList;
   }
 
   @FXML
@@ -298,57 +296,62 @@ public class MorgueController implements Initializable, PropertyChangeListener {
   }
 
   @FXML
-  public void addStatusMenu(ActionEvent event) {
+  public void statusMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     morgueStatus.setText(button.getText());
   }
 
   @FXML
-  public void deleteIDMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    morgueDeleteID.setText(button.getText());
-    setDeleteInformation(event);
-  }
+  private void dashboardLoad() {
+    if (notStartedNumber.getText().equals("-")
+        && inProgressNumber.getText().equals("-")
+        && completedNumber.getText().equals("-")) {
 
-  @FXML
-  public void editIDMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    morgueEditID.setText(button.getText());
-  }
-
-  @FXML
-  public void editEmployeeMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    morgueEditEmployee.setText(button.getText());
-  }
-
-  @FXML
-  public void editLocationMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    morgueEditLocation.setText(button.getText());
-  }
-
-  @FXML
-  public void editStatusMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    morgueEditStatus.setText(button.getText());
-  }
-
-  public void setDeleteInformation(ActionEvent event) {
-    String deleteID = morgueDeleteID.getText();
-    String deleteLocation = "";
-    String deleteEmployee = "";
-    String deleteStatus = "";
-    for (int i = 0; i < morgueData.size(); i++) {
-      Request req = morgueData.get(i);
-      if (0 == deleteID.compareTo(req.getName())) {
-        deleteStatus = req.getStatus();
-        deleteEmployee = req.getEmployee().getName();
-        deleteLocation = req.getLocation().getNodeID();
+      Iterator var3 = MorguerequestImpl.getAllRequests().entrySet().iterator();
+      while (var3.hasNext()) {
+        Map.Entry<String, Request> entry = (Map.Entry) var3.next();
+        Request object = (Request) entry.getValue();
+        if (entry.getValue().getStatus().equals("inProgress")) {
+          statusInProgress++;
+        }
+        if (entry.getValue().getStatus().equals("notStarted")) {
+          statusNotStarted++;
+        }
+        if (entry.getValue().getStatus().equals("Complete")
+            || entry.getValue().getStatus().equals("complete")) {
+          statusComplete++;
+        }
       }
+      setDashboard(statusNotStarted, statusInProgress, statusComplete);
     }
-    morgueDeleteLocation.setText(deleteLocation);
-    morgueDeleteEmployee.setText(deleteEmployee);
-    morgueDeleteStatus.setText(deleteStatus);
+  }
+
+  @FXML
+  private void setDashboard(int notStarted, int inProgress, int complete) {
+    String notStart = Integer.toString(notStarted);
+    String inProg = Integer.toString(inProgress);
+    String comp = Integer.toString(complete);
+    notStartedNumber.setText(notStart);
+    inProgressNumber.setText(inProg);
+    completedNumber.setText(comp);
+  }
+
+  @FXML
+  public void morgueIDMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    morgueID.setText(button.getText());
+
+    // If editing or deleting an existing request:
+    if (!button.getText().equals("Add New Request")) {
+      populate(button.getText());
+    }
+  }
+
+  private void populate(String id) {
+    Request req = MorguerequestImpl.getAllRequests().get(id);
+    morgueLocation.setText(req.getLocation().getNodeID());
+    morgueEmployee.setText(req.getEmployee().getName());
+    morgueStatus.setText(req.getStatus());
+    morgueDescription.setText(req.getDescription());
   }
 }
