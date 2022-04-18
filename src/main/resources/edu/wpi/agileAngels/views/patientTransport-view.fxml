@@ -25,15 +25,15 @@
 
         <HBox alignment="CENTER" layoutX="78.0" layoutY="160.0" prefHeight="451.0" prefWidth="1158.0" spacing="50.0">
             <children>
-                <TableView fx:id="mainTable" prefHeight="451.0" prefWidth="1188.0">
+                <TableView fx:id="transportTable" prefHeight="451.0" prefWidth="1188.0">
                     <columns>
                         <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
                         <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="78.0" prefWidth="78.0" resizable="false" text="Type" />
-                        <TableColumn fx:id="locationColumn" maxWidth="160.0" minWidth="123.0" prefWidth="160.0" resizable="false" text="Location" />
+                        <TableColumn fx:id="descriptionColumn" maxWidth="442.0" minWidth="123.0" prefWidth="263.0" resizable="false" text="Patient Name" />
+                        <TableColumn fx:id="locationColumn" maxWidth="266.0" minWidth="123.0" prefWidth="266.0" resizable="false" text="Location" />
                         <TableColumn fx:id="destinationColumn" maxWidth="160.0" minWidth="123.0" prefWidth="160.0" resizable="false" text="Destination" />
                         <TableColumn fx:id="employeeColumn" maxWidth="160.0" minWidth="70.0" prefWidth="160.0" resizable="false" text="Employee" />
                         <TableColumn fx:id="statusColumn" maxWidth="176.0" minWidth="122.0" prefWidth="142.0" resizable="false" text="Status" />
-                        <TableColumn fx:id="descriptionColumn" maxWidth="442.0" minWidth="123.0" prefWidth="369.0" resizable="false" text="Description" />
                     </columns>
                 </TableView>
             </children>
@@ -220,24 +220,24 @@
             <children>
                 <Pane fx:id="popOut" prefHeight="513.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
                     <children>
-                        <MenuButton fx:id="mainType" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Type of Transport">
+                        <MenuButton fx:id="transportType" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Type of Transport">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#mainTypeMenu" text="Move Room" />
                                 <MenuItem mnemonicParsing="false" onAction="#mainTypeMenu" text="Move Hospital" />
                                 <MenuItem mnemonicParsing="false" onAction="#mainTypeMenu" text="Release" />
                             </items>
                         </MenuButton>
-                        <MenuButton fx:id="mainID" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="14.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="ID" />
-                        <MenuButton fx:id="mainLocation" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="111.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Location" />
-                  <MenuButton fx:id="mainDestination" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="160.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Destination" />
-                        <MenuButton fx:id="mainEmployee" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="211.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
-                        <MenuButton fx:id="mainStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="263.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Status">
+                        <MenuButton fx:id="transportID" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="14.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="ID" />
+                        <MenuButton fx:id="transportLocation" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="111.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Location" />
+                  <MenuButton fx:id="transportDestination" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="160.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Destination" />
+                        <MenuButton fx:id="transportEmployee" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="211.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
+                        <MenuButton fx:id="transportStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="263.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Status">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#mainStatusMenu" text="Not Started" />
                                 <MenuItem mnemonicParsing="false" onAction="#mainStatusMenu" text="In Progress" />
                             </items>
                         </MenuButton>
-                        <TextField fx:id="mainDescription" layoutX="12.0" layoutY="315.0" prefHeight="50.0" prefWidth="270.0" promptText="Patient Name " />
+                        <TextField fx:id="transportDescription" layoutX="12.0" layoutY="315.0" prefHeight="50.0" prefWidth="270.0" promptText="Patient Name " />
                         <HBox layoutX="12.0" layoutY="376.0" prefHeight="59.0" prefWidth="270.0" spacing="16.0">
                             <children>
                                 <Button fx:id="cancelRequest" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">

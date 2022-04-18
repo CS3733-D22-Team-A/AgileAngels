@@ -19,9 +19,15 @@ public class PatientTransportController extends MainController
     implements Initializable, PropertyChangeListener {
 
   @FXML Pane popOut;
-  @FXML MenuButton mainID, mainLocation, mainEmployee, mainStatus, mainType, mainDestination;
+  @FXML
+  MenuButton transportID,
+      transportLocation,
+      transportEmployee,
+      transportStatus,
+      transportType,
+      transportDestination;
   @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
-  @FXML TableView mainTable;
+  @FXML TableView transportTable;
   @FXML
   private TableColumn nameColumn,
       destinationColumn,
@@ -30,21 +36,20 @@ public class PatientTransportController extends MainController
       employeeColumn,
       statusColumn,
       descriptionColumn;
-  @FXML TextField mainDescription, employeeFilterField, statusFilterField;
+  @FXML TextField transportDescription, employeeFilterField, statusFilterField;
   @FXML Label notStartedNumber, inProgressNumber, completedNumber;
 
   // DAOs, HashMaps, and Lists required for functionality
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
-  private RequestDAOImpl mainRequestImpl = RequestDAOImpl.getInstance("TransportRequest");
+  private RequestDAOImpl mainRequestImpl =
+      RequestDAOImpl.getInstance("TransportRequest"); // looks sus
   private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   private ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
   private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
   private static ObservableList<Request> transportData = FXCollections.observableArrayList();
-
   private int statusNotStarted, statusInProgress, statusComplete;
-
   private AppController appController = AppController.getInstance();
 
   public PatientTransportController() throws SQLException {}
@@ -63,7 +68,8 @@ public class PatientTransportController extends MainController
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-    destinationColumn.setCellValueFactory(new PropertyValueFactory<>("attribute2")); // location 2
+    destinationColumn.setCellValueFactory(
+        new PropertyValueFactory<>("attribute2")); // location 2 looks sus again
 
     // Populates the table from UI list
     if (transportData.isEmpty()) {
@@ -73,7 +79,7 @@ public class PatientTransportController extends MainController
       }
     }
     dashboardLoad();
-    mainTable.setItems(transportData);
+    transportTable.setItems(transportData);
   }
 
   @Override
@@ -88,18 +94,18 @@ public class PatientTransportController extends MainController
   public void modifyRequest(ActionEvent event) {
     popOut.setVisible(true);
 
-    if (mainLocation.getItems().size() == 0) {
+    if (transportLocation.getItems().size() == 0) {
       // Populates locations dropdown
       for (Location loc : locationsList) {
         MenuItem item = new MenuItem(loc.getNodeID());
         item.setOnAction(this::mainLocationMenu);
-        mainLocation.getItems().add(item);
+        transportLocation.getItems().add(item);
       }
       // Populates destinations dropdown
       for (Location dest : locationsList) {
         MenuItem item = new MenuItem(dest.getNodeID());
         item.setOnAction(this::mainDestinationMenu);
-        mainDestination.getItems().add(item);
+        transportDestination.getItems().add(item);
       }
 
       // Populates employees dropdown
@@ -107,32 +113,32 @@ public class PatientTransportController extends MainController
         Employee emp = entry.getValue();
         MenuItem item = new MenuItem(emp.getName());
         item.setOnAction(this::mainEmployeeMenu);
-        mainEmployee.getItems().add(item);
+        transportEmployee.getItems().add(item);
       }
 
       // Populates ID dropdown
       for (Request req : transportData) {
         MenuItem item = new MenuItem(req.getName());
         item.setOnAction(this::mainIDMenu);
-        mainID.getItems().add(item);
+        transportID.getItems().add(item);
       }
       MenuItem item1 = new MenuItem("Add New Request");
       item1.setOnAction(this::mainIDMenu);
-      mainID.getItems().add(item1);
+      transportID.getItems().add(item1);
     }
   }
 
   @FXML
   public void submit(ActionEvent event) {
-    String loc = mainLocation.getText();
-    String dest = mainDestination.getText();
-    String emp = mainEmployee.getText();
-    String stat = mainStatus.getText();
-    String desc = mainDescription.getText();
-    String type = mainType.getText();
+    String loc = transportLocation.getText();
+    String dest = transportDestination.getText();
+    String emp = transportEmployee.getText();
+    String stat = transportStatus.getText();
+    String desc = transportDescription.getText();
+    String type = transportType.getText();
     Location desty = locDAO.getLocation(dest);
     // Adding
-    if (mainID.getText().equals("Add New Request")) {
+    if (transportID.getText().equals("Add New Request")) {
       Request req =
           new Request(
               "",
@@ -140,25 +146,25 @@ public class PatientTransportController extends MainController
               locationsHash.get(loc),
               type,
               stat,
-              desty.getLongName(),
+              desc,
               "N/A",
-              dest);
+              desty.getLongName());
       transportData.add(req);
       mainRequestImpl.addRequest(req);
 
-      mainID.getItems().remove(0, mainID.getItems().size());
+      transportID.getItems().remove(0, transportID.getItems().size());
       // Populates ID dropdown
       for (Request request : transportData) {
         MenuItem item = new MenuItem(request.getName());
         item.setOnAction(this::mainIDMenu);
-        mainID.getItems().add(item);
+        transportID.getItems().add(item);
       }
       MenuItem item1 = new MenuItem("Add New Request");
       item1.setOnAction(this::mainIDMenu);
-      mainID.getItems().add(item1);
+      transportID.getItems().add(item1);
 
     } else { // Editing
-      Request req = mainRequestImpl.getAllRequests().get(mainID.getText());
+      Request req = mainRequestImpl.getAllRequests().get(transportID.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
         Location newLoc = locationsHash.get(loc);
         mainRequestImpl.updateLocation(req, newLoc);
@@ -196,13 +202,13 @@ public class PatientTransportController extends MainController
 
   @FXML
   public void delete(ActionEvent event) {
-    String id = mainID.getText();
+    String id = transportID.getText();
 
     // removes the request from the table and dropdown
     for (int i = 0; i < transportData.size(); i++) {
       if (transportData.get(i).getName().equals(id)) {
         transportData.remove(i);
-        mainID.getItems().remove(i);
+        transportID.getItems().remove(i);
       }
     }
 
@@ -214,13 +220,13 @@ public class PatientTransportController extends MainController
 
   @FXML
   public void clear(ActionEvent event) {
-    mainID.setText("ID");
-    mainLocation.setText("Location");
-    mainEmployee.setText("Employee");
-    mainStatus.setText("Status");
-    mainDescription.setText("");
-    mainType.setText("Type");
-    mainDestination.setText("Destination");
+    transportID.setText("ID");
+    transportLocation.setText("Location");
+    transportEmployee.setText("Employee");
+    transportStatus.setText("Status");
+    transportDescription.setText("");
+    transportType.setText("Type");
+    transportDestination.setText("Destination");
   }
 
   /** Does filterReqsTable methods when "Submit Filters" is clicked, or "onAction." */
@@ -232,7 +238,7 @@ public class PatientTransportController extends MainController
       ObservableList<Request> trueFilteredList =
           filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
 
-      mainTable.setItems(trueFilteredList);
+      transportTable.setItems(trueFilteredList);
     } else if (!employeeFilterField.getText().isEmpty()) {
       filterReqsTableEmployee(employeeFilterField.getText());
     } else if (!statusFilterField.getText().isEmpty()) {
@@ -242,13 +248,13 @@ public class PatientTransportController extends MainController
 
   @FXML
   public void clearFilters(ActionEvent event) {
-    mainTable.setItems(transportData);
+    transportTable.setItems(transportData);
   }
 
   @FXML
   public void mainIDMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    mainID.setText(button.getText());
+    transportID.setText(button.getText());
     // If editing or deleting an existing request:
     if (!button.getText().equals("Add New Request")) {
       populate(button.getText());
@@ -258,31 +264,31 @@ public class PatientTransportController extends MainController
   @FXML
   public void mainLocationMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    mainLocation.setText(button.getText());
+    transportLocation.setText(button.getText());
   }
 
   @FXML
   public void mainEmployeeMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    mainEmployee.setText(button.getText());
+    transportEmployee.setText(button.getText());
   }
 
   @FXML
   public void mainStatusMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    mainStatus.setText(button.getText());
+    transportStatus.setText(button.getText());
   }
 
   @FXML
   public void mainTypeMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    mainType.setText(button.getText());
+    transportType.setText(button.getText());
   }
 
   @FXML
   public void mainDestinationMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    mainDestination.setText(button.getText());
+    transportDestination.setText(button.getText());
   }
 
   /**
@@ -340,7 +346,7 @@ public class PatientTransportController extends MainController
     ObservableList<Request> filteredList = filterReqEmployee(employeeName);
 
     // Sets table to only have contents of the filtered list.
-    mainTable.setItems(filteredList);
+    transportTable.setItems(filteredList);
   }
 
   /**
@@ -369,7 +375,7 @@ public class PatientTransportController extends MainController
   private void filterReqsTableStatus(String reqStatus) {
     ObservableList<Request> filteredList = filterReqStatus(reqStatus);
     // Sets table to only have contents of the filtered list.
-    mainTable.setItems(filteredList);
+    transportTable.setItems(filteredList);
   }
 
   /**
@@ -437,11 +443,11 @@ public class PatientTransportController extends MainController
    */
   private void populate(String id) {
     Request req = mainRequestImpl.getAllRequests().get(id);
-    mainLocation.setText(req.getLocation().getNodeID());
-    mainEmployee.setText(req.getEmployee().getName());
-    mainStatus.setText(req.getStatus());
-    mainDescription.setText(req.getDescription());
-    mainType.setText(req.getType());
-    mainDestination.setText(req.getAttribute2());
+    transportLocation.setText(req.getLocation().getNodeID());
+    transportEmployee.setText(req.getEmployee().getName());
+    transportStatus.setText(req.getStatus());
+    transportDescription.setText(req.getDescription());
+    transportType.setText(req.getType());
+    transportDestination.setText(req.getAttribute2());
   }
 }
