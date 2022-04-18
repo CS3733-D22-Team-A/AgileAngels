@@ -38,12 +38,12 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="73.0" prefWidth="402.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="384.0" stylesheets="@alertCSS.css" text="There are more than four dirty beds on a floor. Please make a request to clean them." wrapText="true" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="384.0" stylesheets="@alertCSS.css" text="There are more than six dirty beds on a floor. Please make service requests to clean them." wrapText="true" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="76.0" prefWidth="402.0">
                <children>
-                  <Button fx:id="requestButton" mnemonicParsing="false" onAction="#makeRequests" prefHeight="43.0" prefWidth="94.0" stylesheets="@alertCSS.css" text="Make Request" />
+                  <Button fx:id="requestButton" mnemonicParsing="false" onAction="#makeRequests" prefHeight="43.0" prefWidth="111.0" stylesheets="@alertCSS.css" text="Make Requests" />
                </children>
             </HBox>
          </children>

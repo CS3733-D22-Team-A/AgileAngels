@@ -103,7 +103,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     String changeType = evt.getPropertyName();
     int newValue = (int) evt.getNewValue();
     System.out.println("before call");
-    // appController.displayAlert();
+    appController.displayAlert();
     System.out.println("after call");
   }
 
