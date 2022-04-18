@@ -229,7 +229,7 @@
                      </items>
                   </MenuButton>
                         <TextField fx:id="mainDescription" layoutX="12.0" layoutY="255.0" prefHeight="50.0" prefWidth="270.0" promptText="Description" />
-                        <HBox layoutX="12.0" layoutY="425.0" prefHeight="59.0" prefWidth="270.0" spacing="16.0">
+                        <HBox layoutX="12.0" layoutY="359.0" prefHeight="59.0" prefWidth="270.0" spacing="16.0">
                             <children>
                                 <Button fx:id="cancelRequest" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
                                     <font>
@@ -287,6 +287,24 @@
                                 </Button>
                             </children>
                         </HBox>
+                  <Button fx:id="deleteRequest" alignment="CENTER" layoutX="13.0" layoutY="417.0" mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="270.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <graphic>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="119.0">
+                           <children>
+                              <Label text="Delete" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                     </graphic>
+                  </Button>
                     </children>
                     <effect>
                         <DropShadow />

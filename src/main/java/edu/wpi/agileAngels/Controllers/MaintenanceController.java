@@ -1,47 +1,39 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.*;
-import javafx.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
-public class MaintenanceController extends MainController implements Initializable, PropertyChangeListener {
+public class MaintenanceController extends MainController
+    implements Initializable, PropertyChangeListener {
 
-  @FXML
-  Pane popOut;
-  @FXML
-  MenuButton mainID, mainLocation, mainEmployee, mainStatus;
-  @FXML
-  Button modifyButton, cancelRequest, submitRequest, clearRequest;
-  @FXML
-  TableView mainTable;
+  @FXML Pane popOut;
+  @FXML MenuButton mainID, mainLocation, mainEmployee, mainStatus;
+  @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
+  @FXML TableView mainTable;
   @FXML
   private TableColumn nameColumn,
-          availableColumn,
-          typeColumn,
-          locationColumn,
-          employeeColumn,
-          statusColumn,
-          descriptionColumn;
-  @FXML
-  TextField mainDescription, employeeFilterField, statusFilterField;
-  @FXML
-  Label notStartedNumber,
-          inProgressNumber,
-          completedNumber;
+      availableColumn,
+      typeColumn,
+      locationColumn,
+      employeeColumn,
+      statusColumn,
+      descriptionColumn;
+  @FXML TextField mainDescription, employeeFilterField, statusFilterField;
+  @FXML Label notStartedNumber, inProgressNumber, completedNumber;
 
-  //DAOs, HashMaps, and Lists required for functionality
+  // DAOs, HashMaps, and Lists required for functionality
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private RequestDAOImpl mainRequestImpl = RequestDAOImpl.getInstance("MaintenanceRequest");
@@ -54,8 +46,7 @@ public class MaintenanceController extends MainController implements Initializab
 
   private AppController appController = AppController.getInstance();
 
-  public MaintenanceController() throws SQLException {
-  }
+  public MaintenanceController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -73,7 +64,7 @@ public class MaintenanceController extends MainController implements Initializab
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
 
-    //Populates the table from UI list
+    // Populates the table from UI list
     if (maintenanceData.isEmpty()) {
       for (Map.Entry<String, Request> entry : mainRequestImpl.getAllRequests().entrySet()) {
         Request req = entry.getValue();
@@ -93,43 +84,103 @@ public class MaintenanceController extends MainController implements Initializab
   }
 
   @FXML
-  public void modifyRequest(ActionEvent event){
+  public void modifyRequest(ActionEvent event) {
     popOut.setVisible(true);
+
+    if (mainID.getItems().size() == 0) {
+      // Populates locations dropdown
+      for (Location loc : locationsList) {
+        MenuItem item = new MenuItem(loc.getNodeID());
+        item.setOnAction(this::mainLocationMenu);
+        mainLocation.getItems().add(item);
+      }
+
+      // Populates employees dropdown
+      for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+        Employee emp = entry.getValue();
+        MenuItem item = new MenuItem(emp.getName());
+        item.setOnAction(this::mainEmployeeMenu);
+        mainEmployee.getItems().add(item);
+      }
+
+      // Populates ID dropdown
+      for (Request req : maintenanceData) {
+        MenuItem item = new MenuItem(req.getName());
+        item.setOnAction(this::mainIDMenu);
+        mainID.getItems().add(item);
+      }
+      String newRequestID = "Main" + (maintenanceData.size() + 1);
+      MenuItem item1 = new MenuItem(newRequestID);
+      item1.setOnAction(this::mainIDMenu);
+      mainID.getItems().add(item1);
+    }
   }
 
   @FXML
-  public void submit(ActionEvent event){}
+  public void submit(ActionEvent event) {}
 
   @FXML
-  public void cancel(ActionEvent event){
+  public void cancel(ActionEvent event) {
+    clear(event);
     popOut.setVisible(false);
   }
 
   @FXML
-  public void clear(ActionEvent event){}
+  public void delete(ActionEvent event) {}
 
   @FXML
-  public void filterReqOnAction(ActionEvent event){}
+  public void clear(ActionEvent event) {
+    mainID.setText("ID");
+    mainLocation.setText("Location");
+    mainEmployee.setText("Employee");
+    mainDescription.setText("");
+    mainDescription.setPromptText("Description");
+  }
 
+  /** Does filterReqsTable methods when "Submit Filters" is clicked, or "onAction." */
   @FXML
-  public void clearFilters(ActionEvent event){}
+  public void filterReqOnAction(ActionEvent event) {
+    if (!employeeFilterField.getText().isEmpty() && !statusFilterField.getText().isEmpty()) {
 
-  @FXML
-  public void mainIDMenu(ActionEvent event){
+      ObservableList<Request> empFilteredList = filterReqEmployee(employeeFilterField.getText());
+      ObservableList<Request> trueFilteredList =
+          filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
 
+      mainTable.setItems(trueFilteredList);
+    } else if (!employeeFilterField.getText().isEmpty()) {
+      filterReqsTableEmployee(employeeFilterField.getText());
+    } else if (!statusFilterField.getText().isEmpty()) {
+      filterReqsTableStatus(statusFilterField.getText());
+    }
   }
 
   @FXML
-  public void mainLocationMenu(ActionEvent event){
-
+  public void clearFilters(ActionEvent event) {
+    mainTable.setItems(maintenanceData);
   }
-  @FXML
-  public void mainEmployeeMenu(ActionEvent event){
 
+  @FXML
+  public void mainIDMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    mainID.setText(button.getText());
   }
-  @FXML
-  public void mainStatusMenu(ActionEvent event){
 
+  @FXML
+  public void mainLocationMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    mainLocation.setText(button.getText());
+  }
+
+  @FXML
+  public void mainEmployeeMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    mainEmployee.setText(button.getText());
+  }
+
+  @FXML
+  public void mainStatusMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    mainStatus.setText(button.getText());
   }
 
   /**
@@ -139,8 +190,8 @@ public class MaintenanceController extends MainController implements Initializab
   @FXML
   private void dashboardLoad() {
     if (notStartedNumber.getText().equals("-")
-            && inProgressNumber.getText().equals("-")
-            && completedNumber.getText().equals("-")) {
+        && inProgressNumber.getText().equals("-")
+        && completedNumber.getText().equals("-")) {
 
       Iterator var3 = mainRequestImpl.getAllRequests().entrySet().iterator();
       while (var3.hasNext()) {
@@ -153,7 +204,7 @@ public class MaintenanceController extends MainController implements Initializab
           statusNotStarted++;
         }
         if (entry.getValue().getStatus().equals("Complete")
-                || entry.getValue().getStatus().equals("complete")) {
+            || entry.getValue().getStatus().equals("complete")) {
           statusComplete++;
         }
       }
@@ -161,9 +212,9 @@ public class MaintenanceController extends MainController implements Initializab
     }
   }
 
-
   /**
    * Will set the dashboard's numbers to the certain types of statuses.
+   *
    * @param notStarted Requests not started
    * @param inProgress Requests in progress
    * @param complete Requests completed
@@ -178,5 +229,102 @@ public class MaintenanceController extends MainController implements Initializab
     completedNumber.setText(comp);
   }
 
+  /**
+   * Filters requests in the equipment table so only those with the given Employee remain.
+   *
+   * @param employeeName The Employee the requests must have to remain on the table.
+   */
+  private void filterReqsTableEmployee(String employeeName) {
+    ObservableList<Request> filteredList = filterReqEmployee(employeeName);
 
+    // Sets table to only have contents of the filtered list.
+    mainTable.setItems(filteredList);
+  }
+
+  /**
+   * Filters out requests in labData based on the given Employee.
+   *
+   * @param employeeName The Employee that the requests must have to be in the new list.
+   * @return The new filtered list.
+   */
+  private ObservableList<Request> filterReqEmployee(String employeeName) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : maintenanceData) {
+      if (req.getEmployee().getName().equals(employeeName)) {
+        newList.add(req);
+      }
+    }
+
+    return newList;
+  }
+
+  /**
+   * Filters requests in the maintenance table so only those with the given status remain.
+   *
+   * @param reqStatus The status the requests must have to remain on the table.
+   */
+  private void filterReqsTableStatus(String reqStatus) {
+    ObservableList<Request> filteredList = filterReqStatus(reqStatus);
+    // Sets table to only have contents of the filtered list.
+    mainTable.setItems(filteredList);
+  }
+
+  /**
+   * Filters out requests in mainData based on the given status.
+   *
+   * @param reqStatus The status that the requests must have to be in the new list.
+   * @return The new filtered list.
+   */
+  private ObservableList<Request> filterReqStatus(String reqStatus) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : maintenanceData) {
+      if (req.getStatus().equals(reqStatus)) {
+        newList.add(req);
+      }
+    }
+    return newList;
+  }
+
+  /* Methods to filter lists n times */
+
+  /**
+   * Filters out requests in mainData based on the given status.
+   *
+   * @param reqStatus The status that the requests must have to be in the new list.
+   * @param filteredList The list that was presumably filtered.
+   * @return The new filtered list.
+   */
+  private ObservableList<Request> filterFilteredReqListStatus(
+      String reqStatus, ObservableList<Request> filteredList) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : filteredList) {
+      if (req.getStatus().equals(reqStatus)) {
+        newList.add(req);
+      }
+    }
+    return newList;
+  }
+
+  /**
+   * Filters out requests in mainData based on the given Employee.
+   *
+   * @param employeeName The Employee that the requests must have to be in the new list.
+   * @param filteredList The list that was presumably filtered.
+   * @return The new filtered list.
+   */
+  private ObservableList<Request> filterFilteredReqListEmployee(
+      String employeeName, ObservableList<Request> filteredList) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : filteredList) {
+      if (req.getEmployee().getName().equals(employeeName)) {
+        newList.add(req);
+      }
+    }
+
+    return newList;
+  }
 }
