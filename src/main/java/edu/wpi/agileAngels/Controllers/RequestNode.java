@@ -148,9 +148,9 @@ public class RequestNode {
     requestNodeManager.loadNode(this);
   }
 
-  void setEmployee(String employee){
+  void setEmployee(String employee) {
 
-      this.request.setEmployee(employee);
+    this.request.setEmployee(requestNodeManager.employeeHash.get(employee));
   }
 
   public Location getLocation() {

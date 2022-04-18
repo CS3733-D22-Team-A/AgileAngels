@@ -245,12 +245,11 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
   @FXML
   public void requestEdit(ActionEvent event) {
-    currentRequestNode
-
+    currentRequestNode.setEmployee(employeeField.getText());
+    currentRequestNode.getRequest().setStatus(requestStatusDropdown.getText());
+    currentRequestNode.getRequest().setType(requestTypeDropdown.getText());
+    currentRequestNode = null;
   }
-
-
-
 
   /**
    * Removes currentNode from its pane and calls NodeManager.deleteNode(), which removes the node
@@ -528,6 +527,4 @@ public class MapsController implements Initializable, PropertyChangeListener {
   public void locationDelete(ActionEvent event) {}
 
   public void requestDelete(ActionEvent event) {}
-
-
 }
