@@ -14,7 +14,9 @@
     -fx-background-radius: 20 20 20 20;
     -fx-background-color: #F4F4F4;
     -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 10, 0, 8, 0);
-
+    -fx-border-color: rgba(0,0,0,.1);
+    -fx-border-width: 0.5;
+    -fx-border-radius: 20 20 20 20;
 
 }
 
