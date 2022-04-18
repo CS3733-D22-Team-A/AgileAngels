@@ -1,6 +1,8 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
@@ -17,7 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class EquipmentController implements Initializable {
+public class EquipmentController implements Initializable, PropertyChangeListener {
 
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
   @FXML private TextField deleteName, editRequest, employeeFilterField, statusFilterField;
@@ -93,6 +95,16 @@ public class EquipmentController implements Initializable {
     }
 
     equipmentTable.setItems(medData);
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    System.out.println("property change");
+    String changeType = evt.getPropertyName();
+    System.out.println(changeType);
+    int newValue = (int) evt.getNewValue();
+    System.out.println(newValue);
+    appController.displayAlert();
   }
 
   /**

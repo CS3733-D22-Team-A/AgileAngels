@@ -64,9 +64,9 @@ public class MedEquipImpl implements MedEquipDAO {
     String type = medicalEquip.getType();
     String floor = medicalEquip.getLocation().getFloor();
     if (clean) {
-      incrementDirty(type, floor, -1);
+      appController.incrementDirty(type, floor, -1);
     } else {
-      incrementDirty(type, floor, 1);
+      appController.incrementDirty(type, floor, 1);
     }
     medicalEquip.setClean(clean);
     Adb.updateMedicalEquipment(medicalEquip);

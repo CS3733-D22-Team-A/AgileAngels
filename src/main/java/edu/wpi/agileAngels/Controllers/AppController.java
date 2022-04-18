@@ -50,6 +50,18 @@ public class AppController {
     support.removePropertyChangeListener(pcl);
   }
 
+  public void incrementDirty(String type, String floor, int increment) {
+    if (type.equals("Bed")) {
+      incrementDirtyBeds(floor, increment);
+    } else if (type.equals("InfusionPump")) {
+      incrementDirtyInfusionPumps(floor, increment);
+    } else if (type.equals("Recliner")) {
+      incrementDirtyInfusionPumps(floor, increment);
+    } else if (type.equals("XRayMachine")) {
+      incrementDirtyXRays(floor, increment);
+    }
+  }
+
   public void incrementDirtyBeds(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
@@ -61,6 +73,7 @@ public class AppController {
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
+    System.out.println("increment dirty beds");
   }
 
   public void incrementDirtyInfusionPumps(String floor, int increment) {
@@ -77,6 +90,7 @@ public class AppController {
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
+    System.out.println("increment dirty pumps");
   }
 
   public void incrementDirtyRecliners(String floor, int increment) {
@@ -93,6 +107,7 @@ public class AppController {
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
+    System.out.println("increment dirty recliners");
   }
 
   public void incrementDirtyXRays(String floor, int increment) {
@@ -107,6 +122,55 @@ public class AppController {
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
+    System.out.println("increment dirty x-rays");
+  }
+
+  public void displayAlert() {
+    System.out.println("display alert start");
+    String view = "";
+    if (dirtyBeds[1] > 6) {
+      view = "/edu/wpi/agileAngels/views/bed-alert-view.fxml";
+    }
+    if (dirtyBeds[2] > 6) {
+      view = "/edu/wpi/agileAngels/views/bed-alert-view.fxml";
+    }
+    if (dirtyBeds[3] > 6) {
+      view = "/edu/wpi/agileAngels/views/bed-alert-view.fxml";
+    }
+    if (dirtyInfusionPumps[1] > 10) {
+      view = "/edu/wpi/agileAngels/views/pump-alert-view.fxml";
+    }
+    if (dirtyInfusionPumps[2] > 10) {
+      view = "/edu/wpi/agileAngels/views/pump-alert-view.fxml";
+    }
+    if (dirtyInfusionPumps[3] > 10) {
+      view = "/edu/wpi/agileAngels/views/pump-alert-view.fxml";
+    }
+    if (!view.equals("")) {
+      System.out.println("display alert if");
+      FXMLLoader loader = new FXMLLoader(getClass().getResource(view));
+      try {
+        Scene secondScene = new Scene(loader.load());
+
+        secondScene
+            .getStylesheets()
+            .add(
+                "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Second Stage");
+        newWindow.setScene(secondScene);
+
+        newWindow.setX(primaryStage.getX() + 200);
+        newWindow.setY(primaryStage.getY() + 100);
+
+        newWindow.show();
+
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    System.out.println("display alert end");
   }
 
   private int getFloorInt(String floor) {
