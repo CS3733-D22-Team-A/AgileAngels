@@ -127,7 +127,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     morgueID.setText("Morgue" + (morgueData.size() + 1));
   }
 
-  public void submitRequest(ActionEvent actionEvent) {
+  public void submitRequest(ActionEvent actionEvent) throws SQLException {
     addBox.setVisible(false);
     String morgueID = "Morgue";
     String empString = morgueEmployee.getText();
@@ -157,6 +157,8 @@ public class MorgueController implements Initializable, PropertyChangeListener {
       morgueData.add(morgueReq);
       morgueTable.setItems(morgueData);
     }
+    freeEmployees.clear();
+    freeEmployees = MorguerequestImpl.getFreeEmployees();
     morgueLocation.setText("Location");
     morgueStatus.setText("Status");
     morgueEmployee.setText("Employee");
@@ -279,6 +281,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
             "N/A",
             "");
     morgueData.set(num, edited);
+    MorguerequestImpl.updateRequest(edited);
     editBox.setVisible(false);
   }
 

@@ -74,8 +74,8 @@ public class ServiceRequestTable implements TableI {
       String update =
           "UPDATE ServiceRequests SET EmployeeName = ?, Location = ?, Type = ?, Status = ?, Description = ?, Attribute1 = ?, Attribute2 = ? WHERE Name = ?";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(update);
-      preparedStatement.setObject(1, request.getEmployee());
-      preparedStatement.setObject(2, request.getLocation());
+      preparedStatement.setObject(1, request.getEmployee().getName());
+      preparedStatement.setObject(2, request.getLocation().getNodeID());
       preparedStatement.setString(3, request.getType());
       preparedStatement.setString(4, request.getStatus());
       preparedStatement.setString(5, request.getDescription());
