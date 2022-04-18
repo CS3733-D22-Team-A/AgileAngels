@@ -129,7 +129,6 @@ public class MaintenanceController extends MainController
               "", employeeHash.get(emp), locationsHash.get(loc), "N/A", stat, desc, "N/A", "N/A");
       maintenanceData.add(req);
       mainRequestImpl.addRequest(req);
-      dashboardLoad();
 
       mainID.getItems().remove(0, mainID.getItems().size());
       // Populates ID dropdown
@@ -163,7 +162,6 @@ public class MaintenanceController extends MainController
           maintenanceData.set(i, req);
         }
       }
-      dashboardLoad();
     }
 
     clear(event);
@@ -191,7 +189,6 @@ public class MaintenanceController extends MainController
     mainRequestImpl.deleteRequest(mainRequestImpl.getAllRequests().get(id));
 
     clear(event);
-    dashboardLoad();
   }
 
   @FXML

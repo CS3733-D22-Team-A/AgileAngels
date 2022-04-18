@@ -73,8 +73,10 @@ public class RequestDAOImpl implements RequestDAO {
   }
 
   public void updateEmployeeName(Request request, String newName) {
-    empManager.getAllEmployees();
-    request.setEmployee(empManager.getEmployee(newName));
+    this.reqData
+        .get(request.getName())
+        .setEmployee((Employee) EmployeeManager.getInstance().getAllEmployees().get(newName));
+
     Adb.updateRequest(request, "EmployeeName", newName);
   }
 
