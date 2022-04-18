@@ -23,6 +23,7 @@ public class RequestDAOImpl implements RequestDAO {
   private static RequestDAOImpl SanrequestDAO = null;
   private static RequestDAOImpl MealDAO = null;
   private static RequestDAOImpl GiftDAO = null;
+  private static RequestDAOImpl MaintenanceDAO = null;
 
   public RequestDAOImpl(HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
@@ -58,6 +59,11 @@ public class RequestDAOImpl implements RequestDAO {
         MealDAO = new RequestDAOImpl(data, 1, "MealRequest");
       }
       return MealDAO;
+    } else if (0 == type.compareTo("MaintenanceRequest")) {
+      if (MaintenanceDAO == null) {
+        MaintenanceDAO = new RequestDAOImpl(data, 1, "MaintenanceRequest");
+      }
+      return MaintenanceDAO;
     }
     return null;
   }
@@ -67,9 +73,11 @@ public class RequestDAOImpl implements RequestDAO {
   }
 
   public void updateEmployeeName(Request request, String newName) {
-    empManager.getAllEmployees();
-    request.setEmployee(empManager.getEmployee(newName));
-    Adb.updateRequest(request, "EmployeeName", newName);
+    this.reqData
+        .get(request.getName())
+        .setEmployee((Employee) EmployeeManager.getInstance().getAllEmployees().get(newName));
+
+    Adb.updateRequest(request);
   }
 
   public void updateRequestType(Request request, int requestType) {
@@ -78,7 +86,7 @@ public class RequestDAOImpl implements RequestDAO {
 
   public void updateType(Request request, String newType) {
     request.setType(newType);
-    Adb.updateRequest(request, "Type", newType);
+    Adb.updateRequest(request);
   }
 
   public void updateLocation(Request request, Location newLocation) {
@@ -89,13 +97,13 @@ public class RequestDAOImpl implements RequestDAO {
 
   public void updateDescription(Request request, String description) {
     request.setDescription(description);
-    // Adb.updateRequest(request);
-    Adb.updateRequest(request, "Description", description);
+    Adb.updateRequest(request);
+    // Adb.updateRequest(request, "Description", description);
   }
 
   public void updateStatus(Request request, String newStatus) {
     request.setStatus(newStatus);
-    Adb.updateRequest(request, "Status", newStatus);
+    Adb.updateRequest(request);
   }
 
   public void deleteRequest(Request request) {
@@ -120,6 +128,8 @@ public class RequestDAOImpl implements RequestDAO {
       letter = "Transport";
     } else if (0 == DAOtype.compareTo("GiftRequest")) {
       letter = "Gift";
+    } else if (0 == DAOtype.compareTo("MaintenanceRequest")) {
+      letter = "Main";
     }
 
     letter = letter + Integer.toString(this.count);
@@ -171,6 +181,11 @@ public class RequestDAOImpl implements RequestDAO {
     if (values[0].substring(0, 1).compareTo("G") == 0) {}
 
     if (values[0].substring(0, 1).compareTo("S") == 0) {}
+    if (values[0].substring(0, 4).compareTo("Main") == 0
+        && DAOtype.compareTo("MaintenanceRequest") == 0) {
+      makeRequest(values);
+    }
+
     return;
   }
 
