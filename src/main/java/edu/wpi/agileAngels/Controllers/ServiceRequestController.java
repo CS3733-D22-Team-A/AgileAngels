@@ -87,7 +87,7 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
     } else if (event.getSource() == maintenanceRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/maintenance-view.fxml");
     } else if (event.getSource() == mbgRequest) {
-      appController.loadPage("/edu/wpi/agileAngels/views/mbg-view.fxml");
+      appController.loadPage("/edu/wpi/agileAngels/views/mgb-view.fxml");
     } else if (event.getSource() == morgueRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/morgue-view.fxml");
     } else if (event.getSource() == patientTransportRequest) {

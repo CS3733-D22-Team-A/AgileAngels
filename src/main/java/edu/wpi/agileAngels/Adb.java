@@ -3,6 +3,7 @@ package edu.wpi.agileAngels;
 import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import edu.wpi.agileAngels.Database.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 // This class is the backend of the DAO method.
 // The objects communicate with the DB here
@@ -56,6 +57,9 @@ public class Adb {
     }
 
     System.out.println("Apache Derby connection established!");
+    // serviceRequestTable.sortRequests("Liam");
+    // serviceRequestTable.filterRequests();
+    // serviceRequestTable.freeEmployees();
   }
 
   private static void initializeHelper() throws SQLException {
@@ -257,5 +261,9 @@ public class Adb {
 
   public static boolean updateRequest(Request request, String employeeName, String newName) {
     return serviceRequestTable.update(request);
+  }
+
+  public static ArrayList<String> getFreeEmployees() throws SQLException {
+    return serviceRequestTable.freeEmployees();
   }
 }

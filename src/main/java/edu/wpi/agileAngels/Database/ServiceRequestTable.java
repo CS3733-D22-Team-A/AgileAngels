@@ -1,8 +1,10 @@
 package edu.wpi.agileAngels.Database;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class ServiceRequestTable implements TableI {
 
@@ -72,8 +74,8 @@ public class ServiceRequestTable implements TableI {
       String update =
           "UPDATE ServiceRequests SET EmployeeName = ?, Location = ?, Type = ?, Status = ?, Description = ?, Attribute1 = ?, Attribute2 = ? WHERE Name = ?";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(update);
-      preparedStatement.setString(1, request.getEmployee().getName());
-      preparedStatement.setString(2, request.getLocation().getLongName());
+      preparedStatement.setObject(1, request.getEmployee().getName());
+      preparedStatement.setObject(2, request.getLocation().getNodeID());
       preparedStatement.setString(3, request.getType());
       preparedStatement.setString(4, request.getStatus());
       preparedStatement.setString(5, request.getDescription());
@@ -129,5 +131,50 @@ public class ServiceRequestTable implements TableI {
     } catch (SQLException sqlException) {
       return false;
     }
+  }
+
+  public static void sortRequests(String employee) throws SQLException {
+    PreparedStatement preparedStatement =
+        DBconnection.getConnection()
+            .prepareStatement("SELECT * FROM ServiceRequests WHERE EmployeeName = ?");
+    preparedStatement.setString(1, employee);
+    ResultSet rs = preparedStatement.executeQuery();
+    while (rs.next()) {
+      System.out.println("Name:" + rs.getString("Name"));
+      System.out.println("EmployeeName:" + rs.getString("EmployeeName"));
+      System.out.println("Location:" + rs.getString("Location"));
+      System.out.println("Attribute1:" + rs.getString("Attribute1"));
+      System.out.println("Type:" + rs.getString("Type"));
+      System.out.println("Status:" + rs.getString("Status"));
+      System.out.println("Description:" + rs.getString("Description"));
+    }
+  }
+
+  public static void filterRequests() throws SQLException {
+    Statement statement = DBconnection.getConnection().createStatement();
+    String queryFilter = "SELECT * FROM ServiceRequests ORDER BY Status, EmployeeName";
+    ResultSet rs = statement.executeQuery(queryFilter);
+    while (rs.next()) {
+      System.out.println("Name:" + rs.getString("Name"));
+      System.out.println("EmployeeName:" + rs.getString("EmployeeName"));
+      System.out.println("Location:" + rs.getString("Location"));
+      System.out.println("Attribute1:" + rs.getString("Attribute1"));
+      System.out.println("Type:" + rs.getString("Type"));
+      System.out.println("Status:" + rs.getString("Status"));
+      System.out.println("Description:" + rs.getString("Description"));
+      System.out.println("\n");
+    }
+  }
+
+  public static ArrayList<String> freeEmployees() throws SQLException {
+    Statement statement = DBconnection.getConnection().createStatement();
+    ArrayList<String> employees = new ArrayList<>();
+    String freeEmployee =
+        "(SELECT Employees.Name FROM Employees left outer join ServiceRequests on ServiceRequests.EmployeeName = Employees.Name WHERE ServiceRequests.EmployeeName IS NULL OR ServiceRequests.Status in ('complete') GROUP BY Employees.Name) EXCEPT (SELECT Employees.Name FROM ServiceRequests join Employees on ServiceRequests.EmployeeName = Employees.Name WHERE Status in ('notStarted','inProgress','Not Complete','In Progress'))";
+    ResultSet rs = statement.executeQuery(freeEmployee);
+    while (rs.next()) {
+      employees.add(rs.getString("Name"));
+    }
+    return employees;
   }
 }

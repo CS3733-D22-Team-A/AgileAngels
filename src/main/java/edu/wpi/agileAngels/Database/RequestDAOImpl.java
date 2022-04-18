@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.*;
 
@@ -26,6 +27,7 @@ public class RequestDAOImpl implements RequestDAO {
   private static RequestDAOImpl GiftDAO = null;
   private static RequestDAOImpl MaintenanceDAO = null;
   private static RequestDAOImpl TransportDAO = null;
+  private static RequestDAOImpl MorgueDAO = null;
 
   public RequestDAOImpl(HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
@@ -71,12 +73,21 @@ public class RequestDAOImpl implements RequestDAO {
         TransportDAO = new RequestDAOImpl(data, 1, "TransportRequest");
       }
       return TransportDAO;
+    } else if (0 == type.compareTo("MorgueRequest")) {
+      if (MorgueDAO == null) {
+        MorgueDAO = new RequestDAOImpl(data, 1, "MorgueRequest");
+      }
+      return MorgueDAO;
     }
     return null;
   }
 
   public HashMap<String, Request> getAllRequests() {
     return this.reqData;
+  }
+
+  public void updateRequest(Request request) {
+    Adb.updateRequest(request);
   }
 
   public void updateEmployeeName(Request request, String newName) {
@@ -142,6 +153,8 @@ public class RequestDAOImpl implements RequestDAO {
       letter = "Gift";
     } else if (0 == DAOtype.compareTo("MaintenanceRequest")) {
       letter = "Main";
+    } else if (0 == DAOtype.compareTo("MorgueRequest")) {
+      letter = "Morgue";
     }
 
     letter = letter + Integer.toString(this.count);
@@ -196,6 +209,11 @@ public class RequestDAOImpl implements RequestDAO {
         && DAOtype.compareTo("TransportRequest") == 0) { // Now this is an issue!
       makeRequest(values);
     }
+    else if (values[0].substring(0, 3).compareTo("Mor") == 0
+        && DAOtype.compareTo("MorgueRequest") == 0) {
+      makeRequest(values);
+    }
+    return;
 
     // return;
   }
@@ -283,5 +301,9 @@ public class RequestDAOImpl implements RequestDAO {
       System.out.println("Datababse error:");
       e.printStackTrace();
     }
+  }
+
+  public ArrayList<String> getFreeEmployees() throws SQLException {
+    return Adb.getFreeEmployees();
   }
 }
