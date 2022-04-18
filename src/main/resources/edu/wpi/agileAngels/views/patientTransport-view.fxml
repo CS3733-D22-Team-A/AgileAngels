@@ -3,12 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -25,15 +25,15 @@
 
         <HBox alignment="CENTER" layoutX="78.0" layoutY="160.0" prefHeight="451.0" prefWidth="1158.0" spacing="50.0">
             <children>
-                <TableView fx:id="transportTable" prefHeight="451.0" prefWidth="1188.0">
+                <TableView fx:id="mainTable" prefHeight="451.0" prefWidth="1188.0">
                     <columns>
                         <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
-                        <TableColumn fx:id="availableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Available" />
-                        <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Type" />
-                        <TableColumn fx:id="locationColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Location" />
-                        <TableColumn fx:id="employeeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Employee" />
-                        <TableColumn fx:id="statusColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Status" />
-                        <TableColumn fx:id="descriptionColumn" maxWidth="442.0" minWidth="123.0" prefWidth="442.0" resizable="false" text="Description" />
+                        <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="78.0" prefWidth="78.0" resizable="false" text="Type" />
+                        <TableColumn fx:id="locationColumn" maxWidth="160.0" minWidth="123.0" prefWidth="160.0" resizable="false" text="Location" />
+                        <TableColumn fx:id="destinationColumn" maxWidth="160.0" minWidth="123.0" prefWidth="160.0" resizable="false" text="Destination" />
+                        <TableColumn fx:id="employeeColumn" maxWidth="160.0" minWidth="70.0" prefWidth="160.0" resizable="false" text="Employee" />
+                        <TableColumn fx:id="statusColumn" maxWidth="176.0" minWidth="122.0" prefWidth="142.0" resizable="false" text="Status" />
+                        <TableColumn fx:id="descriptionColumn" maxWidth="442.0" minWidth="123.0" prefWidth="369.0" resizable="false" text="Description" />
                     </columns>
                 </TableView>
             </children>
@@ -211,124 +211,124 @@
             </graphic>
         </Button>
         <TextField fx:id="statusFilterField" layoutX="657.0" layoutY="623.0" prefHeight="50.0" prefWidth="154.0" promptText="Filter by Status" />
-        <Button fx:id="addButton" layoutX="846.0" layoutY="79.0" mnemonicParsing="false" onAction="#addButton" prefHeight="59.0" prefWidth="120.0" style="-fx-font-weight: bold;" text="Add / Edit / Delete" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font size="15.0" />
-         </font></Button>
-          <VBox alignment="CENTER" layoutX="978.0" prefHeight="678.0" prefWidth="294.0" spacing="15.0">
-              <children>
-                  <Pane fx:id="popOut" prefHeight="484.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
-                      <children>
-                          <TextField fx:id="transportStatus" layoutX="14.0" layoutY="78.0" prefHeight="50.0" prefWidth="270.0" promptText="Status" />
-                          <Button fx:id="dropButton" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#enterDropdown" prefHeight="50.0" prefWidth="270.0">
-                              <graphic>
-                                  <HBox alignment="CENTER_LEFT" layoutX="100.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                                      <children>
-                                          <Label fx:id="dropdownButtonText" prefHeight="26.0" prefWidth="344.0" text="Select Transport Type" textFill="#868686">
-                                              <font>
-                                                  <Font size="24.0" />
-                                              </font>
-                                              <padding>
-                                                  <Insets left="10.0" />
-                                              </padding>
-                                          </Label>
-                                          <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
-                                              <children>
-                                                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                                      <image>
-                                                          <Image url="@../assets/icons/dropdown.png" />
-                                                      </image>
-                                                      <HBox.margin>
-                                                          <Insets right="10.0" />
-                                                      </HBox.margin>
-                                                  </ImageView>
-                                              </children>
-                                          </HBox>
-                                      </children>
-                                  </HBox>
-                              </graphic>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                          </Button>
-                          <TextField fx:id="transportLocation" layoutX="12.0" layoutY="136.0" prefHeight="50.0" prefWidth="270.0" promptText="Delivery Location" />
-                          <TextField fx:id="transportEmployee" layoutX="12.0" layoutY="192.0" prefHeight="50.0" prefWidth="270.0" promptText="Employee" />
-                          <TextField fx:id="transportDelete" layoutX="14.0" layoutY="362.0" prefHeight="50.0" prefWidth="270.0" promptText="Delete by Index" />
-                          <TextField fx:id="transportEdit" layoutX="12.0" layoutY="304.0" prefHeight="50.0" prefWidth="270.0" promptText="Edit by Index" />
-                          <TextField fx:id="transportDescription" layoutX="12.0" layoutY="248.0" prefHeight="50.0" prefWidth="270.0" promptText="Description" />
-                    <HBox layoutX="12.0" layoutY="425.0" prefHeight="59.0" prefWidth="270.0" spacing="16.0">
-                        <children>
-                            <Button fx:id="goBack" alignment="CENTER" mnemonicParsing="false" onAction="#goBack" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                                <font>
-                                    <Font size="10.0" />
-                                </font>
-                                <opaqueInsets>
-                                    <Insets />
-                                </opaqueInsets>
-                                <graphic>
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                        <children>
-                                            <Label text="Cancel" />
-                                        </children>
-                                        <opaqueInsets>
-                                            <Insets />
-                                        </opaqueInsets>
-                                    </HBox>
-                                </graphic>
-                            </Button>
-                            <Button alignment="CENTER" mnemonicParsing="false" onAction="#submitTransportTest" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                                <font>
-                                    <Font size="10.0" />
-                                </font>
-                                <opaqueInsets>
-                                    <Insets />
-                                </opaqueInsets>
-                                <graphic>
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                        <children>
-                                            <Label text="Submit" />
-                                        </children>
-                                        <opaqueInsets>
-                                            <Insets />
-                                        </opaqueInsets>
-                                    </HBox>
-                                </graphic>
-                            </Button>
-                        <Button fx:id="clear1" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                           <font>
-                              <Font size="10.0" />
-                           </font>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <graphic>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Clear" />
-                                 </children>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </HBox>
-                           </graphic>
+        <Button fx:id="modifyButton" layoutX="846.0" layoutY="79.0" mnemonicParsing="false" onAction="#modifyRequest" prefHeight="59.0" prefWidth="120.0" style="-fx-font-weight: bold;" text="Modify" textAlignment="CENTER" wrapText="true">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Button>
+        <VBox alignment="CENTER" layoutX="978.0" prefHeight="678.0" prefWidth="294.0" spacing="15.0">
+            <children>
+                <Pane fx:id="popOut" prefHeight="513.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
+                    <children>
+                        <MenuButton fx:id="mainType" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Type of Transport">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#mainTypeMenu" text="Move Room" />
+                                <MenuItem mnemonicParsing="false" onAction="#mainTypeMenu" text="Move Hospital" />
+                                <MenuItem mnemonicParsing="false" onAction="#mainTypeMenu" text="Release" />
+                            </items>
+                        </MenuButton>
+                        <MenuButton fx:id="mainID" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="14.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="ID" />
+                        <MenuButton fx:id="mainLocation" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="111.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Location" />
+                  <MenuButton fx:id="mainDestination" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="160.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Destination" />
+                        <MenuButton fx:id="mainEmployee" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="211.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
+                        <MenuButton fx:id="mainStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="263.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Status">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#mainStatusMenu" text="Not Started" />
+                                <MenuItem mnemonicParsing="false" onAction="#mainStatusMenu" text="In Progress" />
+                            </items>
+                        </MenuButton>
+                        <TextField fx:id="mainDescription" layoutX="12.0" layoutY="315.0" prefHeight="50.0" prefWidth="270.0" promptText="Patient Name " />
+                        <HBox layoutX="12.0" layoutY="376.0" prefHeight="59.0" prefWidth="270.0" spacing="16.0">
+                            <children>
+                                <Button fx:id="cancelRequest" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                    <graphic>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <Label text="Cancel" />
+                                            </children>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                        </HBox>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="submitRequest" alignment="CENTER" mnemonicParsing="false" onAction="#submit" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                    <graphic>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <Label text="Submit" />
+                                            </children>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                        </HBox>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="clearRequest" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#clear" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                    <graphic>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <Label text="Clear" />
+                                            </children>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                        </HBox>
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </HBox>
+                        <Button fx:id="deleteRequest" alignment="CENTER" layoutX="12.0" layoutY="443.0" mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="270.0" textAlignment="CENTER">
+                            <font>
+                                <Font size="10.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <graphic>
+                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="119.0">
+                                    <children>
+                                        <Label text="Delete" />
+                                    </children>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                </HBox>
+                            </graphic>
                         </Button>
-                        </children>
-                    </HBox>
-                      </children>
-               <effect>
-                  <DropShadow />
-               </effect>
-                  </Pane>
-              </children>
+                    </children>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Pane>
+            </children>
 
 
-              <!--
+            <!--
 
-              above is a VBox that includes text fields and a menu dropdown if implimenting a menu dropdown include the pane at the end
+            above is a VBox that includes text fields and a menu dropdown if implimenting a menu dropdown include the pane at the end
 
-                    -->
+                  -->
 
-          </VBox>
+        </VBox>
 
 
     </children>

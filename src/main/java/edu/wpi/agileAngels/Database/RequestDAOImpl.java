@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import javax.swing.*;
 
 // Implementation of RequestDAO
 public class RequestDAOImpl implements RequestDAO {
@@ -24,6 +25,7 @@ public class RequestDAOImpl implements RequestDAO {
   private static RequestDAOImpl MealDAO = null;
   private static RequestDAOImpl GiftDAO = null;
   private static RequestDAOImpl MaintenanceDAO = null;
+  private static RequestDAOImpl TransportDAO = null;
 
   public RequestDAOImpl(HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
@@ -64,6 +66,11 @@ public class RequestDAOImpl implements RequestDAO {
         MaintenanceDAO = new RequestDAOImpl(data, 1, "MaintenanceRequest");
       }
       return MaintenanceDAO;
+    } else if (0 == type.compareTo("TransportRequest")) {
+      if (TransportDAO == null) {
+        TransportDAO = new RequestDAOImpl(data, 1, "TransportRequest");
+      }
+      return TransportDAO;
     }
     return null;
   }
@@ -104,6 +111,11 @@ public class RequestDAOImpl implements RequestDAO {
   public void updateStatus(Request request, String newStatus) {
     request.setStatus(newStatus);
     Adb.updateRequest(request);
+  }
+
+  public void updateAttribute2(Request req, String dest) {
+    req.setStatus(dest);
+    Adb.updateRequest(req);
   }
 
   public void deleteRequest(Request request) {
@@ -162,31 +174,30 @@ public class RequestDAOImpl implements RequestDAO {
       var8.printStackTrace();
     }
   }
+
   // UHHHH fix this
   private void typeofDAO(String[] values) throws SQLException {
     ++this.count;
     if (values[0].substring(0, 3).compareTo("Med") == 0 && DAOtype.compareTo("MedRequest") == 0) {
       makeRequest(values);
-    }
-    if (values[0].substring(0, 3).compareTo("Trans") == 0
-        && DAOtype.compareTo("TransportRequest") == 0) {
+    } else if (values[0].substring(0, 4).compareTo("Meal") == 0) {
+
+    } else if (values[0].substring(0, 1).compareTo("L") == 0
+        && DAOtype.compareTo("LabRequest") == 0) {
       makeRequest(values);
-    }
-    if (values[0].substring(0, 4).compareTo("Meal") == 0) {}
+    } else if (values[0].substring(0, 1).compareTo("G") == 0) {
 
-    if (values[0].substring(0, 1).compareTo("L") == 0 && DAOtype.compareTo("LabRequest") == 0) {
-      makeRequest(values);
-    }
+    } else if (values[0].substring(0, 1).compareTo("S") == 0) {
 
-    if (values[0].substring(0, 1).compareTo("G") == 0) {}
-
-    if (values[0].substring(0, 1).compareTo("S") == 0) {}
-    if (values[0].substring(0, 4).compareTo("Main") == 0
+    } else if (values[0].substring(0, 4).compareTo("Main") == 0
         && DAOtype.compareTo("MaintenanceRequest") == 0) {
       makeRequest(values);
+    } else if (values[0].substring(0, 4).compareTo("Tran") == 0
+        && DAOtype.compareTo("PatientTransportRequest") == 0) {
+      makeRequest(values);
     }
 
-    return;
+    // return;
   }
 
   private void makeRequest(String[] values) throws SQLException {
