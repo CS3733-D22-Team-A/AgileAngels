@@ -39,7 +39,6 @@ public class BedAlertController {
 
     // create requests to clean all dirty beds
     for (MedicalEquip medEquip : dirtyBeds) {
-      System.out.println("BedAlert for loop");
       Request medDevice =
           new Request(
               "",

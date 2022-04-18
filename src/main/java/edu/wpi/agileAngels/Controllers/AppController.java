@@ -65,10 +65,10 @@ public class AppController {
   public void incrementDirtyBeds(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
-      support.firePropertyChange(
-          "dirtyBeds" + floor, this.dirtyBeds[floorInt], this.dirtyBeds[floorInt] + increment);
       this.dirtyBeds[floorInt] = this.dirtyBeds[floorInt] + increment;
       this.dirtyBeds[0] = this.dirtyBeds[0] + increment;
+      support.firePropertyChange(
+          "dirtyBeds" + floor, this.dirtyBeds[floorInt], this.dirtyBeds[floorInt] + increment);
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
@@ -77,12 +77,13 @@ public class AppController {
   public void incrementDirtyInfusionPumps(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
+      this.dirtyInfusionPumps[floorInt] = this.dirtyInfusionPumps[floorInt] + increment;
+      this.dirtyInfusionPumps[0] = this.dirtyInfusionPumps[0] + increment;
       support.firePropertyChange(
           "dirtyPumps" + floor,
           this.dirtyInfusionPumps[floorInt],
           this.dirtyInfusionPumps[floorInt] + increment);
-      this.dirtyInfusionPumps[floorInt] = this.dirtyInfusionPumps[floorInt] + increment;
-      this.dirtyInfusionPumps[0] = this.dirtyInfusionPumps[0] + increment;
+
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
@@ -91,12 +92,12 @@ public class AppController {
   public void incrementDirtyRecliners(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
+      this.dirtyRecliners[floorInt] = this.dirtyRecliners[floorInt] + increment;
+      this.dirtyRecliners[0] = this.dirtyRecliners[0] + increment;
       support.firePropertyChange(
           "dirtyRecliners" + floor,
           this.dirtyRecliners[floorInt],
           this.dirtyRecliners[floorInt] + increment);
-      this.dirtyRecliners[floorInt] = this.dirtyRecliners[floorInt] + increment;
-      this.dirtyRecliners[0] = this.dirtyRecliners[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
@@ -105,36 +106,33 @@ public class AppController {
   public void incrementDirtyXRays(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
-      support.firePropertyChange(
-          "dirtyXRays" + floor, this.dirtyXRays[floorInt], this.dirtyXRays[floorInt] + increment);
       this.dirtyXRays[floorInt] = this.dirtyXRays[floorInt] + increment;
       this.dirtyXRays[0] = this.dirtyXRays[0] + increment;
+      support.firePropertyChange(
+          "dirtyXRays" + floor, this.dirtyXRays[floorInt], this.dirtyXRays[floorInt] + increment);
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
   }
 
-  public void displayAlert() {
+  public boolean displayAlert() {
+    boolean alertDisplayed = false;
     String view = "";
     if (dirtyBeds[1] > 6) {
       view = "/edu/wpi/agileAngels/views/bed-alert-view.fxml";
-    }
-    if (dirtyBeds[2] > 6) {
+    } else if (dirtyBeds[2] > 6) {
       view = "/edu/wpi/agileAngels/views/bed-alert-view.fxml";
-    }
-    if (dirtyBeds[3] > 6) {
+    } else if (dirtyBeds[3] > 6) {
       view = "/edu/wpi/agileAngels/views/bed-alert-view.fxml";
-    }
-    if (dirtyInfusionPumps[1] > 10) {
+    } else if (dirtyInfusionPumps[1] > 10) {
       view = "/edu/wpi/agileAngels/views/pump-alert-view.fxml";
-    }
-    if (dirtyInfusionPumps[2] > 10) {
+    } else if (dirtyInfusionPumps[2] > 10) {
       view = "/edu/wpi/agileAngels/views/pump-alert-view.fxml";
-    }
-    if (dirtyInfusionPumps[3] > 10) {
+    } else if (dirtyInfusionPumps[3] > 10) {
       view = "/edu/wpi/agileAngels/views/pump-alert-view.fxml";
     }
     if (!view.equals("")) {
+      alertDisplayed = true;
       FXMLLoader loader = new FXMLLoader(getClass().getResource(view));
       try {
         Scene secondScene = new Scene(loader.load());
@@ -157,6 +155,7 @@ public class AppController {
         e.printStackTrace();
       }
     }
+    return alertDisplayed;
   }
 
   public String getPumpFloor() {
