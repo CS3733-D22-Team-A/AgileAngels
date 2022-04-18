@@ -236,6 +236,16 @@ public class AppController {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    try {
+      if (view.contains("map-view")) {
+        menuController.changeTitle("Maps");
+      } else if (view.contains("equipment-view")) {
+        menuController.changeTitle("Equipment Request");
+      }
+
+    } catch (NullPointerException e) {
+
+    }
   }
 
   public void back() {

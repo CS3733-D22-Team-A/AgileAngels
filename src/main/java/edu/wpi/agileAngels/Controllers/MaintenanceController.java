@@ -15,8 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
-public class MaintenanceController extends MainController
-    implements Initializable, PropertyChangeListener {
+public class MaintenanceController implements Initializable, PropertyChangeListener {
 
   @FXML Pane popOut;
   @FXML MenuButton mainID, mainLocation, mainEmployee, mainStatus;
@@ -408,4 +407,6 @@ public class MaintenanceController extends MainController
     mainStatus.setText(req.getStatus());
     mainDescription.setText(req.getDescription());
   }
+
+  public void menuItemSelected(ActionEvent actionEvent) {}
 }
