@@ -318,7 +318,7 @@
                   <Font size="28.0" />
                </font>
             </Label>
-            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="6.0" layoutY="60.0" pannable="true" prefHeight="179.0" prefWidth="318.0" stylesheets="@DashCSS.css" vbarPolicy="NEVER">
+            <ScrollPane hbarPolicy="NEVER" layoutX="6.0" layoutY="60.0" pannable="true" prefHeight="179.0" prefWidth="318.0" stylesheets="@DashCSS.css" vbarPolicy="NEVER">
                <content>
                   <Pane prefHeight="187.0" prefWidth="316.0">
                      <children>
