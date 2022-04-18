@@ -104,7 +104,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     System.out.println(changeType);
     int newValue = (int) evt.getNewValue();
     System.out.println(newValue);
-    appController.displayAlert();
+    // appController.displayAlert();
   }
 
   /**
@@ -219,6 +219,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
             "Sorry, there are currently no " + dropDownString + "s available. ");
       }
     }
+    appController.displayAlert();
   }
 
   /* FILTER METHODS BEYOND HERE */

@@ -50,15 +50,15 @@ public class AppController {
     support.removePropertyChangeListener(pcl);
   }
 
-  public void incrementDirty(String type, String floor, int increment) {
-    if (type.equals("Bed")) {
-      incrementDirtyBeds(floor, increment);
+  public void incrementDirty(String type, String floor, int i) {
+    if (type.equals("XRayMachine")) {
+      appController.incrementDirtyXRays(floor, i);
     } else if (type.equals("InfusionPump")) {
-      incrementDirtyInfusionPumps(floor, increment);
+      appController.incrementDirtyInfusionPumps(floor, i);
+    } else if (type.equals("Bed")) {
+      appController.incrementDirtyBeds(floor, i);
     } else if (type.equals("Recliner")) {
-      incrementDirtyInfusionPumps(floor, increment);
-    } else if (type.equals("XRayMachine")) {
-      incrementDirtyXRays(floor, increment);
+      appController.incrementDirtyRecliners(floor, i);
     }
   }
 
@@ -73,7 +73,7 @@ public class AppController {
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
-    System.out.println("increment dirty beds");
+    System.out.println("increment dirty beds " + dirtyBeds[floorInt]);
   }
 
   public void incrementDirtyInfusionPumps(String floor, int increment) {
