@@ -1,13 +1,12 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.*;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class BedAlertController {
 
@@ -22,8 +21,7 @@ public class BedAlertController {
   private EmployeeManager employeeDAO = EmployeeManager.getInstance();
   private HashMap<String, Location> employeeHash = employeeDAO.getAllEmployees();
 
-  public BedAlertController() throws SQLException {
-  }
+  public BedAlertController() throws SQLException {}
 
   @FXML
   public void makeRequests() {
@@ -33,25 +31,26 @@ public class BedAlertController {
     // get all dirty beds
     for (MedicalEquip medEquip : equipList) {
       if (!medEquip.isClean()
-              && medEquip.getType().equals("Bed")
-              && medEquip.getLocation().getFloor().equals(floor)) {
+          && medEquip.getType().equals("Bed")
+          && medEquip.getLocation().getFloor().equals(floor)) {
         dirtyBeds.add(medEquip);
       }
     }
 
     // create requests to clean all dirty beds
     for (MedicalEquip medEquip : dirtyBeds) {
+      System.out.println("BedAlert for loop");
       Request medDevice =
-              new Request(
-                      "MedClean",
-                      employeeDAO.getEmployee("James"),
-                      medEquip.getLocation(),
-                      "Bed",
-                      "notStarted",
-                      "describe",
-                      "something",
-                      "Clean",
-                      medEquip);
+          new Request(
+              "MedClean",
+              employeeDAO.getEmployee("James"),
+              medEquip.getLocation(),
+              "Bed",
+              "notStarted",
+              "describe",
+              "something",
+              "Clean",
+              medEquip);
       requestDAO.addRequest(medDevice);
 
       // set status of bed

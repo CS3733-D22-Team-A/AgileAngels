@@ -28,8 +28,8 @@ public class AppController {
     support = new PropertyChangeSupport(this);
 
     for (int i = 0; i < 4; i++) {
-      dirtyBeds[i] = 0;
-      dirtyInfusionPumps[i] = 0;
+      dirtyBeds[i] = 6;
+      dirtyInfusionPumps[i] = 10;
       dirtyRecliners[i] = 0;
       dirtyXRays[i] = 0;
     }
@@ -68,7 +68,6 @@ public class AppController {
       support.firePropertyChange(
           "dirtyBeds" + floor, this.dirtyBeds[floorInt], this.dirtyBeds[floorInt] + increment);
       this.dirtyBeds[floorInt] = this.dirtyBeds[floorInt] + increment;
-      support.firePropertyChange("dirtyBedsAll", this.dirtyBeds[0], this.dirtyBeds[0] + increment);
       this.dirtyBeds[0] = this.dirtyBeds[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
@@ -83,8 +82,6 @@ public class AppController {
           this.dirtyInfusionPumps[floorInt],
           this.dirtyInfusionPumps[floorInt] + increment);
       this.dirtyInfusionPumps[floorInt] = this.dirtyInfusionPumps[floorInt] + increment;
-      support.firePropertyChange(
-          "dirtyPumpsAll", this.dirtyInfusionPumps[0], this.dirtyInfusionPumps[0] + increment);
       this.dirtyInfusionPumps[0] = this.dirtyInfusionPumps[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
@@ -99,8 +96,6 @@ public class AppController {
           this.dirtyRecliners[floorInt],
           this.dirtyRecliners[floorInt] + increment);
       this.dirtyRecliners[floorInt] = this.dirtyRecliners[floorInt] + increment;
-      support.firePropertyChange(
-          "dirtyReclinersAll", this.dirtyRecliners[0], this.dirtyRecliners[0] + increment);
       this.dirtyRecliners[0] = this.dirtyRecliners[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
@@ -113,8 +108,6 @@ public class AppController {
       support.firePropertyChange(
           "dirtyXRays" + floor, this.dirtyXRays[floorInt], this.dirtyXRays[floorInt] + increment);
       this.dirtyXRays[floorInt] = this.dirtyXRays[floorInt] + increment;
-      support.firePropertyChange(
-          "dirtyXRaysAll", this.dirtyXRays[0], this.dirtyXRays[0] + increment);
       this.dirtyXRays[0] = this.dirtyXRays[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
@@ -152,7 +145,7 @@ public class AppController {
                 "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
         Stage newWindow = new Stage();
-        newWindow.setTitle("Second Stage");
+        newWindow.setTitle("Alert");
         newWindow.setScene(secondScene);
 
         newWindow.setX(primaryStage.getX() + 200);

@@ -100,11 +100,8 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    System.out.println("property change");
     String changeType = evt.getPropertyName();
-    System.out.println(changeType);
     int newValue = (int) evt.getNewValue();
-    System.out.println(newValue);
     appController.displayAlert();
   }
 
