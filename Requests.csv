@@ -6,5 +6,5 @@ Med4,Ariana,HSTAI00103,Bed,complete,Describe, something, something
 Lab1,Carly,HDEPT00102,bloodtest,inProgress,describe, something, something
 Lab2,Tom,CDEPT002L1,Pills,notStarted,describe,something, something
 Lab3,Alex,CHALL005L2,COVIDTest,complete,Describe, something, something
-Main1,James,WELEV00L02,N/A, Not Started,Broken elevator,N/A,N/A
-Main2,Carly,WELEV00L02,N/A, Complete,Broken elevator,N/A,N/A
+Main1,James,WELEV00L02,N/A,notStarted,Broken Elevator,N/A,N/A
+Main2,Tom,HBATH00103,N/A,inProgress,Flooded bathroom,N/A,N/A

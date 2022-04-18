@@ -84,9 +84,11 @@ public class RequestDAOImpl implements RequestDAO {
   }
 
   public void updateEmployeeName(Request request, String newName) {
-    empManager.getAllEmployees();
-    request.setEmployee(empManager.getEmployee(newName));
-    Adb.updateRequest(request, "EmployeeName", newName);
+    this.reqData
+        .get(request.getName())
+        .setEmployee((Employee) EmployeeManager.getInstance().getAllEmployees().get(newName));
+
+    Adb.updateRequest(request);
   }
 
   public void updateRequestType(Request request, int requestType) {
@@ -95,7 +97,7 @@ public class RequestDAOImpl implements RequestDAO {
 
   public void updateType(Request request, String newType) {
     request.setType(newType);
-    Adb.updateRequest(request, "Type", newType);
+    Adb.updateRequest(request);
   }
 
   public void updateLocation(Request request, Location newLocation) {
@@ -106,13 +108,13 @@ public class RequestDAOImpl implements RequestDAO {
 
   public void updateDescription(Request request, String description) {
     request.setDescription(description);
-    // Adb.updateRequest(request);
-    Adb.updateRequest(request, "Description", description);
+    Adb.updateRequest(request);
+    // Adb.updateRequest(request, "Description", description);
   }
 
   public void updateStatus(Request request, String newStatus) {
     request.setStatus(newStatus);
-    Adb.updateRequest(request, "Status", newStatus);
+    Adb.updateRequest(request);
   }
 
   public void deleteRequest(Request request) {

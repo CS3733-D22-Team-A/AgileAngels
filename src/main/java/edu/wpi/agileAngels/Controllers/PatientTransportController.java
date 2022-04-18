@@ -29,7 +29,7 @@ public class PatientTransportController extends MainController
       employeeFilterField,
       statusFilterField;
 
-  private RequestDAOImpl LabDAO = RequestDAOImpl.getInstance("LabRequest");
+  private RequestDAOImpl transportDAO = RequestDAOImpl.getInstance("LabRequest");
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private HashMap<String, Employee> employeeHashMap = new HashMap<>();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
@@ -91,9 +91,9 @@ public class PatientTransportController extends MainController
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     if (labData.isEmpty()) {
       System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
-      LabDAO.csvRead();
-      Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
-      for (Map.Entry<String, Request> entry : LabDAO.getAllRequests().entrySet()) {
+      transportDAO.csvRead();
+      Iterator var3 = transportDAO.getAllRequests().entrySet().iterator();
+      for (Map.Entry<String, Request> entry : transportDAO.getAllRequests().entrySet()) {
         Request req = entry.getValue();
         dashboardLoad();
         labData.add(req);
@@ -108,9 +108,8 @@ public class PatientTransportController extends MainController
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     String changeType = evt.getPropertyName();
-    System.out.println(changeType);
     int newValue = (int) evt.getNewValue();
-    System.out.println(newValue);
+    appController.displayAlert();
   }
 
   /**
@@ -123,8 +122,8 @@ public class PatientTransportController extends MainController
         && inProgressNumber.getText().equals("-")
         && completedNumber.getText().equals("-")) {
       System.out.println("THE NUMBERS ARE EMPTY, RELEASE THE HOUNDS");
-      LabDAO.csvRead();
-      Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
+      transportDAO.csvRead();
+      Iterator var3 = transportDAO.getAllRequests().entrySet().iterator();
       while (var3.hasNext()) {
         Map.Entry<String, Request> entry = (Map.Entry) var3.next();
         Request object = (Request) entry.getValue();
@@ -200,13 +199,14 @@ public class PatientTransportController extends MainController
    * @param deleteString
    */
   private void deleteLabRequest(String deleteString) {
+    String status = transportDAO.getAllRequests().get(deleteString).getStatus();
     if (!deleteString.isEmpty()) {
       System.out.println("DELETE REQUEST");
       for (int i = 0; i < labData.size(); i++) {
         Request object = labData.get(i);
         if (0 == deleteString.compareTo(object.getName())) {
           labData.remove(i);
-          LabDAO.deleteRequest(object);
+          transportDAO.deleteRequest(object);
         }
       }
       labTable.setItems(labData);
@@ -214,7 +214,7 @@ public class PatientTransportController extends MainController
       // This cannot be a helper since it DECREASES the dashboard. It could but that's just more if
       // statements.
       // This is easier to read :)
-      String status = LabDAO.getAllRequests().get(deleteString).getStatus();
+
       if (status.equals("inProgress")) {
         statusInProgress--;
       }
@@ -264,7 +264,7 @@ public class PatientTransportController extends MainController
     Request request =
         new Request("", employee, location, dropDown, status, description, "available", "");
 
-    LabDAO.addRequest(request);
+    transportDAO.addRequest(request);
     labData.add(request);
     labTable.setItems(labData);
 
@@ -379,7 +379,7 @@ public class PatientTransportController extends MainController
 
       Request request = new Request("", emp, location, dropDown, status, "", "", "");
 
-      LabDAO.addRequest(request);
+      transportDAO.addRequest(request);
 
       labData.add(request);
 
