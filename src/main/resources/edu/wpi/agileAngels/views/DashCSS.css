@@ -6,14 +6,13 @@
 }
 
 .background{
-    -fx-background-color: #E5E5E5;
+    -fx-background-color: #F2F2F2;
 
 }
 
-
 .pane{
     -fx-background-radius: 20 20 20 20;
-    -fx-background-color: #E2E2E2;
+    -fx-background-color: #F4F4F4;
     -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 16, 0, 4, 0);
 }
 .squareButton{
@@ -28,7 +27,7 @@
 }
 
 .scroll-pane{
-    -fx-background: #E2E2E2;
+    -fx-background: #F4F4F4;
 }
 .message-button{
     -fx-background-color: #FFFFFF;

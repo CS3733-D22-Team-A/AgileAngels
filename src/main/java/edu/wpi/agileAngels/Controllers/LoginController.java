@@ -63,6 +63,12 @@ public class LoginController implements Initializable {
     }
   }
 
+  /**
+   * Duplicate enter code, but will work fine for now but won't be in diagram.
+   *
+   * @param event
+   * @throws IOException
+   */
   @FXML
   private void loginWithEnter(KeyEvent event) throws IOException {
     if (event.getCode().equals(KeyCode.ENTER)) {

@@ -140,7 +140,6 @@ public class LabController extends MainController implements Initializable, Prop
         }
         System.out.println(entry.getValue().getStatus());
       }
-      // System.out.println("I'm gay");
       setDashboard(statusNotStarted, statusInProgress, statusComplete);
     }
   }
