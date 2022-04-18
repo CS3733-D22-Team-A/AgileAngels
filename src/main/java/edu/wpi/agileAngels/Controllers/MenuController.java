@@ -1,9 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.DBconnection;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,9 +14,19 @@ import javafx.scene.layout.Pane;
 
 public class MenuController implements Initializable {
 
-  @FXML Button back, close, equipRequest, labRequest, map, homeImage, userButton, emergency, test;
-  @FXML Pane menuPane;
-  @FXML AnchorPane anchor;
+  private @FXML Button back,
+      close,
+      equipRequest,
+      labRequest,
+      map,
+      homeImage,
+      userButton,
+      emergency,
+      test,
+      pageTitle;
+
+  private @FXML Pane menuPane;
+  private @FXML AnchorPane anchor;
 
   AppController appController = AppController.getInstance();
 
@@ -57,6 +64,10 @@ public class MenuController implements Initializable {
     } else if (event.getSource() == test) {
       appController.loadPage("/edu/wpi/agileAngels/views/test-view.fxml");
     }
+  }
+
+  public void changeTitle(String page) {
+    pageTitle.setText(page);
   }
 
   public void profile(ActionEvent event) {}
