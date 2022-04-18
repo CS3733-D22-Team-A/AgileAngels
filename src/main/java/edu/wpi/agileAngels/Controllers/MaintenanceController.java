@@ -117,7 +117,47 @@ public class MaintenanceController extends MainController
   }
 
   @FXML
-  public void submit(ActionEvent event) {}
+  public void submit(ActionEvent event) {
+    String loc = mainLocation.getText();
+    String emp = mainEmployee.getText();
+    String stat = mainStatus.getText();
+    String desc = mainDescription.getText();
+    String id = "Main" + (maintenanceData.size() + 1);
+    // Adding
+    if (mainID.getText().equals(id)) {
+      Request req =
+          new Request(
+              id, employeeHash.get(emp), locationsHash.get(loc), "N/A", stat, desc, "N/A", "N/A");
+      maintenanceData.add(req);
+      mainRequestImpl.addRequest(req);
+      dashboardLoad();
+
+    } else { // Editing
+      Request req = mainRequestImpl.getAllRequests().get(mainID.getText());
+      if (!req.getLocation().getNodeID().equals(loc)) {
+        Location newLoc = locationsHash.get(loc);
+        mainRequestImpl.updateLocation(req, newLoc);
+      }
+      if (!req.getEmployee().getName().equals(emp)) {
+        mainRequestImpl.updateEmployeeName(req, emp);
+      }
+      if (!req.getStatus().equals(stat)) {
+        mainRequestImpl.updateStatus(req, stat);
+      }
+      if (!req.getDescription().equals(desc)) {
+        mainRequestImpl.updateDescription(req, desc);
+      }
+
+      for (int i = 0; i < maintenanceData.size(); i++) {
+        if (maintenanceData.get(i).getName().equals(req.getName())) {
+          maintenanceData.set(i, req);
+        }
+      }
+      dashboardLoad();
+    }
+
+    clear(event);
+  }
 
   @FXML
   public void cancel(ActionEvent event) {
@@ -133,6 +173,7 @@ public class MaintenanceController extends MainController
     mainID.setText("ID");
     mainLocation.setText("Location");
     mainEmployee.setText("Employee");
+    mainStatus.setText("Status");
     mainDescription.setText("");
     mainDescription.setPromptText("Description");
   }
@@ -163,6 +204,11 @@ public class MaintenanceController extends MainController
   public void mainIDMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     mainID.setText(button.getText());
+
+    // If editing or deleting an existing request:
+    if (!button.getText().equals("Main" + (maintenanceData.size() + 1))) {
+      populate(button.getText());
+    }
   }
 
   @FXML
@@ -326,5 +372,18 @@ public class MaintenanceController extends MainController
     }
 
     return newList;
+  }
+
+  /**
+   * Populates fields once a node id is chosen when editing an existing request.
+   *
+   * @param id Request ID
+   */
+  private void populate(String id) {
+    Request req = mainRequestImpl.getAllRequests().get(id);
+    mainLocation.setText(req.getLocation().getNodeID());
+    mainEmployee.setText(req.getEmployee().getName());
+    mainStatus.setText(req.getStatus());
+    mainDescription.setText(req.getDescription());
   }
 }
