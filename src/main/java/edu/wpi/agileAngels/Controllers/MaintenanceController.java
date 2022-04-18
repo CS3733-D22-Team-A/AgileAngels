@@ -176,7 +176,23 @@ public class MaintenanceController extends MainController
   }
 
   @FXML
-  public void delete(ActionEvent event) {}
+  public void delete(ActionEvent event) {
+    String id = mainID.getText();
+
+    // removes the request from the table and dropdown
+    for (int i = 0; i < maintenanceData.size(); i++) {
+      if (maintenanceData.get(i).getName().equals(id)) {
+        maintenanceData.remove(i);
+        mainID.getItems().remove(i);
+      }
+    }
+
+    // delete from hash map and database table
+    mainRequestImpl.deleteRequest(mainRequestImpl.getAllRequests().get(id));
+
+    clear(event);
+    dashboardLoad();
+  }
 
   @FXML
   public void clear(ActionEvent event) {
