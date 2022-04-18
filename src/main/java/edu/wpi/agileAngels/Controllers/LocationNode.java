@@ -31,6 +31,12 @@ public class LocationNode {
     button.setText(String.valueOf(location.getNodeType().charAt(0)));
     button.setStyle(
         "-fx-font-size: 12; -fx-background-radius: 0 8 8 8; -fx-background-color: rgba(73, 67, 112, 1); -fx-text-fill: white");
+
+    button.setOnAction(
+        (ActionEvent event2) -> {
+          isClicked();
+        });
+
     button
         .hoverProperty()
         .addListener(
@@ -51,11 +57,6 @@ public class LocationNode {
           button.setAlignment(Pos.CENTER);
           button.setText(String.valueOf(location.getNodeType().charAt(0)));
           button.setViewOrder(-100);
-        });
-
-    button.setOnAction(
-        (ActionEvent event2) -> {
-          isClicked();
         });
 
     button.setOnMousePressed(

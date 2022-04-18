@@ -118,7 +118,7 @@ public class RequestNode {
 
     button.setLayoutX(getPaneXfromcoords(closest.getXCoord()));
     button.setLayoutY(getPaneYfromcoords(closest.getYCoord()));
-    requestNodeManager.editRequest(this, closest);
+    requestNodeManager.editRequestLocation(this, closest);
 
     // requestNodeManager.updateLocation(this);
   }
