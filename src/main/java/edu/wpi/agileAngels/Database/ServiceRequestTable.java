@@ -170,7 +170,7 @@ public class ServiceRequestTable implements TableI {
     Statement statement = DBconnection.getConnection().createStatement();
     ArrayList<String> employees = new ArrayList<>();
     String freeEmployee =
-        "(SELECT Employees.Name FROM Employees left outer join ServiceRequests on ServiceRequests.EmployeeName = Employees.Name WHERE ServiceRequests.EmployeeName IS NULL OR ServiceRequests.Status in ('complete') GROUP BY Employees.Name) EXCEPT (SELECT Employees.Name FROM ServiceRequests join Employees on ServiceRequests.EmployeeName = Employees.Name WHERE Status in ('notStarted','inProgress','Not Complete','In Progress'))";
+        "(SELECT Employees.Name FROM Employees left outer join ServiceRequests on ServiceRequests.EmployeeName = Employees.Name WHERE ServiceRequests.EmployeeName IS NULL OR ServiceRequests.Status in ('complete') GROUP BY Employees.Name) EXCEPT (SELECT Employees.Name FROM ServiceRequests join Employees on ServiceRequests.EmployeeName = Employees.Name WHERE Status in ('notStarted','inProgress','Not Complete','In Progress','Not Started'))";
     ResultSet rs = statement.executeQuery(freeEmployee);
     while (rs.next()) {
       employees.add(rs.getString("Name"));
