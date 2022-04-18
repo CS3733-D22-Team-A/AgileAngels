@@ -87,7 +87,7 @@ public class MaintenanceController extends MainController
   public void modifyRequest(ActionEvent event) {
     popOut.setVisible(true);
 
-    if (mainID.getItems().size() == 0) {
+    if (mainLocation.getItems().size() == 0) {
       // Populates locations dropdown
       for (Location loc : locationsList) {
         MenuItem item = new MenuItem(loc.getNodeID());
@@ -109,8 +109,7 @@ public class MaintenanceController extends MainController
         item.setOnAction(this::mainIDMenu);
         mainID.getItems().add(item);
       }
-      String newRequestID = "Main" + (maintenanceData.size() + 1);
-      MenuItem item1 = new MenuItem(newRequestID);
+      MenuItem item1 = new MenuItem("Add New Request");
       item1.setOnAction(this::mainIDMenu);
       mainID.getItems().add(item1);
     }
@@ -122,15 +121,26 @@ public class MaintenanceController extends MainController
     String emp = mainEmployee.getText();
     String stat = mainStatus.getText();
     String desc = mainDescription.getText();
-    String id = "Main" + (maintenanceData.size() + 1);
+
     // Adding
-    if (mainID.getText().equals(id)) {
+    if (mainID.getText().equals("Add New Request")) {
       Request req =
           new Request(
-              id, employeeHash.get(emp), locationsHash.get(loc), "N/A", stat, desc, "N/A", "N/A");
+              "", employeeHash.get(emp), locationsHash.get(loc), "N/A", stat, desc, "N/A", "N/A");
       maintenanceData.add(req);
       mainRequestImpl.addRequest(req);
       dashboardLoad();
+
+      mainID.getItems().remove(0, mainID.getItems().size());
+      // Populates ID dropdown
+      for (Request request : maintenanceData) {
+        MenuItem item = new MenuItem(request.getName());
+        item.setOnAction(this::mainIDMenu);
+        mainID.getItems().add(item);
+      }
+      MenuItem item1 = new MenuItem("Add New Request");
+      item1.setOnAction(this::mainIDMenu);
+      mainID.getItems().add(item1);
 
     } else { // Editing
       Request req = mainRequestImpl.getAllRequests().get(mainID.getText());
@@ -206,7 +216,7 @@ public class MaintenanceController extends MainController
     mainID.setText(button.getText());
 
     // If editing or deleting an existing request:
-    if (!button.getText().equals("Main" + (maintenanceData.size() + 1))) {
+    if (!button.getText().equals("Add New Request")) {
       populate(button.getText());
     }
   }
