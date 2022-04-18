@@ -166,6 +166,30 @@ public class AppController {
     }
   }
 
+  public String getPumpFloor() {
+    String floor = "";
+    if (dirtyInfusionPumps[1] > 10) {
+      floor = "3";
+    } else if (dirtyInfusionPumps[2] > 10) {
+      floor = "4";
+    } else if (dirtyInfusionPumps[3] > 10) {
+      floor = "5";
+    }
+    return floor;
+  }
+
+  public String getBedFloor() {
+    String floor = "";
+    if (dirtyBeds[1] > 6) {
+      floor = "3";
+    } else if (dirtyBeds[2] > 6) {
+      floor = "4";
+    } else if (dirtyBeds[3] > 6) {
+      floor = "5";
+    }
+    return floor;
+  }
+
   private int getFloorInt(String floor) {
     int floorInt = -1;
     if (floor.equals("3")) {

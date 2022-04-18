@@ -4,13 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class AlertController {
+public class BedAlertController {
 
   @FXML Button requestButton;
+  private AppController appController = AppController.getInstance();
 
   @FXML
   public void makeRequests() {
-    // make requests
+    String floor = appController.getBedFloor();
 
     closeWindow();
   }

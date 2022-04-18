@@ -362,16 +362,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
           if (object.getMedicalEquip() != null) {
             equipDAO.updateMedicalCleanliness(object.getMedicalEquip(), false);
             equipDAO.updateStatus(object.getMedicalEquip(), "available");
-            if (object.getLocation().getFloor().equals("3")) {
-              equipDAO.updateEquipmentLocation(
-                  object.getMedicalEquip(), locationsHash.get("ADIRT00103"));
-            } else if (object.getLocation().getFloor().equals("4")) {
-              equipDAO.updateEquipmentLocation(
-                  object.getMedicalEquip(), locationsHash.get("ADIRT00104"));
-            } else if (object.getLocation().getFloor().equals("5")) {
-              equipDAO.updateEquipmentLocation(
-                  object.getMedicalEquip(), locationsHash.get("ADIRT00105"));
-            }
           }
           // delete the request
           medData.remove(i);
@@ -450,26 +440,74 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         found.setStatus(statusString);
         //  MedrequestImpl.updateStatus(found, statusString);
 
-        // set the status and location of the medicalEquipment object corresponding to the
-        // request
-        if (found.getMedicalEquip() != null) {
-          if (statusString.equals("notStarted")) {
-            equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
-          } else if (statusString.equals("inProgress")) {
-            equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
-            equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
-          } else if (statusString.equals("complete")) {
-            equipDAO.updateMedicalCleanliness(found.getMedicalEquip(), false);
-            equipDAO.updateStatus(found.getMedicalEquip(), "available");
-            if (found.getLocation().getFloor().equals("3")) {
-              equipDAO.updateEquipmentLocation(
-                  found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
-            } else if (found.getLocation().getFloor().equals("4")) {
-              equipDAO.updateEquipmentLocation(
-                  found.getMedicalEquip(), locationsHash.get("ADIRT00104"));
-            } else if (found.getLocation().getFloor().equals("5")) {
-              equipDAO.updateEquipmentLocation(
-                  found.getMedicalEquip(), locationsHash.get("ADIRT00105"));
+        // set the status and location of the medicalEquipment object
+        // corresponding to the request
+        if (found.getAttribute2().equals("Clean")) {
+          // if it's a request to clean equipment
+          if (found.getMedicalEquip() != null) {
+            if (statusString.equals("notStarted")) {
+              equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
+            } else if (statusString.equals("inProgress")) {
+              equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
+              if (found.getLocation().getFloor().equals("3")) {
+                equipDAO.updateEquipmentLocation(
+                    found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+              } else if (found.getLocation().getFloor().equals("4")) {
+                equipDAO.updateEquipmentLocation(
+                    found.getMedicalEquip(), locationsHash.get("ADIRT00104"));
+              } else if (found.getLocation().getFloor().equals("5")) {
+                equipDAO.updateEquipmentLocation(
+                    found.getMedicalEquip(), locationsHash.get("ADIRT00105"));
+              }
+            } else if (statusString.equals("complete")) {
+              equipDAO.updateMedicalCleanliness(found.getMedicalEquip(), true);
+              equipDAO.updateStatus(found.getMedicalEquip(), "available");
+              if (found.getType().equals("InfusionPump")) {
+                if (found.getLocation().getFloor().equals("3")) {
+                  equipDAO.updateEquipmentLocation(
+                      found.getMedicalEquip(), locationsHash.get("ASTOR00103"));
+                } else if (found.getLocation().getFloor().equals("4")) {
+                  equipDAO.updateEquipmentLocation(
+                      found.getMedicalEquip(), locationsHash.get("ASTOR00104"));
+                } else if (found.getLocation().getFloor().equals("5")) {
+                  equipDAO.updateEquipmentLocation(
+                      found.getMedicalEquip(), locationsHash.get("ASTOR00105"));
+                }
+              } else {
+                if (found.getLocation().getFloor().equals("3")) {
+                  equipDAO.updateEquipmentLocation(
+                      found.getMedicalEquip(), locationsHash.get("ASTOR00303"));
+                } else if (found.getLocation().getFloor().equals("4")) {
+                  equipDAO.updateEquipmentLocation(
+                      found.getMedicalEquip(), locationsHash.get("ASTOR00304"));
+                } else if (found.getLocation().getFloor().equals("5")) {
+                  equipDAO.updateEquipmentLocation(
+                      found.getMedicalEquip(), locationsHash.get("ASTOR00305"));
+                }
+              }
+            }
+          }
+        } else {
+          // if it's not a request to clean equipment
+          if (found.getMedicalEquip() != null) {
+            if (statusString.equals("notStarted")) {
+              equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
+            } else if (statusString.equals("inProgress")) {
+              equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
+              equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
+            } else if (statusString.equals("complete")) {
+              equipDAO.updateMedicalCleanliness(found.getMedicalEquip(), false);
+              equipDAO.updateStatus(found.getMedicalEquip(), "available");
+              if (found.getLocation().getFloor().equals("3")) {
+                equipDAO.updateEquipmentLocation(
+                    found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+              } else if (found.getLocation().getFloor().equals("4")) {
+                equipDAO.updateEquipmentLocation(
+                    found.getMedicalEquip(), locationsHash.get("ADIRT00104"));
+              } else if (found.getLocation().getFloor().equals("5")) {
+                equipDAO.updateEquipmentLocation(
+                    found.getMedicalEquip(), locationsHash.get("ADIRT00105"));
+              }
             }
           }
         }
