@@ -85,14 +85,13 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
-    if (medData.isEmpty()) {
-      Iterator var3 = MedrequestImpl.getAllRequests().entrySet().iterator();
+    medData.clear();
+    Iterator var3 = MedrequestImpl.getAllRequests().entrySet().iterator();
 
-      for (Map.Entry<String, Request> entry : MedrequestImpl.getAllRequests().entrySet()) {
-        Request req = entry.getValue();
+    for (Map.Entry<String, Request> entry : MedrequestImpl.getAllRequests().entrySet()) {
+      Request req = entry.getValue();
 
-        medData.add(req);
-      }
+      medData.add(req);
     }
 
     equipmentTable.setItems(medData);

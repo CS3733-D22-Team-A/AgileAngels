@@ -42,7 +42,7 @@ public class BedAlertController {
       System.out.println("BedAlert for loop");
       Request medDevice =
           new Request(
-              "MedClean",
+              "",
               employeeDAO.getEmployee("James"),
               medEquip.getLocation(),
               "Bed",

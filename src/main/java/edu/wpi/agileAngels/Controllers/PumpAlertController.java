@@ -42,7 +42,7 @@ public class PumpAlertController {
     for (MedicalEquip medEquip : dirtyPumps) {
       Request medDevice =
           new Request(
-              "MedClean",
+              "",
               employeeDAO.getEmployee("James"),
               medEquip.getLocation(),
               "InfusionPump",
