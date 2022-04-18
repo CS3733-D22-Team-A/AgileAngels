@@ -78,18 +78,22 @@ public class LocationNode {
         });
     button.setOnMouseReleased(
         (MouseEvent mouseEvent) -> {
+          System.out.println(
+              dist(
+                  buttonX,
+                  getPaneXfromcoords(locationNodeManager.getMapXCoordFromClick(mouseEvent)),
+                  buttonY,
+                  getPaneYfromcoords(locationNodeManager.getMapYCoordFromClick(mouseEvent))));
           if (dist(
                   buttonX,
-                  locationNodeManager.getMapXCoordFromClick(mouseEvent),
+                  getPaneXfromcoords(locationNodeManager.getMapXCoordFromClick(mouseEvent)),
                   buttonY,
-                  locationNodeManager.getMapYCoordFromClick(mouseEvent))
-              < 20) {
+                  getPaneYfromcoords(locationNodeManager.getMapYCoordFromClick(mouseEvent)))
+              < 50) {
             button.setLayoutX(buttonX);
             button.setLayoutY(buttonY);
           } else {
-            dragged = false;
             locationNodeManager.setDraggedNodeCoords(mouseEvent);
-            System.out.println("hello");
           }
         });
   }
