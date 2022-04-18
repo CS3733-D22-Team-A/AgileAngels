@@ -42,9 +42,8 @@ public class MealController implements Initializable, PropertyChangeListener {
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     String changeType = evt.getPropertyName();
-    System.out.println(changeType);
     int newValue = (int) evt.getNewValue();
-    System.out.println(newValue);
+    appController.displayAlert();
   }
 
   @FXML

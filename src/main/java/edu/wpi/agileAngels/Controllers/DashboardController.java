@@ -65,6 +65,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
       dirtyXRay.setText(String.valueOf(newValue));
       cleanXRay.setText(String.valueOf(1 - newValue));
     }
+    appController.displayAlert();
   }
 
   //  public void swapFloorDash(MouseEvent event) {
