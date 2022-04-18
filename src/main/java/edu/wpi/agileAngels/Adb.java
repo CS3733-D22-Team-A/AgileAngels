@@ -82,6 +82,8 @@ public class Adb {
     mainRequestImpl.csvRead();
     RequestDAOImpl transportRequestImpl = RequestDAOImpl.getInstance("TransportRequest");
     transportRequestImpl.csvRead();
+    RequestDAOImpl morgueRequestImpl = RequestDAOImpl.getInstance("MorgueRequest");
+    morgueRequestImpl.csvRead();
   }
 
   /**
