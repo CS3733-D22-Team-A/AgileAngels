@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
@@ -32,9 +33,12 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
   AppController appController = AppController.getInstance();
   ArrayList<Pane> panes = new ArrayList<>();
+  @FXML private ScrollPane scrollPane = new ScrollPane();
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     appController.addPropertyChangeListener(this);
 
     try {

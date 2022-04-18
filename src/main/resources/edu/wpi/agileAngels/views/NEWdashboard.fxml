@@ -12,36 +12,71 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="background" stylesheets="@DashCSS.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.DashboardController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="background" stylesheets="@DashCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.DashboardController">
    <children>
-      <Pane layoutX="698.0" layoutY="263.0" prefHeight="437.0" prefWidth="562.0" styleClass="pane" stylesheets="@DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="263.0">
+      <Pane layoutX="698.0" layoutY="97.0" prefHeight="603.0" prefWidth="562.0" styleClass="pane" stylesheets="@DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="97.0">
          <children>
-            <Button fx:id="floorLL2" layoutX="135.0" layoutY="210.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #51478e;" styleClass="squareButton" stylesheets="@DashCSS.css" />
-            <Button fx:id="floorLL1" layoutX="135.0" layoutY="173.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #5f57ad;" styleClass="squareButton" stylesheets="@DashCSS.css" />
-            <Button fx:id="floor2" layoutX="135.0" layoutY="140.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #5166b2;" styleClass="squareButton" stylesheets="@DashCSS.css" />
-            <Button fx:id="floor3" layoutX="135.0" layoutY="100.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #3686bd;" styleClass="squareButton" stylesheets="@DashCSS.css" />
-            <Button fx:id="floor4" layoutX="135.0" layoutY="62.0" mnemonicParsing="false" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #1fa1c6;" styleClass="squareButton" stylesheets="@DashCSS.css" />
-            <Button fx:id="floor5" layoutX="135.0" layoutY="25.0" mnemonicParsing="false" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #00c5d2;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floorLL2" layoutX="135.0" layoutY="297.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #51478e;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floorLL1" layoutX="135.0" layoutY="260.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #5f57ad;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floor2" layoutX="135.0" layoutY="227.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #5166b2;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floor3" layoutX="135.0" layoutY="187.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #3686bd;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floor4" layoutX="135.0" layoutY="149.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #1fa1c6;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floor5" layoutX="135.0" layoutY="112.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #00c5d2;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Label layoutX="24.0" layoutY="17.0" text="Select Floor">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Label>
+            <Label layoutX="89.0" layoutY="198.0" text="5">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="88.0" layoutY="235.0" text="4">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="89.0" layoutY="272.0" text="3">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="89.0" layoutY="312.0" text="2">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="90.0" layoutY="351.0" text="L1">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="89.0" layoutY="398.0" text="L2">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
          </children></Pane>
       <Pane layoutX="21.0" layoutY="365.0" prefHeight="335.0" prefWidth="658.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="365.0">
          <children>
-            <Pane layoutX="497.0" layoutY="168.0" prefHeight="140.0" prefWidth="135.0" style="-fx-background-color: #907A50; -fx-background-radius: 0 0 15 15;">
+            <Pane layoutX="497.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #907A50; -fx-background-radius: 0 0 15 15;">
                <children>
-                  <Label layoutX="90.0" layoutY="78.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#474134">
+                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#c6c6c6">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="dirtyRecliner" layoutX="90.0" layoutY="93.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="50" textFill="WHITE">
+                  <Label fx:id="dirtyRecliner" layoutX="89.0" layoutY="84.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="50" textFill="WHITE">
                      <font>
                         <Font size="32.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="497.0" layoutY="28.0" prefHeight="140.0" prefWidth="135.0" style="-fx-background-color: #F5C977; -fx-background-radius: 15 15 0 0;">
+            <Pane layoutX="497.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #F5C977; -fx-background-radius: 15 15 0 0;">
                <children>
-                  <Label layoutX="67.0" layoutY="120.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="Recliner" textFill="WHITE">
+                  <Label layoutX="78.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="Recliner" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -56,25 +91,30 @@
                         <Font size="32.0" />
                      </font>
                   </Label>
+                  <ImageView fitHeight="27.0" fitWidth="25.0" layoutX="16.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/Recliner.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="340.0" layoutY="168.0" prefHeight="140.0" prefWidth="135.0" style="-fx-background-color: #004959; -fx-background-radius: 0 0 15 15;">
+            <Pane layoutX="340.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #004959; -fx-background-radius: 0 0 15 15;">
                <children>
-                  <Label layoutX="90.0" layoutY="78.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#4a6469">
+                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#c6c6c6">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="dirtyXRay" layoutX="90.0" layoutY="93.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="50" textFill="WHITE">
+                  <Label fx:id="dirtyXRay" layoutX="89.0" layoutY="84.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="50" textFill="WHITE">
                      <font>
                         <Font size="32.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="340.0" layoutY="28.0" prefHeight="140.0" prefWidth="135.0" style="-fx-background-color: #0099BA; -fx-background-radius: 15 15 0 0;">
+            <Pane layoutX="340.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #0099BA; -fx-background-radius: 15 15 0 0;">
                <children>
-                  <Label layoutX="85.0" layoutY="120.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="X-Ray" textFill="WHITE">
+                  <Label layoutX="85.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="X-Ray" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -89,25 +129,30 @@
                         <Font size="32.0" />
                      </font>
                   </Label>
+                  <ImageView fitHeight="27.0" fitWidth="25.0" layoutX="16.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/x-RAY.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="182.0" layoutY="168.0" prefHeight="140.0" prefWidth="135.0" style="-fx-background-color: #37584C; -fx-background-radius: 0 0 15 15;">
+            <Pane layoutX="182.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #37584C; -fx-background-radius: 0 0 15 15;">
                <children>
-                  <Label layoutX="90.0" layoutY="78.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#577a72">
+                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#c6c6c6">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="dirtyBeds" layoutX="90.0" layoutY="93.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="50" textFill="WHITE">
+                  <Label fx:id="dirtyBeds" layoutX="89.0" layoutY="84.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="50" textFill="WHITE">
                      <font>
                         <Font size="32.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="182.0" layoutY="28.0" prefHeight="140.0" prefWidth="135.0" style="-fx-background-color: #70C7A8; -fx-background-radius: 15 15 0 0;">
+            <Pane layoutX="182.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #70C7A8; -fx-background-radius: 15 15 0 0;">
                <children>
-                  <Label layoutX="93.0" layoutY="120.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="Beds" textFill="WHITE">
+                  <Label layoutX="93.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="Beds" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -122,25 +167,30 @@
                         <Font size="32.0" />
                      </font>
                   </Label>
+                  <ImageView fitHeight="27.0" fitWidth="25.0" layoutX="16.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/hospital-bed.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="24.0" layoutY="168.0" prefHeight="140.0" prefWidth="135.0" style="-fx-background-color: #6D4C51; -fx-background-radius: 0 0 15 15;">
+            <Pane layoutX="24.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #6D4C51; -fx-background-radius: 0 0 15 15;">
                <children>
-                  <Label layoutX="90.0" layoutY="78.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#383031">
+                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#c6c6c6">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="dirtyPump" layoutX="90.0" layoutY="93.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="50" textFill="WHITE">
+                  <Label fx:id="dirtyPump" layoutX="89.0" layoutY="84.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="50" textFill="WHITE">
                      <font>
                         <Font size="32.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="24.0" layoutY="28.0" prefHeight="140.0" prefWidth="135.0" style="-fx-background-color: D26979; -fx-background-radius: 15 15 0 0;">
+            <Pane layoutX="24.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: D26979; -fx-background-radius: 15 15 0 0;">
                <children>
-                  <Label layoutX="22.0" layoutY="120.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="Infusion Pump" textFill="WHITE">
+                  <Label layoutX="22.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="Infusion Pump" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -155,64 +205,75 @@
                         <Font size="32.0" />
                      </font>
                   </Label>
+                  <ImageView fitHeight="27.0" fitWidth="25.0" layoutX="16.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/Infusion_Pump.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
-         </children>
-      </Pane>
-      <Pane layoutX="356.0" layoutY="98.0" prefHeight="252.0" prefWidth="322.0" styleClass="pane" stylesheets="@DashCSS.css" AnchorPane.leftAnchor="356.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="98.0">
-         <children>
-            <Label layoutX="16.0" layoutY="7.0" style="-fx-font-family: Roboto;" stylesheets="@DashCSS.css" text="Messages" textFill="WHITE">
+            <Label layoutX="20.0" layoutY="8.0" prefHeight="34.0" prefWidth="211.0" text="Equipment status">
                <font>
                   <Font size="28.0" />
                </font>
             </Label>
-            <ScrollPane layoutX="3.0" layoutY="48.0" prefHeight="203.0" prefWidth="326.0" stylesheets="@DashCSS.css">
+         </children>
+      </Pane>
+      <Pane layoutX="353.0" layoutY="96.0" prefHeight="252.0" prefWidth="331.0" styleClass="pane" stylesheets="@DashCSS.css" AnchorPane.leftAnchor="353.0" AnchorPane.rightAnchor="605.0" AnchorPane.topAnchor="96.0">
+         <children>
+            <Label layoutX="16.0" layoutY="7.0" style="-fx-font-family: Roboto;" stylesheets="@DashCSS.css" text="Nurses On Duty">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="7.0" layoutY="60.0" pannable="true" prefHeight="173.0" prefWidth="309.0" stylesheets="@DashCSS.css" vbarPolicy="NEVER">
                <content>
-                  <Pane prefHeight="200.0" prefWidth="320.0">
+                  <Pane prefHeight="200.0" prefWidth="318.0">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="324.0">
+                        <VBox prefHeight="179.0" prefWidth="318.0">
                            <children>
-                              <HBox prefHeight="37.0" prefWidth="323.0">
+                              <HBox prefHeight="37.0" prefWidth="310.0">
                                  <children>
-                                    <Button id="message-button" mnemonicParsing="false" prefHeight="37.0" prefWidth="322.0" styleClass="message-button" stylesheets="@DashCSS.css" textFill="WHITE">
+                                    <Button id="message-button" mnemonicParsing="false" prefHeight="37.0" prefWidth="298.0" styleClass="message-button" stylesheets="@DashCSS.css" textFill="WHITE">
                                        <graphic>
                                           <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                              <children>
-                                                <Label alignment="CENTER_RIGHT" text="ALERT:">
+                                                <Label alignment="CENTER_RIGHT" text="Nurse Wong">
                                                    <graphic>
-                                                      <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fitHeight="27.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../assets/warning.png" />
+                                                            <Image url="@../assets/userICON.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic>
                                                 </Label>
-                                                <Label text="ALERT MESSAGE" />
                                              </children>
                                           </HBox>
                                        </graphic>
                                     </Button>
                                  </children>
+                                 <VBox.margin>
+                                    <Insets left="1.5" right="1.5" />
+                                 </VBox.margin>
                               </HBox>
                               <HBox prefHeight="37.0" prefWidth="323.0">
                                  <VBox.margin>
-                                    <Insets top="10.0" />
+                                    <Insets left="1.5" right="1.5" top="10.0" />
                                  </VBox.margin>
                                  <children>
-                                    <Button id="message-button" mnemonicParsing="false" prefHeight="37.0" prefWidth="322.0" styleClass="message-button" stylesheets="@DashCSS.css" textFill="WHITE">
+                                    <Button id="message-button" mnemonicParsing="false" prefHeight="37.0" prefWidth="298.0" styleClass="message-button" stylesheets="@DashCSS.css" textFill="WHITE">
                                        <graphic>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="278.0" spacing="10.0">
                                              <children>
-                                                <Label alignment="CENTER_RIGHT" text="ALERT:">
+                                                <Label alignment="CENTER_RIGHT" text="Sexy Nurse Nathan">
                                                    <graphic>
                                                       <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../assets/warning.png" />
+                                                            <Image url="@../assets/userICON.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic>
                                                 </Label>
-                                                <Label text="ALERT MESSAGE" />
                                              </children>
                                           </HBox>
                                        </graphic>
@@ -221,85 +282,22 @@
                               </HBox>
                               <HBox prefHeight="37.0" prefWidth="324.0">
                                  <VBox.margin>
-                                    <Insets top="10.0" />
+                                    <Insets left="1.5" right="1.5" top="10.0" />
                                  </VBox.margin>
                                  <children>
-                                    <Button id="message-button" mnemonicParsing="false" prefHeight="37.0" prefWidth="322.0" styleClass="message-button" stylesheets="@DashCSS.css" textFill="WHITE">
+                                    <Button id="message-button" mnemonicParsing="false" prefHeight="37.0" prefWidth="298.0" styleClass="message-button" stylesheets="@DashCSS.css" textFill="WHITE">
                                        <graphic>
                                           <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                              <children>
-                                                <Label alignment="CENTER_RIGHT" text="ALERT:">
+                                                <Label alignment="CENTER_RIGHT" text="Nurse Justin">
                                                    <graphic>
                                                       <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../assets/warning.png" />
+                                                            <Image url="@../assets/userICON.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic>
                                                 </Label>
-                                                <Label text="ALERT MESSAGE" />
-                                             </children>
-                                          </HBox>
-                                       </graphic>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </children>
-                  </Pane>
-               </content></ScrollPane>
-         </children>
-      </Pane>
-      <Pane layoutX="695.0" layoutY="98.0" prefHeight="152.0" prefWidth="564.0" styleClass="pane" stylesheets="@DashCSS.css" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="98.0">
-         <children>
-            <Label layoutX="16.0" layoutY="7.0" style="-fx-font-family: Roboto;" stylesheets="@DashCSS.css" text="Nurses on Duty" textFill="WHITE">
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </Label>
-            <ScrollPane layoutX="-1.0" layoutY="48.0" prefHeight="109.0" prefWidth="566.0" stylesheets="@DashCSS.css">
-               <content>
-                  <Pane prefHeight="104.0" prefWidth="563.0">
-                     <children>
-                        <VBox layoutX="3.0" layoutY="-6.0" prefHeight="114.0" prefWidth="565.0">
-                           <children>
-                              <HBox prefHeight="25.0" prefWidth="565.0" styleClass="nurse-button" stylesheets="@DashCSS.css">
-                                 <children>
-                                    <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="560.0" styleClass="nurse-button">
-                                       <graphic>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="543.0" spacing="10.0">
-                                             <children>
-                                                <ImageView fitHeight="53.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../assets/placeholder.jpg" />
-                                                   </image>
-                                                </ImageView>
-                                                <Label text="Wilson Wong" />
-                                                <Label text="Position" />
-                                             </children>
-                                          </HBox>
-                                       </graphic>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Button mnemonicParsing="false" prefHeight="66.0" prefWidth="563.0" styleClass="nurse-button">
-                                       <graphic>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                                             <children>
-                                                <ImageView fitHeight="52.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../assets/placeholder.jpg" />
-                                                   </image>
-                                                </ImageView>
-                                                <Label text="Nathan">
-                                                   <HBox.margin>
-                                                      <Insets />
-                                                   </HBox.margin>
-                                                </Label>
-                                                <Label text="Position" />
                                              </children>
                                           </HBox>
                                        </graphic>
@@ -315,25 +313,25 @@
       </Pane>
       <Pane layoutX="18.0" layoutY="95.0" prefHeight="254.0" prefWidth="328.0" styleClass="pane" stylesheets="@DashCSS.css">
          <children>
-            <Label layoutX="14.0" layoutY="7.0" style="-fx-font-family: Roboto;" stylesheets="@DashCSS.css" text="Service Requests" textFill="WHITE">
+            <Label layoutX="14.0" layoutY="7.0" style="-fx-font-family: Roboto;" stylesheets="@DashCSS.css" text="Service Requests">
                <font>
                   <Font size="28.0" />
                </font>
             </Label>
-            <ScrollPane layoutY="51.0" prefHeight="203.0" prefWidth="318.0" stylesheets="@DashCSS.css">
+            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="6.0" layoutY="60.0" pannable="true" prefHeight="179.0" prefWidth="318.0" stylesheets="@DashCSS.css" vbarPolicy="NEVER">
                <content>
-                  <Pane prefHeight="200.0" prefWidth="316.0">
+                  <Pane prefHeight="187.0" prefWidth="316.0">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="318.0">
+                        <VBox prefHeight="187.0" prefWidth="318.0">
                            <children>
                               <HBox id="roomButton" alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="323.0" stylesheets="@DashCSS.css">
                                  <children>
-                                    <Button id="roomButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="325.0" styleClass="roomButton" stylesheets="@DashCSS.css" textFill="WHITE">
+                                    <Button id="roomButton" mnemonicParsing="false" prefHeight="39.0" prefWidth="311.0" styleClass="roomButton" stylesheets="@DashCSS.css" textFill="WHITE">
                                        <HBox.margin>
-                                          <Insets />
+                                          <Insets right="2.5" />
                                        </HBox.margin>
                                        <graphic>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="293.0" spacing="10.0">
                                              <children>
                                                 <ImageView fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -373,6 +371,9 @@
                                        </graphic>
                                     </Button>
                                  </children>
+                                 <VBox.margin>
+                                    <Insets left="1.5" right="1.5" />
+                                 </VBox.margin>
                               </HBox>
                               <HBox id="roomButton" alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="323.0" stylesheets="@DashCSS.css">
                                  <children>
@@ -418,7 +419,7 @@
                                     </Button>
                                  </children>
                                  <VBox.margin>
-                                    <Insets top="10.0" />
+                                    <Insets left="1.5" right="1.5" top="10.0" />
                                  </VBox.margin>
                               </HBox>
                               <HBox id="roomButton" prefHeight="37.0" prefWidth="323.0" stylesheets="@DashCSS.css">
@@ -465,7 +466,7 @@
                                     </Button>
                                  </children>
                                  <VBox.margin>
-                                    <Insets top="10.0" />
+                                    <Insets left="1.5" right="1.5" top="10.0" />
                                  </VBox.margin>
                               </HBox>
                            </children>
