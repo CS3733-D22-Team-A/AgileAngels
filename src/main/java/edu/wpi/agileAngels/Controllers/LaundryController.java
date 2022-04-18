@@ -184,23 +184,6 @@ public class LaundryController implements Initializable {
     }
   }
 
-  @FXML
-  public void employeeMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    laundryEmployeeText.setText(button.getText());
-  }
-
-
-
-
-
-
-
-
-
-
-
-
   /* FILTER METHODS BEYOND HERE */
 
   /** Does filterReqsTable when "Submit Filters" is clicked, or "onAction." */
@@ -347,4 +330,21 @@ public class LaundryController implements Initializable {
     laundryType.setText(button.getText());
   }
 
+  @FXML
+  public void typeMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    laundryType.setText(button.getText());
+  }
+
+  @FXML
+  public void employeeMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    laundryEmployee.setText(button.getText());
+  }
+
+  @FXML
+  public void statusMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    laundryStatus.setText(button.getText());
+  }
 }
