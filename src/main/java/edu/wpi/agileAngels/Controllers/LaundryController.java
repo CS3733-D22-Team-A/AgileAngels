@@ -17,13 +17,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class LaundryController implements Initializable {
   @FXML
-  private TextField laundryLocation,
-      laundryType,
-      laundryEmployee,
-      laundryStatus,
-      laundryDescription,
+  private TextField laundryDescription,
       deleteName,
-      editRequest;
+      editRequest,
+      employeeFilterField,
+      statusFilterField;
+  @FXML MenuButton laundryLocation, laundryType, laundryStatus, laundryEmployee;
   @FXML
   private TableColumn nameColumn,
       availableColumn,
@@ -185,10 +184,26 @@ public class LaundryController implements Initializable {
     }
   }
 
+  @FXML
+  public void employeeMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    laundryEmployeeText.setText(button.getText());
+  }
+
+
+
+
+
+
+
+
+
+
+
+
   /* FILTER METHODS BEYOND HERE */
 
   /** Does filterReqsTable when "Submit Filters" is clicked, or "onAction." */
-  /*
   @FXML
   public void filterReqOnAction() {
     if (!employeeFilterField.getText().isEmpty() && !statusFilterField.getText().isEmpty()) {
@@ -205,16 +220,13 @@ public class LaundryController implements Initializable {
     }
   }
 
-  */
   /** Puts all of the requests back on the table, "clearing the requests." */
-  /*
   @FXML
   public void clearFilters() {
     // Puts everything back on table.
     laundryTable.setItems(laundryData);
   }
 
-  */
   /* Employee-based */
   /*
 
@@ -224,7 +236,6 @@ public class LaundryController implements Initializable {
    *
    * @param employeeName The Employee the requests must have to remain on the table.
    */
-  /*
   private void filterReqsTableEmployee(String employeeName) {
     ObservableList<Request> filteredList = filterReqEmployee(employeeName);
 
@@ -232,14 +243,12 @@ public class LaundryController implements Initializable {
     laundryTable.setItems(filteredList);
   }
 
-  */
   /**
    * Filters out requests in labData based on the given Employee.
    *
    * @param employeeName The Employee that the requests must have to be in the new list.
    * @return The new filtered list.
    */
-  /*
   private ObservableList<Request> filterReqEmployee(String employeeName) {
     ObservableList<Request> newList = FXCollections.observableArrayList();
 
@@ -251,7 +260,6 @@ public class LaundryController implements Initializable {
     return newList;
   }
 
-  */
   /* Status-based */
   /*
 
@@ -261,7 +269,6 @@ public class LaundryController implements Initializable {
    *
    * @param reqStatus The status the requests must have to remain on the table.
    */
-  /*
   private void filterReqsTableStatus(String reqStatus) {
     ObservableList<Request> filteredList = filterReqStatus(reqStatus);
 
@@ -269,14 +276,12 @@ public class LaundryController implements Initializable {
     laundryTable.setItems(filteredList);
   }
 
-  */
   /**
    * Filters out requests in medData based on the given status.
    *
    * @param reqStatus The status that the requests must have to be in the new list.
    * @return The new filtered list.
    */
-  /*
   private ObservableList<Request> filterReqStatus(String reqStatus) {
     ObservableList<Request> newList = FXCollections.observableArrayList();
 
@@ -288,7 +293,6 @@ public class LaundryController implements Initializable {
     return newList;
   }
 
-  */
   /* Methods to filter lists n times */
   /*
 
@@ -300,7 +304,6 @@ public class LaundryController implements Initializable {
    * @param filteredList The list that was presumably filtered.
    * @return The new filtered list.
    */
-  /*
   private ObservableList<Request> filterFilteredReqListStatus(
       String reqStatus, ObservableList<Request> filteredList) {
     ObservableList<Request> newList = FXCollections.observableArrayList();
@@ -313,7 +316,6 @@ public class LaundryController implements Initializable {
     return newList;
   }
 
-  */
   /**
    * Filters out requests in medData based on the given Employee.
    *
@@ -321,7 +323,6 @@ public class LaundryController implements Initializable {
    * @param filteredList The list that was presumably filtered.
    * @return The new filtered list.
    */
-  /*
   private ObservableList<Request> filterFilteredReqListEmployee(
       String employeeName, ObservableList<Request> filteredList) {
     ObservableList<Request> newList = FXCollections.observableArrayList();
@@ -333,7 +334,7 @@ public class LaundryController implements Initializable {
     }
 
     return newList;
-  }*/
+  }
 
   /* FILTER METHODS ABOVE HERE */
 
@@ -345,4 +346,5 @@ public class LaundryController implements Initializable {
     MenuItem button = (MenuItem) event.getSource();
     laundryType.setText(button.getText());
   }
+
 }

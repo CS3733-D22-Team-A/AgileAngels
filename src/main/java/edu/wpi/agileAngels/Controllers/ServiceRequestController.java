@@ -23,7 +23,7 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       sanRequest,
       mealRequest,
       giftRequest,
-      mbgRequest,
+      laundryRequest,
       maintenanceRequest,
       morgueRequest,
       patientTransportRequest;
@@ -86,8 +86,8 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       appController.loadPage("/edu/wpi/agileAngels/views/gifts-view.fxml");
     } else if (event.getSource() == maintenanceRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/maintenance-view.fxml");
-    } else if (event.getSource() == mbgRequest) {
-      appController.loadPage("/edu/wpi/agileAngels/views/mgb-view.fxml");
+    } else if (event.getSource() == laundryRequest) {
+      appController.loadPage("/edu/wpi/agileAngels/views/laundry-veiw.fxml");
     } else if (event.getSource() == morgueRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/morgue-view.fxml");
     } else if (event.getSource() == patientTransportRequest) {
