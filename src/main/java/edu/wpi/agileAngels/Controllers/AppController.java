@@ -216,7 +216,7 @@ public class AppController {
     try {
       if (view.contains("map-view")) {
         menuController.changeTitle("Maps");
-      } else if (view.contains("equipment-view")) {
+      } else {
         menuController.changeTitle("Equipment Request");
       }
 

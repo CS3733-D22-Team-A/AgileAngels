@@ -148,6 +148,11 @@ public class RequestNode {
     requestNodeManager.loadNode(this);
   }
 
+  void setEmployee(String employee){
+
+      this.request.setEmployee(employee);
+  }
+
   public Location getLocation() {
     return this.location;
   }

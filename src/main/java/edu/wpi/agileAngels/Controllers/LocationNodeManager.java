@@ -113,11 +113,8 @@ public class LocationNodeManager {
     return locationNode;
   }
 
-  void editNode(
-      LocationNode locationNode, Double xCoord, Double yCoord, String longName, String type) {
+  void editNode(LocationNode locationNode, String longName, String type) {
     // edit the corresponding location in the backend
-    locationDAO.updateLocationXCoord(locationNode.getLocation(), xCoord);
-    locationDAO.updateLocationYCoord(locationNode.getLocation(), yCoord);
     locationDAO.updateLocationLongName(locationNode.getLocation(), longName);
     locationDAO.updateLocationType(locationNode.getLocation(), type);
   }
@@ -129,6 +126,10 @@ public class LocationNodeManager {
 
   public void setDraggedNodeCoords(MouseEvent mouseEvent) {
     mapsController.setCoordsOnMouseEvent(mouseEvent);
+  }
+
+  public MapsController getMapsController() {
+    return mapsController;
   }
 
   public double getScale() {

@@ -93,7 +93,9 @@ public class LocationNode {
             button.setLayoutX(buttonX);
             button.setLayoutY(buttonY);
           } else {
-            locationNodeManager.setDraggedNodeCoords(mouseEvent);
+            this.location.setXCoord(locationNodeManager.getMapXCoordFromClick(mouseEvent));
+            this.location.setYCoord(locationNodeManager.getMapYCoordFromClick(mouseEvent));
+            locationNodeManager.editNode(this, location.getLongName(), location.getNodeType());
           }
         });
   }

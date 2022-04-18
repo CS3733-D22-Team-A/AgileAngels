@@ -1,9 +1,7 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Location;
-import edu.wpi.agileAngels.Database.LocationDAOImpl;
-import edu.wpi.agileAngels.Database.Request;
-import edu.wpi.agileAngels.Database.RequestDAOImpl;
+import edu.wpi.agileAngels.Database.*;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +16,7 @@ public class RequestNodeManager {
   private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
   HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
   ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
+
 
   public RequestNodeManager(MapsController mapsController) throws SQLException {
     this.mapsController = mapsController;
