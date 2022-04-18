@@ -28,8 +28,8 @@ public class AppController {
     support = new PropertyChangeSupport(this);
 
     for (int i = 0; i < 4; i++) {
-      dirtyBeds[i] = 6;
-      dirtyInfusionPumps[i] = 10;
+      dirtyBeds[i] = 0;
+      dirtyInfusionPumps[i] = 0;
       dirtyRecliners[i] = 0;
       dirtyXRays[i] = 0;
     }
