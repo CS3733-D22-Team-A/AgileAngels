@@ -80,6 +80,8 @@ public class Adb {
     equipmentDAO.readCSV();
     RequestDAOImpl mainRequestImpl = RequestDAOImpl.getInstance("MaintenanceRequest");
     mainRequestImpl.csvRead();
+    RequestDAOImpl transportRequestImpl = RequestDAOImpl.getInstance("TransportRequest");
+    transportRequestImpl.csvRead();
   }
 
   /**
