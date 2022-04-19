@@ -27,12 +27,12 @@
             <TableView fx:id="morgueTable" prefHeight="451.0" prefWidth="1188.0">
                <columns>
                   <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
-                  <TableColumn fx:id="availableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Available" />
-                  <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Type" />
+                  <TableColumn fx:id="availableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Date" />
+                  <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Time" />
                   <TableColumn fx:id="locationColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Location" />
                   <TableColumn fx:id="employeeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Employee" />
                   <TableColumn fx:id="statusColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Status" />
-                  <TableColumn fx:id="descriptionColumn" maxWidth="442.0" minWidth="123.0" prefWidth="442.0" resizable="false" text="Description" />
+                  <TableColumn fx:id="descriptionColumn" maxWidth="442.0" minWidth="123.0" prefWidth="442.0" resizable="false" text="Patient Name" />
                </columns>
             </TableView>
          </children>
@@ -163,7 +163,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="In Progress" />
                      </items>
                   </MenuButton>
-                  <TextField fx:id="morgueDescription" layoutX="12.0" layoutY="255.0" prefHeight="50.0" prefWidth="270.0" promptText="Description" />
+                  <TextField fx:id="morgueDescription" layoutX="12.0" layoutY="255.0" prefHeight="50.0" prefWidth="270.0" promptText="Patient Name" />
                   <HBox layoutX="12.0" layoutY="359.0" prefHeight="59.0" prefWidth="270.0" spacing="16.0">
                      <children>
                         <Button fx:id="cancelRequest" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">

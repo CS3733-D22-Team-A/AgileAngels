@@ -60,9 +60,9 @@
          </children></Pane>
       <Pane layoutX="21.0" layoutY="365.0" prefHeight="335.0" prefWidth="658.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="365.0">
          <children>
-            <Pane layoutX="497.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #907A50; -fx-background-radius: 0 0 15 15;">
+            <Pane layoutX="497.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #AE986E; -fx-background-radius: 0 0 15 15;">
                <children>
-                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#c6c6c6">
+                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#2f2f2f">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -74,14 +74,14 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="497.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #F5C977; -fx-background-radius: 15 15 0 0;">
+            <Pane layoutX="497.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: EACF9D; -fx-background-radius: 15 15 0 0;">
                <children>
                   <Label layoutX="78.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="Recliner" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="90.0" layoutY="34.0" opacity="0.6" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="clean" textFill="#47474e">
+                  <Label layoutX="90.0" layoutY="34.0" opacity="0.6" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="clean" textFill="#2f2f2f">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -98,9 +98,9 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="340.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #004959; -fx-background-radius: 0 0 15 15;">
+            <Pane layoutX="340.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #2C8A9E; -fx-background-radius: 0 0 15 15;">
                <children>
-                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#c6c6c6">
+                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#2f2f2f">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -112,14 +112,14 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="340.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #0099BA; -fx-background-radius: 15 15 0 0;">
+            <Pane layoutX="340.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #70CDE0; -fx-background-radius: 15 15 0 0;">
                <children>
                   <Label layoutX="85.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="X-Ray" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="90.0" layoutY="34.0" opacity="0.6" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="clean" textFill="#47474e">
+                  <Label layoutX="90.0" layoutY="34.0" opacity="0.6" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="clean" textFill="#2f2f2f">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -136,9 +136,9 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="182.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #37584C; -fx-background-radius: 0 0 15 15;">
+            <Pane layoutX="182.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #5A8F7C; -fx-background-radius: 0 0 15 15;">
                <children>
-                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#c6c6c6">
+                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#2f2f2f">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -150,14 +150,14 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="182.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #70C7A8; -fx-background-radius: 15 15 0 0;">
+            <Pane layoutX="182.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #8BCDB6; -fx-background-radius: 15 15 0 0;">
                <children>
                   <Label layoutX="93.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="Beds" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="90.0" layoutY="34.0" opacity="0.6" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="clean" textFill="#47474e">
+                  <Label layoutX="90.0" layoutY="34.0" opacity="0.6" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="clean" textFill="#2f2f2f">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -174,9 +174,9 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="24.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #6D4C51; -fx-background-radius: 0 0 15 15;">
+            <Pane layoutX="24.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #AD6673; -fx-background-radius: 0 0 15 15;">
                <children>
-                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#c6c6c6">
+                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="dirty" textFill="#2f2f2f">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -188,7 +188,7 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="24.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: D26979; -fx-background-radius: 15 15 0 0;">
+            <Pane layoutX="24.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: DB8A96; -fx-background-radius: 15 15 0 0;">
                <children>
                   <Label layoutX="22.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@DashCSS.css" text="Infusion Pump" textFill="WHITE">
                      <font>

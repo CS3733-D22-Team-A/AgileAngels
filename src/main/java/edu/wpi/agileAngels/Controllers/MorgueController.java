@@ -5,6 +5,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,7 +58,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     locDAO.getAllLocations();
     empDAO.getAllEmployees();
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+    typeColumn.setCellValueFactory(new PropertyValueFactory<>("attribute2"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
@@ -116,11 +119,17 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     String emp = morgueEmployee.getText();
     String stat = morgueStatus.getText();
     String desc = morgueDescription.getText();
+    ZoneId z = ZoneId.of("America/Montreal");
+    LocalDate today = LocalDate.now(z);
+    LocalTime currentTime = LocalTime.now(z);
+    String date = today.toString();
+    String time = currentTime.toString().substring(0, 8);
+
     // Adding
     if (morgueID.getText().equals("Add New Request")) {
       Request req =
           new Request(
-              "", employeeHash.get(emp), locationsHash.get(loc), "N/A", stat, desc, "N/A", "N/A");
+              "", employeeHash.get(emp), locationsHash.get(loc), "N/A", stat, desc, date, time);
       morgueData.add(req);
       MorguerequestImpl.addRequest(req);
 
@@ -170,7 +179,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     morgueEmployee.setText("Employee");
     morgueStatus.setText("Status");
     morgueDescription.setText("");
-    morgueDescription.setPromptText("Description");
+    morgueDescription.setPromptText("Patient Name");
   }
 
   @FXML
