@@ -36,11 +36,11 @@ public class LoginController implements Initializable {
     TextFields.bindAutoCompletion(username, words);
     //
 
-    employeeManager.addEmployee("Administrator", "Admin", "Admin");
-    employeeManager.addEmployee("Nurse", "Nurse", "Nurse");
-    employeeManager.addEmployee("Justin", "Justin", "Password");
-    employeeManager.addEmployee("Staff", "Staff", "Staff");
-    employeeManager.addEmployee("dummy", "", "");
+    employeeManager.addEmployee("Admin", "Admin");
+    employeeManager.addEmployee("Nurse", "Nurse");
+    employeeManager.addEmployee("Justin", "Password");
+    employeeManager.addEmployee("Staff", "Staff");
+    employeeManager.addEmployee("", "");
   }
 
   /**
@@ -52,9 +52,8 @@ public class LoginController implements Initializable {
   @FXML
   private void login() throws IOException {
 
-    if (employeeManager.getUsername(username.getText())
+    if (employeeManager.getName(username.getText())
         && passwordBox.getText().equals(employeeManager.getPassword(username.getText()))) {
-
       appController.loadPage("/edu/wpi/agileAngels/views/home-view.fxml");
     } else {
       invalid.setTextFill(Color.rgb(220, 80, 80));
