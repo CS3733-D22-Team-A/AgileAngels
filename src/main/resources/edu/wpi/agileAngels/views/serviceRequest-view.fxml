@@ -132,7 +132,7 @@
                               </VBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="mbgRequest" mnemonicParsing="false" onAction="#requestButton" prefHeight="150.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Button fx:id="laundryRequest" mnemonicParsing="false" onAction="#requestButton" prefHeight="150.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <graphic>
                               <VBox alignment="CENTER" prefHeight="53.0" prefWidth="135.0" spacing="20.0">
                                  <children>

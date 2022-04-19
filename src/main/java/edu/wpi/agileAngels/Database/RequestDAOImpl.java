@@ -24,6 +24,7 @@ public class RequestDAOImpl implements RequestDAO {
   private static RequestDAOImpl SanDAO = null;
   private static RequestDAOImpl MealDAO = null;
   private static RequestDAOImpl GiftDAO = null;
+  private static RequestDAOImpl LaundryDAO = null;
   private static RequestDAOImpl MaintenanceDAO = null;
   private static RequestDAOImpl TransportDAO = null;
   private static RequestDAOImpl MorgueDAO = null;
@@ -138,6 +139,11 @@ public class RequestDAOImpl implements RequestDAO {
       }
       return SanDAO;
 
+    } else if (0 == type.compareTo("LaundryRequest")) {
+      if (LaundryDAO == null) {
+        LaundryDAO = new RequestDAOImpl(data, 1, "LaundryRequest");
+      }
+      return LaundryDAO;
     } else if (0 == type.compareTo("MaintenanceRequest")) {
       if (MaintenanceDAO == null) {
         MaintenanceDAO = new RequestDAOImpl(data, 1, "MaintenanceRequest");
@@ -231,6 +237,8 @@ public class RequestDAOImpl implements RequestDAO {
       letter = "Tran";
     } else if (0 == DAOtype.compareTo("GiftRequest")) {
       letter = "Gift";
+    } else if (0 == DAOtype.compareTo("LaundryRequest")) {
+      letter = "Laundry";
     } else if (0 == DAOtype.compareTo("MaintenanceRequest")) {
       letter = "Main";
     } else if (0 == DAOtype.compareTo("MorgueRequest")) {
