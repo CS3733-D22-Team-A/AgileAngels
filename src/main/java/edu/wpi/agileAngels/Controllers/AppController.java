@@ -51,7 +51,6 @@ public class AppController {
   }
 
   public void incrementDirty(String type, String floor, int i) {
-    System.out.println("increment dirty");
     if (type.equals("XRayMachine")) {
       incrementDirtyXRays(floor, i);
     } else if (type.equals("InfusionPump")) {
@@ -64,20 +63,15 @@ public class AppController {
   }
 
   public void incrementDirtyBeds(String floor, int increment) {
-    System.out.println("increment dirty beds");
     int floorInt = getFloorInt(floor);
     try {
-      System.out.println("1");
       this.dirtyBeds[floorInt] = this.dirtyBeds[floorInt] + increment;
       this.dirtyBeds[0] = this.dirtyBeds[0] + increment;
-      System.out.println("2");
       support.firePropertyChange(
           "dirtyBeds" + floor, this.dirtyBeds[floorInt], this.dirtyBeds[floorInt] + increment);
-      System.out.println("3");
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
-    System.out.println("increment dirty beds end");
   }
 
   public void incrementDirtyInfusionPumps(String floor, int increment) {
@@ -161,7 +155,6 @@ public class AppController {
         e.printStackTrace();
       }
     }
-    System.out.println("display alert: " + alertDisplayed);
     return alertDisplayed;
   }
 

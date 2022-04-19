@@ -85,26 +85,21 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
+
     medData.clear();
     Iterator var3 = MedrequestImpl.getAllRequests().entrySet().iterator();
-
     for (Map.Entry<String, Request> entry : MedrequestImpl.getAllRequests().entrySet()) {
       Request req = entry.getValue();
-
       medData.add(req);
     }
-
     equipmentTable.setItems(medData);
   }
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    System.out.println("property change");
     String changeType = evt.getPropertyName();
     int newValue = (int) evt.getNewValue();
-    System.out.println("before call");
     appController.displayAlert();
-    System.out.println("after call");
   }
 
   /**
