@@ -20,7 +20,7 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
   @FXML
   Button equipmentRequest,
       labRequest,
-      sanRequest,
+      saniRequest,
       mealRequest,
       giftRequest,
       mbgRequest,
@@ -42,9 +42,8 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     String changeType = evt.getPropertyName();
-    System.out.println(changeType);
     int newValue = (int) evt.getNewValue();
-    System.out.println(newValue);
+    appController.displayAlert();
   }
 
   /**
@@ -79,7 +78,7 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       appController.loadPage("/edu/wpi/agileAngels/views/equipment-view.fxml");
     } else if (event.getSource() == labRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/lab-view.fxml");
-    } else if (event.getSource() == sanRequest) {
+    } else if (event.getSource() == saniRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/sanitation-view.fxml");
     } else if (event.getSource() == mealRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/mealRequest-view.fxml");
@@ -88,7 +87,7 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
     } else if (event.getSource() == maintenanceRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/maintenance-view.fxml");
     } else if (event.getSource() == mbgRequest) {
-      appController.loadPage("/edu/wpi/agileAngels/views/mbg-view.fxml");
+      appController.loadPage("/edu/wpi/agileAngels/views/mgb-view.fxml");
     } else if (event.getSource() == morgueRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/morgue-view.fxml");
     } else if (event.getSource() == patientTransportRequest) {

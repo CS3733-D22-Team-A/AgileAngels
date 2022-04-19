@@ -31,6 +31,12 @@ public class LocationNode {
     button.setText(String.valueOf(location.getNodeType().charAt(0)));
     button.setStyle(
         "-fx-font-size: 12; -fx-background-radius: 0 8 8 8; -fx-background-color: rgba(73, 67, 112, 1); -fx-text-fill: white");
+
+    button.setOnAction(
+        (ActionEvent event2) -> {
+          isClicked();
+        });
+
     button
         .hoverProperty()
         .addListener(
@@ -53,11 +59,6 @@ public class LocationNode {
           button.setViewOrder(-100);
         });
 
-    button.setOnAction(
-        (ActionEvent event2) -> {
-          isClicked();
-        });
-
     button.setOnMousePressed(
         (MouseEvent mouseEvent) -> {
           xOffset = (button.getLayoutX() - mouseEvent.getSceneX());
@@ -68,6 +69,11 @@ public class LocationNode {
         });
     button.setOnMouseDragged(
         (MouseEvent mouseEvent) -> {
+          button.setPrefSize(8, 8);
+          button.setStyle(
+              "-fx-font-size: 12; -fx-background-color: rgba(73, 67, 112, 1) ;-fx-background-radius: 0 5 5 5; -fx-text-alignment: left; -fx-text-fill: white");
+          button.setAlignment(Pos.CENTER);
+          button.setText(String.valueOf(location.getNodeType().charAt(0)));
           button.setLayoutX(
               getPaneXfromcoords((locationNodeManager.getMapXCoordFromClick(mouseEvent))));
 
@@ -77,18 +83,24 @@ public class LocationNode {
         });
     button.setOnMouseReleased(
         (MouseEvent mouseEvent) -> {
+          System.out.println(
+              dist(
+                  buttonX,
+                  getPaneXfromcoords(locationNodeManager.getMapXCoordFromClick(mouseEvent)),
+                  buttonY,
+                  getPaneYfromcoords(locationNodeManager.getMapYCoordFromClick(mouseEvent))));
           if (dist(
                   buttonX,
-                  locationNodeManager.getMapXCoordFromClick(mouseEvent),
+                  getPaneXfromcoords(locationNodeManager.getMapXCoordFromClick(mouseEvent)),
                   buttonY,
-                  locationNodeManager.getMapYCoordFromClick(mouseEvent))
-              < 20) {
+                  getPaneYfromcoords(locationNodeManager.getMapYCoordFromClick(mouseEvent)))
+              < 50) {
             button.setLayoutX(buttonX);
             button.setLayoutY(buttonY);
           } else {
-            dragged = false;
-            locationNodeManager.setDraggedNodeCoords(mouseEvent);
-            System.out.println("hello");
+            this.location.setXCoord(locationNodeManager.getMapXCoordFromClick(mouseEvent));
+            this.location.setYCoord(locationNodeManager.getMapYCoordFromClick(mouseEvent));
+            locationNodeManager.editNode(this, location.getLongName(), location.getNodeType());
           }
         });
   }

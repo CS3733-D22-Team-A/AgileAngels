@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,7 +25,6 @@ import javafx.util.Duration;
 
 public class DashboardController implements Initializable, PropertyChangeListener {
 
-  @FXML ScrollPane NODscroll, SRscroll;
   @FXML
   Label cleanPump,
       cleanBeds,
@@ -38,15 +38,18 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
   AppController appController = AppController.getInstance();
   ArrayList<Pane> panes = new ArrayList<>();
+  @FXML private ScrollPane scrollPane = new ScrollPane();
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    // This is to get rid of the scroll bars on the dashboard.
-    NODscroll.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
-    NODscroll.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
-    SRscroll.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
-    SRscroll.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
-
+    floor5.setPickOnBounds(false);
+    floor4.setPickOnBounds(false);
+    floor3.setPickOnBounds(false);
+    floor2.setPickOnBounds(false);
+    floorLL1.setPickOnBounds(false);
+    floorLL2.setPickOnBounds(false);
+    scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     appController.addPropertyChangeListener(this);
 
     try {
@@ -73,6 +76,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
       dirtyXRay.setText(String.valueOf(newValue));
       cleanXRay.setText(String.valueOf(1 - newValue));
     }
+    appController.displayAlert();
   }
 
   @FXML
@@ -277,5 +281,22 @@ public class DashboardController implements Initializable, PropertyChangeListene
       dirtyXRay.setText(String.valueOf(XRayCountdirty));
       dirtyPump.setText(String.valueOf(pumpCountdirty));
     }
+  }
+
+  public void goToFloor(ActionEvent event) {
+    if (event.getSource() == floor5) {
+      appController.setCurrentFloor("5");
+    } else if (event.getSource() == floor4) {
+      appController.setCurrentFloor("4");
+    } else if (event.getSource() == floor3) {
+      appController.setCurrentFloor("3");
+    } else if (event.getSource() == floor2) {
+      appController.setCurrentFloor("2");
+    } else if (event.getSource() == floorLL1) {
+      appController.setCurrentFloor("L1");
+    } else if (event.getSource() == floorLL2) {
+      appController.setCurrentFloor("L2");
+    }
+    appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
   }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -10,11 +11,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.EquipmentController">
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.EquipmentController">
    <children>
 
       <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
@@ -24,35 +24,73 @@
             <Font size="16.0" />
          </font>
       </Label>
+      <HBox layoutX="382.0" layoutY="599.0" prefHeight="100.0" prefWidth="905.0" spacing="30.0">
+         <children>
+            <TextField fx:id="employeeFilterField" prefHeight="50.0" prefWidth="200.0" promptText="Filter by Employee" />
+            <TextField fx:id="statusFilterField" prefHeight="50.0" prefWidth="200.0" promptText="Filter by Status" />
+            <Button fx:id="clearFilter" alignment="CENTER" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Clear Filters" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </graphic>
+            </Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Submit Filters" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
       <HBox alignment="CENTER" layoutX="68.0" layoutY="171.0" prefHeight="410.0" prefWidth="1158.0" spacing="50.0" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
          <children>
             <VBox alignment="CENTER" prefHeight="432.0" prefWidth="270.0" spacing="15.0">
                <children>
-                  <Pane fx:id="dropButtonPane" prefHeight="50.0" prefWidth="270.0">
-                     <children>
-                        <MenuButton fx:id="equipmentType" layoutX="35.0" layoutY="3.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="198.0" text="Equipment Type">
-                          <items>
-                            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="XRayMachine" />
-                            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="InfusionPump" />
-                              <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Recliner" />
-                              <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Bed" />
-                          </items>
-                        </MenuButton>
-                     </children>
-                  </Pane>
+                  <MenuButton fx:id="equipmentType" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" text="Equipment Type">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="XRayMachine" />
+                      <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="InfusionPump" />
+                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Recliner" />
+                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Bed" />
+                    </items>
+                  </MenuButton>
             
-                  <MenuButton fx:id="equipLocation" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Delivery Location">
+                  <MenuButton fx:id="equipLocation" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" text="Delivery Location">
                      <items>
                      </items>
                   </MenuButton>
-                  <MenuButton fx:id="equipmentStatus" mnemonicParsing="false" prefHeight="41.0" prefWidth="199.0" text="Status">
+                  <MenuButton fx:id="equipmentStatus" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" text="Status">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="notStarted" />
                       <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="inProgress" />
                         <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="complete" />
                     </items>
                   </MenuButton>
-                  <MenuButton fx:id="equipmentEmployeeText" mnemonicParsing="false" prefHeight="41.0" prefWidth="199.0" text="Employee">
+                  <MenuButton fx:id="equipmentEmployeeText" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" text="Employee">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="James" />
                         <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="Liam" />
@@ -63,8 +101,8 @@
                         <MenuItem mnemonicParsing="false" onAction="#employeeMenu" text="Alex" />
                      </items>
                   </MenuButton>
-                  <TextField fx:id="deleteName" prefHeight="50.0" prefWidth="270.0" promptText="delete index" />
-                  <TextField fx:id="editRequest" prefHeight="50.0" prefWidth="270.0" promptText="edit by index" />
+                  <TextField fx:id="deleteName" prefHeight="40.0" prefWidth="300.0" promptText="delete index" />
+                  <TextField fx:id="editRequest" prefHeight="40.0" prefWidth="300.0" promptText="edit by index" />
                   <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0">
                      <children>
                         <Button fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
@@ -120,44 +158,10 @@
             </TableView>
          </children>
       </HBox>
-      <TextField fx:id="employeeFilterField" layoutX="379.0" layoutY="613.0" prefHeight="50.0" prefWidth="200.0" promptText="Filter by Employee" />
-      <Button fx:id="clearFilter" alignment="CENTER" layoutX="996.0" layoutY="613.0" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-         <font>
-            <Font size="10.0" />
-         </font>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <graphic>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Clear Filters" />
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </HBox>
-         </graphic>
-      </Button>
-      <Button alignment="CENTER" layoutX="846.0" layoutY="613.0" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-         <font>
-            <Font size="10.0" />
-         </font>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <graphic>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Submit Filters" />
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </HBox>
-         </graphic>
-      </Button>
-      <TextField fx:id="statusFilterField" layoutX="611.0" layoutY="613.0" prefHeight="50.0" prefWidth="200.0" promptText="Filter by Status" />
 
    </children>
+   <stylesheets>
+      <URL value="@stylesheets/styleRequest.css" />
+      <URL value="@stylesheets/style.css" />
+   </stylesheets>
 </AnchorPane>

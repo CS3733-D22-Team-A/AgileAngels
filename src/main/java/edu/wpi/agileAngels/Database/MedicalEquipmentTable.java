@@ -103,7 +103,9 @@ public class MedicalEquipmentTable implements TableI {
               + "Type VARCHAR(50),"
               + "Clean VARCHAR(50),"
               + "Location VARCHAR(50),"
-              + "Status VARCHAR(50))";
+              + "Status VARCHAR(50),"
+              + "PRIMARY KEY (ID))";
+
       queryEquip.execute(queryEq);
       return true;
     } catch (SQLException e) {

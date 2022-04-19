@@ -64,25 +64,13 @@ public class MedEquipImpl implements MedEquipDAO {
     String type = medicalEquip.getType();
     String floor = medicalEquip.getLocation().getFloor();
     if (clean) {
-      incrementDirty(type, floor, -1);
+      appController.incrementDirty(type, floor, -1);
     } else {
-      incrementDirty(type, floor, 1);
+      appController.incrementDirty(type, floor, 1);
     }
     medicalEquip.setClean(clean);
     Adb.updateMedicalEquipment(medicalEquip);
     System.out.println("MedicalEquipment " + medicalEquip.getID() + " cleanliness is updated");
-  }
-
-  private void incrementDirty(String type, String floor, int i) {
-    if (type.equals("XRayMachine")) {
-      appController.incrementDirtyXRays(floor, i);
-    } else if (type.equals("InfusionPump")) {
-      appController.incrementDirtyInfusionPumps(floor, i);
-    } else if (type.equals("Bed")) {
-      appController.incrementDirtyBeds(floor, i);
-    } else if (type.equals("Recliner")) {
-      appController.incrementDirtyRecliners(floor, i);
-    }
   }
 
   public void readCSV() {

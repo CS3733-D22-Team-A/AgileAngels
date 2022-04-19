@@ -1,6 +1,8 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -15,7 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class GiftsController implements Initializable {
+public class GiftsController implements Initializable, PropertyChangeListener {
   @FXML
   private TextField giftSender,
       giftRecipient,
@@ -59,6 +61,7 @@ public class GiftsController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    appController.addPropertyChangeListener(this);
 
     senderColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     recipientColumn.setCellValueFactory(new PropertyValueFactory<>("attribute2"));
@@ -81,6 +84,13 @@ public class GiftsController implements Initializable {
     }
 
     giftTable.setItems(giftData);
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    String changeType = evt.getPropertyName();
+    int newValue = (int) evt.getNewValue();
+    appController.displayAlert();
   }
 
   @FXML
