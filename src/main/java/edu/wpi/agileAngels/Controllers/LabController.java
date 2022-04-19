@@ -15,7 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 // similar to equip controller
-public class LabController extends MainController implements Initializable, PropertyChangeListener {
+public class LabController implements Initializable, PropertyChangeListener {
 
   @FXML
   private TextField labTestLocation,
@@ -47,16 +47,13 @@ public class LabController extends MainController implements Initializable, Prop
       descriptionColumn;
   @FXML
   private Label labTestConfirmation,
-      dropdownButtonText,
       completedLabel,
       inProgressLabel,
       notStartedNumber,
       inProgressNumber,
-      completedNumber,
-      bloodLabel,
-      urineLabel,
-      tumorLabel,
-      covidLabel;
+      completedNumber;
+
+  @FXML private MenuButton dropdownButtonText;
 
   public LabController() throws SQLException {}
 
@@ -76,6 +73,7 @@ public class LabController extends MainController implements Initializable, Prop
     statusInProgress = 0;
     statusComplete = 0;
     // nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -87,15 +85,14 @@ public class LabController extends MainController implements Initializable, Prop
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
-    if (labData.isEmpty()) {
-      System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
-      LabDAO.csvRead();
-      Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
-      for (Map.Entry<String, Request> entry : LabDAO.getAllRequests().entrySet()) {
-        Request req = entry.getValue();
-        dashboardLoad();
-        labData.add(req);
-      }
+
+    labData.clear();
+
+    Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
+    for (Map.Entry<String, Request> entry : LabDAO.getAllRequests().entrySet()) {
+      Request req = entry.getValue();
+      dashboardLoad();
+      labData.add(req);
     }
     // This has to be here for when you do: -> Back -> Lab Request. It'll load the numbers again. -
     // Justin
@@ -120,7 +117,6 @@ public class LabController extends MainController implements Initializable, Prop
         && inProgressNumber.getText().equals("-")
         && completedNumber.getText().equals("-")) {
       System.out.println("THE NUMBERS ARE EMPTY, RELEASE THE HOUNDS");
-      LabDAO.csvRead();
       Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
       while (var3.hasNext()) {
         Map.Entry<String, Request> entry = (Map.Entry) var3.next();
@@ -168,8 +164,8 @@ public class LabController extends MainController implements Initializable, Prop
   /** Takes in employee fields by the textfields. And submits it. */
   @FXML
   private void submitLabTest() {
-    // String dropDown = dropdownButtonText.getText();
-    String dropDown = "test";
+    String dropDown = dropdownButtonText.getText();
+    // String dropDown = "test";
     String location = labTestLocation.getText();
     String employee = labEmployeeText.getText();
     String status = labStatus.getText();
@@ -514,5 +510,10 @@ public class LabController extends MainController implements Initializable, Prop
 
   public void clearPage(ActionEvent actionEvent) {
     appController.clearPage();
+  }
+
+  public void requestTypeDropdown(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    dropdownButtonText.setText(button.getText());
   }
 }

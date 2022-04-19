@@ -7,7 +7,7 @@ public interface EmployeeDAO {
 
   Employee getEmployee(String userID);
 
-  void addEmployee(String name, String username, String password);
+  void addEmployee(String name, String password);
 
   void removeEmployee(String userID);
 
