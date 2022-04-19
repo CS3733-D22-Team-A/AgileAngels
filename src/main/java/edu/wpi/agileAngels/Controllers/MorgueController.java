@@ -226,16 +226,13 @@ public class MorgueController implements Initializable, PropertyChangeListener {
         morgueData.remove(i);
         morgueID.getItems().remove(i);
       }
-      freeEmployees.clear();
-      freeEmployees = MorguerequestImpl.getFreeEmployees();
-      clear(event);
-      popOut.setVisible(false);
     }
-
     // delete from hash map and database table
     MorguerequestImpl.deleteRequest(MorguerequestImpl.getAllRequests().get(id));
-
+    freeEmployees.clear();
+    freeEmployees = MorguerequestImpl.getFreeEmployees();
     clear(event);
+    popOut.setVisible(false);
   }
 
   private ObservableList<Request> filterReqEmployee(String employeeName) {
