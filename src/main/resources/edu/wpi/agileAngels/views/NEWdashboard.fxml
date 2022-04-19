@@ -12,16 +12,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="background" stylesheets="@stylesheets/DashCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.DashboardController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="background" stylesheets="@stylesheets/DashCSS.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.DashboardController">
    <children>
       <Pane layoutX="698.0" layoutY="97.0" prefHeight="603.0" prefWidth="523.0" styleClass="pane" stylesheets="@stylesheets/DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="97.0">
          <children>
-            <Button fx:id="floorLL2" layoutX="134.0" layoutY="370.0" mnemonicParsing="false" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #0F6671;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
-            <Button fx:id="floorLL1" layoutX="134.0" layoutY="307.0" mnemonicParsing="false" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #207E8A;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
-            <Button fx:id="floor2" layoutX="134.0" layoutY="244.0" mnemonicParsing="false" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #2795A3;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
-            <Button fx:id="floor3" layoutX="134.0" layoutY="181.0" mnemonicParsing="false" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #3EADBB;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
-            <Button fx:id="floor4" layoutX="134.0" layoutY="118.0" mnemonicParsing="false" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #6FC2CC;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
-            <Button fx:id="floor5" layoutX="134.0" layoutY="55.0" mnemonicParsing="false" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #98D5DD;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
+            <Button fx:id="floorLL2" layoutX="134.0" layoutY="370.0" mnemonicParsing="false" onAction="#goToFloor" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #0F6671;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
+            <Button fx:id="floorLL1" layoutX="134.0" layoutY="307.0" mnemonicParsing="false" onAction="#goToFloor" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #207E8A;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
+            <Button fx:id="floor2" layoutX="134.0" layoutY="244.0" mnemonicParsing="false" onAction="#goToFloor" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #2795A3;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
+            <Button fx:id="floor3" layoutX="134.0" layoutY="181.0" mnemonicParsing="false" onAction="#goToFloor" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #3EADBB;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
+            <Button fx:id="floor4" layoutX="134.0" layoutY="118.0" mnemonicParsing="false" onAction="#goToFloor" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #6FC2CC;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
+            <Button fx:id="floor5" layoutX="134.0" layoutY="55.0" mnemonicParsing="false" onAction="#goToFloor" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #98D5DD;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
             <Label layoutX="24.0" layoutY="17.0" text="Select Floor">
                <font>
                   <Font size="32.0" />
