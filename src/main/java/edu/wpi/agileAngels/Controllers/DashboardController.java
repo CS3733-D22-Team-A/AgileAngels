@@ -81,8 +81,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
       dirtyBedsArray[2] = newValue;
     } else if (changeType.equals("dirtyBeds3")) {
       dirtyBedsArray[3] = newValue;
-    }
-    else if (changeType.equals("dirtyPumpsAll")) {
+    } else if (changeType.equals("dirtyPumpsAll")) {
       dirtyPumpsArray[0] = newValue;
     } else if (changeType.equals("dirtyPumps1")) {
       dirtyPumpsArray[1] = newValue;
@@ -90,8 +89,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
       dirtyPumpsArray[2] = newValue;
     } else if (changeType.equals("dirtyPumps3")) {
       dirtyPumpsArray[3] = newValue;
-    }
-    else if (changeType.equals("dirtyReclinersAll")) {
+    } else if (changeType.equals("dirtyReclinersAll")) {
       dirtyReclinersArray[0] = newValue;
     } else if (changeType.equals("dirtyRecliners1")) {
       dirtyReclinersArray[1] = newValue;
@@ -99,8 +97,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
       dirtyReclinersArray[2] = newValue;
     } else if (changeType.equals("dirtyRecliners3")) {
       dirtyReclinersArray[3] = newValue;
-    }
-    else if (changeType.equals("dirtyXRaysAll")) {
+    } else if (changeType.equals("dirtyXRaysAll")) {
       dirtyXRaysArray[0] = newValue;
     } else if (changeType.equals("dirtyXRays1")) {
       dirtyXRaysArray[1] = newValue;
@@ -279,19 +276,48 @@ public class DashboardController implements Initializable, PropertyChangeListene
         MedicalEquip equip = entry.getValue();
         if (equip.getType().equals("InfusionPump") && !equip.isClean()) {
           dirtyPumpsArray[0] += 1;
+          if (equip.getLocation().getFloor().equals("3")) {
+            dirtyPumpsArray[1] += 1;
+          } else if (equip.getLocation().getFloor().equals("4")) {
+            dirtyPumpsArray[2] += 1;
+          } else if (equip.getLocation().getFloor().equals("5")) {
+            dirtyPumpsArray[3] += 1;
+          }
         } else if (equip.getType().equals("XRayMachine") && !equip.isClean()) {
           dirtyXRaysArray[0] += 1;
+          if (equip.getLocation().getFloor().equals("3")) {
+            dirtyXRaysArray[1] += 1;
+          } else if (equip.getLocation().getFloor().equals("4")) {
+            dirtyXRaysArray[2] += 1;
+          } else if (equip.getLocation().getFloor().equals("5")) {
+            dirtyXRaysArray[3] += 1;
+          }
         } else if (equip.getType().equals("Bed") && !equip.isClean()) {
           dirtyBedsArray[0] += 1;
+          if (equip.getLocation().getFloor().equals("3")) {
+            dirtyBedsArray[1] += 1;
+          } else if (equip.getLocation().getFloor().equals("4")) {
+            dirtyBedsArray[2] += 1;
+          } else if (equip.getLocation().getFloor().equals("5")) {
+            dirtyBedsArray[3] += 1;
+          }
         } else if (equip.getType().equals("Recliner") && !equip.isClean()) {
           dirtyReclinersArray[0] += 1;
+          if (equip.getLocation().getFloor().equals("3")) {
+            dirtyReclinersArray[1] += 1;
+          } else if (equip.getLocation().getFloor().equals("4")) {
+            dirtyReclinersArray[2] += 1;
+          } else if (equip.getLocation().getFloor().equals("5")) {
+            dirtyReclinersArray[3] += 1;
+          }
         }
       }
 
-      cleanPump.setText(String.valueOf((pumpsPerFloor*numFloors) - dirtyPumpsArray[0]));
-      cleanXRay.setText(String.valueOf((xraysPerFloor*numFloors) - dirtyXRaysArray[0]));
-      cleanBeds.setText(String.valueOf((bedsPerFloor*numFloors) - dirtyBedsArray[0]));
-      cleanRecliner.setText(String.valueOf((reclinersPerFloor*numFloors) - dirtyReclinersArray[0]));
+      cleanPump.setText(String.valueOf((pumpsPerFloor * numFloors) - dirtyPumpsArray[0]));
+      cleanXRay.setText(String.valueOf((xraysPerFloor * numFloors) - dirtyXRaysArray[0]));
+      cleanBeds.setText(String.valueOf((bedsPerFloor * numFloors) - dirtyBedsArray[0]));
+      cleanRecliner.setText(
+          String.valueOf((reclinersPerFloor * numFloors) - dirtyReclinersArray[0]));
       dirtyBeds.setText(String.valueOf(dirtyBedsArray[0]));
       dirtyRecliner.setText(String.valueOf(dirtyReclinersArray[0]));
       dirtyXRay.setText(String.valueOf(dirtyXRaysArray[0]));
