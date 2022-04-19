@@ -548,9 +548,16 @@ public class MapsController implements Initializable, PropertyChangeListener {
     locationEditPane.setVisible(false);
   }
 
-  public void locationDelete(ActionEvent event) {}
+  public void locationDelete(ActionEvent event) {
+    locationNodeManager.deleteNode(currentLocationNode.getNodeID());
 
-  public void requestDelete(ActionEvent event) {}
+    locationEditPane.setVisible(false);
+  }
+
+  public void requestDelete(ActionEvent event) {
+    requestNodeManager.deleteRequest(currentRequestNode);
+    requestEditPane.setVisible(false);
+  }
 
   public void locationAdd(ActionEvent event) {
 
@@ -580,5 +587,10 @@ public class MapsController implements Initializable, PropertyChangeListener {
     System.out.println("new Location");
     displayLocationNode(locationNodeManager.addNode(newLocation));
     locationAddPane.setVisible(false);
+  }
+
+  public void requestTypeDropdown(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    requestTypeDropdown.setText(button.getText());
   }
 }

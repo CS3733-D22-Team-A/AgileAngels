@@ -95,4 +95,14 @@ public class RequestNodeManager {
       medRequestDAO.updateStatus(request.getRequest(), request.getStatus());
     }
   }
+
+  public void deleteRequest(RequestNode request) {
+    nodes.remove(request);
+    request.getButton().setVisible(false);
+    if (request.getName().substring(0, 3).equals("Lab")) {
+      labRequestDAO.deleteRequest(request.getRequest());
+    } else if (request.getName().substring(0, 3).equals("Med")) {
+      medRequestDAO.deleteRequest(request.getRequest());
+    }
+  }
 }

@@ -98,7 +98,7 @@
       </VBox>
         <Button fx:id="zoomIn" layoutX="1194.0" layoutY="558.0" mnemonicParsing="false" onAction="#zoomableMap" prefHeight="30.0" prefWidth="32.0" text="+" AnchorPane.bottomAnchor="132.0" AnchorPane.rightAnchor="20.0" />
         <Button fx:id="zoomOut" layoutX="1194.0" layoutY="588.0" mnemonicParsing="false" onAction="#zoomableMap" prefHeight="30.0" prefWidth="32.0" text="-" AnchorPane.bottomAnchor="102.0" AnchorPane.rightAnchor="20.0" />
-      <Pane fx:id="locationEditPane" prefHeight="295.0" prefWidth="274.0" style="-fx-background-radius: 10; -fx-background-color: #F4F4F4;" visible="false" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
+      <Pane fx:id="locationEditPane" prefHeight="295.0" prefWidth="274.0" style="-fx-background-radius: 10; -fx-background-color: rgba(244, 244, 244, .8);" visible="false" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
          <children>
             <HBox alignment="CENTER" prefHeight="295.0" prefWidth="274.0">
                <children>
@@ -109,6 +109,7 @@
                             <MenuButton fx:id="locationTypeDropdown" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Node Type">
                                 <items>
                                     <MenuItem fx:id="pati" mnemonicParsing="false" onAction="#typeMenu" text="PATI" />
+                                    <MenuItem fx:id="bath" mnemonicParsing="false" onAction="#typeMenu" text="BATH" />
                                     <MenuItem fx:id="stor" mnemonicParsing="false" onAction="#typeMenu" text="STOR" />
                                     <MenuItem fx:id="dirt" mnemonicParsing="false" onAction="#typeMenu" text="DIRT" />
                                     <MenuItem fx:id="hall" mnemonicParsing="false" onAction="#typeMenu" text="HALL" />
@@ -144,14 +145,20 @@
             </HBox>
          </children>
       </Pane>
-      <Pane fx:id="requestEditPane" layoutX="10.0" layoutY="10.0" prefHeight="350.0" prefWidth="274.0" style="-fx-background-radius: 10; -fx-background-color: #F4F4F4;" visible="false" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
+      <Pane fx:id="requestEditPane" layoutX="10.0" layoutY="10.0" prefHeight="350.0" prefWidth="274.0" style="-fx-background-radius: 10; -fx-background-color: rgba(244, 244, 244, .8);" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
          <children>
             <HBox alignment="CENTER" prefHeight="350.0" prefWidth="274.0">
                <children>
                   <VBox alignment="CENTER" prefHeight="608.0" prefWidth="198.0" spacing="20.0">
                      <children>
                         <Label fx:id="requestName" prefHeight="40.0" prefWidth="270.0" />
-                        <MenuButton fx:id="requestTypeDropdown" layoutX="10.0" layoutY="108.0" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Type" />
+                        <MenuButton fx:id="requestTypeDropdown" layoutX="10.0" layoutY="108.0" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Type">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#requestTypeDropdown" text="Blood Test" />
+                              <MenuItem mnemonicParsing="false" onAction="#requestTypeDropdown" text="Urine Test" />
+                              <MenuItem mnemonicParsing="false" onAction="#requestTypeDropdown" text="Tumor Marker" />
+                              <MenuItem mnemonicParsing="false" onAction="#requestTypeDropdown" text="COVID-19 Test " />
+                           </items></MenuButton>
                         <MenuButton fx:id="requestEmployeeDropdown" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Employee" />
                         <MenuButton fx:id="requestStatusDropdown" layoutX="10.0" layoutY="168.0" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Status">
                            <items>
@@ -180,7 +187,7 @@
             </HBox>
          </children>
       </Pane>
-      <Pane fx:id="locationAddPane" layoutX="30.0" layoutY="90.0" prefHeight="295.0" prefWidth="274.0" style="-fx-background-radius: 10; -fx-background-color: #F4F4F4;" visible="false">
+      <Pane fx:id="locationAddPane" layoutX="30.0" layoutY="90.0" prefHeight="295.0" prefWidth="274.0" style="-fx-background-radius: 10; -fx-background-color: rgba(244, 244, 244, .8);" visible="false">
          <children>
             <HBox alignment="CENTER" prefHeight="295.0" prefWidth="274.0">
                <children>
@@ -193,6 +200,7 @@
                               <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="PATI" />
                               <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="STOR" />
                               <MenuItem fx:id="dirt1" mnemonicParsing="false" onAction="#typeMenu" text="DIRT" />
+                              <MenuItem fx:id="bath1" mnemonicParsing="false" onAction="#typeMenu" text="BATH" />
                               <MenuItem fx:id="hall1" mnemonicParsing="false" onAction="#typeMenu" text="HALL" />
                               <MenuItem fx:id="elev1" mnemonicParsing="false" onAction="#typeMenu" text="ELEV" />
                               <MenuItem fx:id="rest1" mnemonicParsing="false" onAction="#typeMenu" text="REST" />
