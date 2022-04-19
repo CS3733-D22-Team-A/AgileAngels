@@ -28,5 +28,4 @@ public interface LocationDAO {
 
   public void addLocation(Location location) throws SQLException;
 
-  public String[] getAllLocationNames();
 }

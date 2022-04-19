@@ -3,10 +3,7 @@ package edu.wpi.agileAngels.Controllers;
 import edu.wpi.agileAngels.Database.*;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -45,6 +42,7 @@ public class LaundryController implements Initializable {
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
+  private ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
 
   private EmployeeManager employeeDAO = EmployeeManager.getInstance();
   private HashMap<String, Employee> employeesHash = employeeDAO.getAllEmployees();
@@ -57,8 +55,8 @@ public class LaundryController implements Initializable {
 
   public LaundryController() throws SQLException {}
 
-  private String[] locations = locDAO.getAllLocationNames();
-  private String[] employees = employeeDAO.getAllEmployeeNames();
+  private String[] locations = new String[9999];
+  private String[] employees = new String[9999];
   private String[] types = {"Whites", "Colors", "Infected", "Towels/Blankets"};
   private String[] status = {"not Started", "in Progress", "complete"};
 
@@ -76,6 +74,19 @@ public class LaundryController implements Initializable {
     // To populate dropdowns
     TextFields.bindAutoCompletion(laundryStatus, status);
     TextFields.bindAutoCompletion(laundryType, types);
+
+    int count = 0;
+    for (Map.Entry<String, Employee> entry : employeesHash.entrySet()) {
+      Employee emp = entry.getValue();
+      employees[count] = emp.getName();
+      count++;
+    }
+    count = 0;
+    for (Location loc : locationsList) {
+      locations[count] = loc.getLongName();
+      count++;
+    }
+
     TextFields.bindAutoCompletion(laundryEmployee, employees);
     TextFields.bindAutoCompletion(laundryLocation, locations);
 

@@ -14,6 +14,4 @@ public interface EmployeeDAO {
   void updateEmployeeName(String userID, String newName);
 
   void updateEmployeePassword(String userID, String newPW);
-
-  String[] getAllEmployeeNames();
 }
