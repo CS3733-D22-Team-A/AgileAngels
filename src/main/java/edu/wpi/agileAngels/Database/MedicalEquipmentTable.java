@@ -1,8 +1,8 @@
 package edu.wpi.agileAngels.Database;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import edu.wpi.agileAngels.Adb;
+
+import java.sql.*;
 import java.util.HashMap;
 
 public class MedicalEquipmentTable implements TableI {
@@ -131,8 +131,55 @@ public class MedicalEquipmentTable implements TableI {
     }
   }
 
+
+
   @Override
   public HashMap<String, Object> getData() throws SQLException {
-    return null;
+    String sql = "SELECT * FROM ServiceRequests";
+    HashMap<String, Employee> employeeHashmap = Adb.getEmployees();
+    HashMap<String, Location> locationHashMap = Adb.getLocations();
+
+    HashMap<String, Object> empty = new HashMap();
+
+    Connection connection = DBconnection.getConnection();
+
+    Statement statement = connection.createStatement();
+    ResultSet result = statement.executeQuery(sql);
+
+
+    while (result.next()) {
+      String name = result.getString("Name");
+      Employee employee = employeeHashmap.get(result.getString("employeename"));
+      Location location = locationHashMap.get(result.getString("location"));
+      String type = result.getString("type");
+      String status = result.getString("status");
+      String description = result.getString("description");
+      String attribute1 = result.getString("attribute1");
+      String attribute2 = result.getString("attribute2");
+
+      Request request = new Request(name, employee, location, type, status, description, attribute1, attribute2);
+
+      if (name.substring(0, 3).compareTo("Med") == 0) {
+        Adb.addMedRequest(request);
+      } else if (name.substring(0, 4).compareTo("Meal") ==0) {
+        Adb.addMealRequest(request);
+      } else if (name.substring(0, 4).compareTo("L") == 0) {
+        Adb.addLabRequest(request);
+      } else if (name.substring(0, 4).compareTo("Main") == 0) {
+        Adb.addmainRequest(request);
+      } else if (name.substring(0, 4).compareTo("Tran") == 0) {
+        {
+          Adb.addTransportRequest(request);
+        }
+      } else if (name.substring(0, 3).compareTo("Mor") == 0) {
+        Adb.addMorgueRequest(request);
+
+      }
+
+    }
+
+    return empty;
+
+
   }
 }

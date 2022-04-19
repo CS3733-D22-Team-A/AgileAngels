@@ -389,7 +389,5 @@ public class RequestDAOImpl implements RequestDAO {
     }
   }
 
-  public ArrayList<String> getFreeEmployees() throws SQLException {
-    return Adb.getFreeEmployees();
-  }
+
 }

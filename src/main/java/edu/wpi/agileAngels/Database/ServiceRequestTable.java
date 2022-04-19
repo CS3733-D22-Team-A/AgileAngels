@@ -22,7 +22,7 @@ public class ServiceRequestTable implements TableI {
       }
       Request request = (Request) obj;
       String add =
-          "INSERT INTO ServiceRequests(Name, EmployeeName, Location, Type, Status, Description, Attribute1, Attribute2) VALUES(?,?,?,?,?,?,?,?)";
+              "INSERT INTO ServiceRequests(Name, EmployeeName, Location, Type, Status, Description, Attribute1, Attribute2) VALUES(?,?,?,?,?,?,?,?)";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
       preparedStatement.setString(1, request.getName());
       preparedStatement.setString(2, request.getEmployee().getName());
@@ -72,7 +72,7 @@ public class ServiceRequestTable implements TableI {
       }
       Request request = (Request) obj;
       String update =
-          "UPDATE ServiceRequests SET EmployeeName = ?, Location = ?, Type = ?, Status = ?, Description = ?, Attribute1 = ?, Attribute2 = ? WHERE Name = ?";
+              "UPDATE ServiceRequests SET EmployeeName = ?, Location = ?, Type = ?, Status = ?, Description = ?, Attribute1 = ?, Attribute2 = ? WHERE Name = ?";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(update);
       preparedStatement.setString(1, request.getEmployee().getName());
       preparedStatement.setString(2, request.getLocation().getLongName());
@@ -99,16 +99,16 @@ public class ServiceRequestTable implements TableI {
     try {
       Statement query = DBconnection.getConnection().createStatement();
       String queryServiceRequests =
-          "CREATE TABLE ServiceRequests("
-              + "Name VARCHAR(50),"
-              + "EmployeeName VARCHAR(50),"
-              + "Location VARCHAR(50),"
-              + "Type VARCHAR(50),"
-              + "Status VARCHAR(50),"
-              + "Description VARCHAR(50),"
-              + "Attribute1 VARCHAR(50),"
-              + "Attribute2 VARCHAR(50),"
-              + "PRIMARY KEY (Name))";
+              "CREATE TABLE ServiceRequests("
+                      + "Name VARCHAR(50),"
+                      + "EmployeeName VARCHAR(50),"
+                      + "Location VARCHAR(50),"
+                      + "Type VARCHAR(50),"
+                      + "Status VARCHAR(50),"
+                      + "Description VARCHAR(50),"
+                      + "Attribute1 VARCHAR(50),"
+                      + "Attribute2 VARCHAR(50),"
+                      + "PRIMARY KEY (Name))";
       query.execute(queryServiceRequests);
       return true;
     } catch (SQLException sqlException) {
@@ -135,9 +135,13 @@ public class ServiceRequestTable implements TableI {
 
   @Override
   public HashMap<String, Object> getData() throws SQLException {
+
+
     String sql = "SELECT * FROM ServiceRequests";
     HashMap<String, Employee> employeeHashmap = Adb.getEmployees();
     HashMap<String, Location> locationHashMap = Adb.getLocations();
+
+    HashMap<String, Object> empty = new HashMap();
 
     Connection connection = DBconnection.getConnection();
 
@@ -157,8 +161,28 @@ public class ServiceRequestTable implements TableI {
 
       Request request = new Request(name, employee, location, type, status, description, attribute1, attribute2);
 
+      if (name.substring(0, 3).compareTo("Med") == 0) {
+        Adb.addMedRequest(request);
+      } else if (name.substring(0, 4).compareTo("Meal") ==0) {
+        Adb.addMealRequest(request);
+      } else if (name.substring(0, 4).compareTo("L") == 0) {
+        Adb.addLabRequest(request);
+      } else if (name.substring(0, 4).compareTo("Main") == 0) {
+        Adb.addmainRequest(request);
+      } else if (name.substring(0, 4).compareTo("Tran") == 0) {
+        {
+        Adb.addTransportRequest(request);
+        }
+      } else if (name.substring(0, 3).compareTo("Mor") == 0) {
+        Adb.addMorgueRequest(request);
+
+      }
+
     }
+
+    return empty;
 
 
   }
+
 }

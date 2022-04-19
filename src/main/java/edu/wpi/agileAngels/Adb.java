@@ -154,6 +154,9 @@ public class Adb {
 
 
 
+
+
+
   /**
    * Adds a request to the request database table.
    *
@@ -244,6 +247,30 @@ public class Adb {
   public static boolean updateMedicalEquipment(MedicalEquip medicalEquip) {
     return medicalEquipmentTable.update(medicalEquip);
   }
+
+  public static void addMedRequest(Request request){
+    medRequestDAO.addRequest(request);
+  }
+
+  public static void addMealRequest(Request request){
+    mealRequestImpl.addRequest(request);
+  }
+
+  public static void addLabRequest(Request request){
+    labRequestDAO.addRequest(request);
+  }
+  public static void addmainRequest(Request request){
+    mainRequestImpl.addRequest(request);
+  }
+
+  public static void addTransportRequest(Request request){
+    transportRequestImpl.addRequest(request);
+  }
+
+  public static void addMorgueRequest(Request request){
+    morgueRequestImpl.addRequest(request);
+  }
+
 
   /**
    * Adds a new employee to the employee table
