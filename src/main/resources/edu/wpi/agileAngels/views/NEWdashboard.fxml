@@ -16,12 +16,12 @@
    <children>
       <Pane layoutX="698.0" layoutY="97.0" prefHeight="603.0" prefWidth="562.0" styleClass="pane" stylesheets="@DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="97.0">
          <children>
-            <Button fx:id="floorLL2" layoutX="135.0" layoutY="297.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #51478e;" styleClass="squareButton" stylesheets="@DashCSS.css" />
-            <Button fx:id="floorLL1" layoutX="135.0" layoutY="260.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #5f57ad;" styleClass="squareButton" stylesheets="@DashCSS.css" />
-            <Button fx:id="floor2" layoutX="135.0" layoutY="227.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #5166b2;" styleClass="squareButton" stylesheets="@DashCSS.css" />
-            <Button fx:id="floor3" layoutX="135.0" layoutY="187.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #3686bd;" styleClass="squareButton" stylesheets="@DashCSS.css" />
-            <Button fx:id="floor4" layoutX="135.0" layoutY="149.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #1fa1c6;" styleClass="squareButton" stylesheets="@DashCSS.css" />
-            <Button fx:id="floor5" layoutX="135.0" layoutY="112.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #00c5d2;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floorLL2" layoutX="135.0" layoutY="297.0" mnemonicParsing="false" onAction="#goToFloor" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #51478E;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floorLL1" layoutX="135.0" layoutY="260.0" mnemonicParsing="false" onAction="#goToFloor" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #5f57ad;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floor2" layoutX="135.0" layoutY="227.0" mnemonicParsing="false" onAction="#goToFloor" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #5166b2;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floor3" layoutX="135.0" layoutY="187.0" mnemonicParsing="false" onAction="#goToFloor" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #3686bd;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floor4" layoutX="135.0" layoutY="149.0" mnemonicParsing="false" onAction="#goToFloor" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #1fa1c6;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floor5" layoutX="135.0" layoutY="112.0" mnemonicParsing="false" onAction="#goToFloor" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #00c5d2;" styleClass="squareButton" stylesheets="@DashCSS.css" />
             <Label layoutX="24.0" layoutY="17.0" text="Select Floor">
                <font>
                   <Font size="32.0" />

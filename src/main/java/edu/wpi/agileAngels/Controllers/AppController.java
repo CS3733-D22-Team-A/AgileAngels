@@ -27,6 +27,8 @@ public class AppController {
 
   HashMap<String, String> pages = new HashMap<>();
 
+  private String currentFloor = "2";
+
   public AppController() {
     support = new PropertyChangeSupport(this);
 
@@ -272,6 +274,14 @@ public class AppController {
 
   private void profile() throws IOException {
     loadPage("/edu/wpi/agileAngels/views/login.fxml");
+  }
+
+  public String getCurrentFloor() {
+    return currentFloor;
+  }
+
+  public void setCurrentFloor(String currentFloor) {
+    this.currentFloor = currentFloor;
   }
 
   private void goHome(ActionEvent event) {

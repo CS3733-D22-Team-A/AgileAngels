@@ -19,9 +19,17 @@
 }
 .squareButton{
     -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 8, 0, 6, 4);
+    -fx-background-radius: 20 20 20 20;
     -fx-cursor: hand;
     -fx-shape: "m 0 25 L 50 0 L 0 -25 L -50 0 Z";
 }
+
+.squareButton:hover{
+-fx-border-width: 100;
+    -fx-border-color: rgba(0,0,0,0.2);
+}
+
+
 .roomButton{
     -fx-background-color: #FFFFFF;
     -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 16, 0, 6, 0);
