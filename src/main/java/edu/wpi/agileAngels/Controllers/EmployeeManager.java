@@ -37,50 +37,50 @@ public class EmployeeManager implements EmployeeDAO {
   }
 
   /** Gets Employee from hash. */
-  public Employee getEmployee(String username) {
-    return employeeHashMap.get(username);
+  public Employee getEmployee(String name) {
+    return employeeHashMap.get(name);
   }
 
   /**
-   * Checks if the username exists in the hashmap.
+   * Checks if the name exists in the hashmap.
    *
-   * @param username
+   * @param name
    * @return
    */
-  public boolean getUsername(String username) {
-    return employeeHashMap.containsKey(username);
+  public boolean getName(String name) {
+    return employeeHashMap.containsKey(name);
   }
 
   /**
    * is being used for to check the password.
    *
-   * @param username
+   * @param name
    * @return
    */
-  public String getPassword(String username) {
-    return employeeHashMap.get(username).getPassword();
+  public String getPassword(String name) {
+    return employeeHashMap.get(name).getPassword();
   }
 
   /** Removes Employee from hash. */
-  public void removeEmployee(String username) {
-    employeeHashMap.remove(username);
+  public void removeEmployee(String name) {
+    employeeHashMap.remove(name);
   }
 
   /** Adds Employee into hash . */
-  public void addEmployee(String name, String username, String password) {
+  public void addEmployee(String name, String password) {
     ArrayList<Request> newERequest = new ArrayList<Request>();
     Employee newEmployee = new Employee(name, password);
-    employeeHashMap.put(username, newEmployee);
+    employeeHashMap.put(name, newEmployee);
   }
 
   /** Updates Employee's name with newName. */
-  public void updateEmployeeName(String username, String newName) {
-    employeeHashMap.get(username).setName(newName);
+  public void updateEmployeeName(String name, String newName) {
+    employeeHashMap.get(name).setName(newName);
   }
 
   /** Updates Employee's password with newPW. */
-  public void updateEmployeePassword(String username, String newPW) {
-    employeeHashMap.get(username).setPassword(newPW);
+  public void updateEmployeePassword(String name, String newPW) {
+    employeeHashMap.get(name).setPassword(newPW);
   }
 
   public void readCSV() {
