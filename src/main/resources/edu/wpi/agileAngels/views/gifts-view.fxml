@@ -28,7 +28,7 @@
 
         <HBox alignment="CENTER" layoutX="78.0" layoutY="160.0" prefHeight="451.0" prefWidth="1158.0" spacing="50.0">
             <children>
-                <TableView fx:id="mainTable" prefHeight="451.0" prefWidth="1188.0">
+                <TableView fx:id="giftTable" prefHeight="451.0" prefWidth="1188.0">
                     <columns>
                         <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0"
                                      resizable="false" text="Name"/>
@@ -250,30 +250,30 @@
                 <Font size="15.0"/>
             </font>
         </Button>
-        <VBox alignment="CENTER" layoutX="978.0" prefHeight="678.0" prefWidth="294.0" spacing="15.0">
+        <VBox alignment="CENTER" layoutX="978.0" layoutY="-5.0" prefHeight="678.0" prefWidth="294.0" spacing="15.0">
             <children>
-                <Pane fx:id="popOut" prefHeight="526.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
+                <Pane fx:id="popOut" prefHeight="555.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
                     <children>
-                        <MenuButton fx:id="mainID" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0"
+                        <MenuButton fx:id="giftID" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0"
                                     layoutY="14.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0"
                                     text="ID"/>
-                        <MenuButton fx:id="mainLocation" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0"
+                        <MenuButton fx:id="giftLocation" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0"
                                     layoutY="64.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0"
                                     text="Location"/>
-                        <MenuButton fx:id="mainEmployee" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0"
+                        <MenuButton fx:id="giftEmployee" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0"
                                     layoutY="115.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0"
                                     text="Employee"/>
-                        <MenuButton fx:id="mainStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0"
-                                    layoutY="165.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0"
+                        <MenuButton fx:id="giftStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0"
+                                    layoutY="213.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0"
                                     text="Status">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#mainStatusMenu" text="Not Started"/>
-                                <MenuItem mnemonicParsing="false" onAction="#mainStatusMenu" text="In Progress"/>
+                                <MenuItem mnemonicParsing="false" onAction="#giftStatusMenu" text="Not Started"/>
+                                <MenuItem mnemonicParsing="false" onAction="#giftStatusMenu" text="In Progress"/>
                             </items>
                         </MenuButton>
-                        <TextField fx:id="mainDescription" layoutX="12.0" layoutY="335.0" prefHeight="50.0"
+                        <TextField fx:id="giftDescription" layoutX="12.0" layoutY="376.0" prefHeight="50.0"
                                    prefWidth="270.0" promptText="Description"/>
-                        <HBox layoutX="12.0" layoutY="394.0" prefHeight="59.0" prefWidth="270.0" spacing="16.0">
+                        <HBox layoutX="15.0" layoutY="432.0" prefHeight="59.0" prefWidth="270.0" spacing="16.0">
                             <children>
                                 <Button fx:id="cancelRequest" alignment="CENTER" mnemonicParsing="false"
                                         onAction="#cancel" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
@@ -335,7 +335,7 @@
                                 </Button>
                             </children>
                         </HBox>
-                        <Button fx:id="deleteRequest" alignment="CENTER" layoutX="15.0" layoutY="462.0"
+                        <Button fx:id="deleteRequest" alignment="CENTER" layoutX="15.0" layoutY="491.0"
                                 mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="270.0"
                                 textAlignment="CENTER">
                             <font>
@@ -355,10 +355,20 @@
                                 </HBox>
                             </graphic>
                         </Button>
-                        <TextField fx:id="giftSender" layoutX="12.0" layoutY="277.0" prefHeight="50.0"
-                                   prefWidth="270.0" promptText="Sender"/>
-                        <TextField fx:id="giftRecipient" layoutX="12.0" layoutY="219.0" prefHeight="50.0"
+                        <TextField fx:id="giftSender" layoutX="12.0" layoutY="320.0" prefHeight="50.0" prefWidth="270.0"
+                                   promptText="Sender"/>
+                        <TextField fx:id="giftRecipient" layoutX="12.0" layoutY="262.0" prefHeight="50.0"
                                    prefWidth="270.0" promptText="Recipient"/>
+                        <MenuButton fx:id="giftType" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0"
+                                    layoutY="165.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0"
+                                    text="Type">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#giftTypeMenu" text="Balloons"/>
+                                <MenuItem mnemonicParsing="false" onAction="#giftTypeMenu" text="Flowers"/>
+                                <MenuItem mnemonicParsing="false" onAction="#giftTypeMenu" text="Stuffed Animal"/>
+                                <MenuItem mnemonicParsing="false" onAction="#giftTypeMenu" text="Chocolate"/>
+                            </items>
+                        </MenuButton>
                     </children>
                     <effect>
                         <DropShadow/>
