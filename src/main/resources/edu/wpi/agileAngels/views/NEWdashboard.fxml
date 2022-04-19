@@ -476,5 +476,6 @@
                </content></ScrollPane>
          </children>
       </Pane>
+      <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
    </children>
 </AnchorPane>
