@@ -206,6 +206,7 @@ Note that these labels lock your font size.
 .table-view .column-header-background .label{
     -fx-background-color: transparent;
     -fx-text-fill: white;
+    -fx-alignment: CENTER-LEFT;
 }
 
 .table-view .column-header-background {
@@ -218,8 +219,7 @@ Note that these labels lock your font size.
     -fx-text-background-color: red;
 }
 .table-row-cell:selected{
-    -fx-text-background-color: black;
-    -fx-highlight-text-fill: black;
+    -fx-text-background-color: blue;
 }
 
 .table-row-cell:odd{
