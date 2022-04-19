@@ -122,6 +122,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
     if (event.getSource() == floor5) {
       timeline5.play();
+      displaySingleFloorCounts(3);
     }
 
     // floor 4
@@ -134,6 +135,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
     if (event.getSource() == floor4) {
       timeline4.play();
+      displaySingleFloorCounts(2);
     }
 
     // floor 3
@@ -146,6 +148,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
     if (event.getSource() == floor3) {
       timeline3.play();
+      displaySingleFloorCounts(1);
     }
 
     // floor 2
@@ -158,6 +161,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
     if (event.getSource() == floor2) {
       timeline2.play();
+      displayZeroes();
     }
 
     // floor LL1
@@ -170,6 +174,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
     if (event.getSource() == floorLL1) {
       timelineLL1.play();
+      displayZeroes();
     }
 
     // floor LL2
@@ -182,6 +187,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
     if (event.getSource() == floorLL2) {
       timelineLL2.play();
+      displayZeroes();
     }
   }
 
@@ -259,6 +265,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
     if (event.getSource() == floorLL2) {
       timelineLL2.play();
     }
+    displayAllFloorsCounts();
   }
 
   @FXML
@@ -313,16 +320,43 @@ public class DashboardController implements Initializable, PropertyChangeListene
         }
       }
 
-      cleanPump.setText(String.valueOf((pumpsPerFloor * numFloors) - dirtyPumpsArray[0]));
-      cleanXRay.setText(String.valueOf((xraysPerFloor * numFloors) - dirtyXRaysArray[0]));
-      cleanBeds.setText(String.valueOf((bedsPerFloor * numFloors) - dirtyBedsArray[0]));
-      cleanRecliner.setText(
-          String.valueOf((reclinersPerFloor * numFloors) - dirtyReclinersArray[0]));
-      dirtyBeds.setText(String.valueOf(dirtyBedsArray[0]));
-      dirtyRecliner.setText(String.valueOf(dirtyReclinersArray[0]));
-      dirtyXRay.setText(String.valueOf(dirtyXRaysArray[0]));
-      dirtyPump.setText(String.valueOf(dirtyPumpsArray[0]));
+      displayAllFloorsCounts();
     }
+  }
+
+  public void displayAllFloorsCounts() {
+    cleanPump.setText(String.valueOf((pumpsPerFloor * numFloors) - dirtyPumpsArray[0]));
+    cleanXRay.setText(String.valueOf((xraysPerFloor * numFloors) - dirtyXRaysArray[0]));
+    cleanBeds.setText(String.valueOf((bedsPerFloor * numFloors) - dirtyBedsArray[0]));
+    cleanRecliner.setText(
+            String.valueOf((reclinersPerFloor * numFloors) - dirtyReclinersArray[0]));
+    dirtyBeds.setText(String.valueOf(dirtyBedsArray[0]));
+    dirtyRecliner.setText(String.valueOf(dirtyReclinersArray[0]));
+    dirtyXRay.setText(String.valueOf(dirtyXRaysArray[0]));
+    dirtyPump.setText(String.valueOf(dirtyPumpsArray[0]));
+  }
+
+  public void displaySingleFloorCounts(int floorInt) {
+    cleanPump.setText(String.valueOf(pumpsPerFloor - dirtyPumpsArray[floorInt]));
+    cleanXRay.setText(String.valueOf(xraysPerFloor - dirtyXRaysArray[floorInt]));
+    cleanBeds.setText(String.valueOf(bedsPerFloor - dirtyBedsArray[floorInt]));
+    cleanRecliner.setText(
+            String.valueOf(reclinersPerFloor - dirtyReclinersArray[floorInt]));
+    dirtyBeds.setText(String.valueOf(dirtyBedsArray[floorInt]));
+    dirtyRecliner.setText(String.valueOf(dirtyReclinersArray[floorInt]));
+    dirtyXRay.setText(String.valueOf(dirtyXRaysArray[floorInt]));
+    dirtyPump.setText(String.valueOf(dirtyPumpsArray[floorInt]));
+  }
+
+  public void displayZeroes() {
+    cleanPump.setText("0");
+    cleanXRay.setText("0");
+    cleanBeds.setText("0");
+    cleanRecliner.setText("0");
+    dirtyBeds.setText("0");
+    dirtyRecliner.setText("0");
+    dirtyXRay.setText("0");
+    dirtyPump.setText("0");
   }
 
   public void goToFloor(ActionEvent event) {
