@@ -1,5 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.Employee;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -17,7 +18,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
 import javax.swing.*;
-import org.controlsfx.control.textfield.TextFields;
 
 public class MapsController implements Initializable, PropertyChangeListener {
 
@@ -43,12 +43,18 @@ public class MapsController implements Initializable, PropertyChangeListener {
       floorUp,
       floorDown;
   @FXML private MenuItem floorTwo, floorThree, floorFour, floorFive, lowerLevelOne, lowerLevelTwo;
-  @FXML private TextField locationName, employeeField;
-  @FXML Pane mapPane, locationEditPane, requestEditPane;
+  @FXML private TextField locationName, addLocationName;
+  @FXML Pane mapPane, locationEditPane, requestEditPane, locationAddPane;
   @FXML AnchorPane anchor;
-  @FXML Label requestName, floorLabel, nodeIDField;
-  @FXML MenuItem pati, stor, dirt, hall, elev, rest, stai, dept, labs, info, conf, exit, retl, serv;
-  @FXML MenuButton locationTypeDropdown, requestTypeDropdown, requestStatusDropdown;
+  @FXML Label requestName, floorLabel, nodeIDField, addNodeIDField;
+  @FXML
+  MenuButton locationTypeDropdown,
+      requestTypeDropdown,
+      requestStatusDropdown,
+      requestEmployeeDropdown, addLocationTypeDropdown;
+
+  public final ContextMenu contextMenu = new ContextMenu();
+  MenuItem addNode = new MenuItem("Add Node");
 
   LocationNode currentLocationNode = null;
   RequestNode currentRequestNode = null;
@@ -74,6 +80,9 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
   public double panX = 0;
   public double panY = 0;
+
+  double rightClickX;
+  double rightClickY;
 
   private double croppedMapXOffset = 1054;
   private double croppedMapYOffset = 544;
@@ -128,6 +137,18 @@ public class MapsController implements Initializable, PropertyChangeListener {
     mapPane.getChildren().add(paneL2);
     paneL2.setVisible(false);
 
+    contextMenu.getItems().addAll(addNode);
+    addNode.setOnAction((ActionEvent event) -> addNode());
+
+    mapScroll.setOnMousePressed(
+        (MouseEvent event) -> {
+          if (event.isSecondaryButtonDown()) {
+            contextMenu.show(mapScroll, event.getScreenX(), event.getScreenY());
+            rightClickY = event.getSceneY();
+            rightClickX= event.getSceneX();
+          }
+        });
+
     locationNodeManager.createNodesFromDB();
     try {
       requestNodeManager.createNodesFromDB();
@@ -136,8 +157,19 @@ public class MapsController implements Initializable, PropertyChangeListener {
       e.printStackTrace();
     }
 
-    String[] employees = {"John", "Staff"};
-    TextFields.bindAutoCompletion(employeeField, employees);
+    for (Employee e : requestNodeManager.employeeHash.values()) {
+      MenuItem menuItem = new MenuItem(e.getName());
+      menuItem.setOnAction(
+          (ActionEvent event) -> {
+            MenuItem button = (MenuItem) event.getSource();
+            requestEmployeeDropdown.setText(button.getText());
+          });
+      try {
+        requestEmployeeDropdown.getItems().add(menuItem);
+      } catch (NullPointerException e2) {
+
+      }
+    }
   }
 
   @Override
@@ -175,7 +207,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     locationEditPane.setVisible(false);
     requestTypeDropdown.setText(requestNode.getRequest().getType());
     requestName.setText(requestNode.getName());
-    employeeField.setText(requestNode.getEmployee());
+    requestEmployeeDropdown.setText(requestNode.getEmployee());
     requestStatusDropdown.setText(requestNode.getStatus());
     currentRequestNode = requestNode;
   }
@@ -194,27 +226,8 @@ public class MapsController implements Initializable, PropertyChangeListener {
   }
 
   @FXML
-  private void addNode() throws IOException {
-    //    int typeCount = (locationNodeManager.getTypeCount(typeDropdown.getText(), currentFloor));
-    //
-    //    String nodeID =
-    //        "A"
-    //            + typeDropdown.getText()
-    //            + String.format("%03d", typeCount)
-    //            + ((currentFloor.length() == 1) ? ("0" + currentFloor) : (currentFloor));
-    //
-    //    Location newLocation =
-    //        new Location(
-    //            nodeID,
-    //            (Double.parseDouble(xCoordField.getText())),
-    //            (Double.parseDouble(yCoordField.getText())),
-    //            currentFloor,
-    //            "TOWER",
-    //            typeDropdown.getText(),
-    //            nameField.getText(),
-    //            nodeID);
-    //    displayLocationNode(locationNodeManager.addNode(newLocation));
-    //    clearFields();
+  private void addNode() {
+    locationEdit.setVisible(true);
   }
 
   /**
@@ -245,7 +258,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
   @FXML
   public void requestEdit(ActionEvent event) {
-    currentRequestNode.setEmployee(employeeField.getText());
+    currentRequestNode.setEmployee(requestEmployeeDropdown.getText());
     currentRequestNode.getRequest().setStatus(requestStatusDropdown.getText());
     currentRequestNode.getRequest().setType(requestTypeDropdown.getText());
     currentRequestNode = null;
@@ -517,7 +530,10 @@ public class MapsController implements Initializable, PropertyChangeListener {
     appController.clearPage();
   }
 
-  public void changeStatus(ActionEvent event) {}
+  public void changeStatus(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    requestStatusDropdown.setText(button.getText());
+  }
 
   public void deselect(MouseEvent mouseEvent) {
     requestEditPane.setVisible(false);
@@ -527,4 +543,31 @@ public class MapsController implements Initializable, PropertyChangeListener {
   public void locationDelete(ActionEvent event) {}
 
   public void requestDelete(ActionEvent event) {}
+
+  public void locationAdd(ActionEvent event) {
+
+    int typeCount = (locationNodeManager.getTypeCount(typeDropdown.getText(), currentFloor));
+
+    String nodeID =
+            "A"
+                    + typeDropdown.getText()
+                    + String.format("%03d", typeCount)
+                    + ((currentFloor.length() == 1) ? ("0" + currentFloor) : (currentFloor));
+
+    Location newLocation =
+            new Location(
+                    nodeID,
+                    (Double.parseDouble(xCoordField.getText())),
+                    (Double.parseDouble(yCoordField.getText())),
+                    currentFloor,
+                    "TOWER",
+                    typeDropdown.getText(),
+                    nameField.getText(),
+                    nodeID);
+    displayLocationNode(locationNodeManager.addNode(newLocation));
+    clearFields();
+
+
+
+  }
 }
