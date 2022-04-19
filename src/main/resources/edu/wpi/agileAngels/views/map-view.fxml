@@ -80,7 +80,7 @@
                         <Font size="8.0" />
                      </font>
                      <graphic>
-                        <Label fx:id="floorLabel" prefWidth="0.0" text="2" />
+                        <Label fx:id="floorLabel" style="-fx-font-size: 18;" text="2" />
                      </graphic>
                   </MenuButton>
                   <Button fx:id="floorDown" mnemonicParsing="false" onAction="#changeMap" style="-fx-background-color: rgba(0,0,0,0);">
