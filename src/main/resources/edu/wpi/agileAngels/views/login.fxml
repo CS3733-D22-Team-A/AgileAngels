@@ -14,7 +14,7 @@
 
 <AnchorPane id="main" fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" stylesheets="@stylesheets/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.LoginController">
     <children>
-      <ImageView fitHeight="1205.0" fitWidth="1479.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-200.0">
+      <ImageView fitHeight="974.0" fitWidth="1279.0" layoutX="5.0" layoutY="-106.0" pickOnBounds="true" AnchorPane.bottomAnchor="-148.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-200.0">
          <image>
             <Image url="@../assets/new_background_Login.png" />
          </image>
@@ -75,7 +75,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="44.0" prefWidth="593.0">
                      <children>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" styleClass="forgotPassword">
                            <graphic>
                               <Label id="forgorPassword" stylesheets="@stylesheets/login_style.css" text="Forgot your password?" textFill="#49484a" />
                            </graphic>

@@ -40,7 +40,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="menuButton" fx:id="pageTitle" mnemonicParsing="false" onAction="#menuItem" prefHeight="31.0" prefWidth="161.0" style="-fx-text-alignment: left; -fx-alignment: left;" />
+            <Button id="menuButton" fx:id="pageTitle" mnemonicParsing="false" onAction="#menuItem" prefHeight="31.0" style="-fx-text-alignment: left; -fx-alignment: left;" />
          </children>
       </HBox>
       <Button fx:id="userButton" mnemonicParsing="false" onAction="#profile" prefHeight="36.0" prefWidth="38.0" styleClass="topBarIcon" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
