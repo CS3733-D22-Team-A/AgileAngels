@@ -91,7 +91,6 @@ public class LocationDAOImpl implements LocationDAO {
     } catch (SQLException | IOException e) {
       e.printStackTrace();
     }
-
   }
 
   // retrieve list of locations from the database
@@ -154,5 +153,4 @@ public class LocationDAOImpl implements LocationDAO {
   public void addLocation(Location location) {
     data.put(location.getNodeID(), location);
   }
-
 }

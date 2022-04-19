@@ -14,7 +14,6 @@ public class EmployeeManager implements EmployeeDAO {
 
   private HashMap<String, Employee> employeeHashMap;
 
-
   public EmployeeManager(HashMap<String, Employee> employeeHashMap, int count) {
     this.employeeHashMap = employeeHashMap;
     this.count = count;

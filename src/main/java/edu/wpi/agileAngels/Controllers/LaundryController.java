@@ -83,7 +83,7 @@ public class LaundryController implements Initializable {
     }
     count = 0;
     for (Location loc : locationsList) {
-      locations[count] = loc.getLongName();
+      locations[count] = loc.getNodeID();
       count++;
     }
 
