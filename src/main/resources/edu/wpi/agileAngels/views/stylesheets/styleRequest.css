@@ -40,12 +40,12 @@
 }
 
 .table-row-cell:focused{
-    -fx-text-background-fill: blue;
+    -fx-text-background-color: black;
 }
 
 .table-row-cell:hover {
     -fx-background-color: #93f9b911;
-    -fx-text-background-fill: red;
+    -fx-text-background-color: red;
 }
 
 .table-row-cell:odd{
