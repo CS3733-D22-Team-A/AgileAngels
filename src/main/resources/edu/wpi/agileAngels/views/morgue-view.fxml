@@ -161,6 +161,7 @@
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="Not Started" />
                         <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="In Progress" />
+                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="Complete" />
                      </items>
                   </MenuButton>
                   <TextField fx:id="morgueDescription" layoutX="12.0" layoutY="255.0" prefHeight="50.0" prefWidth="270.0" promptText="Patient Name" />

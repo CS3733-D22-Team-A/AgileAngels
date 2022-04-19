@@ -95,7 +95,6 @@ public class EmployeeManager implements EmployeeDAO {
       while ((line = br.readLine()) != null) {
         if (OnHeader) {
           String[] values = line.split(splitBy);
-
           ++this.count;
           Employee employee = new Employee(values[0], values[1]);
           this.employeeHashMap.put(values[0], employee);
@@ -109,4 +108,11 @@ public class EmployeeManager implements EmployeeDAO {
       var7.printStackTrace();
     }
   }
+
+  /**
+   * returns an aray of all employee names used for populating search dropdowns Dummy String is
+   * built in readCSV and cleaned up here
+   *
+   * @return String[]
+   */
 }

@@ -112,7 +112,7 @@ public class MedEquipImpl implements MedEquipDAO {
     Location location;
     HashMap<String, Location> locationData = locDAO.getAllLocations();
     location = locationData.get(value);
-    System.out.println("Location Value " + location.getLongName());
+    // System.out.println("Location Value " + location.getLongName());
     return location;
   }
 }
