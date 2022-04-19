@@ -243,8 +243,6 @@ Note that these labels lock your font size.
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 2;
 }
-.table-row-cell:focused{
-    -fx-font-style: bold;
-}
+
 /* OTHER SHIT
  */
