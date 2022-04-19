@@ -5,10 +5,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,73 +13,68 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 
 public class GiftsController implements Initializable, PropertyChangeListener {
+
+  @FXML Pane popOut;
+  @FXML MenuButton giftID, giftLocation, giftEmployee, giftStatus, giftType;
+  @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
+  @FXML TableView giftTable;
   @FXML
-  private TextField giftSender,
-      giftRecipient,
-      giftMessage,
-      giftEmployeeText,
-      giftLocation,
-      giftStatus,
-      deleteName,
-      editRequest,
-      employeeFilterField,
-      statusFilterField;
-  @FXML
-  private TableColumn senderColumn,
-      recipientColumn,
-      employeeColumn,
-      locationColumn,
-      statusColumn,
+  private TableColumn nameColumn,
+      availableColumn,
       typeColumn,
-      nameColumn,
-      messageColumn;
-  @FXML MenuButton giftType;
-  @FXML MenuItem baloons, flowers, card;
-  @FXML Button addButton, editButton, deleteButton;
-  @FXML private Label giftConfirm;
-  private RequestDAOImpl GiftrequestImpl =
-      RequestDAOImpl.getInstance("GiftRequest"); // instance of RequestDAOImpl to access functions
+      locationColumn,
+      employeeColumn,
+      statusColumn,
+      senderColumn,
+      descriptionColumn;
+  @FXML
+  TextField giftDescription, employeeFilterField, statusFilterField, giftSender, giftRecipient;
+  @FXML Label notStartedNumber, inProgressNumber, completedNumber;
 
+  // DAOs, HashMaps, and Lists required for functionality
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
+  private EmployeeManager empDAO = EmployeeManager.getInstance();
+  private RequestDAOImpl giftRequestImpl = RequestDAOImpl.getInstance("GiftRequest");
   private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
+  private ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
+  private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
+  private static ObservableList<Request> giftData = FXCollections.observableArrayList();
 
-  private EmployeeManager employeeDAO = EmployeeManager.getInstance();
-  private HashMap<String, Employee> employeesHash = employeeDAO.getAllEmployees();
+  private int statusNotStarted, statusInProgress, statusComplete;
 
-  @FXML private TableView giftTable;
   private AppController appController = AppController.getInstance();
-
-  private static ObservableList<Request> giftData =
-      FXCollections.observableArrayList(); // list of requests
 
   public GiftsController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
+    popOut.setVisible(false);
+    statusNotStarted = 0;
+    statusInProgress = 0;
+    statusComplete = 0;
 
-    senderColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
-    recipientColumn.setCellValueFactory(new PropertyValueFactory<>("attribute2"));
+    nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-    statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    messageColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+    statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+    descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
+    senderColumn.setCellValueFactory(new PropertyValueFactory<>("attribute2"));
 
+    giftData.clear();
+    // Populates the table from UI list
     if (giftData.isEmpty()) {
-      System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
-      GiftrequestImpl.csvRead();
-      Iterator var3 = GiftrequestImpl.getAllRequests().entrySet().iterator();
-
-      for (Map.Entry<String, Request> entry : GiftrequestImpl.getAllRequests().entrySet()) {
+      for (Map.Entry<String, Request> entry : giftRequestImpl.getAllRequests().entrySet()) {
         Request req = entry.getValue();
         giftData.add(req);
       }
     }
-
+    dashboardLoad();
     giftTable.setItems(giftData);
   }
 
@@ -94,172 +86,145 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   }
 
   @FXML
-  /** Submits fields to a Java gifts Request Object */
-  private void submitGift() {
-    String dropDown = giftType.getText();
-    String sender = giftSender.getText();
-    String recipient = giftRecipient.getText();
-    String employee = giftEmployeeText.getText();
-    String location = giftLocation.getText();
-    String message = giftMessage.getText();
-    String delete = deleteName.getText();
-    String edit = editRequest.getText();
-    String status = giftStatus.getText();
-    // attributes arent all filled
-    if (!delete.isEmpty()) {
-      deleteGiftRequest(delete);
-      // editing a request
-    } else if (!edit.isEmpty()) {
-      editGiftRequest(edit, dropDown, sender, recipient, employee, location, message, status);
-    } else if (giftSender.getText().isEmpty()
-        || employee.isEmpty()
-        || dropDown.isEmpty()
-        || recipient.isEmpty()) {
-      giftConfirm.setText("Please fill out all of the required fields");
-    } else {
-      addGiftRequest(dropDown, sender, recipient, employee, location, message, status);
-      giftConfirm.setText(
-          "Thank you, "
-              + giftSender.getText()
-              + ", "
-              + giftEmployeeText.getText()
-              + " will deliver "
-              + giftType.getText()
-              + " to "
-              + giftRecipient.getText()
-              + " soon. ");
+  public void modifyRequest(ActionEvent event) {
+    popOut.setVisible(true);
+
+    if (giftLocation.getItems().size() == 0) {
+      // Populates locations dropdown
+      for (Location loc : locationsList) {
+        MenuItem item = new MenuItem(loc.getNodeID());
+        item.setOnAction(this::mainLocationMenu);
+        giftLocation.getItems().add(item);
+      }
+
+      // Populates employees dropdown
+      for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+        Employee emp = entry.getValue();
+        MenuItem item = new MenuItem(emp.getName());
+        item.setOnAction(this::mainEmployeeMenu);
+        giftEmployee.getItems().add(item);
+      }
+
+      // Populates ID dropdown
+      for (Request req : giftData) {
+        MenuItem item = new MenuItem(req.getName());
+        item.setOnAction(this::mainIDMenu);
+        giftID.getItems().add(item);
+      }
+      MenuItem item1 = new MenuItem("Add New Request");
+      item1.setOnAction(this::mainIDMenu);
+      giftID.getItems().add(item1);
     }
   }
 
-  private void addGiftRequest(
-      String dropDown,
-      String sender,
-      String recipient,
-      String employee,
-      String location,
-      String message,
-      String status) {
-
-    giftConfirm.setText(
-        "Thank you, "
-            + sender
-            + ", "
-            + employee
-            + " will deliver "
-            + dropDown
-            + " to "
-            + recipient
-            // + " to "
-            // + location
-            + " soon. ");
-
-    String placeholder = "?";
-    Request gift =
-        new Request(
-            placeholder,
-            employeesHash.get(employee),
-            locationsHash.get(location),
-            dropDown,
-            status,
-            message,
-            sender,
-            recipient);
-    // todo is this right?
-    GiftrequestImpl.addRequest(gift); // add to hashmap
-    giftData.add(gift); // add to the UI
-    giftTable.setItems(giftData);
-  }
-
   @FXML
-  private void deleteGiftRequest(String deleteString) {
-    if (!deleteString.isEmpty()) {
-      System.out.println("DELETE REQUEST");
+  public void submit(ActionEvent event) {
+    String loc = giftLocation.getText();
+    String emp = giftEmployee.getText();
+    String stat = giftStatus.getText();
+    String type = giftType.getText();
+    String desc = giftDescription.getText();
+    String send = giftSender.getText();
+    String rec = giftRecipient.getText();
+    System.out.println(send + " " + rec);
+    // Adding
+    if (giftID.getText().equals("Add New Request")) {
+      Request req =
+          new Request(
+              "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, rec, send);
+      giftData.add(req);
+      giftRequestImpl.addRequest(req);
+
+      giftID.getItems().remove(0, giftID.getItems().size());
+      // Populates ID dropdown
+      for (Request request : giftData) {
+        MenuItem item = new MenuItem(request.getName());
+        item.setOnAction(this::mainIDMenu);
+        giftID.getItems().add(item);
+      }
+      MenuItem item1 = new MenuItem("Add New Request");
+      item1.setOnAction(this::mainIDMenu);
+      giftID.getItems().add(item1);
+
+    } else { // Editing
+      Request req = giftRequestImpl.getAllRequests().get(giftID.getText());
+      if (!req.getLocation().getNodeID().equals(loc)) {
+        Location newLoc = locationsHash.get(loc);
+        giftRequestImpl.updateLocation(req, newLoc);
+      }
+      if (!req.getEmployee().getName().equals(emp)) {
+        giftRequestImpl.updateEmployeeName(req, emp);
+      }
+      if (!req.getType().equals(type)) {
+        giftRequestImpl.updateType(req, type);
+      }
+      if (!req.getStatus().equals(stat)) {
+        giftRequestImpl.updateStatus(req, stat);
+      }
+      if (!req.getDescription().equals(desc)) {
+        giftRequestImpl.updateDescription(req, desc);
+      }
+      if (!req.getAttribute2().equals(send)) {
+        giftRequestImpl.updateAttribute2(req, send);
+      }
+      if (!req.getAttribute1().equals(rec)) {
+        giftRequestImpl.updateAttribute1(req, rec);
+      }
       for (int i = 0; i < giftData.size(); i++) {
-        Request object = giftData.get(i);
-        if (0 == deleteString.compareTo(object.getName())) {
-          giftData.remove(i);
-          GiftrequestImpl.deleteRequest(object);
+        if (giftData.get(i).getName().equals(req.getName())) {
+          System.out.println("Status: " + req.getStatus() + " Attr1: " + req.getAttribute1());
+          giftData.set(i, req);
         }
       }
-      giftTable.setItems(giftData);
     }
+
+    clear(event);
   }
 
   @FXML
-  private void editGiftRequest(
-      String editString,
-      String dropDownString,
-      String senderString,
-      String recipientString,
-      String employeeString,
-      String locationString,
-      String messageString,
-      String statusString) {
-    System.out.println("EDIT REQUEST");
-    Request found = null;
-    int num = 0;
+  public void cancel(ActionEvent event) {
+    clear(event);
+    popOut.setVisible(false);
+  }
+
+  @FXML
+  public void delete(ActionEvent event) {
+    String id = giftID.getText();
+
+    // removes the request from the table and dropdown
     for (int i = 0; i < giftData.size(); i++) {
-      Request device = giftData.get(i);
-      if (0 == editRequest.getText().compareTo(device.getName())) {
-        found = device;
-        num = i;
+      if (giftData.get(i).getName().equals(id)) {
+        giftData.remove(i);
+        giftID.getItems().remove(i);
       }
     }
-    Employee emp = employeeDAO.getEmployee(employeeString);
-    Location loc = locDAO.getLocation(locationString);
-    if (found != null) {
-      if (!dropDownString.isEmpty()) {
-        // String type = dropdownButtonText.getText();
-        found.setType(dropDownString);
-        // GiftrequestImpl.updateType(found, dropDownString);
-      }
-      if (!locationString.isEmpty()) {
-        // String location = equipLocation.getText();
-        found.setLocation(loc);
-        // GiftrequestImpl.updateLocation(found, locationsHash.get(locationString));
-      }
-      if (!employeeString.isEmpty()) {
-        // String employee = emp.getText();
-        found.setEmployee(emp);
-        // GiftrequestImpl.updateEmployeeName(found, employeeString);
-      }
-      if (!statusString.isEmpty()) {
-        // String employee = emp.getText();
-        found.setStatus(statusString);
-        //  GiftrequestImpl.updateStatus(found, statusString);
-      }
-      if (!senderString.isEmpty()) {
-        // String sender = emp.getText();
-        found.setAttribute1(senderString);
-        //  GiftrequestImpl.updateStatus(found, senderString);
-      }
-      if (!recipientString.isEmpty()) {
-        // String recipent = emp.getText();
-        found.setAttribute2(recipientString);
-        // GiftrequestImpl.updateStatus(found, recipientString);
-      }
-      if (!messageString.isEmpty()) {
-        // String description = emp.getText();
-        found.setDescription(messageString);
-        // GiftrequestImpl.updateStatus(found, messageString);
-      }
-      giftData.set(num, found);
 
-      giftTable.setItems(giftData);
-    }
+    // delete from hash map and database table
+    giftRequestImpl.deleteRequest(giftRequestImpl.getAllRequests().get(id));
+
+    clear(event);
   }
 
-  /* FILTER METHODS BEYOND HERE */
-
-  /** Does filterReqsTable when "Submit Filters" is clicked, or "onAction." */
   @FXML
-  public void filterReqOnAction() {
+  public void clear(ActionEvent event) {
+    giftID.setText("ID");
+    giftLocation.setText("Location");
+    giftEmployee.setText("Employee");
+    giftStatus.setText("Status");
+    giftType.setText("Type");
+    giftDescription.setText("");
+    giftDescription.setPromptText("Description");
+  }
+
+  /** Does filterReqsTable methods when "Submit Filters" is clicked, or "onAction." */
+  @FXML
+  public void filterReqOnAction(ActionEvent event) {
     if (!employeeFilterField.getText().isEmpty() && !statusFilterField.getText().isEmpty()) {
+
       ObservableList<Request> empFilteredList = filterReqEmployee(employeeFilterField.getText());
       ObservableList<Request> trueFilteredList =
           filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
 
-      // Di-rectly touching equipment table in n-filter cases.
       giftTable.setItems(trueFilteredList);
     } else if (!employeeFilterField.getText().isEmpty()) {
       filterReqsTableEmployee(employeeFilterField.getText());
@@ -268,14 +233,85 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     }
   }
 
-  /** Puts all of the requests back on the table, "clearing the requests." */
   @FXML
-  public void clearFilters() {
-    // Puts everything back on table.
+  public void clearFilters(ActionEvent event) {
     giftTable.setItems(giftData);
   }
 
-  /* Employee-based */
+  @FXML
+  public void mainIDMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    giftID.setText(button.getText());
+
+    // If editing or deleting an existing request:
+    if (!button.getText().equals("Add New Request")) {
+      populate(button.getText());
+    }
+  }
+
+  @FXML
+  public void mainLocationMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    giftLocation.setText(button.getText());
+  }
+
+  @FXML
+  public void mainEmployeeMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    giftEmployee.setText(button.getText());
+  }
+
+  @FXML
+  public void giftStatusMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    giftStatus.setText(button.getText());
+  }
+
+  /**
+   * This is the cleaner version of Justin's dashboard code. Note that it may need a for loop as
+   * shown on line 83/84 if used elsewhere. Note: Unlikely.
+   */
+  @FXML
+  private void dashboardLoad() {
+    if (notStartedNumber.getText().equals("-")
+        && inProgressNumber.getText().equals("-")
+        && completedNumber.getText().equals("-")) {
+
+      Iterator var3 = giftRequestImpl.getAllRequests().entrySet().iterator();
+      while (var3.hasNext()) {
+        Map.Entry<String, Request> entry = (Map.Entry) var3.next();
+        Request object = (Request) entry.getValue();
+        if (entry.getValue().getStatus().equals("inProgress")) {
+          statusInProgress++;
+        }
+        if (entry.getValue().getStatus().equals("notStarted")) {
+          statusNotStarted++;
+        }
+        if (entry.getValue().getStatus().equals("Complete")
+            || entry.getValue().getStatus().equals("complete")) {
+          statusComplete++;
+        }
+      }
+      setDashboard(statusNotStarted, statusInProgress, statusComplete);
+    }
+  }
+
+  /**
+   * Will set the dashboard's numbers to the certain types of statuses.
+   *
+   * @param notStarted Requests not started
+   * @param inProgress Requests in progress
+   * @param complete Requests completed
+   */
+  @FXML
+  private void setDashboard(int notStarted, int inProgress, int complete) {
+    String notStart = Integer.toString(notStarted);
+    String inProg = Integer.toString(inProgress);
+    String comp = Integer.toString(complete);
+    notStartedNumber.setText(notStart);
+    inProgressNumber.setText(inProg);
+    completedNumber.setText(comp);
+  }
 
   /**
    * Filters requests in the equipment table so only those with the given Employee remain.
@@ -303,25 +339,23 @@ public class GiftsController implements Initializable, PropertyChangeListener {
         newList.add(req);
       }
     }
+
     return newList;
   }
 
-  /* Status-based */
-
   /**
-   * Filters requests in the equipment table so only those with the given status remain.
+   * Filters requests in the maintenance table so only those with the given status remain.
    *
    * @param reqStatus The status the requests must have to remain on the table.
    */
   private void filterReqsTableStatus(String reqStatus) {
     ObservableList<Request> filteredList = filterReqStatus(reqStatus);
-
     // Sets table to only have contents of the filtered list.
     giftTable.setItems(filteredList);
   }
 
   /**
-   * Filters out requests in medData based on the given status.
+   * Filters out requests in mainData based on the given status.
    *
    * @param reqStatus The status that the requests must have to be in the new list.
    * @return The new filtered list.
@@ -340,7 +374,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   /* Methods to filter lists n times */
 
   /**
-   * Filters out requests in medData based on the given status.
+   * Filters out requests in mainData based on the given status.
    *
    * @param reqStatus The status that the requests must have to be in the new list.
    * @param filteredList The list that was presumably filtered.
@@ -359,7 +393,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   }
 
   /**
-   * Filters out requests in medData based on the given Employee.
+   * Filters out requests in mainData based on the given Employee.
    *
    * @param employeeName The Employee that the requests must have to be in the new list.
    * @param filteredList The list that was presumably filtered.
@@ -378,14 +412,26 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     return newList;
   }
 
-  /* FILTER METHODS ABOVE HERE */
-
-  public void clearPage(ActionEvent event) {
-    appController.clearPage();
+  /**
+   * Populates fields once a node id is chosen when editing an existing request.
+   *
+   * @param id Request ID
+   */
+  private void populate(String id) {
+    Request req = giftRequestImpl.getAllRequests().get(id);
+    giftLocation.setText(req.getLocation().getNodeID());
+    giftEmployee.setText(req.getEmployee().getName());
+    giftStatus.setText(req.getStatus());
+    giftType.setText(req.getType());
+    giftDescription.setText(req.getDescription());
+    giftRecipient.setText(req.getAttribute1());
+    giftSender.setText(req.getAttribute2());
   }
 
-  public void giftType(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
+  public void menuItemSelected(ActionEvent actionEvent) {}
+
+  public void giftTypeMenu(ActionEvent actionEvent) {
+    MenuItem button = (MenuItem) actionEvent.getSource();
     giftType.setText(button.getText());
   }
 }
