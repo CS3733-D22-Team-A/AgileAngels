@@ -168,6 +168,7 @@
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="notStarted" />
                         <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="inProgress" />
+                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="complete" />
                      </items>
                   </MenuButton>
                   <TextField fx:id="mainDescription" layoutX="14.0" layoutY="299.0" prefHeight="50.0" prefWidth="270.0" promptText="Description" />
