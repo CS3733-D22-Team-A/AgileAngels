@@ -202,6 +202,10 @@ public class MealController implements Initializable, PropertyChangeListener {
   public void mealIDMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     mealID.setText(button.getText());
+
+    if (!button.getText().equals("Add New Request")) {
+      populate(button.getText());
+    }
   }
 
   @FXML
@@ -213,7 +217,7 @@ public class MealController implements Initializable, PropertyChangeListener {
   @FXML
   public void mealEmployeeMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    mealStatus.setText(button.getText());
+    mealEmployee.setText(button.getText());
   }
 
   @FXML
@@ -403,5 +407,6 @@ public class MealController implements Initializable, PropertyChangeListener {
     mealEmployee.setText(req.getEmployee().getName());
     mealStatus.setText(req.getStatus());
     mealDescription.setText(req.getDescription());
+    mealType.setText(req.getType());
   }
 }
