@@ -4,6 +4,7 @@ import edu.wpi.agileAngels.Database.DBconnection;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Stack;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -23,6 +24,8 @@ public class AppController {
   private int[] dirtyInfusionPumps = new int[4];
   private int[] dirtyRecliners = new int[4];
   private int[] dirtyXRays = new int[4];
+
+  HashMap<String, String> pages = new HashMap<>();
 
   public AppController() {
     support = new PropertyChangeSupport(this);
@@ -197,6 +200,20 @@ public class AppController {
   public void init(Stage primaryStage) {
     this.primaryStage = primaryStage;
     loadPage("/edu/wpi/agileAngels/views/login.fxml");
+    pages.put("/edu/wpi/agileAngels/views/login.fxml", "Login");
+    pages.put("/edu/wpi/agileAngels/views/lab-view.fxml", "Lab Request");
+    pages.put("/edu/wpi/agileAngels/views/emergency-view.fxml", "Emergency");
+    pages.put("/edu/wpi/agileAngels/views/equipment-view.fxml", "Equipment Request");
+    pages.put("/edu/wpi/agileAngels/views/gifts-view.fxml", "Gift Request");
+    pages.put("/edu/wpi/agileAngels/views/home-view.fxml", "Home");
+    pages.put("/edu/wpi/agileAngels/views/maintenance-view.fxml", "Maintenance Request");
+    pages.put("/edu/wpi/agileAngels/views/map-dashboard.fxml", "Dashboard");
+    pages.put("/edu/wpi/agileAngels/views/map-view.fxml", "Map");
+    pages.put("/edu/wpi/agileAngels/views/morgue-view.fxml", "Morgue Request");
+    pages.put("/edu/wpi/agileAngels/views/NEWdashboard.fxml", "Dashboard");
+    pages.put("/edu/wpi/agileAngels/views/patientTransport-view.fxml", "Patient Transport");
+    pages.put("/edu/wpi/agileAngels/views/sanitation-view.fxml", "Sanitation Request");
+    pages.put("/edu/wpi/agileAngels/views/serviceRequest-view.fxml", "Service Request");
   }
 
   public void closeApp() {
@@ -229,13 +246,12 @@ public class AppController {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    try {
-      if (view.contains("map-view")) {
-        menuController.changeTitle("Maps");
-      } else {
-        menuController.changeTitle("Equipment Request");
-      }
+    setMenuBarTitle(view);
+  }
 
+  void setMenuBarTitle(String view) {
+    try {
+      menuController.changeTitle(pages.get(view));
     } catch (NullPointerException e) {
 
     }

@@ -14,20 +14,6 @@
 <AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MenuController">
    <children>
       <Pane id="topBar" fx:id="menuPane" prefHeight="60.0" prefWidth="1280.0" styleClass="minimize" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="313.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#goHome" styleClass="topBarIcon">
-               <graphic>
-                  <ImageView fitHeight="59.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/smallLogo.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button id="menuButton" fx:id="pageTitle" mnemonicParsing="false" onAction="#menuItem" prefHeight="31.0" prefWidth="161.0" />
-         </children>
-      </HBox>
       <HBox fx:id="menuButtons" alignment="CENTER" prefHeight="50.0" prefWidth="1156.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button id="menuButton" fx:id="emergency" mnemonicParsing="false" onAction="#menuItem" prefHeight="31.0" prefWidth="119.0" text="Emergency" />
@@ -39,6 +25,20 @@
             <Button id="menuButton" fx:id="labRequest" mnemonicParsing="false" onAction="#menuItem" prefHeight="37.0" prefWidth="139.0" text="Lab Request" />
             <Button id="menuButton" fx:id="map" mnemonicParsing="false" onAction="#menuItem" prefHeight="31.0" prefWidth="74.0" text="Map" />
             <Button id="menuButton" fx:id="test" mnemonicParsing="false" onAction="#menuItem" prefHeight="31.0" prefWidth="71.0" text="Test" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="313.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#goHome" styleClass="topBarIcon">
+               <graphic>
+                  <ImageView fitHeight="59.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/smallLogo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="menuButton" fx:id="pageTitle" mnemonicParsing="false" onAction="#menuItem" prefHeight="31.0" prefWidth="161.0" style="-fx-alignment: left; -fx-text-alignment: left; -fx-font-size: 15;" />
          </children>
       </HBox>
       <Button fx:id="userButton" mnemonicParsing="false" onAction="#profile" prefHeight="36.0" prefWidth="38.0" styleClass="topBarIcon" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
