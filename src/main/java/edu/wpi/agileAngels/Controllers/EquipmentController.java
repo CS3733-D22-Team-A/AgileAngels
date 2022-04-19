@@ -23,12 +23,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   @FXML Pane popOut;
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
-  @FXML
-  private TextField deleteName,
-      editRequest,
-      employeeFilterField,
-      statusFilterField,
-      mainDescription;
+  @FXML private TextField employeeFilterField, statusFilterField, mainDescription;
   @FXML private Label equipmentConfirmation;
   @FXML private TableView equipmentTable;
   @FXML Button clear, submitFilters;
@@ -285,7 +280,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
                   locDAO.getLocation(locationString),
                   dropDownString,
                   statusString,
-                  "describe",
+                  descriptionString,
                   "something",
                   "",
                   equip);
@@ -309,6 +304,11 @@ public class EquipmentController implements Initializable, PropertyChangeListene
           }
 
           MedrequestImpl.addRequest(medDevice); // add to hashmap
+
+          // add the new request to the ID dropdown
+          MenuItem item = new MenuItem(medDevice.getName());
+          item.setOnAction(this::mainIDMenu);
+          mainID.getItems().add(item);
 
           medData.add(medDevice); // add to the UI
           equipmentTable.setItems(medData);
@@ -361,11 +361,10 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
     Request found = MedrequestImpl.getAllRequests().get(editString);
 
-    // null;
     int num = 0;
     for (int i = 0; i < medData.size(); i++) {
       Request device = medData.get(i);
-      if (0 == editRequest.getText().compareTo(device.getName())) {
+      if (0 == mainID.getText().compareTo(device.getName())) {
         found = device;
         num = i;
       }
@@ -414,6 +413,11 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         Employee employee = empDAO.getEmployee(employeeString);
         found.setEmployee(employee);
         //        MedrequestImpl.updateEmployeeName(found, employee.getName());
+      }
+
+      if (!descriptionString.equals("Description")) {
+        found.setDescription(descriptionString);
+        //        MedrequestImpl.updateDescription(found, descriptionString);
       }
 
       if (!statusString.equals("Status")) {
@@ -555,22 +559,22 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         item.setOnAction(this::employeeMenu);
         equipmentEmployeeText.getItems().add(item);
       }
+      MenuItem item1 = new MenuItem("Add New Request");
+      item1.setOnAction(this::mainIDMenu);
+      mainID.getItems().add(item1);
+      // Populates ID dropdown
+      for (Request req : medData) {
+        MenuItem item = new MenuItem(req.getName());
+        item.setOnAction(this::mainIDMenu);
+        mainID.getItems().add(item);
+      }
     }
-
-    // Populates ID dropdown
-    for (Request req : medData) {
-      MenuItem item = new MenuItem(req.getName());
-      item.setOnAction(this::mainIDMenu);
-      mainID.getItems().add(item);
-    }
-    MenuItem item1 = new MenuItem("Add New Request");
-    item1.setOnAction(this::mainIDMenu);
-    mainID.getItems().add(item1);
   }
 
   private void populate(String id) {
     Request req = MedrequestImpl.getAllRequests().get(id);
     equipLocation.setText(req.getLocation().getNodeID());
+    equipmentStatus.setText(req.getStatus());
     equipmentEmployeeText.setText(req.getEmployee().getName());
     equipmentStatus.setText(req.getStatus());
     mainDescription.setText(req.getDescription());
