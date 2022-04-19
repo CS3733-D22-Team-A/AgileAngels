@@ -18,7 +18,7 @@ import javafx.scene.layout.Pane;
 public class GiftsController implements Initializable, PropertyChangeListener {
 
   @FXML Pane popOut;
-  @FXML MenuButton mainID, mainLocation, mainEmployee, mainStatus;
+  @FXML MenuButton mainID, mainLocation, mainEmployee, mainStatus, giftType;
   @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
   @FXML TableView mainTable;
   @FXML
@@ -122,6 +122,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     String loc = mainLocation.getText();
     String emp = mainEmployee.getText();
     String stat = mainStatus.getText();
+    String type = giftType.getText();
     String desc = mainDescription.getText();
     String send = giftSender.getText();
     String rec = giftRecipient.getText();
@@ -130,7 +131,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     if (mainID.getText().equals("Add New Request")) {
       Request req =
           new Request(
-              "", employeeHash.get(emp), locationsHash.get(loc), "N/A", stat, desc, rec, send);
+              "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, rec, send);
       maintenanceData.add(req);
       mainRequestImpl.addRequest(req);
 
@@ -153,6 +154,9 @@ public class GiftsController implements Initializable, PropertyChangeListener {
       }
       if (!req.getEmployee().getName().equals(emp)) {
         mainRequestImpl.updateEmployeeName(req, emp);
+      }
+      if (!req.getType().equals(type)) {
+        mainRequestImpl.updateType(req, type);
       }
       if (!req.getStatus().equals(stat)) {
         mainRequestImpl.updateStatus(req, stat);
@@ -207,6 +211,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     mainLocation.setText("Location");
     mainEmployee.setText("Employee");
     mainStatus.setText("Status");
+    giftType.setText("Type");
     mainDescription.setText("");
     mainDescription.setPromptText("Description");
   }
@@ -417,10 +422,16 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     mainLocation.setText(req.getLocation().getNodeID());
     mainEmployee.setText(req.getEmployee().getName());
     mainStatus.setText(req.getStatus());
+    giftType.setText(req.getType());
     mainDescription.setText(req.getDescription());
     giftRecipient.setText(req.getAttribute2());
     giftSender.setText(req.getAttribute1());
   }
 
   public void menuItemSelected(ActionEvent actionEvent) {}
+
+  public void giftTypeMenu(ActionEvent actionEvent) {
+    MenuItem button = (MenuItem) actionEvent.getSource();
+    giftType.setText(button.getText());
+  }
 }
