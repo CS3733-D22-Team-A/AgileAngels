@@ -88,7 +88,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
         .getKeyFrames()
         .addAll(
             new KeyFrame(Duration.ZERO, new KeyValue(floor5.translateYProperty(), 10)),
-            new KeyFrame(Duration.millis(1000), new KeyValue(floor5.translateYProperty(), 10)));
+            new KeyFrame(Duration.millis(100), new KeyValue(floor5.translateYProperty(), 10)));
 
     if (event.getSource() == floor5) {
       timeline5.play();
@@ -100,7 +100,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
         .getKeyFrames()
         .addAll(
             new KeyFrame(Duration.ZERO, new KeyValue(floor4.translateYProperty(), 10)),
-            new KeyFrame(Duration.millis(1000), new KeyValue(floor4.translateYProperty(), 10)));
+            new KeyFrame(Duration.millis(100), new KeyValue(floor4.translateYProperty(), 10)));
 
     if (event.getSource() == floor4) {
       timeline4.play();
@@ -112,7 +112,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
         .getKeyFrames()
         .addAll(
             new KeyFrame(Duration.ZERO, new KeyValue(floor3.translateYProperty(), 10)),
-            new KeyFrame(Duration.millis(1000), new KeyValue(floor3.translateYProperty(), 10)));
+            new KeyFrame(Duration.millis(100), new KeyValue(floor3.translateYProperty(), 10)));
 
     if (event.getSource() == floor3) {
       timeline3.play();
@@ -124,7 +124,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
         .getKeyFrames()
         .addAll(
             new KeyFrame(Duration.ZERO, new KeyValue(floor2.translateYProperty(), 10)),
-            new KeyFrame(Duration.millis(1000), new KeyValue(floor2.translateYProperty(), 10)));
+            new KeyFrame(Duration.millis(100), new KeyValue(floor2.translateYProperty(), 10)));
 
     if (event.getSource() == floor2) {
       timeline2.play();
@@ -136,7 +136,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
         .getKeyFrames()
         .addAll(
             new KeyFrame(Duration.ZERO, new KeyValue(floorLL1.translateYProperty(), 10)),
-            new KeyFrame(Duration.millis(1000), new KeyValue(floorLL1.translateYProperty(), 10)));
+            new KeyFrame(Duration.millis(100), new KeyValue(floorLL1.translateYProperty(), 10)));
 
     if (event.getSource() == floorLL1) {
       timelineLL1.play();
@@ -148,7 +148,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
         .getKeyFrames()
         .addAll(
             new KeyFrame(Duration.ZERO, new KeyValue(floorLL2.translateYProperty(), 10)),
-            new KeyFrame(Duration.millis(1000), new KeyValue(floorLL2.translateYProperty(), 10)));
+            new KeyFrame(Duration.millis(100), new KeyValue(floorLL2.translateYProperty(), 10)));
 
     if (event.getSource() == floorLL2) {
       timelineLL2.play();
@@ -164,7 +164,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
         .getKeyFrames()
         .addAll(
             new KeyFrame(Duration.ZERO, new KeyValue(floor5.translateYProperty(), -2.5)),
-            new KeyFrame(Duration.millis(1000), new KeyValue(floor5.translateYProperty(), -2.5)));
+            new KeyFrame(Duration.millis(100), new KeyValue(floor5.translateYProperty(), -2.5)));
 
     if (event.getSource() == floor5) {
       timeline5.play();
@@ -176,7 +176,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
         .getKeyFrames()
         .addAll(
             new KeyFrame(Duration.ZERO, new KeyValue(floor4.translateYProperty(), -2.5)),
-            new KeyFrame(Duration.millis(1000), new KeyValue(floor4.translateYProperty(), -2.5)));
+            new KeyFrame(Duration.millis(100), new KeyValue(floor4.translateYProperty(), -2.5)));
 
     if (event.getSource() == floor4) {
       timeline4.play();
@@ -188,7 +188,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
         .getKeyFrames()
         .addAll(
             new KeyFrame(Duration.ZERO, new KeyValue(floor3.translateYProperty(), -2.5)),
-            new KeyFrame(Duration.millis(1000), new KeyValue(floor3.translateYProperty(), -2.5)));
+            new KeyFrame(Duration.millis(100), new KeyValue(floor3.translateYProperty(), -2.5)));
 
     if (event.getSource() == floor3) {
       timeline3.play();
@@ -200,7 +200,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
         .getKeyFrames()
         .addAll(
             new KeyFrame(Duration.ZERO, new KeyValue(floor2.translateYProperty(), -2.5)),
-            new KeyFrame(Duration.millis(1000), new KeyValue(floor2.translateYProperty(), -2.5)));
+            new KeyFrame(Duration.millis(100), new KeyValue(floor2.translateYProperty(), -2.5)));
 
     if (event.getSource() == floor2) {
       timeline2.play();
@@ -212,7 +212,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
         .getKeyFrames()
         .addAll(
             new KeyFrame(Duration.ZERO, new KeyValue(floorLL1.translateYProperty(), -2.5)),
-            new KeyFrame(Duration.millis(1000), new KeyValue(floorLL1.translateYProperty(), -2.5)));
+            new KeyFrame(Duration.millis(100), new KeyValue(floorLL1.translateYProperty(), -2.5)));
 
     if (event.getSource() == floorLL1) {
       timelineLL1.play();
@@ -224,7 +224,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
         .getKeyFrames()
         .addAll(
             new KeyFrame(Duration.ZERO, new KeyValue(floorLL2.translateYProperty(), -2.5)),
-            new KeyFrame(Duration.millis(1000), new KeyValue(floorLL2.translateYProperty(), -2.5)));
+            new KeyFrame(Duration.millis(100), new KeyValue(floorLL2.translateYProperty(), -2.5)));
 
     if (event.getSource() == floorLL2) {
       timelineLL2.play();

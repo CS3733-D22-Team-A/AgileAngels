@@ -27,32 +27,32 @@
                   <Font size="32.0" />
                </font>
             </Label>
-            <Label layoutX="89.0" layoutY="139.0" text="5" textFill="WHITE">
+            <Label layoutX="89.0" layoutY="139.0" text="5">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="88.0" layoutY="202.0" text="4" textFill="WHITE">
+            <Label layoutX="88.0" layoutY="202.0" text="4">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="89.0" layoutY="264.0" text="3" textFill="WHITE">
+            <Label layoutX="89.0" layoutY="264.0" text="3">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="89.0" layoutY="328.0" text="2" textFill="WHITE">
+            <Label layoutX="89.0" layoutY="328.0" text="2">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="90.0" layoutY="389.0" text="L1" textFill="WHITE">
+            <Label layoutX="90.0" layoutY="389.0" text="L1">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="89.0" layoutY="453.0" text="L2" textFill="WHITE">
+            <Label layoutX="89.0" layoutY="453.0" text="L2">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -212,7 +212,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Label layoutX="20.0" layoutY="8.0" prefHeight="34.0" prefWidth="211.0" text="Equipment status">
+            <Label layoutX="20.0" layoutY="8.0" prefHeight="40.0" prefWidth="247.0" text="Equipment status">
                <font>
                   <Font size="28.0" />
                </font>
