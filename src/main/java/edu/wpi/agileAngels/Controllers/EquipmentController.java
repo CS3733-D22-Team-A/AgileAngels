@@ -74,15 +74,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
     locDAO.getAllLocations();
     empDAO.getAllEmployees();
-    HashMap<String, Location> locationsHash = locDAO.getAllLocations();
-    ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
-    for (Location loc : locationsList) {
-      if (loc.getFloor().equals("3") || loc.getFloor().equals("4") || loc.getFloor().equals("5")) {
-        MenuItem item = new MenuItem(loc.getNodeID());
-        item.setOnAction(this::locationMenu);
-        equipLocation.getItems().add(item);
-      }
-    }
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
