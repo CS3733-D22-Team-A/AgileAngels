@@ -388,4 +388,16 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     MenuItem button = (MenuItem) event.getSource();
     giftType.setText(button.getText());
   }
+
+  public void modifyRequest(ActionEvent actionEvent) {}
+
+  public void mainStatusMenu(ActionEvent actionEvent) {}
+
+  public void cancel(ActionEvent actionEvent) {}
+
+  public void delete(ActionEvent actionEvent) {}
+
+  public void clear(ActionEvent actionEvent) {}
+
+  public void submit(ActionEvent actionEvent) {}
 }

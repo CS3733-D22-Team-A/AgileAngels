@@ -43,9 +43,12 @@ public class RequestDAOImpl implements RequestDAO {
         MedrequestDAO = new RequestDAOImpl(data, 1, "MedRequest");
       }
       return MedrequestDAO;
-    } else if (GiftDAO == null && 0 == type.compareTo("GiftRequest")) {
-      data = new HashMap();
-      GiftDAO = new RequestDAOImpl(data, 1, "GiftRequest");
+    } else if (0 == type.compareTo("GiftRequest")) {
+      // data = new HashMap();
+      if (GiftDAO == null) {
+        System.out.println("TEST TEST TEST");
+        GiftDAO = new RequestDAOImpl(data, 1, "GiftRequest");
+      }
       return GiftDAO;
     } else if (0 == type.compareTo("LabRequest")) {
       if (LabrequestDAO == null) {
@@ -207,8 +210,11 @@ public class RequestDAOImpl implements RequestDAO {
     } else if (values[0].substring(0, 1).compareTo("L") == 0
         && DAOtype.compareTo("LabRequest") == 0) {
       makeRequest(values);
-    } else if (values[0].substring(0, 1).compareTo("G") == 0) {
-
+    } else if (values[0].substring(0, 1).compareTo("Gift") == 0
+        && DAOtype.compareTo("GiftRequest") == 0) {
+      {
+        makeRequest(values);
+      }
     } else if (values[0].substring(0, 1).compareTo("S") == 0) {
 
     } else if (values[0].substring(0, 4).compareTo("Main") == 0

@@ -105,11 +105,11 @@ Note that these labels lock your font size.
     -fx-background-color: rgb(255, 255, 255);
     -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 16, 0, 4, 4);
     -fx-background-radius: 10;
-    -fx-text-fill: black; /*not this*/
+    -fx-text-fill: white; /*not this*/
 }
 .menu-item-button{
     -fx-background-color: rgba(0, 0, 0, 0);
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-size: 16;
 }
 
