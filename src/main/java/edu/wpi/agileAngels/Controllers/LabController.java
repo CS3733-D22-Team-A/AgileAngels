@@ -13,50 +13,35 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 
 // similar to equip controller
-public class LabController extends MainController implements Initializable, PropertyChangeListener {
+public class LabController implements Initializable, PropertyChangeListener {
 
-  @FXML
-  private TextField labTestLocation,
-      labEmployeeText,
-      labStatus,
-      labDelete,
-      labEdit,
-      labDescription,
-      employeeFilterField,
-      statusFilterField;
-
-  private RequestDAOImpl LabDAO = RequestDAOImpl.getInstance("LabRequest");
-  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
-  private HashMap<String, Employee> employeeHashMap = new HashMap<>();
-  private EmployeeManager empDAO = EmployeeManager.getInstance();
-  private static ObservableList<Request> labData = FXCollections.observableArrayList();
-  private int statusNotStarted, statusInProgress, statusComplete;
-
-  AppController appController = AppController.getInstance();
-
-  @FXML private TableView labTable;
+  @FXML Pane popOut;
+  @FXML MenuButton labID, labLocation, labEmployee, labStatus, labType;
+  @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
+  @FXML TableView labTable;
   @FXML
   private TableColumn nameColumn,
-      availableColumn,
       typeColumn,
       locationColumn,
       employeeColumn,
       statusColumn,
       descriptionColumn;
-  @FXML
-  private Label labTestConfirmation,
-      dropdownButtonText,
-      completedLabel,
-      inProgressLabel,
-      notStartedNumber,
-      inProgressNumber,
-      completedNumber,
-      bloodLabel,
-      urineLabel,
-      tumorLabel,
-      covidLabel;
+  @FXML TextField labDescription, employeeFilterField, statusFilterField;
+  @FXML Label notStartedNumber, inProgressNumber, completedNumber;
+
+  private RequestDAOImpl labRequestImpl = RequestDAOImpl.getInstance("LabRequest");
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
+  private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
+  private ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
+  private EmployeeManager empDAO = EmployeeManager.getInstance();
+  private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
+  private static ObservableList<Request> labData = FXCollections.observableArrayList();
+  private int statusNotStarted, statusInProgress, statusComplete;
+
+  AppController appController = AppController.getInstance();
 
   public LabController() throws SQLException {}
 
@@ -71,34 +56,25 @@ public class LabController extends MainController implements Initializable, Prop
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
-
+    popOut.setVisible(false);
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
     // nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
-    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-    locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-    locDAO.getAllLocations();
+
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
-    if (labData.isEmpty()) {
-      System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
-      LabDAO.csvRead();
-      Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
-      for (Map.Entry<String, Request> entry : LabDAO.getAllRequests().entrySet()) {
-        Request req = entry.getValue();
-        dashboardLoad();
-        labData.add(req);
-      }
+
+    labData.clear();
+
+    for (Map.Entry<String, Request> entry : labRequestImpl.getAllRequests().entrySet()) {
+      Request req = entry.getValue();
+      labData.add(req);
     }
-    // This has to be here for when you do: -> Back -> Lab Request. It'll load the numbers again. -
-    // Justin
     dashboardLoad();
     labTable.setItems(labData);
   }
@@ -106,9 +82,130 @@ public class LabController extends MainController implements Initializable, Prop
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     String changeType = evt.getPropertyName();
-    System.out.println(changeType);
     int newValue = (int) evt.getNewValue();
-    System.out.println(newValue);
+    appController.displayAlert();
+  }
+
+  @FXML
+  public void modifyRequest(ActionEvent event) {
+    popOut.setVisible(true);
+    if (labLocation.getItems().size() == 0) {
+      // Populates locations dropdown
+      for (Location loc : locationsList) {
+        MenuItem item = new MenuItem(loc.getNodeID());
+        item.setOnAction(this::locationMenu);
+        labLocation.getItems().add(item);
+      }
+
+      // Populates employees dropdown
+      for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+        Employee emp = entry.getValue();
+        MenuItem item = new MenuItem(emp.getName());
+        item.setOnAction(this::employeeMenu);
+        labEmployee.getItems().add(item);
+      }
+
+      // Populates ID dropdown
+      for (Request req : labData) {
+        MenuItem item = new MenuItem(req.getName());
+        item.setOnAction(this::labIDMenu);
+        labID.getItems().add(item);
+      }
+      MenuItem item1 = new MenuItem("Add New Request");
+      item1.setOnAction(this::labIDMenu);
+      labID.getItems().add(item1);
+    }
+  }
+
+  @FXML
+  public void submit(ActionEvent event) {
+    String loc = labLocation.getText();
+    String emp = labEmployee.getText();
+    String stat = labStatus.getText();
+    String desc = labDescription.getText();
+    String type = labType.getText();
+
+    // Adding
+    if (labID.getText().equals("Add New Request")) {
+      Request req =
+          new Request(
+              "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, "N/A", "N/A");
+      labData.add(req);
+      labRequestImpl.addRequest(req);
+
+      labID.getItems().remove(0, labID.getItems().size());
+      // Populates ID dropdown
+      for (Request request : labData) {
+        MenuItem item = new MenuItem(request.getName());
+        item.setOnAction(this::labIDMenu);
+        labID.getItems().add(item);
+      }
+      MenuItem item1 = new MenuItem("Add New Request");
+      item1.setOnAction(this::labIDMenu);
+      labID.getItems().add(item1);
+
+    } else { // Editing
+      Request req = labRequestImpl.getAllRequests().get(labID.getText());
+      if (!req.getLocation().getNodeID().equals(loc)) {
+        Location newLoc = locationsHash.get(loc);
+        labRequestImpl.updateLocation(req, newLoc);
+      }
+      if (!req.getEmployee().getName().equals(emp)) {
+        labRequestImpl.updateEmployeeName(req, emp);
+      }
+      if (!req.getStatus().equals(stat)) {
+        labRequestImpl.updateStatus(req, stat);
+      }
+      if (!req.getDescription().equals(desc)) {
+        labRequestImpl.updateDescription(req, desc);
+      }
+      if (!req.getType().equals(type)) {
+        labRequestImpl.updateType(req, type);
+      }
+
+      for (int i = 0; i < labData.size(); i++) {
+        if (labData.get(i).getName().equals(req.getName())) {
+          labData.set(i, req);
+        }
+      }
+    }
+
+    clear(event);
+  }
+
+  @FXML
+  public void cancel(ActionEvent event) {
+    clear(event);
+    popOut.setVisible(false);
+  }
+
+  @FXML
+  public void delete(ActionEvent event) {
+    String id = labID.getText();
+
+    // removes the request from the table and dropdown
+    for (int i = 0; i < labData.size(); i++) {
+      if (labData.get(i).getName().equals(id)) {
+        labData.remove(i);
+        labID.getItems().remove(i);
+      }
+    }
+
+    // delete from hash map and database table
+    labRequestImpl.deleteRequest(labRequestImpl.getAllRequests().get(id));
+
+    clear(event);
+  }
+
+  @FXML
+  public void clear(ActionEvent event) {
+    labID.setText("ID");
+    labType.setText("Type");
+    labEmployee.setText("Employee");
+    labLocation.setText("Location");
+    labStatus.setText("Status");
+    labDescription.setText("");
+    labDescription.setPromptText("Description");
   }
 
   /**
@@ -121,8 +218,7 @@ public class LabController extends MainController implements Initializable, Prop
         && inProgressNumber.getText().equals("-")
         && completedNumber.getText().equals("-")) {
       System.out.println("THE NUMBERS ARE EMPTY, RELEASE THE HOUNDS");
-      LabDAO.csvRead();
-      Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
+      Iterator var3 = labRequestImpl.getAllRequests().entrySet().iterator();
       while (var3.hasNext()) {
         Map.Entry<String, Request> entry = (Map.Entry) var3.next();
         Request object = (Request) entry.getValue();
@@ -141,7 +237,6 @@ public class LabController extends MainController implements Initializable, Prop
         }
         System.out.println(entry.getValue().getStatus());
       }
-      // System.out.println("I'm gay");
       setDashboard(statusNotStarted, statusInProgress, statusComplete);
     }
   }
@@ -165,221 +260,6 @@ public class LabController extends MainController implements Initializable, Prop
     inProgressNumber.setText(inProg);
     // Should put the numbers of the completed statuses into dash.
     completedNumber.setText(comp);
-  }
-
-  /** Takes in employee fields by the textfields. And submits it. */
-  @FXML
-  private void submitLabTest() {
-    // String dropDown = dropdownButtonText.getText();
-    String dropDown = "test";
-    String location = labTestLocation.getText();
-    String employee = labEmployeeText.getText();
-    String status = labStatus.getText();
-    String delete = labDelete.getText();
-    String edit = labEdit.getText();
-    String description = labDescription.getText();
-    //  boolean logic = (dropDown.isEmpty() || location.isEmpty() || employee.isEmpty());
-    if (!delete.isEmpty()) {
-      deleteLabRequest(delete);
-    } else if (!labEdit.getText().isEmpty()) {
-      editLabRequest(dropDown, location, employee, status, description);
-    } else {
-      System.out.println(locDAO.getLocation(location) + " " + empDAO.getEmployee(employee));
-      addLabRequest(
-          "available",
-          dropDown,
-          locDAO.getLocation(location),
-          empDAO.getEmployee(employee),
-          status,
-          description);
-    }
-  }
-
-  /**
-   * Removes requests off the UI and the database, will call upon dashBoardLoad() to decrement the
-   * dashboard.
-   *
-   * @param deleteString
-   */
-  private void deleteLabRequest(String deleteString) {
-    if (!deleteString.isEmpty()) {
-      System.out.println("DELETE REQUEST");
-      for (int i = 0; i < labData.size(); i++) {
-        Request object = labData.get(i);
-        if (0 == deleteString.compareTo(object.getName())) {
-          labData.remove(i);
-          LabDAO.deleteRequest(object);
-        }
-      }
-      labTable.setItems(labData);
-
-      // This cannot be a helper since it DECREASES the dashboard. It could but that's just more if
-      // statements.
-      // This is easier to read :)
-      String status = LabDAO.getAllRequests().get(deleteString).getStatus();
-      if (status.equals("inProgress")) {
-        statusInProgress--;
-      }
-      if (status.equals("complete")) {
-        statusComplete--;
-      }
-      if (status.equals("notStarted")) {
-        statusNotStarted--;
-      }
-      setDashboard(statusNotStarted, statusInProgress, statusComplete);
-    }
-  }
-
-  /**
-   * Add method for labrequest, will add information onto the UI and database within here and set
-   * the confirmation text to display for the user. Note the location has to be specific.. until
-   * dropdowns are done. Use this location for debugging: CREST002L1 Will also call upon
-   * dashboardLoad() to update the dashboard.
-   *
-   * @param available
-   * @param dropDown
-   * @param location
-   * @param employee
-   * @param status
-   */
-  private void addLabRequest(
-      String available,
-      String dropDown,
-      Location location,
-      Employee employee,
-      String status,
-      String description) {
-    labTestConfirmation.setText(
-        "Thank you! Your "
-            + dropDown
-            + " you requested will be delivered shortly to "
-            + location.getLongName()
-            + " by "
-            + employee.getName()
-            + ".");
-
-    Request request =
-        new Request("", employee, location, dropDown, status, description, "available", "");
-
-    LabDAO.addRequest(request);
-    labData.add(request);
-    labTable.setItems(labData);
-
-    // This is for the dashboard on the LabRequest page. can't have dashboardLoad() because atm am
-    // too smol brain.
-    // To think of how to know the number increased.
-    if (status.equals("inProgress")) {
-      statusInProgress++;
-    }
-    if (status.equals("complete")) {
-      statusComplete++;
-    }
-    if (status.equals("notStarted")) {
-      statusNotStarted++;
-    }
-    setDashboard(statusNotStarted, statusInProgress, statusComplete);
-  }
-
-  /**
-   * edits any existing requests. Dev Note: Make sure you use the EXACT capitalization or it won't
-   * work. This may need to have a dashboardLoad() somewhere.
-   *
-   * @param dropDown
-   * @param location
-   * @param employee
-   * @param status
-   * @param description
-   */
-  private void editLabRequest(
-      String dropDown, String location, String employee, String status, String description) {
-    Request found = null;
-    int num = 0;
-    for (int i = 0; i < labData.size(); i++) {
-      Request device = labData.get(i);
-      if (0 == labEdit.getText().compareTo(device.getName())) {
-        found = device;
-        num = i;
-      }
-    }
-    Employee emp = empDAO.getEmployee(employee);
-    Location loc = locDAO.getLocation(location);
-
-    if (found != null) {
-      if (!dropDown.isEmpty()) {
-        found.setType(dropDown);
-        // LabDAO.updateType(found, dropDown);
-      }
-      if (!location.isEmpty()) {
-        // Location loc = locDAO.getLocation(location);
-        found.setLocation(loc);
-        // LabDAO.updateLocation(found, loc);
-      }
-      if (!employee.isEmpty()) {
-        found.setEmployee(empDAO.getEmployee(employee));
-        // LabDAO.updateEmployeeName(found, employee); // uhhh will this work?
-      }
-      if (!status.isEmpty()) {
-        found.setStatus(employee);
-        // LabDAO.updateStatus(found, status);
-      }
-
-      if (!description.isEmpty()) { // New description field.
-        found.setDescription(description);
-        LabDAO.updateDescription(found, description);
-      }
-      labData.set(num, found);
-      // Request found = null;
-      // int num = 0;
-      for (int i = 0; i < labData.size(); i++) {
-        Request device = labData.get(i);
-        if (0 == labEdit.getText().compareTo(device.getName())) {
-          found = device;
-          num = i;
-        }
-      }
-      if (found != null) {
-        if (!dropdownButtonText.getText().isEmpty()) {
-          String type = dropdownButtonText.getText();
-          found.setType(type);
-          LabDAO.updateType(found, type);
-        }
-        if (!labTestLocation.getText().isEmpty()) {
-          // Location loc = locDAO.getLocation(location);
-          found.setLocation(loc);
-          LabDAO.updateLocation(found, loc);
-        }
-        if (!labEmployeeText.getText().isEmpty()) {
-          // Employee emp = empDAO.getEmployee(employee);
-          found.setEmployee(emp);
-          LabDAO.updateEmployeeName(found, employee);
-        }
-        if (!labDescription.getText().isEmpty()) { // New Description for whatever this part is.
-          found.setDescription(description);
-          found.setDescription(description); // I am unsure if this is correct.
-        }
-        labData.set(num, found);
-
-        labTable.setItems(labData);
-      }
-
-    } else {
-      labTestConfirmation.setText(
-          "Thank you! Your "
-              + dropdownButtonText.getText()
-              + " you requested will be delivered shortly to "
-              + labTestLocation.getText()
-              + " by "
-              + labEmployeeText.getText()
-              + ".");
-
-      Request request = new Request("", emp, loc, dropDown, status, "", "", "");
-
-      LabDAO.addRequest(request);
-
-      labData.add(request);
-
-      labTable.setItems(labData);
-    }
   }
 
   /* FILTER METHODS BEYOND HERE */
@@ -516,5 +396,48 @@ public class LabController extends MainController implements Initializable, Prop
 
   public void clearPage(ActionEvent actionEvent) {
     appController.clearPage();
+  }
+
+  public void labTypeMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    labType.setText(button.getText());
+  }
+
+  @FXML
+  public void locationMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    labLocation.setText(button.getText());
+  }
+
+  @FXML
+  public void employeeMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    labEmployee.setText(button.getText());
+  }
+
+  @FXML
+  public void labStatusMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    labStatus.setText(button.getText());
+  }
+
+  @FXML
+  public void labIDMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    labID.setText(button.getText());
+
+    // If editing or deleting an existing request:
+    if (!button.getText().equals("Add New Request")) {
+      populate(button.getText());
+    }
+  }
+
+  private void populate(String id) {
+    Request req = labRequestImpl.getAllRequests().get(id);
+    labLocation.setText(req.getLocation().getNodeID());
+    labEmployee.setText(req.getEmployee().getName());
+    labStatus.setText(req.getStatus());
+    labDescription.setText(req.getDescription());
+    labType.setText(req.getType());
   }
 }

@@ -12,68 +12,55 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
-public class PatientTransportController implements Initializable, PropertyChangeListener {
+public class PatientTransportController extends MainController
+    implements Initializable, PropertyChangeListener {
 
-  @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton, addButton;
-  @FXML private TextField deleteName, editRequest, employeeFilterField;
-  @FXML private Label equipmentConfirmation;
-  @FXML private TableView patientTable;
-  @FXML Button clear, submitFilters;
-  @FXML Pane drop, drop2;
-  @FXML MenuButton equipLocation, equipmentType, equipmentStatus, equipmentEmployeeText;
+  @FXML Pane popOut;
+  @FXML
+  MenuButton transportID,
+      transportLocation,
+      transportEmployee,
+      transportStatus,
+      transportType,
+      transportDestination;
+  @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
+  @FXML TableView transportTable;
+  @FXML
+  private TableColumn nameColumn,
+      destinationColumn,
+      typeColumn,
+      locationColumn,
+      employeeColumn,
+      statusColumn,
+      descriptionColumn;
+  @FXML TextField transportDescription, employeeFilterField, statusFilterField;
+  @FXML Label notStartedNumber, inProgressNumber, completedNumber;
+
+  // DAOs, HashMaps, and Lists required for functionality
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
-  private MedEquipImpl equipDAO = MedEquipImpl.getInstance();
-  private RequestDAOImpl transportDAO =
-      RequestDAOImpl.getInstance("MedRequest"); // instance of RequestDAOImpl to access functions
-  // only way to update the UI is ObservableList
-  private static ObservableList<Request> transportData =
-      FXCollections.observableArrayList(); // list of requests
-  // hashmap and arrayList of all medical equipment
-  HashMap<String, MedicalEquip> equipHash;
-  ArrayList<MedicalEquip> allMedEquip;
-  // hashMap and arrayList of all locations
-  HashMap<String, Location> locationsHash = locDAO.getAllLocations();
-  ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
-  HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
-
-  AppController appController = AppController.getInstance();
-  @FXML
-  private TableColumn nameColumn,
-      employeeColumn, // change to employeeColumn
-      locationColumn,
-      typeColumn,
-      statusColumn,
-      descriptionColumn,
-      availableColumn;
+  private RequestDAOImpl mainRequestImpl =
+      RequestDAOImpl.getInstance("TransportRequest"); // looks sus
+  private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
+  private ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
+  private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
+  private static ObservableList<Request> transportData = FXCollections.observableArrayList();
+  private int statusNotStarted, statusInProgress, statusComplete;
+  private AppController appController = AppController.getInstance();
 
   public PatientTransportController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
-
-    equipHash = equipDAO.getAllMedicalEquipment();
-    allMedEquip = new ArrayList<>(equipHash.values());
-
-    locDAO.getAllLocations();
-    empDAO.getAllEmployees();
-    HashMap<String, Location> locationsHash = locDAO.getAllLocations();
-    ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
-    for (Location loc : locationsList) {
-      if (loc.getFloor().equals("3") || loc.getFloor().equals("4") || loc.getFloor().equals("5")) {
-        MenuItem item = new MenuItem(loc.getNodeID());
-        item.setOnAction(this::locationMenu);
-        // equipLocation.getItems().add(item);
-      }
-    }
+    popOut.setVisible(false);
+    statusNotStarted = 0;
+    statusInProgress = 0;
+    statusComplete = 0;
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
@@ -81,136 +68,272 @@ public class PatientTransportController implements Initializable, PropertyChange
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
+    destinationColumn.setCellValueFactory(
+        new PropertyValueFactory<>("attribute2")); // location 2 looks sus again
+
+    // Populates the table from UI list
     if (transportData.isEmpty()) {
-      Iterator var3 = transportDAO.getAllRequests().entrySet().iterator();
-
-      for (Map.Entry<String, Request> entry : transportDAO.getAllRequests().entrySet()) {
+      for (Map.Entry<String, Request> entry : mainRequestImpl.getAllRequests().entrySet()) {
         Request req = entry.getValue();
-
         transportData.add(req);
       }
     }
-
-    patientTable.setItems(transportData);
+    dashboardLoad();
+    transportTable.setItems(transportData);
   }
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     String changeType = evt.getPropertyName();
-    System.out.println(changeType);
     int newValue = (int) evt.getNewValue();
-    System.out.println(newValue);
+    appController.displayAlert();
+  }
+
+  @FXML
+  public void modifyRequest(ActionEvent event) {
+    popOut.setVisible(true);
+
+    if (transportLocation.getItems().size() == 0) {
+      // Populates locations dropdown
+      for (Location loc : locationsList) {
+        MenuItem item = new MenuItem(loc.getNodeID());
+        item.setOnAction(this::mainLocationMenu);
+        transportLocation.getItems().add(item);
+      }
+      // Populates destinations dropdown
+      for (Location dest : locationsList) {
+        MenuItem item = new MenuItem(dest.getNodeID());
+        item.setOnAction(this::mainDestinationMenu);
+        transportDestination.getItems().add(item);
+      }
+
+      // Populates employees dropdown
+      for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+        Employee emp = entry.getValue();
+        MenuItem item = new MenuItem(emp.getName());
+        item.setOnAction(this::mainEmployeeMenu);
+        transportEmployee.getItems().add(item);
+      }
+
+      // Populates ID dropdown
+      for (Request req : transportData) {
+        MenuItem item = new MenuItem(req.getName());
+        item.setOnAction(this::mainIDMenu);
+        transportID.getItems().add(item);
+      }
+      MenuItem item1 = new MenuItem("Add New Request");
+      item1.setOnAction(this::mainIDMenu);
+      transportID.getItems().add(item1);
+    }
+  }
+
+  @FXML
+  public void submit(ActionEvent event) {
+    String loc = transportLocation.getText();
+    String dest = transportDestination.getText();
+    String emp = transportEmployee.getText();
+    String stat = transportStatus.getText();
+    String desc = transportDescription.getText();
+    String type = transportType.getText();
+    Location desty = locDAO.getLocation(dest);
+    // Adding
+    if (transportID.getText().equals("Add New Request")) {
+      Request req =
+          new Request(
+              "",
+              employeeHash.get(emp),
+              locationsHash.get(loc),
+              type,
+              stat,
+              desc,
+              "N/A",
+              desty.getLongName());
+      transportData.add(req);
+      mainRequestImpl.addRequest(req);
+
+      transportID.getItems().remove(0, transportID.getItems().size());
+      // Populates ID dropdown
+      for (Request request : transportData) {
+        MenuItem item = new MenuItem(request.getName());
+        item.setOnAction(this::mainIDMenu);
+        transportID.getItems().add(item);
+      }
+      MenuItem item1 = new MenuItem("Add New Request");
+      item1.setOnAction(this::mainIDMenu);
+      transportID.getItems().add(item1);
+
+    } else { // Editing
+      Request req = mainRequestImpl.getAllRequests().get(transportID.getText());
+      if (!req.getLocation().getNodeID().equals(loc)) {
+        Location newLoc = locationsHash.get(loc);
+        mainRequestImpl.updateLocation(req, newLoc);
+      }
+      if (!req.getAttribute2().equals(dest)) {
+        mainRequestImpl.updateAttribute2(req, dest);
+      }
+      if (!req.getEmployee().getName().equals(emp)) {
+        mainRequestImpl.updateEmployeeName(req, emp);
+      }
+      if (!req.getStatus().equals(stat)) {
+        mainRequestImpl.updateStatus(req, stat);
+      }
+      if (!req.getDescription().equals(desc)) {
+        mainRequestImpl.updateDescription(req, desc);
+      }
+      if (!req.getType().equals(desc)) {
+        mainRequestImpl.updateType(req, type);
+      }
+      for (int i = 0; i < transportData.size(); i++) {
+        if (transportData.get(i).getName().equals(req.getName())) {
+          transportData.set(i, req);
+        }
+      }
+    }
+
+    clear(event);
+  }
+
+  @FXML
+  public void cancel(ActionEvent event) {
+    clear(event);
+    popOut.setVisible(false);
+  }
+
+  @FXML
+  public void delete(ActionEvent event) {
+    String id = transportID.getText();
+
+    // removes the request from the table and dropdown
+    for (int i = 0; i < transportData.size(); i++) {
+      if (transportData.get(i).getName().equals(id)) {
+        transportData.remove(i);
+        transportID.getItems().remove(i);
+      }
+    }
+
+    // delete from hash map and database table
+    mainRequestImpl.deleteRequest(mainRequestImpl.getAllRequests().get(id));
+
+    clear(event);
+  }
+
+  @FXML
+  public void clear(ActionEvent event) {
+    transportID.setText("ID");
+    transportLocation.setText("Location");
+    transportEmployee.setText("Employee");
+    transportStatus.setText("Status");
+    transportDescription.setText("");
+    transportType.setText("Type");
+    transportDestination.setText("Destination");
+  }
+
+  /** Does filterReqsTable methods when "Submit Filters" is clicked, or "onAction." */
+  @FXML
+  public void filterReqOnAction(ActionEvent event) {
+    if (!employeeFilterField.getText().isEmpty() && !statusFilterField.getText().isEmpty()) {
+
+      ObservableList<Request> empFilteredList = filterReqEmployee(employeeFilterField.getText());
+      ObservableList<Request> trueFilteredList =
+          filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
+
+      transportTable.setItems(trueFilteredList);
+    } else if (!employeeFilterField.getText().isEmpty()) {
+      filterReqsTableEmployee(employeeFilterField.getText());
+    } else if (!statusFilterField.getText().isEmpty()) {
+      filterReqsTableStatus(statusFilterField.getText());
+    }
+  }
+
+  @FXML
+  public void clearFilters(ActionEvent event) {
+    transportTable.setItems(transportData);
+  }
+
+  @FXML
+  public void mainIDMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    transportID.setText(button.getText());
+    // If editing or deleting an existing request:
+    if (!button.getText().equals("Add New Request")) {
+      populate(button.getText());
+    }
+  }
+
+  @FXML
+  public void mainLocationMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    transportLocation.setText(button.getText());
+  }
+
+  @FXML
+  public void mainEmployeeMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    transportEmployee.setText(button.getText());
+  }
+
+  @FXML
+  public void mainStatusMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    transportStatus.setText(button.getText());
+  }
+
+  @FXML
+  public void mainTypeMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    transportType.setText(button.getText());
+  }
+
+  @FXML
+  public void mainDestinationMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    transportDestination.setText(button.getText());
   }
 
   /**
-   * TODO split submit equipment into add, edit x field, edit y field etc. Maybe add a dropdown for
-   * edit request so we can choose specifically which field we need to change for the request. I
-   * think doing this will help avoid confusion on FE
-   *
-   * <p>Implement little edit section on the left with the table on the right to use as a reference
+   * This is the cleaner version of Justin's dashboard code. Note that it may need a for loop as
+   * shown on line 83/84 if used elsewhere. Note: Unlikely.
    */
   @FXML
-  private void submitEquipment() throws SQLException {
-    equipmentConfirmation.setText("");
-    // gets all inputs and converts into string
-    String dropDownString = equipmentType.getText();
-    String locationString = equipLocation.getText();
-    String employeeString = equipmentEmployeeText.getText();
-    String statusString = equipmentStatus.getText();
-    String deleteString = deleteName.getText();
-    String editString = editRequest.getText();
+  private void dashboardLoad() {
+    if (notStartedNumber.getText().equals("-")
+        && inProgressNumber.getText().equals("-")
+        && completedNumber.getText().equals("-")) {
 
-    // if the fields are empty or to delete input is not empty
-    if (!deleteString.isEmpty()) {
-      deleteEquipRequest(deleteString);
-    } else if (!editString.isEmpty()) {
-      editEquipmentRequest(
-          editString, dropDownString, locationString, employeeString, statusString);
-    } else {
-      addEquipRequest(dropDownString, locationString, employeeString, statusString);
-    }
-    equipmentType.setText("Equipment Type");
-    equipLocation.setText("Delivery Location");
-    equipmentStatus.setText("Status");
-    editRequest.setText("");
-    deleteName.setText("");
-    equipmentEmployeeText.setText("Employee");
-  }
-
-  private void addEquipRequest(
-      String dropDownString, String locationString, String employeeString, String statusString) {
-
-    if (dropDownString.equals("Equipment Type")
-        || locationString.equals("Delivery Location")
-        || statusString.equals("Status")
-        || employeeString.equals("Employee")) {
-      equipmentConfirmation.setText("One or more of the required fields is not filled in.");
-    } else {
-      MedicalEquip equip = null;
-      Boolean foundEquip = false;
-      int i = 0;
-      while (!foundEquip && i < allMedEquip.size()) {
-        MedicalEquip medEquip = allMedEquip.get(i);
-        if (medEquip.getType().equals(dropDownString)
-            && medEquip.getStatus().equals("available")
-            && medEquip.isClean()) {
-          equip = medEquip;
-          foundEquip = true;
+      Iterator var3 = mainRequestImpl.getAllRequests().entrySet().iterator();
+      while (var3.hasNext()) {
+        Map.Entry<String, Request> entry = (Map.Entry) var3.next();
+        Request object = (Request) entry.getValue();
+        if (entry.getValue().getStatus().equals("inProgress")) {
+          statusInProgress++;
         }
-        i++;
-      }
-      if (foundEquip) {
-        System.out.println("ADD DEVICE");
-        equipmentConfirmation.setText(
-            "Thank you, the "
-                + dropDownString
-                + " you requested will be delivered shortly to "
-                + locationString
-                + " by "
-                + employeeString
-                + ".");
-
-        String placeholder = "?";
-        Request medDevice =
-            new Request(
-                placeholder,
-                empDAO.getEmployee(employeeString),
-                locDAO.getLocation(locationString),
-                dropDownString,
-                statusString,
-                "describe",
-                "something",
-                "",
-                equip);
-
-        // set the status and location of the medicalEquipment object corresponding to the request
-        if (statusString.equals("notStarted")) {
-          equipDAO.updateStatus(equip, "inUse");
-        } else if (statusString.equals("inProgress")) {
-          equipDAO.updateStatus(equip, "inUse");
-          equipDAO.updateEquipmentLocation(equip, medDevice.getLocation());
-        } else if (statusString.equals("complete")) {
-          // equipDAO.updateMedicalCleanliness(equip, false);
-          equipDAO.updateStatus(equip, "available");
-          equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00103"));
+        if (entry.getValue().getStatus().equals("notStarted")) {
+          statusNotStarted++;
         }
-
-        transportDAO.addRequest(medDevice); // add to hashmap
-
-        transportData.add(medDevice); // add to the UI
-        patientTable.setItems(transportData);
-      } else {
-        equipmentConfirmation.setText(
-            "Sorry, there are currently no " + dropDownString + "s available. ");
+        if (entry.getValue().getStatus().equals("Complete")
+            || entry.getValue().getStatus().equals("complete")) {
+          statusComplete++;
+        }
       }
+      setDashboard(statusNotStarted, statusInProgress, statusComplete);
     }
   }
 
-  /** Does filterReqsTable when "Submit Requests" is clicked, or "onAction." */
+  /**
+   * Will set the dashboard's numbers to the certain types of statuses.
+   *
+   * @param notStarted Requests not started
+   * @param inProgress Requests in progress
+   * @param complete Requests completed
+   */
   @FXML
-  public void filterReqEmpOnAction() {
-    filterReqsTable(employeeFilterField.getText());
+  private void setDashboard(int notStarted, int inProgress, int complete) {
+    String notStart = Integer.toString(notStarted);
+    String inProg = Integer.toString(inProgress);
+    String comp = Integer.toString(complete);
+    notStartedNumber.setText(notStart);
+    inProgressNumber.setText(inProg);
+    completedNumber.setText(comp);
   }
 
   /**
@@ -218,22 +341,15 @@ public class PatientTransportController implements Initializable, PropertyChange
    *
    * @param employeeName The Employee the requests must have to remain on the table.
    */
-  private void filterReqsTable(String employeeName) {
+  private void filterReqsTableEmployee(String employeeName) {
     ObservableList<Request> filteredList = filterReqEmployee(employeeName);
 
     // Sets table to only have contents of the filtered list.
-    patientTable.setItems(filteredList);
-  }
-
-  /** Puts all of the requests back on the table, "clearing the requests." */
-  @FXML
-  public void clearFilters() {
-    // Puts everything back on table.
-    patientTable.setItems(transportData);
+    transportTable.setItems(filteredList);
   }
 
   /**
-   * Filters out requests in medData based on the given Employee.
+   * Filters out requests in labData based on the given Employee.
    *
    * @param employeeName The Employee that the requests must have to be in the new list.
    * @return The new filtered list.
@@ -250,149 +366,87 @@ public class PatientTransportController implements Initializable, PropertyChange
     return newList;
   }
 
-  private void deleteEquipRequest(String deleteString) {
-    if (!deleteString.isEmpty()) {
-      for (int i = 0; i < transportData.size(); i++) {
-        Request object = transportData.get(i);
-        if (0 == deleteString.compareTo(object.getName())) {
-          // update the corresponding medicalEquip object
-          if (object.getMedicalEquip() != null) {
-            equipDAO.updateMedicalCleanliness(object.getMedicalEquip(), false);
-            equipDAO.updateStatus(object.getMedicalEquip(), "available");
-            equipDAO.updateEquipmentLocation(
-                object.getMedicalEquip(), locationsHash.get("ADIRT00103"));
-          }
-          // delete the request
-          transportData.remove(i);
-          transportDAO.deleteRequest(object);
-        }
-      }
-      patientTable.setItems(transportData);
-    }
+  /**
+   * Filters requests in the maintenance table so only those with the given status remain.
+   *
+   * @param reqStatus The status the requests must have to remain on the table.
+   */
+  private void filterReqsTableStatus(String reqStatus) {
+    ObservableList<Request> filteredList = filterReqStatus(reqStatus);
+    // Sets table to only have contents of the filtered list.
+    transportTable.setItems(filteredList);
   }
 
-  private void editEquipmentRequest(
-      String editString,
-      String dropDownString,
-      String locationString,
-      String employeeString,
-      String statusString) {
+  /**
+   * Filters out requests in mainData based on the given status.
+   *
+   * @param reqStatus The status that the requests must have to be in the new list.
+   * @return The new filtered list.
+   */
+  private ObservableList<Request> filterReqStatus(String reqStatus) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
 
-    System.out.println("EDIT REQUEST");
-
-    Request found = transportDAO.getAllRequests().get(editString);
-    System.out.println(found.getName());
-
-    // null;
-    int num = 0;
-    for (int i = 0; i < transportData.size(); i++) {
-      Request device = transportData.get(i);
-      if (0 == editRequest.getText().compareTo(device.getName())) {
-        found = device;
-        num = i;
+    for (Request req : transportData) {
+      if (req.getStatus().equals(reqStatus)) {
+        newList.add(req);
       }
     }
+    return newList;
+  }
 
-    if (found != null) {
-      System.out.println("1");
-      if (!dropDownString.equals("Equipment Type")) {
-        System.out.println("if(!dropDownString.equals(\"Equipment Type\"))");
-        // String type = equipmentType.getText();
+  /* Methods to filter lists n times */
 
-        MedicalEquip equip = null;
-        Boolean foundEquip = false;
-        int i = 0;
-        while (!foundEquip && i < allMedEquip.size()) {
-          MedicalEquip medEquip = allMedEquip.get(i);
-          if (medEquip.getType().equals(dropDownString)
-              && medEquip.getStatus().equals("available")
-              && medEquip.isClean()) {
-            equip = medEquip;
-            foundEquip = true;
-          }
-          i++;
-        }
-        if (foundEquip) {
-          found.setType(dropDownString);
-          found.setMedicalEquip(equip);
-          transportDAO.updateType(found, dropDownString);
-        } else {
-          equipmentConfirmation.setText(
-              "Sorry, there are currently no " + dropDownString + "s available.");
-        }
+  /**
+   * Filters out requests in mainData based on the given status.
+   *
+   * @param reqStatus The status that the requests must have to be in the new list.
+   * @param filteredList The list that was presumably filtered.
+   * @return The new filtered list.
+   */
+  private ObservableList<Request> filterFilteredReqListStatus(
+      String reqStatus, ObservableList<Request> filteredList) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : filteredList) {
+      if (req.getStatus().equals(reqStatus)) {
+        newList.add(req);
       }
-
-      if (!locationString.equals("Delivery Location")) {
-        System.out.println("if (!locationString.equals(\"Delivery Location\"))");
-        Location location = locDAO.getLocation(locationString);
-        System.out.println(location.getNodeID());
-        found.setLocation(location);
-        // MedrequestImpl.updateLocation(found, location);
-        if (found.getMedicalEquip() != null) {
-          equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
-        }
-      }
-      if (!employeeString.equals("Employee")) {
-        System.out.println("if (!employeeString.equals(\"Employee\"))");
-        Employee employee = empDAO.getEmployee(employeeString);
-        System.out.println(employee.getName());
-        found.setEmployee(employee);
-        //        MedrequestImpl.updateEmployeeName(found, employee.getName());
-      }
-
-      if (!statusString.equals("Status")) {
-        System.out.println("if (!statusString.equals(\"Status\"))");
-        found.setStatus(statusString);
-        //  MedrequestImpl.updateStatus(found, statusString);
-
-        // set the status and location of the medicalEquipment object corresponding to the
-        // request
-        if (found.getMedicalEquip() != null) {
-          if (statusString.equals("notStarted")) {
-            equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
-          } else if (statusString.equals("inProgress")) {
-            equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
-            equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
-          } else if (statusString.equals("complete")) {
-            equipDAO.updateMedicalCleanliness(found.getMedicalEquip(), false);
-            equipDAO.updateStatus(found.getMedicalEquip(), "available");
-            equipDAO.updateEquipmentLocation(
-                found.getMedicalEquip(), locationsHash.get("ADIRT00103"));
-          }
-        }
-      }
-      // System.out.println(num);
-      transportData.set(num, found);
-
-      //  equipmentTable.setItems(medData);
     }
+    return newList;
   }
 
-  @FXML
-  public void locationMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    equipLocation.setText(button.getText());
+  /**
+   * Filters out requests in mainData based on the given Employee.
+   *
+   * @param employeeName The Employee that the requests must have to be in the new list.
+   * @param filteredList The list that was presumably filtered.
+   * @return The new filtered list.
+   */
+  private ObservableList<Request> filterFilteredReqListEmployee(
+      String employeeName, ObservableList<Request> filteredList) {
+    ObservableList<Request> newList = FXCollections.observableArrayList();
+
+    for (Request req : filteredList) {
+      if (req.getEmployee().getName().equals(employeeName)) {
+        newList.add(req);
+      }
+    }
+
+    return newList;
   }
 
-  @FXML
-  public void typeMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    equipmentType.setText(button.getText());
-  }
-
-  @FXML
-  public void statusMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    equipmentStatus.setText(button.getText());
-  }
-
-  @FXML
-  public void employeeMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    equipmentEmployeeText.setText(button.getText());
-  }
-
-  public void clearPage(ActionEvent actionEvent) {
-    appController.clearPage();
+  /**
+   * Populates fields once a node id is chosen when editing an existing request.
+   *
+   * @param id Request ID
+   */
+  private void populate(String id) {
+    Request req = mainRequestImpl.getAllRequests().get(id);
+    transportLocation.setText(req.getLocation().getNodeID());
+    transportEmployee.setText(req.getEmployee().getName());
+    transportStatus.setText(req.getStatus());
+    transportDescription.setText(req.getDescription());
+    transportType.setText(req.getType());
+    transportDestination.setText(req.getAttribute2());
   }
 }

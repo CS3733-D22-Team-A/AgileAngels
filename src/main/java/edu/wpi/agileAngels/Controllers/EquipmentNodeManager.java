@@ -4,6 +4,7 @@ import edu.wpi.agileAngels.Database.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.scene.input.MouseEvent;
 
 public class EquipmentNodeManager {
   private MapsController mapsController;
@@ -22,6 +23,47 @@ public class EquipmentNodeManager {
     for (MedicalEquip equip : equipList) {
       mapsController.displayEquipmentNode(addNode(equip));
     }
+  }
+
+  public void editEquipmentLocation(EquipmentNode equipmentNode, Location newLocation) {
+    equipmentNode.setLocation(newLocation);
+    equipDAO.updateEquipmentLocation(equipmentNode.getMedEquip(), newLocation);
+  }
+
+  public ArrayList<Location> getLocationsList() {
+    return new ArrayList<Location>(locationsHash.values());
+  }
+
+  public double getCroppedMapXOffset() {
+    return mapsController.getCroppedMapXOffset();
+  }
+
+  public double getCroppedMapYOffset() {
+    return mapsController.getCroppedMapYOffset();
+  }
+
+  public double getCroppedMapWidth() {
+    return mapsController.getCroppedMapWidth();
+  }
+
+  public double getImagePaneWidth() {
+    return mapsController.getImagePaneWidth();
+  }
+
+  public double getMapXCoordFromClick(MouseEvent click) {
+    return mapsController.getMapXCoordFromClick(click);
+  }
+
+  public double getMapYCoordFromClick(MouseEvent click) {
+    return mapsController.getMapYCoordFromClick(click);
+  }
+
+  public void setCoordsOnMouseEvent(MouseEvent click) {
+    mapsController.setCoordsOnMouseEvent(click);
+  }
+
+  public void setDraggedNodeCoords(MouseEvent mouseEvent) {
+    mapsController.setCoordsOnMouseEvent(mouseEvent);
   }
 
   EquipmentNode addNode(MedicalEquip medEquip) throws SQLException {

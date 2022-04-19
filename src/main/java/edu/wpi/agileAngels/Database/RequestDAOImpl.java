@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 // Implementation of RequestDAO
@@ -20,9 +21,12 @@ public class RequestDAOImpl implements RequestDAO {
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private static RequestDAOImpl MedrequestDAO = null;
   private static RequestDAOImpl LabrequestDAO = null;
-  private static RequestDAOImpl SanrequestDAO = null;
+  private static RequestDAOImpl SanDAO = null;
   private static RequestDAOImpl MealDAO = null;
   private static RequestDAOImpl GiftDAO = null;
+  private static RequestDAOImpl MaintenanceDAO = null;
+  private static RequestDAOImpl TransportDAO = null;
+  private static RequestDAOImpl MorgueDAO = null;
 
   public RequestDAOImpl(HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
@@ -49,15 +53,36 @@ public class RequestDAOImpl implements RequestDAO {
       }
       return LabrequestDAO;
     } else if (0 == type.compareTo("ServiceRequest")) {
-      if (SanrequestDAO == null) {
-        SanrequestDAO = new RequestDAOImpl(data, 1, "SanRequest");
+      if (SanDAO == null) {
+        SanDAO = new RequestDAOImpl(data, 1, "SanRequest");
       }
-      return SanrequestDAO;
+      return SanDAO;
     } else if (0 == type.compareTo("MealRequest")) {
       if (MealDAO == null) {
         MealDAO = new RequestDAOImpl(data, 1, "MealRequest");
       }
       return MealDAO;
+    } else if (0 == type.compareTo("SanitationRequest")) {
+      if (SanDAO == null) {
+        SanDAO = new RequestDAOImpl(data, 1, "SanitationRequest");
+      }
+      return SanDAO;
+
+    } else if (0 == type.compareTo("MaintenanceRequest")) {
+      if (MaintenanceDAO == null) {
+        MaintenanceDAO = new RequestDAOImpl(data, 1, "MaintenanceRequest");
+      }
+      return MaintenanceDAO;
+    } else if (0 == type.compareTo("TransportRequest")) {
+      if (TransportDAO == null) {
+        TransportDAO = new RequestDAOImpl(data, 1, "TransportRequest");
+      }
+      return TransportDAO;
+    } else if (0 == type.compareTo("MorgueRequest")) {
+      if (MorgueDAO == null) {
+        MorgueDAO = new RequestDAOImpl(data, 1, "MorgueRequest");
+      }
+      return MorgueDAO;
     }
     return null;
   }
@@ -66,10 +91,16 @@ public class RequestDAOImpl implements RequestDAO {
     return this.reqData;
   }
 
+  public void updateRequest(Request request) {
+    Adb.updateRequest(request);
+  }
+
   public void updateEmployeeName(Request request, String newName) {
-    empManager.getAllEmployees();
-    request.setEmployee(empManager.getEmployee(newName));
-    Adb.updateRequest(request, "EmployeeName", newName);
+    this.reqData
+        .get(request.getName())
+        .setEmployee((Employee) EmployeeManager.getInstance().getAllEmployees().get(newName));
+
+    Adb.updateRequest(request);
   }
 
   public void updateRequestType(Request request, int requestType) {
@@ -78,7 +109,7 @@ public class RequestDAOImpl implements RequestDAO {
 
   public void updateType(Request request, String newType) {
     request.setType(newType);
-    Adb.updateRequest(request, "Type", newType);
+    Adb.updateRequest(request);
   }
 
   public void updateLocation(Request request, Location newLocation) {
@@ -89,13 +120,18 @@ public class RequestDAOImpl implements RequestDAO {
 
   public void updateDescription(Request request, String description) {
     request.setDescription(description);
-    // Adb.updateRequest(request);
-    Adb.updateRequest(request, "Description", description);
+    Adb.updateRequest(request);
+    // Adb.updateRequest(request, "Description", description);
   }
 
   public void updateStatus(Request request, String newStatus) {
     request.setStatus(newStatus);
-    Adb.updateRequest(request, "Status", newStatus);
+    Adb.updateRequest(request);
+  }
+
+  public void updateAttribute2(Request req, String dest) {
+    req.setStatus(dest);
+    Adb.updateRequest(req);
   }
 
   public void deleteRequest(Request request) {
@@ -111,15 +147,19 @@ public class RequestDAOImpl implements RequestDAO {
       letter = "Med";
     } else if (0 == DAOtype.compareTo("LabRequest")) {
       letter = "Lab";
-    } else if (0 == DAOtype.compareTo("SanRequest")) {
-      letter = "Sanitation";
+    } else if (0 == DAOtype.compareTo("SanitationRequest")) {
+      letter = "San";
     } else if (0 == DAOtype.compareTo("MealRequest")) {
       letter = "Meal";
 
     } else if (0 == DAOtype.compareTo("TransportRequest")) {
-      letter = "Transport";
+      letter = "Tran";
     } else if (0 == DAOtype.compareTo("GiftRequest")) {
       letter = "Gift";
+    } else if (0 == DAOtype.compareTo("MaintenanceRequest")) {
+      letter = "Main";
+    } else if (0 == DAOtype.compareTo("MorgueRequest")) {
+      letter = "Morgue";
     }
 
     letter = letter + Integer.toString(this.count);
@@ -152,26 +192,38 @@ public class RequestDAOImpl implements RequestDAO {
       var8.printStackTrace();
     }
   }
+
   // UHHHH fix this
   private void typeofDAO(String[] values) throws SQLException {
     ++this.count;
     if (values[0].substring(0, 3).compareTo("Med") == 0 && DAOtype.compareTo("MedRequest") == 0) {
       makeRequest(values);
-    }
-    if (values[0].substring(0, 3).compareTo("Trans") == 0
-        && DAOtype.compareTo("TransportRequest") == 0) {
+    } else if (values[0].substring(0, 4).compareTo("Meal") == 0
+        && DAOtype.compareTo("MealRequest") == 0) {
+      makeRequest(values);
+    } else if (values[0].substring(0, 4).compareTo("San") == 0
+        && DAOtype.compareTo("SanitationRequest") == 0) {
+      makeRequest(values);
+    } else if (values[0].substring(0, 1).compareTo("L") == 0
+        && DAOtype.compareTo("LabRequest") == 0) {
+      makeRequest(values);
+    } else if (values[0].substring(0, 1).compareTo("G") == 0) {
+
+    } else if (values[0].substring(0, 1).compareTo("S") == 0) {
+
+    } else if (values[0].substring(0, 4).compareTo("Main") == 0
+        && DAOtype.compareTo("MaintenanceRequest") == 0) {
+      makeRequest(values);
+    } else if (values[0].substring(0, 4).compareTo("Tran") == 0
+        && DAOtype.compareTo("TransportRequest") == 0) { // Now this is an issue!
+      makeRequest(values);
+    } else if (values[0].substring(0, 4).compareTo("Morg") == 0
+        && DAOtype.compareTo("MorgueRequest") == 0) {
       makeRequest(values);
     }
-    if (values[0].substring(0, 4).compareTo("Meal") == 0) {}
-
-    if (values[0].substring(0, 1).compareTo("L") == 0 && DAOtype.compareTo("LabRequest") == 0) {
-      makeRequest(values);
-    }
-
-    if (values[0].substring(0, 1).compareTo("G") == 0) {}
-
-    if (values[0].substring(0, 1).compareTo("S") == 0) {}
     return;
+
+    // return;
   }
 
   private void makeRequest(String[] values) throws SQLException {
@@ -198,7 +250,7 @@ public class RequestDAOImpl implements RequestDAO {
   }
 
   private Location findLocation(String value) {
-    System.out.println("Location Value " + value);
+    // System.out.println("Location Value " + value);
     Location location;
     HashMap<String, Location> locationData = locDAO.getAllLocations();
     location = locationData.get(value);
@@ -257,5 +309,9 @@ public class RequestDAOImpl implements RequestDAO {
       System.out.println("Datababse error:");
       e.printStackTrace();
     }
+  }
+
+  public ArrayList<String> getFreeEmployees() throws SQLException {
+    return Adb.getFreeEmployees();
   }
 }
