@@ -121,7 +121,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
     mapPane.getChildren().add(pane2);
     pane2.getChildren().add((floorTwoMap));
-    pane2.setVisible(true);
+    pane2.setVisible(false);
     mapPane.getChildren().add(pane3);
     pane3.getChildren().add((floorThreeMap));
     pane3.setVisible(false);
@@ -137,6 +137,22 @@ public class MapsController implements Initializable, PropertyChangeListener {
     paneL2.getChildren().add((lowerLevelTwoMap));
     mapPane.getChildren().add(paneL2);
     paneL2.setVisible(false);
+
+    if (appController.getCurrentFloor() == "2") {
+      pane2.setVisible(true);
+    } else if (appController.getCurrentFloor() == "3") {
+      pane3.setVisible(true);
+    } else if (appController.getCurrentFloor() == "4") {
+      pane4.setVisible(true);
+    } else if (appController.getCurrentFloor() == "5") {
+      pane5.setVisible(true);
+    } else if (appController.getCurrentFloor() == "L1") {
+      paneL1.setVisible(true);
+    } else if (appController.getCurrentFloor() == "L2") {
+      paneL2.setVisible(true);
+    }
+
+    floorLabel.setText(appController.getCurrentFloor());
 
     locationAddPane.setVisible(false);
     locationEditPane.setVisible(false);
@@ -231,6 +247,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
   @FXML
   private void addNode() {
+    deselect();
     locationAddPane.setVisible(true);
   }
 
@@ -543,9 +560,10 @@ public class MapsController implements Initializable, PropertyChangeListener {
     requestStatusDropdown.setText(button.getText());
   }
 
-  public void deselect(MouseEvent mouseEvent) {
+  public void deselect() {
     requestEditPane.setVisible(false);
     locationEditPane.setVisible(false);
+    locationAddPane.setVisible(false);
   }
 
   public void locationDelete(ActionEvent event) {
@@ -561,32 +579,37 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
   public void locationAdd(ActionEvent event) {
 
-    int typeCount =
-        (locationNodeManager.getTypeCount(addLocationTypeDropdown.getText(), currentFloor));
+    if (addLocationTypeDropdown.getText().equals("Node Type")
+        || addLocationName.getText().isEmpty()) {
 
-    System.out.println(typeCount);
+    } else {
+      int typeCount =
+          (locationNodeManager.getTypeCount(addLocationTypeDropdown.getText(), currentFloor));
 
-    String nodeID =
-        "A"
-            + addLocationTypeDropdown.getText()
-            + String.format("%03d", typeCount)
-            + ((currentFloor.length() == 1) ? ("0" + currentFloor) : (currentFloor));
+      System.out.println(typeCount);
 
-    System.out.println(nodeID);
+      String nodeID =
+          "A"
+              + addLocationTypeDropdown.getText()
+              + String.format("%03d", typeCount)
+              + ((currentFloor.length() == 1) ? ("0" + currentFloor) : (currentFloor));
 
-    Location newLocation =
-        new Location(
-            nodeID,
-            (getMapXCoordFromClick(rightClick)),
-            (getMapYCoordFromClick(rightClick)),
-            currentFloor,
-            "TOWER",
-            addLocationTypeDropdown.getText(),
-            addLocationName.getText(),
-            nodeID);
-    System.out.println("new Location");
-    displayLocationNode(locationNodeManager.addNode(newLocation));
-    locationAddPane.setVisible(false);
+      System.out.println(nodeID);
+
+      Location newLocation =
+          new Location(
+              nodeID,
+              (getMapXCoordFromClick(rightClick)),
+              (getMapYCoordFromClick(rightClick)),
+              currentFloor,
+              "TOWER",
+              addLocationTypeDropdown.getText(),
+              addLocationName.getText(),
+              nodeID);
+      System.out.println("new Location");
+      displayLocationNode(locationNodeManager.addNode(newLocation));
+      locationAddPane.setVisible(false);
+    }
   }
 
   public void requestTypeDropdown(ActionEvent event) {

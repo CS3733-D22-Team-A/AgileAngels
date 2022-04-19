@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="720.0" prefWidth="314.0" stylesheets="@styleRequest.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.views.RequestPopUpView">
+<AnchorPane prefHeight="720.0" prefWidth="314.0" stylesheets="@stylesheets/styleRequest.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.views.RequestPopUpView">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f3f5f7" height="345.0" layoutX="27.0" layoutY="353.0" stroke="BLACK" strokeType="INSIDE" width="266.0" />
       <Label layoutX="41.0" layoutY="54.0" prefHeight="28.0" prefWidth="225.0" style="-fx-font-weight: bold; -fx-font-size: 35;" text="Request Info" textFill="WHITE">

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -37,6 +38,12 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    floor5.setPickOnBounds(false);
+    floor4.setPickOnBounds(false);
+    floor3.setPickOnBounds(false);
+    floor2.setPickOnBounds(false);
+    floorLL1.setPickOnBounds(false);
+    floorLL2.setPickOnBounds(false);
     scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     appController.addPropertyChangeListener(this);
@@ -164,5 +171,22 @@ public class DashboardController implements Initializable, PropertyChangeListene
       dirtyXRay.setText(String.valueOf(XRayCountdirty));
       dirtyPump.setText(String.valueOf(pumpCountdirty));
     }
+  }
+
+  public void goToFloor(ActionEvent event) {
+    if (event.getSource() == floor5) {
+      appController.setCurrentFloor("5");
+    } else if (event.getSource() == floor4) {
+      appController.setCurrentFloor("4");
+    } else if (event.getSource() == floor3) {
+      appController.setCurrentFloor("3");
+    } else if (event.getSource() == floor2) {
+      appController.setCurrentFloor("2");
+    } else if (event.getSource() == floorLL1) {
+      appController.setCurrentFloor("L1");
+    } else if (event.getSource() == floorLL2) {
+      appController.setCurrentFloor("L2");
+    }
+    appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
   }
 }

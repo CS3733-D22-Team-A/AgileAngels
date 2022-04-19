@@ -14,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import org.controlsfx.control.textfield.TextFields;
 
 public class LoginController implements Initializable {
   @FXML private TextField username;
@@ -32,8 +31,6 @@ public class LoginController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     // Remove this later, just for convience + to prove it works
-    String[] words = {"Admin", "Staff"};
-    TextFields.bindAutoCompletion(username, words);
     //
 
     employeeManager.addEmployee("Admin", "Admin");
@@ -54,7 +51,7 @@ public class LoginController implements Initializable {
 
     if (employeeManager.getName(username.getText())
         && passwordBox.getText().equals(employeeManager.getPassword(username.getText()))) {
-      appController.loadPage("/edu/wpi/agileAngels/views/home-view.fxml");
+      appController.loadPage("/edu/wpi/agileAngels/views/NEWdashboard.fxml");
     } else {
       invalid.setTextFill(Color.rgb(220, 80, 80));
       invalid.setText("Invalid username or password.");
