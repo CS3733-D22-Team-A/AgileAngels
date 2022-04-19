@@ -51,7 +51,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
   HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
-  AnchorPane alertPane;
 
   AppController appController = AppController.getInstance();
   @FXML
@@ -232,17 +231,18 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   @FXML
   private void addEquipRequest() {
-    equipmentConfirmation.setText("");
-    // gets all inputs and converts into string
-    String dropDownString = equipmentType.getText();
-    String locationString = equipLocation.getText();
-    String employeeString = equipmentEmployeeText.getText();
-    String statusString = equipmentStatus.getText();
-    String descriptionString = mainDescription.getText();
 
     if (!mainID.getText().equals("Add New Request")) {
       editEquipmentRequest();
     } else {
+
+      equipmentConfirmation.setText("");
+      // gets all inputs and converts into string
+      String dropDownString = equipmentType.getText();
+      String locationString = equipLocation.getText();
+      String employeeString = equipmentEmployeeText.getText();
+      String statusString = equipmentStatus.getText();
+      String descriptionString = mainDescription.getText();
 
       if (dropDownString.equals("Equipment Type")
           || locationString.equals("Delivery Location")
@@ -319,6 +319,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       }
     }
     clearFields();
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -344,6 +345,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       equipmentTable.setItems(medData);
     }
     clearFields();
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -495,6 +497,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       //  equipmentTable.setItems(medData);
     }
     clearFields();
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -525,6 +528,9 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   public void mainIDMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     mainID.setText(button.getText());
+    if (!button.getText().equals("Add New Request")) {
+      populate(button.getText());
+    }
   }
 
   @FXML
@@ -534,11 +540,14 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     if (equipLocation.getItems().size() == 0) {
       // Populates locations dropdown
       for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getNodeID());
-        item.setOnAction(this::locationMenu);
-        equipLocation.getItems().add(item);
+        if (loc.getFloor().equals("3")
+            || loc.getFloor().equals("4")
+            || loc.getFloor().equals("5")) {
+          MenuItem item = new MenuItem(loc.getNodeID());
+          item.setOnAction(this::locationMenu);
+          equipLocation.getItems().add(item);
+        }
       }
-
       // Populates employees dropdown
       for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
         Employee emp = entry.getValue();
@@ -546,17 +555,25 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         item.setOnAction(this::employeeMenu);
         equipmentEmployeeText.getItems().add(item);
       }
-
-      // Populates ID dropdown
-      for (Request req : medData) {
-        MenuItem item = new MenuItem(req.getName());
-        item.setOnAction(this::mainIDMenu);
-        mainID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::mainIDMenu);
-      mainID.getItems().add(item1);
     }
+
+    // Populates ID dropdown
+    for (Request req : medData) {
+      MenuItem item = new MenuItem(req.getName());
+      item.setOnAction(this::mainIDMenu);
+      mainID.getItems().add(item);
+    }
+    MenuItem item1 = new MenuItem("Add New Request");
+    item1.setOnAction(this::mainIDMenu);
+    mainID.getItems().add(item1);
+  }
+
+  private void populate(String id) {
+    Request req = MedrequestImpl.getAllRequests().get(id);
+    equipLocation.setText(req.getLocation().getNodeID());
+    equipmentEmployeeText.setText(req.getEmployee().getName());
+    equipmentStatus.setText(req.getStatus());
+    mainDescription.setText(req.getDescription());
   }
 
   @FXML
