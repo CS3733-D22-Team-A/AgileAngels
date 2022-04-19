@@ -250,7 +250,7 @@
         </Button>
         <VBox alignment="CENTER" layoutX="978.0" prefHeight="678.0" prefWidth="294.0" spacing="15.0">
             <children>
-                <Pane fx:id="popOut" prefHeight="484.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
+                <Pane fx:id="popOut" prefHeight="484.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;" >
                     <children>
                         <MenuButton fx:id="mainID" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0"
                                     layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0"

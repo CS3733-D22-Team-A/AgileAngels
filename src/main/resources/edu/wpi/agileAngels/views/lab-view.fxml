@@ -8,10 +8,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
@@ -19,94 +21,25 @@
 
 <AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/styleRequest.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.LabController">
    <children>
-      <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
-
-<HBox alignment="CENTER" layoutX="78.0" layoutY="181.0" prefHeight="410.0" prefWidth="1158.0" spacing="50.0">
-   <children>
-            <VBox alignment="CENTER" prefHeight="432.0" prefWidth="270.0" spacing="15.0">
-               <children>
-                  <MenuButton fx:id="dropdownButtonText" maxHeight="200.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" text="Type">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#requestTypeDropdown" text="Blood Test" />
-                        <MenuItem mnemonicParsing="false" onAction="#requestTypeDropdown" text="Urine Test" />
-                        <MenuItem mnemonicParsing="false" onAction="#requestTypeDropdown" text="Tumor Marker" />
-                        <MenuItem mnemonicParsing="false" onAction="#requestTypeDropdown" text="COVID-19 Test " />
-                     </items>
-                  </MenuButton>
-                  <TextField fx:id="labTestLocation" prefHeight="50.0" prefWidth="270.0" promptText="Delivery Location" />
-                  <TextField fx:id="labEmployeeText" prefHeight="50.0" prefWidth="270.0" promptText="Employee" />
-                  <TextField fx:id="labStatus" prefHeight="50.0" prefWidth="270.0" promptText="Status" />
-                  <TextField fx:id="labDescription" prefHeight="50.0" prefWidth="270.0" promptText="Description" />
-                  <TextField fx:id="labDelete" prefHeight="50.0" prefWidth="270.0" promptText="Delete by Index" />
-                  <TextField fx:id="labEdit" prefHeight="50.0" prefWidth="270.0" promptText="Edit by Index" />
-                  <HBox prefHeight="50.0" prefWidth="200.0" spacing="16.0">
-                     <children>
-                        <Button fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearPage" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                           <font>
-                              <Font size="10.0" />
-                           </font>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <graphic>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Clear" />
-                                 </children>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </HBox>
-                           </graphic>
-                        </Button>
-                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#submitLabTest" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                           <font>
-                              <Font size="10.0" />
-                           </font>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <graphic>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Submit" />
-                                 </children>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </HBox>
-                           </graphic>
-                        </Button>
-                     </children>
-                  </HBox>
-               </children>
-
-
-               <!--
-
-               above is a VBox that includes text fields and a menu dropdown if implimenting a menu dropdown include the pane at the end
-
-               -->
-
-            </VBox>
-      <TableView fx:id="labTable" prefHeight="410.0" prefWidth="838.0">
-         <columns>
-            <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
-            <TableColumn fx:id="availableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Available" />
-            <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Type" />
-            <TableColumn fx:id="locationColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Location" />
-            <TableColumn fx:id="employeeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Employee" />
-            <TableColumn fx:id="statusColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Status" />
-            <TableColumn fx:id="descriptionColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Description" />
-         </columns>
-      </TableView>
-   </children>
-</HBox>
-<Label fx:id="labTestConfirmation" alignment="TOP_LEFT" layoutX="144.0" layoutY="598.0" prefHeight="100.0" prefWidth="523.0" wrapText="true">
-   <font>
-      <Font size="16.0" />
-   </font></Label>
-      <HBox layoutX="397.0" layoutY="79.0" prefHeight="98.0" prefWidth="435.0">
+      <HBox alignment="CENTER" layoutX="78.0" layoutY="160.0" prefHeight="451.0" prefWidth="1158.0" spacing="50.0">
+         <children>
+            <TableView fx:id="labTable" prefHeight="451.0" prefWidth="1188.0">
+               <columns>
+                  <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
+                  <TableColumn  fx:id="typeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Type" />
+                  <TableColumn fx:id="locationColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Location" />
+                  <TableColumn fx:id="employeeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Employee" />
+                  <TableColumn fx:id="statusColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Status" />
+                  <TableColumn fx:id="descriptionColumn" maxWidth="542.4000122070313" minWidth="123.0" prefWidth="542.4000122070313" resizable="false" text="Description" />
+               </columns>
+            </TableView>
+         </children>
+      </HBox>
+      <Label fx:id="labTestConfirmation" alignment="TOP_LEFT" layoutX="144.0" layoutY="598.0" prefHeight="100.0" prefWidth="523.0" wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <HBox layoutX="397.0" layoutY="58.0" prefHeight="100.0" prefWidth="435.0">
          <children>
             <GridPane prefWidth="408.0">
               <columnConstraints>
