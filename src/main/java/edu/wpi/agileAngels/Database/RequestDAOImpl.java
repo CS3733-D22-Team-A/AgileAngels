@@ -133,7 +133,12 @@ public class RequestDAOImpl implements RequestDAO {
   }
 
   public void updateAttribute2(Request req, String dest) {
-    req.setStatus(dest);
+    req.setAttribute2(dest);
+    Adb.updateRequest(req);
+  }
+
+  public void updateAttribute1(Request req, String dest) {
+    req.setAttribute1(dest);
     Adb.updateRequest(req);
   }
 
