@@ -105,11 +105,11 @@ Note that these labels lock your font size.
     -fx-background-color: rgb(255, 255, 255);
     -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 16, 0, 4, 4);
     -fx-background-radius: 10;
-    -fx-text-fill: black; /*not this*/
+    -fx-text-fill: white; /*not this*/
 }
 .menu-item-button{
     -fx-background-color: rgba(0, 0, 0, 0);
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-size: 16;
 }
 
@@ -189,38 +189,60 @@ Note that these labels lock your font size.
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
+.table-view .table-cell{
+    -fx-table-cell-border-color:transparent;
+}
+
+
 .table-view:focused{
     -fx-background-color: white;
     -fx-border-width: 0;
 }
 
 .table-view .column-header {
-    -fx-background-color: #355A70;
+    -fx-background-color: #49A3AE;
     -fx-background-radius: 7px 7px 0px 0px;
 }
+
 .table-view .column-header-background .label{
     -fx-background-color: transparent;
     -fx-text-fill: white;
+    -fx-alignment: left;
+    -fx-font-alignment: left;
 }
 
 .table-view .column-header-background {
-    -fx-background-color: #355A70;
+    -fx-background-color: #49A3AE;
     -fx-background-radius: 7px 7px 0px 0px;
+}
+
+.table-row-cell{
+    -fx-pref-height: 30;
+}
+
+.table-row-cell:focused{
+    -fx-text-background-color: black;
 }
 
 .table-row-cell:hover {
     -fx-background-color: #93f9b911;
     -fx-text-background-color: red;
 }
+.table-row-cell:selected{
+    -fx-text-background-color: blue;
+}
+
+
 .table-row-cell:odd{
     -fx-background-color: #C2D5D8;
     -fx-background-insets: 0, 0 0 1 0;
-    -fx-padding: 0.0em;
+    -fx-padding: 2;
 }
 .table-row-cell:even{
     -fx-background-color: #FFFFFF;
     -fx-background-insets: 0, 0 0 1 0;
-    -fx-padding: 0.0em;
+    -fx-padding: 2;
 }
+
 /* OTHER SHIT
  */

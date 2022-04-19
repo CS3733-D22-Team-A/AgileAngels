@@ -29,12 +29,79 @@ public class RequestDAOImpl implements RequestDAO {
   private static RequestDAOImpl TransportDAO = null;
   private static RequestDAOImpl MorgueDAO = null;
 
+  HashMap<String, ArrayList> requestTypes = new HashMap<>();
+
+  ArrayList labTypes = new ArrayList<String>();
+  ArrayList equipTypes = new ArrayList<String>();
+  ArrayList sanitationTypes = new ArrayList<String>();
+  ArrayList mealTypes = new ArrayList<String>();
+  ArrayList giftTypes = new ArrayList<String>();
+  ArrayList transportTypes = new ArrayList<String>();
+
+  public ArrayList getLabTypes() {
+    labTypes.add("Blood Test");
+    labTypes.add("Urine Test");
+    labTypes.add("Tumor Marker");
+    labTypes.add("COVID-19 Test");
+    return labTypes;
+  }
+
+  public ArrayList getEquipTypes() {
+    equipTypes.add("XRayMachine");
+    equipTypes.add("InfusionPump");
+    equipTypes.add("Recliner");
+    equipTypes.add("Bed");
+    return equipTypes;
+  }
+
+  public ArrayList getSanitationTypes() {
+    sanitationTypes.add("Clean Spill");
+    sanitationTypes.add("Clean Room");
+    sanitationTypes.add("Clean Exam");
+    sanitationTypes.add("Janitorial");
+    sanitationTypes.add("Other");
+    return sanitationTypes;
+  }
+
+  public ArrayList getMealTypes() {
+    mealTypes.add("Salad");
+    mealTypes.add("Steak");
+    mealTypes.add("Pasta");
+    mealTypes.add("Beans");
+    mealTypes.add("Placenta");
+    return mealTypes;
+  }
+
+  public ArrayList getGiftTypes() {
+    giftTypes.add("Balloons");
+    giftTypes.add("Flowers");
+    giftTypes.add("Card");
+    return giftTypes;
+  }
+
+  public ArrayList getTransportTypes() {
+    transportTypes.add("Move Room");
+    transportTypes.add("Move Hospital");
+    transportTypes.add("Release");
+    return transportTypes;
+  }
+
   public RequestDAOImpl(HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
     this.CSV_FILE_PATH = "./Requests.csv";
     this.reqData = reqData;
     this.count = count;
     this.DAOtype = type;
+    requestTypes.put("Mea", getMealTypes());
+    requestTypes.put("Med", getEquipTypes());
+    requestTypes.put("Lab", getLabTypes());
+    requestTypes.put("San", getSanitationTypes());
+    requestTypes.put("Gif", getGiftTypes());
+    requestTypes.put("Tra", getTransportTypes());
+  }
+
+  public HashMap<String, ArrayList> getRequestTypes() {
+    return requestTypes;
   }
 
   public static RequestDAOImpl getInstance(String type) throws SQLException {
@@ -44,9 +111,12 @@ public class RequestDAOImpl implements RequestDAO {
         MedrequestDAO = new RequestDAOImpl(data, 1, "MedRequest");
       }
       return MedrequestDAO;
-    } else if (GiftDAO == null && 0 == type.compareTo("GiftRequest")) {
-      data = new HashMap();
-      GiftDAO = new RequestDAOImpl(data, 1, "GiftRequest");
+    } else if (0 == type.compareTo("GiftRequest")) {
+      // data = new HashMap();
+      if (GiftDAO == null) {
+        System.out.println("TEST TEST TEST");
+        GiftDAO = new RequestDAOImpl(data, 1, "GiftRequest");
+      }
       return GiftDAO;
     } else if (0 == type.compareTo("LabRequest")) {
       if (LabrequestDAO == null) {
@@ -136,7 +206,12 @@ public class RequestDAOImpl implements RequestDAO {
   }
 
   public void updateAttribute2(Request req, String dest) {
-    req.setStatus(dest);
+    req.setAttribute2(dest);
+    Adb.updateRequest(req);
+  }
+
+  public void updateAttribute1(Request req, String dest) {
+    req.setAttribute1(dest);
     Adb.updateRequest(req);
   }
 
@@ -215,8 +290,11 @@ public class RequestDAOImpl implements RequestDAO {
     } else if (values[0].substring(0, 1).compareTo("L") == 0
         && DAOtype.compareTo("LabRequest") == 0) {
       makeRequest(values);
-    } else if (values[0].substring(0, 1).compareTo("G") == 0) {
-
+    } else if (values[0].substring(0, 1).compareTo("Gift") == 0
+        && DAOtype.compareTo("GiftRequest") == 0) {
+      {
+        makeRequest(values);
+      }
     } else if (values[0].substring(0, 1).compareTo("S") == 0) {
 
     } else if (values[0].substring(0, 4).compareTo("Main") == 0
