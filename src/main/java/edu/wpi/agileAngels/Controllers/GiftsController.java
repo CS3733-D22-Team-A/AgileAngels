@@ -18,9 +18,9 @@ import javafx.scene.layout.Pane;
 public class GiftsController implements Initializable, PropertyChangeListener {
 
   @FXML Pane popOut;
-  @FXML MenuButton mainID, mainLocation, mainEmployee, mainStatus, giftType;
+  @FXML MenuButton giftID, giftLocation, giftEmployee, giftStatus, giftType;
   @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
-  @FXML TableView mainTable;
+  @FXML TableView giftTable;
   @FXML
   private TableColumn nameColumn,
       availableColumn,
@@ -31,17 +31,17 @@ public class GiftsController implements Initializable, PropertyChangeListener {
       senderColumn,
       descriptionColumn;
   @FXML
-  TextField mainDescription, employeeFilterField, statusFilterField, giftSender, giftRecipient;
+  TextField giftDescription, employeeFilterField, statusFilterField, giftSender, giftRecipient;
   @FXML Label notStartedNumber, inProgressNumber, completedNumber;
 
   // DAOs, HashMaps, and Lists required for functionality
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
-  private RequestDAOImpl mainRequestImpl = RequestDAOImpl.getInstance("GiftRequest");
+  private RequestDAOImpl giftRequestImpl = RequestDAOImpl.getInstance("GiftRequest");
   private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   private ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
   private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
-  private static ObservableList<Request> maintenanceData = FXCollections.observableArrayList();
+  private static ObservableList<Request> giftData = FXCollections.observableArrayList();
 
   private int statusNotStarted, statusInProgress, statusComplete;
 
@@ -66,16 +66,16 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     senderColumn.setCellValueFactory(new PropertyValueFactory<>("attribute2"));
 
-    maintenanceData.clear();
+    giftData.clear();
     // Populates the table from UI list
-    if (maintenanceData.isEmpty()) {
-      for (Map.Entry<String, Request> entry : mainRequestImpl.getAllRequests().entrySet()) {
+    if (giftData.isEmpty()) {
+      for (Map.Entry<String, Request> entry : giftRequestImpl.getAllRequests().entrySet()) {
         Request req = entry.getValue();
-        maintenanceData.add(req);
+        giftData.add(req);
       }
     }
     dashboardLoad();
-    mainTable.setItems(maintenanceData);
+    giftTable.setItems(giftData);
   }
 
   @Override
@@ -89,12 +89,12 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   public void modifyRequest(ActionEvent event) {
     popOut.setVisible(true);
 
-    if (mainLocation.getItems().size() == 0) {
+    if (giftLocation.getItems().size() == 0) {
       // Populates locations dropdown
       for (Location loc : locationsList) {
         MenuItem item = new MenuItem(loc.getNodeID());
         item.setOnAction(this::mainLocationMenu);
-        mainLocation.getItems().add(item);
+        giftLocation.getItems().add(item);
       }
 
       // Populates employees dropdown
@@ -102,78 +102,78 @@ public class GiftsController implements Initializable, PropertyChangeListener {
         Employee emp = entry.getValue();
         MenuItem item = new MenuItem(emp.getName());
         item.setOnAction(this::mainEmployeeMenu);
-        mainEmployee.getItems().add(item);
+        giftEmployee.getItems().add(item);
       }
 
       // Populates ID dropdown
-      for (Request req : maintenanceData) {
+      for (Request req : giftData) {
         MenuItem item = new MenuItem(req.getName());
         item.setOnAction(this::mainIDMenu);
-        mainID.getItems().add(item);
+        giftID.getItems().add(item);
       }
       MenuItem item1 = new MenuItem("Add New Request");
       item1.setOnAction(this::mainIDMenu);
-      mainID.getItems().add(item1);
+      giftID.getItems().add(item1);
     }
   }
 
   @FXML
   public void submit(ActionEvent event) {
-    String loc = mainLocation.getText();
-    String emp = mainEmployee.getText();
-    String stat = mainStatus.getText();
+    String loc = giftLocation.getText();
+    String emp = giftEmployee.getText();
+    String stat = giftStatus.getText();
     String type = giftType.getText();
-    String desc = mainDescription.getText();
+    String desc = giftDescription.getText();
     String send = giftSender.getText();
     String rec = giftRecipient.getText();
     System.out.println(send + " " + rec);
     // Adding
-    if (mainID.getText().equals("Add New Request")) {
+    if (giftID.getText().equals("Add New Request")) {
       Request req =
           new Request(
               "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, rec, send);
-      maintenanceData.add(req);
-      mainRequestImpl.addRequest(req);
+      giftData.add(req);
+      giftRequestImpl.addRequest(req);
 
-      mainID.getItems().remove(0, mainID.getItems().size());
+      giftID.getItems().remove(0, giftID.getItems().size());
       // Populates ID dropdown
-      for (Request request : maintenanceData) {
+      for (Request request : giftData) {
         MenuItem item = new MenuItem(request.getName());
         item.setOnAction(this::mainIDMenu);
-        mainID.getItems().add(item);
+        giftID.getItems().add(item);
       }
       MenuItem item1 = new MenuItem("Add New Request");
       item1.setOnAction(this::mainIDMenu);
-      mainID.getItems().add(item1);
+      giftID.getItems().add(item1);
 
     } else { // Editing
-      Request req = mainRequestImpl.getAllRequests().get(mainID.getText());
+      Request req = giftRequestImpl.getAllRequests().get(giftID.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
         Location newLoc = locationsHash.get(loc);
-        mainRequestImpl.updateLocation(req, newLoc);
+        giftRequestImpl.updateLocation(req, newLoc);
       }
       if (!req.getEmployee().getName().equals(emp)) {
-        mainRequestImpl.updateEmployeeName(req, emp);
+        giftRequestImpl.updateEmployeeName(req, emp);
       }
       if (!req.getType().equals(type)) {
-        mainRequestImpl.updateType(req, type);
+        giftRequestImpl.updateType(req, type);
       }
       if (!req.getStatus().equals(stat)) {
-        mainRequestImpl.updateStatus(req, stat);
+        giftRequestImpl.updateStatus(req, stat);
       }
       if (!req.getDescription().equals(desc)) {
-        mainRequestImpl.updateDescription(req, desc);
+        giftRequestImpl.updateDescription(req, desc);
       }
       if (!req.getAttribute2().equals(send)) {
-        mainRequestImpl.updateAttribute2(req, send);
+        giftRequestImpl.updateAttribute2(req, send);
       }
       if (!req.getAttribute1().equals(rec)) {
-        mainRequestImpl.updateAttribute1(req, rec);
+        giftRequestImpl.updateAttribute1(req, rec);
       }
-      for (int i = 0; i < maintenanceData.size(); i++) {
-        if (maintenanceData.get(i).getName().equals(req.getName())) {
+      for (int i = 0; i < giftData.size(); i++) {
+        if (giftData.get(i).getName().equals(req.getName())) {
           System.out.println("Status: " + req.getStatus() + " Attr1: " + req.getAttribute1());
-          maintenanceData.set(i, req);
+          giftData.set(i, req);
         }
       }
     }
@@ -189,31 +189,31 @@ public class GiftsController implements Initializable, PropertyChangeListener {
 
   @FXML
   public void delete(ActionEvent event) {
-    String id = mainID.getText();
+    String id = giftID.getText();
 
     // removes the request from the table and dropdown
-    for (int i = 0; i < maintenanceData.size(); i++) {
-      if (maintenanceData.get(i).getName().equals(id)) {
-        maintenanceData.remove(i);
-        mainID.getItems().remove(i);
+    for (int i = 0; i < giftData.size(); i++) {
+      if (giftData.get(i).getName().equals(id)) {
+        giftData.remove(i);
+        giftID.getItems().remove(i);
       }
     }
 
     // delete from hash map and database table
-    mainRequestImpl.deleteRequest(mainRequestImpl.getAllRequests().get(id));
+    giftRequestImpl.deleteRequest(giftRequestImpl.getAllRequests().get(id));
 
     clear(event);
   }
 
   @FXML
   public void clear(ActionEvent event) {
-    mainID.setText("ID");
-    mainLocation.setText("Location");
-    mainEmployee.setText("Employee");
-    mainStatus.setText("Status");
+    giftID.setText("ID");
+    giftLocation.setText("Location");
+    giftEmployee.setText("Employee");
+    giftStatus.setText("Status");
     giftType.setText("Type");
-    mainDescription.setText("");
-    mainDescription.setPromptText("Description");
+    giftDescription.setText("");
+    giftDescription.setPromptText("Description");
   }
 
   /** Does filterReqsTable methods when "Submit Filters" is clicked, or "onAction." */
@@ -225,7 +225,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
       ObservableList<Request> trueFilteredList =
           filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
 
-      mainTable.setItems(trueFilteredList);
+      giftTable.setItems(trueFilteredList);
     } else if (!employeeFilterField.getText().isEmpty()) {
       filterReqsTableEmployee(employeeFilterField.getText());
     } else if (!statusFilterField.getText().isEmpty()) {
@@ -235,13 +235,13 @@ public class GiftsController implements Initializable, PropertyChangeListener {
 
   @FXML
   public void clearFilters(ActionEvent event) {
-    mainTable.setItems(maintenanceData);
+    giftTable.setItems(giftData);
   }
 
   @FXML
   public void mainIDMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    mainID.setText(button.getText());
+    giftID.setText(button.getText());
 
     // If editing or deleting an existing request:
     if (!button.getText().equals("Add New Request")) {
@@ -252,19 +252,19 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   @FXML
   public void mainLocationMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    mainLocation.setText(button.getText());
+    giftLocation.setText(button.getText());
   }
 
   @FXML
   public void mainEmployeeMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    mainEmployee.setText(button.getText());
+    giftEmployee.setText(button.getText());
   }
 
   @FXML
-  public void mainStatusMenu(ActionEvent event) {
+  public void giftStatusMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    mainStatus.setText(button.getText());
+    giftStatus.setText(button.getText());
   }
 
   /**
@@ -277,7 +277,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
         && inProgressNumber.getText().equals("-")
         && completedNumber.getText().equals("-")) {
 
-      Iterator var3 = mainRequestImpl.getAllRequests().entrySet().iterator();
+      Iterator var3 = giftRequestImpl.getAllRequests().entrySet().iterator();
       while (var3.hasNext()) {
         Map.Entry<String, Request> entry = (Map.Entry) var3.next();
         Request object = (Request) entry.getValue();
@@ -322,7 +322,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     ObservableList<Request> filteredList = filterReqEmployee(employeeName);
 
     // Sets table to only have contents of the filtered list.
-    mainTable.setItems(filteredList);
+    giftTable.setItems(filteredList);
   }
 
   /**
@@ -334,7 +334,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   private ObservableList<Request> filterReqEmployee(String employeeName) {
     ObservableList<Request> newList = FXCollections.observableArrayList();
 
-    for (Request req : maintenanceData) {
+    for (Request req : giftData) {
       if (req.getEmployee().getName().equals(employeeName)) {
         newList.add(req);
       }
@@ -351,7 +351,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   private void filterReqsTableStatus(String reqStatus) {
     ObservableList<Request> filteredList = filterReqStatus(reqStatus);
     // Sets table to only have contents of the filtered list.
-    mainTable.setItems(filteredList);
+    giftTable.setItems(filteredList);
   }
 
   /**
@@ -363,7 +363,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   private ObservableList<Request> filterReqStatus(String reqStatus) {
     ObservableList<Request> newList = FXCollections.observableArrayList();
 
-    for (Request req : maintenanceData) {
+    for (Request req : giftData) {
       if (req.getStatus().equals(reqStatus)) {
         newList.add(req);
       }
@@ -418,14 +418,14 @@ public class GiftsController implements Initializable, PropertyChangeListener {
    * @param id Request ID
    */
   private void populate(String id) {
-    Request req = mainRequestImpl.getAllRequests().get(id);
-    mainLocation.setText(req.getLocation().getNodeID());
-    mainEmployee.setText(req.getEmployee().getName());
-    mainStatus.setText(req.getStatus());
+    Request req = giftRequestImpl.getAllRequests().get(id);
+    giftLocation.setText(req.getLocation().getNodeID());
+    giftEmployee.setText(req.getEmployee().getName());
+    giftStatus.setText(req.getStatus());
     giftType.setText(req.getType());
-    mainDescription.setText(req.getDescription());
-    giftRecipient.setText(req.getAttribute2());
-    giftSender.setText(req.getAttribute1());
+    giftDescription.setText(req.getDescription());
+    giftRecipient.setText(req.getAttribute1());
+    giftSender.setText(req.getAttribute2());
   }
 
   public void menuItemSelected(ActionEvent actionEvent) {}
