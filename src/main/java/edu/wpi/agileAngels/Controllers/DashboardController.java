@@ -328,8 +328,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
     cleanPump.setText(String.valueOf((pumpsPerFloor * numFloors) - dirtyPumpsArray[0]));
     cleanXRay.setText(String.valueOf((xraysPerFloor * numFloors) - dirtyXRaysArray[0]));
     cleanBeds.setText(String.valueOf((bedsPerFloor * numFloors) - dirtyBedsArray[0]));
-    cleanRecliner.setText(
-            String.valueOf((reclinersPerFloor * numFloors) - dirtyReclinersArray[0]));
+    cleanRecliner.setText(String.valueOf((reclinersPerFloor * numFloors) - dirtyReclinersArray[0]));
     dirtyBeds.setText(String.valueOf(dirtyBedsArray[0]));
     dirtyRecliner.setText(String.valueOf(dirtyReclinersArray[0]));
     dirtyXRay.setText(String.valueOf(dirtyXRaysArray[0]));
@@ -340,8 +339,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
     cleanPump.setText(String.valueOf(pumpsPerFloor - dirtyPumpsArray[floorInt]));
     cleanXRay.setText(String.valueOf(xraysPerFloor - dirtyXRaysArray[floorInt]));
     cleanBeds.setText(String.valueOf(bedsPerFloor - dirtyBedsArray[floorInt]));
-    cleanRecliner.setText(
-            String.valueOf(reclinersPerFloor - dirtyReclinersArray[floorInt]));
+    cleanRecliner.setText(String.valueOf(reclinersPerFloor - dirtyReclinersArray[floorInt]));
     dirtyBeds.setText(String.valueOf(dirtyBedsArray[floorInt]));
     dirtyRecliner.setText(String.valueOf(dirtyReclinersArray[floorInt]));
     dirtyXRay.setText(String.valueOf(dirtyXRaysArray[floorInt]));
