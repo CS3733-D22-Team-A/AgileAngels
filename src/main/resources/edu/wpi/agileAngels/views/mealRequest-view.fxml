@@ -28,7 +28,6 @@
             <TableView fx:id="mealTable" prefHeight="451.0" prefWidth="1188.0">
                <columns>
                   <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
-                  <TableColumn fx:id="availableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Available" />
                   <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Type" />
                   <TableColumn fx:id="locationColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Location" />
                   <TableColumn fx:id="employeeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Employee" />
@@ -220,16 +219,25 @@
          <children>
             <Pane fx:id="popOut" prefHeight="484.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
                <children>
-                  <MenuButton fx:id="mealID" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="ID" />
-                  <MenuButton fx:id="mealLocation" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="84.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Location" />
-                  <MenuButton fx:id="mealEmployee" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="142.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
-                  <MenuButton fx:id="mealStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="202.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Status">
+                  <MenuButton fx:id="mealID" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="31.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="ID" />
+                  <MenuButton fx:id="mealLocation" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="138.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Location" />
+                  <MenuButton fx:id="mealType" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="84.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Type">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#mealTypeMenu" text="Salad" />
+                        <MenuItem mnemonicParsing="false" onAction="#mealTypeMenu" text="Steak" />
+                        <MenuItem mnemonicParsing="false" onAction="#mealTypeMenu" text="Beans" />
+                        <MenuItem mnemonicParsing="false" onAction="#mealTypeMenu" text="Pasta" />
+                        <MenuItem mnemonicParsing="false" onAction="#mealTypeMenu" text="Placenta" />
+                     </items>
+                  </MenuButton>
+                  <MenuButton fx:id="mealEmployee" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="192.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
+                  <MenuButton fx:id="mealStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="248.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Status">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#mealStatusMenu" text="Not Started" />
                         <MenuItem mnemonicParsing="false" onAction="#mealStatusMenu" text="In Progress" />
                      </items>
                   </MenuButton>
-                  <TextField fx:id="mealDescription" layoutX="12.0" layoutY="255.0" prefHeight="50.0" prefWidth="270.0" promptText="Description" />
+                  <TextField fx:id="mealDescription" layoutX="12.0" layoutY="302.0" prefHeight="50.0" prefWidth="270.0" promptText="Description" />
                   <HBox layoutX="12.0" layoutY="359.0" prefHeight="59.0" prefWidth="270.0" spacing="16.0">
                      <children>
                         <Button fx:id="cancelRequest" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">

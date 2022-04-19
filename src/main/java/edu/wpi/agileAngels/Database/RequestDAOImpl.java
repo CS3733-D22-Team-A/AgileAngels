@@ -193,8 +193,9 @@ public class RequestDAOImpl implements RequestDAO {
     ++this.count;
     if (values[0].substring(0, 3).compareTo("Med") == 0 && DAOtype.compareTo("MedRequest") == 0) {
       makeRequest(values);
-    } else if (values[0].substring(0, 4).compareTo("Meal") == 0) {
-
+    } else if (values[0].substring(0, 4).compareTo("Meal") == 0
+        && DAOtype.compareTo("MealRequest") == 0) {
+      makeRequest(values);
     } else if (values[0].substring(0, 1).compareTo("L") == 0
         && DAOtype.compareTo("LabRequest") == 0) {
       makeRequest(values);
@@ -241,7 +242,7 @@ public class RequestDAOImpl implements RequestDAO {
   }
 
   private Location findLocation(String value) {
-    System.out.println("Location Value " + value);
+    // System.out.println("Location Value " + value);
     Location location;
     HashMap<String, Location> locationData = locDAO.getAllLocations();
     location = locationData.get(value);
