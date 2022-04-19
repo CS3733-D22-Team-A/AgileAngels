@@ -195,32 +195,47 @@ Note that these labels lock your font size.
 }
 
 .table-view .column-header {
-    -fx-background-color: #355A70;
+    -fx-background-color: #49A3AE;
     -fx-background-radius: 7px 7px 0px 0px;
 }
+
 .table-view .column-header-background .label{
     -fx-background-color: transparent;
     -fx-text-fill: white;
+    -fx-alignment: left;
+    -fx-font-alignment: left;
 }
 
 .table-view .column-header-background {
-    -fx-background-color: #355A70;
+    -fx-background-color: #49A3AE;
     -fx-background-radius: 7px 7px 0px 0px;
+}
+
+.table-row-cell{
+    -fx-pref-height: 30;
+}
+
+.table-row-cell:focused{
+    -fx-text-background-fill: blue;
 }
 
 .table-row-cell:hover {
     -fx-background-color: #93f9b911;
-    -fx-text-background-color: red;
+    -fx-text-background-fill: red;
 }
+
 .table-row-cell:odd{
     -fx-background-color: #C2D5D8;
     -fx-background-insets: 0, 0 0 1 0;
-    -fx-padding: 0.0em;
+    -fx-padding: 2;
 }
 .table-row-cell:even{
     -fx-background-color: #FFFFFF;
     -fx-background-insets: 0, 0 0 1 0;
-    -fx-padding: 0.0em;
+    -fx-padding: 2;
+}
+.table-row-cell:focused{
+    -fx-font-style: bold;
 }
 /* OTHER SHIT
  */

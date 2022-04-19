@@ -1,16 +1,16 @@
 package edu.wpi.agileAngels.Controllers;
 
-import com.jfoenix.controls.JFXButton;
 import edu.wpi.agileAngels.Database.Location;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
 public class LocationNode {
 
   private Location location;
   private LocationNodeManager locationNodeManager;
-  private JFXButton button = new JFXButton();
+  private Button button = new Button();
 
   private double fontSize = 10;
 
@@ -158,7 +158,7 @@ public class LocationNode {
     return location.getNodeType();
   }
 
-  public JFXButton getButton() {
+  public Button getButton() {
     return button;
   }
 
