@@ -52,24 +52,23 @@ public class AppController {
 
   public void incrementDirty(String type, String floor, int i) {
     if (type.equals("XRayMachine")) {
-      appController.incrementDirtyXRays(floor, i);
+      incrementDirtyXRays(floor, i);
     } else if (type.equals("InfusionPump")) {
-      appController.incrementDirtyInfusionPumps(floor, i);
+      incrementDirtyInfusionPumps(floor, i);
     } else if (type.equals("Bed")) {
-      appController.incrementDirtyBeds(floor, i);
+      incrementDirtyBeds(floor, i);
     } else if (type.equals("Recliner")) {
-      appController.incrementDirtyRecliners(floor, i);
+      incrementDirtyRecliners(floor, i);
     }
   }
 
   public void incrementDirtyBeds(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
+      this.dirtyBeds[floorInt] = this.dirtyBeds[floorInt] + increment;
+      this.dirtyBeds[0] = this.dirtyBeds[0] + increment;
       support.firePropertyChange(
           "dirtyBeds" + floor, this.dirtyBeds[floorInt], this.dirtyBeds[floorInt] + increment);
-      this.dirtyBeds[floorInt] = this.dirtyBeds[floorInt] + increment;
-      support.firePropertyChange("dirtyBedsAll", this.dirtyBeds[0], this.dirtyBeds[0] + increment);
-      this.dirtyBeds[0] = this.dirtyBeds[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
@@ -78,14 +77,13 @@ public class AppController {
   public void incrementDirtyInfusionPumps(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
+      this.dirtyInfusionPumps[floorInt] = this.dirtyInfusionPumps[floorInt] + increment;
+      this.dirtyInfusionPumps[0] = this.dirtyInfusionPumps[0] + increment;
       support.firePropertyChange(
           "dirtyPumps" + floor,
           this.dirtyInfusionPumps[floorInt],
           this.dirtyInfusionPumps[floorInt] + increment);
-      this.dirtyInfusionPumps[floorInt] = this.dirtyInfusionPumps[floorInt] + increment;
-      support.firePropertyChange(
-          "dirtyPumpsAll", this.dirtyInfusionPumps[0], this.dirtyInfusionPumps[0] + increment);
-      this.dirtyInfusionPumps[0] = this.dirtyInfusionPumps[0] + increment;
+
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
@@ -94,14 +92,12 @@ public class AppController {
   public void incrementDirtyRecliners(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
+      this.dirtyRecliners[floorInt] = this.dirtyRecliners[floorInt] + increment;
+      this.dirtyRecliners[0] = this.dirtyRecliners[0] + increment;
       support.firePropertyChange(
           "dirtyRecliners" + floor,
           this.dirtyRecliners[floorInt],
           this.dirtyRecliners[floorInt] + increment);
-      this.dirtyRecliners[floorInt] = this.dirtyRecliners[floorInt] + increment;
-      support.firePropertyChange(
-          "dirtyReclinersAll", this.dirtyRecliners[0], this.dirtyRecliners[0] + increment);
-      this.dirtyRecliners[0] = this.dirtyRecliners[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
@@ -110,38 +106,33 @@ public class AppController {
   public void incrementDirtyXRays(String floor, int increment) {
     int floorInt = getFloorInt(floor);
     try {
+      this.dirtyXRays[floorInt] = this.dirtyXRays[floorInt] + increment;
+      this.dirtyXRays[0] = this.dirtyXRays[0] + increment;
       support.firePropertyChange(
           "dirtyXRays" + floor, this.dirtyXRays[floorInt], this.dirtyXRays[floorInt] + increment);
-      this.dirtyXRays[floorInt] = this.dirtyXRays[floorInt] + increment;
-      support.firePropertyChange(
-          "dirtyXRaysAll", this.dirtyXRays[0], this.dirtyXRays[0] + increment);
-      this.dirtyXRays[0] = this.dirtyXRays[0] + increment;
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
   }
 
-  public void displayAlert() {
+  public boolean displayAlert() {
+    boolean alertDisplayed = false;
     String view = "";
     if (dirtyBeds[1] > 6) {
       view = "/edu/wpi/agileAngels/views/bed-alert-view.fxml";
-    }
-    if (dirtyBeds[2] > 6) {
+    } else if (dirtyBeds[2] > 6) {
       view = "/edu/wpi/agileAngels/views/bed-alert-view.fxml";
-    }
-    if (dirtyBeds[3] > 6) {
+    } else if (dirtyBeds[3] > 6) {
       view = "/edu/wpi/agileAngels/views/bed-alert-view.fxml";
-    }
-    if (dirtyInfusionPumps[1] > 10) {
+    } else if (dirtyInfusionPumps[1] > 10) {
       view = "/edu/wpi/agileAngels/views/pump-alert-view.fxml";
-    }
-    if (dirtyInfusionPumps[2] > 10) {
+    } else if (dirtyInfusionPumps[2] > 10) {
       view = "/edu/wpi/agileAngels/views/pump-alert-view.fxml";
-    }
-    if (dirtyInfusionPumps[3] > 10) {
+    } else if (dirtyInfusionPumps[3] > 10) {
       view = "/edu/wpi/agileAngels/views/pump-alert-view.fxml";
     }
     if (!view.equals("")) {
+      alertDisplayed = true;
       FXMLLoader loader = new FXMLLoader(getClass().getResource(view));
       try {
         Scene secondScene = new Scene(loader.load());
@@ -152,7 +143,7 @@ public class AppController {
                 "https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
         Stage newWindow = new Stage();
-        newWindow.setTitle("Second Stage");
+        newWindow.setTitle("Alert");
         newWindow.setScene(secondScene);
 
         newWindow.setX(primaryStage.getX() + 200);
@@ -164,6 +155,31 @@ public class AppController {
         e.printStackTrace();
       }
     }
+    return alertDisplayed;
+  }
+
+  public String getPumpFloor() {
+    String floor = "";
+    if (dirtyInfusionPumps[1] > 10) {
+      floor = "3";
+    } else if (dirtyInfusionPumps[2] > 10) {
+      floor = "4";
+    } else if (dirtyInfusionPumps[3] > 10) {
+      floor = "5";
+    }
+    return floor;
+  }
+
+  public String getBedFloor() {
+    String floor = "";
+    if (dirtyBeds[1] > 6) {
+      floor = "3";
+    } else if (dirtyBeds[2] > 6) {
+      floor = "4";
+    } else if (dirtyBeds[3] > 6) {
+      floor = "5";
+    }
+    return floor;
   }
 
   private int getFloorInt(String floor) {
