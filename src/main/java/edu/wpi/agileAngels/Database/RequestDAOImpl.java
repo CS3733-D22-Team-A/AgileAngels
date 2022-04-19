@@ -114,7 +114,6 @@ public class RequestDAOImpl implements RequestDAO {
     } else if (0 == type.compareTo("GiftRequest")) {
       // data = new HashMap();
       if (GiftDAO == null) {
-        System.out.println("TEST TEST TEST");
         GiftDAO = new RequestDAOImpl(data, 1, "GiftRequest");
       }
       return GiftDAO;

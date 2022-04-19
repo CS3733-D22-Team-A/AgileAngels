@@ -229,6 +229,7 @@
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#giftStatusMenu" text="Not Started" />
                                 <MenuItem mnemonicParsing="false" onAction="#giftStatusMenu" text="In Progress" />
+                                <MenuItem mnemonicParsing="false" onAction="#giftStatusMenu" text="Complete" />
                             </items>
                         </MenuButton>
                         <TextField fx:id="giftDescription" layoutX="12.0" layoutY="376.0" prefHeight="50.0" prefWidth="270.0" promptText="Description" />
