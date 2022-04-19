@@ -186,7 +186,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="608.0" prefWidth="198.0" spacing="20.0">
                      <children>
-                        <Label fx:id="addNodeIDField" prefHeight="40.0" prefWidth="270.0" />
+                        <Label fx:id="addNodeIDField" prefHeight="40.0" prefWidth="270.0" text="Add Location" />
                         <TextField fx:id="addLocationName" prefHeight="40.0" prefWidth="270.0" promptText="name" />
                         <MenuButton fx:id="addLocationTypeDropdown" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Node Type">
                            <items>
@@ -206,7 +206,7 @@
                               <MenuItem fx:id="serv1" mnemonicParsing="false" onAction="#typeMenu" text="SERV" />
                            </items>
                         </MenuButton>
-                        <Button id="lowerLevelOne" mnemonicParsing="false" onAction="#locationAdd" prefHeight="40.0" prefWidth="90.0" text="Add Location">
+                        <Button id="lowerLevelOne" mnemonicParsing="false" onAction="#locationAdd" prefHeight="40.0" prefWidth="296.0" text="Add Location">
                            <font>
                               <Font size="17.0" />
                            </font>

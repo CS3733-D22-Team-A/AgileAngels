@@ -1,6 +1,7 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.Employee;
+import edu.wpi.agileAngels.Database.Location;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -51,7 +52,8 @@ public class MapsController implements Initializable, PropertyChangeListener {
   MenuButton locationTypeDropdown,
       requestTypeDropdown,
       requestStatusDropdown,
-      requestEmployeeDropdown, addLocationTypeDropdown;
+      requestEmployeeDropdown,
+      addLocationTypeDropdown;
 
   public final ContextMenu contextMenu = new ContextMenu();
   MenuItem addNode = new MenuItem("Add Node");
@@ -81,8 +83,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
   public double panX = 0;
   public double panY = 0;
 
-  double rightClickX;
-  double rightClickY;
+  MouseEvent rightClick;
 
   private double croppedMapXOffset = 1054;
   private double croppedMapYOffset = 544;
@@ -137,6 +138,10 @@ public class MapsController implements Initializable, PropertyChangeListener {
     mapPane.getChildren().add(paneL2);
     paneL2.setVisible(false);
 
+    locationAddPane.setVisible(false);
+    locationEditPane.setVisible(false);
+    requestEditPane.setVisible(false);
+
     contextMenu.getItems().addAll(addNode);
     addNode.setOnAction((ActionEvent event) -> addNode());
 
@@ -144,8 +149,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
         (MouseEvent event) -> {
           if (event.isSecondaryButtonDown()) {
             contextMenu.show(mapScroll, event.getScreenX(), event.getScreenY());
-            rightClickY = event.getSceneY();
-            rightClickX= event.getSceneX();
+            rightClick = event;
           }
         });
 
@@ -227,7 +231,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
   @FXML
   private void addNode() {
-    locationEdit.setVisible(true);
+    locationAddPane.setVisible(true);
   }
 
   /**
@@ -254,6 +258,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     locationNodeManager.editNode(currentLocationNode, name, type);
     currentLocationNode.resetLocation();
     currentLocationNode = null;
+    locationEditPane.setVisible(false);
   }
 
   @FXML
@@ -262,6 +267,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     currentRequestNode.getRequest().setStatus(requestStatusDropdown.getText());
     currentRequestNode.getRequest().setType(requestTypeDropdown.getText());
     currentRequestNode = null;
+    requestEditPane.setVisible(false);
   }
 
   /**
@@ -458,6 +464,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
   public void typeMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     locationTypeDropdown.setText(button.getText());
+    addLocationTypeDropdown.setText(button.getText());
   }
 
   public void zoomableMap(ActionEvent event) {
@@ -546,28 +553,31 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
   public void locationAdd(ActionEvent event) {
 
-    int typeCount = (locationNodeManager.getTypeCount(typeDropdown.getText(), currentFloor));
+    int typeCount =
+        (locationNodeManager.getTypeCount(addLocationTypeDropdown.getText(), currentFloor));
+
+    System.out.println(typeCount);
 
     String nodeID =
-            "A"
-                    + typeDropdown.getText()
-                    + String.format("%03d", typeCount)
-                    + ((currentFloor.length() == 1) ? ("0" + currentFloor) : (currentFloor));
+        "A"
+            + addLocationTypeDropdown.getText()
+            + String.format("%03d", typeCount)
+            + ((currentFloor.length() == 1) ? ("0" + currentFloor) : (currentFloor));
+
+    System.out.println(nodeID);
 
     Location newLocation =
-            new Location(
-                    nodeID,
-                    (Double.parseDouble(xCoordField.getText())),
-                    (Double.parseDouble(yCoordField.getText())),
-                    currentFloor,
-                    "TOWER",
-                    typeDropdown.getText(),
-                    nameField.getText(),
-                    nodeID);
+        new Location(
+            nodeID,
+            (getMapXCoordFromClick(rightClick)),
+            (getMapYCoordFromClick(rightClick)),
+            currentFloor,
+            "TOWER",
+            addLocationTypeDropdown.getText(),
+            addLocationName.getText(),
+            nodeID);
+    System.out.println("new Location");
     displayLocationNode(locationNodeManager.addNode(newLocation));
-    clearFields();
-
-
-
+    locationAddPane.setVisible(false);
   }
 }
