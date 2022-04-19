@@ -76,6 +76,7 @@ public class LabController extends MainController implements Initializable, Prop
     statusInProgress = 0;
     statusComplete = 0;
     // nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -87,15 +88,14 @@ public class LabController extends MainController implements Initializable, Prop
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
-    if (labData.isEmpty()) {
-      System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
-      LabDAO.csvRead();
-      Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
-      for (Map.Entry<String, Request> entry : LabDAO.getAllRequests().entrySet()) {
-        Request req = entry.getValue();
-        dashboardLoad();
-        labData.add(req);
-      }
+
+    labData.clear();
+
+    Iterator var3 = LabDAO.getAllRequests().entrySet().iterator();
+    for (Map.Entry<String, Request> entry : LabDAO.getAllRequests().entrySet()) {
+      Request req = entry.getValue();
+      dashboardLoad();
+      labData.add(req);
     }
     // This has to be here for when you do: -> Back -> Lab Request. It'll load the numbers again. -
     // Justin

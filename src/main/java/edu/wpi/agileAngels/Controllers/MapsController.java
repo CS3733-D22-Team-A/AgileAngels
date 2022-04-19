@@ -266,6 +266,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     currentRequestNode.setEmployee(requestEmployeeDropdown.getText());
     currentRequestNode.getRequest().setStatus(requestStatusDropdown.getText());
     currentRequestNode.getRequest().setType(requestTypeDropdown.getText());
+    requestNodeManager.updateRequest(currentRequestNode);
     currentRequestNode = null;
     requestEditPane.setVisible(false);
   }

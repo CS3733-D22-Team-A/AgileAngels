@@ -85,4 +85,14 @@ public class RequestNodeManager {
   public void setDraggedNodeCoords(MouseEvent mouseEvent) {
     mapsController.setCoordsOnMouseEvent(mouseEvent);
   }
+
+  public void updateRequest(RequestNode request) {
+    if (request.getName().substring(0, 3).equals("Lab")) {
+      labRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      labRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().substring(0, 3).equals("Med")) {
+      medRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      medRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    }
+  }
 }

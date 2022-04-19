@@ -69,6 +69,11 @@ public class LocationNode {
         });
     button.setOnMouseDragged(
         (MouseEvent mouseEvent) -> {
+          button.setPrefSize(8, 8);
+          button.setStyle(
+              "-fx-font-size: 12; -fx-background-color: rgba(73, 67, 112, 1) ;-fx-background-radius: 0 5 5 5; -fx-text-alignment: left; -fx-text-fill: white");
+          button.setAlignment(Pos.CENTER);
+          button.setText(String.valueOf(location.getNodeType().charAt(0)));
           button.setLayoutX(
               getPaneXfromcoords((locationNodeManager.getMapXCoordFromClick(mouseEvent))));
 
