@@ -27,4 +27,6 @@ public interface LocationDAO {
   public void deleteLocation(Location location);
 
   public void addLocation(Location location) throws SQLException;
+
+  public String[] getAllLocationNames();
 }

@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.controlsfx.control.textfield.TextFields;
 
 public class LaundryController implements Initializable {
   @FXML
@@ -21,8 +22,12 @@ public class LaundryController implements Initializable {
       deleteName,
       editRequest,
       employeeFilterField,
-      statusFilterField;
-  @FXML MenuButton laundryLocation, laundryType, laundryStatus, laundryEmployee;
+      statusFilterField,
+      // these will have their own string arays to populate their searches
+      laundryLocation,
+      laundryType,
+      laundryStatus,
+      laundryEmployee;
   @FXML
   private TableColumn nameColumn,
       availableColumn,
@@ -52,6 +57,11 @@ public class LaundryController implements Initializable {
 
   public LaundryController() throws SQLException {}
 
+  private String[] locations = locDAO.getAllLocationNames();
+  private String[] employees = employeeDAO.getAllEmployeeNames();
+  private String[] types = {"Whites", "Colors", "Infected", "Towels/Blankets"};
+  private String[] status = {"not Started", "in Progress", "complete"};
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
@@ -62,6 +72,12 @@ public class LaundryController implements Initializable {
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+    // To populate dropdowns
+    TextFields.bindAutoCompletion(laundryStatus, status);
+    TextFields.bindAutoCompletion(laundryType, types);
+    TextFields.bindAutoCompletion(laundryEmployee, employees);
+    TextFields.bindAutoCompletion(laundryLocation, locations);
 
     if (laundryData.isEmpty()) {
       System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
@@ -186,7 +202,7 @@ public class LaundryController implements Initializable {
 
   /* FILTER METHODS BEYOND HERE */
 
-  /** Does filterReqsTable when "Submit Filters" is clicked, or "onAction." */
+  /** Does filterReqsTable methods when "Submit Filters" is clicked, or "onAction." */
   @FXML
   public void filterReqOnAction() {
     if (!employeeFilterField.getText().isEmpty() && !statusFilterField.getText().isEmpty()) {
@@ -194,7 +210,7 @@ public class LaundryController implements Initializable {
       ObservableList<Request> trueFilteredList =
           filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
 
-      // Di-rectly touching equipment table in n-filter cases.
+      // Directly touching equipment table in n-filter cases.
       laundryTable.setItems(trueFilteredList);
     } else if (!employeeFilterField.getText().isEmpty()) {
       filterReqsTableEmployee(employeeFilterField.getText());
@@ -210,10 +226,8 @@ public class LaundryController implements Initializable {
     laundryTable.setItems(laundryData);
   }
 
-  /* Employee-based */
-  /*
+  // Employee-based
 
-  */
   /**
    * Filters requests in the equipment table so only those with the given Employee remain.
    *
@@ -227,7 +241,7 @@ public class LaundryController implements Initializable {
   }
 
   /**
-   * Filters out requests in labData based on the given Employee.
+   * Filters out requests in medData based on the given Employee.
    *
    * @param employeeName The Employee that the requests must have to be in the new list.
    * @return The new filtered list.
@@ -240,13 +254,12 @@ public class LaundryController implements Initializable {
         newList.add(req);
       }
     }
+
     return newList;
   }
 
-  /* Status-based */
-  /*
+  // Status-based
 
-  */
   /**
    * Filters requests in the equipment table so only those with the given status remain.
    *
@@ -277,9 +290,7 @@ public class LaundryController implements Initializable {
   }
 
   /* Methods to filter lists n times */
-  /*
 
-  */
   /**
    * Filters out requests in medData based on the given status.
    *

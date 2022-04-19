@@ -14,6 +14,9 @@ public class EmployeeManager implements EmployeeDAO {
 
   private HashMap<String, Employee> employeeHashMap;
 
+  private String[] employeeNames = new String[999999];
+  private boolean gotNames = false;
+
   public EmployeeManager(HashMap<String, Employee> employeeHashMap, int count) {
     this.employeeHashMap = employeeHashMap;
     this.count = count;
@@ -96,6 +99,11 @@ public class EmployeeManager implements EmployeeDAO {
         if (OnHeader) {
           String[] values = line.split(splitBy);
 
+          // for populating the names
+          if (!gotNames) {
+            employeeNames[count] = values[0];
+          }
+
           ++this.count;
           Employee employee = new Employee(values[0], values[1]);
           this.employeeHashMap.put(values[0], employee);
@@ -108,5 +116,17 @@ public class EmployeeManager implements EmployeeDAO {
     } catch (IOException var7) {
       var7.printStackTrace();
     }
+    gotNames = true;
+  }
+
+  /**
+   * returns an aray of all employee names used for populating search dropdowns Dummy String is
+   * built in readCSV and cleaned up here
+   *
+   * @return String[]
+   */
+  public String[] getAllEmployeeNames() {
+
+    return employeeNames;
   }
 }

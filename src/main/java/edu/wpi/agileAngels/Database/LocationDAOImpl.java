@@ -19,6 +19,10 @@ public class LocationDAOImpl implements LocationDAO {
   private static HashMap<String, Location> data;
   private static LocationDAOImpl locationDAO = null;
 
+  public String[] locationNames = new String[99999];
+  public int locationCount = 0;
+  public boolean gotNames = false;
+
   public static LocationDAOImpl getInstance() {
     if (locationDAO == null) {
       HashMap<String, Location> data = new HashMap<>();
@@ -68,6 +72,11 @@ public class LocationDAOImpl implements LocationDAO {
                     i, csvRecord.get(i - 1)); // to access the first value for table it starts at 1
           }
           try {
+            if (!gotNames) {
+              locationNames[locationCount] = csvRecord.get(0);
+              locationCount++;
+            }
+
             Location location =
                 new Location(
                     csvRecord.get(0),
@@ -90,6 +99,7 @@ public class LocationDAOImpl implements LocationDAO {
     } catch (SQLException | IOException e) {
       e.printStackTrace();
     }
+    gotNames = true;
   }
 
   // retrieve list of locations from the database
@@ -151,5 +161,10 @@ public class LocationDAOImpl implements LocationDAO {
 
   public void addLocation(Location location) {
     data.put(location.getNodeID(), location);
+  }
+
+  public String[] getAllLocationNames() {
+
+    return locationNames;
   }
 }
