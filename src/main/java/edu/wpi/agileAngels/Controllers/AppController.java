@@ -250,7 +250,11 @@ public class AppController {
   }
 
   void setMenuBarTitle(String view) {
+
     try {
+      if (view.equals("/edu/wpi/agileAngels/views/NEWdashboard.fxml")) {
+        menuController.hideButtons();
+      }
       menuController.changeTitle(pages.get(view));
     } catch (NullPointerException e) {
 
