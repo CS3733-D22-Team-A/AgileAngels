@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.*;
 
 // Implementation of RequestDAO
 public class RequestDAOImpl implements RequestDAO {
@@ -22,7 +21,7 @@ public class RequestDAOImpl implements RequestDAO {
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private static RequestDAOImpl MedrequestDAO = null;
   private static RequestDAOImpl LabrequestDAO = null;
-  private static RequestDAOImpl SanrequestDAO = null;
+  private static RequestDAOImpl SanDAO = null;
   private static RequestDAOImpl MealDAO = null;
   private static RequestDAOImpl GiftDAO = null;
   private static RequestDAOImpl MaintenanceDAO = null;
@@ -54,15 +53,21 @@ public class RequestDAOImpl implements RequestDAO {
       }
       return LabrequestDAO;
     } else if (0 == type.compareTo("ServiceRequest")) {
-      if (SanrequestDAO == null) {
-        SanrequestDAO = new RequestDAOImpl(data, 1, "SanRequest");
+      if (SanDAO == null) {
+        SanDAO = new RequestDAOImpl(data, 1, "SanRequest");
       }
-      return SanrequestDAO;
+      return SanDAO;
     } else if (0 == type.compareTo("MealRequest")) {
       if (MealDAO == null) {
         MealDAO = new RequestDAOImpl(data, 1, "MealRequest");
       }
       return MealDAO;
+    } else if (0 == type.compareTo("SanitationRequest")) {
+      if (SanDAO == null) {
+        SanDAO = new RequestDAOImpl(data, 1, "SanitationRequest");
+      }
+      return SanDAO;
+
     } else if (0 == type.compareTo("MaintenanceRequest")) {
       if (MaintenanceDAO == null) {
         MaintenanceDAO = new RequestDAOImpl(data, 1, "MaintenanceRequest");
@@ -142,8 +147,8 @@ public class RequestDAOImpl implements RequestDAO {
       letter = "Med";
     } else if (0 == DAOtype.compareTo("LabRequest")) {
       letter = "Lab";
-    } else if (0 == DAOtype.compareTo("SanRequest")) {
-      letter = "Sanitation";
+    } else if (0 == DAOtype.compareTo("SanitationRequest")) {
+      letter = "San";
     } else if (0 == DAOtype.compareTo("MealRequest")) {
       letter = "Meal";
 
@@ -195,6 +200,9 @@ public class RequestDAOImpl implements RequestDAO {
       makeRequest(values);
     } else if (values[0].substring(0, 4).compareTo("Meal") == 0
         && DAOtype.compareTo("MealRequest") == 0) {
+      makeRequest(values);
+    } else if (values[0].substring(0, 4).compareTo("San") == 0
+        && DAOtype.compareTo("SanitationRequest") == 0) {
       makeRequest(values);
     } else if (values[0].substring(0, 1).compareTo("L") == 0
         && DAOtype.compareTo("LabRequest") == 0) {

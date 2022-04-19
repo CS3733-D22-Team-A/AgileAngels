@@ -81,7 +81,7 @@
                               </VBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="sanRequest" mnemonicParsing="false" onAction="#requestButton" prefHeight="150.0" prefWidth="250.0" GridPane.rowIndex="1">
+                        <Button fx:id="saniRequest" mnemonicParsing="false" onAction="#requestButton" prefHeight="150.0" prefWidth="250.0" GridPane.rowIndex="1">
                            <graphic>
                               <VBox alignment="CENTER" prefHeight="71.0" prefWidth="253.0" spacing="20.0">
                                  <children>
