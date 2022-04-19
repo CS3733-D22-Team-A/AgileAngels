@@ -20,6 +20,7 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.effect.DropShadow?>
+<?import java.net.URL?>
 <AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0"
             prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/styleRequest.css"
             xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
@@ -378,4 +379,9 @@
         <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
                     AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"/>
     </children>
+
+    <stylesheets>
+        <URL value="@stylesheets/styleRequest.css" />
+        <URL value="@stylesheets/style.css" />
+    </stylesheets>
 </AnchorPane>
