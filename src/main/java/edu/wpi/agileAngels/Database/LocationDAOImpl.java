@@ -152,4 +152,8 @@ public class LocationDAOImpl implements LocationDAO {
   public void addLocation(Location location) {
     data.put(location.getNodeID(), location);
   }
+
+  public void resetAllLocations(){
+    data = new HashMap<>();
+  }
 }

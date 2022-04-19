@@ -4,6 +4,7 @@ import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import edu.wpi.agileAngels.Database.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 // This class is the backend of the DAO method.
 // The objects communicate with the DB here
@@ -13,6 +14,15 @@ public class Adb {
   private static MedicalEquipmentTable medicalEquipmentTable = null;
   private static ServiceRequestTable serviceRequestTable = null;
   private static EmployeeTable employeeTable = null;
+  private static EmployeeManager employeeManager = null;
+  private static LocationDAOImpl locationDAO = null;
+  private static RequestDAOImpl medRequestDAO = null;
+  private static RequestDAOImpl labRequestDAO = null;
+  private static MedEquipImpl equipmentDAO = null;
+  private static RequestDAOImpl mainRequestImpl = null;
+  private static RequestDAOImpl transportRequestImpl= null;
+  private static RequestDAOImpl morgueRequestImpl = null;
+  private static RequestDAOImpl mealRequestImpl = null;
 
   /**
    * Creates database tables if they do not exist already.
@@ -68,23 +78,23 @@ public class Adb {
     medicalEquipmentTable.createTable();
     serviceRequestTable.createTable();
     employeeTable.createTable();
-    EmployeeManager employeeManager = EmployeeManager.getInstance();
+    employeeManager = EmployeeManager.getInstance();
     employeeManager.readCSV();
-    LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
+    locationDAO = LocationDAOImpl.getInstance();
     locationDAO.csvRead();
-    RequestDAOImpl medRequestDAO = RequestDAOImpl.getInstance("MedRequest");
+    medRequestDAO = RequestDAOImpl.getInstance("MedRequest");
     medRequestDAO.csvRead();
-    RequestDAOImpl labRequestDAO = RequestDAOImpl.getInstance("LabRequest");
+    labRequestDAO = RequestDAOImpl.getInstance("LabRequest");
     labRequestDAO.csvRead();
-    MedEquipImpl equipmentDAO = MedEquipImpl.getInstance();
+    equipmentDAO = MedEquipImpl.getInstance();
     equipmentDAO.readCSV();
-    RequestDAOImpl mainRequestImpl = RequestDAOImpl.getInstance("MaintenanceRequest");
+    mainRequestImpl = RequestDAOImpl.getInstance("MaintenanceRequest");
     mainRequestImpl.csvRead();
-    RequestDAOImpl transportRequestImpl = RequestDAOImpl.getInstance("TransportRequest");
+    transportRequestImpl = RequestDAOImpl.getInstance("TransportRequest");
     transportRequestImpl.csvRead();
-    RequestDAOImpl morgueRequestImpl = RequestDAOImpl.getInstance("MorgueRequest");
+    morgueRequestImpl = RequestDAOImpl.getInstance("MorgueRequest");
     morgueRequestImpl.csvRead();
-    RequestDAOImpl mealRequestImpl = RequestDAOImpl.getInstance("MealRequest");
+    mealRequestImpl = RequestDAOImpl.getInstance("MealRequest");
     mealRequestImpl.csvRead();
   }
 
@@ -141,6 +151,8 @@ public class Adb {
     }
     return employeeTable;
   }
+
+
 
   /**
    * Adds a request to the request database table.
@@ -243,6 +255,30 @@ public class Adb {
     return employeeTable.add(employee);
   }
 
+
+  public static boolean readCSVEmployees(){
+    employeeManager.resetAllEmployees();
+    employeeManager.readCSV();
+    return true;
+  }
+
+
+  public static HashMap getEmployees(){
+    return employeeManager.getAllEmployees();
+  }
+
+  public static boolean readCSVLocations(){
+    locationDAO.resetAllLocations();
+    locationDAO.csvRead();
+    return true;
+  }
+
+  public static HashMap getLocations(){
+    return locationDAO.getAllLocations();
+  }
+
+
+
   /**
    * Removes an employee from the employee table
    *
@@ -267,7 +303,5 @@ public class Adb {
     return serviceRequestTable.update(request);
   }
 
-  public static ArrayList<String> getFreeEmployees() throws SQLException {
-    return serviceRequestTable.freeEmployees();
-  }
+
 }

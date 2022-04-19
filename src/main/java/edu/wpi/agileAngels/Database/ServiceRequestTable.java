@@ -1,10 +1,10 @@
 package edu.wpi.agileAngels.Database;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import edu.wpi.agileAngels.Adb;
+
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ServiceRequestTable implements TableI {
 
@@ -74,8 +74,8 @@ public class ServiceRequestTable implements TableI {
       String update =
           "UPDATE ServiceRequests SET EmployeeName = ?, Location = ?, Type = ?, Status = ?, Description = ?, Attribute1 = ?, Attribute2 = ? WHERE Name = ?";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(update);
-      preparedStatement.setObject(1, request.getEmployee().getName());
-      preparedStatement.setObject(2, request.getLocation().getNodeID());
+      preparedStatement.setString(1, request.getEmployee().getName());
+      preparedStatement.setString(2, request.getLocation().getLongName());
       preparedStatement.setString(3, request.getType());
       preparedStatement.setString(4, request.getStatus());
       preparedStatement.setString(5, request.getDescription());
@@ -133,48 +133,32 @@ public class ServiceRequestTable implements TableI {
     }
   }
 
-  public static void sortRequests(String employee) throws SQLException {
-    PreparedStatement preparedStatement =
-        DBconnection.getConnection()
-            .prepareStatement("SELECT * FROM ServiceRequests WHERE EmployeeName = ?");
-    preparedStatement.setString(1, employee);
-    ResultSet rs = preparedStatement.executeQuery();
-    while (rs.next()) {
-      System.out.println("Name:" + rs.getString("Name"));
-      System.out.println("EmployeeName:" + rs.getString("EmployeeName"));
-      System.out.println("Location:" + rs.getString("Location"));
-      System.out.println("Attribute1:" + rs.getString("Attribute1"));
-      System.out.println("Type:" + rs.getString("Type"));
-      System.out.println("Status:" + rs.getString("Status"));
-      System.out.println("Description:" + rs.getString("Description"));
-    }
-  }
+  @Override
+  public HashMap<String, Object> getData() throws SQLException {
+    String sql = "SELECT * FROM ServiceRequests";
+    HashMap<String, Employee> employeeHashmap = Adb.getEmployees();
+    HashMap<String, Location> locationHashMap = Adb.getLocations();
 
-  public static void filterRequests() throws SQLException {
-    Statement statement = DBconnection.getConnection().createStatement();
-    String queryFilter = "SELECT * FROM ServiceRequests ORDER BY Status, EmployeeName";
-    ResultSet rs = statement.executeQuery(queryFilter);
-    while (rs.next()) {
-      System.out.println("Name:" + rs.getString("Name"));
-      System.out.println("EmployeeName:" + rs.getString("EmployeeName"));
-      System.out.println("Location:" + rs.getString("Location"));
-      System.out.println("Attribute1:" + rs.getString("Attribute1"));
-      System.out.println("Type:" + rs.getString("Type"));
-      System.out.println("Status:" + rs.getString("Status"));
-      System.out.println("Description:" + rs.getString("Description"));
-      System.out.println("\n");
-    }
-  }
+    Connection connection = DBconnection.getConnection();
 
-  public static ArrayList<String> freeEmployees() throws SQLException {
-    Statement statement = DBconnection.getConnection().createStatement();
-    ArrayList<String> employees = new ArrayList<>();
-    String freeEmployee =
-        "(SELECT Employees.Name FROM Employees left outer join ServiceRequests on ServiceRequests.EmployeeName = Employees.Name WHERE ServiceRequests.EmployeeName IS NULL OR ServiceRequests.Status in ('complete') GROUP BY Employees.Name) EXCEPT (SELECT Employees.Name FROM ServiceRequests join Employees on ServiceRequests.EmployeeName = Employees.Name WHERE Status in ('notStarted','inProgress','Not Complete','In Progress','Not Started'))";
-    ResultSet rs = statement.executeQuery(freeEmployee);
-    while (rs.next()) {
-      employees.add(rs.getString("Name"));
+    Statement statement = connection.createStatement();
+    ResultSet result = statement.executeQuery(sql);
+
+
+    while (result.next()) {
+      String name = result.getString("Name");
+      Employee employee = employeeHashmap.get(result.getString("employeename"));
+      Location location = locationHashMap.get(result.getString("location"));
+      String type = result.getString("type");
+      String status = result.getString("status");
+      String description = result.getString("description");
+      String attribute1 = result.getString("attribute1");
+      String attribute2 = result.getString("attribute2");
+
+      Request request = new Request(name, employee, location, type, status, description, attribute1, attribute2);
+
     }
-    return employees;
+
+
   }
 }

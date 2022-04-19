@@ -3,6 +3,7 @@ package edu.wpi.agileAngels.Database;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 
 public class MedicalEquipmentTable implements TableI {
 
@@ -128,5 +129,10 @@ public class MedicalEquipmentTable implements TableI {
     } catch (SQLException e) {
       return false;
     }
+  }
+
+  @Override
+  public HashMap<String, Object> getData() throws SQLException {
+    return null;
   }
 }
