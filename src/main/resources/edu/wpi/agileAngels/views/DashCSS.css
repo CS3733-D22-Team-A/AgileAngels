@@ -19,7 +19,7 @@
 .squareButton{
     -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 8, 0, 4, 4);
     -fx-cursor: hand;
-    -fx-shape: "m 0 25 L 50 0 L 0 -25 L -50 0 Z";
+    -fx-shape: "m 0 22 L 47 3 C 53 1 53 -1 47 -3 L 0 -22 L -48 -3 C -53 -1 -53 1 -48 3 Z";
 }
 .roomButton{
     -fx-background-color: #FFFFFF;

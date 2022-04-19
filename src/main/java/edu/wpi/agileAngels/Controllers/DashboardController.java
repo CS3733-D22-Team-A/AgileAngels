@@ -10,16 +10,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.transform.Scale;
+import javafx.util.Duration;
 
 public class DashboardController implements Initializable, PropertyChangeListener {
 
-  @FXML ScrollPane scrollPane = new ScrollPane();
-
+  @FXML ScrollPane NODscroll, SRscroll;
   @FXML
   Label cleanPump,
       cleanBeds,
@@ -37,8 +43,10 @@ public class DashboardController implements Initializable, PropertyChangeListene
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     // This is to get rid of the scroll bars on the dashboard.
-    scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
-    scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+    NODscroll.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+    NODscroll.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+    SRscroll.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+    SRscroll.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
 
     appController.addPropertyChangeListener(this);
 
@@ -71,15 +79,51 @@ public class DashboardController implements Initializable, PropertyChangeListene
   @FXML
   public void bigFloor(MouseEvent event) {
 
+    Timeline timeline5 = new Timeline();
+    timeline5
+        .getKeyFrames()
+        .addAll(
+            new KeyFrame(
+                Duration.ZERO,
+                //                new KeyValue(floor5.translateXProperty(), 100),
+                new KeyValue(floor4.translateYProperty(), 10)),
+            new KeyFrame(
+                Duration.millis(1000),
+                //               new KeyValue(floor5.translateXProperty(), 100),
+                new KeyValue(floor4.translateYProperty(), 10)));
+
     if (event.getSource() == floor4) {
-      floor4.setTranslateY(25);
+      timeline5.play();
     }
+
+    //    if (event.getSource() == floor4) {
+    //      floor4.setTranslateY(25);
+    //    }
   }
 
   public void unhover(MouseEvent event) {
 
+    Timeline timeline5 = new Timeline();
+    Scale scale = new Scale();
+    scale.setPivotX(50);
+    scale.setPivotY(50);
+    floor4.getTransforms().add(scale);
+
+    //    timeline5
+    //        .getKeyFrames()
+    //        .addAll(
+    //            new KeyFrame(
+    //                Duration.ZERO,
+    //                //                new KeyValue(floor5.translateXProperty(), 100),
+    //                new KeyValue(floor4.getTransforms()., -2.5)),
+    //            new KeyFrame(
+    //                Duration.millis(1000),
+    //                //               new KeyValue(floor5.translateXProperty(), 100),
+    //                new KeyValue(floor4.translateYProperty(), -2.5)));
+    //
     if (event.getSource() == floor4) {
-      floor4.setTranslateY(-25);
+      //      timeline5.play();
+      floor4.getTransforms().add(scale);
     }
   }
 

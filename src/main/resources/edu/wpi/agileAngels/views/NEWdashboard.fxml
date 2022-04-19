@@ -12,16 +12,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="background" stylesheets="@DashCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.DashboardController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="background" stylesheets="@DashCSS.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.DashboardController">
    <children>
-      <Pane layoutX="698.0" layoutY="97.0" prefHeight="603.0" prefWidth="562.0" styleClass="pane" stylesheets="@DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="97.0">
+      <Pane layoutX="698.0" layoutY="97.0" prefHeight="603.0" prefWidth="523.0" styleClass="pane" stylesheets="@DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="97.0">
          <children>
-            <Button fx:id="floorLL2" layoutX="135.0" layoutY="297.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #51478e;" styleClass="squareButton" stylesheets="@DashCSS.css" />
-            <Button fx:id="floorLL1" layoutX="135.0" layoutY="260.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #5f57ad;" styleClass="squareButton" stylesheets="@DashCSS.css" />
-            <Button fx:id="floor2" layoutX="135.0" layoutY="227.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #5166b2;" styleClass="squareButton" stylesheets="@DashCSS.css" />
-            <Button fx:id="floor3" layoutX="135.0" layoutY="187.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #3686bd;" styleClass="squareButton" stylesheets="@DashCSS.css" />
-            <Button fx:id="floor4" layoutX="135.0" layoutY="149.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #1fa1c6;" styleClass="squareButton" stylesheets="@DashCSS.css" />
-            <Button fx:id="floor5" layoutX="135.0" layoutY="112.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #00c5d2;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floorLL2" layoutX="134.0" layoutY="370.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #0F6671;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floorLL1" layoutX="134.0" layoutY="307.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #207E8A;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floor2" layoutX="134.0" layoutY="244.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #2795A3;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floor3" layoutX="134.0" layoutY="181.0" mnemonicParsing="false" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #3EADBB;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floor4" layoutX="134.0" layoutY="118.0" mnemonicParsing="false" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #6FC2CC;" styleClass="squareButton" stylesheets="@DashCSS.css" />
+            <Button fx:id="floor5" layoutX="134.0" layoutY="55.0" mnemonicParsing="false" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #98D5DD;" styleClass="squareButton" stylesheets="@DashCSS.css" />
             <Label layoutX="24.0" layoutY="17.0" text="Select Floor">
                <font>
                   <Font size="32.0" />
@@ -42,23 +42,23 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="89.0" layoutY="312.0" text="2" textFill="WHITE">
+            <Label layoutX="89.0" layoutY="310.0" text="2" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="90.0" layoutY="351.0" text="L1" textFill="WHITE">
+            <Label layoutX="90.0" layoutY="344.0" text="L1" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="89.0" layoutY="398.0" text="L2" textFill="WHITE">
+            <Label layoutX="89.0" layoutY="381.0" text="L2" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
          </children></Pane>
-      <Pane layoutX="21.0" layoutY="365.0" prefHeight="335.0" prefWidth="658.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="365.0">
+      <Pane layoutX="21.0" layoutY="365.0" prefHeight="335.0" prefWidth="689.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="571.0" AnchorPane.topAnchor="365.0">
          <children>
             <Pane layoutX="497.0" layoutY="168.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #907A50; -fx-background-radius: 0 0 15 15;">
                <children>
@@ -219,14 +219,14 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="356.0" layoutY="98.0" prefHeight="252.0" prefWidth="331.0" styleClass="pane" stylesheets="@DashCSS.css" AnchorPane.leftAnchor="356.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="98.0">
+      <Pane layoutX="367.0" layoutY="96.0" prefHeight="254.0" prefWidth="339.0" styleClass="pane" stylesheets="@DashCSS.css" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="574.0" AnchorPane.topAnchor="96.0">
          <children>
             <Label layoutX="16.0" layoutY="7.0" style="-fx-font-family: Roboto;" stylesheets="@DashCSS.css" text="Nurses On Duty">
                <font>
                   <Font size="28.0" />
                </font>
             </Label>
-            <ScrollPane fx:id="scrollPane" layoutX="3.0" layoutY="48.0" pannable="true" prefHeight="188.0" prefWidth="311.0" stylesheets="@DashCSS.css">
+            <ScrollPane fx:id="NODscroll" layoutX="3.0" layoutY="48.0" pannable="true" prefHeight="188.0" prefWidth="325.0" stylesheets="@DashCSS.css">
                <content>
                   <Pane prefHeight="200.0" prefWidth="318.0">
                      <children>
@@ -311,27 +311,27 @@
                </content></ScrollPane>
          </children>
       </Pane>
-      <Pane layoutX="18.0" layoutY="95.0" prefHeight="254.0" prefWidth="328.0" styleClass="pane" stylesheets="@DashCSS.css">
+      <Pane layoutX="18.0" layoutY="95.0" prefHeight="254.0" prefWidth="345.0" styleClass="pane" stylesheets="@DashCSS.css" AnchorPane.topAnchor="96.0">
          <children>
             <Label layoutX="14.0" layoutY="7.0" style="-fx-font-family: Roboto;" stylesheets="@DashCSS.css" text="Service Requests">
                <font>
                   <Font size="28.0" />
                </font>
             </Label>
-            <ScrollPane layoutX="6.0" layoutY="52.0" pannable="true" prefHeight="191.0" prefWidth="318.0" stylesheets="@DashCSS.css">
+            <ScrollPane fx:id="SRscroll" layoutX="6.0" layoutY="52.0" pannable="true" prefHeight="191.0" prefWidth="332.0" stylesheets="@DashCSS.css">
                <content>
                   <Pane prefHeight="187.0" prefWidth="316.0">
                      <children>
-                        <VBox prefHeight="187.0" prefWidth="318.0">
+                        <VBox prefHeight="187.0" prefWidth="329.0">
                            <children>
                               <HBox id="roomButton" alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="323.0" stylesheets="@DashCSS.css">
                                  <children>
-                                    <Button id="roomButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="325.0" styleClass="roomButton" stylesheets="@DashCSS.css" textFill="WHITE">
+                                    <Button id="roomButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="317.0" styleClass="roomButton" stylesheets="@DashCSS.css" textFill="WHITE">
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin>
                                        <graphic>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="301.0" spacing="10.0">
                                              <children>
                                                 <ImageView fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
