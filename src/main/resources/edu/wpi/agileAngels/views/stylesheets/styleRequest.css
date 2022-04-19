@@ -189,6 +189,11 @@ Note that these labels lock your font size.
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
+.table-view .table-cell{
+    -fx-table-cell-border-color:transparent;
+}
+
+
 .table-view:focused{
     -fx-background-color: white;
     -fx-border-width: 0;
@@ -212,6 +217,11 @@ Note that these labels lock your font size.
     -fx-background-color: #93f9b911;
     -fx-text-background-color: red;
 }
+.table-row-cell:selected{
+    -fx-text-background-color: black;
+    -fx-highlight-text-fill: black;
+}
+
 .table-row-cell:odd{
     -fx-background-color: #C2D5D8;
     -fx-background-insets: 0, 0 0 1 0;
