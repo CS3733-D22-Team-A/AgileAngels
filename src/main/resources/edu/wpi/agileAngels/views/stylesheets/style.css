@@ -7,10 +7,9 @@
 
 .root{
    -fx-font-family: "Roboto Light";
-    -fx-background-color: rgb(243, 243, 243);
+    -fx-background-color: #F2F2F2;
 
 }
-
 
 #title{
     -fx-font-family: "Roboto Thin";
@@ -29,7 +28,7 @@ Note that these labels lock your font size.
 
 
 .text-field{
-    -fx-font-size: 16;
+    -fx-font-size: 14;
     -fx-prompt-text-fill: rgba(0,0,0,.5);
 }
 
@@ -72,7 +71,7 @@ Note that these labels lock your font size.
 }
 
 .label{
-    -fx-font-size: 19;
+    -fx-font-size: 16;
 }
 #topBar{
     -fx-background-color: rgb(0, 156, 166);
@@ -124,102 +123,4 @@ Note that these labels lock your font size.
     -fx-border-color: rgb(180,180,180);
     -fx-border-radius: 4;
     -fx-background-radius: 4;
-}
-
-
-#dropdown{
-    -fx-background-color: rgb(255, 255, 255);
-    -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.15), 32, 0, 2, 2);
-    -fx-background-radius: 10;
-    -fx-text-fill: black;
-    -fx-view-order: 100;
-}
-
-#menuItemTop{
-    -fx-background-color: rgb(255, 255, 255);
-    -fx-translate-y: 0;
-    -fx-translate-x: 0;
-    -fx-effect: none;
-    -fx-text-alignment: left;
-    -fx-background-radius: 10 10 0 0;
-    -fx-text-fill: black;
-
-}
-#menuItem{
-    -fx-background-color: rgb(255, 255, 255);
-    -fx-translate-y: 0;
-    -fx-translate-x: 0;
-    -fx-effect: none;
-    -fx-background-radius: 0 0 0 0;
-    -fx-text-fill: black;
-    -fx-border-color: rgba(0, 0, 0, .5);
-    -fx-border-width: 1 0 0 0;
-}
-#menuItemBottom{
-    -fx-background-color: rgb(255, 255, 255);
-    -fx-translate-y: 0;
-    -fx-translate-x: 0;
-    -fx-effect: none;
-    -fx-background-radius: 0 0 10 10;
-    -fx-text-fill: black;
-    -fx-border-color: rgba(0, 0, 0, .5);
-    -fx-border-width: 1 0 0 0;
-}
-
-#menuItem:hover{
-    -fx-background-color: rgba(0, 0, 0, .3);
-}
-#menuItemTop:hover{
-    -fx-background-color: rgba(0, 0, 0, .3);
-}
-#menuItemBottom:hover{
-    -fx-background-color: rgba(0, 0, 0, .3);
-}
-#menuItem:pressed{
-    -fx-background-color: rgba(0, 0, 0, .4);
-}
-#menuItemTop:pressed{
-    -fx-background-color: rgba(0, 0, 0, .4);
-}
-#menuItemBottom:pressed{
-    -fx-background-color: rgba(0, 0, 0, .4);
-}
-
-.table-view{
-    -fx-background-color: white;
-    -fx-background-radius: 10;
-    -fx-border-radius: 10;
-}
-.table-view:focused{
-    -fx-background-color: white;
-    -fx-border-width: 0;
-}
-
-.table-view .column-header {
-    -fx-background-color: #e3e3e3;
-    -fx-background-radius: 7px 7px 0px 0px;
-}
-.table-view .column-header-background .label{
-    -fx-background-color: transparent;
-    -fx-text-fill: black;
-}
-
-.table-view .column-header-background {
-    -fx-background-color: #e3e3e3;
-    -fx-background-radius: 7px 7px 0px 0px;
-}
-
-.table-row-cell:hover {
-    -fx-background-color: #93f9b911;
-    -fx-text-background-color: red;
-}
-.table-row-cell:odd{
-    -fx-background-color: white;
-    -fx-background-insets: 0, 0 0 1 0;
-    -fx-padding: 0.0em;
-}
-.table-row-cell:even{
-    -fx-background-color: #E6F4F1;
-    -fx-background-insets: 0, 0 0 1 0;
-    -fx-padding: 0.0em;
 }
