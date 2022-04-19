@@ -21,13 +21,19 @@ import javafx.scene.layout.Pane;
 
 public class EquipmentController implements Initializable, PropertyChangeListener {
 
+  @FXML Pane popOut;
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
-  @FXML private TextField deleteName, editRequest, employeeFilterField, statusFilterField;
+  @FXML
+  private TextField deleteName,
+      editRequest,
+      employeeFilterField,
+      statusFilterField,
+      mainDescription;
   @FXML private Label equipmentConfirmation;
   @FXML private TableView equipmentTable;
   @FXML Button clear, submitFilters;
   @FXML Pane drop, drop2;
-  @FXML MenuButton equipLocation, equipmentType, equipmentStatus, equipmentEmployeeText;
+  @FXML MenuButton equipLocation, equipmentType, equipmentStatus, equipmentEmployeeText, mainID;
   @FXML AnchorPane anchor;
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
@@ -54,14 +60,14 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       locationColumn,
       typeColumn,
       statusColumn,
-      descriptionColumn,
-      availableColumn;
+      descriptionColumn;
 
   public EquipmentController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
+    popOut.setVisible(false);
 
     equipHash = equipDAO.getAllMedicalEquipment();
     allMedEquip = new ArrayList<>(equipHash.values());
@@ -84,7 +90,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
 
     medData.clear();
     Iterator var3 = MedrequestImpl.getAllRequests().entrySet().iterator();
@@ -100,119 +105,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     String changeType = evt.getPropertyName();
     int newValue = (int) evt.getNewValue();
     appController.displayAlert();
-  }
-
-  /**
-   * TODO split submit equipment into add, edit x field, edit y field etc. Maybe add a dropdown for
-   * edit request so we can choose specifically which field we need to change for the request. I
-   * think doing this will help avoid confusion on FE
-   *
-   * <p>Implement little edit section on the left with the table on the right to use as a reference
-   */
-  @FXML
-  private void submitEquipment() throws SQLException {
-    equipmentConfirmation.setText("");
-    // gets all inputs and converts into string
-    String dropDownString = equipmentType.getText();
-    String locationString = equipLocation.getText();
-    String employeeString = equipmentEmployeeText.getText();
-    String statusString = equipmentStatus.getText();
-    String deleteString = deleteName.getText();
-    String editString = editRequest.getText();
-
-    // if the fields are empty or to delete input is not empty
-    if (!deleteString.isEmpty()) {
-      deleteEquipRequest(deleteString);
-    } else if (!editString.isEmpty()) {
-      editEquipmentRequest(
-          editString, dropDownString, locationString, employeeString, statusString);
-    } else {
-      addEquipRequest(dropDownString, locationString, employeeString, statusString);
-    }
-    equipmentType.setText("Equipment Type");
-    equipLocation.setText("Delivery Location");
-    equipmentStatus.setText("Status");
-    editRequest.setText("");
-    deleteName.setText("");
-    equipmentEmployeeText.setText("Employee");
-  }
-
-  private void addEquipRequest(
-      String dropDownString, String locationString, String employeeString, String statusString) {
-
-    if (dropDownString.equals("Equipment Type")
-        || locationString.equals("Delivery Location")
-        || statusString.equals("Status")
-        || employeeString.equals("Employee")) {
-      equipmentConfirmation.setText("One or more of the required fields is not filled in.");
-    } else {
-      MedicalEquip equip = null;
-      Boolean foundEquip = false;
-      int i = 0;
-      while (!foundEquip && i < allMedEquip.size()) {
-        MedicalEquip medEquip = allMedEquip.get(i);
-        if (medEquip.getType().equals(dropDownString)
-            && medEquip.getStatus().equals("available")
-            && medEquip.isClean()
-            && medEquip
-                .getLocation()
-                .getFloor()
-                .equals(locationsHash.get(locationString).getFloor())) {
-          equip = medEquip;
-          foundEquip = true;
-        }
-        i++;
-      }
-      if (foundEquip) {
-        equipmentConfirmation.setText(
-            "Thank you, the "
-                + dropDownString
-                + " you requested will be delivered shortly to "
-                + locationString
-                + " by "
-                + employeeString
-                + ".");
-
-        String placeholder = "?";
-        Request medDevice =
-            new Request(
-                placeholder,
-                empDAO.getEmployee(employeeString),
-                locDAO.getLocation(locationString),
-                dropDownString,
-                statusString,
-                "describe",
-                "something",
-                "",
-                equip);
-
-        // set the status and location of the medicalEquipment object corresponding to the request
-        if (statusString.equals("notStarted")) {
-          equipDAO.updateStatus(equip, "inUse");
-        } else if (statusString.equals("inProgress")) {
-          equipDAO.updateStatus(equip, "inUse");
-          equipDAO.updateEquipmentLocation(equip, medDevice.getLocation());
-        } else if (statusString.equals("complete")) {
-          equipDAO.updateMedicalCleanliness(equip, false);
-          equipDAO.updateStatus(equip, "available");
-          if (locationsHash.get(locationString).getFloor().equals("3")) {
-            equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00103"));
-          } else if (locationsHash.get(locationString).getFloor().equals("4")) {
-            equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00104"));
-          } else if (locationsHash.get(locationString).getFloor().equals("5")) {
-            equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00105"));
-          }
-        }
-
-        MedrequestImpl.addRequest(medDevice); // add to hashmap
-
-        medData.add(medDevice); // add to the UI
-        equipmentTable.setItems(medData);
-      } else {
-        equipmentConfirmation.setText(
-            "Sorry, there are currently no " + dropDownString + "s available. ");
-      }
-    }
   }
 
   /* FILTER METHODS BEYOND HERE */
@@ -347,7 +239,103 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   /* FILTER METHODS ABOVE HERE */
 
-  private void deleteEquipRequest(String deleteString) {
+  @FXML
+  private void addEquipRequest() {
+    equipmentConfirmation.setText("");
+    // gets all inputs and converts into string
+    String dropDownString = equipmentType.getText();
+    String locationString = equipLocation.getText();
+    String employeeString = equipmentEmployeeText.getText();
+    String statusString = equipmentStatus.getText();
+    String descriptionString = mainDescription.getText();
+
+    if (!mainID.getText().equals("Add New Request")) {
+      editEquipmentRequest();
+    } else {
+
+      if (dropDownString.equals("Equipment Type")
+          || locationString.equals("Delivery Location")
+          || statusString.equals("Status")
+          || employeeString.equals("Employee")) {
+        equipmentConfirmation.setText("One or more of the required fields is not filled in.");
+      } else {
+        MedicalEquip equip = null;
+        Boolean foundEquip = false;
+        int i = 0;
+        while (!foundEquip && i < allMedEquip.size()) {
+          MedicalEquip medEquip = allMedEquip.get(i);
+          if (medEquip.getType().equals(dropDownString)
+              && medEquip.getStatus().equals("available")
+              && medEquip.isClean()
+              && medEquip
+                  .getLocation()
+                  .getFloor()
+                  .equals(locationsHash.get(locationString).getFloor())) {
+            equip = medEquip;
+            foundEquip = true;
+          }
+          i++;
+        }
+        if (foundEquip) {
+          equipmentConfirmation.setText(
+              "Thank you, the "
+                  + dropDownString
+                  + " you requested will be delivered shortly to "
+                  + locationString
+                  + " by "
+                  + employeeString
+                  + ".");
+
+          String placeholder = "?";
+          Request medDevice =
+              new Request(
+                  placeholder,
+                  empDAO.getEmployee(employeeString),
+                  locDAO.getLocation(locationString),
+                  dropDownString,
+                  statusString,
+                  "describe",
+                  "something",
+                  "",
+                  equip);
+
+          // set the status and location of the medicalEquipment object corresponding to the request
+          if (statusString.equals("notStarted")) {
+            equipDAO.updateStatus(equip, "inUse");
+          } else if (statusString.equals("inProgress")) {
+            equipDAO.updateStatus(equip, "inUse");
+            equipDAO.updateEquipmentLocation(equip, medDevice.getLocation());
+          } else if (statusString.equals("complete")) {
+            equipDAO.updateMedicalCleanliness(equip, false);
+            equipDAO.updateStatus(equip, "available");
+            if (locationsHash.get(locationString).getFloor().equals("3")) {
+              equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00103"));
+            } else if (locationsHash.get(locationString).getFloor().equals("4")) {
+              equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00104"));
+            } else if (locationsHash.get(locationString).getFloor().equals("5")) {
+              equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00105"));
+            }
+          }
+
+          MedrequestImpl.addRequest(medDevice); // add to hashmap
+
+          medData.add(medDevice); // add to the UI
+          equipmentTable.setItems(medData);
+        } else {
+          equipmentConfirmation.setText(
+              "Sorry, there are currently no " + dropDownString + "s available. ");
+        }
+      }
+    }
+    clearFields();
+  }
+
+  @FXML
+  private void deleteEquipRequest() {
+    equipmentConfirmation.setText("");
+    // gets all inputs and converts into string
+    String deleteString = mainID.getText();
+
     if (!deleteString.isEmpty()) {
       for (int i = 0; i < medData.size(); i++) {
         Request object = medData.get(i);
@@ -364,14 +352,19 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       }
       equipmentTable.setItems(medData);
     }
+    clearFields();
   }
 
-  private void editEquipmentRequest(
-      String editString,
-      String dropDownString,
-      String locationString,
-      String employeeString,
-      String statusString) {
+  @FXML
+  private void editEquipmentRequest() {
+    equipmentConfirmation.setText("");
+    // gets all inputs and converts into string
+    String editString = mainID.getText();
+    String dropDownString = equipmentType.getText();
+    String locationString = equipLocation.getText();
+    String employeeString = equipmentEmployeeText.getText();
+    String statusString = equipmentStatus.getText();
+    String descriptionString = mainDescription.getText();
 
     Request found = MedrequestImpl.getAllRequests().get(editString);
 
@@ -510,6 +503,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
       //  equipmentTable.setItems(medData);
     }
+    clearFields();
   }
 
   @FXML
@@ -534,6 +528,61 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   public void employeeMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     equipmentEmployeeText.setText(button.getText());
+  }
+
+  @FXML
+  public void mainIDMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    mainID.setText(button.getText());
+  }
+
+  @FXML
+  public void modifyRequest(ActionEvent event) {
+    popOut.setVisible(true);
+
+    if (equipLocation.getItems().size() == 0) {
+      // Populates locations dropdown
+      for (Location loc : locationsList) {
+        MenuItem item = new MenuItem(loc.getNodeID());
+        item.setOnAction(this::locationMenu);
+        equipLocation.getItems().add(item);
+      }
+
+      // Populates employees dropdown
+      for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+        Employee emp = entry.getValue();
+        MenuItem item = new MenuItem(emp.getName());
+        item.setOnAction(this::employeeMenu);
+        equipmentEmployeeText.getItems().add(item);
+      }
+
+      // Populates ID dropdown
+      for (Request req : medData) {
+        MenuItem item = new MenuItem(req.getName());
+        item.setOnAction(this::mainIDMenu);
+        mainID.getItems().add(item);
+      }
+      MenuItem item1 = new MenuItem("Add New Request");
+      item1.setOnAction(this::mainIDMenu);
+      mainID.getItems().add(item1);
+    }
+  }
+
+  @FXML
+  public void clearFields() {
+    equipmentType.setText("Equipment Type");
+    equipLocation.setText("Delivery Location");
+    equipmentStatus.setText("Status");
+    equipmentEmployeeText.setText("Employee");
+    mainID.setText("ID");
+    mainDescription.setText("");
+    mainDescription.setPromptText("Description");
+  }
+
+  @FXML
+  public void cancel(ActionEvent event) {
+    clearFields();
+    popOut.setVisible(false);
   }
 
   public void clearPage(ActionEvent actionEvent) {
