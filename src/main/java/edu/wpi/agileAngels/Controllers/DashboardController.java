@@ -40,6 +40,16 @@ public class DashboardController implements Initializable, PropertyChangeListene
   ArrayList<Pane> panes = new ArrayList<>();
   @FXML private ScrollPane scrollPane = new ScrollPane();
 
+  private int[] dirtyBedsArray = new int[4];
+  private int[] dirtyPumpsArray = new int[4];
+  private int[] dirtyReclinersArray = new int[4];
+  private int[] dirtyXRaysArray = new int[4];
+  private int bedsPerFloor = 10;
+  private int pumpsPerFloor = 15;
+  private int reclinersPerFloor = 5;
+  private int xraysPerFloor = 1;
+  private int NumFloors = 3;
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     floor5.setPickOnBounds(false);
@@ -64,17 +74,40 @@ public class DashboardController implements Initializable, PropertyChangeListene
     String changeType = evt.getPropertyName();
     int newValue = (int) evt.getNewValue();
     if (changeType.equals("dirtyBedsAll")) {
-      dirtyBeds.setText(String.valueOf(newValue));
-      cleanBeds.setText(String.valueOf(10 - newValue));
-    } else if (changeType.equals("dirtyReclinersAll")) {
-      dirtyRecliner.setText(String.valueOf(newValue));
-      cleanRecliner.setText(String.valueOf(5 - newValue));
-    } else if (changeType.equals("dirtyInfusionPumpsAll")) {
-      dirtyPump.setText(String.valueOf(newValue));
-      cleanPump.setText(String.valueOf(15 - newValue));
-    } else if (changeType.equals("dirtyXRaysAll")) {
-      dirtyXRay.setText(String.valueOf(newValue));
-      cleanXRay.setText(String.valueOf(1 - newValue));
+      dirtyBedsArray[0] = newValue;
+    } else if (changeType.equals("dirtyBeds1")) {
+      dirtyBedsArray[1] = newValue;
+    } else if (changeType.equals("dirtyBeds2")) {
+      dirtyBedsArray[2] = newValue;
+    } else if (changeType.equals("dirtyBeds3")) {
+      dirtyBedsArray[3] = newValue;
+    }
+    else if (changeType.equals("dirtyPumpsAll")) {
+      dirtyPumpsArray[0] = newValue;
+    } else if (changeType.equals("dirtyPumps1")) {
+      dirtyPumpsArray[1] = newValue;
+    } else if (changeType.equals("dirtyPumps2")) {
+      dirtyPumpsArray[2] = newValue;
+    } else if (changeType.equals("dirtyPumps3")) {
+      dirtyPumpsArray[3] = newValue;
+    }
+    else if (changeType.equals("dirtyReclinersAll")) {
+      dirtyReclinersArray[0] = newValue;
+    } else if (changeType.equals("dirtyRecliners1")) {
+      dirtyReclinersArray[1] = newValue;
+    } else if (changeType.equals("dirtyRecliners2")) {
+      dirtyReclinersArray[2] = newValue;
+    } else if (changeType.equals("dirtyRecliners3")) {
+      dirtyReclinersArray[3] = newValue;
+    }
+    else if (changeType.equals("dirtyXRaysAll")) {
+      dirtyXRaysArray[0] = newValue;
+    } else if (changeType.equals("dirtyXRays1")) {
+      dirtyXRaysArray[1] = newValue;
+    } else if (changeType.equals("dirtyXRays2")) {
+      dirtyXRaysArray[2] = newValue;
+    } else if (changeType.equals("dirtyXRays3")) {
+      dirtyXRaysArray[3] = newValue;
     }
     appController.displayAlert();
   }
