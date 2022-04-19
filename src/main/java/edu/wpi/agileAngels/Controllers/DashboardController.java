@@ -20,7 +20,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
 public class DashboardController implements Initializable, PropertyChangeListener {
@@ -79,84 +78,154 @@ public class DashboardController implements Initializable, PropertyChangeListene
   @FXML
   public void bigFloor(MouseEvent event) {
 
+    // floor 5
     Timeline timeline5 = new Timeline();
     timeline5
         .getKeyFrames()
         .addAll(
-            new KeyFrame(
-                Duration.ZERO,
-                //                new KeyValue(floor5.translateXProperty(), 100),
-                new KeyValue(floor4.translateYProperty(), 10)),
-            new KeyFrame(
-                Duration.millis(1000),
-                //               new KeyValue(floor5.translateXProperty(), 100),
-                new KeyValue(floor4.translateYProperty(), 10)));
+            new KeyFrame(Duration.ZERO, new KeyValue(floor5.translateYProperty(), 10)),
+            new KeyFrame(Duration.millis(1000), new KeyValue(floor5.translateYProperty(), 10)));
 
-    if (event.getSource() == floor4) {
+    if (event.getSource() == floor5) {
       timeline5.play();
     }
 
-    //    if (event.getSource() == floor4) {
-    //      floor4.setTranslateY(25);
-    //    }
+    // floor 4
+    Timeline timeline4 = new Timeline();
+    timeline4
+        .getKeyFrames()
+        .addAll(
+            new KeyFrame(Duration.ZERO, new KeyValue(floor4.translateYProperty(), 10)),
+            new KeyFrame(Duration.millis(1000), new KeyValue(floor4.translateYProperty(), 10)));
+
+    if (event.getSource() == floor4) {
+      timeline4.play();
+    }
+
+    // floor 3
+    Timeline timeline3 = new Timeline();
+    timeline3
+        .getKeyFrames()
+        .addAll(
+            new KeyFrame(Duration.ZERO, new KeyValue(floor3.translateYProperty(), 10)),
+            new KeyFrame(Duration.millis(1000), new KeyValue(floor3.translateYProperty(), 10)));
+
+    if (event.getSource() == floor3) {
+      timeline3.play();
+    }
+
+    // floor 2
+    Timeline timeline2 = new Timeline();
+    timeline2
+        .getKeyFrames()
+        .addAll(
+            new KeyFrame(Duration.ZERO, new KeyValue(floor2.translateYProperty(), 10)),
+            new KeyFrame(Duration.millis(1000), new KeyValue(floor2.translateYProperty(), 10)));
+
+    if (event.getSource() == floor2) {
+      timeline2.play();
+    }
+
+    // floor LL1
+    Timeline timelineLL1 = new Timeline();
+    timelineLL1
+        .getKeyFrames()
+        .addAll(
+            new KeyFrame(Duration.ZERO, new KeyValue(floorLL1.translateYProperty(), 10)),
+            new KeyFrame(Duration.millis(1000), new KeyValue(floorLL1.translateYProperty(), 10)));
+
+    if (event.getSource() == floorLL1) {
+      timelineLL1.play();
+    }
+
+    // floor LL2
+    Timeline timelineLL2 = new Timeline();
+    timelineLL2
+        .getKeyFrames()
+        .addAll(
+            new KeyFrame(Duration.ZERO, new KeyValue(floorLL2.translateYProperty(), 10)),
+            new KeyFrame(Duration.millis(1000), new KeyValue(floorLL2.translateYProperty(), 10)));
+
+    if (event.getSource() == floorLL2) {
+      timelineLL2.play();
+    }
   }
 
+  @FXML
   public void unhover(MouseEvent event) {
 
+    // floor 5
     Timeline timeline5 = new Timeline();
-    Scale scale = new Scale();
-    scale.setPivotX(50);
-    scale.setPivotY(50);
-    floor4.getTransforms().add(scale);
+    timeline5
+        .getKeyFrames()
+        .addAll(
+            new KeyFrame(Duration.ZERO, new KeyValue(floor5.translateYProperty(), -2.5)),
+            new KeyFrame(Duration.millis(1000), new KeyValue(floor5.translateYProperty(), -2.5)));
 
-    //    timeline5
-    //        .getKeyFrames()
-    //        .addAll(
-    //            new KeyFrame(
-    //                Duration.ZERO,
-    //                //                new KeyValue(floor5.translateXProperty(), 100),
-    //                new KeyValue(floor4.getTransforms()., -2.5)),
-    //            new KeyFrame(
-    //                Duration.millis(1000),
-    //                //               new KeyValue(floor5.translateXProperty(), 100),
-    //                new KeyValue(floor4.translateYProperty(), -2.5)));
-    //
+    if (event.getSource() == floor5) {
+      timeline5.play();
+    }
+
+    // floor 4
+    Timeline timeline4 = new Timeline();
+    timeline4
+        .getKeyFrames()
+        .addAll(
+            new KeyFrame(Duration.ZERO, new KeyValue(floor4.translateYProperty(), -2.5)),
+            new KeyFrame(Duration.millis(1000), new KeyValue(floor4.translateYProperty(), -2.5)));
+
     if (event.getSource() == floor4) {
-      //      timeline5.play();
-      floor4.getTransforms().add(scale);
+      timeline4.play();
+    }
+
+    // floor 3
+    Timeline timeline3 = new Timeline();
+    timeline3
+        .getKeyFrames()
+        .addAll(
+            new KeyFrame(Duration.ZERO, new KeyValue(floor3.translateYProperty(), -2.5)),
+            new KeyFrame(Duration.millis(1000), new KeyValue(floor3.translateYProperty(), -2.5)));
+
+    if (event.getSource() == floor3) {
+      timeline3.play();
+    }
+
+    // floor 2
+    Timeline timeline2 = new Timeline();
+    timeline2
+        .getKeyFrames()
+        .addAll(
+            new KeyFrame(Duration.ZERO, new KeyValue(floor2.translateYProperty(), -2.5)),
+            new KeyFrame(Duration.millis(1000), new KeyValue(floor2.translateYProperty(), -2.5)));
+
+    if (event.getSource() == floor2) {
+      timeline2.play();
+    }
+
+    // floor LL1
+    Timeline timelineLL1 = new Timeline();
+    timelineLL1
+        .getKeyFrames()
+        .addAll(
+            new KeyFrame(Duration.ZERO, new KeyValue(floorLL1.translateYProperty(), -2.5)),
+            new KeyFrame(Duration.millis(1000), new KeyValue(floorLL1.translateYProperty(), -2.5)));
+
+    if (event.getSource() == floorLL1) {
+      timelineLL1.play();
+    }
+
+    // floor LL2
+    Timeline timelineLL2 = new Timeline();
+    timelineLL2
+        .getKeyFrames()
+        .addAll(
+            new KeyFrame(Duration.ZERO, new KeyValue(floorLL2.translateYProperty(), -2.5)),
+            new KeyFrame(Duration.millis(1000), new KeyValue(floorLL2.translateYProperty(), -2.5)));
+
+    if (event.getSource() == floorLL2) {
+      timelineLL2.play();
     }
   }
-
-  /*  public void loadFloorMap(ActionEvent event) throws IOException {
-
-    if (event.getSource() == dash1) {
-      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
-    }
-
-    if (event.getSource() == dash2) {
-      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
-    }
-
-    if (event.getSource() == dash3) {
-      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
-    }
-
-    if (event.getSource() == dash4) {
-      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
-    }
-
-    if (event.getSource() == dash5) {
-      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
-    }
-
-    if (event.getSource() == dashL1) {
-      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
-    }
-
-    if (event.getSource() == dashL2) {
-      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
-    }
-  }*/
 
   @FXML
   public void updateCleanDirty() throws SQLException {
