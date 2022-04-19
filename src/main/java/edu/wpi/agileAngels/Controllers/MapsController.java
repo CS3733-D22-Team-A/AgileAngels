@@ -1,5 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
+import edu.wpi.agileAngels.Database.Employee;
 import edu.wpi.agileAngels.Database.Location;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -33,25 +34,29 @@ public class MapsController implements Initializable, PropertyChangeListener {
   @FXML HBox addButtonBox;
 
   @FXML
-  private Button floorTwo,
-      floorThree,
-      floorFour,
-      floorFive,
-      lowerLevelOne,
-      lowerLevelTwo,
-      editButton,
-      addButton,
-      removeButton,
+  private Button locationEdit,
+      locationDelete,
+      requestEdit,
+      requestDelete,
       switchModeButton,
       zoomIn,
       zoomOut,
-      clean;
-  @FXML private TextField nameField, xCoordField, yCoordField;
-  @FXML Pane mapPane, clickPane;
+      floorUp,
+      floorDown;
+  @FXML private MenuItem floorTwo, floorThree, floorFour, floorFive, lowerLevelOne, lowerLevelTwo;
+  @FXML private TextField locationName, addLocationName;
+  @FXML Pane mapPane, locationEditPane, requestEditPane, locationAddPane;
   @FXML AnchorPane anchor;
-  @FXML Label floorLabel, nodeIDField;
-  @FXML MenuItem pati, stor, dirt, hall, elev, rest, stai, dept, labs, info, conf, exit, retl, serv;
-  @FXML MenuButton typeDropdown;
+  @FXML Label requestName, floorLabel, nodeIDField, addNodeIDField;
+  @FXML
+  MenuButton locationTypeDropdown,
+      requestTypeDropdown,
+      requestStatusDropdown,
+      requestEmployeeDropdown,
+      addLocationTypeDropdown;
+
+  public final ContextMenu contextMenu = new ContextMenu();
+  MenuItem addNode = new MenuItem("Add Node");
 
   LocationNode currentLocationNode = null;
   RequestNode currentRequestNode = null;
@@ -77,6 +82,8 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
   public double panX = 0;
   public double panY = 0;
+
+  MouseEvent rightClick;
 
   private double croppedMapXOffset = 1054;
   private double croppedMapYOffset = 544;
@@ -112,12 +119,9 @@ public class MapsController implements Initializable, PropertyChangeListener {
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
 
-    clean.setVisible(false);
-    addButtonBox.setVisible(false);
-
     mapPane.getChildren().add(pane2);
     pane2.getChildren().add((floorTwoMap));
-    pane2.setVisible(true);
+    pane2.setVisible(false);
     mapPane.getChildren().add(pane3);
     pane3.getChildren().add((floorThreeMap));
     pane3.setVisible(false);
@@ -133,12 +137,37 @@ public class MapsController implements Initializable, PropertyChangeListener {
     paneL2.getChildren().add((lowerLevelTwoMap));
     mapPane.getChildren().add(paneL2);
     paneL2.setVisible(false);
-    floorTwo.setViewOrder(-100);
-    floorThree.setViewOrder(-100);
-    floorFour.setViewOrder(-100);
-    floorFive.setViewOrder(-100);
-    lowerLevelOne.setViewOrder(-100);
-    lowerLevelTwo.setViewOrder(-100);
+
+    if (appController.getCurrentFloor() == "2") {
+      pane2.setVisible(true);
+    } else if (appController.getCurrentFloor() == "3") {
+      pane3.setVisible(true);
+    } else if (appController.getCurrentFloor() == "4") {
+      pane4.setVisible(true);
+    } else if (appController.getCurrentFloor() == "5") {
+      pane5.setVisible(true);
+    } else if (appController.getCurrentFloor() == "L1") {
+      paneL1.setVisible(true);
+    } else if (appController.getCurrentFloor() == "L2") {
+      paneL2.setVisible(true);
+    }
+
+    floorLabel.setText(appController.getCurrentFloor());
+
+    locationAddPane.setVisible(false);
+    locationEditPane.setVisible(false);
+    requestEditPane.setVisible(false);
+
+    contextMenu.getItems().addAll(addNode);
+    addNode.setOnAction((ActionEvent event) -> addNode());
+
+    mapScroll.setOnMousePressed(
+        (MouseEvent event) -> {
+          if (event.isSecondaryButtonDown()) {
+            contextMenu.show(mapScroll, event.getScreenX(), event.getScreenY());
+            rightClick = event;
+          }
+        });
 
     locationNodeManager.createNodesFromDB();
     try {
@@ -146,6 +175,20 @@ public class MapsController implements Initializable, PropertyChangeListener {
       equipmentNodeManager.createNodesFromDB();
     } catch (SQLException e) {
       e.printStackTrace();
+    }
+
+    for (Employee e : requestNodeManager.employeeHash.values()) {
+      MenuItem menuItem = new MenuItem(e.getName());
+      menuItem.setOnAction(
+          (ActionEvent event) -> {
+            MenuItem button = (MenuItem) event.getSource();
+            requestEmployeeDropdown.setText(button.getText());
+          });
+      try {
+        requestEmployeeDropdown.getItems().add(menuItem);
+      } catch (NullPointerException e2) {
+
+      }
     }
   }
 
@@ -162,13 +205,11 @@ public class MapsController implements Initializable, PropertyChangeListener {
    * @param locationNode the node whose data is populated
    */
   public void populateLocationNodeData(LocationNode locationNode) {
-    clean.setVisible(false);
+    requestEditPane.setVisible(false);
+    locationEditPane.setVisible(true);
     nodeIDField.setText(locationNode.getNodeID());
-    nameField.setText(locationNode.getName());
-    typeDropdown.setText(locationNode.getNodeType());
-    xCoordField.setText(Double.toString(locationNode.getXCoord()));
-    yCoordField.setText(Double.toString(locationNode.getYCoord()));
-
+    locationName.setText(locationNode.getName());
+    locationTypeDropdown.setText(locationNode.getNodeType());
     currentLocationNode = locationNode;
   }
 
@@ -182,13 +223,12 @@ public class MapsController implements Initializable, PropertyChangeListener {
    * @param requestNode the node whose data is populated
    */
   public void populateRequestNodeData(RequestNode requestNode) {
-    clean.setVisible(false);
-    nodeIDField.setText(requestNode.getName());
-    nameField.setText(requestNode.getEmployee());
-    typeDropdown.setText(requestNode.getStatus());
-    xCoordField.setText(Double.toString(requestNode.getLocation().getXCoord()));
-    yCoordField.setText(Double.toString(requestNode.getLocation().getYCoord()));
-
+    requestEditPane.setVisible(true);
+    locationEditPane.setVisible(false);
+    requestTypeDropdown.setText(requestNode.getRequest().getType());
+    requestName.setText(requestNode.getName());
+    requestEmployeeDropdown.setText(requestNode.getEmployee());
+    requestStatusDropdown.setText(requestNode.getStatus());
     currentRequestNode = requestNode;
   }
 
@@ -198,38 +238,17 @@ public class MapsController implements Initializable, PropertyChangeListener {
    * @param equipmentNode the node whose data is populated
    */
   public void populateEquipmentNodeData(EquipmentNode equipmentNode) {
-    clean.setVisible(true);
-    nodeIDField.setText(equipmentNode.getID());
-    nameField.setText(equipmentNode.getClean());
-    typeDropdown.setText(equipmentNode.getStatus());
-    xCoordField.setText(Double.toString(equipmentNode.getLocation().getXCoord()));
-    yCoordField.setText(Double.toString(equipmentNode.getLocation().getYCoord()));
+    // clean.setVisible(true);
+    requestName.setText(equipmentNode.getID());
+    locationName.setText(equipmentNode.getClean());
+    requestTypeDropdown.setText(equipmentNode.getStatus());
     currentEquipmentNode = equipmentNode;
   }
 
   @FXML
-  private void addNode() throws IOException {
-
-    int typeCount = (locationNodeManager.getTypeCount(typeDropdown.getText(), currentFloor));
-
-    String nodeID =
-        "A"
-            + typeDropdown.getText()
-            + String.format("%03d", typeCount)
-            + ((currentFloor.length() == 1) ? ("0" + currentFloor) : (currentFloor));
-
-    Location newLocation =
-        new Location(
-            nodeID,
-            (Double.parseDouble(xCoordField.getText())),
-            (Double.parseDouble(yCoordField.getText())),
-            currentFloor,
-            "TOWER",
-            typeDropdown.getText(),
-            nameField.getText(),
-            nodeID);
-    displayLocationNode(locationNodeManager.addNode(newLocation));
-    clearFields();
+  private void addNode() {
+    deselect();
+    locationAddPane.setVisible(true);
   }
 
   /**
@@ -237,19 +256,36 @@ public class MapsController implements Initializable, PropertyChangeListener {
    *
    * @throws IOException NumberFormatException from parseDouble
    */
+  //  @FXML
+  //  private void editNode() throws IOException {
+  //    String name = locationName.getText();
+  //    String type = locationTypeDropdown.getText();
+  //    currentLocationNode.changeLocationName(name);
+  //    currentLocationNode.changeLocationType(type);
+  //    locationNodeManager.editNode(currentLocationNode, name, type);
+  //    currentLocationNode.resetLocation();
+  //    currentLocationNode = null;
+  //  }
   @FXML
-  private void editNode() throws IOException {
-    Double xCoord = (Double.parseDouble(xCoordField.getText()));
-    Double yCoord = (Double.parseDouble(yCoordField.getText()));
-    String name = nameField.getText();
-    String type = typeDropdown.getText();
-    currentLocationNode.changeLocationXCoord(xCoord);
-    currentLocationNode.changeLocationYCoord(yCoord);
+  public void locationEdit() {
+    String name = locationName.getText();
+    String type = locationTypeDropdown.getText();
     currentLocationNode.changeLocationName(name);
     currentLocationNode.changeLocationType(type);
-    locationNodeManager.editNode(currentLocationNode, xCoord, yCoord, name, type);
+    locationNodeManager.editNode(currentLocationNode, name, type);
     currentLocationNode.resetLocation();
     currentLocationNode = null;
+    locationEditPane.setVisible(false);
+  }
+
+  @FXML
+  public void requestEdit(ActionEvent event) {
+    currentRequestNode.setEmployee(requestEmployeeDropdown.getText());
+    currentRequestNode.getRequest().setStatus(requestStatusDropdown.getText());
+    currentRequestNode.getRequest().setType(requestTypeDropdown.getText());
+    requestNodeManager.updateRequest(currentRequestNode);
+    currentRequestNode = null;
+    requestEditPane.setVisible(false);
   }
 
   /**
@@ -282,28 +318,6 @@ public class MapsController implements Initializable, PropertyChangeListener {
    * @param event the button that was pressed, which is either switchToAddButton or the
    *     switchToEditButton
    */
-  @FXML
-  private void switchMode(ActionEvent event) {
-    if (editButton.isVisible() == true) {
-      addButtonBox.setVisible(true);
-      addButton.setVisible(true);
-      addButton.setViewOrder(-1000);
-      editButton.setVisible(false);
-      removeButton.setVisible(false);
-      switchModeButton.setText("Delete/Edit");
-      currentLocationNode = null;
-      clearFields();
-    } else {
-      addButton.setVisible(false);
-      addButtonBox.setVisible(false);
-      addButton.setViewOrder(100);
-      editButton.setVisible(true);
-      removeButton.setVisible(true);
-      switchModeButton.setText("Add");
-      currentLocationNode = null;
-      clearFields();
-    }
-  }
 
   /**
    * Adds the button for a location node to the pane corresponding to its floor
@@ -383,41 +397,92 @@ public class MapsController implements Initializable, PropertyChangeListener {
     if (event.getSource() == floorTwo) {
       pane2.setVisible(true);
       currentFloor = "2";
-      floorLabel.setText("Floor 2");
+      floorLabel.setText("2");
     } else if (event.getSource() == floorThree) {
       pane3.setVisible(true);
       currentFloor = "3";
-      floorLabel.setText("Floor 3");
+      floorLabel.setText("3");
     } else if (event.getSource() == floorFour) {
       pane4.setVisible(true);
       currentFloor = "4";
-      floorLabel.setText("Floor 4");
+      floorLabel.setText("4");
     } else if (event.getSource() == floorFive) {
       pane5.setVisible(true);
       currentFloor = "5";
-      floorLabel.setText("Floor 5");
+      floorLabel.setText("5");
     } else if (event.getSource() == lowerLevelOne) {
       paneL1.setVisible(true);
       currentFloor = "L1";
-      floorLabel.setText("Lower Level 1");
+      floorLabel.setText("1");
     } else if (event.getSource() == lowerLevelTwo) {
       paneL2.setVisible(true);
       currentFloor = "L2";
-      floorLabel.setText("Lower Level 2");
+      floorLabel.setText("2");
+    } else if (event.getSource() == floorUp) {
+      if (currentFloor == "L1") {
+        paneL2.setVisible(true);
+        currentFloor = "L2";
+        floorLabel.setText("L2");
+      } else if (currentFloor == "L2") {
+        pane2.setVisible(true);
+        currentFloor = "2";
+        floorLabel.setText("2");
+      } else if (currentFloor == "2") {
+        pane3.setVisible(true);
+        currentFloor = "3";
+        floorLabel.setText("3");
+      } else if (currentFloor == "3") {
+        pane4.setVisible(true);
+        currentFloor = "4";
+        floorLabel.setText("4");
+      } else if (currentFloor == "4") {
+        pane5.setVisible(true);
+        currentFloor = "5";
+        floorLabel.setText("5");
+      } else if (currentFloor == "5") {
+        pane5.setVisible(true);
+        currentFloor = "5";
+        floorLabel.setText("5");
+      }
+    } else if (event.getSource() == floorDown) {
+      if (currentFloor == "2") {
+        paneL2.setVisible(true);
+        currentFloor = "L2";
+        floorLabel.setText("L2");
+      } else if (currentFloor == "3") {
+        pane2.setVisible(true);
+        currentFloor = "2";
+        floorLabel.setText("2");
+      } else if (currentFloor == "4") {
+        pane3.setVisible(true);
+        currentFloor = "3";
+        floorLabel.setText("3");
+      } else if (currentFloor == "5") {
+        pane4.setVisible(true);
+        currentFloor = "4";
+        floorLabel.setText("4");
+      } else if (currentFloor == "L2") {
+        paneL1.setVisible(true);
+        currentFloor = "L1";
+        floorLabel.setText("L1");
+      } else if (currentFloor == "L1") {
+        paneL1.setVisible(true);
+        currentFloor = "L1";
+        floorLabel.setText("L1");
+      }
     }
   }
 
   void clearFields() {
-    nameField.clear();
-    xCoordField.setText("X-Coordinate:");
-    yCoordField.setText("Y-Coordinate:");
-    typeDropdown.setText("Node Type");
-    nodeIDField.setText("Node ID:");
+    // nameField.clear();
+    locationTypeDropdown.setText("Node Type");
+    // requestName.setText("Node ID:");
   }
 
   public void typeMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    typeDropdown.setText(button.getText());
+    locationTypeDropdown.setText(button.getText());
+    addLocationTypeDropdown.setText(button.getText());
   }
 
   public void zoomableMap(ActionEvent event) {
@@ -472,31 +537,10 @@ public class MapsController implements Initializable, PropertyChangeListener {
     }
   }
 
-  @FXML
-  public void setCoords(ActionEvent event) {
-    clickPane.setDisable(false);
-    clickPane.setViewOrder(-1000);
-    clickPane.setStyle("-fx-background-color: rgba(0,0,0, .15)");
-    panX = mapScroll.getHvalue() * (mapPane.getWidth() - mapScroll.getWidth() / scale);
-    panY = mapScroll.getVvalue() * (mapPane.getHeight() - mapScroll.getHeight() / scale);
-    double panX2 = mapScroll.getHvalue() * 48;
-    double panY2 = mapScroll.getVvalue() * 28.6;
-
-    clickPane.setOnMouseClicked(
-        (MouseEvent click) -> {
-          setCoordsOnMouseEvent(click);
-        });
-  }
-
   public void setCoordsOnMouseEvent(MouseEvent click) {
-    xCoordField.setText(String.valueOf(getMapXCoordFromClick(click)));
-    yCoordField.setText(String.valueOf(getMapYCoordFromClick(click)));
-    clickPane.setStyle("-fx-background-color: rgba(0,0,0,0)");
-    clickPane.setDisable(true);
-
     try {
-      editNode();
-    } catch (IOException | NullPointerException e) {
+      locationEdit();
+    } catch (NullPointerException e) {
     }
   }
 
@@ -509,5 +553,67 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
   public void clearPage(ActionEvent actionEvent) {
     appController.clearPage();
+  }
+
+  public void changeStatus(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    requestStatusDropdown.setText(button.getText());
+  }
+
+  public void deselect() {
+    requestEditPane.setVisible(false);
+    locationEditPane.setVisible(false);
+    locationAddPane.setVisible(false);
+  }
+
+  public void locationDelete(ActionEvent event) {
+    locationNodeManager.deleteNode(currentLocationNode.getNodeID());
+
+    locationEditPane.setVisible(false);
+  }
+
+  public void requestDelete(ActionEvent event) {
+    requestNodeManager.deleteRequest(currentRequestNode);
+    requestEditPane.setVisible(false);
+  }
+
+  public void locationAdd(ActionEvent event) {
+
+    if (addLocationTypeDropdown.getText().equals("Node Type")
+        || addLocationName.getText().isEmpty()) {
+
+    } else {
+      int typeCount =
+          (locationNodeManager.getTypeCount(addLocationTypeDropdown.getText(), currentFloor));
+
+      System.out.println(typeCount);
+
+      String nodeID =
+          "A"
+              + addLocationTypeDropdown.getText()
+              + String.format("%03d", typeCount)
+              + ((currentFloor.length() == 1) ? ("0" + currentFloor) : (currentFloor));
+
+      System.out.println(nodeID);
+
+      Location newLocation =
+          new Location(
+              nodeID,
+              (getMapXCoordFromClick(rightClick)),
+              (getMapYCoordFromClick(rightClick)),
+              currentFloor,
+              "TOWER",
+              addLocationTypeDropdown.getText(),
+              addLocationName.getText(),
+              nodeID);
+      System.out.println("new Location");
+      displayLocationNode(locationNodeManager.addNode(newLocation));
+      locationAddPane.setVisible(false);
+    }
+  }
+
+  public void requestTypeDropdown(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    requestTypeDropdown.setText(button.getText());
   }
 }

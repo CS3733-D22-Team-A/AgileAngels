@@ -1,9 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Location;
-import edu.wpi.agileAngels.Database.LocationDAOImpl;
-import edu.wpi.agileAngels.Database.Request;
-import edu.wpi.agileAngels.Database.RequestDAOImpl;
+import edu.wpi.agileAngels.Database.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,10 +11,13 @@ public class RequestNodeManager {
   private MapsController mapsController;
   private RequestDAOImpl medRequestDAO = RequestDAOImpl.getInstance("MedRequest");
   private RequestDAOImpl labRequestDAO = RequestDAOImpl.getInstance("LabRequest");
+  private EmployeeManager empDAO = EmployeeManager.getInstance();
   private HashMap<String, RequestNode> nodes = new HashMap<>();
   private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
   HashMap<String, Location> locationsHash = locationDAO.getAllLocations();
   ArrayList<Location> locationsList = new ArrayList<Location>(locationsHash.values());
+
+  public HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
 
   public RequestNodeManager(MapsController mapsController) throws SQLException {
     this.mapsController = mapsController;
@@ -84,5 +84,25 @@ public class RequestNodeManager {
 
   public void setDraggedNodeCoords(MouseEvent mouseEvent) {
     mapsController.setCoordsOnMouseEvent(mouseEvent);
+  }
+
+  public void updateRequest(RequestNode request) {
+    if (request.getName().substring(0, 3).equals("Lab")) {
+      labRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      labRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().substring(0, 3).equals("Med")) {
+      medRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      medRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    }
+  }
+
+  public void deleteRequest(RequestNode request) {
+    nodes.remove(request);
+    request.getButton().setVisible(false);
+    if (request.getName().substring(0, 3).equals("Lab")) {
+      labRequestDAO.deleteRequest(request.getRequest());
+    } else if (request.getName().substring(0, 3).equals("Med")) {
+      medRequestDAO.deleteRequest(request.getRequest());
+    }
   }
 }

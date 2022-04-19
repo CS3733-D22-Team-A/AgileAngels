@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.LoginController">
+<AnchorPane id="main" fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FFFFFF;" stylesheets="@stylesheets/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.LoginController">
     <children>
-      <ImageView fitHeight="1205.0" fitWidth="1479.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-200.0">
+      <ImageView fitHeight="974.0" fitWidth="1279.0" layoutX="5.0" layoutY="-106.0" pickOnBounds="true" AnchorPane.bottomAnchor="-148.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-200.0">
          <image>
             <Image url="@../assets/new_background_Login.png" />
          </image>
@@ -34,22 +34,22 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="135.0" prefWidth="593.0">
                      <children>
-                        <TextField fx:id="username" prefHeight="70.0" prefWidth="270.0" promptText="Username:" styleClass="linear-grad-to-bottom" stylesheets="@login_style.css" />
+                        <TextField fx:id="username" prefHeight="70.0" prefWidth="270.0" promptText="Username:" styleClass="linear-grad-to-bottom" stylesheets="@stylesheets/login_style.css" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <PasswordField fx:id="passwordBox" onAction="#login" prefHeight="70.0" prefWidth="270.0" promptText="Password:" styleClass="linear-grad-to-bottom" stylesheets="@login_style.css" />
+                        <PasswordField fx:id="passwordBox" onAction="#login" prefHeight="70.0" prefWidth="270.0" promptText="Password:" styleClass="linear-grad-to-bottom" stylesheets="@stylesheets/login_style.css" />
                      </children>
                   </HBox>
-                  <HBox id="errorMessage" alignment="CENTER" prefHeight="34.0" prefWidth="583.0" stylesheets="@login_style.css">
+                  <HBox id="errorMessage" alignment="CENTER" prefHeight="34.0" prefWidth="583.0" stylesheets="@stylesheets/login_style.css">
                      <children>
                         <Label fx:id="invalid" alignment="CENTER" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button id="loginBUTTON" fx:id="login" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="70.0" prefWidth="270.0" style="-fx-background-color: #443E69;" stylesheets="@login_style.css" textAlignment="CENTER">
+                        <Button id="loginBUTTON" fx:id="login" alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="70.0" prefWidth="270.0" style="-fx-background-color: #443E69;" stylesheets="@stylesheets/login_style.css" textAlignment="CENTER">
                            <font>
                               <Font size="10.0" />
                            </font>
@@ -59,7 +59,7 @@
                            <graphic>
                               <HBox alignment="CENTER" prefHeight="70.0" prefWidth="0.0">
                                  <children>
-                                    <Label id="loginText" stylesheets="@login_style.css" text="Login" textFill="WHITE">
+                                    <Label id="loginText" stylesheets="@stylesheets/login_style.css" text="Login" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
@@ -75,9 +75,9 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="44.0" prefWidth="593.0">
                      <children>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" styleClass="forgotPassword">
                            <graphic>
-                              <Label id="forgorPassword" stylesheets="@login_style.css" text="Forgot your password?" textFill="#49484a" />
+                              <Label id="forgorPassword" stylesheets="@stylesheets/login_style.css" text="Forgot your password?" textFill="#49484a" />
                            </graphic>
                         </Button>
                      </children>

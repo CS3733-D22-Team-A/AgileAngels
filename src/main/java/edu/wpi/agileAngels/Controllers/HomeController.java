@@ -27,7 +27,6 @@ public class HomeController implements Initializable, PropertyChangeListener {
   public void propertyChange(PropertyChangeEvent evt) {
     String changeType = evt.getPropertyName();
     int newValue = (int) evt.getNewValue();
-    appController.displayAlert();
   }
 
   @FXML

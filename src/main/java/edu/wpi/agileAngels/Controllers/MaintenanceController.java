@@ -63,6 +63,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
 
+    maintenanceData.clear();
     // Populates the table from UI list
     if (maintenanceData.isEmpty()) {
       for (Map.Entry<String, Request> entry : mainRequestImpl.getAllRequests().entrySet()) {

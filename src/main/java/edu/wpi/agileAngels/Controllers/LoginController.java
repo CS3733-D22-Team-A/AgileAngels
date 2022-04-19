@@ -14,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import org.controlsfx.control.textfield.TextFields;
 
 public class LoginController implements Initializable {
   @FXML private TextField username;
@@ -32,15 +31,13 @@ public class LoginController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     // Remove this later, just for convience + to prove it works
-    String[] words = {"Admin", "Staff"};
-    TextFields.bindAutoCompletion(username, words);
     //
 
-    employeeManager.addEmployee("Administrator", "Admin", "Admin");
-    employeeManager.addEmployee("Nurse", "Nurse", "Nurse");
-    employeeManager.addEmployee("Justin", "Justin", "Password");
-    employeeManager.addEmployee("Staff", "Staff", "Staff");
-    employeeManager.addEmployee("dummy", "", "");
+    employeeManager.addEmployee("Admin", "Admin");
+    employeeManager.addEmployee("Nurse", "Nurse");
+    employeeManager.addEmployee("Justin", "Password");
+    employeeManager.addEmployee("Staff", "Staff");
+    employeeManager.addEmployee("", "");
   }
 
   /**
@@ -52,10 +49,9 @@ public class LoginController implements Initializable {
   @FXML
   private void login() throws IOException {
 
-    if (employeeManager.getUsername(username.getText())
+    if (employeeManager.getName(username.getText())
         && passwordBox.getText().equals(employeeManager.getPassword(username.getText()))) {
-
-      appController.loadPage("/edu/wpi/agileAngels/views/home-view.fxml");
+      appController.loadPage("/edu/wpi/agileAngels/views/NEWdashboard.fxml");
     } else {
       invalid.setTextFill(Color.rgb(220, 80, 80));
       invalid.setText("Invalid username or password.");
@@ -63,6 +59,12 @@ public class LoginController implements Initializable {
     }
   }
 
+  /**
+   * Duplicate enter code, but will work fine for now but won't be in diagram.
+   *
+   * @param event
+   * @throws IOException
+   */
   @FXML
   private void loginWithEnter(KeyEvent event) throws IOException {
     if (event.getCode().equals(KeyCode.ENTER)) {

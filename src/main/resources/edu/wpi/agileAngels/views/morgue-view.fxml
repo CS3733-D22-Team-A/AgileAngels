@@ -10,281 +10,242 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@styleRequest.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MorgueController">
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/styleRequest.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MorgueController">
    <children>
-      <fx:include source="menu-bar.fxml" />
-      <HBox layoutX="71.0" layoutY="154.0" prefHeight="500.0" prefWidth="1207.0">
+      <HBox alignment="CENTER" layoutX="78.0" layoutY="160.0" prefHeight="451.0" prefWidth="1158.0" spacing="50.0">
          <children>
-            <TableView fx:id="morgueTable" prefHeight="500.0" prefWidth="1131.0" stylesheets="@styleRequest.css">
-              <columns>
-                <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" text="Name" />
-                  <TableColumn fx:id="availableColumn" maxWidth="133.0" minWidth="100.0" prefWidth="133.0" text="Available" />
-                <TableColumn fx:id="typeColumn" maxWidth="133.0" minWidth="90.0" prefWidth="90.0" text="Type" />
-                  <TableColumn fx:id="locationColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" text="Location" />
-                  <TableColumn fx:id="employeeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" text="Employee" />
-                  <TableColumn fx:id="statusColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" text="Status" />
-                  <TableColumn fx:id="descriptionColumn" maxWidth="500.0" minWidth="115.0" prefWidth="425.0" text="Description" />
-              </columns>
+            <TableView fx:id="morgueTable" prefHeight="451.0" prefWidth="1188.0">
+               <columns>
+                  <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
+                  <TableColumn fx:id="availableColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Date" />
+                  <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Time" />
+                  <TableColumn fx:id="locationColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Location" />
+                  <TableColumn fx:id="employeeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Employee" />
+                  <TableColumn fx:id="statusColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Status" />
+                  <TableColumn fx:id="descriptionColumn" maxWidth="442.0" minWidth="123.0" prefWidth="442.0" resizable="false" text="Patient Name" />
+               </columns>
             </TableView>
          </children>
       </HBox>
-      <HBox layoutX="81.0" layoutY="98.0" prefHeight="68.0" prefWidth="1144.0">
+      <HBox layoutX="397.0" layoutY="58.0" prefHeight="100.0" prefWidth="435.0">
          <children>
-            <Label prefHeight="72.0" prefWidth="536.0" style="-fx-font-weight: bold; -fx-font-size: 48;" text="Morgue Request" textFill="#355a70">
-               <font>
-                  <Font name="Bodoni MT Bold" size="64.0" />
-               </font>
-            </Label>
-            <Button fx:id="addMorgue" alignment="CENTER" mnemonicParsing="false" onAction="#addRequest" prefHeight="51.0" prefWidth="113.0" style="-fx-font-weight: bold;" text="Add" textAlignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Button>
-            <Button fx:id="deleteRequest" alignment="CENTER" layoutX="546.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteRequest" prefHeight="51.0" prefWidth="113.0" style="-fx-font-weight: bold;" text="Delete" textAlignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="editRequest" layoutX="659.0" layoutY="10.0" mnemonicParsing="false" onAction="#editRequest" prefHeight="51.0" prefWidth="113.0" style="-fx-font-weight: bold;" text="Edit" textAlignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Button>
+            <GridPane prefWidth="408.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label prefHeight="100.0" prefWidth="100.0" style="-fx-font-weight: bold;" text="Requests by Status:" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Rectangle>
+                  <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="3">
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </Rectangle>
+                  <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets left="15.0" />
+                     </GridPane.margin>
+                  </Rectangle>
+                  <Label fx:id="notStartedNumber" text="-" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="25.0" left="40.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="inProgressNumber" text="-" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets bottom="25.0" left="42.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="completedNumber" text="-" GridPane.columnIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="25.0" left="47.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label prefHeight="35.0" prefWidth="77.0" style="-fx-font-size: 15;" text="Not Started" textOverrun="CLIP" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets left="19.0" top="40.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="7.0" />
+                     </font>
+                  </Label>
+                  <Label style="-fx-font-size: 15;" text="In Progress" textOverrun="CLIP" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets left="25.0" top="40.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label style="-fx-font-size: 15;" text="Completed" textOverrun="CLIP" GridPane.columnIndex="3">
+                     <GridPane.margin>
+                        <Insets left="28.0" top="40.0" />
+                     </GridPane.margin>
+                  </Label>
+               </children>
+            </GridPane>
          </children>
       </HBox>
-      <VBox fx:id="addBox" layoutX="924.0" layoutY="158.0" prefHeight="511.0" prefWidth="365.0" visible="false">
-         <children>
-            <Pane fx:id="addPane" prefHeight="502.0" prefWidth="365.0" style="-fx-background-color: #F3F5F7;">
+      <TextField fx:id="employeeFilterField" layoutX="444.0" layoutY="623.0" prefHeight="50.0" prefWidth="171.0" promptText="Filter by Employee" />
+      <Button alignment="CENTER" layoutX="842.0" layoutY="620.0" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <VBox alignment="CENTER" layoutX="-1.0" prefHeight="398.0" prefWidth="366.0">
+                  <Label text="Submit Filter" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </graphic>
+      </Button>
+      <Button fx:id="clearFilter" alignment="CENTER" layoutX="998.0" layoutY="620.0" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <graphic>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Clear Filters" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </graphic>
+      </Button>
+      <TextField fx:id="statusFilterField" layoutX="657.0" layoutY="623.0" prefHeight="50.0" prefWidth="154.0" promptText="Filter by Status" />
+      <Button fx:id="modifyButton" layoutX="846.0" layoutY="79.0" mnemonicParsing="false" onAction="#modifyRequest" prefHeight="59.0" prefWidth="120.0" style="-fx-font-weight: bold;" text="Modify" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <VBox fx:id="popOut" alignment="CENTER" layoutX="978.0" prefHeight="678.0" prefWidth="294.0" spacing="15.0">
+         <children>
+            <Pane prefHeight="484.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
+               <children>
+                  <MenuButton fx:id="morgueID" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="ID" />
+                  <MenuButton fx:id="morgueLocation" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="84.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Location" />
+                  <MenuButton fx:id="morgueEmployee" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="142.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
+                  <MenuButton fx:id="morgueStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="202.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Status">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="Not Started" />
+                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="In Progress" />
+                     </items>
+                  </MenuButton>
+                  <TextField fx:id="morgueDescription" layoutX="12.0" layoutY="255.0" prefHeight="50.0" prefWidth="270.0" promptText="Patient Name" />
+                  <HBox layoutX="12.0" layoutY="359.0" prefHeight="59.0" prefWidth="270.0" spacing="16.0">
                      <children>
-                        <HBox prefHeight="59.0" prefWidth="366.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="90.0" text="ID" textFill="#019ba5" />
-                              <Label fx:id="morgueID" alignment="CENTER_RIGHT" prefHeight="66.0" prefWidth="187.0" text="..." />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="67.0" prefWidth="366.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="118.0" text="Location" textFill="#019ba5" />
-                              <MenuButton fx:id="morgueLocation" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="227.0" text="Location">
-                                 <HBox.margin>
-                                    <Insets top="10.0" />
-                                 </HBox.margin>
-                              </MenuButton>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="67.0" prefWidth="366.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="127.0" text="Employee" textFill="#019ba5" />
-                              <MenuButton fx:id="morgueEmployee" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="213.0" text="Employee" textAlignment="CENTER">
-                                 <HBox.margin>
-                                    <Insets top="10.0" />
-                                 </HBox.margin>
-                              </MenuButton>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="67.0" prefWidth="366.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="127.0" text="Status" textFill="#019ba5" />
-                              <MenuButton fx:id="morgueStatus" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="215.0" text="Status" textAlignment="CENTER">
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" onAction="#addStatusMenu" text="Not Complete" />
-                                    <MenuItem mnemonicParsing="false" onAction="#addStatusMenu" text="In Progress" />
-                                    <MenuItem mnemonicParsing="false" onAction="#addStatusMenu" text="Complete" />
-                                 </items>
-                                 <HBox.margin>
-                                    <Insets top="10.0" />
-                                 </HBox.margin>
-                              </MenuButton>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="91.0" prefWidth="366.0">
-                           <children>
-                              <TextField fx:id="morgueDescription" prefHeight="95.0" prefWidth="306.0" promptText="Description">
-                                 <HBox.margin>
-                                    <Insets left="30.0" right="30.0" />
-                                 </HBox.margin>
-                              </TextField>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <HBox layoutX="13.0" layoutY="425.0" prefHeight="51.0" prefWidth="353.0">
-                     <children>
-                        <Button fx:id="clearRequest" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clearRequest" prefHeight="26.0" prefWidth="162.0" text="Clear" textAlignment="CENTER">
+                        <Button fx:id="cancelRequest" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
                            <font>
-                              <Font size="24.0" />
+                              <Font size="10.0" />
                            </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <graphic>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Cancel" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </HBox>
+                           </graphic>
                         </Button>
-                        <Button fx:id="submitRequest" alignment="CENTER" mnemonicParsing="false" onAction="#submitRequest" prefHeight="51.0" prefWidth="162.0" text="Submit" textAlignment="CENTER">
+                        <Button fx:id="submitRequest" alignment="CENTER" mnemonicParsing="false" onAction="#submit" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
                            <font>
-                              <Font size="24.0" />
+                              <Font size="10.0" />
                            </font>
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <graphic>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Submit" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </HBox>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="clearRequest" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#clear" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <graphic>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Clear" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </HBox>
+                           </graphic>
                         </Button>
                      </children>
                   </HBox>
+                  <Button fx:id="deleteRequest" alignment="CENTER" layoutX="13.0" layoutY="417.0" mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="270.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <graphic>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="119.0">
+                           <children>
+                              <Label text="Delete" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                     </graphic>
+                  </Button>
                </children>
                <effect>
-                  <DropShadow blurType="GAUSSIAN" />
+                  <DropShadow />
                </effect>
             </Pane>
          </children>
       </VBox>
-      <VBox fx:id="deleteBox" layoutX="926.0" layoutY="158.0" prefHeight="511.0" prefWidth="365.0">
-         <children>
-            <Pane fx:id="deletePane" prefHeight="1558.0" prefWidth="365.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="423.0" prefWidth="366.0" style="-fx-background-color: #F3F5F7;">
-                     <children>
-                        <HBox prefHeight="59.0" prefWidth="366.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="90.0" text="ID" textFill="#019ba5" />
-                              <MenuButton fx:id="morgueDeleteID" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="227.0" text="ID">
-                                 <HBox.margin>
-                                    <Insets top="10.0" />
-                                 </HBox.margin>
-                              </MenuButton>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="67.0" prefWidth="366.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="118.0" text="Location" textFill="#019ba5" />
-                              <Label fx:id="morgueDeleteLocation" alignment="CENTER" prefHeight="67.0" prefWidth="215.0" text="..." />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="67.0" prefWidth="366.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="127.0" text="Employee" textFill="#019ba5" />
-                              <Label fx:id="morgueDeleteEmployee" alignment="CENTER" prefHeight="67.0" prefWidth="196.0" text="..." />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="67.0" prefWidth="366.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="127.0" text="Status" textFill="#019ba5" />
-                              <Label fx:id="morgueDeleteStatus" alignment="CENTER" prefHeight="67.0" prefWidth="196.0" text="..." />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="91.0" prefWidth="366.0">
-                           <children>
-                              <Label fx:id="morgueDeleteDescription" alignment="CENTER_RIGHT" prefHeight="95.0" prefWidth="369.0" text="delete!" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <HBox layoutX="1.0" layoutY="422.0" prefHeight="85.0" prefWidth="365.0" style="-fx-background-color: #F3F5F7;">
-                     <children>
-                        <Label prefHeight="28.0" prefWidth="100.0" />
-                        <Button fx:id="submitDeleteRequest" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#submitDelete" prefHeight="51.0" prefWidth="162.0" text="Delete" textAlignment="CENTER">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Label prefHeight="28.0" prefWidth="105.0" />
-                     </children>
-                  </HBox>
-               </children>
-            </Pane>
-         </children>
-      </VBox>
-      <VBox fx:id="editBox" layoutX="927.0" layoutY="158.0" prefHeight="521.0" prefWidth="374.0" visible="false">
-         <children>
-            <Pane fx:id="editPane" prefHeight="1558.0" prefWidth="387.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="423.0" prefWidth="366.0" style="-fx-background-color: #F3F5F7;">
-                     <children>
-                        <HBox prefHeight="59.0" prefWidth="366.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="59.0" prefWidth="118.0" text="ID" textFill="#019ba5" />
-                              <MenuButton fx:id="morgueEditID" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="227.0" text="ID" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="67.0" prefWidth="366.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="118.0" text="Location" textFill="#019ba5" />
-                              <MenuButton fx:id="morgueEditLocation" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="227.0" text="Location">
-                                 <HBox.margin>
-                                    <Insets top="10.0" />
-                                 </HBox.margin>
-                              </MenuButton>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="67.0" prefWidth="366.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="127.0" text="Employee" textFill="#019ba5" />
-                              <MenuButton fx:id="morgueEditEmployee" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="213.0" text="Employee" textAlignment="CENTER">
-                                 <HBox.margin>
-                                    <Insets top="10.0" />
-                                 </HBox.margin>
-                              </MenuButton>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="67.0" prefWidth="366.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="127.0" text="Status" textFill="#019ba5" />
-                              <MenuButton fx:id="morgueEditStatus" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="215.0" text="Status" textAlignment="CENTER">
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" onAction="#editStatusMenu" text="Not Started" />
-                                    <MenuItem mnemonicParsing="false" onAction="#editStatusMenu" text="In Progress" />
-                                    <MenuItem mnemonicParsing="false" onAction="#editStatusMenu" text="Complete" />
-                                 </items>
-                                 <HBox.margin>
-                                    <Insets top="10.0" />
-                                 </HBox.margin>
-                              </MenuButton>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="91.0" prefWidth="366.0">
-                           <children>
-                              <TextField fx:id="morgueEditDescription" prefHeight="95.0" prefWidth="306.0" promptText="Description">
-                                 <HBox.margin>
-                                    <Insets left="30.0" right="30.0" />
-                                 </HBox.margin>
-                              </TextField>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <HBox layoutX="1.0" layoutY="422.0" prefHeight="85.0" prefWidth="365.0" style="-fx-background-color: #F3F5F7;">
-                     <children>
-                        <Button fx:id="clearEditRequest" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clearRequest" prefHeight="26.0" prefWidth="162.0" text="Clear" textAlignment="CENTER">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="15.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="submitEditRequest" alignment="CENTER" mnemonicParsing="false" onAction="#submitEditReq" prefHeight="51.0" prefWidth="162.0" text="Submit" textAlignment="CENTER">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-               </children>
-            </Pane>
-         </children>
-      </VBox>
+      <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
    </children>
 </AnchorPane>

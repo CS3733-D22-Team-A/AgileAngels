@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.DBconnection;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -16,9 +15,10 @@ public class MenuController implements Initializable {
 
   private @FXML Button back,
       close,
-      equipRequest,
+      serviceRequest,
       labRequest,
       map,
+      dashboard,
       homeImage,
       userButton,
       emergency,
@@ -52,22 +52,23 @@ public class MenuController implements Initializable {
   }
 
   @FXML
-  private void menuItem(ActionEvent event) throws IOException {
-    if (event.getSource() == equipRequest) {
-      appController.loadPage("/edu/wpi/agileAngels/views/equipment-view.fxml");
-    } else if (event.getSource() == labRequest) {
-      appController.loadPage("/edu/wpi/agileAngels/views/lab-view.fxml");
-    } else if (event.getSource() == map) {
-      appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
+  private void menuItem(ActionEvent event) {
+    if (event.getSource() == serviceRequest) {
+      appController.loadPage("/edu/wpi/agileAngels/views/serviceRequest-view.fxml");
     } else if (event.getSource() == emergency) {
       appController.loadPage("/edu/wpi/agileAngels/views/emergency-view.fxml");
-    } else if (event.getSource() == test) {
-      appController.loadPage("/edu/wpi/agileAngels/views/test-view.fxml");
+    } else if (event.getSource() == dashboard) {
+      appController.loadPage("/edu/wpi/agileAngels/views/NEWdashboard.fxml");
     }
   }
 
   public void changeTitle(String page) {
     pageTitle.setText(page);
+  }
+
+  public void hideButtons() {
+    back.setVisible(false);
+    close.setVisible(false);
   }
 
   public void profile(ActionEvent event) {}

@@ -20,7 +20,7 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
   @FXML
   Button equipmentRequest,
       labRequest,
-      sanRequest,
+      saniRequest,
       mealRequest,
       giftRequest,
       laundryRequest,
@@ -78,7 +78,7 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       appController.loadPage("/edu/wpi/agileAngels/views/equipment-view.fxml");
     } else if (event.getSource() == labRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/lab-view.fxml");
-    } else if (event.getSource() == sanRequest) {
+    } else if (event.getSource() == saniRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/sanitation-view.fxml");
     } else if (event.getSource() == mealRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/mealRequest-view.fxml");
