@@ -135,46 +135,36 @@ public class MedicalEquipmentTable implements TableI {
 
   @Override
   public HashMap<String, Object> getData() throws SQLException {
-    String sql = "SELECT * FROM ServiceRequests";
-    HashMap<String, Employee> employeeHashmap = Adb.getEmployees();
+    String sql = "SELECT * FROM MedicalEquipment";
     HashMap<String, Location> locationHashMap = Adb.getLocations();
 
-    HashMap<String, Object> empty = new HashMap();
+
 
     Connection connection = DBconnection.getConnection();
 
     Statement statement = connection.createStatement();
     ResultSet result = statement.executeQuery(sql);
+    HashMap<String, Object> empty = new HashMap<>();
 
 
     while (result.next()) {
       String name = result.getString("Name");
-      Employee employee = employeeHashmap.get(result.getString("employeename"));
-      Location location = locationHashMap.get(result.getString("location"));
-      String type = result.getString("type");
-      String status = result.getString("status");
-      String description = result.getString("description");
-      String attribute1 = result.getString("attribute1");
-      String attribute2 = result.getString("attribute2");
-
-      Request request = new Request(name, employee, location, type, status, description, attribute1, attribute2);
-
-      if (name.substring(0, 3).compareTo("Med") == 0) {
-        Adb.addMedRequest(request);
-      } else if (name.substring(0, 4).compareTo("Meal") ==0) {
-        Adb.addMealRequest(request);
-      } else if (name.substring(0, 4).compareTo("L") == 0) {
-        Adb.addLabRequest(request);
-      } else if (name.substring(0, 4).compareTo("Main") == 0) {
-        Adb.addmainRequest(request);
-      } else if (name.substring(0, 4).compareTo("Tran") == 0) {
-        {
-          Adb.addTransportRequest(request);
-        }
-      } else if (name.substring(0, 3).compareTo("Mor") == 0) {
-        Adb.addMorgueRequest(request);
-
+      String type = result.getString("Type");
+      boolean clean;
+      if(result.getString("Clean").compareTo("false") == 0){
+        clean = false;
+      }else{
+        clean = true;
       }
+      Location location = locationHashMap.get(result.getString("Location"));
+      String status = result.getString("Status");
+
+
+
+      MedicalEquip medicalEquip = new MedicalEquip(name, type, clean, location, status);
+
+      Adb.addMedEquip(medicalEquip);
+
 
     }
 

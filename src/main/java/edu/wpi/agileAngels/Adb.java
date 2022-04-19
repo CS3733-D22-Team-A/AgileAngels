@@ -294,6 +294,24 @@ public class Adb {
     return employeeManager.getAllEmployees();
   }
 
+  /**
+   * Resets DAO objects of equipment on hashmap and reads them from database teabl
+   * @return
+   * @throws SQLException
+   */
+  public static HashMap getMedEquipment() throws SQLException {
+    equipmentDAO.resetAllEquips();
+    medicalEquipmentTable.getData();
+    return equipmentDAO.getAllMedicalEquipment();
+
+  }
+
+  public static void addMedEquip(MedicalEquip equip){
+    equipmentDAO.addEquipment(equip);
+
+  }
+
+
   public static boolean readCSVLocations(){
     locationDAO.resetAllLocations();
     locationDAO.csvRead();

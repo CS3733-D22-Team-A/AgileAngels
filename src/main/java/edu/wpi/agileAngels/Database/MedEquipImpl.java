@@ -115,4 +115,8 @@ public class MedEquipImpl implements MedEquipDAO {
     System.out.println("Location Value " + location.getLongName());
     return location;
   }
+
+  public void resetAllEquips(){
+    MedEquipData = new HashMap<>();
+  }
 }
