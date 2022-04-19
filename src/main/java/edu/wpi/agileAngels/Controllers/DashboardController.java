@@ -48,7 +48,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
   private int pumpsPerFloor = 15;
   private int reclinersPerFloor = 5;
   private int xraysPerFloor = 1;
-  private int NumFloors = 3;
+  private int numFloors = 3;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -63,7 +63,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
     appController.addPropertyChangeListener(this);
 
     try {
-      this.updateCleanDirty();
+      this.updateCleanDirtyFromDB();
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -265,54 +265,37 @@ public class DashboardController implements Initializable, PropertyChangeListene
   }
 
   @FXML
-  public void updateCleanDirty() throws SQLException {
+  public void updateCleanDirtyFromDB() throws SQLException {
 
     MedEquipImpl equipDAO = MedEquipImpl.getInstance();
     HashMap<String, MedicalEquip> equipHash;
     equipHash = equipDAO.getAllMedicalEquipment();
 
-    int pumpCount = 0;
-    int bedCount = 0;
-    int XRayCount = 0;
-    int recCount = 0;
-    int pumpCountdirty = 0;
-    int bedCountdirty = 0;
-    int XRayCountdirty = 0;
-    int recCountdirty = 0;
-
     if (equipHash == null) {
-      System.out.println("It's null loser");
+      System.out.println("It's null");
     } else {
 
       for (Map.Entry<String, MedicalEquip> entry : equipHash.entrySet()) {
         MedicalEquip equip = entry.getValue();
-        if (equip.getType().equals("InfusionPump") && equip.isClean()) {
-          pumpCount += 1;
-        } else if (equip.getType().equals("InfusionPump") && !equip.isClean()) {
-          pumpCountdirty += 1;
-        } else if (equip.getType().equals("XRayMachine") && equip.isClean()) {
-          XRayCount += 1;
+        if (equip.getType().equals("InfusionPump") && !equip.isClean()) {
+          dirtyPumpsArray[0] += 1;
         } else if (equip.getType().equals("XRayMachine") && !equip.isClean()) {
-          XRayCountdirty += 1;
-        } else if (equip.getType().equals("Bed") && equip.isClean()) {
-          bedCount += 1;
+          dirtyXRaysArray[0] += 1;
         } else if (equip.getType().equals("Bed") && !equip.isClean()) {
-          bedCountdirty += 1;
-        } else if (equip.getType().equals("Recliner") && equip.isClean()) {
-          recCount += 1;
+          dirtyBedsArray[0] += 1;
         } else if (equip.getType().equals("Recliner") && !equip.isClean()) {
-          recCountdirty += 1;
+          dirtyReclinersArray[0] += 1;
         }
       }
 
-      cleanPump.setText(String.valueOf(pumpCount));
-      cleanXRay.setText(String.valueOf(XRayCount));
-      cleanBeds.setText(String.valueOf(bedCount));
-      cleanRecliner.setText(String.valueOf(recCount));
-      dirtyBeds.setText(String.valueOf(bedCountdirty));
-      dirtyRecliner.setText(String.valueOf(recCountdirty));
-      dirtyXRay.setText(String.valueOf(XRayCountdirty));
-      dirtyPump.setText(String.valueOf(pumpCountdirty));
+      cleanPump.setText(String.valueOf((pumpsPerFloor*numFloors) - dirtyPumpsArray[0]));
+      cleanXRay.setText(String.valueOf((xraysPerFloor*numFloors) - dirtyXRaysArray[0]));
+      cleanBeds.setText(String.valueOf((bedsPerFloor*numFloors) - dirtyBedsArray[0]));
+      cleanRecliner.setText(String.valueOf((reclinersPerFloor*numFloors) - dirtyReclinersArray[0]));
+      dirtyBeds.setText(String.valueOf(dirtyBedsArray[0]));
+      dirtyRecliner.setText(String.valueOf(dirtyReclinersArray[0]));
+      dirtyXRay.setText(String.valueOf(dirtyXRaysArray[0]));
+      dirtyPump.setText(String.valueOf(dirtyPumpsArray[0]));
     }
   }
 
