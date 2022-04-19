@@ -36,8 +36,7 @@ public class EmployeeManager implements EmployeeDAO {
     return this.employeeHashMap;
   }
 
-
-  public void resetAllEmployees(){
+  public void resetAllEmployees() {
     employeeHashMap = new HashMap<>();
   }
 

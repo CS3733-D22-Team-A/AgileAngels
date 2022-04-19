@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels.Database;
 
 import edu.wpi.agileAngels.Adb;
-
 import java.sql.*;
 import java.util.HashMap;
 
@@ -131,14 +130,10 @@ public class MedicalEquipmentTable implements TableI {
     }
   }
 
-
-
   @Override
   public HashMap<String, Object> getData() throws SQLException {
     String sql = "SELECT * FROM MedicalEquipment";
     HashMap<String, Location> locationHashMap = Adb.getLocations();
-
-
 
     Connection connection = DBconnection.getConnection();
 
@@ -146,30 +141,23 @@ public class MedicalEquipmentTable implements TableI {
     ResultSet result = statement.executeQuery(sql);
     HashMap<String, Object> empty = new HashMap<>();
 
-
     while (result.next()) {
       String name = result.getString("Name");
       String type = result.getString("Type");
       boolean clean;
-      if(result.getString("Clean").compareTo("false") == 0){
+      if (result.getString("Clean").compareTo("false") == 0) {
         clean = false;
-      }else{
+      } else {
         clean = true;
       }
       Location location = locationHashMap.get(result.getString("Location"));
       String status = result.getString("Status");
 
-
-
       MedicalEquip medicalEquip = new MedicalEquip(name, type, clean, location, status);
 
       Adb.addMedEquip(medicalEquip);
-
-
     }
 
     return empty;
-
-
   }
 }

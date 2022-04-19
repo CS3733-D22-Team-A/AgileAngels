@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels.Database;
 
 import edu.wpi.agileAngels.Adb;
-
 import java.sql.*;
 import java.util.HashMap;
 
@@ -137,6 +136,5 @@ public class LocationsTable implements TableI {
   public HashMap<String, Object> getData() throws SQLException {
     Adb.readCSVLocations();
     return Adb.getLocations();
-
   }
 }

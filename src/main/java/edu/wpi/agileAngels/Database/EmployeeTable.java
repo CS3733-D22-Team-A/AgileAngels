@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels.Database;
 
 import edu.wpi.agileAngels.Adb;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;

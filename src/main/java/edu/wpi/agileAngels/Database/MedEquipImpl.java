@@ -116,7 +116,7 @@ public class MedEquipImpl implements MedEquipDAO {
     return location;
   }
 
-  public void resetAllEquips(){
+  public void resetAllEquips() {
     MedEquipData = new HashMap<>();
   }
 }

@@ -389,5 +389,7 @@ public class RequestDAOImpl implements RequestDAO {
     }
   }
 
-
+  public void resetData() {
+    this.reqData = new HashMap<String, Request>();
+  }
 }

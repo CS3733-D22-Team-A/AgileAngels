@@ -43,7 +43,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
   HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
   private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
-  ArrayList<String> freeEmployees = MorguerequestImpl.getFreeEmployees();
+
   private int statusNotStarted, statusInProgress, statusComplete;
 
   public MorgueController() throws SQLException {}
@@ -96,11 +96,6 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     }
     // Populates employees dropdown
     morgueEmployee.getItems().clear();
-    for (String emp : freeEmployees) {
-      MenuItem item = new MenuItem(emp);
-      item.setOnAction(this::employeeMenu);
-      morgueEmployee.getItems().add(item);
-    }
     // Populates ID dropdown
     morgueID.getItems().clear();
     for (Request req : morgueData) {
@@ -166,8 +161,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
         }
       }
     }
-    freeEmployees.clear();
-    freeEmployees = MorguerequestImpl.getFreeEmployees();
+
     clear(event);
     popOut.setVisible(false);
   }
@@ -229,8 +223,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     }
     // delete from hash map and database table
     MorguerequestImpl.deleteRequest(MorguerequestImpl.getAllRequests().get(id));
-    freeEmployees.clear();
-    freeEmployees = MorguerequestImpl.getFreeEmployees();
+
     clear(event);
     popOut.setVisible(false);
   }

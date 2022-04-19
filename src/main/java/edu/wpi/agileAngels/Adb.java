@@ -3,7 +3,6 @@ package edu.wpi.agileAngels;
 import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import edu.wpi.agileAngels.Database.*;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 // This class is the backend of the DAO method.
@@ -20,7 +19,7 @@ public class Adb {
   private static RequestDAOImpl labRequestDAO = null;
   private static MedEquipImpl equipmentDAO = null;
   private static RequestDAOImpl mainRequestImpl = null;
-  private static RequestDAOImpl transportRequestImpl= null;
+  private static RequestDAOImpl transportRequestImpl = null;
   private static RequestDAOImpl morgueRequestImpl = null;
   private static RequestDAOImpl mealRequestImpl = null;
 
@@ -81,21 +80,18 @@ public class Adb {
     employeeManager = EmployeeManager.getInstance();
     employeeManager.readCSV();
     locationDAO = LocationDAOImpl.getInstance();
-    locationDAO.csvRead();
-    medRequestDAO = RequestDAOImpl.getInstance("MedRequest");
-    medRequestDAO.csvRead();
+    locationsTable.getData();
+
     labRequestDAO = RequestDAOImpl.getInstance("LabRequest");
-    labRequestDAO.csvRead();
     equipmentDAO = MedEquipImpl.getInstance();
-    equipmentDAO.readCSV();
     mainRequestImpl = RequestDAOImpl.getInstance("MaintenanceRequest");
-    mainRequestImpl.csvRead();
     transportRequestImpl = RequestDAOImpl.getInstance("TransportRequest");
-    transportRequestImpl.csvRead();
     morgueRequestImpl = RequestDAOImpl.getInstance("MorgueRequest");
-    morgueRequestImpl.csvRead();
     mealRequestImpl = RequestDAOImpl.getInstance("MealRequest");
-    mealRequestImpl.csvRead();
+    medRequestDAO = RequestDAOImpl.getInstance("MedRequest");
+    resetServiceRequests();
+
+    serviceRequestTable.getData();
   }
 
   /**
@@ -151,11 +147,6 @@ public class Adb {
     }
     return employeeTable;
   }
-
-
-
-
-
 
   /**
    * Adds a request to the request database table.
@@ -248,29 +239,29 @@ public class Adb {
     return medicalEquipmentTable.update(medicalEquip);
   }
 
-  public static void addMedRequest(Request request){
+  public static void addMedRequest(Request request) {
     medRequestDAO.addRequest(request);
   }
 
-  public static void addMealRequest(Request request){
+  public static void addMealRequest(Request request) {
     mealRequestImpl.addRequest(request);
   }
 
-  public static void addLabRequest(Request request){
+  public static void addLabRequest(Request request) {
     labRequestDAO.addRequest(request);
   }
-  public static void addmainRequest(Request request){
+
+  public static void addmainRequest(Request request) {
     mainRequestImpl.addRequest(request);
   }
 
-  public static void addTransportRequest(Request request){
+  public static void addTransportRequest(Request request) {
     transportRequestImpl.addRequest(request);
   }
 
-  public static void addMorgueRequest(Request request){
+  public static void addMorgueRequest(Request request) {
     morgueRequestImpl.addRequest(request);
   }
-
 
   /**
    * Adds a new employee to the employee table
@@ -282,20 +273,30 @@ public class Adb {
     return employeeTable.add(employee);
   }
 
-
-  public static boolean readCSVEmployees(){
+  public static boolean readCSVEmployees() {
     employeeManager.resetAllEmployees();
     employeeManager.readCSV();
     return true;
   }
 
+  public static void resetServiceRequests() {
+    medRequestDAO.resetData();
+    labRequestDAO.resetData();
+    // san
+    mealRequestImpl.resetData();
+    // gift
+    mainRequestImpl.resetData();
+    transportRequestImpl.resetData();
+    morgueRequestImpl.resetData();
+  }
 
-  public static HashMap getEmployees(){
+  public static HashMap getEmployees() {
     return employeeManager.getAllEmployees();
   }
 
   /**
    * Resets DAO objects of equipment on hashmap and reads them from database teabl
+   *
    * @return
    * @throws SQLException
    */
@@ -303,26 +304,21 @@ public class Adb {
     equipmentDAO.resetAllEquips();
     medicalEquipmentTable.getData();
     return equipmentDAO.getAllMedicalEquipment();
-
   }
 
-  public static void addMedEquip(MedicalEquip equip){
+  public static void addMedEquip(MedicalEquip equip) {
     equipmentDAO.addEquipment(equip);
-
   }
 
-
-  public static boolean readCSVLocations(){
+  public static boolean readCSVLocations() {
     locationDAO.resetAllLocations();
     locationDAO.csvRead();
     return true;
   }
 
-  public static HashMap getLocations(){
+  public static HashMap getLocations() {
     return locationDAO.getAllLocations();
   }
-
-
 
   /**
    * Removes an employee from the employee table
@@ -347,6 +343,4 @@ public class Adb {
   public static boolean updateRequest(Request request, String employeeName, String newName) {
     return serviceRequestTable.update(request);
   }
-
-
 }
