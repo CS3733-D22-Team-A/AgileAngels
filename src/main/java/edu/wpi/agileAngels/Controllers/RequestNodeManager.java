@@ -27,6 +27,10 @@ public class RequestNodeManager {
     return locationsList;
   }
 
+  public ArrayList<String> getTypes(RequestNode node) {
+    return labRequestDAO.getRequestTypes().get(node.getName().substring(0, 3));
+  }
+
   // gets all locations from the DB and creates nodes from them
   void createNodesFromDB() throws SQLException {
     ArrayList<Request> requestsList = new ArrayList<>(medRequestDAO.getAllRequests().values());

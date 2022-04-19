@@ -207,7 +207,8 @@ Note that these labels lock your font size.
 .table-view .column-header-background .label{
     -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-alignment: CENTER-LEFT;
+    -fx-alignment: left;
+    -fx-font-alignment: left;
 }
 
 .table-view .column-header-background {
@@ -220,13 +221,12 @@ Note that these labels lock your font size.
 }
 
 .table-row-cell:focused{
-    -fx-text-background-fill: blue;
-    -fx-font-weight: bold;
+    -fx-text-background-color: black;
 }
 
 .table-row-cell:hover {
     -fx-background-color: #93f9b911;
-    -fx-text-background-fill: red;
+    -fx-text-background-color: red;
 }
 .table-row-cell:selected{
     -fx-text-background-color: blue;
@@ -243,6 +243,8 @@ Note that these labels lock your font size.
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 2;
 }
-
+.table-row-cell:focused{
+    -fx-font-style: bold;
+}
 /* OTHER SHIT
  */
