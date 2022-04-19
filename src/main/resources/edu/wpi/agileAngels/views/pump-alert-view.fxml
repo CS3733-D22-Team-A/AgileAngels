@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="main" fx:id="anchor" maxHeight="200.0" maxWidth="400.0" minHeight="200.0" minWidth="400.0" prefHeight="200.0" prefWidth="400.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.PumpAlertController">
+<AnchorPane id="main" fx:id="anchor" maxHeight="200.0" maxWidth="400.0" minHeight="200.0" minWidth="400.0" prefHeight="200.0" prefWidth="400.0" stylesheets="@stylesheets/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.PumpAlertController">
    <children>
       <VBox prefHeight="201.0" prefWidth="402.0">
          <children>
@@ -38,12 +38,12 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="73.0" prefWidth="402.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="384.0" stylesheets="@alertCSS.css" text="There are more than ten dirty infusion pumps on a floor. Please make requests to clean them." wrapText="true" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="384.0" stylesheets="@stylesheets/alertCSS.css" text="There are more than ten dirty infusion pumps on a floor. Please make requests to clean them." wrapText="true" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="76.0" prefWidth="402.0">
                <children>
-                  <Button fx:id="requestButton" mnemonicParsing="false" onAction="#makeRequests" prefHeight="43.0" prefWidth="106.0" stylesheets="@alertCSS.css" text="Make Requests" />
+                  <Button fx:id="requestButton" mnemonicParsing="false" onAction="#makeRequests" prefHeight="43.0" prefWidth="106.0" stylesheets="@stylesheets/alertCSS.css" text="Make Requests" />
                </children>
             </HBox>
          </children>
