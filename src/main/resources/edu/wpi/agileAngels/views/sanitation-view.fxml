@@ -1,55 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.effect.DropShadow?>
-<?import java.net.URL?>
-<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0"
-            prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/styleRequest.css"
-            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="edu.wpi.agileAngels.Controllers.SanitationController">
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/styleRequest.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.SanitationController">
     <children>
         <HBox alignment="CENTER" layoutX="78.0" layoutY="160.0" prefHeight="451.0" prefWidth="1158.0" spacing="50.0">
             <children>
                 <TableView fx:id="SaniTable" prefHeight="451.0" prefWidth="1188.0">
                     <columns>
-                        <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0"
-                                     resizable="false" text="Name"/>
-                        <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0"
-                                     resizable="false" text="Type"/>
-                        <TableColumn fx:id="locationColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0"
-                                     resizable="false" text="Location"/>
-                        <TableColumn fx:id="employeeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0"
-                                     resizable="false" text="Employee"/>
-                        <TableColumn fx:id="statusColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0"
-                                     resizable="false" text="Status"/>
-                        <TableColumn fx:id="descriptionColumn" maxWidth="442.0" minWidth="123.0" prefWidth="442.0"
-                                     resizable="false" text="Description"/>
+                        <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
+                        <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Type" />
+                        <TableColumn fx:id="locationColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Location" />
+                        <TableColumn fx:id="employeeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Employee" />
+                        <TableColumn fx:id="statusColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Status" />
+                        <TableColumn fx:id="descriptionColumn" maxWidth="442.0" minWidth="123.0" prefWidth="442.0" resizable="false" text="Description" />
                     </columns>
                 </TableView>
             </children>
         </HBox>
-        <Label fx:id="labTestConfirmation" alignment="TOP_LEFT" layoutX="144.0" layoutY="598.0" prefHeight="100.0"
-               prefWidth="523.0" wrapText="true">
+        <Label fx:id="labTestConfirmation" alignment="TOP_LEFT" layoutX="144.0" layoutY="598.0" prefHeight="100.0" prefWidth="523.0" wrapText="true">
             <font>
-                <Font size="16.0"/>
+                <Font size="16.0" />
             </font>
         </Label>
         <Pane fx:id="dropButtonPane" layoutX="78.0" layoutY="102.0" prefHeight="50.0" prefWidth="270.0">
@@ -58,58 +47,52 @@
                     <children>
                         <VBox prefHeight="200.0" prefWidth="270.0">
                             <children>
-                                <Button id="menuItemTop" fx:id="op1" mnemonicParsing="false" prefHeight="50.0"
-                                        prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
+                                <Button id="menuItemTop" fx:id="op1" mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
                                     <graphic>
                                         <Label fx:id="op1Label" prefHeight="26.0" prefWidth="274.0" text="Move to  X">
                                             <padding>
-                                                <Insets left="10.0"/>
+                                                <Insets left="10.0" />
                                             </padding>
                                         </Label>
                                     </graphic>
                                     <padding>
-                                        <Insets left="10.0"/>
+                                        <Insets left="10.0" />
                                     </padding>
                                 </Button>
-                                <Button id="menuItem" fx:id="op2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
-                                        prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
+                                <Button id="menuItem" fx:id="op2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
                                     <graphic>
                                         <Label fx:id="op2Label" prefHeight="24.0" prefWidth="360.0" text="Room Change">
                                             <padding>
-                                                <Insets left="10.0"/>
+                                                <Insets left="10.0" />
                                             </padding>
                                         </Label>
                                     </graphic>
                                     <padding>
-                                        <Insets left="10.0"/>
+                                        <Insets left="10.0" />
                                     </padding>
                                 </Button>
-                                <Button id="menuItem" fx:id="op3" layoutX="10.0" layoutY="54.0" mnemonicParsing="false"
-                                        prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
+                                <Button id="menuItem" fx:id="op3" layoutX="10.0" layoutY="54.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
                                     <graphic>
-                                        <Label fx:id="op3Label" prefHeight="24.0" prefWidth="360.0"
-                                               text="Hospital Change">
+                                        <Label fx:id="op3Label" prefHeight="24.0" prefWidth="360.0" text="Hospital Change">
                                             <padding>
-                                                <Insets left="10.0"/>
+                                                <Insets left="10.0" />
                                             </padding>
                                         </Label>
                                     </graphic>
                                     <padding>
-                                        <Insets left="10.0"/>
+                                        <Insets left="10.0" />
                                     </padding>
                                 </Button>
-                                <Button id="menuItemBottom" fx:id="op4" layoutX="10.0" layoutY="98.0"
-                                        mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0"
-                                        stylesheets="@style.css" textOverrun="CLIP">
+                                <Button id="menuItemBottom" fx:id="op4" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
                                     <graphic>
                                         <Label fx:id="op4Label" prefHeight="24.0" prefWidth="360.0" text="Release">
                                             <padding>
-                                                <Insets left="10.0"/>
+                                                <Insets left="10.0" />
                                             </padding>
                                         </Label>
                                     </graphic>
                                     <padding>
-                                        <Insets left="10.0"/>
+                                        <Insets left="10.0" />
                                     </padding>
                                 </Button>
                             </children>
@@ -122,247 +105,217 @@
             <children>
                 <GridPane prefWidth="408.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label prefHeight="100.0" prefWidth="100.0" style="-fx-font-weight: bold;"
-                               text="Requests by Status:" textAlignment="CENTER" textOverrun="CLIP" wrapText="true"
-                               GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        <Label prefHeight="100.0" prefWidth="100.0" style="-fx-font-weight: bold;" text="Requests by Status:" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </Label>
-                        <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE"
-                                   strokeType="INSIDE" width="90.0" GridPane.columnIndex="1">
+                        <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="1">
                             <GridPane.margin>
-                                <Insets left="10.0"/>
+                                <Insets left="10.0" />
                             </GridPane.margin>
                         </Rectangle>
-                        <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE"
-                                   strokeType="INSIDE" width="90.0" GridPane.columnIndex="3">
+                        <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="3">
                             <GridPane.margin>
-                                <Insets left="20.0"/>
+                                <Insets left="20.0" />
                             </GridPane.margin>
                         </Rectangle>
-                        <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE"
-                                   strokeType="INSIDE" width="90.0" GridPane.columnIndex="2">
+                        <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="2">
                             <GridPane.margin>
-                                <Insets left="15.0"/>
+                                <Insets left="15.0" />
                             </GridPane.margin>
                         </Rectangle>
                         <Label fx:id="notStartedNumber" text="-" GridPane.columnIndex="1">
                             <GridPane.margin>
-                                <Insets bottom="25.0" left="40.0"/>
+                                <Insets bottom="25.0" left="40.0" />
                             </GridPane.margin>
                         </Label>
                         <Label fx:id="inProgressNumber" text="-" GridPane.columnIndex="2">
                             <GridPane.margin>
-                                <Insets bottom="25.0" left="42.0"/>
+                                <Insets bottom="25.0" left="42.0" />
                             </GridPane.margin>
                         </Label>
                         <Label fx:id="completedNumber" text="-" GridPane.columnIndex="3">
                             <GridPane.margin>
-                                <Insets bottom="25.0" left="47.0"/>
+                                <Insets bottom="25.0" left="47.0" />
                             </GridPane.margin>
                         </Label>
-                        <Label prefHeight="35.0" prefWidth="77.0" style="-fx-font-size: 15;" text="Not Started"
-                               textOverrun="CLIP" GridPane.columnIndex="1">
+                        <Label prefHeight="35.0" prefWidth="77.0" style="-fx-font-size: 15;" text="Not Started" textOverrun="CLIP" GridPane.columnIndex="1">
                             <GridPane.margin>
-                                <Insets left="19.0" top="40.0"/>
+                                <Insets left="19.0" top="40.0" />
                             </GridPane.margin>
                             <font>
-                                <Font size="7.0"/>
+                                <Font size="7.0" />
                             </font>
                         </Label>
-                        <Label style="-fx-font-size: 15;" text="In Progress" textOverrun="CLIP"
-                               GridPane.columnIndex="2">
+                        <Label style="-fx-font-size: 15;" text="In Progress" textOverrun="CLIP" GridPane.columnIndex="2">
                             <GridPane.margin>
-                                <Insets left="25.0" top="40.0"/>
+                                <Insets left="25.0" top="40.0" />
                             </GridPane.margin>
                         </Label>
                         <Label style="-fx-font-size: 15;" text="Completed" textOverrun="CLIP" GridPane.columnIndex="3">
                             <GridPane.margin>
-                                <Insets left="28.0" top="40.0"/>
+                                <Insets left="28.0" top="40.0" />
                             </GridPane.margin>
                         </Label>
                     </children>
                 </GridPane>
             </children>
         </HBox>
-        <TextField fx:id="employeeFilterField" layoutX="444.0" layoutY="623.0" prefHeight="50.0" prefWidth="171.0"
-                   promptText="Filter by Employee"/>
-        <Button alignment="CENTER" layoutX="842.0" layoutY="620.0" mnemonicParsing="false" onAction="#filterReqOnAction"
-                prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+        <TextField fx:id="employeeFilterField" layoutX="444.0" layoutY="623.0" prefHeight="50.0" prefWidth="171.0" promptText="Filter by Employee" />
+        <Button alignment="CENTER" layoutX="842.0" layoutY="620.0" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
             <opaqueInsets>
-                <Insets/>
+                <Insets />
             </opaqueInsets>
             <graphic>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Label text="Submit Filter"/>
+                        <Label text="Submit Filter" />
                     </children>
                     <opaqueInsets>
-                        <Insets/>
+                        <Insets />
                     </opaqueInsets>
                 </HBox>
             </graphic>
         </Button>
-        <Button alignment="CENTER" layoutX="998.0" layoutY="620.0" mnemonicParsing="false" onAction="#clearFilters"
-                prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+        <Button alignment="CENTER" layoutX="998.0" layoutY="620.0" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
             <opaqueInsets>
-                <Insets/>
+                <Insets />
             </opaqueInsets>
             <graphic>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Label text="Clear Filters"/>
+                        <Label text="Clear Filters" />
                     </children>
                     <opaqueInsets>
-                        <Insets/>
+                        <Insets />
                     </opaqueInsets>
                 </HBox>
             </graphic>
         </Button>
-        <TextField fx:id="statusFilterField" layoutX="657.0" layoutY="623.0" prefHeight="50.0" prefWidth="154.0"
-                   promptText="Filter by Status"/>
-        <Button fx:id="modifyButton" layoutX="846.0" layoutY="79.0" mnemonicParsing="false" onAction="#modifyRequest"
-                prefHeight="59.0" prefWidth="120.0" style="-fx-font-weight: bold;" text="Modify" textAlignment="CENTER"
-                wrapText="true">
+        <TextField fx:id="statusFilterField" layoutX="657.0" layoutY="623.0" prefHeight="50.0" prefWidth="154.0" promptText="Filter by Status" />
+        <Button fx:id="modifyButton" layoutX="846.0" layoutY="79.0" mnemonicParsing="false" onAction="#modifyRequest" prefHeight="59.0" prefWidth="120.0" style="-fx-font-weight: bold;" text="Modify" textAlignment="CENTER" wrapText="true">
             <font>
-                <Font size="15.0"/>
+                <Font size="15.0" />
             </font>
         </Button>
-        <VBox alignment="CENTER" layoutX="978.0" prefHeight="678.0" prefWidth="294.0" spacing="15.0">
+        <VBox fx:id="popOut" alignment="CENTER" layoutX="978.0" prefHeight="678.0" prefWidth="294.0" spacing="15.0">
             <children>
-                <Pane fx:id="popOut" prefHeight="484.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
+                <Pane prefHeight="484.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
                     <children>
-                        <MenuButton fx:id="saniID" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0"
-                                    layoutY="31.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0"
-                                    text="ID"/>
-                        <MenuButton fx:id="saniLocation" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0"
-                                    layoutY="138.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0"
-                                    text="Location"/>
-                        <MenuButton fx:id="saniType" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0"
-                                    layoutY="84.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0"
-                                    text="Type">
+                        <MenuButton fx:id="saniID" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="31.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="ID" />
+                        <MenuButton fx:id="saniLocation" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="138.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Location" />
+                        <MenuButton fx:id="saniType" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="84.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Type">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#saniTypeMenu" text="Clean Spill"/>
-                                <MenuItem mnemonicParsing="false" onAction="#saniTypeMenu" text="Clean Room"/>
-                                <MenuItem mnemonicParsing="false" onAction="#saniTypeMenu" text="Clean Exam"/>
-                                <MenuItem mnemonicParsing="false" onAction="#saniTypeMenu" text="Janitorial"/>
-                                <MenuItem mnemonicParsing="false" onAction="#saniTypeMenu" text="Other"/>
+                                <MenuItem mnemonicParsing="false" onAction="#saniTypeMenu" text="Clean Spill" />
+                                <MenuItem mnemonicParsing="false" onAction="#saniTypeMenu" text="Clean Room" />
+                                <MenuItem mnemonicParsing="false" onAction="#saniTypeMenu" text="Clean Exam" />
+                                <MenuItem mnemonicParsing="false" onAction="#saniTypeMenu" text="Janitorial" />
+                                <MenuItem mnemonicParsing="false" onAction="#saniTypeMenu" text="Other" />
                             </items>
                         </MenuButton>
-                        <MenuButton fx:id="saniEmployee" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0"
-                                    layoutY="192.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0"
-                                    text="Employee"/>
-                        <MenuButton fx:id="saniStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0"
-                                    layoutY="248.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0"
-                                    text="Status">
+                        <MenuButton fx:id="saniEmployee" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="192.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
+                        <MenuButton fx:id="saniStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="248.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Status">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#saniStatusMenu" text="Not Started"/>
-                                <MenuItem mnemonicParsing="false" onAction="#saniStatusMenu" text="In Progress"/>
+                                <MenuItem mnemonicParsing="false" onAction="#saniStatusMenu" text="Not Started" />
+                                <MenuItem mnemonicParsing="false" onAction="#saniStatusMenu" text="In Progress" />
                             </items>
                         </MenuButton>
-                        <TextField fx:id="saniDescription" layoutX="12.0" layoutY="302.0" prefHeight="50.0"
-                                   prefWidth="270.0" promptText="Description"/>
+                        <TextField fx:id="saniDescription" layoutX="12.0" layoutY="302.0" prefHeight="50.0" prefWidth="270.0" promptText="Description" />
                         <HBox layoutX="12.0" layoutY="359.0" prefHeight="59.0" prefWidth="270.0" spacing="16.0">
                             <children>
-                                <Button fx:id="cancelRequest" alignment="CENTER" mnemonicParsing="false"
-                                        onAction="#cancel" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                                <Button fx:id="cancelRequest" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
                                     <font>
-                                        <Font size="10.0"/>
+                                        <Font size="10.0" />
                                     </font>
                                     <opaqueInsets>
-                                        <Insets/>
+                                        <Insets />
                                     </opaqueInsets>
                                     <graphic>
                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                             <children>
-                                                <Label text="Cancel"/>
+                                                <Label text="Cancel" />
                                             </children>
                                             <opaqueInsets>
-                                                <Insets/>
+                                                <Insets />
                                             </opaqueInsets>
                                         </HBox>
                                     </graphic>
                                 </Button>
-                                <Button fx:id="submitRequest" alignment="CENTER" mnemonicParsing="false"
-                                        onAction="#submit" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                                <Button fx:id="submitRequest" alignment="CENTER" mnemonicParsing="false" onAction="#submit" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
                                     <font>
-                                        <Font size="10.0"/>
+                                        <Font size="10.0" />
                                     </font>
                                     <opaqueInsets>
-                                        <Insets/>
+                                        <Insets />
                                     </opaqueInsets>
                                     <graphic>
                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                             <children>
-                                                <Label text="Submit"/>
+                                                <Label text="Submit" />
                                             </children>
                                             <opaqueInsets>
-                                                <Insets/>
+                                                <Insets />
                                             </opaqueInsets>
                                         </HBox>
                                     </graphic>
                                 </Button>
-                                <Button fx:id="clearRequest" alignment="CENTER" layoutX="10.0" layoutY="10.0"
-                                        mnemonicParsing="false" onAction="#clear" prefHeight="50.0" prefWidth="127.0"
-                                        textAlignment="CENTER">
+                                <Button fx:id="clearRequest" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#clear" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
                                     <font>
-                                        <Font size="10.0"/>
+                                        <Font size="10.0" />
                                     </font>
                                     <opaqueInsets>
-                                        <Insets/>
+                                        <Insets />
                                     </opaqueInsets>
                                     <graphic>
                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                             <children>
-                                                <Label text="Clear"/>
+                                                <Label text="Clear" />
                                             </children>
                                             <opaqueInsets>
-                                                <Insets/>
+                                                <Insets />
                                             </opaqueInsets>
                                         </HBox>
                                     </graphic>
                                 </Button>
                             </children>
                         </HBox>
-                        <Button fx:id="deleteRequest" alignment="CENTER" layoutX="13.0" layoutY="417.0"
-                                mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="270.0"
-                                textAlignment="CENTER">
+                        <Button fx:id="deleteRequest" alignment="CENTER" layoutX="13.0" layoutY="417.0" mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="270.0" textAlignment="CENTER">
                             <font>
-                                <Font size="10.0"/>
+                                <Font size="10.0" />
                             </font>
                             <opaqueInsets>
-                                <Insets/>
+                                <Insets />
                             </opaqueInsets>
                             <graphic>
                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="119.0">
                                     <children>
-                                        <Label text="Delete"/>
+                                        <Label text="Delete" />
                                     </children>
                                     <opaqueInsets>
-                                        <Insets/>
+                                        <Insets />
                                     </opaqueInsets>
                                 </HBox>
                             </graphic>
                         </Button>
                     </children>
                     <effect>
-                        <DropShadow/>
+                        <DropShadow />
                     </effect>
                 </Pane>
             </children>
@@ -376,8 +329,7 @@
 
         </VBox>
 
-        <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
-                    AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"/>
+        <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
     </children>
 
     <stylesheets>
