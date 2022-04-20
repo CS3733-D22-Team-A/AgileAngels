@@ -25,7 +25,7 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       maintenanceRequest,
       morgueRequest,
       patientTransportRequest;
-  @FXML private JFXToggleButton toggleButton,clientToggle;
+  @FXML private JFXToggleButton toggleButton, clientToggle;
 
   // These are/will be the hidden labels for the toggleable switch.
   @FXML
@@ -45,6 +45,7 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
+    updateToggle();
   }
 
   @Override
@@ -120,25 +121,29 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
     }*/
   }
 
+  /**
+   * uses the toggleStatus to update the toggle from client to embedded.
+   * @param event
+   */
   @FXML
   private void toggleStatus(ActionEvent event) {
     if (clientToggle.isSelected()) {
       appController.setEmbeddedON(true);
-      System.out.println("oop gurl and i skr skr skr");
+     //System.out.println("oop gurl and i skr skr skr");
     } else {
       appController.setEmbeddedON(false);
-      System.out.println("is false now gurl");
+      //System.out.println("is false now gurl");
     }
   }
 
+  /**
+   * This will check when initalizing what status the toggle was on.
+   */
   private void updateToggle() {
     if (appController.isEmbeddedON()) {
       clientToggle.setSelected(appController.isEmbeddedON());
-      System.out.println("Justin's here");
+     // System.out.println("Justin's here");
       System.out.println(appController.isEmbeddedON());
     }
   }
-
-
-
 }
