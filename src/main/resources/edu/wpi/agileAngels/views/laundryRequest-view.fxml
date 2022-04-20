@@ -293,7 +293,7 @@
                   <VBox fillWidth="false" layoutX="9.0" layoutY="12.0" prefHeight="360.0" prefWidth="277.0" spacing="20.0">
                      <children>
                         <MenuButton fx:id="laundryID" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="ID" />
-                        <TextField fx:id="laundryLocation" prefHeight="30.0" prefWidth="270.0" promptText="ID" />
+                        <TextField fx:id="laundryLocation" prefHeight="30.0" prefWidth="270.0" promptText="Location ID" />
                         <TextField fx:id="laundryType" prefHeight="30.0" prefWidth="270.0" promptText="Type" />
                         <TextField fx:id="laundryEmployee" prefHeight="30.0" prefWidth="270.0" promptText="Employee" />
                         <TextField fx:id="laundryStatus" prefHeight="30.0" prefWidth="270.0" promptText="Status" />

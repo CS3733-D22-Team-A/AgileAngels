@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Employee;
-import edu.wpi.agileAngels.Database.Location;
+import edu.wpi.agileAngels.Database.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -81,6 +80,10 @@ public class MapsController implements Initializable, PropertyChangeListener {
   EquipmentNodeManager equipmentNodeManager = new EquipmentNodeManager(this);
 
   AppController appController = AppController.getInstance();
+
+  private MedEquipImpl equipDAO = MedEquipImpl.getInstance();
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
+  HashMap<String, Location> locationsHash = locDAO.getAllLocations();
 
   public MapsController() throws SQLException {}
 
@@ -300,8 +303,16 @@ public class MapsController implements Initializable, PropertyChangeListener {
     currentRequestNode.getRequest().setStatus(requestStatusDropdown.getText());
     currentRequestNode.getRequest().setType(requestTypeDropdown.getText());
     requestNodeManager.updateRequest(currentRequestNode);
+    //    if (currentRequestNode.getRequest().getName().substring(0, 3).equals("Med")) {
+    //      equipmentNodeManager.updateEquipObject(
+    //          currentRequestNode.getRequest(), requestTypeDropdown.getText());
+    //    }
     currentRequestNode = null;
     requestEditPane.setVisible(false);
+  }
+
+  public void updateEquipNode(String ID) {
+    equipmentNodeManager.updateEquipNode(ID);
   }
 
   /**
