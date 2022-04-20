@@ -1,6 +1,7 @@
 package edu.wpi.agileAngels.Controllers;
 
 import com.jfoenix.controls.JFXToggleButton;
+import edu.wpi.agileAngels.Database.DBconnection;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -128,6 +129,7 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
    */
   @FXML
   private void toggleStatus(ActionEvent event) {
+    DBconnection.switchConnection();
     if (clientToggle.isSelected()) {
       appController.setEmbeddedON(true);
       // System.out.println("oop gurl and i skr skr skr");
