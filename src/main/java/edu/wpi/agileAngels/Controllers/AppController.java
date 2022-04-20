@@ -25,6 +25,7 @@ public class AppController {
   private int[] dirtyInfusionPumps = new int[4];
   private int[] dirtyRecliners = new int[4];
   private int[] dirtyXRays = new int[4];
+  public boolean embeddedON = false;
 
   HashMap<String, String> pages = new HashMap<>();
 
@@ -224,8 +225,15 @@ public class AppController {
     Platform.exit();
   }
 
-  public void loadPage(String view) {
+  public boolean isEmbeddedON() {
+    return embeddedON;
+  }
 
+  public void setEmbeddedON(boolean embeddedON) {
+    this.embeddedON = embeddedON;
+  }
+
+  public void loadPage(String view) {
     if (pageHistory.isEmpty()) {
       pageHistory.push(view);
     } else if (!Objects.equals(view, pageHistory.peek())) {
@@ -253,7 +261,6 @@ public class AppController {
   }
 
   void setMenuBarTitle(String view) {
-
     try {
       if (view.equals("/edu/wpi/agileAngels/views/NEWdashboard.fxml")) {
         menuController.hideButtons();
