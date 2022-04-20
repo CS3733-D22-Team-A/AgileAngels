@@ -143,7 +143,7 @@ public class LabController implements Initializable, PropertyChangeListener {
       MenuItem item1 = new MenuItem("Add New Request");
       item1.setOnAction(this::labIDMenu);
       labID.getItems().add(item1);
-
+      updateDashAdding(stat);
     } else { // Editing
       Request req = labRequestImpl.getAllRequests().get(labID.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
@@ -154,6 +154,9 @@ public class LabController implements Initializable, PropertyChangeListener {
         labRequestImpl.updateEmployeeName(req, emp);
       }
       if (!req.getStatus().equals(stat)) {
+        System.out.println(stat + " " + req.getStatus());
+        updateDashAdding(stat);
+        updateDashSubtracting(req.getStatus());
         labRequestImpl.updateStatus(req, stat);
       }
       if (!req.getDescription().equals(desc)) {
@@ -190,7 +193,7 @@ public class LabController implements Initializable, PropertyChangeListener {
         labID.getItems().remove(i);
       }
     }
-
+    updateDashSubtracting(labRequestImpl.getAllRequests().get(id).getStatus());
     // delete from hash map and database table
     labRequestImpl.deleteRequest(labRequestImpl.getAllRequests().get(id));
 
@@ -439,5 +442,39 @@ public class LabController implements Initializable, PropertyChangeListener {
     labStatus.setText(req.getStatus());
     labDescription.setText(req.getDescription());
     labType.setText(req.getType());
+  }
+
+  private void updateDashAdding(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted++;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress++;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete++;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  private void updateDashSubtracting(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted--;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress--;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete--;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
   }
 }
