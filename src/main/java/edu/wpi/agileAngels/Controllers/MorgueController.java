@@ -143,7 +143,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
       MenuItem item1 = new MenuItem("Add New Request");
       item1.setOnAction(this::morgueIDMenu);
       morgueID.getItems().add(item1);
-
+      updateDashAdding(stat);
     } else { // Editing
       Request req = MorguerequestImpl.getAllRequests().get(morgueID.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
@@ -154,6 +154,8 @@ public class MorgueController implements Initializable, PropertyChangeListener {
         MorguerequestImpl.updateEmployeeName(req, emp);
       }
       if (!req.getStatus().equals(stat)) {
+        updateDashAdding(stat);
+        updateDashSubtracting(req.getStatus());
         MorguerequestImpl.updateStatus(req, stat);
       }
       if (!req.getDescription().equals(desc)) {
@@ -218,8 +220,9 @@ public class MorgueController implements Initializable, PropertyChangeListener {
 
   @FXML
   public void delete(ActionEvent event) throws SQLException {
-    String id = morgueID.getText();
 
+    String id = morgueID.getText();
+    updateDashSubtracting(MorguerequestImpl.getAllRequests().get(id).getStatus());
     // removes the request from the table and dropdown
     for (int i = 0; i < morgueData.size(); i++) {
       if (morgueData.get(i).getName().equals(id)) {
@@ -359,5 +362,39 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     morgueEmployee.setText(req.getEmployee().getName());
     morgueStatus.setText(req.getStatus());
     morgueDescription.setText(req.getDescription());
+  }
+
+  private void updateDashAdding(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted++;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress++;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete++;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  private void updateDashSubtracting(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted--;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress--;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete--;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
   }
 }
