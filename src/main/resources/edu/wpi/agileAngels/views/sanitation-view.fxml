@@ -234,6 +234,7 @@
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#saniStatusMenu" text="Not Started" />
                                 <MenuItem mnemonicParsing="false" onAction="#saniStatusMenu" text="In Progress" />
+                                <MenuItem mnemonicParsing="false" onAction="#saniStatusMenu" text="Complete" />
                             </items>
                         </MenuButton>
                         <TextField fx:id="saniDescription" layoutX="12.0" layoutY="302.0" prefHeight="50.0" prefWidth="270.0" promptText="Description" />

@@ -88,10 +88,12 @@ public class RequestDAOImpl implements RequestDAO {
 
   public RequestDAOImpl(HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
+
     this.CSV_FILE_PATH = "./Requests.csv";
     this.reqData = reqData;
     this.count = count;
     this.DAOtype = type;
+    System.out.println("TYPE: " + type);
     requestTypes.put("Mea", getMealTypes());
     requestTypes.put("Med", getEquipTypes());
     requestTypes.put("Lab", getLabTypes());
@@ -106,18 +108,12 @@ public class RequestDAOImpl implements RequestDAO {
 
   public static RequestDAOImpl getInstance(String type) throws SQLException {
     HashMap<String, Request> data = new HashMap();
+
     if (0 == type.compareTo("MedRequest")) {
       if (MedrequestDAO == null) {
         MedrequestDAO = new RequestDAOImpl(data, 1, "MedRequest");
       }
       return MedrequestDAO;
-    } else if (0 == type.compareTo("GiftRequest")) {
-      // data = new HashMap();
-      if (GiftDAO == null) {
-        System.out.println("TEST TEST TEST");
-        GiftDAO = new RequestDAOImpl(data, 1, "GiftRequest");
-      }
-      return GiftDAO;
     } else if (0 == type.compareTo("LabRequest")) {
       if (LabrequestDAO == null) {
         LabrequestDAO = new RequestDAOImpl(data, 1, "LabRequest");
@@ -138,7 +134,6 @@ public class RequestDAOImpl implements RequestDAO {
         SanDAO = new RequestDAOImpl(data, 1, "SanitationRequest");
       }
       return SanDAO;
-
     } else if (0 == type.compareTo("LaundryRequest")) {
       if (LaundryDAO == null) {
         LaundryDAO = new RequestDAOImpl(data, 1, "LaundryRequest");
@@ -154,6 +149,13 @@ public class RequestDAOImpl implements RequestDAO {
         TransportDAO = new RequestDAOImpl(data, 1, "TransportRequest");
       }
       return TransportDAO;
+    } else if (0 == type.compareTo("GiftRequest")) {
+      System.out.println("PASS FIRST IF STATEMENT");
+      if (GiftDAO == null) {
+        GiftDAO = new RequestDAOImpl(data, 1, "GiftRequest");
+      }
+      System.out.println("GiftDAO count: " + GiftDAO.count);
+      return GiftDAO;
     } else if (0 == type.compareTo("MorgueRequest")) {
       if (MorgueDAO == null) {
         MorgueDAO = new RequestDAOImpl(data, 1, "MorgueRequest");
@@ -232,7 +234,6 @@ public class RequestDAOImpl implements RequestDAO {
       letter = "San";
     } else if (0 == DAOtype.compareTo("MealRequest")) {
       letter = "Meal";
-
     } else if (0 == DAOtype.compareTo("TransportRequest")) {
       letter = "Tran";
     } else if (0 == DAOtype.compareTo("GiftRequest")) {
@@ -284,35 +285,31 @@ public class RequestDAOImpl implements RequestDAO {
     } else if (values[0].substring(0, 4).compareTo("Meal") == 0
         && DAOtype.compareTo("MealRequest") == 0) {
       makeRequest(values);
-    } else if (values[0].substring(0, 4).compareTo("San") == 0
+    } else if (values[0].substring(0, 3).compareTo("San") == 0
         && DAOtype.compareTo("SanitationRequest") == 0) {
       makeRequest(values);
     } else if (values[0].substring(0, 1).compareTo("L") == 0
         && DAOtype.compareTo("LabRequest") == 0) {
       makeRequest(values);
-    } else if (values[0].substring(0, 1).compareTo("Gift") == 0
-        && DAOtype.compareTo("GiftRequest") == 0) {
-      {
-        makeRequest(values);
-      }
-    } else if (values[0].substring(0, 1).compareTo("S") == 0) {
-
     } else if (values[0].substring(0, 4).compareTo("Main") == 0
         && DAOtype.compareTo("MaintenanceRequest") == 0) {
       makeRequest(values);
     } else if (values[0].substring(0, 4).compareTo("Tran") == 0
         && DAOtype.compareTo("TransportRequest") == 0) { // Now this is an issue!
       makeRequest(values);
+    } else if (values[0].substring(0, 4).compareTo("Gift") == 0
+        && DAOtype.compareTo("GiftRequest") == 0) {
+      // System.out.println("MAKING GIFT REQUESTS");
+      makeRequest(values);
     } else if (values[0].substring(0, 4).compareTo("Morg") == 0
         && DAOtype.compareTo("MorgueRequest") == 0) {
       makeRequest(values);
     }
     return;
-
-    // return;
   }
 
   private void makeRequest(String[] values) throws SQLException {
+    //  System.out.println("MAKE REQUEST " + values[0]);
     Request request =
         new Request(
             values[0],
