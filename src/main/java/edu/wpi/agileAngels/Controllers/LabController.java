@@ -13,12 +13,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 // similar to equip controller
 public class LabController implements Initializable, PropertyChangeListener {
 
-  @FXML Pane popOut;
+  @FXML VBox popOut;
   @FXML MenuButton labID, labLocation, labEmployee, labStatus, labType;
   @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
   @FXML TableView labTable;

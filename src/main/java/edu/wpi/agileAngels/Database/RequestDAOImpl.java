@@ -24,29 +24,96 @@ public class RequestDAOImpl implements RequestDAO {
   private static RequestDAOImpl SanDAO = null;
   private static RequestDAOImpl MealDAO = null;
   private static RequestDAOImpl GiftDAO = null;
+  private static RequestDAOImpl LaundryDAO = null;
   private static RequestDAOImpl MaintenanceDAO = null;
   private static RequestDAOImpl TransportDAO = null;
   private static RequestDAOImpl MorgueDAO = null;
 
+  HashMap<String, ArrayList> requestTypes = new HashMap<>();
+
+  ArrayList labTypes = new ArrayList<String>();
+  ArrayList equipTypes = new ArrayList<String>();
+  ArrayList sanitationTypes = new ArrayList<String>();
+  ArrayList mealTypes = new ArrayList<String>();
+  ArrayList giftTypes = new ArrayList<String>();
+  ArrayList transportTypes = new ArrayList<String>();
+
+  public ArrayList getLabTypes() {
+    labTypes.add("Blood Test");
+    labTypes.add("Urine Test");
+    labTypes.add("Tumor Marker");
+    labTypes.add("COVID-19 Test");
+    return labTypes;
+  }
+
+  public ArrayList getEquipTypes() {
+    equipTypes.add("XRayMachine");
+    equipTypes.add("InfusionPump");
+    equipTypes.add("Recliner");
+    equipTypes.add("Bed");
+    return equipTypes;
+  }
+
+  public ArrayList getSanitationTypes() {
+    sanitationTypes.add("Clean Spill");
+    sanitationTypes.add("Clean Room");
+    sanitationTypes.add("Clean Exam");
+    sanitationTypes.add("Janitorial");
+    sanitationTypes.add("Other");
+    return sanitationTypes;
+  }
+
+  public ArrayList getMealTypes() {
+    mealTypes.add("Salad");
+    mealTypes.add("Steak");
+    mealTypes.add("Pasta");
+    mealTypes.add("Beans");
+    mealTypes.add("Placenta");
+    return mealTypes;
+  }
+
+  public ArrayList getGiftTypes() {
+    giftTypes.add("Balloons");
+    giftTypes.add("Flowers");
+    giftTypes.add("Card");
+    return giftTypes;
+  }
+
+  public ArrayList getTransportTypes() {
+    transportTypes.add("Move Room");
+    transportTypes.add("Move Hospital");
+    transportTypes.add("Release");
+    return transportTypes;
+  }
+
   public RequestDAOImpl(HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
+
     this.CSV_FILE_PATH = "./Requests.csv";
     this.reqData = reqData;
     this.count = count;
     this.DAOtype = type;
+    System.out.println("TYPE: " + type);
+    requestTypes.put("Mea", getMealTypes());
+    requestTypes.put("Med", getEquipTypes());
+    requestTypes.put("Lab", getLabTypes());
+    requestTypes.put("San", getSanitationTypes());
+    requestTypes.put("Gif", getGiftTypes());
+    requestTypes.put("Tra", getTransportTypes());
+  }
+
+  public HashMap<String, ArrayList> getRequestTypes() {
+    return requestTypes;
   }
 
   public static RequestDAOImpl getInstance(String type) throws SQLException {
     HashMap<String, Request> data = new HashMap();
+
     if (0 == type.compareTo("MedRequest")) {
       if (MedrequestDAO == null) {
         MedrequestDAO = new RequestDAOImpl(data, 1, "MedRequest");
       }
       return MedrequestDAO;
-    } else if (GiftDAO == null && 0 == type.compareTo("GiftRequest")) {
-      data = new HashMap();
-      GiftDAO = new RequestDAOImpl(data, 1, "GiftRequest");
-      return GiftDAO;
     } else if (0 == type.compareTo("LabRequest")) {
       if (LabrequestDAO == null) {
         LabrequestDAO = new RequestDAOImpl(data, 1, "LabRequest");
@@ -67,7 +134,11 @@ public class RequestDAOImpl implements RequestDAO {
         SanDAO = new RequestDAOImpl(data, 1, "SanitationRequest");
       }
       return SanDAO;
-
+    } else if (0 == type.compareTo("LaundryRequest")) {
+      if (LaundryDAO == null) {
+        LaundryDAO = new RequestDAOImpl(data, 1, "LaundryRequest");
+      }
+      return LaundryDAO;
     } else if (0 == type.compareTo("MaintenanceRequest")) {
       if (MaintenanceDAO == null) {
         MaintenanceDAO = new RequestDAOImpl(data, 1, "MaintenanceRequest");
@@ -78,6 +149,13 @@ public class RequestDAOImpl implements RequestDAO {
         TransportDAO = new RequestDAOImpl(data, 1, "TransportRequest");
       }
       return TransportDAO;
+    } else if (0 == type.compareTo("GiftRequest")) {
+      System.out.println("PASS FIRST IF STATEMENT");
+      if (GiftDAO == null) {
+        GiftDAO = new RequestDAOImpl(data, 1, "GiftRequest");
+      }
+      System.out.println("GiftDAO count: " + GiftDAO.count);
+      return GiftDAO;
     } else if (0 == type.compareTo("MorgueRequest")) {
       if (MorgueDAO == null) {
         MorgueDAO = new RequestDAOImpl(data, 1, "MorgueRequest");
@@ -130,7 +208,12 @@ public class RequestDAOImpl implements RequestDAO {
   }
 
   public void updateAttribute2(Request req, String dest) {
-    req.setStatus(dest);
+    req.setAttribute2(dest);
+    Adb.updateRequest(req);
+  }
+
+  public void updateAttribute1(Request req, String dest) {
+    req.setAttribute1(dest);
     Adb.updateRequest(req);
   }
 
@@ -151,11 +234,12 @@ public class RequestDAOImpl implements RequestDAO {
       letter = "San";
     } else if (0 == DAOtype.compareTo("MealRequest")) {
       letter = "Meal";
-
     } else if (0 == DAOtype.compareTo("TransportRequest")) {
       letter = "Tran";
     } else if (0 == DAOtype.compareTo("GiftRequest")) {
       letter = "Gift";
+    } else if (0 == DAOtype.compareTo("LaundryRequest")) {
+      letter = "Laundry";
     } else if (0 == DAOtype.compareTo("MaintenanceRequest")) {
       letter = "Main";
     } else if (0 == DAOtype.compareTo("MorgueRequest")) {
@@ -201,32 +285,31 @@ public class RequestDAOImpl implements RequestDAO {
     } else if (values[0].substring(0, 4).compareTo("Meal") == 0
         && DAOtype.compareTo("MealRequest") == 0) {
       makeRequest(values);
-    } else if (values[0].substring(0, 4).compareTo("San") == 0
+    } else if (values[0].substring(0, 3).compareTo("San") == 0
         && DAOtype.compareTo("SanitationRequest") == 0) {
       makeRequest(values);
     } else if (values[0].substring(0, 1).compareTo("L") == 0
         && DAOtype.compareTo("LabRequest") == 0) {
       makeRequest(values);
-    } else if (values[0].substring(0, 1).compareTo("G") == 0) {
-
-    } else if (values[0].substring(0, 1).compareTo("S") == 0) {
-
     } else if (values[0].substring(0, 4).compareTo("Main") == 0
         && DAOtype.compareTo("MaintenanceRequest") == 0) {
       makeRequest(values);
     } else if (values[0].substring(0, 4).compareTo("Tran") == 0
         && DAOtype.compareTo("TransportRequest") == 0) { // Now this is an issue!
       makeRequest(values);
+    } else if (values[0].substring(0, 4).compareTo("Gift") == 0
+        && DAOtype.compareTo("GiftRequest") == 0) {
+      // System.out.println("MAKING GIFT REQUESTS");
+      makeRequest(values);
     } else if (values[0].substring(0, 4).compareTo("Morg") == 0
         && DAOtype.compareTo("MorgueRequest") == 0) {
       makeRequest(values);
     }
     return;
-
-    // return;
   }
 
   private void makeRequest(String[] values) throws SQLException {
+    //  System.out.println("MAKE REQUEST " + values[0]);
     Request request =
         new Request(
             values[0],

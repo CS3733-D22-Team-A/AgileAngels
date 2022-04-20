@@ -158,6 +158,10 @@ public class RequestNode {
     this.request.setEmployee(requestNodeManager.employeeHash.get(employee));
   }
 
+  public String getRequestType() {
+    return request.getName().substring(0, 3);
+  }
+
   public Location getLocation() {
     return this.location;
   }
