@@ -107,7 +107,7 @@ public class EquipmentNodeManager {
     }
   }
 
-  public void updateEquipNode(String ID) {
+  public void updateEquipmentNode(String ID) {
     nodes.get(ID).updateLocation();
   }
 
@@ -183,6 +183,6 @@ public class EquipmentNodeManager {
         }
       }
     }
-    updateEquipNode(request.getMedicalEquip().getID());
+    updateEquipmentNode(request.getMedicalEquip().getID());
   }
 }
