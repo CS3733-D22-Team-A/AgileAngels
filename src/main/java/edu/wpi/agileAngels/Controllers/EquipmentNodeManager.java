@@ -108,7 +108,8 @@ public class EquipmentNodeManager {
   }
 
   public void updateEquipNode(String ID) {
-    System.out.println(ID);
-    nodes.get(ID).updateLocation();
+    EquipmentNode node = nodes.get(ID);
+    System.out.println(node);
+    // node.updateLocation();
   }
 }

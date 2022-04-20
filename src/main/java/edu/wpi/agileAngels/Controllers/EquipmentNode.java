@@ -187,6 +187,8 @@ public class EquipmentNode {
   }
 
   public void updateLocation() {
-    this.location = this.getMedEquip().getLocation();
+    System.out.println("here");
+    Location location = this.getMedEquip().getLocation();
+    this.location = location;
   }
 }
