@@ -362,6 +362,9 @@
                                                          </children>
                                                       </HBox>
                                                    </graphic>
+                                                   <HBox.margin>
+                                                      <Insets left="30.0" />
+                                                   </HBox.margin>
                                                 </Button>
                                              </children>
                                           </HBox>
@@ -406,6 +409,9 @@
                                                          </children>
                                                       </HBox>
                                                    </graphic>
+                                                   <HBox.margin>
+                                                      <Insets left="30.0" />
+                                                   </HBox.margin>
                                                 </Button>
                                              </children>
                                           </HBox>
@@ -450,6 +456,9 @@
                                                          </children>
                                                       </HBox>
                                                    </graphic>
+                                                   <HBox.margin>
+                                                      <Insets left="65.0" />
+                                                   </HBox.margin>
                                                 </Button>
                                              </children>
                                           </HBox>
