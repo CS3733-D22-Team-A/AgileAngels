@@ -303,10 +303,10 @@ public class MapsController implements Initializable, PropertyChangeListener {
     currentRequestNode.getRequest().setStatus(requestStatusDropdown.getText());
     currentRequestNode.getRequest().setType(requestTypeDropdown.getText());
     requestNodeManager.updateRequest(currentRequestNode);
-    if (currentRequestNode.getRequest().getName().substring(0, 3).equals("Med")) {
-      equipmentNodeManager.updateEquipObject(
-          currentRequestNode.getRequest(), requestTypeDropdown.getText());
-    }
+    //    if (currentRequestNode.getRequest().getName().substring(0, 3).equals("Med")) {
+    //      equipmentNodeManager.updateEquipObject(
+    //          currentRequestNode.getRequest(), requestTypeDropdown.getText());
+    //    }
     currentRequestNode = null;
     requestEditPane.setVisible(false);
   }
