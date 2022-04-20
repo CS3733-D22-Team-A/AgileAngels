@@ -143,8 +143,8 @@ public class EquipmentNode {
   }
 
   public void resetLocation() {
-    double x = ((this.location.getXCoord() - 775) / 3.225);
-    double y = ((this.location.getYCoord() - 320) / 3.232);
+    double x = getPaneXfromcoords(this.location.getXCoord());
+    double y = getPaneYfromcoords(this.location.getYCoord());
     button.setLayoutX(x);
     button.setLayoutY(y);
   }
@@ -184,5 +184,13 @@ public class EquipmentNode {
 
   public String getStatus() {
     return medEquip.getStatus();
+  }
+
+  public void updateLocation() {
+    System.out.println("here");
+
+    Location location = this.getMedEquip().getLocation();
+    this.location = location;
+    this.resetLocation();
   }
 }
