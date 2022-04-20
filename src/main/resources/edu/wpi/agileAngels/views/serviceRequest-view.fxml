@@ -69,7 +69,7 @@
                                           <Image url="@../assets/icons/equipment.png" />
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="erText" prefHeight="26.0" prefWidth="140.0" text="Equipment Request" textAlignment="CENTER" />
+                                    <Label fx:id="erText" alignment="CENTER" prefHeight="26.0" prefWidth="251.0" text="Equipment Request" textAlignment="CENTER" wrapText="true" />
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
