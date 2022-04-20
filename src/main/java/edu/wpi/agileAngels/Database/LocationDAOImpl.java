@@ -68,6 +68,7 @@ public class LocationDAOImpl implements LocationDAO {
                     i, csvRecord.get(i - 1)); // to access the first value for table it starts at 1
           }
           try {
+
             Location location =
                 new Location(
                     csvRecord.get(0),
