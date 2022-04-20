@@ -73,7 +73,7 @@ public class ServiceRequestTable implements TableI {
           "UPDATE ServiceRequests SET EmployeeName = ?, Location = ?, Type = ?, Status = ?, Description = ?, Attribute1 = ?, Attribute2 = ? WHERE Name = ?";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(update);
       preparedStatement.setString(1, request.getEmployee().getName());
-      preparedStatement.setString(2, request.getLocation().getLongName());
+      preparedStatement.setString(2, request.getLocation().getNodeID());
       preparedStatement.setString(3, request.getType());
       preparedStatement.setString(4, request.getStatus());
       preparedStatement.setString(5, request.getDescription());
@@ -139,12 +139,8 @@ public class ServiceRequestTable implements TableI {
     HashMap<String, Location> locationHashMap = Adb.getLocations();
     Adb.resetServiceRequests();
 
-    Connection connection = DBconnection.getConnection();
-
-    Statement statement = connection.createStatement();
+    Statement statement = DBconnection.getConnection().createStatement();
     ResultSet result = statement.executeQuery(sql);
-
-    System.out.println(result.getString("Name"));
 
     while (result.next()) {
       String name = result.getString("Name");
@@ -158,7 +154,7 @@ public class ServiceRequestTable implements TableI {
 
       Request request =
           new Request(name, employee, location, type, status, description, attribute1, attribute2);
-
+      
       if (name.substring(0, 3).compareTo("Med") == 0) {
         Adb.addMedRequest(request);
       } else if (name.substring(0, 4).compareTo("Meal") == 0) {
@@ -168,9 +164,7 @@ public class ServiceRequestTable implements TableI {
       } else if (name.substring(0, 4).compareTo("Main") == 0) {
         Adb.addmainRequest(request);
       } else if (name.substring(0, 4).compareTo("Tran") == 0) {
-        {
-          Adb.addTransportRequest(request);
-        }
+        Adb.addTransportRequest(request);
       } else if (name.substring(0, 3).compareTo("Mor") == 0) {
         Adb.addMorgueRequest(request);
       }
