@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="background" stylesheets="@stylesheets/DashCSS.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.DashboardController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="background" stylesheets="@stylesheets/DashCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.DashboardController">
    <children>
       <Pane layoutX="698.0" layoutY="97.0" prefHeight="603.0" prefWidth="523.0" styleClass="pane" stylesheets="@stylesheets/DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="97.0">
          <children>
@@ -339,7 +339,6 @@
                                                       <Image url="@../assets/food_symbol.png" />
                                                    </image>
                                                 </ImageView>
-                                                <Label text="James" />
                                                 <ImageView fitHeight="15.0" fitWidth="13.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../assets/letter-p.png" />
