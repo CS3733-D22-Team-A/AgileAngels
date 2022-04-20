@@ -47,6 +47,9 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
   HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
 
+  @FXML Label notStartedNumber, inProgressNumber, completedNumber;
+  private int statusNotStarted, statusInProgress, statusComplete;
+
   AppController appController = AppController.getInstance();
   @FXML
   private TableColumn nameColumn,
@@ -83,6 +86,8 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       medData.add(req);
     }
     equipmentTable.setItems(medData);
+
+    dashboardLoad();
   }
 
   @Override
@@ -285,6 +290,8 @@ public class EquipmentController implements Initializable, PropertyChangeListene
                   "",
                   equip);
 
+          updateDashAdding(statusString);
+
           // set the status and location of the medicalEquipment object corresponding to the request
           if (statusString.equals("notStarted")) {
             equipDAO.updateStatus(equip, "inUse");
@@ -337,6 +344,9 @@ public class EquipmentController implements Initializable, PropertyChangeListene
             equipDAO.updateMedicalCleanliness(object.getMedicalEquip(), false);
             equipDAO.updateStatus(object.getMedicalEquip(), "available");
           }
+
+          updateDashSubtracting(object.getStatus());
+
           // delete the request
           medData.remove(i);
           MedrequestImpl.deleteRequest(object);
@@ -360,6 +370,9 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     String descriptionString = mainDescription.getText();
 
     Request found = MedrequestImpl.getAllRequests().get(editString);
+
+    updateDashSubtracting(found.getStatus());
+    updateDashAdding(statusString);
 
     int num = 0;
     for (int i = 0; i < medData.size(); i++) {
@@ -600,5 +613,85 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   public void clearPage(ActionEvent actionEvent) {
     appController.clearPage();
+  }
+
+  /**
+   * This is the cleaner version of Justin's dashboard code. Note that it may need a for loop as
+   * shown on line 83/84 if used elsewhere. Note: Unlikely.
+   */
+  @FXML
+  private void dashboardLoad() {
+    if (notStartedNumber.getText().equals("-")
+        && inProgressNumber.getText().equals("-")
+        && completedNumber.getText().equals("-")) {
+
+      Iterator var3 = MedrequestImpl.getAllRequests().entrySet().iterator();
+      while (var3.hasNext()) {
+        Map.Entry<String, Request> entry = (Map.Entry) var3.next();
+        Request object = (Request) entry.getValue();
+        if (entry.getValue().getStatus().equals("inProgress")) {
+          statusInProgress++;
+        }
+        if (entry.getValue().getStatus().equals("notStarted")) {
+          statusNotStarted++;
+        }
+        if (entry.getValue().getStatus().equals("Complete")
+            || entry.getValue().getStatus().equals("complete")) {
+          statusComplete++;
+        }
+      }
+      setDashboard(statusNotStarted, statusInProgress, statusComplete);
+    }
+  }
+
+  /**
+   * Will set the dashboard's numbers to the certain types of statuses.
+   *
+   * @param notStarted Requests not started
+   * @param inProgress Requests in progress
+   * @param complete Requests completed
+   */
+  @FXML
+  private void setDashboard(int notStarted, int inProgress, int complete) {
+    String notStart = Integer.toString(notStarted);
+    String inProg = Integer.toString(inProgress);
+    String comp = Integer.toString(complete);
+    notStartedNumber.setText(notStart);
+    inProgressNumber.setText(inProg);
+    completedNumber.setText(comp);
+  }
+
+  private void updateDashAdding(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted++;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress++;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete++;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  private void updateDashSubtracting(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted--;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress--;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete--;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
   }
 }

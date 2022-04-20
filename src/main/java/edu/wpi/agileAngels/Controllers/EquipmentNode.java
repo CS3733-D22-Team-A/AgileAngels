@@ -189,5 +189,6 @@ public class EquipmentNode {
   public void updateLocation() {
     Location location = this.getMedEquip().getLocation();
     this.location = location;
+    this.resetLocation();
   }
 }
