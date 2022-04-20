@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.AboutUsController">
+   <children>
+
+            <ImageView fitHeight="876.0" fitWidth="1557.0" layoutX="-12.0" layoutY="-67.0" preserveRatio="true">
+         <image>
+            <Image url="@../assets/blur.png" />
+         </image>
+      </ImageView>
+      <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
+      <Pane layoutX="-13.0" layoutY="70.0" prefHeight="287.0" prefWidth="314.0">
+         <children>
+            <Pane layoutX="100.0" layoutY="70.0" prefHeight="213.0" prefWidth="216.0">
+               <children>
+                  <Button fx:id="basharButton" alignment="CENTER" layoutX="4.0" layoutY="7.0" mnemonicParsing="false" onAction="#showBasharText" prefHeight="203.0" prefWidth="206.0" stylesheets="@stylesheets/DashCSS.css">
+                     <graphic>
+                        <ImageView fitHeight="177.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../OurPictures/Bashar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" prefHeight="25.0" prefWidth="120.0" text="Bashar Alqassar" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Front End Dev" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="basharBubble" layoutX="20.0" layoutY="10.0" prefHeight="135.0" prefWidth="141.0">
+               <children>
+                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../OurPictures/TextBubble.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="I made this page!" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutX="219.0" layoutY="70.0" prefHeight="287.0" prefWidth="314.0">
+         <children>
+            <Pane layoutX="100.0" layoutY="70.0" prefHeight="213.0" prefWidth="216.0">
+               <children>
+                  <Button fx:id="aliButton" alignment="CENTER" layoutX="4.0" layoutY="7.0" mnemonicParsing="false" onAction="#showAliText" prefHeight="203.0" prefWidth="206.0" stylesheets="@stylesheets/DashCSS.css">
+                     <graphic>
+                        <ImageView fitHeight="157.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../OurPictures/Ali.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" prefHeight="25.0" prefWidth="120.0" text="Ali Mcnicholas" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Back End Dev" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="aliBubble" layoutX="20.0" layoutY="10.0" prefHeight="135.0" prefWidth="141.0">
+               <children>
+                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../OurPictures/TextBubble.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="6.0" prefHeight="76.0" prefWidth="110.0" text="It shouldn't work but it does" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutX="458.0" layoutY="70.0" prefHeight="287.0" prefWidth="314.0">
+         <children>
+            <Pane layoutX="100.0" layoutY="70.0" prefHeight="213.0" prefWidth="216.0">
+               <children>
+                  <Button fx:id="taliaButton" alignment="CENTER" layoutX="4.0" layoutY="7.0" mnemonicParsing="false" onAction="#showTaliaText" prefHeight="203.0" prefWidth="206.0" stylesheets="@stylesheets/DashCSS.css">
+                     <graphic>
+                        <ImageView fitHeight="151.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../OurPictures/Talia.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" prefHeight="25.0" prefWidth="120.0" text="Talia Andrews" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Back End Lead" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="taliaBubble" layoutX="20.0" layoutY="10.0" prefHeight="135.0" prefWidth="141.0">
+               <children>
+                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../OurPictures/TextBubble.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Finaly a diffrent error." textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutX="695.0" layoutY="70.0" prefHeight="287.0" prefWidth="314.0">
+         <children>
+            <Pane layoutX="100.0" layoutY="70.0" prefHeight="213.0" prefWidth="216.0">
+               <children>
+                  <Button fx:id="aadhyaButton" alignment="CENTER" layoutX="4.0" layoutY="7.0" mnemonicParsing="false" onAction="#showAadhyaText" prefHeight="203.0" prefWidth="206.0" stylesheets="@stylesheets/DashCSS.css">
+                     <graphic>
+                        <ImageView fitHeight="177.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../OurPictures/Aahdya.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" prefHeight="25.0" prefWidth="120.0" text="Aadhya Putter" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Back End Dev" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="aahdyaBubble" layoutX="20.0" layoutY="10.0" prefHeight="135.0" prefWidth="141.0">
+               <children>
+                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../OurPictures/TextBubble.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Wong." textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutX="931.0" layoutY="70.0" prefHeight="287.0" prefWidth="314.0">
+         <children>
+            <Pane layoutX="100.0" layoutY="70.0" prefHeight="213.0" prefWidth="216.0">
+               <children>
+                  <Button fx:id="harmoniButton" alignment="CENTER" layoutX="4.0" layoutY="7.0" mnemonicParsing="false" onAction="#showHarmoniText" prefHeight="203.0" prefWidth="206.0" stylesheets="@stylesheets/DashCSS.css">
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../OurPictures/Harmoni.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label alignment="TOP_CENTER" layoutX="33.0" layoutY="187.0" prefHeight="25.0" prefWidth="154.0" text="Harmoni Larrabee" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Front End Lead" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="harmoniBubble" layoutX="20.0" layoutY="10.0" prefHeight="135.0" prefWidth="141.0">
+               <children>
+                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../OurPictures/TextBubble.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="111.0" text="java.lang.NullPointerException" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutX="-3.0" layoutY="350.0" prefHeight="287.0" prefWidth="314.0">
+         <children>
+            <Pane layoutX="100.0" layoutY="70.0" prefHeight="213.0" prefWidth="216.0">
+               <children>
+                  <Button fx:id="joeButton" alignment="CENTER" layoutX="4.0" layoutY="7.0" mnemonicParsing="false" onAction="#showJoeText" prefHeight="203.0" prefWidth="206.0" stylesheets="@stylesheets/DashCSS.css">
+                     <graphic>
+                        <ImageView fitHeight="148.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../OurPictures/Joe.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label alignment="TOP_CENTER" layoutX="53.0" layoutY="187.0" prefHeight="25.0" prefWidth="120.0" text="Joe Fox" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Front End Dev" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="joeBubble" layoutX="20.0" layoutY="10.0" prefHeight="135.0" prefWidth="141.0">
+               <children>
+                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../OurPictures/TextBubble.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="TOP_LEFT" layoutX="11.0" layoutY="22.0" prefHeight="51.0" prefWidth="106.0" text="Very special to me." textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutX="229.0" layoutY="350.0" prefHeight="287.0" prefWidth="314.0">
+         <children>
+            <Pane layoutX="100.0" layoutY="70.0" prefHeight="213.0" prefWidth="216.0">
+               <children>
+                  <Button fx:id="jakobButton" alignment="CENTER" layoutX="4.0" layoutY="7.0" mnemonicParsing="false" onAction="#showJakobText" prefHeight="203.0" prefWidth="206.0" stylesheets="@stylesheets/DashCSS.css">
+                     <graphic>
+                        <ImageView fitHeight="177.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../OurPictures/Jakob.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label alignment="TOP_CENTER" layoutX="53.0" layoutY="187.0" prefHeight="25.0" prefWidth="120.0" text="Jakob Sperry" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Front End Dev" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="jakobBubble" layoutX="20.0" layoutY="10.0" prefHeight="135.0" prefWidth="141.0">
+               <children>
+                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../OurPictures/TextBubble.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Whats backend?" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutX="468.0" layoutY="350.0" prefHeight="287.0" prefWidth="314.0">
+         <children>
+            <Pane layoutX="100.0" layoutY="70.0" prefHeight="213.0" prefWidth="216.0">
+               <children>
+                  <Button fx:id="justinButton" alignment="CENTER" layoutX="4.0" layoutY="7.0" mnemonicParsing="false" onAction="#showJustinText" prefHeight="203.0" prefWidth="206.0" stylesheets="@stylesheets/DashCSS.css">
+                     <graphic>
+                        <ImageView fitHeight="177.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../OurPictures/Justin.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label alignment="TOP_LEFT" layoutX="16.0" layoutY="186.0" prefHeight="25.0" prefWidth="187.0" text="Justin Santiago - Wonoski" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Front End Dev" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="justinBubble" layoutX="20.0" layoutY="10.0" prefHeight="135.0" prefWidth="141.0">
+               <children>
+                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../OurPictures/TextBubble.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Backend doesn't exist." textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutX="705.0" layoutY="350.0" prefHeight="287.0" prefWidth="314.0">
+         <children>
+            <Pane layoutX="100.0" layoutY="70.0" prefHeight="213.0" prefWidth="216.0">
+               <children>
+                  <Button fx:id="danielButton" alignment="CENTER" layoutX="4.0" layoutY="7.0" mnemonicParsing="false" onAction="#showDanielText" prefHeight="203.0" prefWidth="206.0" stylesheets="@stylesheets/DashCSS.css">
+                     <graphic>
+                        <ImageView fitHeight="151.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../OurPictures/Daniel.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" prefHeight="25.0" prefWidth="120.0" text="Daniel Onyema" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Front End Dev" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="danielBubble" layoutX="20.0" layoutY="10.0" prefHeight="135.0" prefWidth="141.0">
+               <children>
+                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../OurPictures/TextBubble.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="TOP_LEFT" layoutX="-2.0" layoutY="2.0" prefHeight="101.0" prefWidth="143.0" text="THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutX="941.0" layoutY="350.0" prefHeight="287.0" prefWidth="314.0">
+         <children>
+            <Pane layoutX="100.0" layoutY="70.0" prefHeight="213.0" prefWidth="216.0">
+               <children>
+                  <Button fx:id="aaronButton" alignment="CENTER" layoutX="4.0" layoutY="7.0" mnemonicParsing="false" onAction="#showAaronText" prefHeight="203.0" prefWidth="206.0" stylesheets="@stylesheets/DashCSS.css">
+                     <graphic>
+                        <ImageView fitHeight="104.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../OurPictures/Aaron.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" prefHeight="25.0" prefWidth="120.0" text="Aaron Nguyen" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Back End Dev" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="aaronBubble" layoutX="20.0" layoutY="10.0" prefHeight="135.0" prefWidth="141.0">
+               <children>
+                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../OurPictures/TextBubble.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Some call me the silent killer." textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
