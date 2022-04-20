@@ -23,11 +23,6 @@
 <AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.ServiceRequestController">
    <children>
       <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
-      <JFXToggleButton fx:id="toggleButton" onAction="#showCreators" prefHeight="60.0" prefWidth="189.0" style="-fx-font-size: 15;" text="Contributors" toggleColor="#009ca6" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="60.0">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </JFXToggleButton>
       <VBox alignment="CENTER" layoutY="60.0" prefHeight="602.0" prefWidth="1280.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
@@ -35,10 +30,11 @@
                <children>
             
                   
-                  <GridPane alignment="CENTER" prefHeight="560.0" prefWidth="992.0">
+                  <GridPane alignment="CENTER" prefHeight="560.0" prefWidth="1200.0">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="408.0" minWidth="10.0" prefWidth="340.0" />
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="340.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="340.0" />
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="340.0" />
                     </columnConstraints>
                     <rowConstraints>
@@ -56,7 +52,7 @@
                                           <Image url="@../assets/icons/lab.png" />
                                        </image>
                                     </ImageView>
-                                    <Label text="Lab Request" />
+                                    <Label fx:id="lrText" text="Lab Request" />
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -73,7 +69,7 @@
                                           <Image url="@../assets/icons/equipment.png" />
                                        </image>
                                     </ImageView>
-                                    <Label prefHeight="26.0" prefWidth="173.0" text="Equipment Request" textAlignment="CENTER" />
+                                    <Label fx:id="erText" alignment="CENTER" prefHeight="26.0" prefWidth="251.0" text="Equipment Request" textAlignment="CENTER" wrapText="true" />
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -90,7 +86,7 @@
                                           <Image url="@../assets/icons/sanitation.png" />
                                        </image>
                                     </ImageView>
-                                    <Label text="Sanitation Request" />
+                                    <Label fx:id="srText" text="Sanitation Request" />
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -107,7 +103,7 @@
                                           <Image url="@../assets/icons/meal.png" />
                                        </image>
                                     </ImageView>
-                                    <Label text="Meal Request" />
+                                    <Label fx:id="mealText" text="Meal Request" />
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -124,7 +120,7 @@
                                           <Image url="@../assets/icons/gift.png" />
                                        </image>
                                     </ImageView>
-                                    <Label text="Gift Request" />
+                                    <Label fx:id="grText" text="Gift Request" />
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -132,16 +128,16 @@
                               </VBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="laundryRequest" mnemonicParsing="false" onAction="#requestButton" prefHeight="150.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Button fx:id="MGB" mnemonicParsing="false" onAction="#requestButton" prefHeight="150.0" prefWidth="250.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                            <graphic>
                               <VBox alignment="CENTER" prefHeight="53.0" prefWidth="135.0" spacing="20.0">
                                  <children>
-                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="60.0" fitWidth="200.0" preserveRatio="true">
                                        <image>
-                                          <Image url="@../assets/icons/gift.png" />
+                                          <Image url="@../assets/icons/noun-heart-beat-2345658.png" />
                                        </image>
                                     </ImageView>
-                                    <Label text="Mass General Babes" />
+                                    <Label fx:id="mgbText" text="Mass General Babes" />
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -158,7 +154,7 @@
                                           <Image url="@../assets/icons/lab.png" />
                                        </image>
                                     </ImageView>
-                                    <Label text="Maintenance Request" />
+                                    <Label fx:id="mrText" text="Maintenance Request" />
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -175,7 +171,7 @@
                                           <Image url="@../assets/icons/lab.png" />
                                        </image>
                                     </ImageView>
-                                    <Label text="Morgue Request" />
+                                    <Label fx:id="morText" text="Morgue Request" />
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -192,7 +188,24 @@
                                           <Image url="@../assets/icons/lab.png" />
                                        </image>
                                     </ImageView>
-                                    <Label text="Patient Transport" />
+                                    <Label fx:id="ptText" text="Patient Transport" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="14.0" />
+                                 </padding>
+                              </VBox>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="laundryRequest" mnemonicParsing="false" onAction="#requestButton" prefHeight="150.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <graphic>
+                              <VBox alignment="CENTER" prefHeight="0.0" prefWidth="28.0" spacing="20.0">
+                                 <children>
+                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../assets/icons/lab.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="launText" text="Laundry Request" />
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -215,5 +228,20 @@
             <Insets top="40.0" />
          </padding>
       </VBox>
+      <HBox alignment="CENTER_LEFT" layoutX="-2.0" layoutY="52.0" prefHeight="58.0" prefWidth="1283.0">
+         <children>
+            <JFXToggleButton fx:id="toggleButton" onAction="#showCreators" prefHeight="60.0" prefWidth="189.0" style="-fx-font-size: 15;" text="Contributors" toggleColor="#009ca6">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXToggleButton>
+            <Label style="-fx-font-size: 15;" text="Client">
+               <HBox.margin>
+                  <Insets left="900.0" />
+               </HBox.margin>
+            </Label>
+            <JFXToggleButton fx:id="clientToggle" onAction="#toggleStatus" style="-fx-font-size: 15;" text="Embedded" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

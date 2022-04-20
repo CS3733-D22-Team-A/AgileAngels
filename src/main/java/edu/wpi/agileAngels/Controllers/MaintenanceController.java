@@ -139,7 +139,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
       MenuItem item1 = new MenuItem("Add New Request");
       item1.setOnAction(this::mainIDMenu);
       mainID.getItems().add(item1);
-
+      updateDashAdding(stat);
     } else { // Editing
       Request req = mainRequestImpl.getAllRequests().get(mainID.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
@@ -150,6 +150,8 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
         mainRequestImpl.updateEmployeeName(req, emp);
       }
       if (!req.getStatus().equals(stat)) {
+        updateDashAdding(stat);
+        updateDashSubtracting(req.getStatus());
         mainRequestImpl.updateStatus(req, stat);
       }
       if (!req.getDescription().equals(desc)) {
@@ -175,7 +177,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
   @FXML
   public void delete(ActionEvent event) {
     String id = mainID.getText();
-
+    updateDashSubtracting(mainRequestImpl.getAllRequests().get(id).getStatus());
     // removes the request from the table and dropdown
     for (int i = 0; i < maintenanceData.size(); i++) {
       if (maintenanceData.get(i).getName().equals(id)) {
@@ -410,4 +412,38 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
   }
 
   public void menuItemSelected(ActionEvent actionEvent) {}
+
+  private void updateDashAdding(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted++;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress++;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete++;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  private void updateDashSubtracting(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted--;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress--;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete--;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
 }

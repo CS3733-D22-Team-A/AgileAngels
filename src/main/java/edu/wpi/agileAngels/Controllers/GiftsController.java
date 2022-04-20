@@ -37,20 +37,20 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   // DAOs, HashMaps, and Lists required for functionality
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
-  private RequestDAOImpl giftRequestImpl = RequestDAOImpl.getInstance("GiftRequest");
+
   private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   private ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
   private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
   private static ObservableList<Request> giftData = FXCollections.observableArrayList();
-
   private int statusNotStarted, statusInProgress, statusComplete;
-
   private AppController appController = AppController.getInstance();
+  private RequestDAOImpl giftRequestImpl = RequestDAOImpl.getInstance("GiftRequest");
 
   public GiftsController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    System.out.println("uhhh: " + giftRequestImpl);
     appController.addPropertyChangeListener(this);
     popOut.setVisible(false);
     statusNotStarted = 0;
@@ -66,7 +66,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     senderColumn.setCellValueFactory(new PropertyValueFactory<>("attribute2"));
 
-    giftData.clear();
+    // giftData.clear();
     // Populates the table from UI list
     if (giftData.isEmpty()) {
       for (Map.Entry<String, Request> entry : giftRequestImpl.getAllRequests().entrySet()) {
@@ -145,7 +145,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
       MenuItem item1 = new MenuItem("Add New Request");
       item1.setOnAction(this::mainIDMenu);
       giftID.getItems().add(item1);
-
+      updateDashAdding(stat);
     } else { // Editing
       Request req = giftRequestImpl.getAllRequests().get(giftID.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
@@ -159,6 +159,8 @@ public class GiftsController implements Initializable, PropertyChangeListener {
         giftRequestImpl.updateType(req, type);
       }
       if (!req.getStatus().equals(stat)) {
+        updateDashAdding(stat);
+        updateDashSubtracting(req.getStatus());
         giftRequestImpl.updateStatus(req, stat);
       }
       if (!req.getDescription().equals(desc)) {
@@ -190,7 +192,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   @FXML
   public void delete(ActionEvent event) {
     String id = giftID.getText();
-
+    updateDashSubtracting(giftRequestImpl.getAllRequests().get(id).getStatus());
     // removes the request from the table and dropdown
     for (int i = 0; i < giftData.size(); i++) {
       if (giftData.get(i).getName().equals(id)) {
@@ -214,6 +216,8 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     giftType.setText("Type");
     giftDescription.setText("");
     giftDescription.setPromptText("Description");
+    giftSender.setText("");
+    giftRecipient.setText("");
   }
 
   /** Does filterReqsTable methods when "Submit Filters" is clicked, or "onAction." */
@@ -433,5 +437,39 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   public void giftTypeMenu(ActionEvent actionEvent) {
     MenuItem button = (MenuItem) actionEvent.getSource();
     giftType.setText(button.getText());
+  }
+
+  private void updateDashAdding(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted++;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress++;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete++;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  private void updateDashSubtracting(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted--;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress--;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete--;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
   }
 }
