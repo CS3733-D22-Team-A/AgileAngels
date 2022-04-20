@@ -154,6 +154,7 @@ public class LaundryController implements Initializable {
       String type, String employee, String location, String description, String status) {
 
     String placeholder = "?";
+    System.out.println(employeesHash.get(employee) + " " + locationsHash.get(location));
     Request laundry =
         new Request(
             placeholder,

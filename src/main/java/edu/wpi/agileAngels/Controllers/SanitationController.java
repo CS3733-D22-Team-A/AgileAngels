@@ -133,7 +133,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
       MenuItem item1 = new MenuItem("Add New Request");
       item1.setOnAction(this::mealIDMenu);
       saniID.getItems().add(item1);
-
+      updateDashAdding(stat);
     } else { // Editing
       Request req = saniRequestImpl.getAllRequests().get(saniID.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
@@ -144,6 +144,8 @@ public class SanitationController implements Initializable, PropertyChangeListen
         saniRequestImpl.updateEmployeeName(req, emp);
       }
       if (!req.getStatus().equals(stat)) {
+        updateDashAdding(stat);
+        updateDashSubtracting(req.getStatus());
         saniRequestImpl.updateStatus(req, stat);
       }
       if (!req.getDescription().equals(desc)) {
@@ -172,7 +174,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
   @FXML
   public void delete(ActionEvent event) {
     String id = saniID.getText();
-
+    updateDashSubtracting(saniRequestImpl.getAllRequests().get(id).getStatus());
     // removes the request from the table and dropdown
     for (int i = 0; i < saniData.size(); i++) {
       if (saniData.get(i).getName().equals(id)) {
@@ -408,5 +410,39 @@ public class SanitationController implements Initializable, PropertyChangeListen
     saniStatus.setText(req.getStatus());
     saniDescription.setText(req.getDescription());
     saniType.setText(req.getType());
+  }
+
+  private void updateDashAdding(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted++;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress++;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete++;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  private void updateDashSubtracting(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted--;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress--;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete--;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
   }
 }

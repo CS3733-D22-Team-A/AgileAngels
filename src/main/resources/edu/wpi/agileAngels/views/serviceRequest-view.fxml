@@ -20,7 +20,7 @@
 
 -->
 
-<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.ServiceRequestController">
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.ServiceRequestController">
    <children>
       <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
       <VBox alignment="CENTER" layoutY="60.0" prefHeight="602.0" prefWidth="1280.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
@@ -69,7 +69,7 @@
                                           <Image url="@../assets/icons/equipment.png" />
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="erText" prefHeight="26.0" prefWidth="140.0" text="Equipment Request" textAlignment="CENTER" />
+                                    <Label fx:id="erText" alignment="CENTER" prefHeight="26.0" prefWidth="251.0" text="Equipment Request" textAlignment="CENTER" wrapText="true" />
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -149,9 +149,9 @@
                            <graphic>
                               <VBox alignment="CENTER" prefHeight="71.0" prefWidth="319.0" spacing="20.0">
                                  <children>
-                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="60.0" fitWidth="200.0" preserveRatio="true">
                                        <image>
-                                          <Image url="@../assets/icons/lab.png" />
+                                          <Image url="@../assets/icons/noun-maintenance-2490291.png" />
                                        </image>
                                     </ImageView>
                                     <Label fx:id="mrText" text="Maintenance Request" />
@@ -166,9 +166,9 @@
                            <graphic>
                               <VBox alignment="CENTER" prefHeight="0.0" prefWidth="28.0" spacing="20.0">
                                  <children>
-                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="60.0" fitWidth="200.0" preserveRatio="true">
                                        <image>
-                                          <Image url="@../assets/icons/lab.png" />
+                                          <Image url="@../assets/icons/noun-morgue-2346419.png" />
                                        </image>
                                     </ImageView>
                                     <Label fx:id="morText" text="Morgue Request" />
@@ -183,9 +183,9 @@
                            <graphic>
                               <VBox alignment="CENTER" prefHeight="0.0" prefWidth="28.0" spacing="20.0">
                                  <children>
-                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="60.0" fitWidth="200.0" preserveRatio="true">
                                        <image>
-                                          <Image url="@../assets/icons/lab.png" />
+                                          <Image url="@../assets/icons/noun-stretcher-3050320.png" />
                                        </image>
                                     </ImageView>
                                     <Label fx:id="ptText" text="Patient Transport" />
@@ -200,9 +200,9 @@
                            <graphic>
                               <VBox alignment="CENTER" prefHeight="0.0" prefWidth="28.0" spacing="20.0">
                                  <children>
-                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="60.0" fitWidth="200.0" preserveRatio="true">
                                        <image>
-                                          <Image url="@../assets/icons/lab.png" />
+                                          <Image url="@../assets/icons/noun-laundry-3194784.png" />
                                        </image>
                                     </ImageView>
                                     <Label fx:id="launText" text="Laundry Request" />
@@ -228,10 +228,20 @@
             <Insets top="40.0" />
          </padding>
       </VBox>
-      <JFXToggleButton fx:id="toggleButton" onAction="#showCreators" prefHeight="60.0" prefWidth="189.0" style="-fx-font-size: 15;" text="Contributors" toggleColor="#009ca6" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="60.0">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </JFXToggleButton>
+      <HBox alignment="CENTER_LEFT" layoutX="-2.0" layoutY="52.0" prefHeight="58.0" prefWidth="1283.0">
+         <children>
+            <JFXToggleButton fx:id="toggleButton" onAction="#showCreators" prefHeight="60.0" prefWidth="189.0" style="-fx-font-size: 15;" text="Contributors" toggleColor="#009ca6">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXToggleButton>
+            <Label style="-fx-font-size: 15;" text="Client">
+               <HBox.margin>
+                  <Insets left="900.0" />
+               </HBox.margin>
+            </Label>
+            <JFXToggleButton fx:id="clientToggle" onAction="#toggleStatus" style="-fx-font-size: 15;" text="Embedded" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

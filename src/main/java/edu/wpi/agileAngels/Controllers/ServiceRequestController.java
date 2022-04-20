@@ -5,8 +5,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,16 +25,27 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       maintenanceRequest,
       morgueRequest,
       patientTransportRequest;
-  @FXML private JFXToggleButton toggleButton;
+  @FXML private JFXToggleButton toggleButton, clientToggle;
 
   // These are/will be the hidden labels for the toggleable switch.
-  @FXML private Label harmoniLabel, jakobLabel, justinLabel, danielLabel, basharLabel, jakobLabel2;
+  @FXML
+  private Label erText,
+      lrText,
+      mrText,
+      srText,
+      mealText,
+      morText,
+      mgbText,
+      grText,
+      launText,
+      ptText;
 
   AppController appController = AppController.getInstance();
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
+    updateToggle();
   }
 
   @Override
@@ -52,18 +61,30 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
    * or I'll throw hands. ~<3
    */
   public void showCreators(ActionEvent event) {
-    ArrayList<Label> creatorLabels =
-        new ArrayList<>(
-            Arrays.asList(
-                harmoniLabel, justinLabel, danielLabel, basharLabel
-                /** ,jakobLabel,jakobLabel2 */
-                ));
     if (toggleButton.isSelected()) {
       // Will turn off names.
-      creatorLabels.forEach((coder) -> coder.setVisible(true));
+      erText.setText("Equipment Request: Harmoni");
+      lrText.setText("Lab Request: Justin");
+      mrText.setText("Maintenance Request: Talia");
+      srText.setText("Sanitation Request: Daniel");
+      mealText.setText("Meal Request: Jakob");
+      morText.setText("Morgue Request: Aaron");
+      mgbText.setText("Mass General Babes: Aadhya");
+      grText.setText("Gift Request: Bashar");
+      launText.setText("Laundry Request: Bashar");
+      ptText.setText("Patient Transport: Ali");
     } else {
       // Will turn on the names.
-      creatorLabels.forEach((coder) -> coder.setVisible(false));
+      erText.setText("Equipment Request");
+      lrText.setText("Lab Request");
+      mrText.setText("Maintenance Request");
+      srText.setText("Sanitation Request");
+      mealText.setText("Meal Request");
+      morText.setText("Morgue Request");
+      mgbText.setText("Mass General Babes");
+      grText.setText("Gift Request");
+      launText.setText("Laundry Request");
+      ptText.setText("Patient Transport");
     }
   }
 
@@ -98,5 +119,30 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
     /*else if (event.getSource() == testButton) {
       appController.loadPage("/edu/wpi/agileAngels/views/test-view.fxml");
     }*/
+  }
+
+  /**
+   * uses the toggleStatus to update the toggle from client to embedded.
+   *
+   * @param event
+   */
+  @FXML
+  private void toggleStatus(ActionEvent event) {
+    if (clientToggle.isSelected()) {
+      appController.setEmbeddedON(true);
+      // System.out.println("oop gurl and i skr skr skr");
+    } else {
+      appController.setEmbeddedON(false);
+      // System.out.println("is false now gurl");
+    }
+  }
+
+  /** This will check when initalizing what status the toggle was on. */
+  private void updateToggle() {
+    if (appController.isEmbeddedON()) {
+      clientToggle.setSelected(appController.isEmbeddedON());
+      // System.out.println("Justin's here");
+      System.out.println(appController.isEmbeddedON());
+    }
   }
 }
