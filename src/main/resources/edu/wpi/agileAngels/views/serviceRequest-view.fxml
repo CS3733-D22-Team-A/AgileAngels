@@ -149,9 +149,9 @@
                            <graphic>
                               <VBox alignment="CENTER" prefHeight="71.0" prefWidth="319.0" spacing="20.0">
                                  <children>
-                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="60.0" fitWidth="200.0" preserveRatio="true">
                                        <image>
-                                          <Image url="@../assets/icons/lab.png" />
+                                          <Image url="@../assets/icons/noun-maintenance-2490291.png" />
                                        </image>
                                     </ImageView>
                                     <Label fx:id="mrText" text="Maintenance Request" />
@@ -166,9 +166,9 @@
                            <graphic>
                               <VBox alignment="CENTER" prefHeight="0.0" prefWidth="28.0" spacing="20.0">
                                  <children>
-                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="60.0" fitWidth="200.0" preserveRatio="true">
                                        <image>
-                                          <Image url="@../assets/icons/lab.png" />
+                                          <Image url="@../assets/icons/noun-morgue-2346419.png" />
                                        </image>
                                     </ImageView>
                                     <Label fx:id="morText" text="Morgue Request" />
@@ -183,9 +183,9 @@
                            <graphic>
                               <VBox alignment="CENTER" prefHeight="0.0" prefWidth="28.0" spacing="20.0">
                                  <children>
-                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="60.0" fitWidth="200.0" preserveRatio="true">
                                        <image>
-                                          <Image url="@../assets/icons/lab.png" />
+                                          <Image url="@../assets/icons/noun-stretcher-3050320.png" />
                                        </image>
                                     </ImageView>
                                     <Label fx:id="ptText" text="Patient Transport" />
@@ -200,9 +200,9 @@
                            <graphic>
                               <VBox alignment="CENTER" prefHeight="0.0" prefWidth="28.0" spacing="20.0">
                                  <children>
-                                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="60.0" fitWidth="200.0" preserveRatio="true">
                                        <image>
-                                          <Image url="@../assets/icons/lab.png" />
+                                          <Image url="@../assets/icons/noun-laundry-3194784.png" />
                                        </image>
                                     </ImageView>
                                     <Label fx:id="launText" text="Laundry Request" />
