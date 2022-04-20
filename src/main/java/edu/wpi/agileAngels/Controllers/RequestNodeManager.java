@@ -52,6 +52,7 @@ public class RequestNodeManager {
 
     if (request.getRequest().getName().substring(0, 3).equals("Med")
         && request.getRequest().getMedicalEquip() != null) {
+      request.getRequest().getMedicalEquip().setLocation(newLocation);
       mapsController.updateEquipNode(request.getRequest().getMedicalEquip().getID());
     }
   }
