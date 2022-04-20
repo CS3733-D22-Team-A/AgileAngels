@@ -13,12 +13,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class PatientTransportController extends MainController
     implements Initializable, PropertyChangeListener {
 
-  @FXML Pane popOut;
+  @FXML VBox popOut;
   @FXML
   MenuButton transportID,
       transportLocation,

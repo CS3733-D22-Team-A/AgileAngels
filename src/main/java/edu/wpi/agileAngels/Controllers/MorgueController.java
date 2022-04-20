@@ -16,12 +16,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class MorgueController implements Initializable, PropertyChangeListener {
   AppController appController = AppController.getInstance();
   // @FXML private Button addButton;
-  @FXML Pane popOut;
+  @FXML VBox popOut;
   @FXML MenuButton morgueID, morgueLocation, morgueEmployee, morgueStatus;
   @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
   @FXML TableView morgueTable;

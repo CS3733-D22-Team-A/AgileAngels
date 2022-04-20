@@ -33,6 +33,7 @@ public class HomeController implements Initializable, PropertyChangeListener {
   private void homeButton(ActionEvent event) {
     if (event.getSource() == serviceButton) {
       appController.loadPage("/edu/wpi/agileAngels/views/serviceRequest-view.fxml");
+      // appController.loadPage("/edu/wpi/agileAngels/views/laundry-veiw.fxml");
     } else if (event.getSource() == mapButton) {
       appController.loadPage("/edu/wpi/agileAngels/views/NEWdashboard.fxml");
     }

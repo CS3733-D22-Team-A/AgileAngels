@@ -13,11 +13,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class MealController implements Initializable, PropertyChangeListener {
 
-  @FXML Pane popOut;
+  @FXML VBox popOut;
   @FXML MenuButton mealID, mealLocation, mealEmployee, mealStatus, mealType;
   @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
   @FXML TableView mealTable;
@@ -133,6 +133,7 @@ public class MealController implements Initializable, PropertyChangeListener {
       MenuItem item1 = new MenuItem("Add New Request");
       item1.setOnAction(this::mealIDMenu);
       mealID.getItems().add(item1);
+      updateDashAdding(stat);
 
     } else { // Editing
       Request req = mealRequestImpl.getAllRequests().get(mealID.getText());
@@ -144,6 +145,8 @@ public class MealController implements Initializable, PropertyChangeListener {
         mealRequestImpl.updateEmployeeName(req, emp);
       }
       if (!req.getStatus().equals(stat)) {
+        updateDashSubtracting(req.getStatus());
+        updateDashAdding(stat);
         mealRequestImpl.updateStatus(req, stat);
       }
       if (!req.getDescription().equals(desc)) {
@@ -172,7 +175,7 @@ public class MealController implements Initializable, PropertyChangeListener {
   @FXML
   public void delete(ActionEvent event) {
     String id = mealID.getText();
-
+    updateDashSubtracting(mealRequestImpl.getAllRequests().get(id).getStatus());
     // removes the request from the table and dropdown
     for (int i = 0; i < mealData.size(); i++) {
       if (mealData.get(i).getName().equals(id)) {
@@ -408,5 +411,39 @@ public class MealController implements Initializable, PropertyChangeListener {
     mealStatus.setText(req.getStatus());
     mealDescription.setText(req.getDescription());
     mealType.setText(req.getType());
+  }
+
+  private void updateDashAdding(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted++;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress++;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete++;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  private void updateDashSubtracting(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted--;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress--;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete--;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
   }
 }

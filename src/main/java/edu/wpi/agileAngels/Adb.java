@@ -22,6 +22,8 @@ public class Adb {
   private static RequestDAOImpl transportRequestImpl = null;
   private static RequestDAOImpl morgueRequestImpl = null;
   private static RequestDAOImpl mealRequestImpl = null;
+  private static RequestDAOImpl giftRequestImpl = null;
+  private static RequestDAOImpl sanitationRequestImpl = null;
 
   /**
    * Creates database tables if they do not exist already.
@@ -89,6 +91,8 @@ public class Adb {
     morgueRequestImpl = RequestDAOImpl.getInstance("MorgueRequest");
     mealRequestImpl = RequestDAOImpl.getInstance("MealRequest");
     medRequestDAO = RequestDAOImpl.getInstance("MedRequest");
+    giftRequestImpl = RequestDAOImpl.getInstance("GiftRequest");
+    sanitationRequestImpl = RequestDAOImpl.getInstance("SanitationRequest");
     resetServiceRequests();
 
     serviceRequestTable.getData();
