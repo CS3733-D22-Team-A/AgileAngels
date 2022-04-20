@@ -27,7 +27,7 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       maintenanceRequest,
       morgueRequest,
       patientTransportRequest;
-  @FXML private JFXToggleButton toggleButton;
+  @FXML private JFXToggleButton toggleButton,clientToggle;
 
   // These are/will be the hidden labels for the toggleable switch.
   @FXML private Label harmoniLabel, jakobLabel, justinLabel, danielLabel, basharLabel, jakobLabel2;
@@ -98,4 +98,26 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       appController.loadPage("/edu/wpi/agileAngels/views/test-view.fxml");
     }*/
   }
+
+  @FXML
+  private void toggleStatus(ActionEvent event) {
+    if (clientToggle.isSelected()) {
+      appController.setEmbeddedON(true);
+      System.out.println("oop gurl and i skr skr skr");
+    } else {
+      appController.setEmbeddedON(false);
+      System.out.println("is false now gurl");
+    }
+  }
+
+  private void updateToggle() {
+    if (appController.isEmbeddedON()) {
+      clientToggle.setSelected(appController.isEmbeddedON());
+      System.out.println("Justin's here");
+      System.out.println(appController.isEmbeddedON());
+    }
+  }
+
+
+
 }
