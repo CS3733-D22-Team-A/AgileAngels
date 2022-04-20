@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -11,8 +12,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<?import java.net.URL?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="background" stylesheets="@stylesheets/DashCSS.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.DashboardController">
    <children>
@@ -64,12 +63,12 @@
          <children>
             <Pane layoutX="497.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #AE986E; -fx-background-radius: 0 0 15 15;">
                <children>
-                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="dirty" textFill="#2f2f2f">
+                  <Label layoutX="89.0" layoutY="60.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="dirty" textFill="#2f2f2f">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="dirtyRecliner" layoutX="89.0" layoutY="84.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
+                  <Label fx:id="dirtyRecliner" alignment="CENTER_RIGHT" layoutX="89.0" layoutY="73.0" style="-fx-font-family: Roboto; -fx-font-weight: bold; -fx-font-size: 32; -fx-alignment: center-right;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
                      <font>
                         <Font size="32.0" />
                      </font>
@@ -78,7 +77,7 @@
             </Pane>
             <Pane layoutX="497.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: EACF9D; -fx-background-radius: 15 15 0 0;">
                <children>
-                  <Label layoutX="78.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="Recliner" textFill="WHITE">
+                  <Label layoutX="67.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="Recliner" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -88,7 +87,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="cleanRecliner" layoutX="90.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
+                  <Label fx:id="cleanRecliner" alignment="CENTER_RIGHT" layoutX="90.0" style="-fx-font-family: Roboto; -fx-font-weight: bold; -fx-font-size: 32;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
                      <font>
                         <Font size="32.0" />
                      </font>
@@ -102,12 +101,12 @@
             </Pane>
             <Pane layoutX="340.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #2C8A9E; -fx-background-radius: 0 0 15 15;">
                <children>
-                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="dirty" textFill="#2f2f2f">
+                  <Label layoutX="89.0" layoutY="60.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="dirty" textFill="#2f2f2f">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="dirtyXRay" layoutX="89.0" layoutY="84.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
+                  <Label fx:id="dirtyXRay" alignment="CENTER_RIGHT" layoutX="89.0" layoutY="73.0" style="-fx-font-family: Roboto; -fx-font-weight: bold; -fx-font-size: 32;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
                      <font>
                         <Font size="32.0" />
                      </font>
@@ -126,7 +125,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="cleanXRay" layoutX="90.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
+                  <Label fx:id="cleanXRay" alignment="CENTER_RIGHT" layoutX="90.0" style="-fx-font-family: Roboto; -fx-font-weight: bold; -fx-font-size: 32;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
                      <font>
                         <Font size="32.0" />
                      </font>
@@ -140,12 +139,12 @@
             </Pane>
             <Pane layoutX="182.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #5A8F7C; -fx-background-radius: 0 0 15 15;">
                <children>
-                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="dirty" textFill="#2f2f2f">
+                  <Label layoutX="89.0" layoutY="60.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="dirty" textFill="#2f2f2f">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="dirtyBeds" layoutX="89.0" layoutY="84.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
+                  <Label fx:id="dirtyBeds" alignment="CENTER_RIGHT" layoutX="89.0" layoutY="73.0" style="-fx-font-family: Roboto; -fx-font-weight: bold; -fx-font-size: 32;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
                      <font>
                         <Font size="32.0" />
                      </font>
@@ -164,7 +163,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="cleanBeds" layoutX="90.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
+                  <Label fx:id="cleanBeds" alignment="CENTER_RIGHT" layoutX="90.0" style="-fx-font-family: Roboto; -fx-font-weight: bold; -fx-font-size: 32;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
                      <font>
                         <Font size="32.0" />
                      </font>
@@ -178,12 +177,12 @@
             </Pane>
             <Pane layoutX="24.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #AD6673; -fx-background-radius: 0 0 15 15;">
                <children>
-                  <Label layoutX="89.0" layoutY="69.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="dirty" textFill="#2f2f2f">
+                  <Label layoutX="89.0" layoutY="60.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="dirty" textFill="#2f2f2f">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="dirtyPump" layoutX="89.0" layoutY="84.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
+                  <Label fx:id="dirtyPump" alignment="CENTER_RIGHT" layoutX="89.0" layoutY="73.0" style="-fx-font-family: Roboto; -fx-font-weight: bold; -fx-font-size: 32;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
                      <font>
                         <Font size="32.0" />
                      </font>
@@ -192,7 +191,7 @@
             </Pane>
             <Pane layoutX="24.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: DB8A96; -fx-background-radius: 15 15 0 0;">
                <children>
-                  <Label layoutX="22.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="Infusion Pump" textFill="WHITE">
+                  <Label layoutX="19.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="Infusion Pump" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -202,7 +201,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="cleanPump" layoutX="90.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
+                  <Label fx:id="cleanPump" alignment="CENTER_RIGHT" layoutX="90.0" style="-fx-font-family: Roboto; -fx-font-weight: bold; -fx-font-size: 32;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
                      <font>
                         <Font size="32.0" />
                      </font>

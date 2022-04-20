@@ -7,6 +7,8 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -69,6 +71,10 @@ public class MapsController implements Initializable, PropertyChangeListener {
   Pane pane5 = new Pane();
   Pane paneL1 = new Pane();
   Pane paneL2 = new Pane();
+
+  private HashMap<String, Pane> floorPanes = new HashMap<>();
+
+  ArrayList<String> floors = new ArrayList<>();
 
   LocationNodeManager locationNodeManager = new LocationNodeManager(this);
   RequestNodeManager requestNodeManager = new RequestNodeManager(this);
@@ -138,19 +144,21 @@ public class MapsController implements Initializable, PropertyChangeListener {
     mapPane.getChildren().add(paneL2);
     paneL2.setVisible(false);
 
-    if (appController.getCurrentFloor() == "2") {
-      pane2.setVisible(true);
-    } else if (appController.getCurrentFloor() == "3") {
-      pane3.setVisible(true);
-    } else if (appController.getCurrentFloor() == "4") {
-      pane4.setVisible(true);
-    } else if (appController.getCurrentFloor() == "5") {
-      pane5.setVisible(true);
-    } else if (appController.getCurrentFloor() == "L1") {
-      paneL1.setVisible(true);
-    } else if (appController.getCurrentFloor() == "L2") {
-      paneL2.setVisible(true);
-    }
+    floors.add("L2");
+    floors.add("L2");
+    floors.add("2");
+    floors.add("3");
+    floors.add("4");
+    floors.add("5");
+
+    floorPanes.put(floors.get(0), paneL2);
+    floorPanes.put(floors.get(1), paneL1);
+    floorPanes.put(floors.get(2), pane2);
+    floorPanes.put(floors.get(3), pane3);
+    floorPanes.put(floors.get(4), pane4);
+    floorPanes.put(floors.get(5), pane5);
+
+    floorPanes.get(appController.getCurrentFloor()).setVisible(true);
 
     floorLabel.setText(appController.getCurrentFloor());
 
@@ -223,6 +231,14 @@ public class MapsController implements Initializable, PropertyChangeListener {
    * @param requestNode the node whose data is populated
    */
   public void populateRequestNodeData(RequestNode requestNode) {
+    requestTypeDropdown.getItems().clear();
+
+    for (String s : requestNodeManager.getTypes(requestNode)) {
+      requestTypeDropdown.getItems().add(new MenuItem(s));
+    }
+    if (requestNode.getName().substring(0, 3).equals("Med")) {
+      requestTypeDropdown.setDisable(true);
+    }
     requestEditPane.setVisible(true);
     locationEditPane.setVisible(false);
     requestTypeDropdown.setText(requestNode.getRequest().getType());
@@ -394,80 +410,82 @@ public class MapsController implements Initializable, PropertyChangeListener {
     pane5.setVisible(false);
     paneL1.setVisible(false);
     paneL2.setVisible(false);
+
     if (event.getSource() == floorTwo) {
       pane2.setVisible(true);
-      currentFloor = "2";
+      appController.setCurrentFloor("2");
       floorLabel.setText("2");
     } else if (event.getSource() == floorThree) {
       pane3.setVisible(true);
-      currentFloor = "3";
+      appController.setCurrentFloor("3");
       floorLabel.setText("3");
     } else if (event.getSource() == floorFour) {
       pane4.setVisible(true);
-      currentFloor = "4";
+      appController.setCurrentFloor("4");
       floorLabel.setText("4");
     } else if (event.getSource() == floorFive) {
       pane5.setVisible(true);
-      currentFloor = "5";
+      appController.setCurrentFloor("5");
       floorLabel.setText("5");
     } else if (event.getSource() == lowerLevelOne) {
       paneL1.setVisible(true);
-      currentFloor = "L1";
+      appController.setCurrentFloor("L1");
       floorLabel.setText("1");
     } else if (event.getSource() == lowerLevelTwo) {
       paneL2.setVisible(true);
-      currentFloor = "L2";
+      appController.setCurrentFloor("L2");
       floorLabel.setText("2");
+
     } else if (event.getSource() == floorUp) {
-      if (currentFloor == "L1") {
+      if (appController.getCurrentFloor().equals("L1")) {
         paneL2.setVisible(true);
-        currentFloor = "L2";
+        appController.setCurrentFloor("L2");
         floorLabel.setText("L2");
-      } else if (currentFloor == "L2") {
+      } else if (appController.getCurrentFloor().equals("L2")) {
         pane2.setVisible(true);
-        currentFloor = "2";
+        appController.setCurrentFloor("2");
         floorLabel.setText("2");
-      } else if (currentFloor == "2") {
+      } else if (appController.getCurrentFloor().equals("2")) {
         pane3.setVisible(true);
-        currentFloor = "3";
+        appController.setCurrentFloor("3");
         floorLabel.setText("3");
-      } else if (currentFloor == "3") {
+      } else if (appController.getCurrentFloor().equals("3")) {
         pane4.setVisible(true);
-        currentFloor = "4";
+        appController.setCurrentFloor("4");
         floorLabel.setText("4");
-      } else if (currentFloor == "4") {
+      } else if (appController.getCurrentFloor().equals("4")) {
         pane5.setVisible(true);
-        currentFloor = "5";
+        appController.setCurrentFloor("5");
         floorLabel.setText("5");
-      } else if (currentFloor == "5") {
+      } else if (appController.getCurrentFloor().equals("5")) {
         pane5.setVisible(true);
-        currentFloor = "5";
+        appController.setCurrentFloor("5");
         floorLabel.setText("5");
       }
     } else if (event.getSource() == floorDown) {
-      if (currentFloor == "2") {
+      if (appController.getCurrentFloor().equals("2")) {
         paneL2.setVisible(true);
-        currentFloor = "L2";
+        appController.setCurrentFloor("L2");
         floorLabel.setText("L2");
-      } else if (currentFloor == "3") {
+      } else if (appController.getCurrentFloor().equals("3")) {
         pane2.setVisible(true);
-        currentFloor = "2";
+        appController.setCurrentFloor("2");
         floorLabel.setText("2");
-      } else if (currentFloor == "4") {
+      } else if (appController.getCurrentFloor().equals("4")) {
         pane3.setVisible(true);
-        currentFloor = "3";
+        appController.setCurrentFloor("3");
         floorLabel.setText("3");
-      } else if (currentFloor == "5") {
+      } else if (appController.getCurrentFloor().equals("5")) {
         pane4.setVisible(true);
-        currentFloor = "4";
+        appController.setCurrentFloor("4");
         floorLabel.setText("4");
-      } else if (currentFloor == "L2") {
+      } else if (appController.getCurrentFloor().equals("L2")) {
         paneL1.setVisible(true);
-        currentFloor = "L1";
+        appController.setCurrentFloor("L1");
         floorLabel.setText("L1");
-      } else if (currentFloor == "L1") {
+      } else if (appController.getCurrentFloor().equals("L1")) {
         paneL1.setVisible(true);
-        currentFloor = "L1";
+        appController.setCurrentFloor("L1");
         floorLabel.setText("L1");
       }
     }

@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Stack;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -227,7 +228,7 @@ public class AppController {
 
     if (pageHistory.isEmpty()) {
       pageHistory.push(view);
-    } else if (view != pageHistory.peek()) {
+    } else if (!Objects.equals(view, pageHistory.peek())) {
       pageHistory.push(view);
     }
 

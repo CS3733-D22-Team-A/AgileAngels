@@ -5,8 +5,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,14 +21,24 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       saniRequest,
       mealRequest,
       giftRequest,
-      mbgRequest,
+      laundryRequest,
       maintenanceRequest,
       morgueRequest,
       patientTransportRequest;
   @FXML private JFXToggleButton toggleButton;
 
   // These are/will be the hidden labels for the toggleable switch.
-  @FXML private Label harmoniLabel, jakobLabel, justinLabel, danielLabel, basharLabel, jakobLabel2;
+  @FXML
+  private Label erText,
+      lrText,
+      mrText,
+      srText,
+      mealText,
+      morText,
+      mgbText,
+      grText,
+      launText,
+      ptText;
 
   AppController appController = AppController.getInstance();
 
@@ -52,18 +60,30 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
    * or I'll throw hands. ~<3
    */
   public void showCreators(ActionEvent event) {
-    ArrayList<Label> creatorLabels =
-        new ArrayList<>(
-            Arrays.asList(
-                harmoniLabel, justinLabel, danielLabel, basharLabel
-                /** ,jakobLabel,jakobLabel2 */
-                ));
     if (toggleButton.isSelected()) {
       // Will turn off names.
-      creatorLabels.forEach((coder) -> coder.setVisible(true));
+      erText.setText("Equipment Request: Harmoni");
+      lrText.setText("Lab Request: Justin");
+      mrText.setText("Maintenance Request: Talia");
+      srText.setText("Sanitation Request: Daniel");
+      mealText.setText("Meal Request: Jakob");
+      morText.setText("Morgue Request: Aaron");
+      mgbText.setText("Mass General Babes: Aadhya");
+      grText.setText("Gift Request: Bashar");
+      launText.setText("Laundry Request: Bashar");
+      ptText.setText("Patient Transport: Ali");
     } else {
       // Will turn on the names.
-      creatorLabels.forEach((coder) -> coder.setVisible(false));
+      erText.setText("Equipment Request");
+      lrText.setText("Lab Request");
+      mrText.setText("Maintenance Request");
+      srText.setText("Sanitation Request");
+      mealText.setText("Meal Request");
+      morText.setText("Morgue Request");
+      mgbText.setText("Mass General Babes");
+      grText.setText("Gift Request");
+      launText.setText("Laundry Request");
+      ptText.setText("Patient Transport");
     }
   }
 
@@ -86,8 +106,9 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       appController.loadPage("/edu/wpi/agileAngels/views/gifts-view.fxml");
     } else if (event.getSource() == maintenanceRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/maintenance-view.fxml");
-    } else if (event.getSource() == mbgRequest) {
-      appController.loadPage("/edu/wpi/agileAngels/views/mgb-view.fxml");
+    } else if (event.getSource() == laundryRequest) {
+      // todo this was the mass babes line I edited if your wondeiring or need to change it
+      appController.loadPage("/edu/wpi/agileAngels/views/laundryRequest-view.fxml");
     } else if (event.getSource() == morgueRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/morgue-view.fxml");
     } else if (event.getSource() == patientTransportRequest) {

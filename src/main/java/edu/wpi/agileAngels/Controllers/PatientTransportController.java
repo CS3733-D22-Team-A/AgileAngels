@@ -13,12 +13,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class PatientTransportController extends MainController
     implements Initializable, PropertyChangeListener {
 
-  @FXML Pane popOut;
+  @FXML VBox popOut;
   @FXML
   MenuButton transportID,
       transportLocation,
@@ -43,7 +43,7 @@ public class PatientTransportController extends MainController
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
-  private RequestDAOImpl mainRequestImpl =
+  private RequestDAOImpl transportDAOImpl =
       RequestDAOImpl.getInstance("TransportRequest"); // looks sus
   private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   private ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
@@ -73,7 +73,7 @@ public class PatientTransportController extends MainController
 
     // Populates the table from UI list
     if (transportData.isEmpty()) {
-      for (Map.Entry<String, Request> entry : mainRequestImpl.getAllRequests().entrySet()) {
+      for (Map.Entry<String, Request> entry : transportDAOImpl.getAllRequests().entrySet()) {
         Request req = entry.getValue();
         transportData.add(req);
       }
@@ -149,7 +149,7 @@ public class PatientTransportController extends MainController
               "N/A",
               desty.getLongName());
       transportData.add(req);
-      mainRequestImpl.addRequest(req);
+      transportDAOImpl.addRequest(req);
 
       transportID.getItems().remove(0, transportID.getItems().size());
       // Populates ID dropdown
@@ -161,27 +161,29 @@ public class PatientTransportController extends MainController
       MenuItem item1 = new MenuItem("Add New Request");
       item1.setOnAction(this::mainIDMenu);
       transportID.getItems().add(item1);
-
+      updateDashAdding(stat);
     } else { // Editing
-      Request req = mainRequestImpl.getAllRequests().get(transportID.getText());
+      Request req = transportDAOImpl.getAllRequests().get(transportID.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
         Location newLoc = locationsHash.get(loc);
-        mainRequestImpl.updateLocation(req, newLoc);
+        transportDAOImpl.updateLocation(req, newLoc);
       }
       if (!req.getAttribute2().equals(dest)) {
-        mainRequestImpl.updateAttribute2(req, dest);
+        transportDAOImpl.updateAttribute2(req, dest);
       }
       if (!req.getEmployee().getName().equals(emp)) {
-        mainRequestImpl.updateEmployeeName(req, emp);
+        transportDAOImpl.updateEmployeeName(req, emp);
       }
       if (!req.getStatus().equals(stat)) {
-        mainRequestImpl.updateStatus(req, stat);
+        updateDashAdding(stat);
+        updateDashSubtracting(req.getStatus());
+        transportDAOImpl.updateStatus(req, stat);
       }
       if (!req.getDescription().equals(desc)) {
-        mainRequestImpl.updateDescription(req, desc);
+        transportDAOImpl.updateDescription(req, desc);
       }
       if (!req.getType().equals(desc)) {
-        mainRequestImpl.updateType(req, type);
+        transportDAOImpl.updateType(req, type);
       }
       for (int i = 0; i < transportData.size(); i++) {
         if (transportData.get(i).getName().equals(req.getName())) {
@@ -202,7 +204,7 @@ public class PatientTransportController extends MainController
   @FXML
   public void delete(ActionEvent event) {
     String id = transportID.getText();
-
+    updateDashSubtracting(transportDAOImpl.getAllRequests().get(id).getStatus());
     // removes the request from the table and dropdown
     for (int i = 0; i < transportData.size(); i++) {
       if (transportData.get(i).getName().equals(id)) {
@@ -212,7 +214,7 @@ public class PatientTransportController extends MainController
     }
 
     // delete from hash map and database table
-    mainRequestImpl.deleteRequest(mainRequestImpl.getAllRequests().get(id));
+    transportDAOImpl.deleteRequest(transportDAOImpl.getAllRequests().get(id));
 
     clear(event);
   }
@@ -300,7 +302,7 @@ public class PatientTransportController extends MainController
         && inProgressNumber.getText().equals("-")
         && completedNumber.getText().equals("-")) {
 
-      Iterator var3 = mainRequestImpl.getAllRequests().entrySet().iterator();
+      Iterator var3 = transportDAOImpl.getAllRequests().entrySet().iterator();
       while (var3.hasNext()) {
         Map.Entry<String, Request> entry = (Map.Entry) var3.next();
         Request object = (Request) entry.getValue();
@@ -441,12 +443,46 @@ public class PatientTransportController extends MainController
    * @param id Request ID
    */
   private void populate(String id) {
-    Request req = mainRequestImpl.getAllRequests().get(id);
+    Request req = transportDAOImpl.getAllRequests().get(id);
     transportLocation.setText(req.getLocation().getNodeID());
     transportEmployee.setText(req.getEmployee().getName());
     transportStatus.setText(req.getStatus());
     transportDescription.setText(req.getDescription());
     transportType.setText(req.getType());
     transportDestination.setText(req.getAttribute2());
+  }
+
+  private void updateDashAdding(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted++;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress++;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete++;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  private void updateDashSubtracting(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted--;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress--;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete--;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
   }
 }
