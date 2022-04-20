@@ -92,50 +92,53 @@ APATI01903,1442,1000,3,Tower,PATI,Patient room pod C 9,Patient 01903
 APATI02003,1491,977,3,Tower,PATI,Patient room pod C 10,Patient 02003
 ASTOR00303,1679,806,3,Tower,STOR,Bed recliner storage for Pod A and B,Bed storage 00303
 ASTOR00403,1668,1041,3,Tower,STOR,Bed recliner storage for Pod C and D,Bed storage 00403
-APATI00104,1491,864,4,Tower,PATI,Patient room pod B 1,Patient 00104
-APATI00204,1454,844,4,Tower,PATI,Patient room pod B 2,Patient 00204
-APATI00304,1422,798,4,Tower,PATI,Patient room pod B 3,Patient 00304
-APATI00404,1416,755,4,Tower,PATI,Patient room pod B 4,Patient 00404
-APATI00504,1436,710,4,Tower,PATI,Patient room pod B 5,Patient 00504
+APATI00104,1483,864,4,Tower,PATI,Patient room pod B 1,Patient 00104
+APATI00204,1442,838,4,Tower,PATI,Patient room pod B 2,Patient 00204
+APATI00304,1419,794,4,Tower,PATI,Patient room pod B 3,Patient 00304
+APATI00404,1414,745,4,Tower,PATI,Patient room pod B 4,Patient 00404
+APATI00504,1427,709,4,Tower,PATI,Patient room pod B 5,Patient 00504
 APATI00604,1461,682,4,Tower,PATI,Patient room pod B 6,Patient 00604
-APATI00704,1510,665,4,Tower,PATI,Patient room pod B 7,Patient 00704
-APATI00804,1552,670,4,Tower,PATI,Patient room pod B 8,Patient 00804
-APATI00904,1600,698,4,Tower,PATI,Patient room pod B 9,Patient 00904
-APATI01004,1625,743,4,Tower,PATI,Patient room pod B 10,Patient 01004
-APATI01104,1619,1106,4,Tower,PATI,Patient room pod C 1,Patient 01104
-APATI01204,1599,1150,4,Tower,PATI,Patient room pod C 2,Patient 01204
-APATI01304,1552,1177,4,Tower,PATI,Patient room pod C 3,Patient 01304
-APATI01404,1503,1183,4,Tower,PATI,Patient room pod C 4,Patient 01404
-APATI01504,1460,1162,4,Tower,PATI,Patient room pod C 5,Patient 01504
-APATI01604,1428,1133,4,Tower,PATI,Patient room pod C 6,Patient 01604
-APATI01704,1416,1090,4,Tower,PATI,Patient room pod C 7,Patient 01704
-APATI01804,1416,1047,4,Tower,PATI,Patient room pod C 8,Patient 01804
-APATI01904,1442,1000,4,Tower,PATI,Patient room pod C 9,Patient 01904
-APATI02004,1491,977,4,Tower,PATI,Patient room pod C 10,Patient 02004
-APATI00105,1491,864,5,Tower,PATI,Patient room pod B 1,Patient 00105
-APATI00205,1454,844,5,Tower,PATI,Patient room pod B 2,Patient 00205
-APATI00305,1422,798,5,Tower,PATI,Patient room pod B 3,Patient 00305
-APATI00405,1416,755,5,Tower,PATI,Patient room pod B 4,Patient 00405
-APATI00505,1436,710,5,Tower,PATI,Patient room pod B 5,Patient 00505
+APATI00704,1500,663,4,Tower,PATI,Patient room pod B 7,Patient 00704
+APATI00804,1554,664,4,Tower,PATI,Patient room pod B 8,Patient 00804
+APATI00904,1586,696,4,Tower,PATI,Patient room pod B 9,Patient 00904
+APATI01004,1614,738,4,Tower,PATI,Patient room pod B 10,Patient 01004
+APATI01104,1490,966,4,Tower,PATI,Patient room pod C 1,Patient 01104
+APATI01204,1447,992,4,Tower,PATI,Patient room pod C 2,Patient 01204
+APATI01304,1421,1031,4,Tower,PATI,Patient room pod C 3,Patient 01304
+APATI01404,1419,1079,4,Tower,PATI,Patient room pod C 4,Patient 01404
+APATI01504,1431,1119,4,Tower,PATI,Patient room pod C 5,Patient 01504
+APATI01604,1466,1151,4,Tower,PATI,Patient room pod C 6,Patient 01604
+APATI01704,1504,1167,4,Tower,PATI,Patient room pod C 7,Patient 01704
+APATI01804,1551,1158,4,Tower,PATI,Patient room pod C 8,Patient 01804
+APATI01904,1587,1130,4,Tower,PATI,Patient room pod C 9,Patient 01904
+APATI02004,1610,1087,4,Tower,PATI,Patient room pod C 10,Patient 02004
+APATI00105,1483,864,5,Tower,PATI,Patient room pod B 1,Patient 00105
+APATI00205,1442,838,5,Tower,PATI,Patient room pod B 2,Patient 00205
+APATI00305,1419,794,5,Tower,PATI,Patient room pod B 3,Patient 00305
+APATI00405,1414,745,5,Tower,PATI,Patient room pod B 4,Patient 00405
+APATI00505,1427,709,5,Tower,PATI,Patient room pod B 5,Patient 00505
 APATI00605,1461,682,5,Tower,PATI,Patient room pod B 6,Patient 00605
-APATI00705,1510,665,5,Tower,PATI,Patient room pod B 7,Patient 00705
-APATI00805,1552,670,5,Tower,PATI,Patient room pod B 8,Patient 00805
-APATI00905,1600,698,5,Tower,PATI,Patient room pod B 9,Patient 00905
-APATI01005,1625,743,5,Tower,PATI,Patient room pod B 10,Patient 01005
-APATI01105,1619,1106,5,Tower,PATI,Patient room pod C 1,Patient 01105
-APATI01205,1599,1150,5,Tower,PATI,Patient room pod C 2,Patient 01205
-APATI01305,1552,1177,5,Tower,PATI,Patient room pod C 3,Patient 01305
-APATI01405,1503,1183,5,Tower,PATI,Patient room pod C 4,Patient 01405
-APATI01505,1460,1162,5,Tower,PATI,Patient room pod C 5,Patient 01505
-APATI01605,1428,1133,5,Tower,PATI,Patient room pod C 6,Patient 01605
-APATI01705,1416,1090,5,Tower,PATI,Patient room pod C 7,Patient 01705
-APATI01805,1416,1047,5,Tower,PATI,Patient room pod C 8,Patient 01805
-APATI01905,1442,1000,5,Tower,PATI,Patient room pod C 9,Patient 01905
-APATI02005,1491,977,5,Tower,PATI,Patient room pod C 10,Patient 02005
+APATI00705,1500,663,5,Tower,PATI,Patient room pod B 7,Patient 00705
+APATI00805,1554,664,5,Tower,PATI,Patient room pod B 8,Patient 00805
+APATI00905,1586,696,5,Tower,PATI,Patient room pod B 9,Patient 00905
+APATI01005,1614,738,5,Tower,PATI,Patient room pod B 10,Patient 01005
+APATI01105,1728,741,5,Tower,PATI,Patient room pod A 1,Patient 01105
+APATI01205,1740,692,5,Tower,PATI,Patient room pod A 2,Patient 01205
+APATI01305,1789,665,5,Tower,PATI,Patient room pod A 3,Patient 01305
+APATI01405,1838,658,5,Tower,PATI,Patient room pod A 4,Patient 01405
+APATI01505,1875,670,5,Tower,PATI,Patient room pod A 5,Patient 01505
+APATI01605,1909,700,5,Tower,PATI,Patient room pod A 6,Patient 01605
+APATI01705,1923,741,5,Tower,PATI,Patient room pod A 7,Patient 01705
+APATI01805,1915,801,5,Tower,PATI,Patient room pod A 8,Patient 01805
+APATI01905,1888,833,5,Tower,PATI,Patient room pod A 9,Patient 01905
+APATI02005,1840,858,5,Tower,PATI,Patient room pod A 10,Patient 02005
 ASTOR001L1,1670,860,L1,Tower,STOR,OR Bed Park,Bed Park
-ASTOR00104,1498,786,4,Tower,STOR,Pod B clean equiptment storage,Clean pumps 0010r
-ASTOR00304,1679,806,4,Tower,STOR,Bed recliner storage for Pod A and B,Bed storage 0030r
+ASTOR00104,1410,776,4,Tower,STOR,Pod B clean equipment storage,Clean pumps 0010r
+ASTOR00204,1410,1060,4,Tower,STOR,Pod B clean equipment storage,Clean pumps 0020r
+ASTOR00304,1672,806,4,Tower,STOR,Bed recliner storage for Pod A and B,Bed storage 0030r
+ASTOR00404,1672,1022,4,Tower,STOR,Bed recliner storage for Pod A and B,Bed storage 0040r
 ADIRT00104,1527,942,4,Tower,DIRT,Soiled equipment storage,Dirty pumps
-ASTOR00105,1498,786,5,Tower,STOR,Pod B clean equiptment storage,Clean pumps 00105
+ASTOR00105,1527,725,5,Tower,STOR,Pod B clean equipment storage,Clean pumps 00105
+ASTOR00205,1864,753,5,Tower,STOR,Pod A clean equipment storage,Clean pumps 0010r
 ASTOR00305,1679,806,5,Tower,STOR,Bed recliner storage for Pod A and B,Bed storage 00305
 ADIRT00105,1527,942,5,Tower,DIRT,Soiled equipment storage,Dirty pumps
