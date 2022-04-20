@@ -27,7 +27,7 @@
                   <Font name="Roboto Light" size="13.0" />
                </font>
             </Button>
-            <Button id="menuButton" mnemonicParsing="false" text="About Us" />
+            <Button id="menuButton" fx:id="aboutUs" mnemonicParsing="false" onAction="#menuItem" text="About Us" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="313.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
