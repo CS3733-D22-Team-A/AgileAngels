@@ -37,20 +37,20 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   // DAOs, HashMaps, and Lists required for functionality
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
-  private RequestDAOImpl giftRequestImpl = RequestDAOImpl.getInstance("GiftRequest");
+
   private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   private ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
   private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
   private static ObservableList<Request> giftData = FXCollections.observableArrayList();
-
   private int statusNotStarted, statusInProgress, statusComplete;
-
   private AppController appController = AppController.getInstance();
+  private RequestDAOImpl giftRequestImpl = RequestDAOImpl.getInstance("GiftRequest");
 
   public GiftsController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    System.out.println("uhhh: " + giftRequestImpl);
     appController.addPropertyChangeListener(this);
     popOut.setVisible(false);
     statusNotStarted = 0;
@@ -66,7 +66,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     senderColumn.setCellValueFactory(new PropertyValueFactory<>("attribute2"));
 
-    giftData.clear();
+    // giftData.clear();
     // Populates the table from UI list
     if (giftData.isEmpty()) {
       for (Map.Entry<String, Request> entry : giftRequestImpl.getAllRequests().entrySet()) {
