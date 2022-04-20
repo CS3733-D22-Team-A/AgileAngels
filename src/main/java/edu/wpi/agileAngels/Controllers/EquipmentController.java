@@ -574,16 +574,17 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   private void populate(String id) {
     Request req = MedrequestImpl.getAllRequests().get(id);
     equipLocation.setText(req.getLocation().getNodeID());
+    System.out.println(req.getStatus());
     equipmentStatus.setText(req.getStatus());
     equipmentEmployeeText.setText(req.getEmployee().getName());
-    equipmentStatus.setText(req.getStatus());
+    equipmentType.setText(req.getType());
     mainDescription.setText(req.getDescription());
   }
 
   @FXML
   public void clearFields() {
-    equipmentType.setText("Equipment Type");
-    equipLocation.setText("Delivery Location");
+    equipmentType.setText("Type");
+    equipLocation.setText("Location");
     equipmentStatus.setText("Status");
     equipmentEmployeeText.setText("Employee");
     mainID.setText("ID");
