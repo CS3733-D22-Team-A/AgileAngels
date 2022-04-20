@@ -185,4 +185,8 @@ public class EquipmentNode {
   public String getStatus() {
     return medEquip.getStatus();
   }
+
+  public void updateLocation() {
+    this.location = this.getMedEquip().getLocation();
+  }
 }

@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.Employee;
-import edu.wpi.agileAngels.Database.Location;
+import edu.wpi.agileAngels.Database.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -81,6 +80,10 @@ public class MapsController implements Initializable, PropertyChangeListener {
   EquipmentNodeManager equipmentNodeManager = new EquipmentNodeManager(this);
 
   AppController appController = AppController.getInstance();
+
+  private MedEquipImpl equipDAO = MedEquipImpl.getInstance();
+  private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
+  HashMap<String, Location> locationsHash = locDAO.getAllLocations();
 
   public MapsController() throws SQLException {}
 
@@ -300,8 +303,90 @@ public class MapsController implements Initializable, PropertyChangeListener {
     currentRequestNode.getRequest().setStatus(requestStatusDropdown.getText());
     currentRequestNode.getRequest().setType(requestTypeDropdown.getText());
     requestNodeManager.updateRequest(currentRequestNode);
+    if (currentRequestNode.getRequest().getName().substring(0, 3).equals("Med")) {
+      updateEquipObject(currentRequestNode.getRequest(), requestTypeDropdown.getText());
+    }
     currentRequestNode = null;
     requestEditPane.setVisible(false);
+  }
+
+  public void updateEquipNode(String ID) {
+    equipmentNodeManager.updateEquipNode(ID);
+  }
+
+  private void updateEquipObject(Request request, String status) {
+    // set the status and location of the medicalEquipment object
+    // corresponding to the request
+    if (request.getAttribute2().equals("Clean")) {
+      // if it's a request to clean equipment
+      if (request.getMedicalEquip() != null) {
+        if (status.equals("notStarted")) {
+          equipDAO.updateStatus(request.getMedicalEquip(), "inUse");
+        } else if (status.equals("inProgress")) {
+          equipDAO.updateStatus(request.getMedicalEquip(), "inUse");
+          if (request.getLocation().getFloor().equals("3")) {
+            equipDAO.updateEquipmentLocation(
+                request.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+          } else if (request.getLocation().getFloor().equals("4")) {
+            equipDAO.updateEquipmentLocation(
+                request.getMedicalEquip(), locationsHash.get("ADIRT00104"));
+          } else if (request.getLocation().getFloor().equals("5")) {
+            equipDAO.updateEquipmentLocation(
+                request.getMedicalEquip(), locationsHash.get("ADIRT00105"));
+          }
+        } else if (status.equals("complete")) {
+          equipDAO.updateMedicalCleanliness(request.getMedicalEquip(), true);
+          equipDAO.updateStatus(request.getMedicalEquip(), "available");
+          if (request.getType().equals("InfusionPump")) {
+            if (request.getLocation().getFloor().equals("3")) {
+              equipDAO.updateEquipmentLocation(
+                  request.getMedicalEquip(), locationsHash.get("ASTOR00103"));
+            } else if (request.getLocation().getFloor().equals("4")) {
+              equipDAO.updateEquipmentLocation(
+                  request.getMedicalEquip(), locationsHash.get("ASTOR00104"));
+            } else if (request.getLocation().getFloor().equals("5")) {
+              equipDAO.updateEquipmentLocation(
+                  request.getMedicalEquip(), locationsHash.get("ASTOR00105"));
+            }
+          } else {
+            if (request.getLocation().getFloor().equals("3")) {
+              equipDAO.updateEquipmentLocation(
+                  request.getMedicalEquip(), locationsHash.get("ASTOR00303"));
+            } else if (request.getLocation().getFloor().equals("4")) {
+              equipDAO.updateEquipmentLocation(
+                  request.getMedicalEquip(), locationsHash.get("ASTOR00304"));
+            } else if (request.getLocation().getFloor().equals("5")) {
+              equipDAO.updateEquipmentLocation(
+                  request.getMedicalEquip(), locationsHash.get("ASTOR00305"));
+            }
+          }
+        }
+      }
+    } else {
+      // if it's not a request to clean equipment
+      if (request.getMedicalEquip() != null) {
+        if (status.equals("notStarted")) {
+          equipDAO.updateStatus(request.getMedicalEquip(), "inUse");
+        } else if (status.equals("inProgress")) {
+          equipDAO.updateStatus(request.getMedicalEquip(), "inUse");
+          equipDAO.updateEquipmentLocation(request.getMedicalEquip(), request.getLocation());
+        } else if (status.equals("complete")) {
+          equipDAO.updateMedicalCleanliness(request.getMedicalEquip(), false);
+          equipDAO.updateStatus(request.getMedicalEquip(), "available");
+          if (request.getLocation().getFloor().equals("3")) {
+            equipDAO.updateEquipmentLocation(
+                request.getMedicalEquip(), locationsHash.get("ADIRT00103"));
+          } else if (request.getLocation().getFloor().equals("4")) {
+            equipDAO.updateEquipmentLocation(
+                request.getMedicalEquip(), locationsHash.get("ADIRT00104"));
+          } else if (request.getLocation().getFloor().equals("5")) {
+            equipDAO.updateEquipmentLocation(
+                request.getMedicalEquip(), locationsHash.get("ADIRT00105"));
+          }
+        }
+      }
+    }
+    updateEquipNode(request.getMedicalEquip().getID());
   }
 
   /**
