@@ -167,11 +167,13 @@ public class LaundryController implements Initializable {
     laundryRequestImpl.addRequest(laundry); // add to hashmap
     laundryData.add(laundry); // add to the UI
     laundryTable.setItems(laundryData);
+    updateDashAdding(status);
   }
 
   @FXML
   private void deleteLaundryRequest(String deleteString) {
     if (!deleteString.isEmpty()) {
+      updateDashSubtracting(laundryRequestImpl.getAllRequests().get(deleteString).getStatus());
       System.out.println("DELETE REQUEST");
       for (int i = 0; i < laundryData.size(); i++) {
         Request object = laundryData.get(i);
@@ -221,6 +223,8 @@ public class LaundryController implements Initializable {
         // LaundryrequestImpl.updateEmployeeName(found, employeeString);
       }
       if (!statusString.isEmpty()) {
+        updateDashSubtracting(laundryRequestImpl.getAllRequests().get(editString).getStatus());
+        updateDashAdding(statusString);
         // String employee = emp.getText();
         found.setStatus(statusString);
         //  LaundryrequestImpl.updateStatus(found, statusString);
@@ -518,5 +522,39 @@ public class LaundryController implements Initializable {
     laundryStatus.setText(req.getStatus());
     laundryDescription.setText(req.getDescription());
     laundryType.setText(req.getType());
+  }
+
+  private void updateDashAdding(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted++;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress++;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete++;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  private void updateDashSubtracting(String status) {
+    if (status.equals("not started")
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
+      statusNotStarted--;
+    }
+    if (status.equals("in progress")
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
+      statusInProgress--;
+    }
+    if (status.equals("complete") || status.equals("Complete")) {
+      statusComplete--;
+    }
+    setDashboard(statusNotStarted, statusInProgress, statusComplete);
   }
 }
