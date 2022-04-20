@@ -68,7 +68,7 @@ public class EquipmentNodeManager {
 
   EquipmentNode addNode(MedicalEquip medEquip) throws SQLException {
     EquipmentNode equipNode = new EquipmentNode(medEquip, this);
-    nodes.put(equipNode.getID(), equipNode);
+    nodes.put(equipNode.getMedEquip().getID(), equipNode);
     return equipNode;
   }
 
@@ -108,9 +108,6 @@ public class EquipmentNodeManager {
   }
 
   public void updateEquipNode(String ID) {
-    System.out.println(ID);
-    EquipmentNode node = nodes.get(ID);
-    System.out.println(node);
-    // node.updateLocation();
+    nodes.get(ID).updateLocation();
   }
 }
