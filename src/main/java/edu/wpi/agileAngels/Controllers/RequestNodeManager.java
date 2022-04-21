@@ -49,6 +49,12 @@ public class RequestNodeManager {
       request.setLocation(newLocation);
       medRequestDAO.updateLocation(request.getRequest(), newLocation);
     }
+
+    if (request.getRequest().getName().substring(0, 3).equals("Med")
+        && request.getRequest().getMedicalEquip() != null) {
+      request.getRequest().getMedicalEquip().setLocation(newLocation);
+      mapsController.updateEquipNode(request.getRequest().getMedicalEquip().getID());
+    }
   }
 
   RequestNode addNode(Request request) throws SQLException {
