@@ -1,14 +1,14 @@
 name,employee,location,type,status,description, attribute1, attribute2
-Med1,James,HHALL00203,InfusionPump,complete,describe, something, something
-Med2,Liam,HHALL00303,Bed,complete,describe, something, something
-Med3,Harriot,HHALL01003,Recliner,complete,describe, something, something
-Med4,Ariana,HSTAI00103,Bed,complete,Describe, something, something
-Lab1,Carly,HDEPT00102,bloodtest,inProgress,describe, something, something
-Lab2,Tom,CDEPT002L1,Pills,notStarted,describe,something, something
-Lab3,Alex,CHALL005L2,COVIDTest,complete,Describe, something, something
+Med1,James,HHALL00203,InfusionPump,complete,Need a new pump,N/A,N/A
+Med2,Liam,HHALL00303,Bed,complete,New bed,N/A,N/A
+Med3,Harriot,HHALL01003,Recliner,complete,Need a new recliner,N/A,N/A
+Med4,Ariana,HSTAI00103,Bed,complete,New bed,N/A,N/A
+Lab1,Carly,HDEPT00102,bloodtest,inProgress,Get result ASAP,N/A,N/A
+Lab2,Tom,CDEPT002L1,Pills,notStarted,20 count,N/A,N/A
+Lab3,Alex,CHALL005L2,COVIDTest,complete,Rapid,N/A,N/A
 Main1,James,WELEV00L02,N/A,notStarted,Broken Elevator,N/A,N/A
 Main2,Tom,HBATH00103,N/A,inProgress,Flooded bathroom,N/A,N/A
-Tran1,Liam,CDEPT002L1,room change?,complete,Liam's cousin,N/A,CHALL005L2
+Tran1,Liam,CDEPT002L1,room change,complete,Liam's cousin,N/A,CHALL005L2
 Meal1,Aadhya,WELEV00L02,Steak,notStarted,immediately,N/A,N/A
 Gift1,Aadhya,WELEV00L02,Balloons,notStarted,immediately,Ali,Jakob
 San1,Aadhya,WELEV00L02,Janitorial,notStarted,immediately,N/A,N/A
