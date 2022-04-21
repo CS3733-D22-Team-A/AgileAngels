@@ -17,6 +17,7 @@ public class RequestDAOImpl implements RequestDAO {
   private int count;
   private String DAOtype;
 
+  //Implementations for each type of request, employees, and locations
   private static EmployeeManager empManager = null;
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private static RequestDAOImpl MedrequestDAO = null;
@@ -31,60 +32,13 @@ public class RequestDAOImpl implements RequestDAO {
 
   HashMap<String, ArrayList> requestTypes = new HashMap<>();
 
+  //Arraylists of each request's types
   ArrayList labTypes = new ArrayList<String>();
   ArrayList equipTypes = new ArrayList<String>();
   ArrayList sanitationTypes = new ArrayList<String>();
   ArrayList mealTypes = new ArrayList<String>();
   ArrayList giftTypes = new ArrayList<String>();
   ArrayList transportTypes = new ArrayList<String>();
-
-  public ArrayList getLabTypes() {
-    labTypes.add("Blood Test");
-    labTypes.add("Urine Test");
-    labTypes.add("Tumor Marker");
-    labTypes.add("COVID-19 Test");
-    return labTypes;
-  }
-
-  public ArrayList getEquipTypes() {
-    equipTypes.add("XRayMachine");
-    equipTypes.add("InfusionPump");
-    equipTypes.add("Recliner");
-    equipTypes.add("Bed");
-    return equipTypes;
-  }
-
-  public ArrayList getSanitationTypes() {
-    sanitationTypes.add("Clean Spill");
-    sanitationTypes.add("Clean Room");
-    sanitationTypes.add("Clean Exam");
-    sanitationTypes.add("Janitorial");
-    sanitationTypes.add("Other");
-    return sanitationTypes;
-  }
-
-  public ArrayList getMealTypes() {
-    mealTypes.add("Salad");
-    mealTypes.add("Steak");
-    mealTypes.add("Pasta");
-    mealTypes.add("Beans");
-    mealTypes.add("Placenta");
-    return mealTypes;
-  }
-
-  public ArrayList getGiftTypes() {
-    giftTypes.add("Balloons");
-    giftTypes.add("Flowers");
-    giftTypes.add("Card");
-    return giftTypes;
-  }
-
-  public ArrayList getTransportTypes() {
-    transportTypes.add("Move Room");
-    transportTypes.add("Move Hospital");
-    transportTypes.add("Release");
-    return transportTypes;
-  }
 
   public RequestDAOImpl(HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
@@ -106,6 +60,12 @@ public class RequestDAOImpl implements RequestDAO {
     return requestTypes;
   }
 
+  /**
+   * Ensures only one instance of each type of RequestDAOImpl is made for each type of request
+   * @param type Request type
+   * @return RequestDAOImpl of specified request type
+   * @throws SQLException
+   */
   public static RequestDAOImpl getInstance(String type) throws SQLException {
     HashMap<String, Request> data = new HashMap();
 
@@ -165,6 +125,10 @@ public class RequestDAOImpl implements RequestDAO {
     return null;
   }
 
+  /**
+   * Gets the HashMap of all requests
+   * @return HashMap of all requests
+   */
   public HashMap<String, Request> getAllRequests() {
     return this.reqData;
   }
@@ -193,13 +157,11 @@ public class RequestDAOImpl implements RequestDAO {
   public void updateLocation(Request request, Location newLocation) {
     request.setLocation(newLocation);
     Adb.updateRequest(request);
-    // Adb.updateRequest(request, "Location", newLocation);
   }
 
   public void updateDescription(Request request, String description) {
     request.setDescription(description);
     Adb.updateRequest(request);
-    // Adb.updateRequest(request, "Description", description);
   }
 
   public void updateStatus(Request request, String newStatus) {
@@ -223,6 +185,10 @@ public class RequestDAOImpl implements RequestDAO {
     Adb.removeRequest(name);
   }
 
+  /**
+   * Adds a new request to the HashMap and database table
+   * @param request Service request
+   */
   public void addRequest(Request request) {
     ++this.count;
     String letter = "";
@@ -253,6 +219,9 @@ public class RequestDAOImpl implements RequestDAO {
     Adb.addRequest(request);
   }
 
+  /**
+   * Reads from the service request csv file.
+   */
   public void csvRead() {
     String line = "";
     String splitBy = ",";
@@ -308,6 +277,11 @@ public class RequestDAOImpl implements RequestDAO {
     return;
   }
 
+  /**
+   * Adds a service request to the HashMap and database table depending on a string of values
+   * @param values
+   * @throws SQLException
+   */
   private void makeRequest(String[] values) throws SQLException {
     //  System.out.println("MAKE REQUEST " + values[0]);
     Request request =
@@ -396,5 +370,54 @@ public class RequestDAOImpl implements RequestDAO {
 
   public void resetData() {
     this.reqData = new HashMap<String, Request>();
+  }
+
+
+  public ArrayList getLabTypes() {
+    labTypes.add("Blood Test");
+    labTypes.add("Urine Test");
+    labTypes.add("Tumor Marker");
+    labTypes.add("COVID-19 Test");
+    return labTypes;
+  }
+
+  public ArrayList getEquipTypes() {
+    equipTypes.add("XRayMachine");
+    equipTypes.add("InfusionPump");
+    equipTypes.add("Recliner");
+    equipTypes.add("Bed");
+    return equipTypes;
+  }
+
+  public ArrayList getSanitationTypes() {
+    sanitationTypes.add("Clean Spill");
+    sanitationTypes.add("Clean Room");
+    sanitationTypes.add("Clean Exam");
+    sanitationTypes.add("Janitorial");
+    sanitationTypes.add("Other");
+    return sanitationTypes;
+  }
+
+  public ArrayList getMealTypes() {
+    mealTypes.add("Salad");
+    mealTypes.add("Steak");
+    mealTypes.add("Pasta");
+    mealTypes.add("Beans");
+    mealTypes.add("Placenta");
+    return mealTypes;
+  }
+
+  public ArrayList getGiftTypes() {
+    giftTypes.add("Balloons");
+    giftTypes.add("Flowers");
+    giftTypes.add("Card");
+    return giftTypes;
+  }
+
+  public ArrayList getTransportTypes() {
+    transportTypes.add("Move Room");
+    transportTypes.add("Move Hospital");
+    transportTypes.add("Release");
+    return transportTypes;
   }
 }

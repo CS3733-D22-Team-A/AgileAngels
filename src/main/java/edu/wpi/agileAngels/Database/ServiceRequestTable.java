@@ -163,7 +163,7 @@ public class ServiceRequestTable implements TableI {
         } else if (name.substring(0, 1).compareTo("L") == 0) {
           Adb.addLabRequest(request);
         } else if (name.substring(0, 4).compareTo("Main") == 0) {
-          Adb.addmainRequest(request);
+          Adb.addMainRequest(request);
         } else if (name.substring(0, 4).compareTo("Tran") == 0) {
           Adb.addTransportRequest(request);
         } else if (name.substring(0, 3).compareTo("Mor") == 0) {
