@@ -145,6 +145,23 @@
                               </VBox>
                            </graphic>
                         </Button>
+                        <Button fx:id="MedAid" mnemonicParsing="false" onAction="#requestButton" prefHeight="150.0" prefWidth="250.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                           <graphic>
+                              <VBox alignment="CENTER" prefHeight="53.0" prefWidth="135.0" spacing="20.0">
+                                 <children>
+                                    <ImageView fitHeight="60.0" fitWidth="200.0" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../assets/icons/noun-heart-beat-2345658.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="MedAidText" text="Medical Aid" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="14.0" />
+                                 </padding>
+                              </VBox>
+                           </graphic>
+                        </Button>
                         <Button fx:id="maintenanceRequest" mnemonicParsing="false" onAction="#requestButton" prefHeight="150.0" prefWidth="250.0" GridPane.columnIndex="2">
                            <graphic>
                               <VBox alignment="CENTER" prefHeight="71.0" prefWidth="319.0" spacing="20.0">
