@@ -71,7 +71,7 @@ public class EmployeeManager implements EmployeeDAO {
     ArrayList<Request> newERequest = new ArrayList<Request>();
     Employee newEmployee = new Employee(name, password, duty);
     employeeHashMap.put(name, newEmployee);
-    //Adb.addEmployee(newEmployee);
+    // Adb.addEmployee(newEmployee);
   }
 
   /** Updates Employee's name with newName. */
@@ -86,22 +86,23 @@ public class EmployeeManager implements EmployeeDAO {
 
   /**
    * Gets an employee's duty (floor number or off duty).
+   *
    * @param name Employee's name
    * @return Floor number or Off Duty
    */
-  public String getEmployeeFloorOnDuty(String name){
+  public String getEmployeeFloorOnDuty(String name) {
     return employeeHashMap.get(name).getFloorOnDuty();
   }
 
   /**
    * Sets an employee's duty.
+   *
    * @param name Employee's name
    * @param floorOnDuty Floor number or Off Duty
    */
-  public void setEmployeeFloorOnDuty(String name, String floorOnDuty){
+  public void setEmployeeFloorOnDuty(String name, String floorOnDuty) {
     employeeHashMap.get(name).setFloorOnDuty(floorOnDuty);
   }
-
 
   public void readCSV() {
     String line = "";
