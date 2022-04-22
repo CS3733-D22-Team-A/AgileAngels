@@ -589,6 +589,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     requestStatusDropdown.setText(button.getText());
   }
 
+
   public void deselect() {
     requestEditPane.setVisible(false);
     locationEditPane.setVisible(false);
