@@ -1,6 +1,7 @@
 package edu.wpi.agileAngels.Controllers;
 
 import com.jfoenix.controls.JFXToggleButton;
+import edu.wpi.agileAngels.Database.DBconnection;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -69,7 +70,6 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       srText.setText("Sanitation Request: Daniel");
       mealText.setText("Meal Request: Jakob");
       morText.setText("Morgue Request: Aaron");
-      mgbText.setText("Mass General Babes: Aadhya");
       grText.setText("Gift Request: Bashar");
       launText.setText("Laundry Request: Bashar");
       ptText.setText("Patient Transport: Ali");
@@ -81,7 +81,6 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       srText.setText("Sanitation Request");
       mealText.setText("Meal Request");
       morText.setText("Morgue Request");
-      mgbText.setText("Mass General Babes");
       grText.setText("Gift Request");
       launText.setText("Laundry Request");
       ptText.setText("Patient Transport");
@@ -128,6 +127,7 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
    */
   @FXML
   private void toggleStatus(ActionEvent event) {
+    DBconnection.switchConnection();
     if (clientToggle.isSelected()) {
       appController.setEmbeddedON(true);
       // System.out.println("oop gurl and i skr skr skr");
@@ -144,5 +144,17 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       // System.out.println("Justin's here");
       System.out.println(appController.isEmbeddedON());
     }
+  }
+
+  @FXML
+  public void saveToCSV() {
+    System.out.println("Save to CSV");
+    // do things here
+  }
+
+  @FXML
+  public void uploadToCSV() {
+    // do things here
+    System.out.println("Upload to CSV");
   }
 }

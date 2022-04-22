@@ -211,7 +211,6 @@ public class AppController {
     pages.put("/edu/wpi/agileAngels/views/gifts-view.fxml", "Gift Request");
     pages.put("/edu/wpi/agileAngels/views/home-view.fxml", "Home");
     pages.put("/edu/wpi/agileAngels/views/maintenance-view.fxml", "Maintenance Request");
-    pages.put("/edu/wpi/agileAngels/views/map-dashboard.fxml", "Dashboard");
     pages.put("/edu/wpi/agileAngels/views/map-view.fxml", "Map");
     pages.put("/edu/wpi/agileAngels/views/morgue-view.fxml", "Morgue Request");
     pages.put("/edu/wpi/agileAngels/views/NEWdashboard.fxml", "Dashboard");

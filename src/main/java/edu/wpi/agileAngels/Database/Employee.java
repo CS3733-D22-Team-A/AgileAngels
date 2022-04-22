@@ -4,10 +4,12 @@ public class Employee {
 
   private String name;
   private String password;
+  private String floorOnDuty;
 
-  public Employee(String name, String password) {
+  public Employee(String name, String password, String floorOnDuty) {
     this.name = name;
     this.password = password;
+    this.floorOnDuty = floorOnDuty;
   }
 
   public String getName() {
@@ -24,6 +26,14 @@ public class Employee {
 
   public void setPassword(String pass) {
     this.password = pass;
+  }
+
+  public String getFloorOnDuty() {
+    return floorOnDuty;
+  }
+
+  public void setFloorOnDuty(String floorOnDuty) {
+    this.floorOnDuty = floorOnDuty;
   }
 
   @Override

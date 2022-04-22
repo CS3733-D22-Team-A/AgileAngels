@@ -30,11 +30,11 @@ public class LoginController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    employeeManager.addEmployee("Admin", "Admin");
-    employeeManager.addEmployee("Nurse", "Nurse");
-    employeeManager.addEmployee("Justin", "Password");
-    employeeManager.addEmployee("Staff", "Staff");
-    employeeManager.addEmployee("", "");
+    employeeManager.addEmployee("Admin", "Admin", "Off Duty");
+    employeeManager.addEmployee("Nurse", "Nurse", "Off Duty");
+    employeeManager.addEmployee("Justin", "Password", "L2");
+    employeeManager.addEmployee("Staff", "Staff", "Off Duty");
+    employeeManager.addEmployee("", "", "Off Duty");
   }
 
   /**
@@ -49,6 +49,7 @@ public class LoginController implements Initializable {
     if (employeeManager.getName(username.getText())
         && passwordBox.getText().equals(employeeManager.getPassword(username.getText()))) {
       appController.loadPage("/edu/wpi/agileAngels/views/NEWdashboard.fxml");
+      // appController.loadPage("/edu/wpi/agileAngels/views/aboutUs-view.fxml");
     } else {
       invalid.setTextFill(Color.rgb(220, 80, 80));
       invalid.setText("Invalid username or password.");

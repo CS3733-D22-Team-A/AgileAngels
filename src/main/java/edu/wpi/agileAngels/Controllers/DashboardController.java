@@ -1,7 +1,6 @@
 package edu.wpi.agileAngels.Controllers;
 
-import edu.wpi.agileAngels.Database.MedEquipImpl;
-import edu.wpi.agileAngels.Database.MedicalEquip;
+import edu.wpi.agileAngels.Database.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
@@ -13,12 +12,13 @@ import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -40,6 +40,25 @@ public class DashboardController implements Initializable, PropertyChangeListene
   ArrayList<Pane> panes = new ArrayList<>();
   @FXML private ScrollPane scrollPane = new ScrollPane();
 
+  @FXML private TableView requestTable, employeeTable;
+  @FXML
+  private TableColumn typeColumn,
+      statusColumn,
+      employeeColumn,
+      floorColumn,
+      empEmployeeColumn,
+      empFloorColumn;
+
+  private RequestDAOImpl requestDAO = RequestDAOImpl.getInstance("AllRequests");
+  private ArrayList<Request> requestsList = new ArrayList<>(requestDAO.getAllRequests().values());
+  private static ObservableList<RequestSummary> requestSummaries =
+      FXCollections.observableArrayList();
+
+  private EmployeeManager employeeDAO = EmployeeManager.getInstance();
+  private ArrayList<Employee> employeeList =
+      new ArrayList<>(employeeDAO.getAllEmployees().values());
+  private static ObservableList<Employee> employees = FXCollections.observableArrayList();
+
   private int[] dirtyBedsArray = new int[4];
   private int[] dirtyPumpsArray = new int[4];
   private int[] dirtyReclinersArray = new int[4];
@@ -49,6 +68,8 @@ public class DashboardController implements Initializable, PropertyChangeListene
   private int reclinersPerFloor = 5;
   private int xraysPerFloor = 1;
   private int numFloors = 3;
+
+  public DashboardController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -67,6 +88,52 @@ public class DashboardController implements Initializable, PropertyChangeListene
     } catch (SQLException e) {
       e.printStackTrace();
     }
+
+    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+    statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+    employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
+    floorColumn.setCellValueFactory(new PropertyValueFactory<>("floor"));
+    empEmployeeColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    empFloorColumn.setCellValueFactory(new PropertyValueFactory<>("floorOnDuty"));
+
+    populateRequestTable("All");
+    populateEmployeeTable("All");
+  }
+
+  private void populateRequestTable(String floor) {
+    requestSummaries.clear();
+    if (floor.equals("All")) {
+      for (Request request : requestsList) {
+        RequestSummary summary = new RequestSummary(request);
+        requestSummaries.add(summary);
+      }
+    } else {
+      for (Request request : requestsList) {
+        if (request.getLocation().getFloor().equals(floor)) {
+          RequestSummary summary = new RequestSummary(request);
+          requestSummaries.add(summary);
+        }
+      }
+    }
+    requestTable.setItems(requestSummaries);
+  }
+
+  private void populateEmployeeTable(String floor) {
+    employees.clear();
+    if (floor.equals("All")) {
+      for (Employee employee : employeeList) {
+        if (!employee.getFloorOnDuty().equals("Off Duty")) {
+          employees.add(employee);
+        }
+      }
+    } else {
+      for (Employee employee : employeeList) {
+        if (employee.getFloorOnDuty().equals(floor)) {
+          employees.add(employee);
+        }
+      }
+    }
+    employeeTable.setItems(employees);
   }
 
   @Override
@@ -123,6 +190,8 @@ public class DashboardController implements Initializable, PropertyChangeListene
     if (event.getSource() == floor5) {
       timeline5.play();
       displaySingleFloorCounts(3);
+      populateRequestTable("5");
+      populateEmployeeTable("5");
     }
 
     // floor 4
@@ -136,6 +205,8 @@ public class DashboardController implements Initializable, PropertyChangeListene
     if (event.getSource() == floor4) {
       timeline4.play();
       displaySingleFloorCounts(2);
+      populateRequestTable("4");
+      populateEmployeeTable("4");
     }
 
     // floor 3
@@ -149,6 +220,8 @@ public class DashboardController implements Initializable, PropertyChangeListene
     if (event.getSource() == floor3) {
       timeline3.play();
       displaySingleFloorCounts(1);
+      populateRequestTable("3");
+      populateEmployeeTable("3");
     }
 
     // floor 2
@@ -162,6 +235,8 @@ public class DashboardController implements Initializable, PropertyChangeListene
     if (event.getSource() == floor2) {
       timeline2.play();
       displayZeroes();
+      populateRequestTable("2");
+      populateEmployeeTable("2");
     }
 
     // floor LL1
@@ -175,6 +250,8 @@ public class DashboardController implements Initializable, PropertyChangeListene
     if (event.getSource() == floorLL1) {
       timelineLL1.play();
       displayZeroes();
+      populateRequestTable("L1");
+      populateEmployeeTable("L1");
     }
 
     // floor LL2
@@ -188,6 +265,8 @@ public class DashboardController implements Initializable, PropertyChangeListene
     if (event.getSource() == floorLL2) {
       timelineLL2.play();
       displayZeroes();
+      populateRequestTable("L2");
+      populateEmployeeTable("L2");
     }
   }
 
@@ -266,6 +345,8 @@ public class DashboardController implements Initializable, PropertyChangeListene
       timelineLL2.play();
     }
     displayAllFloorsCounts();
+    populateRequestTable("All");
+    populateEmployeeTable("All");
   }
 
   @FXML
