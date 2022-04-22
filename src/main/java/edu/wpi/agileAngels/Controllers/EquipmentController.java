@@ -121,6 +121,8 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   public void clearFilters() {
     // Puts everything back on table.
     equipmentTable.setItems(medData);
+    employeeFilterField.clear();
+    statusFilterField.clear();
   }
 
   // Employee-based

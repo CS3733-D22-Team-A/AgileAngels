@@ -240,6 +240,8 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   @FXML
   public void clearFilters(ActionEvent event) {
     giftTable.setItems(giftData);
+    employeeFilterField.clear();
+    statusFilterField.clear();
   }
 
   @FXML

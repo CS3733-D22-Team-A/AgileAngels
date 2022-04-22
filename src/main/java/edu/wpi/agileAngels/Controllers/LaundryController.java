@@ -265,6 +265,8 @@ public class LaundryController implements Initializable {
   public void clearFilters() {
     // Puts everything back on table.
     laundryTable.setItems(laundryData);
+    employeeFilterField.clear();
+    statusFilterField.clear();
   }
 
   // Employee-based
