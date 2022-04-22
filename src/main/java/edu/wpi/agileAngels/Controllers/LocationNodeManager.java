@@ -136,8 +136,6 @@ public class LocationNodeManager {
     return mapsController.getScale();
   }
 
-  public void hideAll() {}
-
   public void setVisibilityAll(boolean b) {
     for (LocationNode node : nodes.values()) {
       node.getButton().setVisible(b);
