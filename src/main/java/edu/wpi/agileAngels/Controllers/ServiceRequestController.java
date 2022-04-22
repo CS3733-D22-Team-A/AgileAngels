@@ -70,7 +70,6 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       srText.setText("Sanitation Request: Daniel");
       mealText.setText("Meal Request: Jakob");
       morText.setText("Morgue Request: Aaron");
-      mgbText.setText("Mass General Babes: Aadhya");
       grText.setText("Gift Request: Bashar");
       launText.setText("Laundry Request: Bashar");
       ptText.setText("Patient Transport: Ali");
@@ -82,7 +81,6 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       srText.setText("Sanitation Request");
       mealText.setText("Meal Request");
       morText.setText("Morgue Request");
-      mgbText.setText("Mass General Babes");
       grText.setText("Gift Request");
       launText.setText("Laundry Request");
       ptText.setText("Patient Transport");
