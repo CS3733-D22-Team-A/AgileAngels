@@ -93,7 +93,6 @@ public class RequestDAOImpl implements RequestDAO {
     this.reqData = reqData;
     this.count = count;
     this.DAOtype = type;
-    System.out.println("TYPE: " + type);
     requestTypes.put("Mea", getMealTypes());
     requestTypes.put("Med", getEquipTypes());
     requestTypes.put("Lab", getLabTypes());
@@ -150,11 +149,9 @@ public class RequestDAOImpl implements RequestDAO {
       }
       return TransportDAO;
     } else if (0 == type.compareTo("GiftRequest")) {
-      System.out.println("PASS FIRST IF STATEMENT");
       if (GiftDAO == null) {
         GiftDAO = new RequestDAOImpl(data, 1, "GiftRequest");
       }
-      System.out.println("GiftDAO count: " + GiftDAO.count);
       return GiftDAO;
     } else if (0 == type.compareTo("MorgueRequest")) {
       if (MorgueDAO == null) {
@@ -299,7 +296,6 @@ public class RequestDAOImpl implements RequestDAO {
       makeRequest(values);
     } else if (values[0].substring(0, 4).compareTo("Gift") == 0
         && DAOtype.compareTo("GiftRequest") == 0) {
-      // System.out.println("MAKING GIFT REQUESTS");
       makeRequest(values);
     } else if (values[0].substring(0, 4).compareTo("Morg") == 0
         && DAOtype.compareTo("MorgueRequest") == 0) {
@@ -309,7 +305,6 @@ public class RequestDAOImpl implements RequestDAO {
   }
 
   private void makeRequest(String[] values) throws SQLException {
-    //  System.out.println("MAKE REQUEST " + values[0]);
     Request request =
         new Request(
             values[0],
@@ -333,7 +328,6 @@ public class RequestDAOImpl implements RequestDAO {
   }
 
   private Location findLocation(String value) {
-    // System.out.println("Location Value " + value);
     Location location;
     HashMap<String, Location> locationData = locDAO.getAllLocations();
     location = locationData.get(value);
