@@ -34,6 +34,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
   @FXML private ScrollPane mapScroll;
   @FXML HBox addButtonBox;
 
+  @FXML CheckBox locationToggle, bathFilter;
   @FXML
   private Button locationEdit,
       locationDelete,
@@ -54,7 +55,8 @@ public class MapsController implements Initializable, PropertyChangeListener {
       requestTypeDropdown,
       requestStatusDropdown,
       requestEmployeeDropdown,
-      addLocationTypeDropdown;
+      addLocationTypeDropdown,
+      locationFilterButton;
 
   public final ContextMenu contextMenu = new ContextMenu();
   MenuItem addNode = new MenuItem("Add Node");
@@ -126,6 +128,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
     appController.addPropertyChangeListener(this);
 
     mapPane.getChildren().add(pane2);
@@ -589,7 +592,6 @@ public class MapsController implements Initializable, PropertyChangeListener {
     requestStatusDropdown.setText(button.getText());
   }
 
-
   public void deselect() {
     requestEditPane.setVisible(false);
     locationEditPane.setVisible(false);
@@ -645,5 +647,24 @@ public class MapsController implements Initializable, PropertyChangeListener {
   public void requestTypeDropdown(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     requestTypeDropdown.setText(button.getText());
+  }
+
+  public void toggleLocation(ActionEvent event) {
+    if (locationToggle.isSelected()) {
+      locationNodeManager.setVisibilityAll(true);
+    } else {
+      locationNodeManager.setVisibilityAll(false);
+    }
+  }
+
+  public void locationFilter(ActionEvent event) {
+
+    if (bathFilter.isSelected()) {
+      locationNodeManager.setVisibilityOfType(
+          "BATH", true); // turn this into a hashmap that can iterate through
+    } else if (!bathFilter.isSelected()) {
+      locationNodeManager.setVisibilityOfType(
+          "BATH", false); // turn this into a hashmap that can iterate through
+    }
   }
 }
