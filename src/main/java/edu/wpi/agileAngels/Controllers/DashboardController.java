@@ -49,8 +49,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
       empEmployeeColumn,
       empFloorColumn;
 
-  // TODO: Switch this for a hashmap of all requests
-  private RequestDAOImpl requestDAO = RequestDAOImpl.getInstance("MedRequest");
+  private RequestDAOImpl requestDAO = RequestDAOImpl.getInstance("AllRequests");
   private ArrayList<Request> requestsList = new ArrayList<>(requestDAO.getAllRequests().values());
   private static ObservableList<RequestSummary> requestSummaries =
       FXCollections.observableArrayList();
@@ -95,8 +94,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     floorColumn.setCellValueFactory(new PropertyValueFactory<>("floor"));
     empEmployeeColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    // TODO: REPLACE THIS WITH FLOOR
-    empFloorColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
+    empFloorColumn.setCellValueFactory(new PropertyValueFactory<>("floorOnDuty"));
 
     populateRequestTable("All");
     populateEmployeeTable("All");
@@ -124,12 +122,13 @@ public class DashboardController implements Initializable, PropertyChangeListene
     employees.clear();
     if (floor.equals("All")) {
       for (Employee employee : employeeList) {
-        employees.add(employee);
+        if (!employee.getFloorOnDuty().equals("Off Duty")) {
+          employees.add(employee);
+        }
       }
     } else {
-      for (Employee employee : employees) {
-        // TODO: CHANGE THIS TO FLOOR
-        if (employee.getPassword().equals(floor)) {
+      for (Employee employee : employeeList) {
+        if (employee.getFloorOnDuty().equals(floor)) {
           employees.add(employee);
         }
       }

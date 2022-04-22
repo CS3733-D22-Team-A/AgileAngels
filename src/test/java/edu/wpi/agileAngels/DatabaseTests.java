@@ -2,11 +2,9 @@ package edu.wpi.agileAngels;
 
 import edu.wpi.agileAngels.Controllers.*;
 import edu.wpi.agileAngels.Database.*;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class DatabaseTests {
-
+  /*
   private static Adb database;
 
   public static void main(String[] args) throws SQLException {
@@ -125,5 +123,5 @@ public class DatabaseTests {
     // Update
 
     Adb.updateEmployee(Emily);
-  }
+  }*/
 }
