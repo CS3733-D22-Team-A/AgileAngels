@@ -128,7 +128,6 @@ public class DashboardController implements Initializable, PropertyChangeListene
       }
     } else {
       for (Employee employee : employeeList) {
-        System.out.println(employee.getFloorOnDuty());
         if (employee.getFloorOnDuty().equals(floor)) {
           employees.add(employee);
         }
