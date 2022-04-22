@@ -23,6 +23,23 @@ import javax.swing.*;
 
 public class MapsController implements Initializable, PropertyChangeListener {
 
+  @FXML public MenuButton LocationFilter;
+  @FXML
+  public CheckMenuItem patiCheck,
+      bathCheck,
+      storCheck,
+      dirtCheck,
+      hallCheck,
+      elevCheck,
+      restCheck,
+      staiCheck,
+      deptCheck,
+      labsCheck,
+      infoCheck,
+      confCheck,
+      exitCheck,
+      retlCheck,
+      servCheck;
   @FXML
   private ImageView floorTwoMap,
       floorThreeMap,
@@ -128,7 +145,6 @@ public class MapsController implements Initializable, PropertyChangeListener {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-
     appController.addPropertyChangeListener(this);
 
     mapPane.getChildren().add(pane2);
@@ -659,10 +675,10 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
   public void locationFilter(ActionEvent event) {
 
-    if (bathFilter.isSelected()) {
+    if (bathCheck.isSelected()) {
       locationNodeManager.setVisibilityOfType(
           "BATH", true); // turn this into a hashmap that can iterate through
-    } else if (!bathFilter.isSelected()) {
+    } else if (!bathCheck.isSelected()) {
       locationNodeManager.setVisibilityOfType(
           "BATH", false); // turn this into a hashmap that can iterate through
     }
