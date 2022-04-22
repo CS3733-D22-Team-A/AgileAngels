@@ -2,7 +2,6 @@ package edu.wpi.agileAngels;
 
 import edu.wpi.agileAngels.Controllers.*;
 import edu.wpi.agileAngels.Database.*;
-import java.sql.SQLException;
 
 public class DatabaseTests {
   /*

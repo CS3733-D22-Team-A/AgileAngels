@@ -17,7 +17,7 @@ public class RequestDAOImpl implements RequestDAO {
   private int count;
   private String DAOtype;
 
-  //Implementations for each type of request, employees, and locations
+  // Implementations for each type of request, employees, and locations
   private static EmployeeManager empManager = null;
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private static RequestDAOImpl AllRequestsDAO = null;
@@ -33,7 +33,7 @@ public class RequestDAOImpl implements RequestDAO {
 
   HashMap<String, ArrayList> requestTypes = new HashMap<>();
 
-  //Arraylists of each request's types
+  // Arraylists of each request's types
   ArrayList labTypes = new ArrayList<String>();
   ArrayList equipTypes = new ArrayList<String>();
   ArrayList sanitationTypes = new ArrayList<String>();
@@ -110,6 +110,7 @@ public class RequestDAOImpl implements RequestDAO {
 
   /**
    * Ensures only one instance of each type of RequestDAOImpl is made for each type of request
+   *
    * @param type Request type
    * @return RequestDAOImpl of specified request type
    * @throws SQLException
@@ -178,6 +179,7 @@ public class RequestDAOImpl implements RequestDAO {
 
   /**
    * Gets the HashMap of all requests
+   *
    * @return HashMap of all requests
    */
   public HashMap<String, Request> getAllRequests() {
@@ -238,6 +240,7 @@ public class RequestDAOImpl implements RequestDAO {
 
   /**
    * Adds a new request to the HashMap and database table
+   *
    * @param request Service request
    */
   public void addRequest(Request request) {
@@ -274,9 +277,7 @@ public class RequestDAOImpl implements RequestDAO {
     Adb.addRequest(request);
   }
 
-  /**
-   * Reads from the service request csv file.
-   */
+  /** Reads from the service request csv file. */
   public void csvRead() {
     String line = "";
     String splitBy = ",";
@@ -333,6 +334,7 @@ public class RequestDAOImpl implements RequestDAO {
 
   /**
    * Adds a service request to the HashMap and database table depending on a string of values
+   *
    * @param values
    * @throws SQLException
    */
@@ -427,5 +429,4 @@ public class RequestDAOImpl implements RequestDAO {
   public void resetData() {
     this.reqData = new HashMap<String, Request>();
   }
-
 }

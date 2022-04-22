@@ -156,18 +156,18 @@ public class ServiceRequestTable implements TableI {
             new Request(
                 name, employee, location, type, status, description, attribute1, attribute2);
 
-        if (name.substring(0, 3).compareTo("Med") == 0) {
+        if (name.substring(0, 3).compareTo("Lab") == 0) {
+          Adb.addLabRequest(request);
+        } else if (name.substring(0, 3).compareTo("Med") == 0) {
           Adb.addMedRequest(request);
+        } else if (name.substring(0, 3).compareTo("Mor") == 0) {
+          Adb.addMorgueRequest(request);
         } else if (name.substring(0, 4).compareTo("Meal") == 0) {
           Adb.addMealRequest(request);
-        } else if (name.substring(0, 1).compareTo("L") == 0) {
-          Adb.addLabRequest(request);
         } else if (name.substring(0, 4).compareTo("Main") == 0) {
           Adb.addMainRequest(request);
         } else if (name.substring(0, 4).compareTo("Tran") == 0) {
           Adb.addTransportRequest(request);
-        } else if (name.substring(0, 3).compareTo("Mor") == 0) {
-          Adb.addMorgueRequest(request);
         }
       }
 

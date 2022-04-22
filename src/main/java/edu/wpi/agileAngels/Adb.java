@@ -3,8 +3,6 @@ package edu.wpi.agileAngels;
 import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import edu.wpi.agileAngels.Database.*;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
 
 // This class is the backend of the DAO method.
@@ -70,17 +68,15 @@ public class Adb {
     }
 
     System.out.println("Apache Derby connection established!");
-    // serviceRequestTable.sortRequests("Liam");
-    // serviceRequestTable.filterRequests();
-    // serviceRequestTable.freeEmployees();
   }
 
   /**
    * Helper method for the initialize function.
+   *
    * @throws SQLException
    */
   private static void initializeHelper() throws SQLException {
-    // Create all database tables
+    System.out.println("Emmployee DAO Init");
     locationsTable.createTable();
     medicalEquipmentTable.createTable();
     serviceRequestTable.createTable();
@@ -88,10 +84,11 @@ public class Adb {
     employeeManager = EmployeeManager.getInstance();
     employeeManager.readCSV();
     locationDAO = LocationDAOImpl.getInstance();
-    locationsTable.getData();
+    locationDAO.csvRead();
+    equipmentDAO = MedEquipImpl.getInstance();
+    equipmentDAO.readCSV();
 
     labRequestDAO = RequestDAOImpl.getInstance("LabRequest");
-    equipmentDAO = MedEquipImpl.getInstance();
     mainRequestImpl = RequestDAOImpl.getInstance("MaintenanceRequest");
     transportRequestImpl = RequestDAOImpl.getInstance("TransportRequest");
     morgueRequestImpl = RequestDAOImpl.getInstance("MorgueRequest");
@@ -251,6 +248,7 @@ public class Adb {
 
   /**
    * Adds a medical equipment request to the HashMap
+   *
    * @param request Medical equipment request
    */
   public static void addMedRequest(Request request) {
@@ -259,6 +257,7 @@ public class Adb {
 
   /**
    * Adds a meal request to the HashMap
+   *
    * @param request Meal request
    */
   public static void addMealRequest(Request request) {
@@ -267,6 +266,7 @@ public class Adb {
 
   /**
    * Adds a lab request to the HashMap
+   *
    * @param request Lab request
    */
   public static void addLabRequest(Request request) {
@@ -275,6 +275,7 @@ public class Adb {
 
   /**
    * Adds a maintenance request to the HashMap
+   *
    * @param request Maintenance request
    */
   public static void addMainRequest(Request request) {
@@ -283,6 +284,7 @@ public class Adb {
 
   /**
    * Adds a patient transport request to the HashMap
+   *
    * @param request Patient transport request
    */
   public static void addTransportRequest(Request request) {
@@ -291,6 +293,7 @@ public class Adb {
 
   /**
    * Adds a morgue request to the HashMap
+   *
    * @param request Morgue request
    */
   public static void addMorgueRequest(Request request) {
@@ -309,6 +312,7 @@ public class Adb {
 
   /**
    * Reads employee csv file
+   *
    * @return True if successful
    */
   public static boolean readCSVEmployees() {
@@ -317,9 +321,7 @@ public class Adb {
     return true;
   }
 
-  /**
-   * Resets all service request HashMaps
-   */
+  /** Resets all service request HashMaps */
   public static void resetServiceRequests() {
     medRequestDAO.resetData();
     labRequestDAO.resetData();
@@ -333,6 +335,7 @@ public class Adb {
 
   /**
    * Gets the HashMap of all the employees.
+   *
    * @return HashMap of employeees
    */
   public static HashMap getEmployees() {
@@ -353,6 +356,7 @@ public class Adb {
 
   /**
    * Adds a medical equipment object to the HashMap
+   *
    * @param equip Medical equipment
    */
   public static void addMedEquip(MedicalEquip equip) {
@@ -361,6 +365,7 @@ public class Adb {
 
   /**
    * Reads locations csv file
+   *
    * @return True if successful
    */
   public static boolean readCSVLocations() {
@@ -371,6 +376,7 @@ public class Adb {
 
   /**
    * Gets the HashMap of locations
+   *
    * @return Locations HashMap
    */
   public static HashMap getLocations() {
@@ -396,5 +402,4 @@ public class Adb {
   public static boolean updateEmployee(Employee employee) {
     return employeeTable.update(employee);
   }
-
 }

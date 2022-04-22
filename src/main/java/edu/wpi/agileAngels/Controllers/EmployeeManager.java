@@ -75,7 +75,7 @@ public class EmployeeManager implements EmployeeDAO {
     ArrayList<Request> newERequest = new ArrayList<Request>();
     Employee newEmployee = new Employee(name, password, duty);
     employeeHashMap.put(name, newEmployee);
-    // Adb.addEmployee(newEmployee);
+    Adb.addEmployee(newEmployee);
   }
 
   /** Updates Employee's name with newName. */
