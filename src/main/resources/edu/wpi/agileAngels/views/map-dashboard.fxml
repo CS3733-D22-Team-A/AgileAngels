@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.DashboardController">
+   <children>
+      <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
+      <Pane fx:id="sideViewPane" layoutX="508.0" layoutY="34.0" prefHeight="655.0" prefWidth="454.0" AnchorPane.bottomAnchor="30.799999999999955">
+         <children>
+            <ImageView fitHeight="1218.0" fitWidth="890.0" layoutX="-65.0" layoutY="-692.0" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/Tower - Side View.png" />
+               </image>
+            </ImageView>
+            <Button id="dashL21" fx:id="dashL2" layoutX="45.0" layoutY="422.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="48.0" prefWidth="374.0" text="L2" />
+            <Button id="dashL11" fx:id="dashL1" layoutX="46.0" layoutY="376.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="42.0" prefWidth="371.0" text="L1" />
+            <Button id="dash11" fx:id="dash1" layoutX="46.0" layoutY="328.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="42.0" prefWidth="373.0" text="1" />
+            <Button id="dash21" fx:id="dash2" layoutX="46.0" layoutY="281.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="44.0" prefWidth="373.0" text="2" />
+            <Button id="dash31" fx:id="dash3" layoutX="46.0" layoutY="237.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="43.0" prefWidth="375.0" text="3" />
+            <Button id="dash41" fx:id="dash4" layoutX="111.0" layoutY="189.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="44.0" prefWidth="269.0" text="4" />
+            <Button id="dash51" fx:id="dash5" layoutX="111.0" layoutY="142.0" mnemonicParsing="false" onAction="#loadFloorMap" onMouseEntered="#swapFloorDash" onMouseExited="#unhover" opacity="0.0" prefHeight="43.0" prefWidth="268.0" text="5" />
+         </children>
+      </Pane>
+      <StackPane fx:id="stackDash" layoutX="23.0" layoutY="140.0" prefHeight="549.0" prefWidth="615.0">
+         <children>
+            <Pane fx:id="stackDash5" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="23.0" layoutY="90.0" text="Floor Summary:">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="223.0" text="Current Equipment on Floor:">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="251.0" layoutY="16.0" text="5th Floor">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="stackDash4" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="23.0" layoutY="90.0" text="Floor Summary:">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="223.0" text="Current Equipment on Floor:">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="251.0" layoutY="16.0" text="4th Floor">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="stackDash3" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="23.0" layoutY="90.0" text="Floor Summary:">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="223.0" text="Current Equipment on Floor:">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="251.0" layoutY="16.0" text="3rd Floor">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="stackDash2" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="23.0" layoutY="90.0" text="Floor Summary:">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="223.0" text="Current Equipment on Floor:">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="251.0" layoutY="16.0" text="2nd Floor">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="stackDash1" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="23.0" layoutY="90.0" text="Floor Summary:">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="223.0" text="Current Equipment on Floor:">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="251.0" layoutY="16.0" text="1st Floor">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="stackDashL1" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="23.0" layoutY="90.0" text="Floor Summary:">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="223.0" text="Current Equipment on Floor:">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="251.0" layoutY="16.0" text="L1 Floor">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="stackDashL2" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="23.0" layoutY="90.0" text="Floor Summary:">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="223.0" text="Current Equipment on Floor:">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="251.0" layoutY="16.0" text="L2 Floor">
+                     <font>
+                        <Font size="33.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
