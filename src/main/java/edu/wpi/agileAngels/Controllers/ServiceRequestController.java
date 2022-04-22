@@ -147,4 +147,16 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       System.out.println(appController.isEmbeddedON());
     }
   }
+
+  @FXML
+  public void saveToCSV() {
+    System.out.println("Save to CSV");
+    // do things here
+  }
+
+  @FXML
+  public void uploadToCSV() {
+    // do things here
+    System.out.println("Upload to CSV");
+  }
 }
