@@ -254,6 +254,8 @@ public class MealController implements Initializable, PropertyChangeListener {
   @FXML
   public void clearFilters(ActionEvent event) {
     mealTable.setItems(mealData);
+    employeeFilterField.clear();
+    statusFilterField.clear();
   }
 
   /**
