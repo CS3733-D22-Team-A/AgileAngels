@@ -40,15 +40,25 @@ public class DashboardController implements Initializable, PropertyChangeListene
   ArrayList<Pane> panes = new ArrayList<>();
   @FXML private ScrollPane scrollPane = new ScrollPane();
 
-  @FXML private TableView requestTable;
-  @FXML private TableColumn typeColumn, statusColumn, employeeColumn, floorColumn;
+  @FXML private TableView requestTable, employeeTable;
+  @FXML
+  private TableColumn typeColumn,
+      statusColumn,
+      employeeColumn,
+      floorColumn,
+      empEmployeeColumn,
+      empFloorColumn;
 
   // TODO: Switch this for a hashmap of all requests
   private RequestDAOImpl requestDAO = RequestDAOImpl.getInstance("MedRequest");
-  HashMap<String, Request> requestsHash = requestDAO.getAllRequests();
-  ArrayList<Request> requestsList = new ArrayList<Request>(requestsHash.values());
+  private ArrayList<Request> requestsList = new ArrayList<>(requestDAO.getAllRequests().values());
   private static ObservableList<RequestSummary> requestSummaries =
       FXCollections.observableArrayList();
+
+  private EmployeeManager employeeDAO = EmployeeManager.getInstance();
+  private ArrayList<Employee> employeeList =
+      new ArrayList<>(employeeDAO.getAllEmployees().values());
+  private static ObservableList<Employee> employees = FXCollections.observableArrayList();
 
   private int[] dirtyBedsArray = new int[4];
   private int[] dirtyPumpsArray = new int[4];
@@ -84,21 +94,22 @@ public class DashboardController implements Initializable, PropertyChangeListene
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     floorColumn.setCellValueFactory(new PropertyValueFactory<>("floor"));
+    empEmployeeColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    // TODO: REPLACE THIS WITH FLOOR
+    empFloorColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
 
     populateRequestTable("All");
+    populateEmployeeTable("All");
   }
 
   private void populateRequestTable(String floor) {
     requestSummaries.clear();
     if (floor.equals("All")) {
-      System.out.println("if");
       for (Request request : requestsList) {
-        System.out.println("for");
         RequestSummary summary = new RequestSummary(request);
         requestSummaries.add(summary);
       }
     } else {
-      System.out.println("else");
       for (Request request : requestsList) {
         if (request.getLocation().getFloor().equals(floor)) {
           RequestSummary summary = new RequestSummary(request);
@@ -107,6 +118,23 @@ public class DashboardController implements Initializable, PropertyChangeListene
       }
     }
     requestTable.setItems(requestSummaries);
+  }
+
+  private void populateEmployeeTable(String floor) {
+    employees.clear();
+    if (floor.equals("All")) {
+      for (Employee employee : employeeList) {
+        employees.add(employee);
+      }
+    } else {
+      for (Employee employee : employees) {
+        // TODO: CHANGE THIS TO FLOOR
+        if (employee.getPassword().equals(floor)) {
+          employees.add(employee);
+        }
+      }
+    }
+    employeeTable.setItems(employees);
   }
 
   @Override
@@ -164,6 +192,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
       timeline5.play();
       displaySingleFloorCounts(3);
       populateRequestTable("5");
+      populateEmployeeTable("5");
     }
 
     // floor 4
@@ -178,6 +207,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
       timeline4.play();
       displaySingleFloorCounts(2);
       populateRequestTable("4");
+      populateEmployeeTable("4");
     }
 
     // floor 3
@@ -192,6 +222,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
       timeline3.play();
       displaySingleFloorCounts(1);
       populateRequestTable("3");
+      populateEmployeeTable("3");
     }
 
     // floor 2
@@ -206,6 +237,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
       timeline2.play();
       displayZeroes();
       populateRequestTable("2");
+      populateEmployeeTable("2");
     }
 
     // floor LL1
@@ -220,6 +252,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
       timelineLL1.play();
       displayZeroes();
       populateRequestTable("L1");
+      populateEmployeeTable("L1");
     }
 
     // floor LL2
@@ -234,6 +267,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
       timelineLL2.play();
       displayZeroes();
       populateRequestTable("L2");
+      populateEmployeeTable("L2");
     }
   }
 
@@ -313,6 +347,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
     }
     displayAllFloorsCounts();
     populateRequestTable("All");
+    populateEmployeeTable("All");
   }
 
   @FXML
