@@ -7,11 +7,15 @@ public interface EmployeeDAO {
 
   Employee getEmployee(String userID);
 
-  void addEmployee(String name, String password);
+  void addEmployee(String name, String password, String duty);
 
   void removeEmployee(String userID);
 
   void updateEmployeeName(String userID, String newName);
 
   void updateEmployeePassword(String userID, String newPW);
+
+  String getEmployeeFloorOnDuty(String name);
+
+  void setEmployeeFloorOnDuty(String name, String floorOnDuty);
 }

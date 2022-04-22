@@ -86,6 +86,7 @@ public class EmployeeTable implements TableI {
           "CREATE TABLE Employees( "
               + "Name VARCHAR(50),"
               + "Password VARCHAR(50),"
+              + "FloorOnDuty VARCHAR(50),"
               + "PRIMARY KEY (Name))";
       query.execute(queryEmployees);
       return true;
