@@ -216,6 +216,7 @@ Note that these labels lock your font size.
     -fx-background-radius: 7px 7px 0px 0px;
 }
 
+
 .table-row-cell{
     -fx-pref-height: 30;
 }

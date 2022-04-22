@@ -23,24 +23,71 @@
 <AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.ServiceRequestController">
    <children>
       <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
-      <VBox alignment="CENTER" layoutY="60.0" prefHeight="602.0" prefWidth="1280.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+      <VBox alignment="CENTER" prefHeight="692.0" prefWidth="1280.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
-            <HBox alignment="CENTER" prefHeight="663.0" prefWidth="1280.0">
+            <HBox alignment="CENTER" prefHeight="76.0" prefWidth="1280.0">
                <children>
-            
+                  <JFXToggleButton fx:id="toggleButton" onAction="#showCreators" prefHeight="60.0" prefWidth="189.0" style="-fx-font-size: 15;" text="Contributors" toggleColor="#009ca6">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXToggleButton>
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveToCSV" prefHeight="59.0" prefWidth="120.0">
+                     <graphic>
+                        <VBox alignment="CENTER" prefHeight="132.0" prefWidth="157.0" spacing="20.0">
+                           <padding>
+                              <Insets left="14.0" />
+                           </padding>
+                           <children>
+                              <ImageView fitHeight="45.0" fitWidth="40.0">
+                                 <image>
+                                    <Image url="@../assets/icons/save-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                     </graphic>
+                  </Button>
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <Button fx:id="uploadButton" mnemonicParsing="false" onAction="#uploadToCSV" prefHeight="59.0" prefWidth="120.0">
+                     <graphic>
+                        <VBox fx:id="uploadButton" alignment="CENTER" onDragDetected="#uploadToCSV" prefHeight="132.0" prefWidth="157.0" spacing="20.0">
+                           <padding>
+                              <Insets left="14.0" />
+                           </padding>
+                           <children>
+                              <ImageView fitHeight="40.0" fitWidth="50.0">
+                                 <image>
+                                    <Image url="@../assets/icons/uplaod-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                     </graphic>
+                  </Button>
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXToggleButton fx:id="clientToggle" onAction="#toggleStatus" prefHeight="60.0" prefWidth="150.0" style="-fx-font-size: 15;" text="Embedded" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="1280.0">
+               <children>
+
                   
-                  <GridPane alignment="CENTER" prefHeight="560.0" prefWidth="1200.0">
+                  <GridPane alignment="CENTER" prefHeight="471.0" prefWidth="1200.0">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="408.0" minWidth="10.0" prefWidth="340.0" />
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="340.0" />
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="340.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="340.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="250.0" minHeight="10.0" prefHeight="250.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="250.0" minHeight="10.0" prefHeight="250.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="250.0" minHeight="10.0" prefHeight="250.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Button fx:id="labRequest" mnemonicParsing="false" onAction="#requestButton" prefHeight="150.0" prefWidth="250.0" GridPane.columnIndex="1">
@@ -121,40 +168,6 @@
                                        </image>
                                     </ImageView>
                                     <Label fx:id="grText" text="Gift Request" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="14.0" />
-                                 </padding>
-                              </VBox>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="MGB" mnemonicParsing="false" onAction="#requestButton" prefHeight="150.0" prefWidth="250.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                           <graphic>
-                              <VBox alignment="CENTER" prefHeight="53.0" prefWidth="135.0" spacing="20.0">
-                                 <children>
-                                    <ImageView fitHeight="60.0" fitWidth="200.0" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/icons/noun-heart-beat-2345658.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label fx:id="mgbText" text="Mass General Babes" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="14.0" />
-                                 </padding>
-                              </VBox>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="MedAid" mnemonicParsing="false" onAction="#requestButton" prefHeight="150.0" prefWidth="250.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                           <graphic>
-                              <VBox alignment="CENTER" prefHeight="53.0" prefWidth="135.0" spacing="20.0">
-                                 <children>
-                                    <ImageView fitHeight="60.0" fitWidth="200.0" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/icons/noun-heart-beat-2345658.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label fx:id="MedAidText" text="Medical Aid" />
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -245,20 +258,5 @@
             <Insets top="40.0" />
          </padding>
       </VBox>
-      <HBox alignment="CENTER_LEFT" layoutX="-2.0" layoutY="52.0" prefHeight="58.0" prefWidth="1283.0">
-         <children>
-            <JFXToggleButton fx:id="toggleButton" onAction="#showCreators" prefHeight="60.0" prefWidth="189.0" style="-fx-font-size: 15;" text="Contributors" toggleColor="#009ca6">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </JFXToggleButton>
-            <Label style="-fx-font-size: 15;" text="Client">
-               <HBox.margin>
-                  <Insets left="900.0" />
-               </HBox.margin>
-            </Label>
-            <JFXToggleButton fx:id="clientToggle" onAction="#toggleStatus" style="-fx-font-size: 15;" text="Embedded" />
-         </children>
-      </HBox>
    </children>
 </AnchorPane>
