@@ -4,7 +4,6 @@ import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import edu.wpi.agileAngels.Database.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Map;
 
 // This class is the backend of the DAO method.
 // The objects communicate with the DB here
@@ -91,7 +90,6 @@ public class Adb {
     mealRequestImpl.csvRead();
     RequestDAOImpl sanitationRequestImpl = RequestDAOImpl.getInstance("SanitationRequest");
     sanitationRequestImpl.csvRead();
-
   }
 
   /**
