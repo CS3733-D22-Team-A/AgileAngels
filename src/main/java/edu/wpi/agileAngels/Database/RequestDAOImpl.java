@@ -19,6 +19,7 @@ public class RequestDAOImpl implements RequestDAO {
 
   private static EmployeeManager empManager = null;
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
+  private static RequestDAOImpl AllRequestsDAO = null;
   private static RequestDAOImpl MedrequestDAO = null;
   private static RequestDAOImpl LabrequestDAO = null;
   private static RequestDAOImpl SanDAO = null;
@@ -68,7 +69,7 @@ public class RequestDAOImpl implements RequestDAO {
     mealTypes.add("Steak");
     mealTypes.add("Pasta");
     mealTypes.add("Beans");
-    mealTypes.add("Placenta");
+    mealTypes.add("Fish");
     return mealTypes;
   }
 
@@ -158,6 +159,11 @@ public class RequestDAOImpl implements RequestDAO {
         MorgueDAO = new RequestDAOImpl(data, 1, "MorgueRequest");
       }
       return MorgueDAO;
+    } else if (0 == type.compareTo("AllRequests")) {
+      if (AllRequestsDAO == null) {
+        AllRequestsDAO = new RequestDAOImpl(data, 1, "AllRequests");
+      }
+      return AllRequestsDAO;
     }
     return null;
   }
@@ -246,6 +252,10 @@ public class RequestDAOImpl implements RequestDAO {
     letter = letter + Integer.toString(this.count);
     request.setName(letter);
     this.reqData.put(letter, request);
+    try {
+      RequestDAOImpl.getInstance("AllRequests").reqData.put(letter, request);
+    } catch (SQLException sqlException) {
+    }
 
     Adb.addRequest(request);
   }
@@ -316,6 +326,10 @@ public class RequestDAOImpl implements RequestDAO {
             values[6],
             values[7]);
     this.reqData.put(values[0], request);
+    try {
+      RequestDAOImpl.getInstance("AllRequests").reqData.put(values[0], request);
+    } catch (SQLException sqlException) {
+    }
     Adb.addRequest(request);
   }
 
