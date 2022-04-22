@@ -67,10 +67,11 @@ public class EmployeeManager implements EmployeeDAO {
   }
 
   /** Adds Employee into hash . */
-  public void addEmployee(String name, String password) {
+  public void addEmployee(String name, String password, String duty) {
     ArrayList<Request> newERequest = new ArrayList<Request>();
-    Employee newEmployee = new Employee(name, password);
+    Employee newEmployee = new Employee(name, password, duty);
     employeeHashMap.put(name, newEmployee);
+    // Adb.addEmployee(newEmployee);
   }
 
   /** Updates Employee's name with newName. */
@@ -81,6 +82,26 @@ public class EmployeeManager implements EmployeeDAO {
   /** Updates Employee's password with newPW. */
   public void updateEmployeePassword(String name, String newPW) {
     employeeHashMap.get(name).setPassword(newPW);
+  }
+
+  /**
+   * Gets an employee's duty (floor number or off duty).
+   *
+   * @param name Employee's name
+   * @return Floor number or Off Duty
+   */
+  public String getEmployeeFloorOnDuty(String name) {
+    return employeeHashMap.get(name).getFloorOnDuty();
+  }
+
+  /**
+   * Sets an employee's duty.
+   *
+   * @param name Employee's name
+   * @param floorOnDuty Floor number or Off Duty
+   */
+  public void setEmployeeFloorOnDuty(String name, String floorOnDuty) {
+    employeeHashMap.get(name).setFloorOnDuty(floorOnDuty);
   }
 
   public void readCSV() {
@@ -96,7 +117,7 @@ public class EmployeeManager implements EmployeeDAO {
         if (OnHeader) {
           String[] values = line.split(splitBy);
           ++this.count;
-          Employee employee = new Employee(values[0], values[1]);
+          Employee employee = new Employee(values[0], values[1], values[2]);
           this.employeeHashMap.put(values[0], employee);
           Adb.addEmployee(employee);
 

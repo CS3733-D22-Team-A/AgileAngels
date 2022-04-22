@@ -1,11 +1,13 @@
-name,password
-James,1234
-Liam,hello3
-Harriot,pssWord
-Ariana,weeWoo
-Carly,fvdfv
-Tom,sdcscs
-Alex,dvsvsd
-Talia,Maryland
-Aadhya,yourMom
-Jakob,peepeepoopoo
+name,password,duty
+James,1234,Off Duty
+Liam,hello3,2
+Harriot,pssWord,4
+Ariana,weeWoo,4
+Carly,fvdfv,L1
+Tom,sdcscs,2
+Alex,dvsvsd,5
+Talia,Maryland,3
+Aadhya,15557,5
+Jakob,99904587,2
+John,556722,L2
+Karl,1118383,3
