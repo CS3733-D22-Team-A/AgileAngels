@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MapsController">
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.MapsController">
     <children>
         <ScrollPane fx:id="mapScroll" hbarPolicy="NEVER" layoutX="1.0" layoutY="60.0" onMousePressed="#deselect" pannable="true" prefHeight="578.0" prefWidth="1279.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
             <content>
@@ -101,28 +101,6 @@
       </VBox>
         <Button fx:id="zoomIn" layoutX="1194.0" layoutY="558.0" mnemonicParsing="false" onAction="#zoomableMap" prefHeight="30.0" prefWidth="32.0" text="+" AnchorPane.bottomAnchor="132.0" AnchorPane.rightAnchor="20.0" />
         <Button fx:id="zoomOut" layoutX="1194.0" layoutY="588.0" mnemonicParsing="false" onAction="#zoomableMap" prefHeight="30.0" prefWidth="32.0" text="-" AnchorPane.bottomAnchor="102.0" AnchorPane.rightAnchor="20.0" />
-      <MenuButton fx:id="LocationFilter" layoutX="919.0" layoutY="85.0" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Filter Locations">
-         <items>
-            <CheckMenuItem fx:id="patiCheck" mnemonicParsing="false" onAction="#typeMenu" text="PATI" />
-            <CheckMenuItem fx:id="bathCheck" mnemonicParsing="false" onAction="#locationFilter" text="BATH" />
-            <CheckMenuItem fx:id="storCheck" mnemonicParsing="false" onAction="#typeMenu" text="STOR" />
-            <CheckMenuItem fx:id="dirtCheck" mnemonicParsing="false" onAction="#typeMenu" text="DIRT" />
-            <CheckMenuItem fx:id="hallCheck" mnemonicParsing="false" onAction="#typeMenu" text="HALL" />
-            <CheckMenuItem fx:id="elevCheck" mnemonicParsing="false" onAction="#typeMenu" text="ELEV" />
-            <CheckMenuItem fx:id="restCheck" mnemonicParsing="false" onAction="#typeMenu" text="REST" />
-            <CheckMenuItem fx:id="staiCheck" mnemonicParsing="false" onAction="#typeMenu" text="STAI" />
-            <CheckMenuItem fx:id="deptCheck" mnemonicParsing="false" onAction="#typeMenu" text="DEPT" />
-            <CheckMenuItem fx:id="labsCheck" mnemonicParsing="false" onAction="#typeMenu" text="LABS" />
-            <CheckMenuItem fx:id="infoCheck" mnemonicParsing="false" onAction="#typeMenu" text="INFO" />
-            <CheckMenuItem fx:id="confCheck" mnemonicParsing="false" onAction="#typeMenu" text="CONF" />
-            <CheckMenuItem fx:id="exitCheck" mnemonicParsing="false" onAction="#typeMenu" text="EXIT" />
-            <CheckMenuItem fx:id="retlCheck" mnemonicParsing="false" onAction="#typeMenu" text="RETL" />
-            <CheckMenuItem fx:id="servCheck" mnemonicParsing="false" onAction="#typeMenu" text="SERV" />
-         </items>
-         <graphic>
-            <CheckBox fx:id="locationToggle" mnemonicParsing="false" onAction="#toggleLocation" selected="true" />
-         </graphic>
-      </MenuButton>
       <Pane fx:id="locationEditPane" prefHeight="295.0" prefWidth="274.0" style="-fx-background-radius: 10; -fx-background-color: rgba(244, 244, 244, 1);" visible="false" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
          <children>
             <HBox alignment="CENTER" prefHeight="295.0" prefWidth="274.0">
@@ -251,6 +229,48 @@
          </children>
       </Pane>
         <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
+      <MenuButton fx:id="LocationFilterButton" layoutX="919.0" layoutY="85.0" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Filter Locations" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="70.0">
+         <items>
+            <CheckMenuItem fx:id="patiCheck" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Patient Room" />
+            <CheckMenuItem fx:id="storCheck" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Eqipment Storage" />
+            <CheckMenuItem fx:id="dirtCheck" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Dirty Eqipment" />
+            <CheckMenuItem fx:id="hallCheck" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Hallway" />
+            <CheckMenuItem fx:id="elevCheck" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Evelvators" />
+            <CheckMenuItem fx:id="restCheck" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Restroom" />
+            <CheckMenuItem fx:id="staiCheck" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Stairs" />
+            <CheckMenuItem fx:id="deptCheck" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Departments" />
+            <CheckMenuItem fx:id="labsCheck" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Labs" />
+            <CheckMenuItem fx:id="infoCheck" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Info Desk" />
+            <CheckMenuItem fx:id="confCheck" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Confrence Room" />
+            <CheckMenuItem fx:id="exitCheck" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Exits" />
+            <CheckMenuItem fx:id="retlCheck" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Retail Shops" />
+            <CheckMenuItem fx:id="servCheck" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Services" />
+         </items>
+         <graphic>
+            <CheckBox fx:id="locationToggle" mnemonicParsing="false" onAction="#toggleLocation" selected="true" />
+         </graphic>
+      </MenuButton>
+      <MenuButton fx:id="LocationFilterButton1" layoutX="929.0" layoutY="95.0" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Filter Requests" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="70.0">
+         <items>
+            <CheckMenuItem fx:id="patiCheck1" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Patient Room" />
+            <CheckMenuItem fx:id="storCheck1" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Eqipment Storage" />
+            <CheckMenuItem fx:id="dirtCheck1" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Dirty Eqipment" />
+            <CheckMenuItem fx:id="hallCheck1" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Hallway" />
+            <CheckMenuItem fx:id="elevCheck1" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Evelvators" />
+            <CheckMenuItem fx:id="restCheck1" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Restroom" />
+            <CheckMenuItem fx:id="staiCheck1" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Stairs" />
+            <CheckMenuItem fx:id="deptCheck1" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Departments" />
+            <CheckMenuItem fx:id="labsCheck1" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Labs" />
+            <CheckMenuItem fx:id="infoCheck1" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Info Desk" />
+            <CheckMenuItem fx:id="confCheck1" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Confrence Room" />
+            <CheckMenuItem fx:id="exitCheck1" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Exits" />
+            <CheckMenuItem fx:id="retlCheck1" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Retail Shops" />
+            <CheckMenuItem fx:id="servCheck1" mnemonicParsing="false" onAction="#filterLocation" selected="true" text="Services" />
+         </items>
+         <graphic>
+            <CheckBox fx:id="locationToggle1" mnemonicParsing="false" onAction="#toggleLocation" selected="true" />
+         </graphic>
+      </MenuButton>
     </children>
     <stylesheets>
         <URL value="@stylesheets/style.css" />

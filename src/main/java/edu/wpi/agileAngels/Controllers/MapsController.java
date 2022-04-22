@@ -40,6 +40,9 @@ public class MapsController implements Initializable, PropertyChangeListener {
       exitCheck,
       retlCheck,
       servCheck;
+
+  HashMap<CheckMenuItem, String> locationFilterHash = new HashMap<CheckMenuItem, String>();
+
   @FXML
   private ImageView floorTwoMap,
       floorThreeMap,
@@ -119,22 +122,6 @@ public class MapsController implements Initializable, PropertyChangeListener {
   private double croppedMapWidth = 2000;
 
   private double imagePaneWidth = 1400;
-
-  public double getCroppedMapXOffset() {
-    return croppedMapXOffset;
-  }
-
-  public double getCroppedMapYOffset() {
-    return croppedMapYOffset;
-  }
-
-  public double getCroppedMapWidth() {
-    return croppedMapWidth;
-  }
-
-  public double getImagePaneWidth() {
-    return imagePaneWidth;
-  }
 
   /**
    * Called on page load, creates panes for each map, adds the images for each map to its pane, and
@@ -220,6 +207,22 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
       }
     }
+
+    locationFilterHash.put(patiCheck, "PATI");
+    locationFilterHash.put(bathCheck, "BATH");
+    locationFilterHash.put(storCheck, "STOR");
+    locationFilterHash.put(dirtCheck, "DIRT");
+    locationFilterHash.put(hallCheck, "HALL");
+    locationFilterHash.put(elevCheck, "ELEV");
+    locationFilterHash.put(restCheck, "REST");
+    locationFilterHash.put(staiCheck, "STAI");
+    locationFilterHash.put(deptCheck, "DEPT");
+    locationFilterHash.put(labsCheck, "LABS");
+    locationFilterHash.put(infoCheck, "INFO");
+    locationFilterHash.put(confCheck, "CONF");
+    locationFilterHash.put(exitCheck, "EXIT");
+    locationFilterHash.put(retlCheck, "RETL");
+    locationFilterHash.put(servCheck, "SERV");
   }
 
   @Override
@@ -671,16 +674,32 @@ public class MapsController implements Initializable, PropertyChangeListener {
     } else {
       locationNodeManager.setVisibilityAll(false);
     }
+    locationFilterButton.hide();
   }
 
-  public void locationFilter(ActionEvent event) {
+  public void filterLocation(ActionEvent event) {
+    for (CheckMenuItem e : locationFilterHash.keySet())
+      if (e.isSelected()) {
+        locationNodeManager.setVisibilityOfType(locationFilterHash.get(e), true);
+      } else {
+        locationNodeManager.setVisibilityOfType(locationFilterHash.get(e), false);
+      }
+    locationFilterButton.show();
+  }
 
-    if (bathCheck.isSelected()) {
-      locationNodeManager.setVisibilityOfType(
-          "BATH", true); // turn this into a hashmap that can iterate through
-    } else if (!bathCheck.isSelected()) {
-      locationNodeManager.setVisibilityOfType(
-          "BATH", false); // turn this into a hashmap that can iterate through
-    }
+  public double getCroppedMapXOffset() {
+    return croppedMapXOffset;
+  }
+
+  public double getCroppedMapYOffset() {
+    return croppedMapYOffset;
+  }
+
+  public double getCroppedMapWidth() {
+    return croppedMapWidth;
+  }
+
+  public double getImagePaneWidth() {
+    return imagePaneWidth;
   }
 }
