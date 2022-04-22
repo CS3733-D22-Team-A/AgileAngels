@@ -185,4 +185,18 @@ public class EquipmentNodeManager {
     }
     updateEquipmentNode(request.getMedicalEquip().getID());
   }
+
+  public void setVisibilityOfType(String type, boolean b) {
+    for (EquipmentNode node : nodes.values()) {
+      if (node.getMedEquip().getType().equals(type)) {
+        node.getButton().setVisible(b);
+      }
+    }
+  }
+
+  public void setVisibilityAll(boolean b) {
+    for (EquipmentNode node : nodes.values()) {
+      node.getButton().setVisible(b);
+    }
+  }
 }
