@@ -326,6 +326,10 @@ public class RequestDAOImpl implements RequestDAO {
             values[6],
             values[7]);
     this.reqData.put(values[0], request);
+    try {
+      RequestDAOImpl.getInstance("AllRequests").reqData.put(values[0], request);
+    } catch (SQLException sqlException) {
+    }
     Adb.addRequest(request);
   }
 
