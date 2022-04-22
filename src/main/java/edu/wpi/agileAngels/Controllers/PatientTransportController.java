@@ -250,6 +250,8 @@ public class PatientTransportController extends MainController
   @FXML
   public void clearFilters(ActionEvent event) {
     transportTable.setItems(transportData);
+    employeeFilterField.clear();
+    statusFilterField.clear();
   }
 
   @FXML

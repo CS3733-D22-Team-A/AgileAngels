@@ -253,6 +253,8 @@ public class SanitationController implements Initializable, PropertyChangeListen
   @FXML
   public void clearFilters(ActionEvent event) {
     SaniTable.setItems(saniData);
+    employeeFilterField.clear();
+    statusFilterField.clear();
   }
 
   /**
