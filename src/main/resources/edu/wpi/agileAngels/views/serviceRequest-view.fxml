@@ -35,10 +35,9 @@
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="408.0" minWidth="10.0" prefWidth="340.0" />
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="340.0" />
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="340.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="340.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
@@ -121,23 +120,6 @@
                                        </image>
                                     </ImageView>
                                     <Label fx:id="grText" text="Gift Request" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="14.0" />
-                                 </padding>
-                              </VBox>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="MGB" mnemonicParsing="false" onAction="#requestButton" prefHeight="150.0" prefWidth="250.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                           <graphic>
-                              <VBox alignment="CENTER" prefHeight="53.0" prefWidth="135.0" spacing="20.0">
-                                 <children>
-                                    <ImageView fitHeight="60.0" fitWidth="200.0" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/icons/noun-heart-beat-2345658.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label fx:id="mgbText" text="Mass General Babes" />
                                  </children>
                                  <padding>
                                     <Insets left="14.0" />
@@ -243,5 +225,21 @@
             <JFXToggleButton fx:id="clientToggle" onAction="#toggleStatus" style="-fx-font-size: 15;" text="Embedded" />
          </children>
       </HBox>
+      <Button fx:id="saveButton" layoutX="389.0" layoutY="74.0" mnemonicParsing="false" onAction="#saveToCSV" prefHeight="59.0" prefWidth="120.0">
+         <graphic>
+            <VBox alignment="CENTER" prefHeight="132.0" prefWidth="157.0" spacing="20.0">
+               <padding>
+                  <Insets left="14.0" />
+               </padding>
+               <children>
+                  <ImageView fitHeight="45.0" fitWidth="40.0">
+                     <image>
+                        <Image url="@../assets/icons/save-icon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
