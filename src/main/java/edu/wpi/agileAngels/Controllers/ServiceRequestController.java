@@ -25,7 +25,8 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       laundryRequest,
       maintenanceRequest,
       morgueRequest,
-      patientTransportRequest;
+      patientTransportRequest,
+      next;
   @FXML private JFXToggleButton toggleButton, clientToggle;
 
   // These are/will be the hidden labels for the toggleable switch.
@@ -113,6 +114,8 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       appController.loadPage("/edu/wpi/agileAngels/views/morgue-view.fxml");
     } else if (event.getSource() == patientTransportRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/patientTransport-view.fxml");
+    } else if (event.getSource() == next) {
+      appController.loadPage("/edu/wpi/agileAngels/views/apiLanding-view.fxml");
     }
 
     /*else if (event.getSource() == testButton) {

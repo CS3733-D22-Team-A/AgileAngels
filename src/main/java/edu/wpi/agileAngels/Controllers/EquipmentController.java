@@ -139,6 +139,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   /**
    * Filters out requests in medData based on the given Employee.
+   *
    * @param employeeName The Employee that the requests must have to be in the new list.
    * @return The new filtered list.
    */
