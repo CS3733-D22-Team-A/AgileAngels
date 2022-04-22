@@ -30,11 +30,11 @@ public class LoginController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    employeeManager.addEmployee("Admin", "Admin");
-    employeeManager.addEmployee("Nurse", "Nurse");
-    employeeManager.addEmployee("Justin", "Password");
-    employeeManager.addEmployee("Staff", "Staff");
-    employeeManager.addEmployee("", "");
+    employeeManager.addEmployee("Admin", "Admin", "Off Duty");
+    employeeManager.addEmployee("Nurse", "Nurse", "Off Duty");
+    employeeManager.addEmployee("Justin", "Password", "L2");
+    employeeManager.addEmployee("Staff", "Staff", "Off Duty");
+    employeeManager.addEmployee("", "", "Off Duty");
   }
 
   /**

@@ -20,10 +20,11 @@ public class EmployeeTable implements TableI {
         return false;
       }
       Employee emp = (Employee) obj;
-      String add = "INSERT INTO Employees(name, password)VALUES(?,?)";
+      String add = "INSERT INTO Employees(name, password, floorOnDuty)VALUES(?,?,?)";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
       preparedStatement.setString(1, emp.getName());
       preparedStatement.setString(2, emp.getPassword());
+      preparedStatement.setString(3, emp.getFloorOnDuty());
       preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {
@@ -65,9 +66,11 @@ public class EmployeeTable implements TableI {
       Employee emp = (Employee) obj;
       PreparedStatement preparedStatement =
           DBconnection.getConnection()
-              .prepareStatement("UPDATE Employees SET name = ? WHERE password = ?");
-      preparedStatement.setString(1, emp.getName());
-      preparedStatement.setString(2, emp.getPassword());
+              .prepareStatement(
+                  "UPDATE Employees SET password = ?, floorOnDuty = ? WHERE name = ?");
+      preparedStatement.setString(1, emp.getPassword());
+      preparedStatement.setString(2, emp.getFloorOnDuty());
+      preparedStatement.setString(3, emp.getName());
       preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {
@@ -88,6 +91,7 @@ public class EmployeeTable implements TableI {
           "CREATE TABLE Employees( "
               + "Name VARCHAR(50),"
               + "Password VARCHAR(50),"
+              + "FloorOnDuty VARCHAR(50),"
               + "PRIMARY KEY (Name))";
       query.execute(queryEmployees);
       return true;

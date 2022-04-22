@@ -20,6 +20,7 @@ public class RequestDAOImpl implements RequestDAO {
   //Implementations for each type of request, employees, and locations
   private static EmployeeManager empManager = null;
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
+  private static RequestDAOImpl AllRequestsDAO = null;
   private static RequestDAOImpl MedrequestDAO = null;
   private static RequestDAOImpl LabrequestDAO = null;
   private static RequestDAOImpl SanDAO = null;
@@ -40,6 +41,54 @@ public class RequestDAOImpl implements RequestDAO {
   ArrayList giftTypes = new ArrayList<String>();
   ArrayList transportTypes = new ArrayList<String>();
 
+  public ArrayList getLabTypes() {
+    labTypes.add("Blood Test");
+    labTypes.add("Urine Test");
+    labTypes.add("Tumor Marker");
+    labTypes.add("COVID-19 Test");
+    return labTypes;
+  }
+
+  public ArrayList getEquipTypes() {
+    equipTypes.add("XRayMachine");
+    equipTypes.add("InfusionPump");
+    equipTypes.add("Recliner");
+    equipTypes.add("Bed");
+    return equipTypes;
+  }
+
+  public ArrayList getSanitationTypes() {
+    sanitationTypes.add("Clean Spill");
+    sanitationTypes.add("Clean Room");
+    sanitationTypes.add("Clean Exam");
+    sanitationTypes.add("Janitorial");
+    sanitationTypes.add("Other");
+    return sanitationTypes;
+  }
+
+  public ArrayList getMealTypes() {
+    mealTypes.add("Salad");
+    mealTypes.add("Steak");
+    mealTypes.add("Pasta");
+    mealTypes.add("Beans");
+    mealTypes.add("Fish");
+    return mealTypes;
+  }
+
+  public ArrayList getGiftTypes() {
+    giftTypes.add("Balloons");
+    giftTypes.add("Flowers");
+    giftTypes.add("Card");
+    return giftTypes;
+  }
+
+  public ArrayList getTransportTypes() {
+    transportTypes.add("Move Room");
+    transportTypes.add("Move Hospital");
+    transportTypes.add("Release");
+    return transportTypes;
+  }
+
   public RequestDAOImpl(HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
 
@@ -47,7 +96,6 @@ public class RequestDAOImpl implements RequestDAO {
     this.reqData = reqData;
     this.count = count;
     this.DAOtype = type;
-    System.out.println("TYPE: " + type);
     requestTypes.put("Mea", getMealTypes());
     requestTypes.put("Med", getEquipTypes());
     requestTypes.put("Lab", getLabTypes());
@@ -110,17 +158,20 @@ public class RequestDAOImpl implements RequestDAO {
       }
       return TransportDAO;
     } else if (0 == type.compareTo("GiftRequest")) {
-      System.out.println("PASS FIRST IF STATEMENT");
       if (GiftDAO == null) {
         GiftDAO = new RequestDAOImpl(data, 1, "GiftRequest");
       }
-      System.out.println("GiftDAO count: " + GiftDAO.count);
       return GiftDAO;
     } else if (0 == type.compareTo("MorgueRequest")) {
       if (MorgueDAO == null) {
         MorgueDAO = new RequestDAOImpl(data, 1, "MorgueRequest");
       }
       return MorgueDAO;
+    } else if (0 == type.compareTo("AllRequests")) {
+      if (AllRequestsDAO == null) {
+        AllRequestsDAO = new RequestDAOImpl(data, 1, "AllRequests");
+      }
+      return AllRequestsDAO;
     }
     return null;
   }
@@ -215,6 +266,10 @@ public class RequestDAOImpl implements RequestDAO {
     letter = letter + Integer.toString(this.count);
     request.setName(letter);
     this.reqData.put(letter, request);
+    try {
+      RequestDAOImpl.getInstance("AllRequests").reqData.put(letter, request);
+    } catch (SQLException sqlException) {
+    }
 
     Adb.addRequest(request);
   }
@@ -268,7 +323,6 @@ public class RequestDAOImpl implements RequestDAO {
       makeRequest(values);
     } else if (values[0].substring(0, 4).compareTo("Gift") == 0
         && DAOtype.compareTo("GiftRequest") == 0) {
-      // System.out.println("MAKING GIFT REQUESTS");
       makeRequest(values);
     } else if (values[0].substring(0, 4).compareTo("Morg") == 0
         && DAOtype.compareTo("MorgueRequest") == 0) {
@@ -283,7 +337,6 @@ public class RequestDAOImpl implements RequestDAO {
    * @throws SQLException
    */
   private void makeRequest(String[] values) throws SQLException {
-    //  System.out.println("MAKE REQUEST " + values[0]);
     Request request =
         new Request(
             values[0],
@@ -295,6 +348,10 @@ public class RequestDAOImpl implements RequestDAO {
             values[6],
             values[7]);
     this.reqData.put(values[0], request);
+    try {
+      RequestDAOImpl.getInstance("AllRequests").reqData.put(values[0], request);
+    } catch (SQLException sqlException) {
+    }
     Adb.addRequest(request);
   }
 
@@ -307,7 +364,6 @@ public class RequestDAOImpl implements RequestDAO {
   }
 
   private Location findLocation(String value) {
-    // System.out.println("Location Value " + value);
     Location location;
     HashMap<String, Location> locationData = locDAO.getAllLocations();
     location = locationData.get(value);
@@ -372,52 +428,4 @@ public class RequestDAOImpl implements RequestDAO {
     this.reqData = new HashMap<String, Request>();
   }
 
-
-  public ArrayList getLabTypes() {
-    labTypes.add("Blood Test");
-    labTypes.add("Urine Test");
-    labTypes.add("Tumor Marker");
-    labTypes.add("COVID-19 Test");
-    return labTypes;
-  }
-
-  public ArrayList getEquipTypes() {
-    equipTypes.add("XRayMachine");
-    equipTypes.add("InfusionPump");
-    equipTypes.add("Recliner");
-    equipTypes.add("Bed");
-    return equipTypes;
-  }
-
-  public ArrayList getSanitationTypes() {
-    sanitationTypes.add("Clean Spill");
-    sanitationTypes.add("Clean Room");
-    sanitationTypes.add("Clean Exam");
-    sanitationTypes.add("Janitorial");
-    sanitationTypes.add("Other");
-    return sanitationTypes;
-  }
-
-  public ArrayList getMealTypes() {
-    mealTypes.add("Salad");
-    mealTypes.add("Steak");
-    mealTypes.add("Pasta");
-    mealTypes.add("Beans");
-    mealTypes.add("Placenta");
-    return mealTypes;
-  }
-
-  public ArrayList getGiftTypes() {
-    giftTypes.add("Balloons");
-    giftTypes.add("Flowers");
-    giftTypes.add("Card");
-    return giftTypes;
-  }
-
-  public ArrayList getTransportTypes() {
-    transportTypes.add("Move Room");
-    transportTypes.add("Move Hospital");
-    transportTypes.add("Release");
-    return transportTypes;
-  }
 }
