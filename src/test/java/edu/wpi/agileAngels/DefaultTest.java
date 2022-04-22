@@ -4,20 +4,8 @@
 
 package edu.wpi.agileAngels;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import edu.wpi.agileAngels.Controllers.LoginController;
-import edu.wpi.agileAngels.Controllers.MethodTestClass;
-import edu.wpi.agileAngels.Database.Employee;
-import edu.wpi.agileAngels.Database.Location;
-import edu.wpi.agileAngels.Database.Request;
-import java.sql.SQLException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
-
 public class DefaultTest {
-
+  /*
   LoginController dansLController = new LoginController();
 
   public DefaultTest() throws SQLException {}
@@ -158,5 +146,5 @@ public class DefaultTest {
     ObservableList filterList = dansMTC.filterReqEmployeeNoMedData(joe.getName(), dansList);
 
     assertTrue(filterList.isEmpty());
-  }
+  }*/
 }
