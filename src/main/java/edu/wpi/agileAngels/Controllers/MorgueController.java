@@ -210,6 +210,8 @@ public class MorgueController implements Initializable, PropertyChangeListener {
   @FXML
   public void clearFilters(ActionEvent event) {
     morgueTable.setItems(morgueData);
+    employeeFilterField.clear();
+    statusFilterField.clear();
   }
 
   @FXML

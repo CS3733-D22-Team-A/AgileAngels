@@ -222,6 +222,8 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
   @FXML
   public void clearFilters(ActionEvent event) {
     mainTable.setItems(maintenanceData);
+    employeeFilterField.clear();
+    statusFilterField.clear();
   }
 
   @FXML
