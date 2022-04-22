@@ -101,6 +101,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
   }
 
   private void populateRequestTable(String floor) {
+    requestsList = new ArrayList<>(requestDAO.getAllRequests().values());
     requestSummaries.clear();
     if (floor.equals("All")) {
       for (Request request : requestsList) {
@@ -119,6 +120,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
   }
 
   private void populateEmployeeTable(String floor) {
+    employeeList = new ArrayList<>(employeeDAO.getAllEmployees().values());
     employees.clear();
     if (floor.equals("All")) {
       for (Employee employee : employeeList) {
