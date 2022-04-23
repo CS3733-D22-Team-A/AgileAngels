@@ -1,6 +1,7 @@
 package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Database.DBconnection;
+import edu.wpi.agileAngels.Database.Employee;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class AppController {
   HashMap<String, String> pages = new HashMap<>();
 
   private String currentFloor = "2";
+  private Employee currentUser;
 
   public AppController() {
     support = new PropertyChangeSupport(this);
@@ -94,6 +96,14 @@ public class AppController {
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
+  }
+
+  public void setUser(Employee employee) {
+    this.currentUser = employee;
+  }
+
+  public Employee getCurrentUser() {
+    return currentUser;
   }
 
   public void incrementDirtyRecliners(String floor, int increment) {
@@ -257,6 +267,11 @@ public class AppController {
       e.printStackTrace();
     }
     setMenuBarTitle(view);
+    try {
+      setMenuBarUser();
+    } catch (NullPointerException e) {
+
+    }
   }
 
   void setMenuBarTitle(String view) {
@@ -268,6 +283,10 @@ public class AppController {
     } catch (NullPointerException e) {
 
     }
+  }
+
+  private void setMenuBarUser() {
+    menuController.setUserInitials(currentUser.initialsMaker());
   }
 
   public void back() {

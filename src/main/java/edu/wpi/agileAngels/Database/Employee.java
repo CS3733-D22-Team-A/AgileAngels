@@ -40,4 +40,30 @@ public class Employee {
   public String toString() {
     return getName();
   }
+
+  public String initialsMaker() {
+    String initials;
+
+    // Is this name empty? Initials ain't applicable...
+    if (name.isEmpty()) {
+      initials = "NA";
+    }
+    // Not empty? Not illegal? Run the actual method.
+    else {
+      // If the name has a space, 2+ names were given and need to be broken up.
+      char firstInitial = name.charAt(0);
+      if (name.contains(" ")) {
+        int lastSpaceIndex = name.lastIndexOf(" ");
+        char secondInitial = name.charAt(lastSpaceIndex + 1);
+
+        initials = "" + firstInitial + secondInitial;
+        System.out.println("test");
+      }
+      // Else, 1 name was given, throw the first character.
+      else {
+        initials = "" + firstInitial;
+      }
+    }
+    return initials;
+  }
 }
