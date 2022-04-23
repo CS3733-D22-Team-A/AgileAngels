@@ -115,4 +115,18 @@ public class RequestNodeManager {
       medRequestDAO.deleteRequest(request.getRequest());
     }
   }
+
+  public void setVisibilityOfType(String type, Boolean b) {
+    for (RequestNode node : nodes.values()) {
+      if (node.getName().substring(0, 3).equals(type)) {
+        node.getButton().setVisible(b);
+      }
+    }
+  }
+
+  public void setVisibilityAll(boolean selected) {
+    for (RequestNode node : nodes.values()) {
+      node.getButton().setVisible(selected);
+    }
+  }
 }

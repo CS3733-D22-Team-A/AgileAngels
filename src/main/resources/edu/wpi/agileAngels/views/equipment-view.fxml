@@ -157,7 +157,7 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <VBox alignment="CENTER" layoutX="977.0" layoutY="104.0" prefHeight="484.0" prefWidth="294.0" spacing="15.0">
+      <VBox alignment="CENTER" layoutX="977.0" layoutY="88.0" prefHeight="484.0" prefWidth="294.0" spacing="15.0">
          <children>
             <Pane fx:id="popOut" prefHeight="484.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
                <children>
@@ -249,12 +249,12 @@
                      </graphic>
                   </Button>
                   <MenuButton fx:id="equipmentType" alignment="CENTER" layoutX="14.0" layoutY="140.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Type" textAlignment="CENTER">
-                    <items>
-                      <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="XRayMachine" />
-                      <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="InfusionPump" />
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="XRayMachine" />
+                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="InfusionPump" />
                         <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Recliner" />
                         <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Bed" />
-                    </items>
+                     </items>
                   </MenuButton>
                </children>
                <effect>

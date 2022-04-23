@@ -23,6 +23,40 @@ import javax.swing.*;
 
 public class MapsController implements Initializable, PropertyChangeListener {
 
+  @FXML public MenuButton LocationFilter;
+  @FXML
+  public CheckMenuItem patiCheck,
+      storCheck,
+      dirtCheck,
+      hallCheck,
+      elevCheck,
+      restCheck,
+      staiCheck,
+      deptCheck,
+      labsCheck,
+      infoCheck,
+      confCheck,
+      exitCheck,
+      retlCheck,
+      servCheck,
+      equipCheck,
+      labCheck,
+      mealCheck,
+      giftCheck,
+      sanCheck,
+      maintCheck,
+      transCheck,
+      morgCheck,
+      laundryCheck,
+      xrayCheck,
+      pumpCheck,
+      bedCheck,
+      reclinerCheck;
+
+  HashMap<CheckMenuItem, String> locationFilterHash = new HashMap<CheckMenuItem, String>();
+  HashMap<CheckMenuItem, String> requestFilterHash = new HashMap<CheckMenuItem, String>();
+  HashMap<CheckMenuItem, String> equipFilterHash = new HashMap<CheckMenuItem, String>();
+
   @FXML
   private ImageView floorTwoMap,
       floorThreeMap,
@@ -34,6 +68,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
   @FXML private ScrollPane mapScroll;
   @FXML HBox addButtonBox;
 
+  @FXML CheckBox locationToggle, requestToggle, equipmentToggle;
   @FXML
   private Button locationEdit,
       locationDelete,
@@ -46,7 +81,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
       floorDown;
   @FXML private MenuItem floorTwo, floorThree, floorFour, floorFive, lowerLevelOne, lowerLevelTwo;
   @FXML private TextField locationName, addLocationName;
-  @FXML Pane mapPane, locationEditPane, requestEditPane, locationAddPane;
+  @FXML Pane mapPane, locationEditPane, requestEditPane, locationAddPane, clickPane;
   @FXML AnchorPane anchor;
   @FXML Label requestName, floorLabel, nodeIDField, addNodeIDField;
   @FXML
@@ -54,7 +89,10 @@ public class MapsController implements Initializable, PropertyChangeListener {
       requestTypeDropdown,
       requestStatusDropdown,
       requestEmployeeDropdown,
-      addLocationTypeDropdown;
+      addLocationTypeDropdown,
+      locationFilterButton,
+      requestFilterButton,
+      equipmentFilterButton;
 
   public final ContextMenu contextMenu = new ContextMenu();
   MenuItem addNode = new MenuItem("Add Node");
@@ -100,22 +138,6 @@ public class MapsController implements Initializable, PropertyChangeListener {
   private double croppedMapWidth = 2000;
 
   private double imagePaneWidth = 1400;
-
-  public double getCroppedMapXOffset() {
-    return croppedMapXOffset;
-  }
-
-  public double getCroppedMapYOffset() {
-    return croppedMapYOffset;
-  }
-
-  public double getCroppedMapWidth() {
-    return croppedMapWidth;
-  }
-
-  public double getImagePaneWidth() {
-    return imagePaneWidth;
-  }
 
   /**
    * Called on page load, creates panes for each map, adds the images for each map to its pane, and
@@ -201,6 +223,36 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
       }
     }
+
+    locationFilterHash.put(patiCheck, "PATI");
+    locationFilterHash.put(storCheck, "STOR");
+    locationFilterHash.put(dirtCheck, "DIRT");
+    locationFilterHash.put(hallCheck, "HALL");
+    locationFilterHash.put(elevCheck, "ELEV");
+    locationFilterHash.put(restCheck, "REST");
+    locationFilterHash.put(staiCheck, "STAI");
+    locationFilterHash.put(deptCheck, "DEPT");
+    locationFilterHash.put(labsCheck, "LABS");
+    locationFilterHash.put(infoCheck, "INFO");
+    locationFilterHash.put(confCheck, "CONF");
+    locationFilterHash.put(exitCheck, "EXIT");
+    locationFilterHash.put(retlCheck, "RETL");
+    locationFilterHash.put(servCheck, "SERV");
+
+    requestFilterHash.put(equipCheck, "Med");
+    requestFilterHash.put(labCheck, "Lab");
+    requestFilterHash.put(mealCheck, "Meal");
+    requestFilterHash.put(giftCheck, "Gif");
+    requestFilterHash.put(sanCheck, "San");
+    requestFilterHash.put(maintCheck, "Mai");
+    requestFilterHash.put(transCheck, "Tra");
+    requestFilterHash.put(morgCheck, "Mor");
+    requestFilterHash.put(laundryCheck, "Lau");
+
+    equipFilterHash.put(xrayCheck, "XRayMachine");
+    equipFilterHash.put(pumpCheck, "InfusionPump");
+    equipFilterHash.put(bedCheck, "Bed");
+    equipFilterHash.put(reclinerCheck, "Recliner");
   }
 
   @Override
@@ -216,7 +268,9 @@ public class MapsController implements Initializable, PropertyChangeListener {
    * @param locationNode the node whose data is populated
    */
   public void populateLocationNodeData(LocationNode locationNode) {
-    requestEditPane.setVisible(false);
+    deselect();
+    hideFilter();
+    clickPane.setVisible(true);
     locationEditPane.setVisible(true);
     nodeIDField.setText(locationNode.getNodeID());
     locationName.setText(locationNode.getName());
@@ -242,8 +296,10 @@ public class MapsController implements Initializable, PropertyChangeListener {
     if (requestNode.getName().substring(0, 3).equals("Med")) {
       requestTypeDropdown.setDisable(true);
     }
+    deselect();
+    hideFilter();
+    clickPane.setVisible(true);
     requestEditPane.setVisible(true);
-    locationEditPane.setVisible(false);
     requestTypeDropdown.setText(requestNode.getRequest().getType());
     requestName.setText(requestNode.getName());
     requestEmployeeDropdown.setText(requestNode.getEmployee());
@@ -267,6 +323,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
   @FXML
   private void addNode() {
     deselect();
+    clickPane.setVisible(true);
     locationAddPane.setVisible(true);
   }
 
@@ -294,7 +351,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     locationNodeManager.editNode(currentLocationNode, name, type);
     currentLocationNode.resetLocation();
     currentLocationNode = null;
-    locationEditPane.setVisible(false);
+    deselect();
   }
 
   @FXML
@@ -308,7 +365,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
           currentRequestNode.getRequest(), requestStatusDropdown.getText());
     }
     currentRequestNode = null;
-    requestEditPane.setVisible(false);
+    deselect();
   }
 
   public void updateEquipNode(String ID) {
@@ -593,6 +650,17 @@ public class MapsController implements Initializable, PropertyChangeListener {
     requestEditPane.setVisible(false);
     locationEditPane.setVisible(false);
     locationAddPane.setVisible(false);
+
+    clickPane.setVisible(false);
+    locationFilterButton.setVisible(true);
+    requestFilterButton.setVisible(true);
+    equipmentFilterButton.setVisible(true);
+  }
+
+  public void hideFilter() {
+    locationFilterButton.setVisible(false);
+    requestFilterButton.setVisible(false);
+    equipmentFilterButton.setVisible(false);
   }
 
   public void locationDelete(ActionEvent event) {
@@ -644,5 +712,81 @@ public class MapsController implements Initializable, PropertyChangeListener {
   public void requestTypeDropdown(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     requestTypeDropdown.setText(button.getText());
+  }
+
+  public void toggleLocation(ActionEvent event) {
+    if (!locationToggle.isSelected()) {
+      locationNodeManager.setVisibilityAll(false);
+    } else {
+      for (CheckMenuItem e : locationFilterHash.keySet()) {
+        if (e.isSelected()) {
+          locationNodeManager.setVisibilityOfType(locationFilterHash.get(e), true);
+        }
+      }
+    }
+    locationFilterButton.hide();
+  }
+
+  public void toggleRequest(ActionEvent event) {
+    if (!requestToggle.isSelected()) {
+      requestNodeManager.setVisibilityAll(false);
+    } else {
+      for (CheckMenuItem e : requestFilterHash.keySet()) {
+        if (e.isSelected()) {
+          requestNodeManager.setVisibilityOfType(requestFilterHash.get(e), true);
+        }
+      }
+    }
+    requestFilterButton.hide();
+  }
+
+  public void toggleEquipment(ActionEvent event) {
+    if (!equipmentToggle.isSelected()) {
+      equipmentNodeManager.setVisibilityAll(false);
+    } else {
+      for (CheckMenuItem e : equipFilterHash.keySet()) {
+        if (e.isSelected()) {
+          equipmentNodeManager.setVisibilityOfType(equipFilterHash.get(e), true);
+        }
+      }
+    }
+    equipmentFilterButton.hide();
+  }
+
+  public void locationFilter(ActionEvent event) {
+    for (CheckMenuItem e : locationFilterHash.keySet()) {
+      locationNodeManager.setVisibilityOfType(locationFilterHash.get(e), e.isSelected());
+    }
+    locationFilterButton.show();
+  }
+
+  public void requestFilter(ActionEvent event) {
+    for (CheckMenuItem e : requestFilterHash.keySet()) {
+      requestNodeManager.setVisibilityOfType(requestFilterHash.get(e), e.isSelected());
+    }
+    requestFilterButton.show();
+  }
+
+  public void equipmentFilter(ActionEvent event) {
+    for (CheckMenuItem e : equipFilterHash.keySet()) {
+      equipmentNodeManager.setVisibilityOfType(equipFilterHash.get(e), e.isSelected());
+    }
+    equipmentFilterButton.show();
+  }
+
+  public double getCroppedMapXOffset() {
+    return croppedMapXOffset;
+  }
+
+  public double getCroppedMapYOffset() {
+    return croppedMapYOffset;
+  }
+
+  public double getCroppedMapWidth() {
+    return croppedMapWidth;
+  }
+
+  public double getImagePaneWidth() {
+    return imagePaneWidth;
   }
 }

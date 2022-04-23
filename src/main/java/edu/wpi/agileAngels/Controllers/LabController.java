@@ -289,6 +289,8 @@ public class LabController implements Initializable, PropertyChangeListener {
   public void clearFilters() {
     // Puts everything back on table.
     labTable.setItems(labData);
+    employeeFilterField.clear();
+    statusFilterField.clear();
   }
 
   /* Employee-based */
