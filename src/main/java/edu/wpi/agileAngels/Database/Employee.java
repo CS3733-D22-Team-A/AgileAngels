@@ -1,11 +1,19 @@
 package edu.wpi.agileAngels.Database;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
+
 public class Employee {
 
   private String name;
   private String password;
   private int permissionLevel;
   private String floorOnDuty;
+  private String department;
+  private LocalTime startTime;
+  private LocalTime endTime;
+  private Employee supervisor;
+  private ArrayList<Employee> supervisees;
 
   public Employee(String name, String password, String floorOnDuty, int permissionLevel) {
     this.name = name;
@@ -71,5 +79,59 @@ public class Employee {
       }
     }
     return initials;
+  }
+
+  public String getDepartment() {
+    return department;
+  }
+
+  public void setDepartment(String department) {
+    this.department = department;
+  }
+
+  public LocalTime getStartTime() {
+    return startTime;
+  }
+
+  public void setStartTime(LocalTime startTime) {
+    this.startTime = startTime;
+  }
+
+  public LocalTime getEndTime() {
+    return endTime;
+  }
+
+  public void setEndTime(LocalTime endTime) {
+    this.endTime = endTime;
+  }
+
+  public Employee getSupervisor() {
+    return supervisor;
+  }
+
+  public void setSupervisor(Employee supervisor) {
+    this.supervisor = supervisor;
+  }
+
+  public ArrayList<Employee> getSupervisees() {
+    return supervisees;
+  }
+
+  public void addSupervisee(Employee supervisee){
+    this.supervisees.add(supervisee);
+  }
+
+  public void removeSupervisee(String name){
+    for(Employee employee : this.supervisees){
+      if(employee.getName().equals(name)) this.supervisees.remove(employee);
+    }
+  }
+
+  public void setSupervisees(ArrayList<Employee> supervisees) {
+    this.supervisees = supervisees;
+  }
+
+  public void setPermissionLevel(int permissionLevel) {
+    this.permissionLevel = permissionLevel;
   }
 }

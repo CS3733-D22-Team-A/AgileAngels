@@ -5,6 +5,7 @@ import edu.wpi.agileAngels.Database.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -104,6 +105,76 @@ public class EmployeeManager implements EmployeeDAO {
     employeeHashMap.get(name).setFloorOnDuty(floorOnDuty);
   }
 
+  @Override
+  public String getEmployeeDepartment(String name) {
+    return null;
+  }
+
+  @Override
+  public void setEmployeeDepartment(String name, String department) {
+
+  }
+
+  @Override
+  public int getEmployeePermissionLevel(String name) {
+    return 0;
+  }
+
+  @Override
+  public void setEmployeePermissionLevel(String name, int permissionLevel) {
+
+  }
+
+  @Override
+  public LocalTime getEmployeeStartTime(String name) {
+    return null;
+  }
+
+  @Override
+  public void setEmployeeStartTime(String name, LocalTime startTime) {
+
+  }
+
+  @Override
+  public LocalTime getEmployeeEndTime(String name) {
+    return null;
+  }
+
+  @Override
+  public void setEmployeeEndTime(String name, LocalTime endTime) {
+
+  }
+
+  @Override
+  public Employee getEmployeeSupervisor(String name) {
+    return null;
+  }
+
+  @Override
+  public void setEmployeeSupervisor(String name, Employee supervisor) {
+
+  }
+
+  @Override
+  public ArrayList<Employee> getEmployeeSupervisees(String name) {
+    return null;
+  }
+
+  @Override
+  public void setEmployeeSupervisees(String name, ArrayList<Employee> supervisees) {
+
+  }
+
+  @Override
+  public void addEmployeeSupervisee(String name, Employee supervisee) {
+
+  }
+
+  @Override
+  public void removeEmployeeSupervisee(String name, String superviseeName) {
+
+  }
+
   public void readCSV() {
     String line = "";
     String splitBy = ",";
@@ -131,10 +202,5 @@ public class EmployeeManager implements EmployeeDAO {
     }
   }
 
-  /**
-   * returns an aray of all employee names used for populating search dropdowns Dummy String is
-   * built in readCSV and cleaned up here
-   *
-   * @return String[]
-   */
+
 }
