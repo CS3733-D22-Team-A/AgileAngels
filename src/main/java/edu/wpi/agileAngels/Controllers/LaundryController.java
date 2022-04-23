@@ -151,6 +151,11 @@ public class LaundryController implements Initializable {
     laundryData.add(laundry); // add to the UI
     laundryTable.setItems(laundryData);
     updateDashAdding(status);
+
+    // add the new request to the ID dropdown
+    MenuItem item = new MenuItem(laundry.getName());
+    item.setOnAction(this::laundryIDMenu);
+    laundryID.getItems().add(item);
   }
 
   @FXML
@@ -420,7 +425,7 @@ public class LaundryController implements Initializable {
     for (int i = 0; i < laundryData.size(); i++) {
       if (laundryData.get(i).getName().equals(id)) {
         laundryData.remove(i);
-        // laundryID.getItems().remove(i);
+        laundryID.getItems().remove(i + 1);
       }
     }
 

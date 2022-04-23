@@ -357,6 +357,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
           // delete the request
           medData.remove(i);
+          mainID.getItems().remove(i + 1);
           MedrequestImpl.deleteRequest(object);
         }
       }
