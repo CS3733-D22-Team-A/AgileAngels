@@ -28,12 +28,12 @@
          <children>
             <TableView fx:id="laundryTable" prefHeight="451.0" prefWidth="1188.0">
                <columns>
-                  <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
-                  <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Type" />
-                  <TableColumn fx:id="locationColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Location" />
-                  <TableColumn fx:id="employeeColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Employee" />
-                  <TableColumn fx:id="statusColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Status" />
-                  <TableColumn fx:id="descriptionColumn" maxWidth="442.0" minWidth="123.0" prefWidth="442.0" resizable="false" text="Description" />
+                  <TableColumn fx:id="nameColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Name" />
+                  <TableColumn fx:id="typeColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Type" />
+                  <TableColumn fx:id="employeeColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Employee" />
+                  <TableColumn fx:id="statusColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Status" />
+                  <TableColumn fx:id="locationColumn" maxWidth="250.0" minWidth="-1.0" prefWidth="250.0" resizable="false" text="Location" />
+                  <TableColumn fx:id="descriptionColumn" maxWidth="310.0" minWidth="-1.0" prefWidth="310.0" resizable="false" text="Description" />
                </columns>
             </TableView>
          </children>
@@ -211,7 +211,7 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <VBox fx:id="popOut" alignment="CENTER" layoutX="978.0" prefHeight="616.0" prefWidth="294.0" spacing="15.0">
+      <VBox fx:id="popOut" alignment="CENTER" layoutX="978.0" layoutY="79.0" prefHeight="484.0" prefWidth="294.0" spacing="15.0">
          <children>
             <Pane prefHeight="484.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
                <children>
@@ -296,7 +296,7 @@
                         <MenuButton fx:id="laundryID" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="ID" />
                         <MenuButton fx:id="laundryType" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Type">
                            <items>
-                              <MenuItem mnemonicParsing="false" onAction="#laundryTypeMenu" text="Whites"/>
+                              <MenuItem mnemonicParsing="false" onAction="#laundryTypeMenu" text="Whites" />
                               <MenuItem mnemonicParsing="false" onAction="#laundryTypeMenu" text="Colors" />
                               <MenuItem mnemonicParsing="false" onAction="#laundryTypeMenu" text="Infected" />
                               <MenuItem mnemonicParsing="false" onAction="#laundryTypeMenu" text="Towels/Blankets" />

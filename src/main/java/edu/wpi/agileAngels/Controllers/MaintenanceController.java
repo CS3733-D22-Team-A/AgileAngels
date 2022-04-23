@@ -23,7 +23,6 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
   @FXML TableView mainTable;
   @FXML
   private TableColumn nameColumn,
-      availableColumn,
       typeColumn,
       locationColumn,
       employeeColumn,
@@ -66,7 +65,6 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
 
     maintenanceData.clear();
     // Populates the table from UI list
