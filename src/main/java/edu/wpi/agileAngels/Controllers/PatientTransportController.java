@@ -169,7 +169,7 @@ public class PatientTransportController extends MainController
       transportID.getItems().add(item1);
       updateDashAdding(stat);
 
-      if (req.getStatus().equals("complete")) {
+      if (req.getStatus().equals("Complete")) {
         updateAssociatedRequests(loc, destID);
       }
     } else { // Editing
@@ -189,7 +189,7 @@ public class PatientTransportController extends MainController
         updateDashSubtracting(req.getStatus());
         transportDAOImpl.updateStatus(req, stat);
 
-        if (stat.equals("complete")) {
+        if (stat.equals("Complete")) {
           updateAssociatedRequests(loc, destID);
         }
       }
@@ -508,7 +508,7 @@ public class PatientTransportController extends MainController
     HashMap<String, Request> allReqsHash = allReqDAO.getAllRequests();
     for (Request req : allReqsHash.values()) {
       if (req.getLocation().getNodeID().equals(oldLocID)) {
-        transportDAOImpl.updateLocation(req, locationsHash.get(newLocID));
+        allReqDAO.updateLocation(req, locationsHash.get(newLocID));
       }
     }
   }
