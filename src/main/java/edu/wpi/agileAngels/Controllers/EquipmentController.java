@@ -594,7 +594,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   private void populate(String id) {
     Request req = MedrequestImpl.getAllRequests().get(id);
-    equipLocation.setText(req.getLocation().getNodeID());
+    equipLocation.setText(req.getLocation().getLongName());
     System.out.println(req.getStatus());
     equipmentStatus.setText(req.getStatus());
     equipmentEmployeeText.setText(req.getEmployee().getName());
