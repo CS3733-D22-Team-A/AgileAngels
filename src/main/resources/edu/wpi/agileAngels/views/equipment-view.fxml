@@ -192,7 +192,7 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="submitRequest" alignment="CENTER" mnemonicParsing="false" onAction="#addEquipRequest" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                        <Button fx:id="submitRequest" alignment="CENTER" mnemonicParsing="false" onAction="#submit" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
                            <font>
                               <Font size="10.0" />
                            </font>

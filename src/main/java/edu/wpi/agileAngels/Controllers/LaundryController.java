@@ -113,23 +113,17 @@ public class LaundryController implements Initializable {
   @FXML
   /** Submits fields to a Java gifts Request Object */
   private void submitLaundry() {
+    String ID = laundryID.getText();
     String type = laundryType.getText();
     String employee = laundryEmployee.getText();
     String location = locationIDsByLongName.get(laundryLocation.getText());
     String description = laundryDescription.getText();
-    // String delete = deleteName.getText();
-    // String edit = editRequest.getText();
     String status = laundryStatus.getText();
-    // attributes arent all filled
-
-    //  if (!delete.isEmpty()) {
-    //    deleteLaundryRequest(delete);
-    //    // editing a request
-    //  } else if (!edit.isEmpty()) {
-    //    editLaundryRequest(edit, type, employee, location, description, status);
-    //  } else {
-    addLaundryRequest(type, employee, location, description, status);
-    // }
+    if (ID.equals("Add New Request")) {
+      addLaundryRequest(type, employee, location, description, status);
+    } else {
+      editLaundryRequest(ID, type, employee, location, description, status);
+    }
   }
 
   private void addLaundryRequest(
