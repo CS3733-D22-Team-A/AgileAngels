@@ -51,7 +51,7 @@ public class MainController {
 
     if (item == back) {
     } else if (pageHistory.empty()) {
-      pageHistory.push("/edu/wpi/agileAngels/views/home-view.fxml");
+      pageHistory.push("/edu/wpi/agileAngels/views/NEWdashboard.fxml");
       pageHistory.push(view);
     } else if (view != pageHistory.peek()) {
       pageHistory.push(view);
@@ -105,7 +105,7 @@ public class MainController {
 
   @FXML
   private void goHome(ActionEvent event) throws IOException {
-    loadPage("/edu/wpi/agileAngels/views/home-view.fxml", close);
+    loadPage("/edu/wpi/agileAngels/views/NEWdashboard.fxml", close);
   }
 
   public void enterDropdown() {
