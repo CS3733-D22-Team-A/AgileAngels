@@ -5,10 +5,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -117,6 +114,8 @@ public class DashboardController implements Initializable, PropertyChangeListene
       }
     }
     requestTable.setItems(requestSummaries);
+
+    setColor("green");
   }
 
   private void populateEmployeeTable(String floor) {
@@ -455,5 +454,26 @@ public class DashboardController implements Initializable, PropertyChangeListene
       appController.setCurrentFloor("L2");
     }
     appController.loadPage("/edu/wpi/agileAngels/views/map-view.fxml");
+  }
+
+  // for EXCLUSIVLY this page
+  public void setColor(String color) {
+    if (color.toLowerCase(Locale.ROOT).equals("green")) {
+      floor5.setStyle("-fx-background-color: #9DDD98; ");
+      floor4.setStyle("-fx-background-color: #71CC6F; ");
+      floor3.setStyle("-fx-background-color: #3EBB4B; ");
+      floor2.setStyle("-fx-background-color: #2AA327; ");
+      floorLL1.setStyle("-fx-background-color: #208A24; ");
+      floorLL2.setStyle("-fx-background-color: #0F711E; ");
+
+      requestTable.getStylesheets().removeAll();
+      requestTable
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestGreenTest.css");
+      employeeTable.getStylesheets().removeAll();
+      employeeTable
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestGreenTest.css");
+    }
   }
 }
