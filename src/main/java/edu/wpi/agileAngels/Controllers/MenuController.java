@@ -74,7 +74,9 @@ public class MenuController implements Initializable {
     close.setVisible(false);
   }
 
-  public void profile(ActionEvent event) {}
+  public void profile(ActionEvent event) {
+    appController.loadPage("/edu/wpi/agileAngels/views/profile-view.fxml");
+  }
 
   public void goHome(ActionEvent event) {
     appController.loadPage("/edu/wpi/agileAngels/views/home-view.fxml");

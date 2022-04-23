@@ -57,10 +57,10 @@ public class Employee {
     // Not empty? Not illegal? Run the actual method.
     else {
       // If the name has a space, 2+ names were given and need to be broken up.
-      char firstInitial = name.charAt(0);
+      String firstInitial = ("" + name.charAt(0)).toUpperCase();
       if (name.contains(" ")) {
         int lastSpaceIndex = name.lastIndexOf(" ");
-        char secondInitial = name.charAt(lastSpaceIndex + 1);
+        String secondInitial = ("" + name.charAt(lastSpaceIndex + 1)).toUpperCase();
 
         initials = "" + firstInitial + secondInitial;
         System.out.println("test");
