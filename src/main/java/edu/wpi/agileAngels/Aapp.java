@@ -1,6 +1,7 @@
 package edu.wpi.agileAngels;
 
 import edu.wpi.agileAngels.Controllers.AppController;
+import edu.wpi.agileAngels.Database.Employee;
 import java.io.IOException;
 import java.sql.SQLException;
 import javafx.application.Application;
@@ -24,6 +25,7 @@ public class Aapp extends Application {
   public void start(Stage primaryStage) throws IOException, SQLException {
     adb = new Adb(); // ADB class
     adb.initialize();
+    appController.setUser(new Employee("Login", "", ""));
     appController.init(primaryStage);
   }
 
