@@ -12,28 +12,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
-import org.controlsfx.control.textfield.TextFields;
 
 public class LaundryController implements Initializable {
 
   @FXML VBox popOut;
   @FXML Label notStartedNumber, inProgressNumber, completedNumber;
-  @FXML MenuButton laundryID;
-
-  @FXML
-  private TextField laundryDescription,
-      deleteName,
-      editRequest,
-      employeeFilterField,
-      statusFilterField,
-      // these will have their own string arays to populate their searches
-      laundryLocation,
-      laundryType,
-      laundryStatus,
-      laundryEmployee;
+  @FXML MenuButton laundryID, laundryLocation, laundryType, laundryStatus, laundryEmployee;
+  @FXML private TextField laundryDescription, employeeFilterField, statusFilterField;
   @FXML
   private TableColumn nameColumn,
-      availableColumn,
       typeColumn,
       locationColumn,
       employeeColumn,
@@ -97,10 +84,6 @@ public class LaundryController implements Initializable {
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-    // To populate dropdowns
-    TextFields.bindAutoCompletion(laundryStatus, status);
-    TextFields.bindAutoCompletion(laundryType, types);
-
     int count = 0;
     for (Map.Entry<String, Employee> entry : employeesHash.entrySet()) {
       Employee emp = entry.getValue();
@@ -113,14 +96,8 @@ public class LaundryController implements Initializable {
       count++;
     }
 
-    TextFields.bindAutoCompletion(laundryEmployee, employees);
-    TextFields.bindAutoCompletion(laundryLocation, locations);
-
-    TextFields.bindAutoCompletion(employeeFilterField, employees);
-    TextFields.bindAutoCompletion(statusFilterField, status);
-
     if (laundryData.isEmpty()) {
-      System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
+      // System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
       laundryRequestImpl.csvRead();
       Iterator var3 = laundryRequestImpl.getAllRequests().entrySet().iterator();
 
@@ -205,7 +182,7 @@ public class LaundryController implements Initializable {
     int num = 0;
     for (int i = 0; i < laundryData.size(); i++) {
       Request device = laundryData.get(i);
-      if (0 == editRequest.getText().compareTo(device.getName())) {
+      if (0 == laundryID.getText().compareTo(device.getName())) {
         found = device;
         num = i;
       }
@@ -384,15 +361,15 @@ public class LaundryController implements Initializable {
     appController.clearPage();
   }
 
-  public void laundryType(ActionEvent event) {
+  public void laundryTypeMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     laundryType.setText(button.getText());
   }
 
   @FXML
-  public void typeMenu(ActionEvent event) {
+  public void locationMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    laundryType.setText(button.getText());
+    laundryLocation.setText(button.getText());
   }
 
   @FXML
@@ -408,11 +385,22 @@ public class LaundryController implements Initializable {
   }
 
   @FXML
+  public void IDMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    laundryID.setText(button.getText());
+
+    // If editing or deleting an existing request:
+    if (!button.getText().equals("Add New Request")) {
+      populate(button.getText());
+    }
+  }
+
+  @FXML
   public void clear(ActionEvent event) {
-    // laundryID.setText("ID");
+    laundryID.setText("ID");
     laundryType.setText("Type");
     laundryEmployee.setText("Employee");
-    laundryID.setText("Location");
+    laundryLocation.setText("Location");
     laundryStatus.setText("Status");
     laundryDescription.setText("");
     laundryDescription.setPromptText("Description");
@@ -444,17 +432,33 @@ public class LaundryController implements Initializable {
 
   @FXML
   public void modifyRequest(ActionEvent event) {
-    // Populates ID dropdown
-    for (Request req : laundryData) {
-      MenuItem item = new MenuItem(req.getName());
-      item.setOnAction(this::laundryIDMenu);
-      laundryID.getItems().add(item);
-    }
-    MenuItem item1 = new MenuItem("Add New Request");
-    item1.setOnAction(this::laundryIDMenu);
-    laundryID.getItems().add(item1);
-
     popOut.setVisible(true);
+    if (laundryLocation.getItems().size() == 0) {
+      // Populates locations dropdown
+      for (Location loc : locationsList) {
+        MenuItem item = new MenuItem(loc.getLongName());
+        item.setOnAction(this::locationMenu);
+        laundryLocation.getItems().add(item);
+      }
+
+      // Populates employees dropdown
+      for (Map.Entry<String, Employee> entry : employeesHash.entrySet()) {
+        Employee emp = entry.getValue();
+        MenuItem item = new MenuItem(emp.getName());
+        item.setOnAction(this::employeeMenu);
+        laundryEmployee.getItems().add(item);
+      }
+
+      // Populates ID dropdown
+      for (Request req : laundryData) {
+        MenuItem item = new MenuItem(req.getName());
+        item.setOnAction(this::laundryIDMenu);
+        laundryID.getItems().add(item);
+      }
+      MenuItem item1 = new MenuItem("Add New Request");
+      item1.setOnAction(this::laundryIDMenu);
+      laundryID.getItems().add(item1);
+    }
   }
 
   /**
