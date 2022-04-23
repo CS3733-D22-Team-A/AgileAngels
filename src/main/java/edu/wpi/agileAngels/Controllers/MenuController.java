@@ -77,7 +77,7 @@ public class MenuController implements Initializable {
   public void profile(ActionEvent event) {}
 
   public void goHome(ActionEvent event) {
-    appController.loadPage("/edu/wpi/agileAngels/views/home-view.fxml");
+    appController.loadPage("/edu/wpi/agileAngels/views/NEWdashboard.fxml");
   }
 
   public void setUserInitials(String initialsMaker) {
