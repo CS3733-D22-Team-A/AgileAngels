@@ -40,6 +40,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
   private ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
   private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
   private static ObservableList<Request> maintenanceData = FXCollections.observableArrayList();
+  HashMap<String, String> locationIDsByLongName = new HashMap<>();
 
   private int statusNotStarted, statusInProgress, statusComplete;
 
@@ -54,6 +55,10 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
+
+    for (Location loc : locationsHash.values()) {
+      locationIDsByLongName.put(loc.getLongName(), loc.getNodeID());
+    }
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
@@ -89,7 +94,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     if (mainLocation.getItems().size() == 0) {
       // Populates locations dropdown
       for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getNodeID());
+        MenuItem item = new MenuItem(loc.getLongName());
         item.setOnAction(this::mainLocationMenu);
         mainLocation.getItems().add(item);
       }
@@ -116,7 +121,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
 
   @FXML
   public void submit(ActionEvent event) {
-    String loc = mainLocation.getText();
+    String loc = locationIDsByLongName.get(mainLocation.getText());
     String emp = mainEmployee.getText();
     String stat = mainStatus.getText();
     String desc = mainDescription.getText();
@@ -407,7 +412,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
    */
   private void populate(String id) {
     Request req = mainRequestImpl.getAllRequests().get(id);
-    mainLocation.setText(req.getLocation().getNodeID());
+    mainLocation.setText(req.getLocation().getLongName());
     mainEmployee.setText(req.getEmployee().getName());
     mainStatus.setText(req.getStatus());
     mainDescription.setText(req.getDescription());
