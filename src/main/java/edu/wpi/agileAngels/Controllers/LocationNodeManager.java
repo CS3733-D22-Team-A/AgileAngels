@@ -135,4 +135,18 @@ public class LocationNodeManager {
   public double getScale() {
     return mapsController.getScale();
   }
+
+  public void setVisibilityAll(boolean b) {
+    for (LocationNode node : nodes.values()) {
+      node.getButton().setVisible(b);
+    }
+  }
+
+  public void setVisibilityOfType(String type, Boolean b) {
+    for (LocationNode node : nodes.values()) {
+      if (node.getNodeType().equals(type)) {
+        node.getButton().setVisible(b);
+      }
+    }
+  }
 }
