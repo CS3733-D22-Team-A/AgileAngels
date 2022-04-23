@@ -1,5 +1,6 @@
 package edu.wpi.agileAngels.Database;
 
+import edu.wpi.agileAngels.Adb;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -33,12 +34,16 @@ public class DBconnection {
           connection =
               DriverManager.getConnection("jdbc:derby://localhost:1527/myCSDB;create=true");
           System.out.println("Switching to client-server.");
+          Adb.resetServiceRequests();
+          Adb.populateServiceRequests();
           break;
         case CLIENT_SERVER:
           connection.close();
           database = DBConnectionEnum.EMBEDDED;
           connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
           System.out.println("Switching to embedded.");
+          Adb.resetServiceRequests();
+          Adb.populateServiceRequests();
           break;
         default:
           return;

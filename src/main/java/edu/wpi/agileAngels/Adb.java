@@ -402,4 +402,8 @@ public class Adb {
   public static boolean updateEmployee(Employee employee) {
     return employeeTable.update(employee);
   }
+
+  public static void populateServiceRequests() {
+    serviceRequestTable.getData();
+  }
 }
