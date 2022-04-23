@@ -115,7 +115,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
     }
     requestTable.setItems(requestSummaries);
 
-    setColor("green");
+    setColor("red");
   }
 
   private void populateEmployeeTable(String floor) {
@@ -474,6 +474,24 @@ public class DashboardController implements Initializable, PropertyChangeListene
       employeeTable
           .getStylesheets()
           .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestGreenTest.css");
+    }
+
+    if (color.toLowerCase(Locale.ROOT).equals("red")) {
+      floor5.setStyle("-fx-background-color: #DD9898; ");
+      floor4.setStyle("-fx-background-color: #CC6F6F; ");
+      floor3.setStyle("-fx-background-color: #BB3E3E; ");
+      floor2.setStyle("-fx-background-color: #A32727; ");
+      floorLL1.setStyle("-fx-background-color: #8A2020; ");
+      floorLL2.setStyle("-fx-background-color: #710F0F; ");
+
+      requestTable.getStylesheets().removeAll();
+      requestTable
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestRedTest.css");
+      employeeTable.getStylesheets().removeAll();
+      employeeTable
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestRedTest.css");
     }
   }
 }
