@@ -171,7 +171,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     paneL2.setVisible(false);
 
     floors.add("L2");
-    floors.add("L2");
+    floors.add("L1");
     floors.add("2");
     floors.add("3");
     floors.add("4");
@@ -303,9 +303,15 @@ public class MapsController implements Initializable, PropertyChangeListener {
   public void populateRequestNodeData(RequestNode requestNode) {
     requestTypeDropdown.getItems().clear();
 
-    for (String s : requestNodeManager.getTypes(requestNode)) {
-      requestTypeDropdown.getItems().add(new MenuItem(s));
+    try {
+      for (String s : requestNodeManager.getTypes(requestNode)) {
+        requestTypeDropdown.getItems().add(new MenuItem(s));
+      }
+    } catch (NullPointerException e) {
+      requestTypeDropdown.setText("N/A");
+      requestTypeDropdown.setDisable(true);
     }
+
     if (requestNode.getName().substring(0, 3).equals("Med")) {
       requestTypeDropdown.setDisable(true);
     }
