@@ -19,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
-import javax.swing.*;
 
 public class MapsController implements Initializable, PropertyChangeListener {
 
@@ -365,12 +364,28 @@ public class MapsController implements Initializable, PropertyChangeListener {
   public void locationEdit() {
     String name = locationName.getText();
     String type = locationTypeDropdown.getText();
-    currentLocationNode.changeLocationName(name);
-    currentLocationNode.changeLocationType(type);
-    locationNodeManager.editNode(currentLocationNode, name, type);
-    currentLocationNode.resetLocation();
-    currentLocationNode = null;
-    deselect();
+    boolean flag = true;
+
+    for (Location e : locationsHash.values()) {
+      if (e.getLongName().equals(name)) {
+        flag = false;
+      }
+    }
+
+    if (flag) {
+      currentLocationNode.changeLocationName(name);
+      currentLocationNode.changeLocationType(type);
+      locationNodeManager.editNode(currentLocationNode, name, type);
+      currentLocationNode.resetLocation();
+      currentLocationNode = null;
+      deselect();
+    } else {
+      currentLocationNode.changeLocationType(type);
+      locationNodeManager.editNode(currentLocationNode, currentLocationNode.getName(), type);
+      currentLocationNode.resetLocation();
+      currentLocationNode = null;
+      deselect();
+    }
   }
 
   @FXML

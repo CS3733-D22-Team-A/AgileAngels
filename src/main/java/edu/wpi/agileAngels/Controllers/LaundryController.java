@@ -56,6 +56,7 @@ public class LaundryController implements Initializable {
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   private ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
+  HashMap<String, String> locationIDsByLongName = new HashMap<>();
 
   private EmployeeManager employeeDAO = EmployeeManager.getInstance();
   private HashMap<String, Employee> employeesHash = employeeDAO.getAllEmployees();
@@ -84,6 +85,10 @@ public class LaundryController implements Initializable {
     statusInProgress = 0;
     statusComplete = 0;
 
+    for (Location loc : locationsHash.values()) {
+      locationIDsByLongName.put(loc.getLongName(), loc.getNodeID());
+    }
+
     // availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -104,7 +109,7 @@ public class LaundryController implements Initializable {
     }
     count = 0;
     for (Location loc : locationsList) {
-      locations[count] = loc.getNodeID();
+      locations[count] = loc.getLongName();
       count++;
     }
 
@@ -133,7 +138,7 @@ public class LaundryController implements Initializable {
   private void submitLaundry() {
     String type = laundryType.getText();
     String employee = laundryEmployee.getText();
-    String location = laundryLocation.getText();
+    String location = locationIDsByLongName.get(laundryLocation.getText());
     String description = laundryDescription.getText();
     // String delete = deleteName.getText();
     // String edit = editRequest.getText();
@@ -520,7 +525,7 @@ public class LaundryController implements Initializable {
    */
   private void populate(String id) {
     Request req = laundryRequestImpl.getAllRequests().get(id);
-    laundryLocation.setText(req.getLocation().getNodeID());
+    laundryLocation.setText(req.getLocation().getLongName());
     laundryEmployee.setText(req.getEmployee().getName());
     laundryStatus.setText(req.getStatus());
     laundryDescription.setText(req.getDescription());

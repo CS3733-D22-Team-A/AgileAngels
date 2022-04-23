@@ -47,6 +47,8 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
   HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
 
+  HashMap<String, String> locationIDsByLongName = new HashMap<>();
+
   @FXML Label notStartedNumber, inProgressNumber, completedNumber;
   private int statusNotStarted, statusInProgress, statusComplete;
 
@@ -71,6 +73,10 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
     locDAO.getAllLocations();
     empDAO.getAllEmployees();
+
+    for (Location loc : locationsHash.values()) {
+      locationIDsByLongName.put(loc.getLongName(), loc.getNodeID());
+    }
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
@@ -241,7 +247,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       equipmentConfirmation.setText("");
       // gets all inputs and converts into string
       String dropDownString = equipmentType.getText();
-      String locationString = equipLocation.getText();
+      String locationString = locationIDsByLongName.get(equipLocation.getText());
       String employeeString = equipmentEmployeeText.getText();
       String statusString = equipmentStatus.getText();
       String descriptionString = mainDescription.getText();
@@ -366,7 +372,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     // gets all inputs and converts into string
     String editString = mainID.getText();
     String dropDownString = equipmentType.getText();
-    String locationString = equipLocation.getText();
+    String locationString = locationIDsByLongName.get(equipLocation.getText());
     String employeeString = equipmentEmployeeText.getText();
     String statusString = equipmentStatus.getText();
     String descriptionString = mainDescription.getText();
@@ -562,7 +568,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         if (loc.getFloor().equals("3")
             || loc.getFloor().equals("4")
             || loc.getFloor().equals("5")) {
-          MenuItem item = new MenuItem(loc.getNodeID());
+          MenuItem item = new MenuItem(loc.getLongName());
           item.setOnAction(this::locationMenu);
           equipLocation.getItems().add(item);
         }
@@ -588,7 +594,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   private void populate(String id) {
     Request req = MedrequestImpl.getAllRequests().get(id);
-    equipLocation.setText(req.getLocation().getNodeID());
+    equipLocation.setText(req.getLocation().getLongName());
     System.out.println(req.getStatus());
     equipmentStatus.setText(req.getStatus());
     equipmentEmployeeText.setText(req.getEmployee().getName());
