@@ -95,7 +95,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
       equipmentFilterButton;
 
   public final ContextMenu contextMenu = new ContextMenu();
-  MenuItem addNode = new MenuItem("Add Node");
+  MenuItem addNode = new MenuItem("Add Location");
 
   LocationNode currentLocationNode = null;
   RequestNode currentRequestNode = null;
@@ -148,6 +148,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
     appController.addPropertyChangeListener(this);
 
     mapPane.getChildren().add(pane2);
@@ -170,7 +171,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     paneL2.setVisible(false);
 
     floors.add("L2");
-    floors.add("L2");
+    floors.add("L1");
     floors.add("2");
     floors.add("3");
     floors.add("4");
@@ -193,14 +194,6 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
     contextMenu.getItems().addAll(addNode);
     addNode.setOnAction((ActionEvent event) -> addNode());
-
-    mapScroll.setOnMousePressed(
-        (MouseEvent event) -> {
-          if (event.isSecondaryButtonDown()) {
-            contextMenu.show(mapScroll, event.getScreenX(), event.getScreenY());
-            rightClick = event;
-          }
-        });
 
     locationNodeManager.createNodesFromDB();
     try {
@@ -253,6 +246,26 @@ public class MapsController implements Initializable, PropertyChangeListener {
     equipFilterHash.put(pumpCheck, "InfusionPump");
     equipFilterHash.put(bedCheck, "Bed");
     equipFilterHash.put(reclinerCheck, "Recliner");
+
+    if (appController.getCurrentUser().getPermissionLevel() >= 4) {
+      mapScroll.setOnMousePressed(
+          (MouseEvent event) -> {
+            if (event.isSecondaryButtonDown()) {
+              contextMenu.show(mapScroll, event.getScreenX(), event.getScreenY());
+              rightClick = event;
+            }
+          });
+    } else if (appController.getCurrentUser().getPermissionLevel() == 1) {
+      labCheck.setSelected(false);
+      equipCheck.setSelected(false);
+      morgCheck.setSelected(false);
+      transCheck.setSelected(false);
+      requestFilter();
+      labCheck.setDisable(true);
+      equipCheck.setDisable(true);
+      morgCheck.setDisable(true);
+      transCheck.setDisable(true);
+    }
   }
 
   @Override
@@ -290,9 +303,15 @@ public class MapsController implements Initializable, PropertyChangeListener {
   public void populateRequestNodeData(RequestNode requestNode) {
     requestTypeDropdown.getItems().clear();
 
-    for (String s : requestNodeManager.getTypes(requestNode)) {
-      requestTypeDropdown.getItems().add(new MenuItem(s));
+    try {
+      for (String s : requestNodeManager.getTypes(requestNode)) {
+        requestTypeDropdown.getItems().add(new MenuItem(s));
+      }
+    } catch (NullPointerException e) {
+      requestTypeDropdown.setText("N/A");
+      requestTypeDropdown.setDisable(true);
     }
+
     if (requestNode.getName().substring(0, 3).equals("Med")) {
       requestTypeDropdown.setDisable(true);
     }
@@ -704,7 +723,9 @@ public class MapsController implements Initializable, PropertyChangeListener {
               addLocationName.getText(),
               nodeID);
       System.out.println("new Location");
-      displayLocationNode(locationNodeManager.addNode(newLocation));
+      displayLocationNode(
+          locationNodeManager.addNode(
+              newLocation, appController.getCurrentUser().getPermissionLevel()));
       locationAddPane.setVisible(false);
     }
   }
@@ -783,21 +804,21 @@ public class MapsController implements Initializable, PropertyChangeListener {
     equipmentFilterButton.hide();
   }
 
-  public void locationFilter(ActionEvent event) {
+  public void locationFilter() {
     for (CheckMenuItem e : locationFilterHash.keySet()) {
       locationNodeManager.setVisibilityOfType(locationFilterHash.get(e), e.isSelected());
     }
     locationFilterButton.show();
   }
 
-  public void requestFilter(ActionEvent event) {
+  public void requestFilter() {
     for (CheckMenuItem e : requestFilterHash.keySet()) {
       requestNodeManager.setVisibilityOfType(requestFilterHash.get(e), e.isSelected());
     }
     requestFilterButton.show();
   }
 
-  public void equipmentFilter(ActionEvent event) {
+  public void equipmentFilter() {
     for (CheckMenuItem e : equipFilterHash.keySet()) {
       equipmentNodeManager.setVisibilityOfType(equipFilterHash.get(e), e.isSelected());
     }

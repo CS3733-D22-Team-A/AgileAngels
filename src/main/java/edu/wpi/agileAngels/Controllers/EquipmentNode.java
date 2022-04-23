@@ -66,39 +66,6 @@ public class EquipmentNode {
           button.setText(String.valueOf(getMedEquip().getType().charAt(0)));
           button.setViewOrder(-100);
         });
-
-    button.setOnMousePressed(
-        (MouseEvent mouseEvent) -> {
-          xOffset = (button.getLayoutX() - mouseEvent.getSceneX());
-          yOffset = (button.getLayoutY() - mouseEvent.getSceneY());
-
-          buttonX = button.getLayoutX();
-          buttonY = button.getLayoutY();
-        });
-    button.setOnMouseDragged(
-        (MouseEvent mouseEvent) -> {
-          button.setLayoutX(
-              getPaneXfromcoords((equipmentNodeManager.getMapXCoordFromClick(mouseEvent))));
-
-          button.setLayoutY(
-              getPaneYfromcoords((equipmentNodeManager.getMapYCoordFromClick(mouseEvent))));
-        });
-
-    button.setOnMouseReleased(
-        (MouseEvent mouseEvent) -> {
-          if (dist(
-                  buttonX,
-                  equipmentNodeManager.getMapXCoordFromClick(mouseEvent),
-                  buttonY,
-                  equipmentNodeManager.getMapYCoordFromClick(mouseEvent))
-              < 20) {
-            button.setLayoutX(buttonX);
-            button.setLayoutY(buttonY);
-          } else {
-            placeOnClosestNode(mouseEvent);
-            equipmentNodeManager.setDraggedNodeCoords(mouseEvent);
-          }
-        });
   }
 
   public void placeOnClosestNode(MouseEvent mouseEvent) {

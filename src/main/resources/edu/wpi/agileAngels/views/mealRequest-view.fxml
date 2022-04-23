@@ -49,7 +49,7 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="270.0">
                      <children>
-                        <Button id="menuItemTop" fx:id="op1" mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
+                        <Button id="menuItemTop" fx:id="op1" mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" stylesheets="@./stylesheets/style.css" textOverrun="CLIP">
                            <graphic>
                               <Label fx:id="op1Label" prefHeight="26.0" prefWidth="274.0" text="Move to  X">
                                  <padding>
@@ -61,7 +61,7 @@
                               <Insets left="10.0" />
                            </padding>
                         </Button>
-                        <Button id="menuItem" fx:id="op2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
+                        <Button id="menuItem" fx:id="op2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" stylesheets="@./stylesheets/style.css" textOverrun="CLIP">
                            <graphic>
                               <Label fx:id="op2Label" prefHeight="24.0" prefWidth="360.0" text="Room Change">
                                  <padding>
@@ -73,7 +73,7 @@
                               <Insets left="10.0" />
                            </padding>
                         </Button>
-                        <Button id="menuItem" fx:id="op3" layoutX="10.0" layoutY="54.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
+                        <Button id="menuItem" fx:id="op3" layoutX="10.0" layoutY="54.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" stylesheets="@./stylesheets/style.css" textOverrun="CLIP">
                            <graphic>
                               <Label fx:id="op3Label" prefHeight="24.0" prefWidth="360.0" text="Hospital Change">
                                  <padding>
@@ -85,7 +85,7 @@
                               <Insets left="10.0" />
                            </padding>
                         </Button>
-                        <Button id="menuItemBottom" fx:id="op4" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" stylesheets="@style.css" textOverrun="CLIP">
+                        <Button id="menuItemBottom" fx:id="op4" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" stylesheets="@./stylesheets/style.css" textOverrun="CLIP">
                            <graphic>
                               <Label fx:id="op4Label" prefHeight="24.0" prefWidth="360.0" text="Release">
                                  <padding>
