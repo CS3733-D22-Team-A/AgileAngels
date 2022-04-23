@@ -187,7 +187,7 @@ public class LaundryController implements Initializable {
         // LaundryrequestImpl.updateEmployeeName(found, employeeString);
       }
       if (!statusString.isEmpty()) {
-        updateDashSubtracting(laundryRequestImpl.getAllRequests().get(editString).getStatus());
+        updateDashSubtracting(found.getStatus());
         updateDashAdding(statusString);
         // String employee = emp.getText();
         found.setStatus(statusString);
@@ -404,7 +404,7 @@ public class LaundryController implements Initializable {
         laundryID.getItems().remove(i + 1);
       }
     }
-
+    updateDashSubtracting(laundryRequestImpl.getAllRequests().get(id).getStatus());
     // delete from hash map and database table
     laundryRequestImpl.deleteRequest(laundryRequestImpl.getAllRequests().get(id));
 
