@@ -169,8 +169,8 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
         }
       }
     }
-
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -195,6 +195,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     mainRequestImpl.deleteRequest(mainRequestImpl.getAllRequests().get(id));
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML

@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javax.swing.*;
 
 public class LaundryController implements Initializable {
 
@@ -65,7 +66,6 @@ public class LaundryController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-
     popOut.setVisible(false);
 
     statusNotStarted = 0;
@@ -112,60 +112,42 @@ public class LaundryController implements Initializable {
 
   @FXML
   /** Submits fields to a Java gifts Request Object */
-  private void submitLaundry() {
+  private void submitLaundry(ActionEvent event) {
     String ID = laundryID.getText();
     String type = laundryType.getText();
     String employee = laundryEmployee.getText();
     String location = locationIDsByLongName.get(laundryLocation.getText());
     String description = laundryDescription.getText();
     String status = laundryStatus.getText();
+
+    // Adding
     if (ID.equals("Add New Request")) {
-      addLaundryRequest(type, employee, location, description, status);
-    } else {
+      String placeholder = "?";
+      System.out.println(employeesHash.get(employee) + " " + locationsHash.get(location));
+      Request laundry =
+          new Request(
+              placeholder,
+              employeesHash.get(employee),
+              locationsHash.get(location),
+              type,
+              status,
+              description,
+              "",
+              "");
+      laundryRequestImpl.addRequest(laundry); // add to hashmap
+      laundryData.add(laundry); // add to the UI
+      laundryTable.setItems(laundryData);
+      updateDashAdding(status);
+
+      // add the new request to the ID dropdown
+      MenuItem item = new MenuItem(laundry.getName());
+      item.setOnAction(this::laundryIDMenu);
+      laundryID.getItems().add(item);
+    } else { // Editing
       editLaundryRequest(ID, type, employee, location, description, status);
     }
-  }
-
-  private void addLaundryRequest(
-      String type, String employee, String location, String description, String status) {
-
-    String placeholder = "?";
-    System.out.println(employeesHash.get(employee) + " " + locationsHash.get(location));
-    Request laundry =
-        new Request(
-            placeholder,
-            employeesHash.get(employee),
-            locationsHash.get(location),
-            type,
-            status,
-            description,
-            "",
-            "");
-    laundryRequestImpl.addRequest(laundry); // add to hashmap
-    laundryData.add(laundry); // add to the UI
-    laundryTable.setItems(laundryData);
-    updateDashAdding(status);
-
-    // add the new request to the ID dropdown
-    MenuItem item = new MenuItem(laundry.getName());
-    item.setOnAction(this::laundryIDMenu);
-    laundryID.getItems().add(item);
-  }
-
-  @FXML
-  private void deleteLaundryRequest(String deleteString) {
-    if (!deleteString.isEmpty()) {
-      updateDashSubtracting(laundryRequestImpl.getAllRequests().get(deleteString).getStatus());
-      System.out.println("DELETE REQUEST");
-      for (int i = 0; i < laundryData.size(); i++) {
-        Request object = laundryData.get(i);
-        if (0 == deleteString.compareTo(object.getName())) {
-          laundryData.remove(i);
-          laundryRequestImpl.deleteRequest(object);
-        }
-      }
-      laundryTable.setItems(laundryData);
-    }
+    clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -427,6 +409,7 @@ public class LaundryController implements Initializable {
     laundryRequestImpl.deleteRequest(laundryRequestImpl.getAllRequests().get(id));
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML

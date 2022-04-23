@@ -198,6 +198,7 @@ public class PatientTransportController extends MainController
     }
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -222,6 +223,7 @@ public class PatientTransportController extends MainController
     transportDAOImpl.deleteRequest(transportDAOImpl.getAllRequests().get(id));
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML

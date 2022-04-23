@@ -244,6 +244,8 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     } else {
       editEquipmentRequest();
     }
+    clearFields();
+    popOut.setVisible(false);
   }
 
   private void addEquipRequest() {
@@ -335,8 +337,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
             "Sorry, there are currently no " + dropDownString + "s available. ");
       }
     }
-    clearFields();
-    popOut.setVisible(false);
   }
 
   @FXML
@@ -523,8 +523,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
       //  equipmentTable.setItems(medData);
     }
-    clearFields();
-    popOut.setVisible(false);
   }
 
   @FXML
