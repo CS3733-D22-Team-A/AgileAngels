@@ -6,6 +6,8 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -256,7 +258,7 @@
       </Pane>
       <Pane fx:id="graphs" layoutX="20.0" layoutY="365.0" onMouseClicked="#changeDisplay" prefHeight="335.0" prefWidth="658.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@stylesheets/DashCSS.css">
          <children>
-            <BarChart fx:id="requestGraph" layoutY="-1.0" prefHeight="335.0" prefWidth="658.0">
+            <BarChart fx:id="requestGraph" layoutY="-1.0" legendSide="TOP" prefHeight="361.0" prefWidth="658.0">
               <xAxis>
                 <CategoryAxis label="Requests" side="BOTTOM" />
               </xAxis>
@@ -264,6 +266,19 @@
                 <NumberAxis label="# of Requests" side="LEFT" upperBound="50.0" />
               </yAxis>
             </BarChart>
+            <MenuButton fx:id="graphType" layoutX="587.0" layoutY="-4.0" mnemonicParsing="false" text="Type">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Meal" />
+                <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Medical" />
+                <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Lab" />
+                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Gift" />
+                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Maintenence" />
+                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Morgue" />
+                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Transport" />
+                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Sanitation" />
+                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Laundry" />
+              </items>
+            </MenuButton>
          </children>
       </Pane>
       <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />

@@ -51,6 +51,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
       empEmployeeColumn,
       empFloorColumn;
   @FXML private BarChart requestGraph;
+  @FXML private MenuButton graphType;
 
   private RequestDAOImpl requestDAO = RequestDAOImpl.getInstance("AllRequests");
   private ArrayList<Request> requestsList = new ArrayList<>(requestDAO.getAllRequests().values());
@@ -93,7 +94,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
     appController.addPropertyChangeListener(this);
 
     series1.setName("All Requests");
-    series2.setName("Medical Requests");
+    series2.setName(graphType.getText());
 
     try {
       this.updateCleanDirtyFromDB();
@@ -495,6 +496,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
     int numNotStartedType = 0;
     int numCompleteType = 0;
     int numInProgType = 0;
+    String type = graphType.getText();
     if (floor.equals("All")) {
       for (Request request : requestsList) {
         if (request.getStatus().equals("notStarted")) {
@@ -504,7 +506,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
         } else if (request.getStatus().equals("inProgress")) {
           numInProg++;
         }
-        if (request.getName().contains("Med")) {
+        if (request.getName().contains(type.substring(0, 3))) {
           if (request.getStatus().equals("notStarted")) {
             numNotStartedType++;
           } else if (request.getStatus().equals("complete")) {
@@ -524,7 +526,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
           } else if (request.getStatus().equals("inProgress")) {
             numInProg++;
           }
-          if (request.getName().contains("Med")) {
+          if (request.getName().contains(type.substring(0, 3))) {
             if (request.getStatus().equals("notStarted")) {
               numNotStartedType++;
             } else if (request.getStatus().equals("complete")) {
@@ -543,5 +545,11 @@ public class DashboardController implements Initializable, PropertyChangeListene
     series2.getData().add(new XYChart.Data("In Progress", numInProgType));
     series2.getData().add(new XYChart.Data("Complete", numCompleteType));
     requestGraph.getData().addAll(series1, series2);
+  }
+
+  public void typeMenu(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    graphType.setText(button.getText());
+    graphRequests("All");
   }
 }
