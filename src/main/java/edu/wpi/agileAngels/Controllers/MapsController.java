@@ -715,8 +715,18 @@ public class MapsController implements Initializable, PropertyChangeListener {
   }
 
   public void toggleLocation(ActionEvent event) {
+    if (locationToggle.isSelected()) {
+      locationNodeManager.setVisibilityAll(true);
+      for (CheckMenuItem e : locationFilterHash.keySet()) {
+        e.setSelected(true);
+      }
+    }
+
     if (!locationToggle.isSelected()) {
       locationNodeManager.setVisibilityAll(false);
+      for (CheckMenuItem e : locationFilterHash.keySet()) {
+        e.setSelected(false);
+      }
     } else {
       for (CheckMenuItem e : locationFilterHash.keySet()) {
         if (e.isSelected()) {
@@ -728,8 +738,18 @@ public class MapsController implements Initializable, PropertyChangeListener {
   }
 
   public void toggleRequest(ActionEvent event) {
+    if (requestToggle.isSelected()) {
+      requestNodeManager.setVisibilityAll(true);
+      for (CheckMenuItem e : requestFilterHash.keySet()) {
+        e.setSelected(true);
+      }
+    }
+
     if (!requestToggle.isSelected()) {
       requestNodeManager.setVisibilityAll(false);
+      for (CheckMenuItem e : requestFilterHash.keySet()) {
+        e.setSelected(false);
+      }
     } else {
       for (CheckMenuItem e : requestFilterHash.keySet()) {
         if (e.isSelected()) {
@@ -741,8 +761,18 @@ public class MapsController implements Initializable, PropertyChangeListener {
   }
 
   public void toggleEquipment(ActionEvent event) {
+    if (equipmentToggle.isSelected()) {
+      equipmentNodeManager.setVisibilityAll(true);
+      for (CheckMenuItem e : equipFilterHash.keySet()) {
+        e.setSelected(true);
+      }
+    }
+
     if (!equipmentToggle.isSelected()) {
       equipmentNodeManager.setVisibilityAll(false);
+      for (CheckMenuItem e : equipFilterHash.keySet()) {
+        e.setSelected(false);
+      }
     } else {
       for (CheckMenuItem e : equipFilterHash.keySet()) {
         if (e.isSelected()) {
