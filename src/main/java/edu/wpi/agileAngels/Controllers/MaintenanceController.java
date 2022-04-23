@@ -22,12 +22,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
   @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
   @FXML TableView mainTable;
   @FXML
-  private TableColumn nameColumn,
-      typeColumn,
-      locationColumn,
-      employeeColumn,
-      statusColumn,
-      descriptionColumn;
+  private TableColumn nameColumn, locationColumn, employeeColumn, statusColumn, descriptionColumn;
   @FXML TextField mainDescription, employeeFilterField, statusFilterField;
   @FXML Label notStartedNumber, inProgressNumber, completedNumber;
 
@@ -62,7 +57,6 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
 
