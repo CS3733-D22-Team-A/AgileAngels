@@ -4,12 +4,14 @@ public class Employee {
 
   private String name;
   private String password;
+  private int permissionLevel;
   private String floorOnDuty;
 
-  public Employee(String name, String password, String floorOnDuty) {
+  public Employee(String name, String password, String floorOnDuty, int permissionLevel) {
     this.name = name;
     this.password = password;
     this.floorOnDuty = floorOnDuty;
+    this.permissionLevel = permissionLevel;
   }
 
   public String getName() {
@@ -18,6 +20,10 @@ public class Employee {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public int getPermissionLevel() {
+    return permissionLevel;
   }
 
   public String getPassword() {

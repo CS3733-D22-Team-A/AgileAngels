@@ -1,13 +1,19 @@
-name,password,duty
-James,1234,Off Duty
-Liam,hello3,2
-Harriot,pssWord,4
-Ariana,weeWoo,4
-Carly,fvdfv,L1
-Tom,sdcscs,2
-Alex,dvsvsd,5
-Talia,Maryland,3
-Aadhya,15557,5
-Jakob,99904587,2
-John,556722,L2
-Karl,1118383,3
+name,password,duty,permission
+,,3,5
+James,1234,Off Duty,4
+Liam,hello3,2,3
+Harriot,pssWord,4,3
+Ariana,weeWoo,4,3
+Carly,fvdfv,L1,3
+Tom,sdcscs,2,4
+Alex,dvsvsd,5,3
+Talia,Maryland,3,2
+Aadhya,15557,5,4
+Jakob,99904587,2,4
+John,556722,L2,1
+Karl,1118383,3,1
+staff,staff,3,1
+nurse,nurse,3,2
+doctor,doctor,3,3
+admin,admin,4,3
+wong,wong,4,2
