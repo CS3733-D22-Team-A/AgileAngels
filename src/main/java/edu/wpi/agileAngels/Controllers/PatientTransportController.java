@@ -51,6 +51,7 @@ public class PatientTransportController extends MainController
   private static ObservableList<Request> transportData = FXCollections.observableArrayList();
   private int statusNotStarted, statusInProgress, statusComplete;
   private AppController appController = AppController.getInstance();
+  HashMap<String, String> locationIDsByLongName = new HashMap<>();
 
   public PatientTransportController() throws SQLException {}
 
@@ -61,6 +62,10 @@ public class PatientTransportController extends MainController
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
+
+    for (Location loc : locationsHash.values()) {
+      locationIDsByLongName.put(loc.getLongName(), loc.getNodeID());
+    }
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
@@ -96,7 +101,7 @@ public class PatientTransportController extends MainController
     if (transportLocation.getItems().size() == 0) {
       // Populates locations dropdown
       for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getNodeID());
+        MenuItem item = new MenuItem(loc.getLongName());
         item.setOnAction(this::mainLocationMenu);
         transportLocation.getItems().add(item);
       }
@@ -129,7 +134,7 @@ public class PatientTransportController extends MainController
 
   @FXML
   public void submit(ActionEvent event) {
-    String loc = transportLocation.getText();
+    String loc = locationIDsByLongName.get(transportLocation.getText());
     String dest = transportDestination.getText();
     String emp = transportEmployee.getText();
     String stat = transportStatus.getText();
@@ -446,7 +451,7 @@ public class PatientTransportController extends MainController
    */
   private void populate(String id) {
     Request req = transportDAOImpl.getAllRequests().get(id);
-    transportLocation.setText(req.getLocation().getNodeID());
+    transportLocation.setText(req.getLocation().getLongName());
     transportEmployee.setText(req.getEmployee().getName());
     transportStatus.setText(req.getStatus());
     transportDescription.setText(req.getDescription());
