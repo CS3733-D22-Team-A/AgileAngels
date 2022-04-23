@@ -1,19 +1,20 @@
-name,password,duty,permission,department,startTime,endTime
-,,3,5
-James,1234,Off Duty,4
-Liam,hello3,2,3
-Harriot,pssWord,4,3
-Ariana,weeWoo,4,3
-Carly,fvdfv,L1,3
-Tom,sdcscs,2,4
-Alex,dvsvsd,5,3
-Talia,Maryland,3,2
-Aadhya,15557,5,4
-Jakob,99904587,2,4
-John,556722,L2,1
-Karl,1118383,3,1
-staff,staff,3,1
-nurse,nurse,3,2
-doctor,doctor,3,3
-admin,admin,3,4
-wong,wong,3,5
+name,password,duty,permission,department,startTime,endTime,supervisor,supervisees
+,,3,5,Nursing,00:00,00:00,,
+James,1234,Off Duty,4,Oncology,07:00,19:00,,Liam-Tom-Talia-Harriot
+Liam,hello3,2,3,Nursing,18:00,04:00,James,Mike
+Harriot,pssWord,4,3,Oncology,05:00,20:00,James,Alex
+Ariana,weeWoo,4,3,Radiology,04:00,17:00,Alex,Aadhya
+Carly,fvdfv,L1,3,Neurology,00:00,15:30,Tom,
+Tom,sdcscs,2,4,Neurology,00:00,15:30,James,Carly
+Alex,dvsvsd,5,3,Radiology,01:00,11:30,Harriot,Ariana
+Talia,Maryland,3,2,Nursing,00:00,23:00,James,
+Aadhya,15557,5,4,Surgery,00:00,20:00,Ariana,Jakob
+Jakob,99904587,2,4,Surgery,03:00,17:30,Aadhya,
+John,556722,L2,1,Sanitation,08:00,17:00,,Karl
+Karl,1118383,3,1,Sanitation,08:00,17:00,John,
+Mike,r557h,2,2,Nursing,09:30,19:00,Liam
+staff,staff,3,1,Staff,09:30,19:00, ,
+nurse,nurse,3,2,Staff,09:30,19:00, ,
+doctor,doctor,3,3,Staff,09:30,19:00, ,
+admin,admin,3,4,Staff,09:30,19:00, ,
+wong,wong,3,5,Wong,09:30,19:00, ,

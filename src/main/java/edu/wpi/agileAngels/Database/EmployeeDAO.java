@@ -9,7 +9,16 @@ public interface EmployeeDAO {
 
   Employee getEmployee(String userID);
 
-  public void addEmployee(String name, String password, String duty, int permission);
+  public void addEmployee(
+      String name,
+      String password,
+      String duty,
+      int permission,
+      String department,
+      LocalTime startTime,
+      LocalTime endTime,
+      Employee supervisor,
+      ArrayList<Employee> supervisees);
 
   void removeEmployee(String userID);
 

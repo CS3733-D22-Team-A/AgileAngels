@@ -42,6 +42,33 @@ public class EmployeeManager implements EmployeeDAO {
     return employeeHashMap.get(name);
   }
 
+  /** Adds an employee to the hashmap */
+  @Override
+  public void addEmployee(
+      String name,
+      String password,
+      String duty,
+      int permission,
+      String department,
+      LocalTime startTime,
+      LocalTime endTime,
+      Employee supervisor,
+      ArrayList<Employee> supervisees) {
+    Employee employee =
+        new Employee(
+            name,
+            password,
+            duty,
+            permission,
+            department,
+            startTime,
+            endTime,
+            supervisor,
+            supervisees);
+    employeeHashMap.put(name, employee);
+    Adb.addEmployee(employee);
+  }
+
   /**
    * Checks if the name exists in the hashmap.
    *
@@ -65,14 +92,6 @@ public class EmployeeManager implements EmployeeDAO {
   /** Removes Employee from hash. */
   public void removeEmployee(String name) {
     employeeHashMap.remove(name);
-  }
-
-  /** Adds Employee into hash . */
-  public void addEmployee(String name, String password, String duty, int permission) {
-    ArrayList<Request> newERequest = new ArrayList<Request>();
-    Employee newEmployee = new Employee(name, password, duty, permission);
-    employeeHashMap.put(name, newEmployee);
-    // Adb.addEmployee(newEmployee);
   }
 
   /** Updates Employee's name with newName. */
@@ -107,6 +126,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /**
    * Gets an employee's department.
+   *
    * @param name Employee name
    * @return Department
    */
@@ -117,6 +137,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /**
    * Sets an employee's department
+   *
    * @param name Employee name
    * @param department Department
    */
@@ -127,6 +148,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /**
    * Gets an employee's permission level
+   *
    * @param name Employee name
    * @return Permission level
    */
@@ -137,6 +159,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /**
    * Sets an employee's permission level
+   *
    * @param name Employee name
    * @param permissionLevel Employee permission level
    */
@@ -147,6 +170,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /**
    * Gets an employee's start time
+   *
    * @param name Employee name
    * @return Start time
    */
@@ -157,6 +181,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /**
    * Sets an employee's start time
+   *
    * @param name Employee's name
    * @param startTime Start time
    */
@@ -167,6 +192,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /**
    * Gets an employee's end time
+   *
    * @param name Employee's name
    * @return End time
    */
@@ -177,6 +203,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /**
    * Sets an employee's end time
+   *
    * @param name Employee's name
    * @param endTime End time
    */
@@ -187,6 +214,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /**
    * Gets an employee's supervisor
+   *
    * @param name Employee's name
    * @return Supervisor
    */
@@ -197,6 +225,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /**
    * Sets an employee's supervisor
+   *
    * @param name Employee's name
    * @param supervisor Supervisor
    */
@@ -207,6 +236,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /**
    * Gets all supervisees for an employee
+   *
    * @param name Employee's name
    * @return All supervisees for an employee
    */
@@ -217,6 +247,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /**
    * Sets all supervisees for an employee
+   *
    * @param name Employee's name
    * @param supervisees All supervisees for an employee
    */
@@ -227,6 +258,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /**
    * Adds a supervisee to an employee's list of supervisees
+   *
    * @param name Employee's name
    * @param supervisee Supervisee
    */
@@ -237,6 +269,7 @@ public class EmployeeManager implements EmployeeDAO {
 
   /**
    * Remove a supervisee from an employee's list of supervisees
+   *
    * @param name Employee's name
    * @param superviseeName Supervisee name
    */
@@ -258,9 +291,43 @@ public class EmployeeManager implements EmployeeDAO {
         if (OnHeader) {
           String[] values = line.split(splitBy);
           ++this.count;
+          LocalTime start = LocalTime.parse(values[5]);
+          LocalTime end = LocalTime.parse(values[6]);
           Employee employee =
-              new Employee(values[0], values[1], values[2], Integer.parseInt(values[3]));
+              new Employee(
+                  values[0],
+                  values[1],
+                  values[2],
+                  Integer.parseInt(values[3]),
+                  values[4],
+                  start,
+                  end,
+                  null,
+                  new ArrayList<Employee>());
           this.employeeHashMap.put(values[0], employee);
+          // Adb.addEmployee(employee);
+
+        } else {
+          OnHeader = true;
+        }
+      }
+      line = "";
+      OnHeader = false;
+      br = new BufferedReader(new FileReader("./Employees.csv"));
+
+      while ((line = br.readLine()) != null) {
+        if (OnHeader) {
+          String[] values = line.split(splitBy);
+          Employee employee = this.employeeHashMap.get(values[0]);
+          if (values.length >= 8) employee.setSupervisor(this.employeeHashMap.get(values[7]));
+          if (values.length == 9) {
+            String[] superviseesNames = values[8].split("-");
+            if (superviseesNames.length != 0) {
+              for (String name : superviseesNames) {
+                employee.addSupervisee(this.employeeHashMap.get(name));
+              }
+            }
+          }
           Adb.addEmployee(employee);
 
         } else {
@@ -271,6 +338,4 @@ public class EmployeeManager implements EmployeeDAO {
       var7.printStackTrace();
     }
   }
-
-
 }

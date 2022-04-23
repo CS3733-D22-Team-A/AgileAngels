@@ -15,11 +15,25 @@ public class Employee {
   private Employee supervisor;
   private ArrayList<Employee> supervisees;
 
-  public Employee(String name, String password, String floorOnDuty, int permissionLevel) {
+  public Employee(
+      String name,
+      String password,
+      String floorOnDuty,
+      int permissionLevel,
+      String department,
+      LocalTime startTime,
+      LocalTime endTime,
+      Employee supervisor,
+      ArrayList<Employee> supervisees) {
     this.name = name;
     this.password = password;
     this.floorOnDuty = floorOnDuty;
     this.permissionLevel = permissionLevel;
+    this.department = department;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.supervisor = supervisor;
+    this.supervisees = supervisees;
   }
 
   public String getName() {
@@ -117,13 +131,13 @@ public class Employee {
     return supervisees;
   }
 
-  public void addSupervisee(Employee supervisee){
+  public void addSupervisee(Employee supervisee) {
     this.supervisees.add(supervisee);
   }
 
-  public void removeSupervisee(String name){
-    for(Employee employee : this.supervisees){
-      if(employee.getName().equals(name)) this.supervisees.remove(employee);
+  public void removeSupervisee(String name) {
+    for (Employee employee : this.supervisees) {
+      if (employee.getName().equals(name)) this.supervisees.remove(employee);
     }
   }
 
