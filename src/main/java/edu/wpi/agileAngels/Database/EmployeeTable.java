@@ -18,11 +18,20 @@ public class EmployeeTable implements TableI {
         return false;
       }
       Employee emp = (Employee) obj;
-      String add = "INSERT INTO Employees(name, password, floorOnDuty)VALUES(?,?,?)";
+      String supervisees = "";
+
+
+      String add = "INSERT INTO Employees(name, password, floorOnDuty, permission, department, startTime, endTime, supervisor, supervisees)VALUES(?,?,?,?,?,?,?,?,?)";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
       preparedStatement.setString(1, emp.getName());
       preparedStatement.setString(2, emp.getPassword());
       preparedStatement.setString(3, emp.getFloorOnDuty());
+      preparedStatement.setString(4, Integer.toString(emp.getPermissionLevel()));
+      preparedStatement.setString(5, emp.getDepartment());
+      preparedStatement.setString(6, emp.getStartTime().toString());
+      preparedStatement.setString(7, emp.getEndTime().toString());
+      preparedStatement.setString(8, emp.getSupervisor().getName());
+      preparedStatement.setString(9, supervisees);
       preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {

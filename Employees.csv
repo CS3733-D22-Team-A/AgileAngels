@@ -1,4 +1,4 @@
-name,password,duty,permission
+name,password,duty,permission,department,startTime,endTime
 ,,3,5
 James,1234,Off Duty,4
 Liam,hello3,2,3
