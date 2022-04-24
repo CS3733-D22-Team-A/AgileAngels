@@ -187,6 +187,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     }
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -211,6 +212,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     giftRequestImpl.deleteRequest(giftRequestImpl.getAllRequests().get(id));
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML

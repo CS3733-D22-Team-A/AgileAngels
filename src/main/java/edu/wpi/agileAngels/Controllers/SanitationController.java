@@ -168,6 +168,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
     }
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -192,6 +193,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
     saniRequestImpl.deleteRequest(saniRequestImpl.getAllRequests().get(id));
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
