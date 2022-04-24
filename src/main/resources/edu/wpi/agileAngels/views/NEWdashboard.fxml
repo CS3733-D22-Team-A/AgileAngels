@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -62,7 +63,7 @@
                </font>
             </Label>
          </children></Pane>
-      <Pane fx:id="cleanDirty" layoutX="21.0" layoutY="365.0" onMouseClicked="#changeDisplay" prefHeight="335.0" prefWidth="658.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@stylesheets/DashCSS.css" visible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="365.0">
+      <Pane fx:id="cleanDirty" layoutX="21.0" layoutY="365.0" onMouseClicked="#changeDisplay" prefHeight="335.0" prefWidth="658.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@stylesheets/DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="365.0">
          <children>
             <Pane layoutX="497.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #AE986E; -fx-background-radius: 0 0 15 15;">
                <children>
@@ -258,13 +259,17 @@
       </Pane>
       <Pane fx:id="graphs" layoutX="20.0" layoutY="365.0" onMouseClicked="#changeDisplay" prefHeight="335.0" prefWidth="658.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@stylesheets/DashCSS.css">
          <children>
-            <BarChart fx:id="requestGraph" layoutY="-1.0" legendSide="TOP" prefHeight="361.0" prefWidth="658.0">
+            <BarChart fx:id="requestGraph" layoutY="-1.0" legendSide="TOP" prefHeight="361.0" prefWidth="658.0" stylesheets="@stylesheets/DashCSS.css">
               <xAxis>
                 <CategoryAxis label="Requests" side="BOTTOM" />
               </xAxis>
               <yAxis>
                 <NumberAxis label="# of Requests" side="LEFT" upperBound="50.0" />
               </yAxis>
+               <styleClass>
+                  <String fx:value="default-color0" />
+                  <String fx:value="default-color1" />
+               </styleClass>
             </BarChart>
             <MenuButton fx:id="graphType" layoutX="587.0" layoutY="-4.0" mnemonicParsing="false" text="Type">
               <items>
