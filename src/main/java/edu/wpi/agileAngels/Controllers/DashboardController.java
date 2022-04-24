@@ -493,5 +493,29 @@ public class DashboardController implements Initializable, PropertyChangeListene
           .getStylesheets()
           .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestRedTest.css");
     }
+
+    //back to default
+    if (color.toLowerCase(Locale.ROOT).equals("blue")) {
+
+      floor5.setStyle("-fx-background-color: #98D5DD; ");
+      floor4.setStyle("-fx-background-color: #6FC2CC; ");
+      floor3.setStyle("-fx-background-color: #3EADBB; ");
+      floor2.setStyle("-fx-background-color: #2795A3; ");
+      floorLL1.setStyle("-fx-background-color: #207E8A; ");
+      floorLL2.setStyle("-fx-background-color: #0F6671; ");
+
+
+      requestTable.getStylesheets().removeAll();
+      requestTable
+              .getStylesheets()
+              .add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+      employeeTable.getStylesheets().removeAll();
+      employeeTable
+              .getStylesheets()
+              .add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+
+    }
+
+
   }
 }
