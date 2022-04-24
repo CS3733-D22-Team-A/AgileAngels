@@ -24,7 +24,7 @@ public class LabController implements Initializable, PropertyChangeListener {
   @FXML VBox popOut;
   @FXML HBox tableHBox;
   @FXML MenuButton labLocation, labEmployee, labStatus, labType;
-  @FXML Button newRequest, cancelRequest, submitRequest;
+  @FXML Button newRequest, cancelRequest, submitRequest, deleteRequest;
   @FXML TableView labTable;
   @FXML
   private TableColumn nameColumn,
@@ -127,6 +127,7 @@ public class LabController implements Initializable, PropertyChangeListener {
 
   @FXML
   public void newRequest() {
+    deleteRequest.setVisible(false);
     showPopout();
     clear();
     labID2.setText("New Request");
@@ -493,6 +494,7 @@ public class LabController implements Initializable, PropertyChangeListener {
     try {
       if (mouseEvent.getButton() == MouseButton.PRIMARY) {
         populate();
+        deleteRequest.setVisible(true);
       }
     } catch (NullPointerException e) {
       hidePopout();
