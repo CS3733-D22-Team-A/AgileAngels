@@ -13,14 +13,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class SanitationController implements Initializable, PropertyChangeListener {
 
-  @FXML Pane popOut;
-  @FXML MenuButton saniID, saniLocation, saniEmployee, saniStatus, saniType;
-  @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
-  @FXML TableView SaniTable;
+  @FXML VBox popOut;
+  @FXML HBox tableHBox;
+  @FXML MenuButton saniLocation, saniEmployee, saniStatus, saniType;
+  @FXML Button newRequestButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
+  @FXML TableView saniTable;
   @FXML
   private TableColumn nameColumn,
       typeColumn,
@@ -29,7 +33,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
       statusColumn,
       descriptionColumn; // , availableColumn,;
   @FXML TextField saniDescription, employeeFilterField, statusFilterField;
-  @FXML Label notStartedNumber, inProgressNumber, completedNumber;
+  @FXML Label notStartedNumber, inProgressNumber, completedNumber, sanIDLabel;
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
@@ -48,7 +52,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
-    popOut.setVisible(false);
+    hidePopout();
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
@@ -71,7 +75,36 @@ public class SanitationController implements Initializable, PropertyChangeListen
       saniData.add(req);
     }
     dashboardLoad();
-    SaniTable.setItems(saniData);
+    saniTable.setItems(saniData);
+
+    // Populates locations dropdown
+    for (Location loc : locationsList) {
+      MenuItem item = new MenuItem(loc.getLongName());
+      item.setOnAction(this::mealLocationMenu);
+      saniLocation.getItems().add(item);
+    }
+
+    // Populates employees dropdown
+    for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+      Employee emp = entry.getValue();
+      MenuItem item = new MenuItem(emp.getName());
+      item.setOnAction(this::mealEmployeeMenu);
+      saniEmployee.getItems().add(item);
+    }
+  }
+
+  public void hidePopout() {
+    try {
+      tableHBox.getChildren().remove(popOut);
+    } catch (NullPointerException e) {
+
+    }
+  }
+
+  public void showPopout() {
+    if (tableHBox.getChildren().get(0) != popOut) {
+      tableHBox.getChildren().add(0, popOut);
+    }
   }
 
   @Override
@@ -79,37 +112,6 @@ public class SanitationController implements Initializable, PropertyChangeListen
     String changeType = evt.getPropertyName();
     int newValue = (int) evt.getNewValue();
     appController.displayAlert();
-  }
-
-  @FXML
-  public void modifyRequest(ActionEvent event) {
-    popOut.setVisible(true);
-    if (saniLocation.getItems().size() == 0) {
-      // Populates locations dropdown
-      for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getLongName());
-        item.setOnAction(this::mealLocationMenu);
-        saniLocation.getItems().add(item);
-      }
-
-      // Populates employees dropdown
-      for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
-        Employee emp = entry.getValue();
-        MenuItem item = new MenuItem(emp.getName());
-        item.setOnAction(this::mealEmployeeMenu);
-        saniEmployee.getItems().add(item);
-      }
-
-      // Populates ID dropdown
-      for (Request req : saniData) {
-        MenuItem item = new MenuItem(req.getName());
-        item.setOnAction(this::mealIDMenu);
-        saniID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::mealIDMenu);
-      saniID.getItems().add(item1);
-    }
   }
 
   @FXML
@@ -121,26 +123,14 @@ public class SanitationController implements Initializable, PropertyChangeListen
     String type = saniType.getText();
 
     // Adding
-    if (saniID.getText().equals("Add New Request")) {
+    if (sanIDLabel.getText().equals("New Request")) {
       Request req =
           new Request(
               "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, "N/A", "N/A");
       saniData.add(req);
       saniRequestImpl.addRequest(req);
-
-      saniID.getItems().remove(0, saniID.getItems().size());
-      // Populates ID dropdown
-      for (Request request : saniData) {
-        MenuItem item = new MenuItem(request.getName());
-        item.setOnAction(this::mealIDMenu);
-        saniID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::mealIDMenu);
-      saniID.getItems().add(item1);
-      updateDashAdding(stat);
     } else { // Editing
-      Request req = saniRequestImpl.getAllRequests().get(saniID.getText());
+      Request req = saniRequestImpl.getAllRequests().get(sanIDLabel.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
         Location newLoc = locationsHash.get(loc);
         saniRequestImpl.updateLocation(req, newLoc);
@@ -167,54 +157,49 @@ public class SanitationController implements Initializable, PropertyChangeListen
       }
     }
 
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
   }
 
   @FXML
   public void cancel(ActionEvent event) {
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
   }
 
   @FXML
   public void delete(ActionEvent event) {
-    String id = saniID.getText();
-    updateDashSubtracting(saniRequestImpl.getAllRequests().get(id).getStatus());
-    // removes the request from the table and dropdown
-    for (int i = 0; i < saniData.size(); i++) {
-      if (saniData.get(i).getName().equals(id)) {
-        saniData.remove(i);
-        saniID.getItems().remove(i);
+
+    try {
+      String id = ((Request) saniTable.getSelectionModel().getSelectedItem()).getName();
+      updateDashSubtracting(saniRequestImpl.getAllRequests().get(id).getStatus());
+      // removes the request from the table and dropdown
+      for (int i = 0; i < saniData.size(); i++) {
+        if (saniData.get(i).getName().equals(id)) {
+          saniData.remove(i);
+        }
       }
+      saniRequestImpl.deleteRequest(saniRequestImpl.getAllRequests().get(id));
+
+    } catch (NullPointerException e) {
+      saniTable.getSelectionModel().clearSelection();
     }
 
     // delete from hash map and database table
-    saniRequestImpl.deleteRequest(saniRequestImpl.getAllRequests().get(id));
 
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
   }
 
   @FXML
-  public void clear(ActionEvent event) {
-    saniID.setText("ID");
+  public void clear() {
+    sanIDLabel.setText("ID");
     saniType.setText("Type");
     saniEmployee.setText("Employee");
     saniLocation.setText("Location");
     saniStatus.setText("Status");
     saniDescription.setText("");
     saniDescription.setPromptText("Description");
-  }
-
-  @FXML
-  public void mealIDMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    saniID.setText(button.getText());
-
-    if (!button.getText().equals("Add New Request")) {
-      populate(button.getText());
-    }
   }
 
   @FXML
@@ -249,7 +234,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
       ObservableList<Request> trueFilteredList =
           filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
 
-      SaniTable.setItems(trueFilteredList);
+      saniTable.setItems(trueFilteredList);
     } else if (!employeeFilterField.getText().isEmpty()) {
       filterReqsTableEmployee(employeeFilterField.getText());
     } else if (!statusFilterField.getText().isEmpty()) {
@@ -259,7 +244,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
 
   @FXML
   public void clearFilters(ActionEvent event) {
-    SaniTable.setItems(saniData);
+    saniTable.setItems(saniData);
     employeeFilterField.clear();
     statusFilterField.clear();
   }
@@ -319,7 +304,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
     ObservableList<Request> filteredList = filterReqEmployee(employeeName);
 
     // Sets table to only have contents of the filtered list.
-    SaniTable.setItems(filteredList);
+    saniTable.setItems(filteredList);
   }
 
   /**
@@ -348,7 +333,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
   private void filterReqsTableStatus(String reqStatus) {
     ObservableList<Request> filteredList = filterReqStatus(reqStatus);
     // Sets table to only have contents of the filtered list.
-    SaniTable.setItems(filteredList);
+    saniTable.setItems(filteredList);
   }
 
   /**
@@ -407,13 +392,11 @@ public class SanitationController implements Initializable, PropertyChangeListen
     return newList;
   }
 
-  /**
-   * Populates fields once a node id is chosen when editing an existing request.
-   *
-   * @param id Request ID
-   */
-  private void populate(String id) {
-    Request req = saniRequestImpl.getAllRequests().get(id);
+  /** Populates fields once a node id is chosen when editing an existing request. */
+  private void populate() {
+    showPopout();
+    Request req = ((Request) saniTable.getSelectionModel().getSelectedItem());
+    sanIDLabel.setText(req.getName());
     saniLocation.setText(req.getLocation().getLongName());
     saniEmployee.setText(req.getEmployee().getName());
     saniStatus.setText(req.getStatus());
@@ -453,5 +436,23 @@ public class SanitationController implements Initializable, PropertyChangeListen
       statusComplete--;
     }
     setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  public void loadRequest(MouseEvent mouseEvent) {
+    try {
+      if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+        populate();
+        deleteRequest.setVisible(true);
+      }
+    } catch (NullPointerException e) {
+      hidePopout();
+    }
+  }
+
+  public void newRequest() {
+    deleteRequest.setVisible(false);
+    showPopout();
+    clear();
+    sanIDLabel.setText("New Request");
   }
 }
