@@ -57,3 +57,6 @@
     -fx-background-color: #609EA4;
     -fx-font-size: 25;
 }
+
+.default-color0.chart-bar { -fx-bar-fill: #7ae9e0; }
+.default-color1.chart-bar { -fx-bar-fill: #019aa1; }
