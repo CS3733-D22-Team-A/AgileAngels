@@ -20,23 +20,61 @@ public class LocationNode {
   double buttonY;
   Boolean dragged = false;
 
-  public LocationNode(Location location, LocationNodeManager locationNodeManager) {
+  public LocationNode(Location location, LocationNodeManager locationNodeManager, int permission) {
     this.location = location;
     this.locationNodeManager = locationNodeManager;
 
-    // button.setLayoutX((this.getXCoord() - croppedMapXOffset) / (croppedMapWidth /
-    // imagePaneWidth));
-    button.setLayoutX(getPaneXfromcoords(this.getXCoord()));
-    button.setLayoutY(getPaneYfromcoords(this.getYCoord()));
-    button.setText(String.valueOf(location.getNodeType().charAt(0)));
-    button.setStyle(
-        "-fx-font-size: 12; -fx-background-radius: 0 8 8 8; -fx-background-color: rgba(73, 67, 112, 1); -fx-text-fill: white");
+    if (permission >= 4) {
+      button.setOnAction(
+          (ActionEvent event2) -> {
+            isClicked();
+          });
 
-    button.setOnAction(
-        (ActionEvent event2) -> {
-          isClicked();
-        });
+      button.setOnMousePressed(
+          (MouseEvent mouseEvent) -> {
+            xOffset = (button.getLayoutX() - mouseEvent.getSceneX());
+            yOffset = (button.getLayoutY() - mouseEvent.getSceneY());
 
+            buttonX = button.getLayoutX();
+            buttonY = button.getLayoutY();
+          });
+      button.setOnMouseDragged(
+          (MouseEvent mouseEvent) -> {
+            button.setPrefSize(8, 8);
+            button.setStyle(
+                "-fx-font-size: 12; -fx-background-color: rgba(73, 67, 112, 1) ;-fx-background-radius: 0 5 5 5; -fx-text-alignment: left; -fx-text-fill: white");
+            button.setAlignment(Pos.CENTER);
+            button.setText(String.valueOf(location.getNodeType().charAt(0)));
+            button.setLayoutX(
+                getPaneXfromcoords((locationNodeManager.getMapXCoordFromClick(mouseEvent))));
+
+            button.setLayoutY(
+                getPaneYfromcoords((locationNodeManager.getMapYCoordFromClick(mouseEvent))));
+            dragged = true;
+          });
+      button.setOnMouseReleased(
+          (MouseEvent mouseEvent) -> {
+            System.out.println(
+                dist(
+                    buttonX,
+                    getPaneXfromcoords(locationNodeManager.getMapXCoordFromClick(mouseEvent)),
+                    buttonY,
+                    getPaneYfromcoords(locationNodeManager.getMapYCoordFromClick(mouseEvent))));
+            if (dist(
+                    buttonX,
+                    getPaneXfromcoords(locationNodeManager.getMapXCoordFromClick(mouseEvent)),
+                    buttonY,
+                    getPaneYfromcoords(locationNodeManager.getMapYCoordFromClick(mouseEvent)))
+                < 50) {
+              button.setLayoutX(buttonX);
+              button.setLayoutY(buttonY);
+            } else {
+              this.location.setXCoord(locationNodeManager.getMapXCoordFromClick(mouseEvent));
+              this.location.setYCoord(locationNodeManager.getMapYCoordFromClick(mouseEvent));
+              locationNodeManager.editNode(this, location.getLongName(), location.getNodeType());
+            }
+          });
+    }
     button
         .hoverProperty()
         .addListener(
@@ -58,51 +96,13 @@ public class LocationNode {
           button.setText(String.valueOf(location.getNodeType().charAt(0)));
           button.setViewOrder(-100);
         });
-
-    button.setOnMousePressed(
-        (MouseEvent mouseEvent) -> {
-          xOffset = (button.getLayoutX() - mouseEvent.getSceneX());
-          yOffset = (button.getLayoutY() - mouseEvent.getSceneY());
-
-          buttonX = button.getLayoutX();
-          buttonY = button.getLayoutY();
-        });
-    button.setOnMouseDragged(
-        (MouseEvent mouseEvent) -> {
-          button.setPrefSize(8, 8);
-          button.setStyle(
-              "-fx-font-size: 12; -fx-background-color: rgba(73, 67, 112, 1) ;-fx-background-radius: 0 5 5 5; -fx-text-alignment: left; -fx-text-fill: white");
-          button.setAlignment(Pos.CENTER);
-          button.setText(String.valueOf(location.getNodeType().charAt(0)));
-          button.setLayoutX(
-              getPaneXfromcoords((locationNodeManager.getMapXCoordFromClick(mouseEvent))));
-
-          button.setLayoutY(
-              getPaneYfromcoords((locationNodeManager.getMapYCoordFromClick(mouseEvent))));
-          dragged = true;
-        });
-    button.setOnMouseReleased(
-        (MouseEvent mouseEvent) -> {
-          System.out.println(
-              dist(
-                  buttonX,
-                  getPaneXfromcoords(locationNodeManager.getMapXCoordFromClick(mouseEvent)),
-                  buttonY,
-                  getPaneYfromcoords(locationNodeManager.getMapYCoordFromClick(mouseEvent))));
-          if (dist(
-                  buttonX,
-                  getPaneXfromcoords(locationNodeManager.getMapXCoordFromClick(mouseEvent)),
-                  buttonY,
-                  getPaneYfromcoords(locationNodeManager.getMapYCoordFromClick(mouseEvent)))
-              < 50) {
-            button.setLayoutX(buttonX);
-            button.setLayoutY(buttonY);
-          } else {
-            this.location.setXCoord(locationNodeManager.getMapXCoordFromClick(mouseEvent));
-            this.location.setYCoord(locationNodeManager.getMapYCoordFromClick(mouseEvent));
-            locationNodeManager.editNode(this, location.getLongName(), location.getNodeType());
-          }
-        });
+    // button.setLayoutX((this.getXCoord() - croppedMapXOffset) / (croppedMapWidth /
+    // imagePaneWidth));
+    button.setLayoutX(getPaneXfromcoords(this.getXCoord()));
+    button.setLayoutY(getPaneYfromcoords(this.getYCoord()));
+    button.setText(String.valueOf(location.getNodeType().charAt(0)));
+    button.setStyle(
+        "-fx-font-size: 12; -fx-background-radius: 0 8 8 8; -fx-background-color: rgba(73, 67, 112, 1); -fx-text-fill: white");
   }
 
   private double dist(double x1, double x2, double y1, double y2) {

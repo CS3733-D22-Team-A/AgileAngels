@@ -48,6 +48,14 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
     updateToggle();
+
+    if (appController.getCurrentUser().getPermissionLevel() == 1) {
+      equipmentRequest.setDisable(true);
+      labRequest.setDisable(true);
+      morgueRequest.setDisable(true);
+      morgueRequest.setDisable(true);
+      patientTransportRequest.setDisable(true);
+    }
   }
 
   @Override

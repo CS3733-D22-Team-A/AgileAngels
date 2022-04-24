@@ -25,7 +25,7 @@ public class Aapp extends Application {
   public void start(Stage primaryStage) throws IOException, SQLException {
     adb = new Adb(); // ADB class
     adb.initialize();
-    appController.setUser(new Employee("Login", "", ""));
+    appController.setUser(new Employee("Login", "", "", 0, "", null, null, null, null));
     appController.init(primaryStage);
   }
 

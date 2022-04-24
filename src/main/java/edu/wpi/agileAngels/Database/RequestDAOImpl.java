@@ -128,11 +128,6 @@ public class RequestDAOImpl implements RequestDAO {
         LabrequestDAO = new RequestDAOImpl(data, 1, "LabRequest");
       }
       return LabrequestDAO;
-    } else if (0 == type.compareTo("ServiceRequest")) {
-      if (SanDAO == null) {
-        SanDAO = new RequestDAOImpl(data, 1, "SanRequest");
-      }
-      return SanDAO;
     } else if (0 == type.compareTo("MealRequest")) {
       if (MealDAO == null) {
         MealDAO = new RequestDAOImpl(data, 1, "MealRequest");
