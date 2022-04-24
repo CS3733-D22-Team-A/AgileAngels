@@ -23,6 +23,8 @@ public class RequestNode {
 
   Location closest;
 
+  AppController appController = AppController.getInstance();
+
   public RequestNode(Request request, RequestNodeManager requestNodeManager) throws SQLException {
     this.request = request;
     this.requestNodeManager = requestNodeManager;
@@ -31,6 +33,49 @@ public class RequestNode {
     button.setLayoutX(getPaneXfromcoords(this.location.getXCoord()));
     button.setLayoutY(getPaneYfromcoords(this.location.getYCoord()));
     button.setText(String.valueOf(request.getName().charAt(0)));
+
+    if (appController.getCurrentUser().getPermissionLevel() >= 2) {
+
+      button.setOnMousePressed(
+          (MouseEvent mouseEvent) -> {
+            xOffset = (button.getLayoutX() - mouseEvent.getSceneX());
+            yOffset = (button.getLayoutY() - mouseEvent.getSceneY());
+
+            buttonX = button.getLayoutX();
+            buttonY = button.getLayoutY();
+
+            dragged = false;
+          });
+
+      button.setOnMouseDragged(
+          (MouseEvent mouseEvent) -> {
+            button.setStyle(
+                "-fx-font-size: 12; -fx-background-color: rgba(44, 217, 186, 1) ;-fx-background-radius: 0 5 5 5; -fx-text-alignment: left; -fx-text-fill: white");
+            button.setPrefSize(0, 0);
+            button.setAlignment(Pos.CENTER);
+            button.setText(String.valueOf(request.getName().charAt(0)));
+            button.setLayoutX(
+                getPaneXfromcoords((requestNodeManager.getMapXCoordFromClick(mouseEvent))));
+            button.setLayoutY(
+                getPaneYfromcoords((requestNodeManager.getMapYCoordFromClick(mouseEvent))));
+            dragged = true;
+          });
+      button.setOnMouseReleased(
+          (MouseEvent mouseEvent) -> {
+            if (dist(
+                    buttonX,
+                    getPaneXfromcoords(requestNodeManager.getMapXCoordFromClick(mouseEvent)),
+                    buttonY,
+                    getPaneYfromcoords(requestNodeManager.getMapYCoordFromClick(mouseEvent)))
+                < 50) {
+              button.setLayoutX(buttonX);
+              button.setLayoutY(buttonY);
+            } else {
+              placeOnClosestNode(mouseEvent);
+              requestNodeManager.setDraggedNodeCoords(mouseEvent);
+            }
+          });
+    }
 
     button.setOnAction(
         (ActionEvent event2) -> {
@@ -61,44 +106,6 @@ public class RequestNode {
           button.setViewOrder(-100);
         });
 
-    button.setOnMousePressed(
-        (MouseEvent mouseEvent) -> {
-          xOffset = (button.getLayoutX() - mouseEvent.getSceneX());
-          yOffset = (button.getLayoutY() - mouseEvent.getSceneY());
-
-          buttonX = button.getLayoutX();
-          buttonY = button.getLayoutY();
-
-          dragged = false;
-        });
-    button.setOnMouseDragged(
-        (MouseEvent mouseEvent) -> {
-          button.setStyle(
-              "-fx-font-size: 12; -fx-background-color: rgba(44, 217, 186, 1) ;-fx-background-radius: 0 5 5 5; -fx-text-alignment: left; -fx-text-fill: white");
-          button.setPrefSize(0, 0);
-          button.setAlignment(Pos.CENTER);
-          button.setText(String.valueOf(request.getName().charAt(0)));
-          button.setLayoutX(
-              getPaneXfromcoords((requestNodeManager.getMapXCoordFromClick(mouseEvent))));
-          button.setLayoutY(
-              getPaneYfromcoords((requestNodeManager.getMapYCoordFromClick(mouseEvent))));
-          dragged = true;
-        });
-    button.setOnMouseReleased(
-        (MouseEvent mouseEvent) -> {
-          if (dist(
-                  buttonX,
-                  getPaneXfromcoords(requestNodeManager.getMapXCoordFromClick(mouseEvent)),
-                  buttonY,
-                  getPaneYfromcoords(requestNodeManager.getMapYCoordFromClick(mouseEvent)))
-              < 50) {
-            button.setLayoutX(buttonX);
-            button.setLayoutY(buttonY);
-          } else {
-            placeOnClosestNode(mouseEvent);
-            requestNodeManager.setDraggedNodeCoords(mouseEvent);
-          }
-        });
     dragged = false;
   }
 

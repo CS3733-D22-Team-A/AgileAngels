@@ -52,6 +52,7 @@ public class PatientTransportController extends MainController
   private int statusNotStarted, statusInProgress, statusComplete;
   private AppController appController = AppController.getInstance();
   HashMap<String, String> locationIDsByLongName = new HashMap<>();
+  RequestDAOImpl allReqDAO = RequestDAOImpl.getInstance("AllRequests");
 
   public PatientTransportController() throws SQLException {}
 
@@ -107,7 +108,7 @@ public class PatientTransportController extends MainController
       }
       // Populates destinations dropdown
       for (Location dest : locationsList) {
-        MenuItem item = new MenuItem(dest.getNodeID());
+        MenuItem item = new MenuItem(dest.getLongName());
         item.setOnAction(this::mainDestinationMenu);
         transportDestination.getItems().add(item);
       }
@@ -135,12 +136,12 @@ public class PatientTransportController extends MainController
   @FXML
   public void submit(ActionEvent event) {
     String loc = locationIDsByLongName.get(transportLocation.getText());
-    String dest = transportDestination.getText();
+    String destLongName = transportDestination.getText();
+    String destID = locationIDsByLongName.get(destLongName);
     String emp = transportEmployee.getText();
     String stat = transportStatus.getText();
     String desc = transportDescription.getText();
     String type = transportType.getText();
-    Location desty = locDAO.getLocation(dest);
     // Adding
     if (transportID.getText().equals("Add New Request")) {
       Request req =
@@ -152,7 +153,7 @@ public class PatientTransportController extends MainController
               stat,
               desc,
               "N/A",
-              desty.getLongName());
+              destLongName);
       transportData.add(req);
       transportDAOImpl.addRequest(req);
 
@@ -167,14 +168,18 @@ public class PatientTransportController extends MainController
       item1.setOnAction(this::mainIDMenu);
       transportID.getItems().add(item1);
       updateDashAdding(stat);
+
+      if (req.getStatus().equals("Complete")) {
+        updateAssociatedRequests(loc, destID);
+      }
     } else { // Editing
       Request req = transportDAOImpl.getAllRequests().get(transportID.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
         Location newLoc = locationsHash.get(loc);
         transportDAOImpl.updateLocation(req, newLoc);
       }
-      if (!req.getAttribute2().equals(dest)) {
-        transportDAOImpl.updateAttribute2(req, dest);
+      if (!req.getAttribute2().equals(destLongName)) {
+        transportDAOImpl.updateAttribute2(req, destLongName);
       }
       if (!req.getEmployee().getName().equals(emp)) {
         transportDAOImpl.updateEmployeeName(req, emp);
@@ -183,6 +188,10 @@ public class PatientTransportController extends MainController
         updateDashAdding(stat);
         updateDashSubtracting(req.getStatus());
         transportDAOImpl.updateStatus(req, stat);
+
+        if (stat.equals("Complete")) {
+          updateAssociatedRequests(loc, destID);
+        }
       }
       if (!req.getDescription().equals(desc)) {
         transportDAOImpl.updateDescription(req, desc);
@@ -198,6 +207,7 @@ public class PatientTransportController extends MainController
     }
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -222,6 +232,7 @@ public class PatientTransportController extends MainController
     transportDAOImpl.deleteRequest(transportDAOImpl.getAllRequests().get(id));
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -491,5 +502,14 @@ public class PatientTransportController extends MainController
       statusComplete--;
     }
     setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  private void updateAssociatedRequests(String oldLocID, String newLocID) {
+    HashMap<String, Request> allReqsHash = allReqDAO.getAllRequests();
+    for (Request req : allReqsHash.values()) {
+      if (req.getLocation().getNodeID().equals(oldLocID)) {
+        allReqDAO.updateLocation(req, locationsHash.get(newLocID));
+      }
+    }
   }
 }

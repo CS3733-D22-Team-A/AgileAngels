@@ -11,6 +11,13 @@ public class RequestNodeManager {
   private MapsController mapsController;
   private RequestDAOImpl medRequestDAO = RequestDAOImpl.getInstance("MedRequest");
   private RequestDAOImpl labRequestDAO = RequestDAOImpl.getInstance("LabRequest");
+  private RequestDAOImpl MealRequestDAO = RequestDAOImpl.getInstance("MealRequest");
+  private RequestDAOImpl SanitationRequestDAO = RequestDAOImpl.getInstance("SanitationRequest");
+  private RequestDAOImpl LaundryRequestDAO = RequestDAOImpl.getInstance("LaundryRequest");
+  private RequestDAOImpl MaintenanceRequestDAO = RequestDAOImpl.getInstance("MaintenanceRequest");
+  private RequestDAOImpl TransportRequestDAO = RequestDAOImpl.getInstance("TransportRequest");
+  private RequestDAOImpl GiftRequestDAO = RequestDAOImpl.getInstance("GiftRequest");
+  private RequestDAOImpl MorgueRequestDAO = RequestDAOImpl.getInstance("MorgueRequest");
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private HashMap<String, RequestNode> nodes = new HashMap<>();
   private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
@@ -35,6 +42,12 @@ public class RequestNodeManager {
   void createNodesFromDB() throws SQLException {
     ArrayList<Request> requestsList = new ArrayList<>(medRequestDAO.getAllRequests().values());
     requestsList.addAll(labRequestDAO.getAllRequests().values());
+    requestsList.addAll(MealRequestDAO.getAllRequests().values());
+    requestsList.addAll(SanitationRequestDAO.getAllRequests().values());
+    requestsList.addAll(LaundryRequestDAO.getAllRequests().values());
+    requestsList.addAll(MaintenanceRequestDAO.getAllRequests().values());
+    requestsList.addAll(GiftRequestDAO.getAllRequests().values());
+    requestsList.addAll(MorgueRequestDAO.getAllRequests().values());
     for (Request request : requestsList) {
       mapsController.displayRequestNode(addNode(request));
     }
@@ -48,6 +61,27 @@ public class RequestNodeManager {
     } else if (request.getName().substring(0, 3).equals("Med")) {
       request.setLocation(newLocation);
       medRequestDAO.updateLocation(request.getRequest(), newLocation);
+    } else if (request.getName().substring(0, 3).equals("Tra")) {
+      request.setLocation(newLocation);
+      TransportRequestDAO.updateLocation(request.getRequest(), newLocation);
+    } else if (request.getName().substring(0, 3).equals("Mea")) {
+      request.setLocation(newLocation);
+      MealRequestDAO.updateLocation(request.getRequest(), newLocation);
+    } else if (request.getName().substring(0, 3).equals("Gif")) {
+      request.setLocation(newLocation);
+      GiftRequestDAO.updateLocation(request.getRequest(), newLocation);
+    } else if (request.getName().substring(0, 3).equals("San")) {
+      request.setLocation(newLocation);
+      SanitationRequestDAO.updateLocation(request.getRequest(), newLocation);
+    } else if (request.getName().substring(0, 3).equals("Mai")) {
+      request.setLocation(newLocation);
+      MaintenanceRequestDAO.updateLocation(request.getRequest(), newLocation);
+    } else if (request.getName().substring(0, 3).equals("Mor")) {
+      request.setLocation(newLocation);
+      MorgueRequestDAO.updateLocation(request.getRequest(), newLocation);
+    } else if (request.getName().substring(0, 3).equals("Lau")) {
+      request.setLocation(newLocation);
+      LaundryRequestDAO.updateLocation(request.getRequest(), newLocation);
     }
 
     if (request.getRequest().getName().substring(0, 3).equals("Med")

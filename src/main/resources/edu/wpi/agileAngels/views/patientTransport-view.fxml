@@ -27,13 +27,13 @@
             <children>
                 <TableView fx:id="transportTable" prefHeight="451.0" prefWidth="1188.0">
                     <columns>
-                        <TableColumn fx:id="nameColumn" maxWidth="123.0" minWidth="123.0" prefWidth="123.0" resizable="false" text="Name" />
-                        <TableColumn fx:id="typeColumn" maxWidth="123.0" minWidth="78.0" prefWidth="78.0" resizable="false" text="Type" />
-                        <TableColumn fx:id="descriptionColumn" maxWidth="442.0" minWidth="123.0" prefWidth="263.0" resizable="false" text="Patient Name" />
-                        <TableColumn fx:id="locationColumn" maxWidth="266.0" minWidth="123.0" prefWidth="266.0" resizable="false" text="Location" />
-                        <TableColumn fx:id="destinationColumn" maxWidth="160.0" minWidth="123.0" prefWidth="160.0" resizable="false" text="Destination" />
-                        <TableColumn fx:id="employeeColumn" maxWidth="160.0" minWidth="70.0" prefWidth="160.0" resizable="false" text="Employee" />
-                        <TableColumn fx:id="statusColumn" maxWidth="176.0" minWidth="122.0" prefWidth="142.0" resizable="false" text="Status" />
+                        <TableColumn fx:id="nameColumn" maxWidth="130.0" minWidth="-1.0" prefWidth="130.0" resizable="false" text="Name" />
+                        <TableColumn fx:id="typeColumn" maxWidth="130.0" minWidth="-1.0" prefWidth="130.0" resizable="false" text="Type" />
+                        <TableColumn fx:id="employeeColumn" maxWidth="130.0" minWidth="-1.0" prefWidth="130.0" resizable="false" text="Employee" />
+                        <TableColumn fx:id="statusColumn" maxWidth="130.0" minWidth="-1.0" prefWidth="130.0" resizable="false" text="Status" />
+                        <TableColumn fx:id="descriptionColumn" maxWidth="140.0" minWidth="-1.0" prefWidth="140.0" resizable="false" text="Patient Name" />
+                        <TableColumn fx:id="locationColumn" maxWidth="250.0" minWidth="-1.0" prefWidth="250.0" resizable="false" text="Location" />
+                        <TableColumn fx:id="destinationColumn" maxWidth="250.0" minWidth="-1.0" prefWidth="250.0" resizable="false" text="Destination" />
                     </columns>
                 </TableView>
             </children>
@@ -116,7 +116,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label prefHeight="100.0" prefWidth="100.0" style="-fx-font-weight: bold;" text="Requests by Status:" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                        <Label prefHeight="100.0" prefWidth="100.0" style="-fx-font-weight: bold;" text="Requests by Status:" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -216,7 +216,7 @@
                 <Font size="15.0" />
             </font>
         </Button>
-        <VBox fx:id="popOut" alignment="CENTER" layoutX="978.0" prefHeight="678.0" prefWidth="294.0" spacing="15.0">
+        <VBox fx:id="popOut" alignment="CENTER" layoutX="978.0" layoutY="81.0" prefHeight="517.0" prefWidth="294.0" spacing="15.0">
             <children>
                 <Pane prefHeight="513.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
                     <children>

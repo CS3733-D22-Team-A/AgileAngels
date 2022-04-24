@@ -180,6 +180,7 @@ public class LabController implements Initializable, PropertyChangeListener {
     }
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -204,6 +205,7 @@ public class LabController implements Initializable, PropertyChangeListener {
     labRequestImpl.deleteRequest(labRequestImpl.getAllRequests().get(id));
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
