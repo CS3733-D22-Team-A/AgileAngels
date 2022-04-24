@@ -375,9 +375,9 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   private void deleteEquipRequest() {
     equipmentConfirmation.setText("");
     // gets all inputs and converts into string
-    String deleteString = equipID.getText();
-
-    if (!deleteString.isEmpty()) {
+    try {
+      String deleteString =
+          ((Request) equipmentTable.getSelectionModel().getSelectedItem()).getName();
       for (int i = 0; i < medData.size(); i++) {
         Request object = medData.get(i);
         if (0 == deleteString.compareTo(object.getName())) {
@@ -393,9 +393,12 @@ public class EquipmentController implements Initializable, PropertyChangeListene
           medData.remove(i);
           MedrequestImpl.deleteRequest(object);
         }
+        equipmentTable.setItems(medData);
       }
-      equipmentTable.setItems(medData);
+    } catch (NullPointerException e) {
+      equipmentTable.getSelectionModel().clearSelection();
     }
+
     clearFields();
     hidePopout();
   }
