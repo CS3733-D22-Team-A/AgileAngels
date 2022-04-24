@@ -12,7 +12,7 @@ public class ProfileController implements Initializable {
   AppController appController = AppController.getInstance();
   @FXML Label userInitials, userName, userDepartment, userTitle, userPermission, userSupervisees;
 
-  String supervisees;
+  String supervisees = "";
 
   public void initialize(URL location, ResourceBundle resources) {
     userInitials.setText(appController.getCurrentUser().initialsMaker());
@@ -25,10 +25,16 @@ public class ProfileController implements Initializable {
         supervisees += e.getName() + ", ";
         System.out.println(e.getName());
       }
+
       userSupervisees.setText(supervisees);
     } catch (NullPointerException e) {
       userTitle.setText("Unsupervised");
     }
     userPermission.setText(String.valueOf(appController.getCurrentUser().getPermissionLevel()));
+  }
+
+  @FXML
+  void orgChart() {
+    appController.loadPage("/edu/wpi/agileAngels/views/orgChart-view.fxml");
   }
 }

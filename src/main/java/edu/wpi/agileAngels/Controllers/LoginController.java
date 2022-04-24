@@ -35,7 +35,6 @@ public class LoginController implements Initializable {
     //    employeeManager.addEmployee("Justin", "Password", "L2", 2);
     //    employeeManager.addEmployee("Staff", "Staff", "Off Duty", 3);
     //    employeeManager.addEmployee("Jakob Sperry", "", "Off Duty", 1);
-    //    employeeManager.addEmployee("", "", "Off Duty", 4);
   }
 
   /**
