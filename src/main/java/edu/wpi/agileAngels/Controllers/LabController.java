@@ -13,14 +13,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 // similar to equip controller
 public class LabController implements Initializable, PropertyChangeListener {
 
   @FXML VBox popOut;
-  @FXML MenuButton labID, labLocation, labEmployee, labStatus, labType;
-  @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
+  @FXML HBox tableHBox;
+  @FXML MenuButton labLocation, labEmployee, labStatus, labType;
+  @FXML Button newRequest, cancelRequest, submitRequest;
   @FXML TableView labTable;
   @FXML
   private TableColumn nameColumn,
@@ -30,7 +33,7 @@ public class LabController implements Initializable, PropertyChangeListener {
       statusColumn,
       descriptionColumn;
   @FXML TextField labDescription, employeeFilterField, statusFilterField;
-  @FXML Label notStartedNumber, inProgressNumber, completedNumber;
+  @FXML Label notStartedNumber, inProgressNumber, completedNumber, labID2;
 
   private RequestDAOImpl labRequestImpl = RequestDAOImpl.getInstance("LabRequest");
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
@@ -58,7 +61,7 @@ public class LabController implements Initializable, PropertyChangeListener {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
-    popOut.setVisible(false);
+    tableHBox.getChildren().remove(0);
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
@@ -83,6 +86,35 @@ public class LabController implements Initializable, PropertyChangeListener {
     }
     dashboardLoad();
     labTable.setItems(labData);
+
+    // Populates locations dropdown
+    for (Location loc : locationsList) {
+      MenuItem item = new MenuItem(loc.getLongName());
+      item.setOnAction(this::locationMenu);
+      labLocation.getItems().add(item);
+    }
+
+    // Populates employees dropdown
+    for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+      Employee emp = entry.getValue();
+      MenuItem item = new MenuItem(emp.getName());
+      item.setOnAction(this::employeeMenu);
+      labEmployee.getItems().add(item);
+    }
+  }
+
+  public void hidePopout() {
+    try {
+      tableHBox.getChildren().remove(popOut);
+    } catch (NullPointerException e) {
+
+    }
+  }
+
+  public void showPopout() {
+    if (tableHBox.getChildren().get(0) != popOut) {
+      tableHBox.getChildren().add(0, popOut);
+    }
   }
 
   @Override
@@ -93,34 +125,9 @@ public class LabController implements Initializable, PropertyChangeListener {
   }
 
   @FXML
-  public void modifyRequest(ActionEvent event) {
-    popOut.setVisible(true);
-    if (labLocation.getItems().size() == 0) {
-      // Populates locations dropdown
-      for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getLongName());
-        item.setOnAction(this::locationMenu);
-        labLocation.getItems().add(item);
-      }
-
-      // Populates employees dropdown
-      for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
-        Employee emp = entry.getValue();
-        MenuItem item = new MenuItem(emp.getName());
-        item.setOnAction(this::employeeMenu);
-        labEmployee.getItems().add(item);
-      }
-
-      // Populates ID dropdown
-      for (Request req : labData) {
-        MenuItem item = new MenuItem(req.getName());
-        item.setOnAction(this::labIDMenu);
-        labID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::labIDMenu);
-      labID.getItems().add(item1);
-    }
+  public void newRequest(ActionEvent event) {
+    showPopout();
+    // write this
   }
 
   @FXML
@@ -131,73 +138,76 @@ public class LabController implements Initializable, PropertyChangeListener {
     String desc = labDescription.getText();
     String type = labType.getText();
 
-    // Adding
-    if (labID.getText().equals("Add New Request")) {
-      Request req =
-          new Request(
-              "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, "N/A", "N/A");
-      labData.add(req);
-      labRequestImpl.addRequest(req);
+     //Adding
+//        if (labID.getText().equals("Add New Request")) {
+//          Request req =
+//              new Request(
+//                  "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, "N/A",
+//     "N/A");
+//          labData.add(req);
+//          labRequestImpl.addRequest(req);
+//
+//          labID.getItems().remove(0, labID.getItems().size());
+//          // Populates ID dropdown
+//          for (Request request : labData) {
+//            MenuItem item = new MenuItem(request.getName());
+//            item.setOnAction(this::labIDMenu);
+//            labID.getItems().add(item);
+//          }
+//          MenuItem item1 = new MenuItem("Add New Request");
+//          item1.setOnAction(this::labIDMenu);
+//          labID.getItems().add(item1);
+//          updateDashAdding(stat);
+//        }
 
-      labID.getItems().remove(0, labID.getItems().size());
-      // Populates ID dropdown
-      for (Request request : labData) {
-        MenuItem item = new MenuItem(request.getName());
-        item.setOnAction(this::labIDMenu);
-        labID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::labIDMenu);
-      labID.getItems().add(item1);
+    // else { // Editing
+    Request req = labRequestImpl.getAllRequests().get(labID2.getText());
+    if (!req.getLocation().getNodeID().equals(loc)) {
+      Location newLoc = locationsHash.get(loc);
+      labRequestImpl.updateLocation(req, newLoc);
+    }
+    if (!req.getEmployee().getName().equals(emp)) {
+      labRequestImpl.updateEmployeeName(req, emp);
+    }
+    if (!req.getStatus().equals(stat)) {
+      System.out.println(stat + " " + req.getStatus());
       updateDashAdding(stat);
-    } else { // Editing
-      Request req = labRequestImpl.getAllRequests().get(labID.getText());
-      if (!req.getLocation().getNodeID().equals(loc)) {
-        Location newLoc = locationsHash.get(loc);
-        labRequestImpl.updateLocation(req, newLoc);
-      }
-      if (!req.getEmployee().getName().equals(emp)) {
-        labRequestImpl.updateEmployeeName(req, emp);
-      }
-      if (!req.getStatus().equals(stat)) {
-        System.out.println(stat + " " + req.getStatus());
-        updateDashAdding(stat);
-        updateDashSubtracting(req.getStatus());
-        labRequestImpl.updateStatus(req, stat);
-      }
-      if (!req.getDescription().equals(desc)) {
-        labRequestImpl.updateDescription(req, desc);
-      }
-      if (!req.getType().equals(type)) {
-        labRequestImpl.updateType(req, type);
-      }
+      updateDashSubtracting(req.getStatus());
+      labRequestImpl.updateStatus(req, stat);
+    }
+    if (!req.getDescription().equals(desc)) {
+      labRequestImpl.updateDescription(req, desc);
+    }
+    if (!req.getType().equals(type)) {
+      labRequestImpl.updateType(req, type);
+    }
 
-      for (int i = 0; i < labData.size(); i++) {
-        if (labData.get(i).getName().equals(req.getName())) {
-          labData.set(i, req);
-        }
+    for (int i = 0; i < labData.size(); i++) {
+      if (labData.get(i).getName().equals(req.getName())) {
+        labData.set(i, req);
       }
+      // }
     }
 
     clear(event);
-    popOut.setVisible(false);
+    tableHBox.getChildren().remove(0);
   }
 
   @FXML
   public void cancel(ActionEvent event) {
     clear(event);
-    popOut.setVisible(false);
+    hidePopout();
   }
 
   @FXML
   public void delete(ActionEvent event) {
-    String id = labID.getText();
+    String id = labID2.getText();
 
     // removes the request from the table and dropdown
     for (int i = 0; i < labData.size(); i++) {
       if (labData.get(i).getName().equals(id)) {
         labData.remove(i);
-        labID.getItems().remove(i);
+        // labID.getItems().remove(i);
       }
     }
     updateDashSubtracting(labRequestImpl.getAllRequests().get(id).getStatus());
@@ -205,12 +215,12 @@ public class LabController implements Initializable, PropertyChangeListener {
     labRequestImpl.deleteRequest(labRequestImpl.getAllRequests().get(id));
 
     clear(event);
-    popOut.setVisible(false);
+    hidePopout();
   }
 
   @FXML
   public void clear(ActionEvent event) {
-    labID.setText("ID");
+    labID2.setText("ID");
     labType.setText("Type");
     labEmployee.setText("Employee");
     labLocation.setText("Location");
@@ -437,16 +447,19 @@ public class LabController implements Initializable, PropertyChangeListener {
   @FXML
   public void labIDMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    labID.setText(button.getText());
+    labID2.setText(button.getText());
 
     // If editing or deleting an existing request:
     if (!button.getText().equals("Add New Request")) {
-      populate(button.getText());
+      // populate(button.getText());
+      populate();
     }
   }
 
-  private void populate(String id) {
-    Request req = labRequestImpl.getAllRequests().get(id);
+  private void populate() {
+    showPopout();
+    Request req = ((Request) labTable.getSelectionModel().getSelectedItem());
+    labID2.setText(req.getName());
     labLocation.setText(req.getLocation().getLongName());
     labEmployee.setText(req.getEmployee().getName());
     labStatus.setText(req.getStatus());
@@ -486,5 +499,14 @@ public class LabController implements Initializable, PropertyChangeListener {
       statusComplete--;
     }
     setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  public void loadRequest(MouseEvent mouseEvent) {
+    // populate(((Request) labTable.getSelectionModel().getSelectedItem()).getName());
+    try {
+      populate();
+    } catch (NullPointerException e) {
+      hidePopout();
+    }
   }
 }

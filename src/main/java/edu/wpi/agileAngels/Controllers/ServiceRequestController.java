@@ -26,7 +26,9 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       maintenanceRequest,
       morgueRequest,
       patientTransportRequest,
-      next;
+      next,
+      saveButton,
+      uploadButton;
   @FXML private JFXToggleButton toggleButton, clientToggle;
 
   // These are/will be the hidden labels for the toggleable switch.
@@ -55,6 +57,8 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       morgueRequest.setDisable(true);
       morgueRequest.setDisable(true);
       patientTransportRequest.setDisable(true);
+      saveButton.setDisable(true);
+      uploadButton.setDisable(true);
     }
   }
 
