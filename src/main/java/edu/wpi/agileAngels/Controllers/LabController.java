@@ -62,7 +62,7 @@ public class LabController implements Initializable, PropertyChangeListener {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
-    tableHBox.getChildren().remove(0);
+    hidePopout();
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
