@@ -278,6 +278,7 @@ public class EmployeeManager implements EmployeeDAO {
     this.employeeHashMap.get(name).removeSupervisee(superviseeName);
   }
 
+  // Assumptions: CSV file is written from admin level down
   public void readCSV() {
     String line = "";
     String splitBy = ",";
@@ -287,12 +288,16 @@ public class EmployeeManager implements EmployeeDAO {
       boolean OnHeader = false;
       line.split(splitBy);
 
+      // Do not read the supervisees from the CSV anymore
       while ((line = br.readLine()) != null) {
         if (OnHeader) {
           String[] values = line.split(splitBy);
           ++this.count;
           LocalTime start = LocalTime.parse(values[5]);
           LocalTime end = LocalTime.parse(values[6]);
+          Employee supervisor = null;
+          if (!values[0].equals("Wong") && values.length > 7)
+            supervisor = this.employeeHashMap.get(values[7]);
           Employee employee =
               new Employee(
                   values[0],
@@ -302,34 +307,13 @@ public class EmployeeManager implements EmployeeDAO {
                   values[4],
                   start,
                   end,
-                  null,
+                  supervisor,
                   new ArrayList<Employee>());
           this.employeeHashMap.put(values[0], employee);
-          // Adb.addEmployee(employee);
-
-        } else {
-          OnHeader = true;
-        }
-      }
-      line = "";
-      OnHeader = false;
-      br = new BufferedReader(new FileReader("./Employees.csv"));
-
-      while ((line = br.readLine()) != null) {
-        if (OnHeader) {
-          String[] values = line.split(splitBy);
-          Employee employee = this.employeeHashMap.get(values[0]);
-          if (values.length >= 8) employee.setSupervisor(this.employeeHashMap.get(values[7]));
-          if (values.length == 9) {
-            String[] superviseesNames = values[8].split("-");
-            if (superviseesNames.length != 0) {
-              for (String name : superviseesNames) {
-                employee.addSupervisee(this.employeeHashMap.get(name));
-              }
-            }
-          }
           Adb.addEmployee(employee);
-
+          if (supervisor != null) {
+            this.employeeHashMap.get(supervisor.getName()).addSupervisee(employee);
+          }
         } else {
           OnHeader = true;
         }

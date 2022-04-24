@@ -22,7 +22,7 @@ public class EmployeeTable implements TableI {
       if (!emp.getSupervisees().isEmpty()) {
         supervisees += emp.getSupervisees().get(0).getName();
         for (int i = 1; i < emp.getSupervisees().size(); i++) {
-          supervisees += "-" + emp.getSupervisees().get(i).getName();
+          supervisees += ", " + emp.getSupervisees().get(i).getName();
         }
       }
 
@@ -85,7 +85,7 @@ public class EmployeeTable implements TableI {
       if (!emp.getSupervisees().isEmpty()) {
         supervisees += emp.getSupervisees().get(0).getName();
         for (int i = 1; i < emp.getSupervisees().size(); i++) {
-          supervisees += "-" + emp.getSupervisees().get(i).getName();
+          supervisees += ", " + emp.getSupervisees().get(i).getName();
         }
       }
       PreparedStatement preparedStatement =
