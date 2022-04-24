@@ -45,6 +45,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
   private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
 
   private int statusNotStarted, statusInProgress, statusComplete;
+  HashMap<String, String> locationIDsByLongName = new HashMap<>();
 
   public MorgueController() throws SQLException {}
 
@@ -57,6 +58,11 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     statusComplete = 0;
     locDAO.getAllLocations();
     empDAO.getAllEmployees();
+
+    for (Location loc : locationsHash.values()) {
+      locationIDsByLongName.put(loc.getLongName(), loc.getNodeID());
+    }
+
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     typeColumn.setCellValueFactory(new PropertyValueFactory<>("attribute2"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -90,7 +96,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     // Populates locations dropdown
     morgueLocation.getItems().clear();
     for (Location loc : locationsList) {
-      MenuItem item = new MenuItem(loc.getNodeID());
+      MenuItem item = new MenuItem(loc.getLongName());
       item.setOnAction(this::locationMenu);
       morgueLocation.getItems().add(item);
     }
@@ -110,7 +116,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
 
   @FXML
   public void submit(ActionEvent event) throws SQLException {
-    String loc = morgueLocation.getText();
+    String loc = locationIDsByLongName.get(morgueLocation.getText());
     String emp = morgueEmployee.getText();
     String stat = morgueStatus.getText();
     String desc = morgueDescription.getText();
@@ -353,7 +359,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
 
   private void populate(String id) {
     Request req = MorguerequestImpl.getAllRequests().get(id);
-    morgueLocation.setText(req.getLocation().getNodeID());
+    morgueLocation.setText(req.getLocation().getLongName());
     morgueEmployee.setText(req.getEmployee().getName());
     morgueStatus.setText(req.getStatus());
     morgueDescription.setText(req.getDescription());

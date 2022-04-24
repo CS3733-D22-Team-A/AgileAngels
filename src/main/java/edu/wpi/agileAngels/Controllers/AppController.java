@@ -219,7 +219,7 @@ public class AppController {
     pages.put("/edu/wpi/agileAngels/views/emergency-view.fxml", "Emergency");
     pages.put("/edu/wpi/agileAngels/views/equipment-view.fxml", "Equipment Request");
     pages.put("/edu/wpi/agileAngels/views/gifts-view.fxml", "Gift Request");
-    pages.put("/edu/wpi/agileAngels/views/home-view.fxml", "Home");
+    // pages.put("/edu/wpi/agileAngels/views/NEWdashboard.fxml", "Home");
     pages.put("/edu/wpi/agileAngels/views/maintenance-view.fxml", "Maintenance Request");
     pages.put("/edu/wpi/agileAngels/views/map-view.fxml", "Map");
     pages.put("/edu/wpi/agileAngels/views/morgue-view.fxml", "Morgue Request");
@@ -311,7 +311,7 @@ public class AppController {
   }
 
   private void goHome(ActionEvent event) {
-    loadPage("/edu/wpi/agileAngels/views/home-view.fxml");
+    loadPage("/edu/wpi/agileAngels/views/NEWdashboard.fxml");
   }
 
   public void setCurrentMenuController(MenuController menuController) {

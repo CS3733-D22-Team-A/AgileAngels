@@ -39,6 +39,7 @@ public class MealController implements Initializable, PropertyChangeListener {
   private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
   private static ObservableList<Request> mealData = FXCollections.observableArrayList();
   AppController appController = AppController.getInstance();
+  HashMap<String, String> locationIDsByLongName = new HashMap<>();
 
   private int statusNotStarted, statusInProgress, statusComplete;
 
@@ -51,6 +52,10 @@ public class MealController implements Initializable, PropertyChangeListener {
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
+
+    for (Location loc : locationsHash.values()) {
+      locationIDsByLongName.put(loc.getLongName(), loc.getNodeID());
+    }
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
@@ -82,7 +87,7 @@ public class MealController implements Initializable, PropertyChangeListener {
     if (mealLocation.getItems().size() == 0) {
       // Populates locations dropdown
       for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getNodeID());
+        MenuItem item = new MenuItem(loc.getLongName());
         item.setOnAction(this::mealLocationMenu);
         mealLocation.getItems().add(item);
       }
@@ -109,7 +114,7 @@ public class MealController implements Initializable, PropertyChangeListener {
 
   @FXML
   public void submit(ActionEvent event) {
-    String loc = mealLocation.getText();
+    String loc = locationIDsByLongName.get(mealLocation.getText());
     String emp = mealEmployee.getText();
     String stat = mealStatus.getText();
     String desc = mealDescription.getText();
@@ -164,6 +169,7 @@ public class MealController implements Initializable, PropertyChangeListener {
     }
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -188,6 +194,7 @@ public class MealController implements Initializable, PropertyChangeListener {
     mealRequestImpl.deleteRequest(mealRequestImpl.getAllRequests().get(id));
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -408,7 +415,7 @@ public class MealController implements Initializable, PropertyChangeListener {
    */
   private void populate(String id) {
     Request req = mealRequestImpl.getAllRequests().get(id);
-    mealLocation.setText(req.getLocation().getNodeID());
+    mealLocation.setText(req.getLocation().getLongName());
     mealEmployee.setText(req.getEmployee().getName());
     mealStatus.setText(req.getStatus());
     mealDescription.setText(req.getDescription());

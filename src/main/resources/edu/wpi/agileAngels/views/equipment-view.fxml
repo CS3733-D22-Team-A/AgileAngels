@@ -74,12 +74,12 @@
          <children>
             <TableView fx:id="equipmentTable" prefHeight="410.0" prefWidth="1173.0">
                <columns>
-                  <TableColumn fx:id="nameColumn" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Name" />
-                  <TableColumn fx:id="typeColumn" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Type" />
-                  <TableColumn fx:id="locationColumn" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Location" />
-                  <TableColumn fx:id="employeeColumn" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Employee" />
-                  <TableColumn fx:id="statusColumn" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Status" />
-                  <TableColumn fx:id="descriptionColumn" maxWidth="400.0" minWidth="150.0" prefWidth="400.0" resizable="false" text="Description" />
+                  <TableColumn fx:id="nameColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Name" />
+                  <TableColumn fx:id="typeColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Type" />
+                  <TableColumn fx:id="employeeColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Employee" />
+                  <TableColumn fx:id="statusColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Status" />
+                  <TableColumn fx:id="locationColumn" maxWidth="250.0" minWidth="-1.0" prefWidth="250.0" resizable="false" text="Location" />
+                  <TableColumn fx:id="descriptionColumn" maxWidth="310.0" minWidth="-1.0" prefWidth="310.0" resizable="false" text="Description" />
                </columns>
             </TableView>
          </children>
@@ -97,7 +97,7 @@
             <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label prefHeight="100.0" prefWidth="100.0" style="-fx-font-weight: bold;" text="Requests by Status:" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+            <Label prefHeight="100.0" prefWidth="100.0" style="-fx-font-weight: bold;" text="Requests by Status:" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <font>
                   <Font size="14.0" />
                </font>
@@ -157,9 +157,9 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <VBox alignment="CENTER" layoutX="977.0" layoutY="88.0" prefHeight="484.0" prefWidth="294.0" spacing="15.0">
+      <VBox alignment="CENTER" layoutX="977.0" layoutY="90.0" prefHeight="534.0" prefWidth="294.0" spacing="15.0">
          <children>
-            <Pane fx:id="popOut" prefHeight="484.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
+            <Pane fx:id="popOut" prefHeight="539.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
                <children>
                   <MenuButton fx:id="mainID" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="ID" />
                   <MenuButton fx:id="equipLocation" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="84.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Location" />
@@ -192,7 +192,7 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="submitRequest" alignment="CENTER" mnemonicParsing="false" onAction="#addEquipRequest" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                        <Button fx:id="submitRequest" alignment="CENTER" mnemonicParsing="false" onAction="#submit" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
                            <font>
                               <Font size="10.0" />
                            </font>

@@ -22,13 +22,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
   @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
   @FXML TableView mainTable;
   @FXML
-  private TableColumn nameColumn,
-      availableColumn,
-      typeColumn,
-      locationColumn,
-      employeeColumn,
-      statusColumn,
-      descriptionColumn;
+  private TableColumn nameColumn, locationColumn, employeeColumn, statusColumn, descriptionColumn;
   @FXML TextField mainDescription, employeeFilterField, statusFilterField;
   @FXML Label notStartedNumber, inProgressNumber, completedNumber;
 
@@ -40,6 +34,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
   private ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
   private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
   private static ObservableList<Request> maintenanceData = FXCollections.observableArrayList();
+  HashMap<String, String> locationIDsByLongName = new HashMap<>();
 
   private int statusNotStarted, statusInProgress, statusComplete;
 
@@ -55,13 +50,15 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     statusInProgress = 0;
     statusComplete = 0;
 
+    for (Location loc : locationsHash.values()) {
+      locationIDsByLongName.put(loc.getLongName(), loc.getNodeID());
+    }
+
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
 
     maintenanceData.clear();
     // Populates the table from UI list
@@ -89,7 +86,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     if (mainLocation.getItems().size() == 0) {
       // Populates locations dropdown
       for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getNodeID());
+        MenuItem item = new MenuItem(loc.getLongName());
         item.setOnAction(this::mainLocationMenu);
         mainLocation.getItems().add(item);
       }
@@ -116,7 +113,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
 
   @FXML
   public void submit(ActionEvent event) {
-    String loc = mainLocation.getText();
+    String loc = locationIDsByLongName.get(mainLocation.getText());
     String emp = mainEmployee.getText();
     String stat = mainStatus.getText();
     String desc = mainDescription.getText();
@@ -164,8 +161,8 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
         }
       }
     }
-
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -190,6 +187,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     mainRequestImpl.deleteRequest(mainRequestImpl.getAllRequests().get(id));
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -407,7 +405,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
    */
   private void populate(String id) {
     Request req = mainRequestImpl.getAllRequests().get(id);
-    mainLocation.setText(req.getLocation().getNodeID());
+    mainLocation.setText(req.getLocation().getLongName());
     mainEmployee.setText(req.getEmployee().getName());
     mainStatus.setText(req.getStatus());
     mainDescription.setText(req.getDescription());

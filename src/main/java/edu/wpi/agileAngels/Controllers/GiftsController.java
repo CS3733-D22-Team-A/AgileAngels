@@ -34,6 +34,8 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   TextField giftDescription, employeeFilterField, statusFilterField, giftSender, giftRecipient;
   @FXML Label notStartedNumber, inProgressNumber, completedNumber;
 
+  HashMap<String, String> locationIDsByLongName = new HashMap<>();
+
   // DAOs, HashMaps, and Lists required for functionality
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
@@ -56,6 +58,10 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
+
+    for (Location loc : locationsHash.values()) {
+      locationIDsByLongName.put(loc.getLongName(), loc.getNodeID());
+    }
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
@@ -92,7 +98,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     if (giftLocation.getItems().size() == 0) {
       // Populates locations dropdown
       for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getNodeID());
+        MenuItem item = new MenuItem(loc.getLongName());
         item.setOnAction(this::mainLocationMenu);
         giftLocation.getItems().add(item);
       }
@@ -119,7 +125,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
 
   @FXML
   public void submit(ActionEvent event) {
-    String loc = giftLocation.getText();
+    String loc = locationIDsByLongName.get(giftLocation.getText());
     String emp = giftEmployee.getText();
     String stat = giftStatus.getText();
     String type = giftType.getText();
@@ -181,6 +187,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     }
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -205,6 +212,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     giftRequestImpl.deleteRequest(giftRequestImpl.getAllRequests().get(id));
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -425,7 +433,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
    */
   private void populate(String id) {
     Request req = giftRequestImpl.getAllRequests().get(id);
-    giftLocation.setText(req.getLocation().getNodeID());
+    giftLocation.setText(req.getLocation().getLongName());
     giftEmployee.setText(req.getEmployee().getName());
     giftStatus.setText(req.getStatus());
     giftType.setText(req.getType());

@@ -41,6 +41,8 @@ public class LabController implements Initializable, PropertyChangeListener {
   private static ObservableList<Request> labData = FXCollections.observableArrayList();
   private int statusNotStarted, statusInProgress, statusComplete;
 
+  HashMap<String, String> locationIDsByLongName = new HashMap<>();
+
   AppController appController = AppController.getInstance();
 
   public LabController() throws SQLException {}
@@ -61,6 +63,10 @@ public class LabController implements Initializable, PropertyChangeListener {
     statusInProgress = 0;
     statusComplete = 0;
     // nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+    for (Location loc : locationsHash.values()) {
+      locationIDsByLongName.put(loc.getLongName(), loc.getNodeID());
+    }
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
@@ -92,7 +98,7 @@ public class LabController implements Initializable, PropertyChangeListener {
     if (labLocation.getItems().size() == 0) {
       // Populates locations dropdown
       for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getNodeID());
+        MenuItem item = new MenuItem(loc.getLongName());
         item.setOnAction(this::locationMenu);
         labLocation.getItems().add(item);
       }
@@ -119,7 +125,7 @@ public class LabController implements Initializable, PropertyChangeListener {
 
   @FXML
   public void submit(ActionEvent event) {
-    String loc = labLocation.getText();
+    String loc = locationIDsByLongName.get(labLocation.getText());
     String emp = labEmployee.getText();
     String stat = labStatus.getText();
     String desc = labDescription.getText();
@@ -174,6 +180,7 @@ public class LabController implements Initializable, PropertyChangeListener {
     }
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -198,6 +205,7 @@ public class LabController implements Initializable, PropertyChangeListener {
     labRequestImpl.deleteRequest(labRequestImpl.getAllRequests().get(id));
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -439,7 +447,7 @@ public class LabController implements Initializable, PropertyChangeListener {
 
   private void populate(String id) {
     Request req = labRequestImpl.getAllRequests().get(id);
-    labLocation.setText(req.getLocation().getNodeID());
+    labLocation.setText(req.getLocation().getLongName());
     labEmployee.setText(req.getEmployee().getName());
     labStatus.setText(req.getStatus());
     labDescription.setText(req.getDescription());
