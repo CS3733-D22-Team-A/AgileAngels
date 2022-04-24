@@ -98,7 +98,6 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
   LocationNode currentLocationNode = null;
   RequestNode currentRequestNode = null;
-  private String currentFloor = "2";
   EquipmentNode currentEquipmentNode = null;
 
   Pane pane2 = new Pane();
@@ -532,12 +531,11 @@ public class MapsController implements Initializable, PropertyChangeListener {
     } else if (event.getSource() == lowerLevelOne) {
       paneL1.setVisible(true);
       appController.setCurrentFloor("L1");
-      floorLabel.setText("1");
+      floorLabel.setText("L1");
     } else if (event.getSource() == lowerLevelTwo) {
       paneL2.setVisible(true);
       appController.setCurrentFloor("L2");
-      floorLabel.setText("2");
-
+      floorLabel.setText("L2");
     } else if (event.getSource() == floorUp) {
       if (appController.getCurrentFloor().equals("L1")) {
         paneL2.setVisible(true);
@@ -715,7 +713,8 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
     } else {
       int typeCount =
-          (locationNodeManager.getTypeCount(addLocationTypeDropdown.getText(), currentFloor));
+          (locationNodeManager.getTypeCount(
+              addLocationTypeDropdown.getText(), appController.getCurrentFloor()));
 
       System.out.println(typeCount);
 
@@ -723,16 +722,20 @@ public class MapsController implements Initializable, PropertyChangeListener {
           "A"
               + addLocationTypeDropdown.getText()
               + String.format("%03d", typeCount)
-              + ((currentFloor.length() == 1) ? ("0" + currentFloor) : (currentFloor));
+              + ((appController.getCurrentFloor().length() == 1)
+                  ? ("0" + appController.getCurrentFloor())
+                  : (appController.getCurrentFloor()));
 
       System.out.println(nodeID);
+
+      // check if long name is same
 
       Location newLocation =
           new Location(
               nodeID,
               (getMapXCoordFromClick(rightClick)),
               (getMapYCoordFromClick(rightClick)),
-              currentFloor,
+              appController.getCurrentFloor(),
               "TOWER",
               addLocationTypeDropdown.getText(),
               addLocationName.getText(),
