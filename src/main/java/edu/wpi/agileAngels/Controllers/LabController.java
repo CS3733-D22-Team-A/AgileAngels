@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -125,9 +126,10 @@ public class LabController implements Initializable, PropertyChangeListener {
   }
 
   @FXML
-  public void newRequest(ActionEvent event) {
+  public void newRequest() {
     showPopout();
-    // write this
+    clear();
+    labID2.setText("New Request");
   }
 
   @FXML
@@ -138,64 +140,49 @@ public class LabController implements Initializable, PropertyChangeListener {
     String desc = labDescription.getText();
     String type = labType.getText();
 
-     //Adding
-//        if (labID.getText().equals("Add New Request")) {
-//          Request req =
-//              new Request(
-//                  "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, "N/A",
-//     "N/A");
-//          labData.add(req);
-//          labRequestImpl.addRequest(req);
-//
-//          labID.getItems().remove(0, labID.getItems().size());
-//          // Populates ID dropdown
-//          for (Request request : labData) {
-//            MenuItem item = new MenuItem(request.getName());
-//            item.setOnAction(this::labIDMenu);
-//            labID.getItems().add(item);
-//          }
-//          MenuItem item1 = new MenuItem("Add New Request");
-//          item1.setOnAction(this::labIDMenu);
-//          labID.getItems().add(item1);
-//          updateDashAdding(stat);
-//        }
-
-    // else { // Editing
-    Request req = labRequestImpl.getAllRequests().get(labID2.getText());
-    if (!req.getLocation().getNodeID().equals(loc)) {
-      Location newLoc = locationsHash.get(loc);
-      labRequestImpl.updateLocation(req, newLoc);
-    }
-    if (!req.getEmployee().getName().equals(emp)) {
-      labRequestImpl.updateEmployeeName(req, emp);
-    }
-    if (!req.getStatus().equals(stat)) {
-      System.out.println(stat + " " + req.getStatus());
+    if (labID2.getText().equals("New Request")) {
+      Request req =
+          new Request(
+              "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, "N/A", "N/A");
+      labData.add(req);
+      labRequestImpl.addRequest(req);
       updateDashAdding(stat);
-      updateDashSubtracting(req.getStatus());
-      labRequestImpl.updateStatus(req, stat);
-    }
-    if (!req.getDescription().equals(desc)) {
-      labRequestImpl.updateDescription(req, desc);
-    }
-    if (!req.getType().equals(type)) {
-      labRequestImpl.updateType(req, type);
-    }
-
-    for (int i = 0; i < labData.size(); i++) {
-      if (labData.get(i).getName().equals(req.getName())) {
-        labData.set(i, req);
+    } else { // Editing
+      Request req = labRequestImpl.getAllRequests().get(labID2.getText());
+      if (!req.getLocation().getNodeID().equals(loc)) {
+        Location newLoc = locationsHash.get(loc);
+        labRequestImpl.updateLocation(req, newLoc);
       }
-      // }
+      if (!req.getEmployee().getName().equals(emp)) {
+        labRequestImpl.updateEmployeeName(req, emp);
+      }
+      if (!req.getStatus().equals(stat)) {
+        System.out.println(stat + " " + req.getStatus());
+        updateDashAdding(stat);
+        updateDashSubtracting(req.getStatus());
+        labRequestImpl.updateStatus(req, stat);
+      }
+      if (!req.getDescription().equals(desc)) {
+        labRequestImpl.updateDescription(req, desc);
+      }
+      if (!req.getType().equals(type)) {
+        labRequestImpl.updateType(req, type);
+      }
+
+      for (int i = 0; i < labData.size(); i++) {
+        if (labData.get(i).getName().equals(req.getName())) {
+          labData.set(i, req);
+        }
+      }
     }
 
-    clear(event);
+    clear();
     tableHBox.getChildren().remove(0);
   }
 
   @FXML
   public void cancel(ActionEvent event) {
-    clear(event);
+    clear();
     hidePopout();
   }
 
@@ -214,12 +201,12 @@ public class LabController implements Initializable, PropertyChangeListener {
     // delete from hash map and database table
     labRequestImpl.deleteRequest(labRequestImpl.getAllRequests().get(id));
 
-    clear(event);
+    clear();
     hidePopout();
   }
 
   @FXML
-  public void clear(ActionEvent event) {
+  public void clear() {
     labID2.setText("ID");
     labType.setText("Type");
     labEmployee.setText("Employee");
@@ -504,7 +491,9 @@ public class LabController implements Initializable, PropertyChangeListener {
   public void loadRequest(MouseEvent mouseEvent) {
     // populate(((Request) labTable.getSelectionModel().getSelectedItem()).getName());
     try {
-      populate();
+      if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+        populate();
+      }
     } catch (NullPointerException e) {
       hidePopout();
     }
