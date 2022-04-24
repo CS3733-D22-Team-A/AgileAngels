@@ -310,10 +310,12 @@ public class EmployeeManager implements EmployeeDAO {
                   supervisor,
                   new ArrayList<Employee>());
           this.employeeHashMap.put(values[0], employee);
-          Adb.addEmployee(employee);
           if (supervisor != null) {
             this.employeeHashMap.get(supervisor.getName()).addSupervisee(employee);
+            Adb.updateEmployee(this.employeeHashMap.get(supervisor.getName()));
           }
+          Adb.addEmployee(employee);
+
         } else {
           OnHeader = true;
         }
