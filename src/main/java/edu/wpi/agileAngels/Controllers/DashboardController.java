@@ -570,6 +570,10 @@ public class DashboardController implements Initializable, PropertyChangeListene
       employeeTable
           .getStylesheets()
           .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestGreenTest.css");
+      requestGraph.getStylesheets().removeAll();
+      requestGraph
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/DashCSSGreen.css");
     }
 
     if (color.toLowerCase(Locale.ROOT).equals("red")) {
@@ -588,6 +592,10 @@ public class DashboardController implements Initializable, PropertyChangeListene
       employeeTable
           .getStylesheets()
           .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestRedTest.css");
+      requestGraph.getStylesheets().removeAll();
+      requestGraph
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/DashCSSRed.css");
     }
 
     // back to default
@@ -604,6 +612,8 @@ public class DashboardController implements Initializable, PropertyChangeListene
       requestTable.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
       employeeTable.getStylesheets().removeAll();
       employeeTable.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+      requestGraph.getStylesheets().removeAll();
+      requestGraph.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/DashCSS.css");
     }
   }
 }
