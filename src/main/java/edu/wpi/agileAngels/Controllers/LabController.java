@@ -13,14 +13,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 // similar to equip controller
 public class LabController implements Initializable, PropertyChangeListener {
 
   @FXML VBox popOut;
-  @FXML MenuButton labID, labLocation, labEmployee, labStatus, labType;
-  @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
+  @FXML HBox tableHBox;
+  @FXML MenuButton labLocation, labEmployee, labStatus, labType;
+  @FXML Button newRequest, cancelRequest, submitRequest, deleteRequest;
   @FXML TableView labTable;
   @FXML
   private TableColumn nameColumn,
@@ -30,7 +34,7 @@ public class LabController implements Initializable, PropertyChangeListener {
       statusColumn,
       descriptionColumn;
   @FXML TextField labDescription, employeeFilterField, statusFilterField;
-  @FXML Label notStartedNumber, inProgressNumber, completedNumber;
+  @FXML Label notStartedNumber, inProgressNumber, completedNumber, labID2;
 
   private RequestDAOImpl labRequestImpl = RequestDAOImpl.getInstance("LabRequest");
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
@@ -58,7 +62,7 @@ public class LabController implements Initializable, PropertyChangeListener {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
-    popOut.setVisible(false);
+    hidePopout();
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
@@ -83,6 +87,35 @@ public class LabController implements Initializable, PropertyChangeListener {
     }
     dashboardLoad();
     labTable.setItems(labData);
+
+    // Populates locations dropdown
+    for (Location loc : locationsList) {
+      MenuItem item = new MenuItem(loc.getLongName());
+      item.setOnAction(this::locationMenu);
+      labLocation.getItems().add(item);
+    }
+
+    // Populates employees dropdown
+    for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+      Employee emp = entry.getValue();
+      MenuItem item = new MenuItem(emp.getName());
+      item.setOnAction(this::employeeMenu);
+      labEmployee.getItems().add(item);
+    }
+  }
+
+  public void hidePopout() {
+    try {
+      tableHBox.getChildren().remove(popOut);
+    } catch (NullPointerException e) {
+
+    }
+  }
+
+  public void showPopout() {
+    if (tableHBox.getChildren().get(0) != popOut) {
+      tableHBox.getChildren().add(0, popOut);
+    }
   }
 
   @Override
@@ -93,34 +126,11 @@ public class LabController implements Initializable, PropertyChangeListener {
   }
 
   @FXML
-  public void modifyRequest(ActionEvent event) {
-    popOut.setVisible(true);
-    if (labLocation.getItems().size() == 0) {
-      // Populates locations dropdown
-      for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getLongName());
-        item.setOnAction(this::locationMenu);
-        labLocation.getItems().add(item);
-      }
-
-      // Populates employees dropdown
-      for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
-        Employee emp = entry.getValue();
-        MenuItem item = new MenuItem(emp.getName());
-        item.setOnAction(this::employeeMenu);
-        labEmployee.getItems().add(item);
-      }
-
-      // Populates ID dropdown
-      for (Request req : labData) {
-        MenuItem item = new MenuItem(req.getName());
-        item.setOnAction(this::labIDMenu);
-        labID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::labIDMenu);
-      labID.getItems().add(item1);
-    }
+  public void newRequest() {
+    deleteRequest.setVisible(false);
+    showPopout();
+    clear();
+    labID2.setText("New Request");
   }
 
   @FXML
@@ -131,27 +141,15 @@ public class LabController implements Initializable, PropertyChangeListener {
     String desc = labDescription.getText();
     String type = labType.getText();
 
-    // Adding
-    if (labID.getText().equals("Add New Request")) {
+    if (labID2.getText().equals("New Request")) {
       Request req =
           new Request(
               "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, "N/A", "N/A");
       labData.add(req);
       labRequestImpl.addRequest(req);
-
-      labID.getItems().remove(0, labID.getItems().size());
-      // Populates ID dropdown
-      for (Request request : labData) {
-        MenuItem item = new MenuItem(request.getName());
-        item.setOnAction(this::labIDMenu);
-        labID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::labIDMenu);
-      labID.getItems().add(item1);
       updateDashAdding(stat);
     } else { // Editing
-      Request req = labRequestImpl.getAllRequests().get(labID.getText());
+      Request req = labRequestImpl.getAllRequests().get(labID2.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
         Location newLoc = locationsHash.get(loc);
         labRequestImpl.updateLocation(req, newLoc);
@@ -179,38 +177,43 @@ public class LabController implements Initializable, PropertyChangeListener {
       }
     }
 
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    tableHBox.getChildren().remove(0);
   }
 
   @FXML
   public void cancel(ActionEvent event) {
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
   }
 
   @FXML
   public void delete(ActionEvent event) {
-    String id = labID.getText();
 
-    // removes the request from the table and dropdown
-    for (int i = 0; i < labData.size(); i++) {
-      if (labData.get(i).getName().equals(id)) {
-        labData.remove(i);
-        labID.getItems().remove(i);
+    try {
+      String id = ((Request) labTable.getSelectionModel().getSelectedItem()).getName();
+
+      // removes the request from the table and dropdown
+      for (int i = 0; i < labData.size(); i++) {
+        if (labData.get(i).getName().equals(id)) {
+          labData.remove(i);
+          // labID.getItems().remove(i);
+        }
       }
-    }
-    updateDashSubtracting(labRequestImpl.getAllRequests().get(id).getStatus());
-    // delete from hash map and database table
-    labRequestImpl.deleteRequest(labRequestImpl.getAllRequests().get(id));
+      updateDashSubtracting(labRequestImpl.getAllRequests().get(id).getStatus());
+      // delete from hash map and database table
+      labRequestImpl.deleteRequest(labRequestImpl.getAllRequests().get(id));
 
-    clear(event);
-    popOut.setVisible(false);
+    } catch (NullPointerException e) {
+      labTable.getSelectionModel().clearSelection();
+    }
+    clear();
+    hidePopout();
   }
 
   @FXML
-  public void clear(ActionEvent event) {
-    labID.setText("ID");
+  public void clear() {
+    labID2.setText("ID");
     labType.setText("Type");
     labEmployee.setText("Employee");
     labLocation.setText("Location");
@@ -434,19 +437,10 @@ public class LabController implements Initializable, PropertyChangeListener {
     labStatus.setText(button.getText());
   }
 
-  @FXML
-  public void labIDMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    labID.setText(button.getText());
-
-    // If editing or deleting an existing request:
-    if (!button.getText().equals("Add New Request")) {
-      populate(button.getText());
-    }
-  }
-
-  private void populate(String id) {
-    Request req = labRequestImpl.getAllRequests().get(id);
+  private void populate() {
+    showPopout();
+    Request req = ((Request) labTable.getSelectionModel().getSelectedItem());
+    labID2.setText(req.getName());
     labLocation.setText(req.getLocation().getLongName());
     labEmployee.setText(req.getEmployee().getName());
     labStatus.setText(req.getStatus());
@@ -486,5 +480,16 @@ public class LabController implements Initializable, PropertyChangeListener {
       statusComplete--;
     }
     setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  public void loadRequest(MouseEvent mouseEvent) {
+    try {
+      if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+        populate();
+        deleteRequest.setVisible(true);
+      }
+    } catch (NullPointerException e) {
+      hidePopout();
+    }
   }
 }

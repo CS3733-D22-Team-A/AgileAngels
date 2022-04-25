@@ -3,18 +3,17 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
@@ -28,7 +27,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <HBox layoutX="382.0" layoutY="599.0" prefHeight="100.0" prefWidth="905.0" spacing="30.0">
+      <HBox alignment="BOTTOM_RIGHT" layoutX="198.0" layoutY="620.0" prefHeight="56.0" prefWidth="905.0" spacing="30.0" AnchorPane.bottomAnchor="44.0" AnchorPane.rightAnchor="177.0">
          <children>
             <TextField fx:id="employeeFilterField" prefHeight="50.0" prefWidth="200.0" promptText="Filter by Employee" />
             <TextField fx:id="statusFilterField" prefHeight="50.0" prefWidth="200.0" promptText="Filter by Status" />
@@ -70,109 +69,30 @@
             </Button>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="68.0" layoutY="171.0" prefHeight="410.0" prefWidth="1158.0" spacing="50.0" AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="61.0">
+      <HBox fx:id="tableHBox" alignment="CENTER" layoutX="68.0" layoutY="171.0" prefHeight="410.0" prefWidth="1158.0" spacing="50.0" AnchorPane.bottomAnchor="109.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="160.0">
          <children>
-            <TableView fx:id="equipmentTable" prefHeight="410.0" prefWidth="1173.0">
-               <columns>
-                  <TableColumn fx:id="nameColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Name" />
-                  <TableColumn fx:id="typeColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Type" />
-                  <TableColumn fx:id="employeeColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Employee" />
-                  <TableColumn fx:id="statusColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Status" />
-                  <TableColumn fx:id="locationColumn" maxWidth="250.0" minWidth="-1.0" prefWidth="250.0" resizable="false" text="Location" />
-                  <TableColumn fx:id="descriptionColumn" maxWidth="310.0" minWidth="-1.0" prefWidth="310.0" resizable="false" text="Description" />
-               </columns>
-            </TableView>
-         </children>
-      </HBox>
-
-      <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
-      <GridPane layoutX="382.0" layoutY="68.0" prefWidth="408.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Label prefHeight="100.0" prefWidth="100.0" style="-fx-font-weight: bold;" text="Requests by Status:" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </Rectangle>
-            <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="3">
-               <GridPane.margin>
-                  <Insets left="20.0" />
-               </GridPane.margin>
-            </Rectangle>
-            <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="2">
-               <GridPane.margin>
-                  <Insets left="15.0" />
-               </GridPane.margin>
-            </Rectangle>
-            <Label fx:id="notStartedNumber" text="-" GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets bottom="25.0" left="40.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="inProgressNumber" text="-" GridPane.columnIndex="2">
-               <GridPane.margin>
-                  <Insets bottom="25.0" left="42.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="completedNumber" text="-" GridPane.columnIndex="3">
-               <GridPane.margin>
-                  <Insets bottom="25.0" left="47.0" />
-               </GridPane.margin>
-            </Label>
-            <Label prefHeight="35.0" prefWidth="77.0" style="-fx-font-size: 15;" text="Not Started" textOverrun="CLIP" GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets left="19.0" top="40.0" />
-               </GridPane.margin>
-               <font>
-                  <Font size="7.0" />
-               </font>
-            </Label>
-            <Label style="-fx-font-size: 15;" text="In Progress" textOverrun="CLIP" GridPane.columnIndex="2">
-               <GridPane.margin>
-                  <Insets left="25.0" top="40.0" />
-               </GridPane.margin>
-            </Label>
-            <Label style="-fx-font-size: 15;" text="Completed" textOverrun="CLIP" GridPane.columnIndex="3">
-               <GridPane.margin>
-                  <Insets left="28.0" top="40.0" />
-               </GridPane.margin>
-            </Label>
-         </children>
-      </GridPane>
-      <Button fx:id="modifyButton" layoutX="827.0" layoutY="88.0" mnemonicParsing="false" onAction="#modifyRequest" prefHeight="59.0" prefWidth="120.0" style="-fx-font-weight: bold;" text="Modify" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-      <VBox alignment="CENTER" layoutX="977.0" layoutY="90.0" prefHeight="534.0" prefWidth="294.0" spacing="15.0">
-         <children>
-            <Pane fx:id="popOut" prefHeight="539.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
+            <VBox fx:id="popOut" alignment="CENTER" maxWidth="300.0" minWidth="300.0" prefHeight="451.0" prefWidth="300.0" spacing="15.0">
                <children>
-                  <MenuButton fx:id="mainID" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="30.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="ID" />
-                  <MenuButton fx:id="equipLocation" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="84.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Location" />
-                  <MenuButton fx:id="equipmentEmployeeText" alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="196.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
-                  <MenuButton fx:id="equipmentStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="250.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Status">
+                  <Label fx:id="equipID" prefHeight="20.0" prefWidth="579.0" text="Label" />
+                  <MenuButton fx:id="equipLocation" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Location" />
+                  <MenuButton fx:id="equipmentType" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Type" textAlignment="CENTER">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="notStarted" />
-                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="inProgress" />
-                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="complete" />
+                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="XRayMachine" />
+                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="InfusionPump" />
+                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Recliner" />
+                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Bed" />
                      </items>
                   </MenuButton>
-                  <TextField fx:id="mainDescription" layoutX="14.0" layoutY="299.0" prefHeight="50.0" prefWidth="270.0" promptText="Description" />
-                  <HBox layoutX="12.0" layoutY="359.0" prefHeight="59.0" prefWidth="270.0" spacing="16.0">
+                  <MenuButton fx:id="equipmentEmployeeText" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
+                  <MenuButton fx:id="equipmentStatus" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Status">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="Not Started" />
+                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="In Progress" />
+                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="Complete" />
+                     </items>
+                  </MenuButton>
+                  <TextField fx:id="mainDescription" prefHeight="50.0" prefWidth="270.0" promptText="Description" />
+                  <HBox prefHeight="59.0" prefWidth="270.0" spacing="16.0">
                      <children>
                         <Button fx:id="cancelRequest" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
                            <font>
@@ -210,59 +130,112 @@
                               </HBox>
                            </graphic>
                         </Button>
-                        <Button fx:id="clearRequest" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                           <font>
-                              <Font size="10.0" />
-                           </font>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <graphic>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Clear" />
-                                 </children>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </HBox>
-                           </graphic>
-                        </Button>
                      </children>
                   </HBox>
-                  <Button fx:id="deleteRequest" alignment="CENTER" layoutX="13.0" layoutY="417.0" mnemonicParsing="false" onAction="#deleteEquipRequest" prefHeight="50.0" prefWidth="270.0" textAlignment="CENTER">
-                     <font>
-                        <Font size="10.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <graphic>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="119.0">
-                           <children>
-                              <Label text="Delete" />
-                           </children>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </HBox>
-                     </graphic>
-                  </Button>
-                  <MenuButton fx:id="equipmentType" alignment="CENTER" layoutX="14.0" layoutY="140.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Type" textAlignment="CENTER">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="XRayMachine" />
-                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="InfusionPump" />
-                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Recliner" />
-                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Bed" />
-                     </items>
-                  </MenuButton>
                </children>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Pane>
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
+            </VBox>
+            <TableView fx:id="equipmentTable" onMouseClicked="#loadRequest" prefHeight="451.0" prefWidth="1066.0">
+               <columns>
+                  <TableColumn fx:id="nameColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Name" />
+                  <TableColumn fx:id="typeColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Type" />
+                  <TableColumn fx:id="employeeColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Employee" />
+                  <TableColumn fx:id="statusColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Status" />
+                  <TableColumn fx:id="locationColumn" maxWidth="250.0" minWidth="-1.0" prefWidth="250.0" resizable="false" text="Location" />
+                  <TableColumn fx:id="descriptionColumn" maxWidth="310.0" minWidth="-1.0" prefWidth="310.0" resizable="false" text="Description" />
+               </columns>
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#deleteEquipRequest" text="Delete Request" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
+            </TableView>
          </children>
-      </VBox>
+         <padding>
+            <Insets left="60.0" right="60.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <GridPane prefWidth="408.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label prefHeight="100.0" prefWidth="100.0" style="-fx-font-weight: bold;" text="Requests by Status:" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Rectangle>
+                  <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="3">
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </Rectangle>
+                  <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets left="15.0" />
+                     </GridPane.margin>
+                  </Rectangle>
+                  <Label fx:id="notStartedNumber" text="-" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="25.0" left="40.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="inProgressNumber" text="-" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets bottom="25.0" left="42.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="completedNumber" text="-" GridPane.columnIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="25.0" left="47.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label prefHeight="35.0" prefWidth="77.0" style="-fx-font-size: 15;" text="Not Started" textOverrun="CLIP" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets left="19.0" top="40.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="7.0" />
+                     </font>
+                  </Label>
+                  <Label style="-fx-font-size: 15;" text="In Progress" textOverrun="CLIP" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets left="25.0" top="40.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label style="-fx-font-size: 15;" text="Completed" textOverrun="CLIP" GridPane.columnIndex="3">
+                     <GridPane.margin>
+                        <Insets left="28.0" top="40.0" />
+                     </GridPane.margin>
+                  </Label>
+               </children>
+            </GridPane>
+         </children>
+      </HBox>
+      <Button fx:id="newRequest" layoutX="192.0" layoutY="-89.0" mnemonicParsing="false" onAction="#newRequest" prefHeight="59.0" prefWidth="120.0" style="-fx-font-weight: bold;" text="New Request" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+
+      <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
    </children>
    <stylesheets>
       <URL value="@stylesheets/styleRequest.css" />

@@ -26,7 +26,10 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       maintenanceRequest,
       morgueRequest,
       patientTransportRequest,
-      next;
+      next,
+      saveButton,
+      uploadButton,
+      MedAid;
   @FXML private JFXToggleButton toggleButton, clientToggle;
 
   // These are/will be the hidden labels for the toggleable switch.
@@ -55,6 +58,8 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       morgueRequest.setDisable(true);
       morgueRequest.setDisable(true);
       patientTransportRequest.setDisable(true);
+      saveButton.setDisable(true);
+      uploadButton.setDisable(true);
     }
   }
 
@@ -122,6 +127,8 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       appController.loadPage("/edu/wpi/agileAngels/views/morgue-view.fxml");
     } else if (event.getSource() == patientTransportRequest) {
       appController.loadPage("/edu/wpi/agileAngels/views/patientTransport-view.fxml");
+    } else if (event.getSource() == MedAid) {
+      appController.loadPage("/edu/wpi/agileAngels/views/medAid-view.fxml");
     } else if (event.getSource() == next) {
       appController.loadPage("/edu/wpi/agileAngels/views/apiLanding-view.fxml");
     }

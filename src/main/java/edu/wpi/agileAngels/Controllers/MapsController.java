@@ -82,7 +82,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
   @FXML private TextField locationName, addLocationName;
   @FXML Pane mapPane, locationEditPane, requestEditPane, locationAddPane, clickPane;
   @FXML AnchorPane anchor;
-  @FXML Label requestName, floorLabel, nodeIDField, addNodeIDField;
+  @FXML Label requestName, floorLabel, nodeIDField, addNodeIDField, sameLocationName;
   @FXML
   MenuButton locationTypeDropdown,
       requestTypeDropdown,
@@ -93,12 +93,11 @@ public class MapsController implements Initializable, PropertyChangeListener {
       requestFilterButton,
       equipmentFilterButton;
 
-  public final ContextMenu contextMenu = new ContextMenu();
+  public ContextMenu contextMenu = new ContextMenu();
   MenuItem addNode = new MenuItem("Add Location");
 
   LocationNode currentLocationNode = null;
   RequestNode currentRequestNode = null;
-  private String currentFloor = "2";
   EquipmentNode currentEquipmentNode = null;
 
   Pane pane2 = new Pane();
@@ -343,6 +342,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     deselect();
     clickPane.setVisible(true);
     locationAddPane.setVisible(true);
+    hideFilter();
   }
 
   /**
@@ -532,18 +532,17 @@ public class MapsController implements Initializable, PropertyChangeListener {
     } else if (event.getSource() == lowerLevelOne) {
       paneL1.setVisible(true);
       appController.setCurrentFloor("L1");
-      floorLabel.setText("1");
+      floorLabel.setText("L1");
     } else if (event.getSource() == lowerLevelTwo) {
       paneL2.setVisible(true);
       appController.setCurrentFloor("L2");
-      floorLabel.setText("2");
-
+      floorLabel.setText("L2");
     } else if (event.getSource() == floorUp) {
-      if (appController.getCurrentFloor().equals("L1")) {
-        paneL2.setVisible(true);
-        appController.setCurrentFloor("L2");
-        floorLabel.setText("L2");
-      } else if (appController.getCurrentFloor().equals("L2")) {
+      if (appController.getCurrentFloor().equals("L2")) {
+        paneL1.setVisible(true);
+        appController.setCurrentFloor("L1");
+        floorLabel.setText("L1");
+      } else if (appController.getCurrentFloor().equals("L1")) {
         pane2.setVisible(true);
         appController.setCurrentFloor("2");
         floorLabel.setText("2");
@@ -566,9 +565,9 @@ public class MapsController implements Initializable, PropertyChangeListener {
       }
     } else if (event.getSource() == floorDown) {
       if (appController.getCurrentFloor().equals("2")) {
-        paneL2.setVisible(true);
-        appController.setCurrentFloor("L2");
-        floorLabel.setText("L2");
+        paneL1.setVisible(true);
+        appController.setCurrentFloor("L1");
+        floorLabel.setText("L1");
       } else if (appController.getCurrentFloor().equals("3")) {
         pane2.setVisible(true);
         appController.setCurrentFloor("2");
@@ -581,14 +580,14 @@ public class MapsController implements Initializable, PropertyChangeListener {
         pane4.setVisible(true);
         appController.setCurrentFloor("4");
         floorLabel.setText("4");
-      } else if (appController.getCurrentFloor().equals("L2")) {
-        paneL1.setVisible(true);
-        appController.setCurrentFloor("L1");
-        floorLabel.setText("L1");
       } else if (appController.getCurrentFloor().equals("L1")) {
-        paneL1.setVisible(true);
-        appController.setCurrentFloor("L1");
-        floorLabel.setText("L1");
+        paneL2.setVisible(true);
+        appController.setCurrentFloor("L2");
+        floorLabel.setText("L2");
+      } else if (appController.getCurrentFloor().equals("L2")) {
+        paneL2.setVisible(true);
+        appController.setCurrentFloor("L2");
+        floorLabel.setText("L2");
       }
     }
   }
@@ -684,6 +683,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     requestEditPane.setVisible(false);
     locationEditPane.setVisible(false);
     locationAddPane.setVisible(false);
+    sameLocationName.setVisible(false);
 
     clickPane.setVisible(false);
     locationFilterButton.setVisible(true);
@@ -709,39 +709,56 @@ public class MapsController implements Initializable, PropertyChangeListener {
   }
 
   public void locationAdd(ActionEvent event) {
+    String name = addLocationName.getText();
+    boolean flag = true;
+
+    for (Location e : locationsHash.values()) {
+      if (e.getLongName().equals(name)) {
+        flag = false;
+      }
+    }
 
     if (addLocationTypeDropdown.getText().equals("Node Type")
         || addLocationName.getText().isEmpty()) {
 
     } else {
-      int typeCount =
-          (locationNodeManager.getTypeCount(addLocationTypeDropdown.getText(), currentFloor));
+      if (flag) {
+        int typeCount =
+            (locationNodeManager.getTypeCount(
+                addLocationTypeDropdown.getText(), appController.getCurrentFloor()));
 
-      System.out.println(typeCount);
+        System.out.println(typeCount);
 
-      String nodeID =
-          "A"
-              + addLocationTypeDropdown.getText()
-              + String.format("%03d", typeCount)
-              + ((currentFloor.length() == 1) ? ("0" + currentFloor) : (currentFloor));
+        String nodeID =
+            "A"
+                + addLocationTypeDropdown.getText()
+                + String.format("%03d", typeCount)
+                + ((appController.getCurrentFloor().length() == 1)
+                    ? ("0" + appController.getCurrentFloor())
+                    : (appController.getCurrentFloor()));
 
-      System.out.println(nodeID);
+        System.out.println(nodeID);
 
-      Location newLocation =
-          new Location(
-              nodeID,
-              (getMapXCoordFromClick(rightClick)),
-              (getMapYCoordFromClick(rightClick)),
-              currentFloor,
-              "TOWER",
-              addLocationTypeDropdown.getText(),
-              addLocationName.getText(),
-              nodeID);
-      System.out.println("new Location");
-      displayLocationNode(
-          locationNodeManager.addNode(
-              newLocation, appController.getCurrentUser().getPermissionLevel()));
-      locationAddPane.setVisible(false);
+        // check if long name is same
+
+        Location newLocation =
+            new Location(
+                nodeID,
+                (getMapXCoordFromClick(rightClick)),
+                (getMapYCoordFromClick(rightClick)),
+                appController.getCurrentFloor(),
+                "TOWER",
+                addLocationTypeDropdown.getText(),
+                addLocationName.getText(),
+                nodeID);
+        System.out.println("new Location");
+        displayLocationNode(
+            locationNodeManager.addNode(
+                newLocation, appController.getCurrentUser().getPermissionLevel()));
+        deselect();
+      } else {
+        sameLocationName.setVisible(true);
+      }
     }
   }
 
