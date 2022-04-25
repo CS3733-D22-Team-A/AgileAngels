@@ -117,9 +117,9 @@ public class EquipmentNodeManager {
     if (request.getAttribute2().equals("Clean")) {
       // if it's a request to clean equipment
       if (request.getMedicalEquip() != null) {
-        if (status.equals("notStarted")) {
+        if (status.equals("Not Started")) {
           equipDAO.updateStatus(request.getMedicalEquip(), "inUse");
-        } else if (status.equals("inProgress")) {
+        } else if (status.equals("In Progress")) {
           equipDAO.updateStatus(request.getMedicalEquip(), "inUse");
           if (request.getLocation().getFloor().equals("3")) {
             equipDAO.updateEquipmentLocation(
@@ -131,7 +131,7 @@ public class EquipmentNodeManager {
             equipDAO.updateEquipmentLocation(
                 request.getMedicalEquip(), locationsHash.get("ADIRT00105"));
           }
-        } else if (status.equals("complete")) {
+        } else if (status.equals("Complete")) {
           equipDAO.updateMedicalCleanliness(request.getMedicalEquip(), true);
           equipDAO.updateStatus(request.getMedicalEquip(), "available");
           if (request.getType().equals("InfusionPump")) {
@@ -162,12 +162,12 @@ public class EquipmentNodeManager {
     } else {
       // if it's not a request to clean equipment
       if (request.getMedicalEquip() != null) {
-        if (status.equals("notStarted")) {
+        if (status.equals("Not Started")) {
           equipDAO.updateStatus(request.getMedicalEquip(), "inUse");
-        } else if (status.equals("inProgress")) {
+        } else if (status.equals("In Progress")) {
           equipDAO.updateStatus(request.getMedicalEquip(), "inUse");
           equipDAO.updateEquipmentLocation(request.getMedicalEquip(), request.getLocation());
-        } else if (status.equals("complete")) {
+        } else if (status.equals("Complete")) {
           equipDAO.updateMedicalCleanliness(request.getMedicalEquip(), false);
           equipDAO.updateStatus(request.getMedicalEquip(), "available");
           if (request.getLocation().getFloor().equals("3")) {
