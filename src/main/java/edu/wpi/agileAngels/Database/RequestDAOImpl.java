@@ -264,6 +264,7 @@ public class RequestDAOImpl implements RequestDAO {
     letter = letter + Integer.toString(this.count);
     request.setName(letter);
     this.reqData.put(letter, request);
+    System.out.println("ADDS A REQUEST: " + letter);
     try {
       RequestDAOImpl.getInstance("AllRequests").reqData.put(letter, request);
     } catch (SQLException sqlException) {

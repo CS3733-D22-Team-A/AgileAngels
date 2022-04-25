@@ -323,13 +323,23 @@ public class Adb {
 
   /** Resets all service request HashMaps */
   public static void resetServiceRequests() {
+    medRequestDAO.setCount(0);
     medRequestDAO.resetData();
+
+    labRequestDAO.setCount(0);
     labRequestDAO.resetData();
     // san
+    mealRequestImpl.setCount(0);
     mealRequestImpl.resetData();
+
     // gift
+    mainRequestImpl.setCount(0);
     mainRequestImpl.resetData();
+
+    transportRequestImpl.setCount(0);
     transportRequestImpl.resetData();
+
+    morgueRequestImpl.setCount(0);
     morgueRequestImpl.resetData();
   }
 
