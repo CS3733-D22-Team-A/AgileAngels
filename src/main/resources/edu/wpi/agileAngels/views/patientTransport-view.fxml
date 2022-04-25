@@ -3,13 +3,13 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -23,9 +23,101 @@
 <AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/styleRequest.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.PatientTransportController">
     <children>
 
-        <HBox alignment="CENTER" layoutX="78.0" layoutY="160.0" prefHeight="451.0" prefWidth="1158.0" spacing="50.0">
+        <HBox fx:id="tableHBox" alignment="CENTER" layoutX="78.0" layoutY="160.0" prefHeight="451.0" prefWidth="1158.0" spacing="50.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="160.0">
             <children>
-                <TableView fx:id="transportTable" prefHeight="451.0" prefWidth="1188.0">
+              <VBox fx:id="popOut" alignment="CENTER" maxWidth="300.0" minWidth="300.0" prefHeight="657.0" prefWidth="300.0" spacing="15.0">
+                  <children>
+                  <Label fx:id="transpoerIDLabel" prefHeight="20.0" prefWidth="451.0" text="Label" />
+                        <MenuButton fx:id="transportType" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Type of Transport">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#mainTypeMenu" text="Move Room" />
+                                <MenuItem mnemonicParsing="false" onAction="#mainTypeMenu" text="Move Hospital" />
+                                <MenuItem mnemonicParsing="false" onAction="#mainTypeMenu" text="Release" />
+                            </items>
+                        </MenuButton>
+                        <MenuButton fx:id="transportLocation" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Location" />
+                  <MenuButton fx:id="transportDestination" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Destination" />
+                        <MenuButton fx:id="transportEmployee" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
+                        <MenuButton fx:id="transportStatus" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Status">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#mainStatusMenu" text="Not Started" />
+                                <MenuItem mnemonicParsing="false" onAction="#mainStatusMenu" text="In Progress" />
+                                <MenuItem mnemonicParsing="false" onAction="#mainStatusMenu" text="Complete" />
+                            </items>
+                        </MenuButton>
+                        <TextField fx:id="transportDescription" prefHeight="50.0" prefWidth="270.0" promptText="Patient Name " />
+                        <HBox prefHeight="59.0" prefWidth="270.0" spacing="16.0">
+                            <children>
+                                <Button fx:id="cancelRequest" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                    <graphic>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <Label text="Cancel" />
+                                            </children>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                        </HBox>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="submitRequest" alignment="CENTER" mnemonicParsing="false" onAction="#submit" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                    <graphic>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <Label text="Submit" />
+                                            </children>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                        </HBox>
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </HBox>
+                  <Button fx:id="deleteRequest" alignment="CENTER" mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="270.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <graphic>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="119.0">
+                           <children>
+                              <Label text="Delete" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                     </graphic>
+                  </Button>
+                  </children>
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
+      
+      
+                  <!--
+      
+                  above is a VBox that includes text fields and a menu dropdown if implimenting a menu dropdown include the pane at the end
+      
+                        -->
+      
+              </VBox>
+                <TableView fx:id="transportTable" onMouseClicked="#loadRequest" prefHeight="451.0" prefWidth="1188.0">
                     <columns>
                         <TableColumn fx:id="nameColumn" maxWidth="130.0" minWidth="-1.0" prefWidth="130.0" resizable="false" text="Name" />
                         <TableColumn fx:id="typeColumn" maxWidth="130.0" minWidth="-1.0" prefWidth="130.0" resizable="false" text="Type" />
@@ -35,10 +127,17 @@
                         <TableColumn fx:id="locationColumn" maxWidth="250.0" minWidth="-1.0" prefWidth="250.0" resizable="false" text="Location" />
                         <TableColumn fx:id="destinationColumn" maxWidth="250.0" minWidth="-1.0" prefWidth="250.0" resizable="false" text="Destination" />
                     </columns>
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#delete" text="Delete request" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
                 </TableView>
             </children>
         </HBox>
-        <Label fx:id="labTestConfirmation" alignment="TOP_LEFT" layoutX="144.0" layoutY="598.0" prefHeight="100.0" prefWidth="523.0" wrapText="true">
+        <Label fx:id="labTestConfirmation" alignment="TOP_LEFT" layoutX="144.0" layoutY="637.0" prefHeight="61.0" prefWidth="312.0" wrapText="true">
             <font>
                 <Font size="16.0" />
             </font>
@@ -103,7 +202,7 @@
                 </Pane>
             </children>
         </Pane>
-        <HBox layoutX="397.0" layoutY="58.0" prefHeight="100.0" prefWidth="435.0">
+        <HBox alignment="CENTER" layoutX="397.0" layoutY="58.0" prefHeight="100.0" prefWidth="435.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="60.0">
             <children>
                 <GridPane prefWidth="408.0">
                     <columnConstraints>
@@ -173,163 +272,53 @@
                 </GridPane>
             </children>
         </HBox>
-        <TextField fx:id="employeeFilterField" layoutX="444.0" layoutY="623.0" prefHeight="50.0" prefWidth="171.0" promptText="Filter by Employee" />
-        <Button alignment="CENTER" layoutX="842.0" layoutY="620.0" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-            <font>
-                <Font size="10.0" />
-            </font>
-            <opaqueInsets>
-                <Insets />
-            </opaqueInsets>
-            <graphic>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                    <children>
-                        <Label text="Submit Filter" />
-                    </children>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                </HBox>
-            </graphic>
-        </Button>
-        <Button alignment="CENTER" layoutX="998.0" layoutY="620.0" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-            <font>
-                <Font size="10.0" />
-            </font>
-            <opaqueInsets>
-                <Insets />
-            </opaqueInsets>
-            <graphic>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                    <children>
-                        <Label text="Clear Filters" />
-                    </children>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                </HBox>
-            </graphic>
-        </Button>
-        <TextField fx:id="statusFilterField" layoutX="657.0" layoutY="623.0" prefHeight="50.0" prefWidth="154.0" promptText="Filter by Status" />
-        <Button fx:id="modifyButton" layoutX="846.0" layoutY="79.0" mnemonicParsing="false" onAction="#modifyRequest" prefHeight="59.0" prefWidth="120.0" style="-fx-font-weight: bold;" text="Modify" textAlignment="CENTER" wrapText="true">
+        <Button layoutX="846.0" layoutY="79.0" mnemonicParsing="false" onAction="#newRequest" prefHeight="59.0" prefWidth="120.0" style="-fx-font-weight: bold;" text="New Request" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
             <font>
                 <Font size="15.0" />
             </font>
         </Button>
-        <VBox fx:id="popOut" alignment="CENTER" layoutX="978.0" layoutY="81.0" prefHeight="517.0" prefWidth="294.0" spacing="15.0">
-            <children>
-                <Pane prefHeight="513.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
-                    <children>
-                        <MenuButton fx:id="transportType" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Type of Transport">
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#mainTypeMenu" text="Move Room" />
-                                <MenuItem mnemonicParsing="false" onAction="#mainTypeMenu" text="Move Hospital" />
-                                <MenuItem mnemonicParsing="false" onAction="#mainTypeMenu" text="Release" />
-                            </items>
-                        </MenuButton>
-                        <MenuButton fx:id="transportID" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="14.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="ID" />
-                        <MenuButton fx:id="transportLocation" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="111.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Location" />
-                  <MenuButton fx:id="transportDestination" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="160.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Destination" />
-                        <MenuButton fx:id="transportEmployee" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="211.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
-                        <MenuButton fx:id="transportStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="263.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Status">
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#mainStatusMenu" text="Not Started" />
-                                <MenuItem mnemonicParsing="false" onAction="#mainStatusMenu" text="In Progress" />
-                                <MenuItem mnemonicParsing="false" onAction="#mainStatusMenu" text="Complete" />
-                            </items>
-                        </MenuButton>
-                        <TextField fx:id="transportDescription" layoutX="12.0" layoutY="315.0" prefHeight="50.0" prefWidth="270.0" promptText="Patient Name " />
-                        <HBox layoutX="12.0" layoutY="376.0" prefHeight="59.0" prefWidth="270.0" spacing="16.0">
-                            <children>
-                                <Button fx:id="cancelRequest" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                                    <font>
-                                        <Font size="10.0" />
-                                    </font>
-                                    <opaqueInsets>
-                                        <Insets />
-                                    </opaqueInsets>
-                                    <graphic>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                            <children>
-                                                <Label text="Cancel" />
-                                            </children>
-                                            <opaqueInsets>
-                                                <Insets />
-                                            </opaqueInsets>
-                                        </HBox>
-                                    </graphic>
-                                </Button>
-                                <Button fx:id="submitRequest" alignment="CENTER" mnemonicParsing="false" onAction="#submit" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                                    <font>
-                                        <Font size="10.0" />
-                                    </font>
-                                    <opaqueInsets>
-                                        <Insets />
-                                    </opaqueInsets>
-                                    <graphic>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                            <children>
-                                                <Label text="Submit" />
-                                            </children>
-                                            <opaqueInsets>
-                                                <Insets />
-                                            </opaqueInsets>
-                                        </HBox>
-                                    </graphic>
-                                </Button>
-                                <Button fx:id="clearRequest" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#clear" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                                    <font>
-                                        <Font size="10.0" />
-                                    </font>
-                                    <opaqueInsets>
-                                        <Insets />
-                                    </opaqueInsets>
-                                    <graphic>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                            <children>
-                                                <Label text="Clear" />
-                                            </children>
-                                            <opaqueInsets>
-                                                <Insets />
-                                            </opaqueInsets>
-                                        </HBox>
-                                    </graphic>
-                                </Button>
-                            </children>
-                        </HBox>
-                        <Button fx:id="deleteRequest" alignment="CENTER" layoutX="12.0" layoutY="443.0" mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="270.0" textAlignment="CENTER">
-                            <font>
-                                <Font size="10.0" />
-                            </font>
-                            <opaqueInsets>
-                                <Insets />
-                            </opaqueInsets>
-                            <graphic>
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="119.0">
-                                    <children>
-                                        <Label text="Delete" />
-                                    </children>
-                                    <opaqueInsets>
-                                        <Insets />
-                                    </opaqueInsets>
-                                </HBox>
-                            </graphic>
-                        </Button>
-                    </children>
-                    <effect>
-                        <DropShadow />
-                    </effect>
-                </Pane>
-            </children>
-
-
-            <!--
-
-            above is a VBox that includes text fields and a menu dropdown if implimenting a menu dropdown include the pane at the end
-
-                  -->
-
-        </VBox>
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="69.0" prefWidth="625.0" spacing="10.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="150.0">
+         <children>
+              <TextField fx:id="employeeFilterField" prefHeight="50.0" prefWidth="171.0" promptText="Filter by Employee" />
+              <TextField fx:id="statusFilterField" prefHeight="50.0" prefWidth="154.0" promptText="Filter by Status" />
+              <Button alignment="CENTER" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                  <font>
+                      <Font size="10.0" />
+                  </font>
+                  <opaqueInsets>
+                      <Insets />
+                  </opaqueInsets>
+                  <graphic>
+                      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                          <children>
+                              <Label text="Submit Filter" />
+                          </children>
+                          <opaqueInsets>
+                              <Insets />
+                          </opaqueInsets>
+                      </HBox>
+                  </graphic>
+              </Button>
+              <Button alignment="CENTER" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                  <font>
+                      <Font size="10.0" />
+                  </font>
+                  <opaqueInsets>
+                      <Insets />
+                  </opaqueInsets>
+                  <graphic>
+                      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                          <children>
+                              <Label text="Clear Filters" />
+                          </children>
+                          <opaqueInsets>
+                              <Insets />
+                          </opaqueInsets>
+                      </HBox>
+                  </graphic>
+              </Button>
+         </children>
+      </HBox>
 
         <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
     </children>

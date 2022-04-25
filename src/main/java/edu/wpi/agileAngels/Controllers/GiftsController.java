@@ -13,12 +13,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class GiftsController implements Initializable, PropertyChangeListener {
 
   @FXML VBox popOut;
-  @FXML MenuButton giftID, giftLocation, giftEmployee, giftStatus, giftType;
+  @FXML HBox tableHBox;
+  @FXML MenuButton giftLocation, giftEmployee, giftStatus, giftType;
   @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
   @FXML TableView giftTable;
   @FXML
@@ -32,7 +36,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
       descriptionColumn;
   @FXML
   TextField giftDescription, employeeFilterField, statusFilterField, giftSender, giftRecipient;
-  @FXML Label notStartedNumber, inProgressNumber, completedNumber;
+  @FXML Label notStartedNumber, inProgressNumber, completedNumber, giftIDLabel;
 
   HashMap<String, String> locationIDsByLongName = new HashMap<>();
 
@@ -52,9 +56,10 @@ public class GiftsController implements Initializable, PropertyChangeListener {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    hidePopout();
     System.out.println("uhhh: " + giftRequestImpl);
     appController.addPropertyChangeListener(this);
-    popOut.setVisible(false);
+    hidePopout();
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
@@ -82,6 +87,20 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     }
     dashboardLoad();
     giftTable.setItems(giftData);
+
+    for (Location loc : locationsList) {
+      MenuItem item = new MenuItem(loc.getLongName());
+      item.setOnAction(this::mainLocationMenu);
+      giftLocation.getItems().add(item);
+    }
+
+    // Populates employees dropdown
+    for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+      Employee emp = entry.getValue();
+      MenuItem item = new MenuItem(emp.getName());
+      item.setOnAction(this::mainEmployeeMenu);
+      giftEmployee.getItems().add(item);
+    }
   }
 
   @Override
@@ -91,36 +110,27 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     appController.displayAlert();
   }
 
-  @FXML
-  public void modifyRequest(ActionEvent event) {
-    popOut.setVisible(true);
+  public void hidePopout() {
+    try {
+      tableHBox.getChildren().remove(popOut);
+    } catch (NullPointerException e) {
 
-    if (giftLocation.getItems().size() == 0) {
-      // Populates locations dropdown
-      for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getLongName());
-        item.setOnAction(this::mainLocationMenu);
-        giftLocation.getItems().add(item);
-      }
-
-      // Populates employees dropdown
-      for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
-        Employee emp = entry.getValue();
-        MenuItem item = new MenuItem(emp.getName());
-        item.setOnAction(this::mainEmployeeMenu);
-        giftEmployee.getItems().add(item);
-      }
-
-      // Populates ID dropdown
-      for (Request req : giftData) {
-        MenuItem item = new MenuItem(req.getName());
-        item.setOnAction(this::mainIDMenu);
-        giftID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::mainIDMenu);
-      giftID.getItems().add(item1);
     }
+  }
+
+  public void showPopout() {
+    if (tableHBox.getChildren().get(0) != popOut) {
+      tableHBox.getChildren().add(0, popOut);
+    }
+  }
+
+  @FXML
+  public void newRequest() {
+    deleteRequest.setVisible(false);
+    giftStatus.setVisible(false);
+    showPopout();
+    clear();
+    giftIDLabel.setText("New Request");
   }
 
   @FXML
@@ -134,26 +144,22 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     String rec = giftRecipient.getText();
     System.out.println(send + " " + rec);
     // Adding
-    if (giftID.getText().equals("Add New Request")) {
+    if (giftIDLabel.getText().equals("New Request")) {
       Request req =
           new Request(
-              "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, rec, send);
+              "",
+              employeeHash.get(emp),
+              locationsHash.get(loc),
+              type,
+              "Not Started",
+              desc,
+              rec,
+              send);
       giftData.add(req);
       giftRequestImpl.addRequest(req);
-
-      giftID.getItems().remove(0, giftID.getItems().size());
-      // Populates ID dropdown
-      for (Request request : giftData) {
-        MenuItem item = new MenuItem(request.getName());
-        item.setOnAction(this::mainIDMenu);
-        giftID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::mainIDMenu);
-      giftID.getItems().add(item1);
       updateDashAdding(stat);
     } else { // Editing
-      Request req = giftRequestImpl.getAllRequests().get(giftID.getText());
+      Request req = giftRequestImpl.getAllRequests().get(giftIDLabel.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
         Location newLoc = locationsHash.get(loc);
         giftRequestImpl.updateLocation(req, newLoc);
@@ -186,38 +192,36 @@ public class GiftsController implements Initializable, PropertyChangeListener {
       }
     }
 
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
   }
 
   @FXML
   public void cancel(ActionEvent event) {
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
   }
 
   @FXML
-  public void delete(ActionEvent event) {
-    String id = giftID.getText();
-    updateDashSubtracting(giftRequestImpl.getAllRequests().get(id).getStatus());
-    // removes the request from the table and dropdown
-    for (int i = 0; i < giftData.size(); i++) {
-      if (giftData.get(i).getName().equals(id)) {
-        giftData.remove(i);
-        giftID.getItems().remove(i);
-      }
+  public void delete() {
+    try {
+      String id = ((Request) giftTable.getSelectionModel().getSelectedItem()).getName();
+      updateDashSubtracting(giftRequestImpl.getAllRequests().get(id).getStatus());
+      // removes the request from the table and dropdown
+
+      // delete from hash map and database table
+      giftRequestImpl.deleteRequest(giftRequestImpl.getAllRequests().get(id));
+
+    } catch (NullPointerException e) {
+      giftTable.getSelectionModel().clearSelection();
     }
-
-    // delete from hash map and database table
-    giftRequestImpl.deleteRequest(giftRequestImpl.getAllRequests().get(id));
-
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
   }
 
   @FXML
-  public void clear(ActionEvent event) {
-    giftID.setText("ID");
+  public void clear() {
+    giftIDLabel.setText("ID");
     giftLocation.setText("Location");
     giftEmployee.setText("Employee");
     giftStatus.setText("Status");
@@ -250,17 +254,6 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     giftTable.setItems(giftData);
     employeeFilterField.clear();
     statusFilterField.clear();
-  }
-
-  @FXML
-  public void mainIDMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    giftID.setText(button.getText());
-
-    // If editing or deleting an existing request:
-    if (!button.getText().equals("Add New Request")) {
-      populate(button.getText());
-    }
   }
 
   @FXML
@@ -426,13 +419,11 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     return newList;
   }
 
-  /**
-   * Populates fields once a node id is chosen when editing an existing request.
-   *
-   * @param id Request ID
-   */
-  private void populate(String id) {
-    Request req = giftRequestImpl.getAllRequests().get(id);
+  /** Populates fields once a node id is chosen when editing an existing request. */
+  private void populate() {
+    showPopout();
+    Request req = ((Request) giftTable.getSelectionModel().getSelectedItem());
+    giftIDLabel.setText(req.getName());
     giftLocation.setText(req.getLocation().getLongName());
     giftEmployee.setText(req.getEmployee().getName());
     giftStatus.setText(req.getStatus());
@@ -481,5 +472,17 @@ public class GiftsController implements Initializable, PropertyChangeListener {
       statusComplete--;
     }
     setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  public void loadRequest(MouseEvent mouseEvent) {
+    try {
+      if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+        populate();
+        deleteRequest.setVisible(true);
+        giftStatus.setVisible(true);
+      }
+    } catch (NullPointerException e) {
+      hidePopout();
+    }
   }
 }

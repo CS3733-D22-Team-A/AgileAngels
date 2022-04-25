@@ -11,14 +11,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javax.swing.*;
 
 public class LaundryController implements Initializable {
 
   @FXML VBox popOut;
-  @FXML Label notStartedNumber, inProgressNumber, completedNumber;
-  @FXML MenuButton laundryID, laundryLocation, laundryType, laundryStatus, laundryEmployee;
+  @FXML HBox tableHBox;
+  @FXML Label notStartedNumber, inProgressNumber, completedNumber, laundryIDLabel;
+  @FXML MenuButton laundryLocation, laundryType, laundryStatus, laundryEmployee;
   @FXML private TextField laundryDescription, employeeFilterField, statusFilterField;
   @FXML
   private TableColumn nameColumn,
@@ -66,7 +70,7 @@ public class LaundryController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    popOut.setVisible(false);
+    hidePopout();
 
     statusNotStarted = 0;
     statusInProgress = 0;
@@ -105,6 +109,20 @@ public class LaundryController implements Initializable {
         Request req = entry.getValue();
         laundryData.add(req);
       }
+
+      for (Location loc : locationsList) {
+        MenuItem item = new MenuItem(loc.getLongName());
+        item.setOnAction(this::locationMenu);
+        laundryLocation.getItems().add(item);
+      }
+
+      // Populates employees dropdown
+      for (Map.Entry<String, Employee> entry : employeesHash.entrySet()) {
+        Employee emp = entry.getValue();
+        MenuItem item = new MenuItem(emp.getName());
+        item.setOnAction(this::employeeMenu);
+        laundryEmployee.getItems().add(item);
+      }
     }
     dashboardLoad();
     laundryTable.setItems(laundryData);
@@ -113,7 +131,7 @@ public class LaundryController implements Initializable {
   @FXML
   /** Submits fields to a Java gifts Request Object */
   private void submitLaundry(ActionEvent event) {
-    String ID = laundryID.getText();
+    String ID = laundryIDLabel.getText();
     String type = laundryType.getText();
     String employee = laundryEmployee.getText();
     String location = locationIDsByLongName.get(laundryLocation.getText());
@@ -121,7 +139,7 @@ public class LaundryController implements Initializable {
     String status = laundryStatus.getText();
 
     // Adding
-    if (ID.equals("Add New Request")) {
+    if (ID.equals("New Request")) {
       String placeholder = "?";
       System.out.println(employeesHash.get(employee) + " " + locationsHash.get(location));
       Request laundry =
@@ -130,7 +148,7 @@ public class LaundryController implements Initializable {
               employeesHash.get(employee),
               locationsHash.get(location),
               type,
-              status,
+              "Not Started",
               description,
               "",
               "");
@@ -139,15 +157,25 @@ public class LaundryController implements Initializable {
       laundryTable.setItems(laundryData);
       updateDashAdding(status);
 
-      // add the new request to the ID dropdown
-      MenuItem item = new MenuItem(laundry.getName());
-      item.setOnAction(this::laundryIDMenu);
-      laundryID.getItems().add(item);
     } else { // Editing
       editLaundryRequest(ID, type, employee, location, description, status);
     }
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
+  }
+
+  public void hidePopout() {
+    try {
+      tableHBox.getChildren().remove(popOut);
+    } catch (NullPointerException e) {
+
+    }
+  }
+
+  public void showPopout() {
+    if (tableHBox.getChildren().get(0) != popOut) {
+      tableHBox.getChildren().add(0, popOut);
+    }
   }
 
   @FXML
@@ -163,7 +191,7 @@ public class LaundryController implements Initializable {
     int num = 0;
     for (int i = 0; i < laundryData.size(); i++) {
       Request device = laundryData.get(i);
-      if (0 == laundryID.getText().compareTo(device.getName())) {
+      if (0 == laundryIDLabel.getText().compareTo(device.getName())) {
         found = device;
         num = i;
       }
@@ -366,19 +394,8 @@ public class LaundryController implements Initializable {
   }
 
   @FXML
-  public void IDMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    laundryID.setText(button.getText());
-
-    // If editing or deleting an existing request:
-    if (!button.getText().equals("Add New Request")) {
-      populate(button.getText());
-    }
-  }
-
-  @FXML
-  public void clear(ActionEvent event) {
-    laundryID.setText("ID");
+  public void clear() {
+    laundryIDLabel.setText("ID");
     laundryType.setText("Type");
     laundryEmployee.setText("Employee");
     laundryLocation.setText("Location");
@@ -389,58 +406,31 @@ public class LaundryController implements Initializable {
 
   @FXML
   public void cancel(ActionEvent event) {
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
   }
 
   @FXML
   public void delete(ActionEvent event) {
-    String id = laundryID.getText();
 
-    // removes the request from the table and dropdown
-    for (int i = 0; i < laundryData.size(); i++) {
-      if (laundryData.get(i).getName().equals(id)) {
-        laundryData.remove(i);
-        laundryID.getItems().remove(i + 1);
+    try {
+      String id = ((Request) laundryTable.getSelectionModel().getSelectedItem()).getName();
+
+      // removes the request from the table and dropdown
+      for (int i = 0; i < laundryData.size(); i++) {
+        if (laundryData.get(i).getName().equals(id)) {
+          laundryData.remove(i);
+        }
       }
+      updateDashSubtracting(laundryRequestImpl.getAllRequests().get(id).getStatus());
+      // delete from hash map and database table
+      laundryRequestImpl.deleteRequest(laundryRequestImpl.getAllRequests().get(id));
+
+    } catch (NullPointerException e) {
+      laundryTable.getSelectionModel().clearSelection();
     }
-    updateDashSubtracting(laundryRequestImpl.getAllRequests().get(id).getStatus());
-    // delete from hash map and database table
-    laundryRequestImpl.deleteRequest(laundryRequestImpl.getAllRequests().get(id));
-
-    clear(event);
-    popOut.setVisible(false);
-  }
-
-  @FXML
-  public void modifyRequest(ActionEvent event) {
-    popOut.setVisible(true);
-    if (laundryLocation.getItems().size() == 0) {
-      // Populates locations dropdown
-      for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getLongName());
-        item.setOnAction(this::locationMenu);
-        laundryLocation.getItems().add(item);
-      }
-
-      // Populates employees dropdown
-      for (Map.Entry<String, Employee> entry : employeesHash.entrySet()) {
-        Employee emp = entry.getValue();
-        MenuItem item = new MenuItem(emp.getName());
-        item.setOnAction(this::employeeMenu);
-        laundryEmployee.getItems().add(item);
-      }
-
-      // Populates ID dropdown
-      for (Request req : laundryData) {
-        MenuItem item = new MenuItem(req.getName());
-        item.setOnAction(this::laundryIDMenu);
-        laundryID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::laundryIDMenu);
-      laundryID.getItems().add(item1);
-    }
+    clear();
+    hidePopout();
   }
 
   /**
@@ -497,20 +487,17 @@ public class LaundryController implements Initializable {
   @FXML
   public void laundryIDMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    laundryID.setText(button.getText());
+    laundryIDLabel.setText(button.getText());
 
     if (!button.getText().equals("Add New Request")) {
-      populate(button.getText());
+      populate();
     }
   }
 
-  /**
-   * Populates fields once a node id is chosen when editing an existing request.
-   *
-   * @param id Request ID
-   */
-  private void populate(String id) {
-    Request req = laundryRequestImpl.getAllRequests().get(id);
+  /** Populates fields once a node id is chosen when editing an existing request. */
+  private void populate() {
+    showPopout();
+    Request req = ((Request) laundryTable.getSelectionModel().getSelectedItem());
     laundryLocation.setText(req.getLocation().getLongName());
     laundryEmployee.setText(req.getEmployee().getName());
     laundryStatus.setText(req.getStatus());
@@ -535,6 +522,15 @@ public class LaundryController implements Initializable {
     setDashboard(statusNotStarted, statusInProgress, statusComplete);
   }
 
+  @FXML
+  public void newRequest() {
+    deleteRequest.setVisible(false);
+    laundryStatus.setVisible(false);
+    showPopout();
+    clear();
+    laundryIDLabel.setText("New Request");
+  }
+
   private void updateDashSubtracting(String status) {
     if (status.equals("not started")
         || status.equals("Not Started")
@@ -550,5 +546,17 @@ public class LaundryController implements Initializable {
       statusComplete--;
     }
     setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  public void loadRequest(MouseEvent mouseEvent) {
+    try {
+      if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+        populate();
+        deleteRequest.setVisible(true);
+        laundryStatus.setVisible(true);
+      }
+    } catch (NullPointerException e) {
+      hidePopout();
+    }
   }
 }

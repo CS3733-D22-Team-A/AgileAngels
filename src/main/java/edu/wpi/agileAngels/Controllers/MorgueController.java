@@ -16,13 +16,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class MorgueController implements Initializable, PropertyChangeListener {
   AppController appController = AppController.getInstance();
   // @FXML private Button addButton;
   @FXML VBox popOut;
-  @FXML MenuButton morgueID, morgueLocation, morgueEmployee, morgueStatus;
+  @FXML HBox tableHBox;
+  @FXML MenuButton morgueLocation, morgueEmployee, morgueStatus;
   @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
   @FXML TableView morgueTable;
   @FXML
@@ -34,7 +38,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
       statusColumn,
       descriptionColumn;
   @FXML TextField morgueDescription, employeeFilterField, statusFilterField;
-  @FXML Label notStartedNumber, inProgressNumber, completedNumber;
+  @FXML Label notStartedNumber, inProgressNumber, completedNumber, morgueIDLabel;
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
@@ -52,7 +56,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
-    popOut.setVisible(false);
+    hidePopout();
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
@@ -81,19 +85,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     }
     dashboardLoad();
     morgueTable.setItems(morgueData);
-  }
 
-  @Override
-  public void propertyChange(PropertyChangeEvent evt) {
-    String changeType = evt.getPropertyName();
-    int newValue = (int) evt.getNewValue();
-    appController.displayAlert();
-  }
-
-  @FXML
-  public void modifyRequest(ActionEvent event) {
-    popOut.setVisible(true);
-    // Populates locations dropdown
     morgueLocation.getItems().clear();
     for (Location loc : locationsList) {
       MenuItem item = new MenuItem(loc.getLongName());
@@ -102,16 +94,18 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     }
     // Populates employees dropdown
     morgueEmployee.getItems().clear();
-    // Populates ID dropdown
-    morgueID.getItems().clear();
-    for (Request req : morgueData) {
-      MenuItem item = new MenuItem(req.getName());
-      item.setOnAction(this::morgueIDMenu);
-      morgueID.getItems().add(item);
+    for (String emp : freeEmployees) {
+      MenuItem item = new MenuItem(emp);
+      item.setOnAction(this::employeeMenu);
+      morgueEmployee.getItems().add(item);
     }
-    MenuItem item1 = new MenuItem("Add New Request");
-    item1.setOnAction(this::morgueIDMenu);
-    morgueID.getItems().add(item1);
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    String changeType = evt.getPropertyName();
+    int newValue = (int) evt.getNewValue();
+    appController.displayAlert();
   }
 
   @FXML
@@ -127,26 +121,23 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     String time = currentTime.toString().substring(0, 8);
 
     // Adding
-    if (morgueID.getText().equals("Add New Request")) {
+    if (morgueIDLabel.getText().equals("New Request")) {
       Request req =
           new Request(
-              "", employeeHash.get(emp), locationsHash.get(loc), "N/A", stat, desc, date, time);
+              "",
+              employeeHash.get(emp),
+              locationsHash.get(loc),
+              "N/A",
+              "Not Started",
+              desc,
+              date,
+              time);
       morgueData.add(req);
       MorguerequestImpl.addRequest(req);
 
-      morgueID.getItems().remove(0, morgueID.getItems().size());
-      // Populates ID dropdown
-      for (Request request : morgueData) {
-        MenuItem item = new MenuItem(request.getName());
-        item.setOnAction(this::morgueIDMenu);
-        morgueID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::morgueIDMenu);
-      morgueID.getItems().add(item1);
       updateDashAdding(stat);
     } else { // Editing
-      Request req = MorguerequestImpl.getAllRequests().get(morgueID.getText());
+      Request req = MorguerequestImpl.getAllRequests().get(morgueIDLabel.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
         Location newLoc = locationsHash.get(loc);
         MorguerequestImpl.updateLocation(req, newLoc);
@@ -169,14 +160,29 @@ public class MorgueController implements Initializable, PropertyChangeListener {
         }
       }
     }
+    freeEmployees.clear();
+    freeEmployees = MorguerequestImpl.getFreeEmployees();
+    clear();
+    hidePopout();
+  }
 
-    clear(event);
-    popOut.setVisible(false);
+  public void hidePopout() {
+    try {
+      tableHBox.getChildren().remove(popOut);
+    } catch (NullPointerException e) {
+
+    }
+  }
+
+  public void showPopout() {
+    if (tableHBox.getChildren().get(0) != popOut) {
+      tableHBox.getChildren().add(0, popOut);
+    }
   }
 
   @FXML
-  public void clear(ActionEvent event) {
-    morgueID.setText("ID");
+  public void clear() {
+    morgueIDLabel.setText("ID");
     morgueLocation.setText("Location");
     morgueEmployee.setText("Employee");
     morgueStatus.setText("Status");
@@ -186,8 +192,8 @@ public class MorgueController implements Initializable, PropertyChangeListener {
 
   @FXML
   public void cancel(ActionEvent event) {
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
   }
 
   @FXML
@@ -223,20 +229,15 @@ public class MorgueController implements Initializable, PropertyChangeListener {
   @FXML
   public void delete(ActionEvent event) throws SQLException {
 
-    String id = morgueID.getText();
+    String id = morgueIDLabel.getText();
     updateDashSubtracting(MorguerequestImpl.getAllRequests().get(id).getStatus());
     // removes the request from the table and dropdown
-    for (int i = 0; i < morgueData.size(); i++) {
-      if (morgueData.get(i).getName().equals(id)) {
-        morgueData.remove(i);
-        morgueID.getItems().remove(i);
-      }
-    }
     // delete from hash map and database table
     MorguerequestImpl.deleteRequest(MorguerequestImpl.getAllRequests().get(id));
-
-    clear(event);
-    popOut.setVisible(false);
+    freeEmployees.clear();
+    freeEmployees = MorguerequestImpl.getFreeEmployees();
+    clear();
+    hidePopout();
   }
 
   private ObservableList<Request> filterReqEmployee(String employeeName) {
@@ -346,19 +347,10 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     completedNumber.setText(comp);
   }
 
-  @FXML
-  public void morgueIDMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    morgueID.setText(button.getText());
-
-    // If editing or deleting an existing request:
-    if (!button.getText().equals("Add New Request")) {
-      populate(button.getText());
-    }
-  }
-
-  private void populate(String id) {
-    Request req = MorguerequestImpl.getAllRequests().get(id);
+  private void populate() {
+    showPopout();
+    Request req = ((Request) morgueTable.getSelectionModel().getSelectedItem());
+    morgueIDLabel.setText(req.getName());
     morgueLocation.setText(req.getLocation().getLongName());
     morgueEmployee.setText(req.getEmployee().getName());
     morgueStatus.setText(req.getStatus());
@@ -397,5 +389,26 @@ public class MorgueController implements Initializable, PropertyChangeListener {
       statusComplete--;
     }
     setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  public void loadRequest(MouseEvent mouseEvent) {
+    try {
+      if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+        populate();
+        deleteRequest.setVisible(true);
+        morgueStatus.setVisible(true);
+      }
+    } catch (NullPointerException e) {
+      hidePopout();
+    }
+  }
+
+  @FXML
+  public void newRequest() {
+    deleteRequest.setVisible(false);
+    morgueStatus.setVisible(false);
+    showPopout();
+    clear();
+    morgueIDLabel.setText("New Request");
   }
 }

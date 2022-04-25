@@ -31,6 +31,7 @@ repositories {
     flatDir{
         dir 'APIJAR'
     }
+
 }
 
 javafx {
@@ -57,7 +58,11 @@ dependencies {
             'org.controlsfx:controlsfx:11.1.1'
 
     )
-    implementation name: 'edu.wpi.cs3733.D22.teamA'
+
+    dependencies {
+        implementation fileTree(dir: 'APIJAR', include: '*.jar')
+        implementation name: 'edu.wpi.cs3733.D22.teamA'
+        implementation name: 'LanguageInterpAPI' }
     implementation 'org.jetbrains:annotations:20.1.0'
 
     testCompile(
