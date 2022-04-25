@@ -93,7 +93,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
       requestFilterButton,
       equipmentFilterButton;
 
-  public final ContextMenu contextMenu = new ContextMenu();
+  public ContextMenu contextMenu = new ContextMenu();
   MenuItem addNode = new MenuItem("Add Location");
 
   LocationNode currentLocationNode = null;
@@ -342,6 +342,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     deselect();
     clickPane.setVisible(true);
     locationAddPane.setVisible(true);
+    hideFilter();
   }
 
   /**
@@ -537,11 +538,11 @@ public class MapsController implements Initializable, PropertyChangeListener {
       appController.setCurrentFloor("L2");
       floorLabel.setText("L2");
     } else if (event.getSource() == floorUp) {
-      if (appController.getCurrentFloor().equals("L1")) {
-        paneL2.setVisible(true);
-        appController.setCurrentFloor("L2");
-        floorLabel.setText("L2");
-      } else if (appController.getCurrentFloor().equals("L2")) {
+      if (appController.getCurrentFloor().equals("L2")) {
+        paneL1.setVisible(true);
+        appController.setCurrentFloor("L1");
+        floorLabel.setText("L1");
+      } else if (appController.getCurrentFloor().equals("L1")) {
         pane2.setVisible(true);
         appController.setCurrentFloor("2");
         floorLabel.setText("2");
@@ -564,9 +565,9 @@ public class MapsController implements Initializable, PropertyChangeListener {
       }
     } else if (event.getSource() == floorDown) {
       if (appController.getCurrentFloor().equals("2")) {
-        paneL2.setVisible(true);
-        appController.setCurrentFloor("L2");
-        floorLabel.setText("L2");
+        paneL1.setVisible(true);
+        appController.setCurrentFloor("L1");
+        floorLabel.setText("L1");
       } else if (appController.getCurrentFloor().equals("3")) {
         pane2.setVisible(true);
         appController.setCurrentFloor("2");
@@ -579,14 +580,14 @@ public class MapsController implements Initializable, PropertyChangeListener {
         pane4.setVisible(true);
         appController.setCurrentFloor("4");
         floorLabel.setText("4");
-      } else if (appController.getCurrentFloor().equals("L2")) {
-        paneL1.setVisible(true);
-        appController.setCurrentFloor("L1");
-        floorLabel.setText("L1");
       } else if (appController.getCurrentFloor().equals("L1")) {
-        paneL1.setVisible(true);
-        appController.setCurrentFloor("L1");
-        floorLabel.setText("L1");
+        paneL2.setVisible(true);
+        appController.setCurrentFloor("L2");
+        floorLabel.setText("L2");
+      } else if (appController.getCurrentFloor().equals("L2")) {
+        paneL2.setVisible(true);
+        appController.setCurrentFloor("L2");
+        floorLabel.setText("L2");
       }
     }
   }
