@@ -83,6 +83,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     }
     dashboardLoad();
     morgueTable.setItems(morgueData);
+    setColor(appController.color);
   }
 
   @Override
@@ -119,7 +120,6 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     MenuItem item1 = new MenuItem("Add New Request");
     item1.setOnAction(this::morgueIDMenu);
     morgueID.getItems().add(item1);
-    setColor(appController.color);
   }
 
   @FXML
