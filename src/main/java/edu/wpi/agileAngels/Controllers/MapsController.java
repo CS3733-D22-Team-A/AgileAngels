@@ -638,7 +638,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
   public double getMapXCoordFromClick(MouseEvent click) {
     panX = mapScroll.getHvalue() * (mapPane.getWidth() - mapScroll.getWidth() / scale);
     double panX2 =
-        mapScroll.getHvalue() * 244; // no idea what these numbers are i guessed and checked
+        mapScroll.getHvalue() * 50; // no idea what these numbers are i guessed and checked
     if (scale == 1) {
       return (((click.getSceneX() - mapScroll.getLayoutX()) / scale) + panX - 8)
               * (croppedMapWidth / imagePaneWidth)
