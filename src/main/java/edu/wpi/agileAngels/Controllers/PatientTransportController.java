@@ -443,6 +443,7 @@ public class PatientTransportController extends MainController
   private void populate() {
     showPopout();
     Request req = ((Request) transportTable.getSelectionModel().getSelectedItem());
+    transportIDLabel.setText(req.getName());
     transportLocation.setText(req.getLocation().getLongName());
     transportEmployee.setText(req.getEmployee().getName());
     transportStatus.setText(req.getStatus());
