@@ -24,7 +24,7 @@ public class LabController implements Initializable, PropertyChangeListener {
   @FXML VBox popOut;
   @FXML HBox tableHBox;
   @FXML MenuButton labLocation, labEmployee, labStatus, labType;
-  @FXML Button newRequest, cancelRequest, submitRequest;
+  @FXML Button newRequest, cancelRequest, submitRequest, deleteRequest;
   @FXML TableView labTable;
   @FXML
   private TableColumn nameColumn,
@@ -62,7 +62,7 @@ public class LabController implements Initializable, PropertyChangeListener {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
-    tableHBox.getChildren().remove(0);
+    hidePopout();
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
@@ -127,6 +127,7 @@ public class LabController implements Initializable, PropertyChangeListener {
 
   @FXML
   public void newRequest() {
+    deleteRequest.setVisible(false);
     showPopout();
     clear();
     labID2.setText("New Request");
@@ -188,19 +189,24 @@ public class LabController implements Initializable, PropertyChangeListener {
 
   @FXML
   public void delete(ActionEvent event) {
-    String id = labID2.getText();
 
-    // removes the request from the table and dropdown
-    for (int i = 0; i < labData.size(); i++) {
-      if (labData.get(i).getName().equals(id)) {
-        labData.remove(i);
-        // labID.getItems().remove(i);
+    try {
+      String id = ((Request) labTable.getSelectionModel().getSelectedItem()).getName();
+
+      // removes the request from the table and dropdown
+      for (int i = 0; i < labData.size(); i++) {
+        if (labData.get(i).getName().equals(id)) {
+          labData.remove(i);
+          // labID.getItems().remove(i);
+        }
       }
-    }
-    updateDashSubtracting(labRequestImpl.getAllRequests().get(id).getStatus());
-    // delete from hash map and database table
-    labRequestImpl.deleteRequest(labRequestImpl.getAllRequests().get(id));
+      updateDashSubtracting(labRequestImpl.getAllRequests().get(id).getStatus());
+      // delete from hash map and database table
+      labRequestImpl.deleteRequest(labRequestImpl.getAllRequests().get(id));
 
+    } catch (NullPointerException e) {
+      labTable.getSelectionModel().clearSelection();
+    }
     clear();
     hidePopout();
   }
@@ -431,18 +437,6 @@ public class LabController implements Initializable, PropertyChangeListener {
     labStatus.setText(button.getText());
   }
 
-  @FXML
-  public void labIDMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    labID2.setText(button.getText());
-
-    // If editing or deleting an existing request:
-    if (!button.getText().equals("Add New Request")) {
-      // populate(button.getText());
-      populate();
-    }
-  }
-
   private void populate() {
     showPopout();
     Request req = ((Request) labTable.getSelectionModel().getSelectedItem());
@@ -489,10 +483,10 @@ public class LabController implements Initializable, PropertyChangeListener {
   }
 
   public void loadRequest(MouseEvent mouseEvent) {
-    // populate(((Request) labTable.getSelectionModel().getSelectedItem()).getName());
     try {
       if (mouseEvent.getButton() == MouseButton.PRIMARY) {
         populate();
+        deleteRequest.setVisible(true);
       }
     } catch (NullPointerException e) {
       hidePopout();
