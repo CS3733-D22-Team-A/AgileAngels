@@ -49,8 +49,7 @@ public class LoginController implements Initializable {
     if (employeeManager.getName(username.getText())
         && passwordBox.getText().equals(employeeManager.getPassword(username.getText()))) {
       appController.setUser(employeeManager.getEmployee(username.getText()));
-      // appController.loadPage("/edu/wpi/agileAngels/views/NEWdashboard.fxml");
-      appController.loadPage("/edu/wpi/agileAngels/views/covid-view.fxml");
+      appController.loadPage("/edu/wpi/agileAngels/views/NEWdashboard.fxml");
 
     } else {
       invalid.setTextFill(Color.rgb(220, 80, 80));
