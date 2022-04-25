@@ -28,8 +28,7 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       patientTransportRequest,
       next,
       saveButton,
-      uploadButton;
-      patientTransportRequest,
+      uploadButton,
       MedAid;
   @FXML private JFXToggleButton toggleButton, clientToggle;
 

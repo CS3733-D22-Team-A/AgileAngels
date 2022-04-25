@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -62,6 +63,7 @@
                                     </VBox.margin>
                            <children>
                               <Label fx:id="treatmentLabel1" layoutX="166.0" layoutY="30.0" prefHeight="56.0" prefWidth="394.0" style="-fx-font-weight: Bold; -fx-font-size: 25;" text="Treatment 1 " />
+                              <ImageView fx:id="icon1" fitHeight="65.0" fitWidth="79.0" layoutX="39.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                                 </Pane>
                                 <Pane fx:id="treatment2" prefHeight="116.0" prefWidth="574.0" style="-fx-background-radius: 15; -fx-background-color: white;  -fx-border-color: rgb(0, 156, 166); -fx-border-radius: 15;">
@@ -70,6 +72,7 @@
                                     </VBox.margin>
                            <children>
                               <Label fx:id="treatmentLabel2" layoutX="166.0" layoutY="30.0" prefHeight="56.0" prefWidth="394.0" style="-fx-font-weight: bold; -fx-font-size: 25;" text="Treatment 1 " />
+                              <ImageView fx:id="icon2" fitHeight="65.0" fitWidth="79.0" layoutX="38.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                                 </Pane>
                                 <Pane fx:id="treatment3" prefHeight="116.0" prefWidth="574.0" style="-fx-background-radius: 15; -fx-background-color: white;  -fx-border-color: rgb(0, 156, 166);-fx-border-radius: 15;">
@@ -78,6 +81,7 @@
                                     </VBox.margin>
                            <children>
                               <Label fx:id="treatmentLabel3" layoutX="166.0" layoutY="30.0" prefHeight="56.0" prefWidth="394.0" style="-fx-font-weight: bold; -fx-font-size: 25;" text="Treatment 1 " />
+                              <ImageView fx:id="icon3" fitHeight="65.0" fitWidth="79.0" layoutX="36.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                                 </Pane>
                             </children>
