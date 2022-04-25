@@ -57,6 +57,7 @@ public class Request {
     this.description = description;
     this.attribute1 = attribute1;
     this.attribute2 = attribute2;
+    this.medicalEquip = null;
   }
 
   public void setRequestType(int requestType) {

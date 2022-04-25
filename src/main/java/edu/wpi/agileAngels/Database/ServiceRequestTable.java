@@ -20,7 +20,7 @@ public class ServiceRequestTable implements TableI {
       }
       Request request = (Request) obj;
       String add =
-          "INSERT INTO ServiceRequests(Name, EmployeeName, Location, Type, Status, Description, Attribute1, Attribute2) VALUES(?,?,?,?,?,?,?,?)";
+          "INSERT INTO ServiceRequests(Name, EmployeeName, Location, Type, Status, Description, Attribute1, Attribute2, MedEquipID) VALUES(?,?,?,?,?,?,?,?,?)";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
       preparedStatement.setString(1, request.getName());
       preparedStatement.setString(2, request.getEmployee().getName());
@@ -30,6 +30,11 @@ public class ServiceRequestTable implements TableI {
       preparedStatement.setString(6, request.getDescription());
       preparedStatement.setString(7, request.getAttribute1());
       preparedStatement.setString(8, request.getAttribute2());
+      if (request.getMedicalEquip() == null) {
+        preparedStatement.setString(9, "N/A");
+      } else {
+        preparedStatement.setString(9, request.getMedicalEquip().getID());
+      }
       preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {
@@ -70,7 +75,7 @@ public class ServiceRequestTable implements TableI {
       }
       Request request = (Request) obj;
       String update =
-          "UPDATE ServiceRequests SET EmployeeName = ?, Location = ?, Type = ?, Status = ?, Description = ?, Attribute1 = ?, Attribute2 = ? WHERE Name = ?";
+          "UPDATE ServiceRequests SET EmployeeName = ?, Location = ?, Type = ?, Status = ?, Description = ?, Attribute1 = ?, Attribute2 = ?, MedEquipID = ? WHERE Name = ?";
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(update);
       preparedStatement.setString(1, request.getEmployee().getName());
       preparedStatement.setString(2, request.getLocation().getNodeID());
@@ -79,7 +84,12 @@ public class ServiceRequestTable implements TableI {
       preparedStatement.setString(5, request.getDescription());
       preparedStatement.setString(6, request.getAttribute1());
       preparedStatement.setString(7, request.getAttribute2());
-      preparedStatement.setString(8, request.getName());
+      if (request.getMedicalEquip() == null) {
+        preparedStatement.setString(8, "N/A");
+      } else {
+        preparedStatement.setString(8, request.getMedicalEquip().getID());
+      }
+      preparedStatement.setString(9, request.getName());
       preparedStatement.execute();
       return true;
     } catch (SQLException sqlException) {
@@ -106,6 +116,7 @@ public class ServiceRequestTable implements TableI {
               + "Description VARCHAR(50),"
               + "Attribute1 VARCHAR(50),"
               + "Attribute2 VARCHAR(50),"
+              + "MedEquipID VARCHAR(50),"
               + "PRIMARY KEY (Name))";
       query.execute(queryServiceRequests);
       return true;
@@ -151,15 +162,31 @@ public class ServiceRequestTable implements TableI {
         String description = result.getString("description");
         String attribute1 = result.getString("attribute1");
         String attribute2 = result.getString("attribute2");
+        String medEquipID = result.getString("MedEquipID");
 
-        Request request =
-            new Request(
-                name, employee, location, type, status, description, attribute1, attribute2);
+        Request request;
+        if (medEquipID.equals("N/A")) {
+          request =
+              new Request(
+                  name, employee, location, type, status, description, attribute1, attribute2);
+        } else {
+          MedicalEquip equip = (MedicalEquip) Adb.getMedEquipment().get(medEquipID);
+          request =
+              new Request(
+                  name,
+                  employee,
+                  location,
+                  type,
+                  status,
+                  description,
+                  attribute1,
+                  attribute2,
+                  equip);
+          Adb.addMedRequest(request);
+        }
 
         if (name.substring(0, 3).compareTo("Lab") == 0) {
           Adb.addLabRequest(request);
-        } else if (name.substring(0, 3).compareTo("Med") == 0) {
-          Adb.addMedRequest(request);
         } else if (name.substring(0, 3).compareTo("Mor") == 0) {
           Adb.addMorgueRequest(request);
         } else if (name.substring(0, 4).compareTo("Meal") == 0) {

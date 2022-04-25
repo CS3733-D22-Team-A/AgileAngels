@@ -98,7 +98,6 @@ public class EmployeeManager implements EmployeeDAO {
     employeeHashMap.remove(name);
   }
 
-
   /** Updates Employee's name with newName. */
   public void updateEmployeeName(String name, String newName) {
     employeeHashMap.get(name).setName(newName);
