@@ -13,11 +13,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 public class PatientTransportController extends MainController
     implements Initializable, PropertyChangeListener {
 
+  @FXML AnchorPane anchor;
   @FXML VBox popOut;
   @FXML
   MenuButton transportID,
@@ -86,6 +88,7 @@ public class PatientTransportController extends MainController
     }
     dashboardLoad();
     transportTable.setItems(transportData);
+    setColor(appController.color);
   }
 
   @Override
@@ -510,6 +513,24 @@ public class PatientTransportController extends MainController
       if (req.getLocation().getNodeID().equals(oldLocID)) {
         allReqDAO.updateLocation(req, locationsHash.get(newLocID));
       }
+    }
+  }
+
+  public void setColor(String color) {
+    if (color.equals("green")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestGreenTest.css");
+    } else if (color.equals("red")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestRedTest.css");
+
+    } else if (color.equals("blue")) {
+      anchor.getStylesheets().removeAll();
+      anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
     }
   }
 }

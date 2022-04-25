@@ -29,7 +29,7 @@ public class AppController {
   public boolean embeddedON = false;
 
   // for color modes
-  public String color = "green";
+  public String color = "red";
 
   HashMap<String, String> pages = new HashMap<>();
 

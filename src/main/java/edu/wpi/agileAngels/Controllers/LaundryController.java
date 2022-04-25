@@ -11,11 +11,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javax.swing.*;
 
 public class LaundryController implements Initializable {
 
+  @FXML AnchorPane anchor;
   @FXML VBox popOut;
   @FXML Label notStartedNumber, inProgressNumber, completedNumber;
   @FXML MenuButton laundryID, laundryLocation, laundryType, laundryStatus, laundryEmployee;
@@ -108,6 +110,7 @@ public class LaundryController implements Initializable {
     }
     dashboardLoad();
     laundryTable.setItems(laundryData);
+    setColor(appController.color);
   }
 
   @FXML
@@ -550,5 +553,23 @@ public class LaundryController implements Initializable {
       statusComplete--;
     }
     setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  public void setColor(String color) {
+    if (color.equals("green")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestGreenTest.css");
+    } else if (color.equals("red")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestRedTest.css");
+
+    } else if (color.equals("blue")) {
+      anchor.getStylesheets().removeAll();
+      anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+    }
   }
 }

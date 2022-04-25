@@ -4,13 +4,13 @@
     /*src: url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap);
      */
 }
-
+/*
 .root{
     -fx-font-family: "Roboto Light";
     -fx-background-color: linear-gradient(to bottom, #69D179, #498952);
 
 }
-
+*/
 #title{
     -fx-font-family: "Roboto Thin";
 }

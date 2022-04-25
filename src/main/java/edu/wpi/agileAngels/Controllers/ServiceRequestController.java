@@ -176,8 +176,13 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
     System.out.println("Upload to CSV");
   }
 
-  
+  public void setColor(String color) {
+    if (color.equals("green")) {
 
+    } else if (color.equals("red")) {
 
+    } else if (color.equals("blue")) {
 
+    }
+  }
 }
