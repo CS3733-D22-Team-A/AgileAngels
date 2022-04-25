@@ -229,6 +229,7 @@ public class AppController {
     pages.put("/edu/wpi/agileAngels/views/aboutUs-view.fxml", "About Us");
     pages.put("/edu/wpi/agileAngels/views/profile-view.fxml", "Profile");
     pages.put("/edu/wpi/agileAngels/views/laundryRequest-view.fxml", "Laundry Request");
+    pages.put("edu/wpi/agileAngels/views/medAid-view.fxml", "Medical Aid");
   }
 
   public void closeApp() {
