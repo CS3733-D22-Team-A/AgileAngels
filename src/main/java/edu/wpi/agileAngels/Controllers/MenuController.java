@@ -38,6 +38,8 @@ public class MenuController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     anchor.setPickOnBounds(false);
+
+    setColor(appController.color);
   }
 
   @FXML
@@ -90,5 +92,22 @@ public class MenuController implements Initializable {
   public void logout() {
     appController.setUser(null);
     appController.loadPage("/edu/wpi/agileAngels/views/login.fxml");
+  }
+
+  public void setColor(String newColor) {
+    if (newColor.equals("blue")) {
+      anchor.getStylesheets().removeAll();
+      anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/style.css");
+    } else if (newColor.equals("green")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleGreen.css");
+    } else if (newColor.equals("red")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRed.css");
+    }
   }
 }

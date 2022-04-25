@@ -28,6 +28,9 @@ public class AppController {
   private int[] dirtyXRays = new int[4];
   public boolean embeddedON = false;
 
+  // for color modes
+  public String color = "green";
+
   HashMap<String, String> pages = new HashMap<>();
 
   private String currentFloor = "2";
