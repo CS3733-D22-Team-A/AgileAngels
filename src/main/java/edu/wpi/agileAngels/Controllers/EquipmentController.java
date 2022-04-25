@@ -31,7 +31,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   @FXML private TextField employeeFilterField, statusFilterField, mainDescription;
   @FXML private Label equipmentConfirmation, equipID;
   @FXML private TableView equipmentTable;
-  @FXML Button clear, submitFilters;
+  @FXML Button clear, submitFilters, delete;
   @FXML Pane drop, drop2;
   @FXML MenuButton equipLocation, equipmentType, equipmentStatus, equipmentEmployeeText;
   @FXML AnchorPane anchor;
@@ -289,7 +289,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     String dropDownString = equipmentType.getText();
     String locationString = locationIDsByLongName.get(equipLocation.getText());
     String employeeString = equipmentEmployeeText.getText();
-    String statusString = equipmentStatus.getText();
+    String statusString = "Not Started";
     String descriptionString = mainDescription.getText();
 
     if (dropDownString.equals("Equipment Type")
@@ -726,6 +726,8 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   @FXML
   public void newRequest() {
+    equipmentStatus.setVisible(false);
+    delete.setVisible(false);
     showPopout();
     clearFields();
     equipID.setText("New Request");
@@ -733,6 +735,8 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   public void loadRequest(MouseEvent mouseEvent) {
     // populate(((Request) labTable.getSelectionModel().getSelectedItem()).getName());
+    equipmentStatus.setVisible(true);
+    delete.setVisible(true);
     try {
       if (mouseEvent.getButton() == MouseButton.PRIMARY) {
         populate();
