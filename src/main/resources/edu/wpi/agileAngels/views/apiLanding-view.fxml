@@ -9,10 +9,10 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.RowConstraints?>
 <AnchorPane fx:id="medAid" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.APILandController">
     <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
    <Button fx:id="creditsButton" alignment="CENTER" layoutX="498.0" layoutY="593.0" mnemonicParsing="false" onAction="#loadCredits" prefHeight="87.0" prefWidth="303.0" style="-fx-background-radius: 20 20;" stylesheets="@stylesheets/styleRequest.css" textAlignment="CENTER">
@@ -100,7 +100,7 @@
                </HBox>
             </graphic>
          </Button>
-         <Button alignment="CENTER" mnemonicParsing="false" prefHeight="160.0" prefWidth="440.0" style="-fx-background-radius: 20 20;" stylesheets="@stylesheets/styleRequest.css" textAlignment="CENTER" GridPane.rowIndex="1">
+         <Button fx:id="languageInterp" alignment="CENTER" mnemonicParsing="false" onAction="#languageAction" prefHeight="160.0" prefWidth="440.0" style="-fx-background-radius: 20 20;" stylesheets="@stylesheets/styleRequest.css" textAlignment="CENTER" GridPane.rowIndex="1">
             <font>
                <Font size="10.0" />
             </font>
