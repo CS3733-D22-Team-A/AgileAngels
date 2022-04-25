@@ -219,7 +219,6 @@ public class AppController {
     pages.put("/edu/wpi/agileAngels/views/emergency-view.fxml", "Emergency");
     pages.put("/edu/wpi/agileAngels/views/equipment-view.fxml", "Equipment Request");
     pages.put("/edu/wpi/agileAngels/views/gifts-view.fxml", "Gift Request");
-    // pages.put("/edu/wpi/agileAngels/views/NEWdashboard.fxml", "Home");
     pages.put("/edu/wpi/agileAngels/views/maintenance-view.fxml", "Maintenance Request");
     pages.put("/edu/wpi/agileAngels/views/map-view.fxml", "Map");
     pages.put("/edu/wpi/agileAngels/views/morgue-view.fxml", "Morgue Request");
@@ -227,6 +226,9 @@ public class AppController {
     pages.put("/edu/wpi/agileAngels/views/patientTransport-view.fxml", "Patient Transport");
     pages.put("/edu/wpi/agileAngels/views/sanitation-view.fxml", "Sanitation Request");
     pages.put("/edu/wpi/agileAngels/views/serviceRequest-view.fxml", "Service Request");
+    pages.put("/edu/wpi/agileAngels/views/aboutUs-view.fxml", "About Us");
+    pages.put("/edu/wpi/agileAngels/views/profile-view.fxml", "Profile");
+    pages.put("/edu/wpi/agileAngels/views/laundryRequest-view.fxml", "Laundry Request");
   }
 
   public void closeApp() {
