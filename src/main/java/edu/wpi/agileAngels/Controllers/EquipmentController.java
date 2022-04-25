@@ -101,9 +101,11 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     dashboardLoad();
 
     for (Location loc : locationsList) {
-      MenuItem item = new MenuItem(loc.getLongName());
-      item.setOnAction(this::locationMenu);
-      equipLocation.getItems().add(item);
+      if (loc.getFloor().equals("3") || loc.getFloor().equals("4") || loc.getFloor().equals("5")) {
+        MenuItem item = new MenuItem(loc.getLongName());
+        item.setOnAction(this::locationMenu);
+        equipLocation.getItems().add(item);
+      }
     }
 
     // Populates employees dropdown
@@ -690,13 +692,13 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   private void updateDashAdding(String status) {
     if (status.equals("not started")
-            || status.equals("Not Started")
-            || status.equals("notStarted")) {
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
       statusNotStarted++;
     }
     if (status.equals("in progress")
-            || status.equals("In Progress")
-            || status.equals("inProgress")) {
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
       statusInProgress++;
     }
     if (status.equals("complete") || status.equals("Complete")) {
@@ -707,13 +709,13 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   private void updateDashSubtracting(String status) {
     if (status.equals("not started")
-            || status.equals("Not Started")
-            || status.equals("notStarted")) {
+        || status.equals("Not Started")
+        || status.equals("notStarted")) {
       statusNotStarted--;
     }
     if (status.equals("in progress")
-            || status.equals("In Progress")
-            || status.equals("inProgress")) {
+        || status.equals("In Progress")
+        || status.equals("inProgress")) {
       statusInProgress--;
     }
     if (status.equals("complete") || status.equals("Complete")) {

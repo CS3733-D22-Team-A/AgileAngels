@@ -86,9 +86,9 @@
                   <MenuButton fx:id="equipmentEmployeeText" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
                   <MenuButton fx:id="equipmentStatus" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Status">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="notStarted" />
-                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="inProgress" />
-                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="complete" />
+                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="Not Started" />
+                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="In Progress" />
+                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="Complete" />
                      </items>
                   </MenuButton>
                   <TextField fx:id="mainDescription" prefHeight="50.0" prefWidth="270.0" promptText="Description" />
