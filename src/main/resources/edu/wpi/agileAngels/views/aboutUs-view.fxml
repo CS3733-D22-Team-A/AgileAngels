@@ -66,26 +66,12 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" prefHeight="25.0" prefWidth="120.0" text="Ali Mcnicholas" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" mouseTransparent="true" prefHeight="25.0" prefWidth="120.0" text="Ali Mcnicholas" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Back End Dev" wrapText="true">
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane fx:id="aliBubble" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0" GridPane.columnIndex="1">
-               <children>
-                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../OurPictures/TextBubble.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="6.0" prefHeight="76.0" prefWidth="110.0" text="It shouldn't work but it does" textAlignment="CENTER" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" mouseTransparent="true" prefHeight="17.0" prefWidth="110.0" text="Back End Dev" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
@@ -103,26 +89,12 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" prefHeight="25.0" prefWidth="120.0" text="Talia Andrews" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" mouseTransparent="true" prefHeight="25.0" prefWidth="120.0" text="Talia Andrews" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Back End Lead" wrapText="true">
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane fx:id="taliaBubble" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0" GridPane.columnIndex="2">
-               <children>
-                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../OurPictures/TextBubble.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Finaly a diffrent error." textAlignment="CENTER" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" mouseTransparent="true" prefHeight="17.0" prefWidth="110.0" text="Back End Lead" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
@@ -140,26 +112,12 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" prefHeight="25.0" prefWidth="120.0" text="Aadhya Putter" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" mouseTransparent="true" prefHeight="25.0" prefWidth="120.0" text="Aadhya Putter" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Back End Dev" wrapText="true">
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane fx:id="aahdyaBubble" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0" GridPane.columnIndex="3">
-               <children>
-                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../OurPictures/TextBubble.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Wong." textAlignment="CENTER" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" mouseTransparent="true" prefHeight="17.0" prefWidth="110.0" text="Back End Dev" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
@@ -177,26 +135,12 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label alignment="TOP_CENTER" layoutX="33.0" layoutY="187.0" prefHeight="25.0" prefWidth="154.0" text="Harmoni Larrabee" wrapText="true">
+                  <Label alignment="TOP_CENTER" layoutX="33.0" layoutY="187.0" mouseTransparent="true" prefHeight="25.0" prefWidth="154.0" text="Harmoni Larrabee" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Front End Lead" wrapText="true">
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane fx:id="harmoniBubble" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0" GridPane.columnIndex="4">
-               <children>
-                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../OurPictures/TextBubble.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="111.0" text="java.lang.NullPointerException" textAlignment="CENTER" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" mouseTransparent="true" prefHeight="17.0" prefWidth="110.0" text="Front End Lead" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
@@ -214,26 +158,12 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label alignment="TOP_CENTER" layoutX="53.0" layoutY="187.0" prefHeight="25.0" prefWidth="120.0" text="Joe Fox" wrapText="true">
+                  <Label alignment="TOP_CENTER" layoutX="53.0" layoutY="187.0" mouseTransparent="true" prefHeight="25.0" prefWidth="120.0" text="Joe Fox" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Front End Dev" wrapText="true">
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane fx:id="joeBubble" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0" GridPane.rowIndex="1">
-               <children>
-                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../OurPictures/TextBubble.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="TOP_LEFT" layoutX="11.0" layoutY="22.0" prefHeight="51.0" prefWidth="106.0" text="Very special to me." textAlignment="CENTER" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" mouseTransparent="true" prefHeight="17.0" prefWidth="110.0" text="Front End Dev" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
@@ -251,26 +181,12 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label alignment="TOP_CENTER" layoutX="53.0" layoutY="187.0" prefHeight="25.0" prefWidth="120.0" text="Jakob Sperry" wrapText="true">
+                  <Label alignment="TOP_CENTER" layoutX="53.0" layoutY="187.0" mouseTransparent="true" prefHeight="25.0" prefWidth="120.0" text="Jakob Sperry" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Front End Dev" wrapText="true">
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane fx:id="jakobBubble" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../OurPictures/TextBubble.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Whats backend?" textAlignment="CENTER" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" mouseTransparent="true" prefHeight="17.0" prefWidth="110.0" text="Front End Dev" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
@@ -293,21 +209,7 @@
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Front End Dev" wrapText="true">
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane fx:id="justinBubble" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <children>
-                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../OurPictures/TextBubble.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Backend doesn't exist." textAlignment="CENTER" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" mouseTransparent="true" prefHeight="17.0" prefWidth="110.0" text="Front End Dev" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
@@ -325,28 +227,14 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" prefHeight="25.0" prefWidth="120.0" text="Daniel Onyema" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" mouseTransparent="true" prefHeight="25.0" prefWidth="120.0" text="Daniel Onyema" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Front End Dev" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" mouseTransparent="true" prefHeight="17.0" prefWidth="110.0" text="Front End Dev" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane fx:id="danielBubble" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
-               <children>
-                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../OurPictures/TextBubble.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="TOP_LEFT" layoutX="-2.0" layoutY="2.0" prefHeight="101.0" prefWidth="143.0" text="THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE" textAlignment="CENTER" wrapText="true">
-                     <font>
-                        <Font name="Arial" size="20.0" />
                      </font>
                   </Label>
                </children>
@@ -362,26 +250,12 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" prefHeight="25.0" prefWidth="120.0" text="Aaron Nguyen" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="53.0" layoutY="187.0" mouseTransparent="true" prefHeight="25.0" prefWidth="120.0" text="Aaron Nguyen" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" prefHeight="17.0" prefWidth="110.0" text="Back End Dev" wrapText="true">
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane fx:id="aaronBubble" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
-               <children>
-                  <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../OurPictures/TextBubble.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Some call me the silent killer." textAlignment="CENTER" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" mouseTransparent="true" prefHeight="17.0" prefWidth="110.0" text="Back End Dev" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
@@ -398,6 +272,132 @@
                </image>
             </ImageView>
             <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="I made this page!" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="aliBubble" layoutX="240.0" layoutY="60.0" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0">
+         <children>
+            <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../OurPictures/TextBubble.png" />
+               </image>
+            </ImageView>
+            <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="6.0" prefHeight="76.0" prefWidth="110.0" text="It shouldn't work but it does" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="taliaBubble" layoutX="460.0" layoutY="60.0" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0">
+         <children>
+            <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../OurPictures/TextBubble.png" />
+               </image>
+            </ImageView>
+            <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Finaly a diffrent error." textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="aahdyaBubble" layoutX="680.0" layoutY="60.0" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0">
+         <children>
+            <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../OurPictures/TextBubble.png" />
+               </image>
+            </ImageView>
+            <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Wong." textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="harmoniBubble" layoutX="900.0" layoutY="60.0" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0">
+         <children>
+            <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../OurPictures/TextBubble.png" />
+               </image>
+            </ImageView>
+            <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="111.0" text="java.lang.NullPointerException" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="joeBubble" layoutX="20.0" layoutY="350.0" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0">
+         <children>
+            <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../OurPictures/TextBubble.png" />
+               </image>
+            </ImageView>
+            <Label alignment="TOP_LEFT" layoutX="11.0" layoutY="22.0" prefHeight="51.0" prefWidth="106.0" text="Very special to me." textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="jakobBubble" layoutX="240.0" layoutY="350.0" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0">
+         <children>
+            <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../OurPictures/TextBubble.png" />
+               </image>
+            </ImageView>
+            <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Whats backend?" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="justinBubble" layoutX="440.0" layoutY="350.0" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0">
+         <children>
+            <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../OurPictures/TextBubble.png" />
+               </image>
+            </ImageView>
+            <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Backend doesn't exist." textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="danielBubble" layoutX="680.0" layoutY="350.0" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0">
+         <children>
+            <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../OurPictures/TextBubble.png" />
+               </image>
+            </ImageView>
+            <Label alignment="TOP_LEFT" layoutX="-2.0" layoutY="2.0" prefHeight="101.0" prefWidth="143.0" text="THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Arial" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="aaronBubble" layoutX="900.0" layoutY="350.0" mouseTransparent="true" prefHeight="135.0" prefWidth="141.0">
+         <children>
+            <ImageView fitHeight="152.0" fitWidth="177.0" layoutX="-5.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../OurPictures/TextBubble.png" />
+               </image>
+            </ImageView>
+            <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Some call me the silent killer." textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>
