@@ -31,7 +31,7 @@
                   <Font name="Arial" size="70.0" />
                </font>
             </Label>
-            <Label alignment="TOP_CENTER" layoutX="108.0" layoutY="12.0" prefHeight="105.0" prefWidth="315.0" text="We are doing our absolute best to slow the spread of the ongoing coronavirus pandemic but here are some things you can do to help not only us but everyone" textAlignment="CENTER" wrapText="true">
+            <Label alignment="TOP_CENTER" layoutX="108.0" layoutY="12.0" prefHeight="105.0" prefWidth="315.0" text="We are doing our absolute best to slow the spread of the ongoing coronavirus pandemic. Here are some things you can do to help." textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Arial" size="70.0" />
                </font>
@@ -92,7 +92,7 @@
             <Font name="Arial" size="70.0" />
          </font>
       </Label>
-      <Label alignment="TOP_CENTER" layoutX="436.0" layoutY="453.0" prefHeight="3.0" prefWidth="130.0" scaleX="2.0" scaleY="2.0" text="Get Vacinated" textAlignment="CENTER" underline="true" wrapText="true">
+      <Label alignment="TOP_CENTER" layoutX="436.0" layoutY="453.0" prefHeight="3.0" prefWidth="130.0" scaleX="2.0" scaleY="2.0" text="Get Vaccinated" textAlignment="CENTER" underline="true" wrapText="true">
          <font>
             <Font name="Arial" size="70.0" />
          </font>
@@ -107,22 +107,22 @@
             <Font name="Arial" size="70.0" />
          </font>
       </Label>
-      <Label fx:id="maskDesc" alignment="TOP_CENTER" layoutX="141.0" layoutY="488.0" prefHeight="208.0" prefWidth="172.0" text="Not only to protect yourself, but others around you, masks are mainly meant to keep your germs contained but also provide protection to the wearer" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="maskDesc" alignment="TOP_CENTER" layoutX="141.0" layoutY="488.0" prefHeight="208.0" prefWidth="172.0" text="Not only to protect yourself, but others around you. Masks are mainly meant to keep germs contained but also provide protection to the wearer." textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Arial" size="70.0" />
          </font>
       </Label>
-      <Label fx:id="vacDesc" alignment="TOP_CENTER" layoutX="410.0" layoutY="488.0" prefHeight="182.0" prefWidth="172.0" text="If you can, do so as it's the best way to protect yourself. Vaccination does not make you immune but lessons the chance of needing to come to a hospital" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="vacDesc" alignment="TOP_CENTER" layoutX="410.0" layoutY="488.0" prefHeight="182.0" prefWidth="172.0" text="If you can, do so as it's the best way to protect yourself. Vaccination does not make you immune but lessens the chance of needing to come to a hospital." textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Arial" size="70.0" />
          </font>
       </Label>
-      <Label fx:id="houseDesc" alignment="TOP_CENTER" layoutX="701.0" layoutY="488.0" prefHeight="153.0" prefWidth="172.0" text="If your sick, don't go out, keep friends, family and even strangers safe. Only go out if it is an emergency." textAlignment="CENTER" wrapText="true">
+      <Label fx:id="houseDesc" alignment="TOP_CENTER" layoutX="701.0" layoutY="488.0" prefHeight="153.0" prefWidth="172.0" text="If your sick, don't go out, keep friends, family and even strangers safe. Only go out for necessities and or emergencies." textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Arial" size="70.0" />
          </font>
       </Label>
-      <Label fx:id="distanceDesc" alignment="TOP_CENTER" layoutX="973.0" layoutY="488.0" prefHeight="188.0" prefWidth="172.0" text="It's recommend to keep 2m (6ft) minimum distance in indoor spaces but if you can do more it never hurts, having gatherings outside is also advised" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="distanceDesc" alignment="TOP_CENTER" layoutX="973.0" layoutY="488.0" prefHeight="188.0" prefWidth="172.0" text="It's recommend to keep 2m (6ft) minimum distance in indoor spaces. If you can do more it never hurts, having gatherings outside is also advised." textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Arial" size="70.0" />
          </font>
