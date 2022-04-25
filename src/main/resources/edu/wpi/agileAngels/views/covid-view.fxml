@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.CovidController">
+<AnchorPane id="main" fx:id="anchor" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheets/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.CovidController">
    <children>
       <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
       <Pane layoutX="151.0" layoutY="88.0" prefHeight="154.0" prefWidth="471.0">
@@ -26,7 +26,7 @@
       </Pane>
       <Pane fx:id="infoText" layoutX="601.0" layoutY="67.0" prefHeight="204.0" prefWidth="515.0">
          <children>
-            <Label alignment="TOP_CENTER" layoutX="74.0" layoutY="149.0" prefHeight="38.0" prefWidth="398.0" text="Click on the buttons below to learn what you can do:" textAlignment="CENTER" underline="true" wrapText="true">
+            <Label alignment="TOP_CENTER" layoutX="74.0" layoutY="149.0" prefHeight="38.0" prefWidth="398.0" text="Click on the buttons below to learn what you can do:" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Arial" size="70.0" />
                </font>
