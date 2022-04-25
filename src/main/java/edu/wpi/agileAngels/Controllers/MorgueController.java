@@ -124,7 +124,14 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     if (morgueIDLabel.getText().equals("New Request")) {
       Request req =
           new Request(
-              "", employeeHash.get(emp), locationsHash.get(loc), "N/A", stat, desc, date, time);
+              "",
+              employeeHash.get(emp),
+              locationsHash.get(loc),
+              "N/A",
+              "Not Started",
+              desc,
+              date,
+              time);
       morgueData.add(req);
       MorguerequestImpl.addRequest(req);
 
@@ -389,6 +396,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
       if (mouseEvent.getButton() == MouseButton.PRIMARY) {
         populate();
         deleteRequest.setVisible(true);
+        morgueStatus.setVisible(true);
       }
     } catch (NullPointerException e) {
       hidePopout();
@@ -398,6 +406,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
   @FXML
   public void newRequest() {
     deleteRequest.setVisible(false);
+    morgueStatus.setVisible(false);
     showPopout();
     clear();
     morgueIDLabel.setText("New Request");

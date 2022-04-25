@@ -127,6 +127,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   @FXML
   public void newRequest() {
     deleteRequest.setVisible(false);
+    giftStatus.setVisible(false);
     showPopout();
     clear();
     giftIDLabel.setText("New Request");
@@ -146,7 +147,14 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     if (giftIDLabel.getText().equals("New Request")) {
       Request req =
           new Request(
-              "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, rec, send);
+              "",
+              employeeHash.get(emp),
+              locationsHash.get(loc),
+              type,
+              "Not Started",
+              desc,
+              rec,
+              send);
       giftData.add(req);
       giftRequestImpl.addRequest(req);
       updateDashAdding(stat);
@@ -471,6 +479,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
       if (mouseEvent.getButton() == MouseButton.PRIMARY) {
         populate();
         deleteRequest.setVisible(true);
+        giftStatus.setVisible(true);
       }
     } catch (NullPointerException e) {
       hidePopout();
