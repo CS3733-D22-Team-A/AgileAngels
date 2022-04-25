@@ -326,4 +326,8 @@ public class AppController {
   public MenuController getMenuController() {
     return menuController;
   }
+
+  public void updateMenuColor() {
+    menuController.setColor(this.color);
+  }
 }
