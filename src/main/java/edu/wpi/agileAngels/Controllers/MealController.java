@@ -169,6 +169,7 @@ public class MealController implements Initializable, PropertyChangeListener {
     }
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -193,6 +194,7 @@ public class MealController implements Initializable, PropertyChangeListener {
     mealRequestImpl.deleteRequest(mealRequestImpl.getAllRequests().get(id));
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML

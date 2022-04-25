@@ -119,11 +119,6 @@ public class RequestDAOImpl implements RequestDAO {
         LabrequestDAO = new RequestDAOImpl(data, 1, "LabRequest");
       }
       return LabrequestDAO;
-    } else if (0 == type.compareTo("ServiceRequest")) {
-      if (SanDAO == null) {
-        SanDAO = new RequestDAOImpl(data, 1, "SanRequest");
-      }
-      return SanDAO;
     } else if (0 == type.compareTo("MealRequest")) {
       if (MealDAO == null) {
         MealDAO = new RequestDAOImpl(data, 1, "MealRequest");
@@ -286,7 +281,6 @@ public class RequestDAOImpl implements RequestDAO {
 
   // UHHHH fix this
   private void typeofDAO(String[] values) throws SQLException {
-    ++this.count;
     if (values[0].substring(0, 3).compareTo("Med") == 0 && DAOtype.compareTo("MedRequest") == 0) {
       makeRequest(values);
     } else if (values[0].substring(0, 4).compareTo("Meal") == 0
@@ -326,8 +320,10 @@ public class RequestDAOImpl implements RequestDAO {
             values[6],
             values[7]);
     this.reqData.put(values[0], request);
+    this.count++;
     try {
       RequestDAOImpl.getInstance("AllRequests").reqData.put(values[0], request);
+      RequestDAOImpl.getInstance("AllRequests").incrementCount();
     } catch (SQLException sqlException) {
     }
     Adb.addRequest(request);
@@ -404,5 +400,17 @@ public class RequestDAOImpl implements RequestDAO {
 
   public ArrayList<String> getFreeEmployees() throws SQLException {
     return Adb.getFreeEmployees();
+  }
+
+  public int getCount() {
+    return count;
+  }
+
+  public void setCount(int count) {
+    this.count = count;
+  }
+
+  public void incrementCount() {
+    this.count++;
   }
 }

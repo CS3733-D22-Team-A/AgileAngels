@@ -16,19 +16,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class EquipmentController implements Initializable, PropertyChangeListener {
 
-  @FXML Pane popOut;
+  @FXML VBox popOut;
+  @FXML HBox tableHBox;
   @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
   @FXML private TextField employeeFilterField, statusFilterField, mainDescription;
-  @FXML private Label equipmentConfirmation;
+  @FXML private Label equipmentConfirmation, equipID;
   @FXML private TableView equipmentTable;
   @FXML Button clear, submitFilters;
   @FXML Pane drop, drop2;
-  @FXML MenuButton equipLocation, equipmentType, equipmentStatus, equipmentEmployeeText, mainID;
+  @FXML MenuButton equipLocation, equipmentType, equipmentStatus, equipmentEmployeeText;
   @FXML AnchorPane anchor;
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
@@ -66,7 +71,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
-    popOut.setVisible(false);
+    hidePopout();
 
     equipHash = equipDAO.getAllMedicalEquipment();
     allMedEquip = new ArrayList<>(equipHash.values());
@@ -94,6 +99,34 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     equipmentTable.setItems(medData);
 
     dashboardLoad();
+
+    for (Location loc : locationsList) {
+      MenuItem item = new MenuItem(loc.getLongName());
+      item.setOnAction(this::locationMenu);
+      equipLocation.getItems().add(item);
+    }
+
+    // Populates employees dropdown
+    for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+      Employee emp = entry.getValue();
+      MenuItem item = new MenuItem(emp.getName());
+      item.setOnAction(this::employeeMenu);
+      equipmentEmployeeText.getItems().add(item);
+    }
+  }
+
+  public void hidePopout() {
+    try {
+      tableHBox.getChildren().remove(popOut);
+    } catch (NullPointerException e) {
+
+    }
+  }
+
+  public void showPopout() {
+    if (tableHBox.getChildren().get(0) != popOut) {
+      tableHBox.getChildren().add(0, popOut);
+    }
   }
 
   @Override
@@ -238,112 +271,113 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   /* FILTER METHODS ABOVE HERE */
 
   @FXML
-  private void addEquipRequest() {
-
-    if (!mainID.getText().equals("Add New Request")) {
-      editEquipmentRequest();
+  public void submit() {
+    if (equipID.getText().equals("New Request")) {
+      addEquipRequest();
     } else {
-
-      equipmentConfirmation.setText("");
-      // gets all inputs and converts into string
-      String dropDownString = equipmentType.getText();
-      String locationString = locationIDsByLongName.get(equipLocation.getText());
-      String employeeString = equipmentEmployeeText.getText();
-      String statusString = equipmentStatus.getText();
-      String descriptionString = mainDescription.getText();
-
-      if (dropDownString.equals("Equipment Type")
-          || locationString.equals("Delivery Location")
-          || statusString.equals("Status")
-          || employeeString.equals("Employee")) {
-        equipmentConfirmation.setText("One or more of the required fields is not filled in.");
-      } else {
-        MedicalEquip equip = null;
-        Boolean foundEquip = false;
-        int i = 0;
-        while (!foundEquip && i < allMedEquip.size()) {
-          MedicalEquip medEquip = allMedEquip.get(i);
-          if (medEquip.getType().equals(dropDownString)
-              && medEquip.getStatus().equals("available")
-              && medEquip.isClean()
-              && medEquip
-                  .getLocation()
-                  .getFloor()
-                  .equals(locationsHash.get(locationString).getFloor())) {
-            equip = medEquip;
-            foundEquip = true;
-          }
-          i++;
-        }
-        if (foundEquip) {
-          equipmentConfirmation.setText(
-              "Thank you, the "
-                  + dropDownString
-                  + " you requested will be delivered shortly to "
-                  + locationString
-                  + " by "
-                  + employeeString
-                  + ".");
-
-          String placeholder = "?";
-          Request medDevice =
-              new Request(
-                  placeholder,
-                  empDAO.getEmployee(employeeString),
-                  locDAO.getLocation(locationString),
-                  dropDownString,
-                  statusString,
-                  descriptionString,
-                  "something",
-                  "",
-                  equip);
-
-          updateDashAdding(statusString);
-
-          // set the status and location of the medicalEquipment object corresponding to the request
-          if (statusString.equals("notStarted")) {
-            equipDAO.updateStatus(equip, "inUse");
-          } else if (statusString.equals("inProgress")) {
-            equipDAO.updateStatus(equip, "inUse");
-            equipDAO.updateEquipmentLocation(equip, medDevice.getLocation());
-          } else if (statusString.equals("complete")) {
-            equipDAO.updateMedicalCleanliness(equip, false);
-            equipDAO.updateStatus(equip, "available");
-            if (locationsHash.get(locationString).getFloor().equals("3")) {
-              equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00103"));
-            } else if (locationsHash.get(locationString).getFloor().equals("4")) {
-              equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00104"));
-            } else if (locationsHash.get(locationString).getFloor().equals("5")) {
-              equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00105"));
-            }
-          }
-
-          MedrequestImpl.addRequest(medDevice); // add to hashmap
-
-          // add the new request to the ID dropdown
-          MenuItem item = new MenuItem(medDevice.getName());
-          item.setOnAction(this::mainIDMenu);
-          mainID.getItems().add(item);
-
-          medData.add(medDevice); // add to the UI
-          equipmentTable.setItems(medData);
-        } else {
-          equipmentConfirmation.setText(
-              "Sorry, there are currently no " + dropDownString + "s available. ");
-        }
-      }
+      editEquipmentRequest();
     }
     clearFields();
-    popOut.setVisible(false);
+    hidePopout();
+  }
+
+  private void addEquipRequest() {
+    equipmentConfirmation.setText("");
+    // gets all inputs and converts into string
+    String dropDownString = equipmentType.getText();
+    String locationString = locationIDsByLongName.get(equipLocation.getText());
+    String employeeString = equipmentEmployeeText.getText();
+    String statusString = equipmentStatus.getText();
+    String descriptionString = mainDescription.getText();
+
+    if (dropDownString.equals("Equipment Type")
+        || locationString.equals("Delivery Location")
+        || statusString.equals("Status")
+        || employeeString.equals("Employee")) {
+      equipmentConfirmation.setText("One or more of the required fields is not filled in.");
+    } else {
+      MedicalEquip equip = null;
+      Boolean foundEquip = false;
+      int i = 0;
+      while (!foundEquip && i < allMedEquip.size()) {
+        MedicalEquip medEquip = allMedEquip.get(i);
+        if (medEquip.getType().equals(dropDownString)
+            && medEquip.getStatus().equals("available")
+            && medEquip.isClean()
+            && medEquip
+                .getLocation()
+                .getFloor()
+                .equals(locationsHash.get(locationString).getFloor())) {
+          equip = medEquip;
+          foundEquip = true;
+        }
+        i++;
+      }
+      if (foundEquip) {
+        equipmentConfirmation.setText(
+            "Thank you, the "
+                + dropDownString
+                + " you requested will be delivered shortly to "
+                + locationString
+                + " by "
+                + employeeString
+                + ".");
+
+        String placeholder = "?";
+        Request medDevice =
+            new Request(
+                placeholder,
+                empDAO.getEmployee(employeeString),
+                locDAO.getLocation(locationString),
+                dropDownString,
+                statusString,
+                descriptionString,
+                "something",
+                "",
+                equip);
+
+        updateDashAdding(statusString);
+
+        // set the status and location of the medicalEquipment object corresponding to the request
+        if (statusString.equals("notStarted")) {
+          equipDAO.updateStatus(equip, "inUse");
+        } else if (statusString.equals("inProgress")) {
+          equipDAO.updateStatus(equip, "inUse");
+          equipDAO.updateEquipmentLocation(equip, medDevice.getLocation());
+        } else if (statusString.equals("complete")) {
+          equipDAO.updateMedicalCleanliness(equip, false);
+          equipDAO.updateStatus(equip, "available");
+          if (locationsHash.get(locationString).getFloor().equals("3")) {
+            equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00103"));
+          } else if (locationsHash.get(locationString).getFloor().equals("4")) {
+            equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00104"));
+          } else if (locationsHash.get(locationString).getFloor().equals("5")) {
+            equipDAO.updateEquipmentLocation(equip, locationsHash.get("ADIRT00105"));
+          }
+        }
+
+        MedrequestImpl.addRequest(medDevice); // add to hashmap
+
+        // add the new request to the ID dropdown
+        MenuItem item = new MenuItem(medDevice.getName());
+        item.setOnAction(this::mainIDMenu);
+
+        medData.add(medDevice); // add to the UI
+        equipmentTable.setItems(medData);
+      } else {
+        equipmentConfirmation.setText(
+            "Sorry, there are currently no " + dropDownString + "s available. ");
+      }
+    }
   }
 
   @FXML
   private void deleteEquipRequest() {
     equipmentConfirmation.setText("");
     // gets all inputs and converts into string
-    String deleteString = mainID.getText();
-
-    if (!deleteString.isEmpty()) {
+    try {
+      String deleteString =
+          ((Request) equipmentTable.getSelectionModel().getSelectedItem()).getName();
       for (int i = 0; i < medData.size(); i++) {
         Request object = medData.get(i);
         if (0 == deleteString.compareTo(object.getName())) {
@@ -359,18 +393,20 @@ public class EquipmentController implements Initializable, PropertyChangeListene
           medData.remove(i);
           MedrequestImpl.deleteRequest(object);
         }
+        equipmentTable.setItems(medData);
       }
-      equipmentTable.setItems(medData);
+    } catch (NullPointerException e) {
+      equipmentTable.getSelectionModel().clearSelection();
     }
+
     clearFields();
-    popOut.setVisible(false);
+    hidePopout();
   }
 
-  @FXML
   private void editEquipmentRequest() {
     equipmentConfirmation.setText("");
     // gets all inputs and converts into string
-    String editString = mainID.getText();
+    String editString = equipID.getText();
     String dropDownString = equipmentType.getText();
     String locationString = locationIDsByLongName.get(equipLocation.getText());
     String employeeString = equipmentEmployeeText.getText();
@@ -385,7 +421,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     int num = 0;
     for (int i = 0; i < medData.size(); i++) {
       Request device = medData.get(i);
-      if (0 == mainID.getText().compareTo(device.getName())) {
+      if (0 == equipID.getText().compareTo(device.getName())) {
         found = device;
         num = i;
       }
@@ -521,8 +557,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
       //  equipmentTable.setItems(medData);
     }
-    clearFields();
-    popOut.setVisible(false);
   }
 
   @FXML
@@ -552,15 +586,15 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   @FXML
   public void mainIDMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    mainID.setText(button.getText());
+    equipID.setText(button.getText());
     if (!button.getText().equals("Add New Request")) {
-      populate(button.getText());
+      populate();
     }
   }
 
   @FXML
   public void modifyRequest(ActionEvent event) {
-    popOut.setVisible(true);
+    showPopout();
 
     if (equipLocation.getItems().size() == 0) {
       // Populates locations dropdown
@@ -573,29 +607,14 @@ public class EquipmentController implements Initializable, PropertyChangeListene
           equipLocation.getItems().add(item);
         }
       }
-      // Populates employees dropdown
-      for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
-        Employee emp = entry.getValue();
-        MenuItem item = new MenuItem(emp.getName());
-        item.setOnAction(this::employeeMenu);
-        equipmentEmployeeText.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::mainIDMenu);
-      mainID.getItems().add(item1);
-      // Populates ID dropdown
-      for (Request req : medData) {
-        MenuItem item = new MenuItem(req.getName());
-        item.setOnAction(this::mainIDMenu);
-        mainID.getItems().add(item);
-      }
     }
   }
 
-  private void populate(String id) {
-    Request req = MedrequestImpl.getAllRequests().get(id);
+  private void populate() {
+    showPopout();
+    Request req = ((Request) equipmentTable.getSelectionModel().getSelectedItem());
+    equipID.setText(req.getName());
     equipLocation.setText(req.getLocation().getLongName());
-    System.out.println(req.getStatus());
     equipmentStatus.setText(req.getStatus());
     equipmentEmployeeText.setText(req.getEmployee().getName());
     equipmentType.setText(req.getType());
@@ -608,7 +627,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     equipLocation.setText("Location");
     equipmentStatus.setText("Status");
     equipmentEmployeeText.setText("Employee");
-    mainID.setText("ID");
+    equipID.setText("ID");
     mainDescription.setText("");
     mainDescription.setPromptText("Description");
   }
@@ -616,7 +635,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   @FXML
   public void cancel(ActionEvent event) {
     clearFields();
-    popOut.setVisible(false);
+    hidePopout();
   }
 
   public void clearPage(ActionEvent actionEvent) {
@@ -701,5 +720,23 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       statusComplete--;
     }
     setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  @FXML
+  public void newRequest() {
+    showPopout();
+    clearFields();
+    equipID.setText("New Request");
+  }
+
+  public void loadRequest(MouseEvent mouseEvent) {
+    // populate(((Request) labTable.getSelectionModel().getSelectedItem()).getName());
+    try {
+      if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+        populate();
+      }
+    } catch (NullPointerException e) {
+      hidePopout();
+    }
   }
 }

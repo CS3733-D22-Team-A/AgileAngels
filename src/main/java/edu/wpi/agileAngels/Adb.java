@@ -73,22 +73,30 @@ public class Adb {
     LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
     locationDAO.csvRead();
     RequestDAOImpl medRequestDAO = RequestDAOImpl.getInstance("MedRequest");
+    medRequestDAO.setCount(0);
     medRequestDAO.csvRead();
     RequestDAOImpl labRequestDAO = RequestDAOImpl.getInstance("LabRequest");
+    labRequestDAO.setCount(0);
     labRequestDAO.csvRead();
     MedEquipImpl equipmentDAO = MedEquipImpl.getInstance();
     equipmentDAO.readCSV();
     RequestDAOImpl mainRequestImpl = RequestDAOImpl.getInstance("MaintenanceRequest");
+    mainRequestImpl.setCount(0);
     mainRequestImpl.csvRead();
     RequestDAOImpl transportRequestImpl = RequestDAOImpl.getInstance("TransportRequest");
+    transportRequestImpl.setCount(0);
     transportRequestImpl.csvRead();
     RequestDAOImpl morgueRequestImpl = RequestDAOImpl.getInstance("MorgueRequest");
+    morgueRequestImpl.setCount(0);
     morgueRequestImpl.csvRead();
     RequestDAOImpl giftRequestImpl = RequestDAOImpl.getInstance("GiftRequest");
+    giftRequestImpl.setCount(0);
     giftRequestImpl.csvRead();
     RequestDAOImpl mealRequestImpl = RequestDAOImpl.getInstance("MealRequest");
+    mealRequestImpl.setCount(0);
     mealRequestImpl.csvRead();
     RequestDAOImpl sanitationRequestImpl = RequestDAOImpl.getInstance("SanitationRequest");
+    sanitationRequestImpl.setCount(0);
     sanitationRequestImpl.csvRead();
   }
 

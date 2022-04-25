@@ -1,13 +1,20 @@
-name,password,duty
-James,1234,Off Duty
-Liam,hello3,2
-Harriot,pssWord,4
-Ariana,weeWoo,4
-Carly,fvdfv,L1
-Tom,sdcscs,2
-Alex,dvsvsd,5
-Talia,Maryland,3
-Aadhya,15557,5
-Jakob,99904587,2
-John,556722,L2
-Karl,1118383,3
+name,password,duty,permission,department,startTime,endTime,supervisor
+wong,wong,3,5,Head Man,09:30,19:00,
+,,Off Duty,5,Nursing,00:00,00:00,wong
+James,1234,Off Duty,4,Oncology,07:00,19:00,wong
+Liam,hello3,2,3,Nursing,18:00,04:00,James
+Harriot,pssWord,4,3,Oncology,05:00,20:00,James
+Alex,dvsvsd,5,3,Radiology,01:00,11:30,Harriot
+Ariana,weeWoo,4,3,Radiology,04:00,17:00,Alex
+Tom,sdcscs,2,4,Neurology,00:00,15:30,James
+Carly,fvdfv,L1,3,Neurology,00:00,15:30,Tom
+Talia,Maryland,3,2,Nursing,00:00,23:00,James
+Aadhya,15557,5,4,Surgery,00:00,20:00,Ariana
+Jakob,,2,4,Surgery,03:00,17:30,Aadhya
+John,556722,L2,1,Sanitation,08:00,17:00,James
+Karl,1118383,3,1,Sanitation,08:00,17:00,John
+Mike,r557h,2,2,Nursing,09:30,19:00,Liam
+staff,staff,3,1,Staff,09:30,19:00,wong
+nurse,nurse,3,2,Staff,09:30,19:00,wong
+doctor,doctor,3,3,Staff,09:30,19:00,wong
+admin,admin,3,4,Staff,09:30,19:00,wong

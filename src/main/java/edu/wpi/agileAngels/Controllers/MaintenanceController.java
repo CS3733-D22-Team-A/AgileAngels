@@ -13,24 +13,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class MaintenanceController implements Initializable, PropertyChangeListener {
 
   @FXML VBox popOut;
-  @FXML MenuButton mainID, mainLocation, mainEmployee, mainStatus;
+  @FXML HBox tableHBox;
+  @FXML MenuButton mainLocation, mainEmployee, mainStatus;
   @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
   @FXML TableView mainTable;
   @FXML
-  private TableColumn nameColumn,
-      availableColumn,
-      typeColumn,
-      locationColumn,
-      employeeColumn,
-      statusColumn,
-      descriptionColumn;
+  private TableColumn nameColumn, locationColumn, employeeColumn, statusColumn, descriptionColumn;
   @FXML TextField mainDescription, employeeFilterField, statusFilterField;
-  @FXML Label notStartedNumber, inProgressNumber, completedNumber;
+  @FXML Label notStartedNumber, inProgressNumber, completedNumber, mainIDLabel;
 
   // DAOs, HashMaps, and Lists required for functionality
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
@@ -51,7 +49,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
-    popOut.setVisible(false);
+    hidePopout();
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
@@ -63,10 +61,8 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
     locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
     statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-    availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
 
     maintenanceData.clear();
     // Populates the table from UI list
@@ -78,6 +74,35 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     }
     dashboardLoad();
     mainTable.setItems(maintenanceData);
+
+    // Populates locations dropdown
+    for (Location loc : locationsList) {
+      MenuItem item = new MenuItem(loc.getLongName());
+      item.setOnAction(this::mainLocationMenu);
+      mainLocation.getItems().add(item);
+    }
+
+    // Populates employees dropdown
+    for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+      Employee emp = entry.getValue();
+      MenuItem item = new MenuItem(emp.getName());
+      item.setOnAction(this::mainEmployeeMenu);
+      mainEmployee.getItems().add(item);
+    }
+  }
+
+  public void hidePopout() {
+    try {
+      tableHBox.getChildren().remove(popOut);
+    } catch (NullPointerException e) {
+
+    }
+  }
+
+  public void showPopout() {
+    if (tableHBox.getChildren().get(0) != popOut) {
+      tableHBox.getChildren().add(0, popOut);
+    }
   }
 
   @Override
@@ -89,34 +114,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
 
   @FXML
   public void modifyRequest(ActionEvent event) {
-    popOut.setVisible(true);
-
-    if (mainLocation.getItems().size() == 0) {
-      // Populates locations dropdown
-      for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getLongName());
-        item.setOnAction(this::mainLocationMenu);
-        mainLocation.getItems().add(item);
-      }
-
-      // Populates employees dropdown
-      for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
-        Employee emp = entry.getValue();
-        MenuItem item = new MenuItem(emp.getName());
-        item.setOnAction(this::mainEmployeeMenu);
-        mainEmployee.getItems().add(item);
-      }
-
-      // Populates ID dropdown
-      for (Request req : maintenanceData) {
-        MenuItem item = new MenuItem(req.getName());
-        item.setOnAction(this::mainIDMenu);
-        mainID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::mainIDMenu);
-      mainID.getItems().add(item1);
-    }
+    showPopout();
   }
 
   @FXML
@@ -127,26 +125,15 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     String desc = mainDescription.getText();
 
     // Adding
-    if (mainID.getText().equals("Add New Request")) {
+    if (mainIDLabel.getText().equals("New Request")) {
       Request req =
           new Request(
               "", employeeHash.get(emp), locationsHash.get(loc), "N/A", stat, desc, "N/A", "N/A");
       maintenanceData.add(req);
       mainRequestImpl.addRequest(req);
-
-      mainID.getItems().remove(0, mainID.getItems().size());
-      // Populates ID dropdown
-      for (Request request : maintenanceData) {
-        MenuItem item = new MenuItem(request.getName());
-        item.setOnAction(this::mainIDMenu);
-        mainID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::mainIDMenu);
-      mainID.getItems().add(item1);
       updateDashAdding(stat);
     } else { // Editing
-      Request req = mainRequestImpl.getAllRequests().get(mainID.getText());
+      Request req = mainRequestImpl.getAllRequests().get(mainIDLabel.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
         Location newLoc = locationsHash.get(loc);
         mainRequestImpl.updateLocation(req, newLoc);
@@ -169,37 +156,42 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
         }
       }
     }
-
-    clear(event);
+    clear();
+    hidePopout();
   }
 
   @FXML
   public void cancel(ActionEvent event) {
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
   }
 
   @FXML
   public void delete(ActionEvent event) {
-    String id = mainID.getText();
-    updateDashSubtracting(mainRequestImpl.getAllRequests().get(id).getStatus());
-    // removes the request from the table and dropdown
-    for (int i = 0; i < maintenanceData.size(); i++) {
-      if (maintenanceData.get(i).getName().equals(id)) {
-        maintenanceData.remove(i);
-        mainID.getItems().remove(i);
+
+    try {
+      String id = ((Request) mainTable.getSelectionModel().getSelectedItem()).getName();
+      updateDashSubtracting(mainRequestImpl.getAllRequests().get(id).getStatus());
+      // removes the request from the table and dropdown
+      for (int i = 0; i < maintenanceData.size(); i++) {
+        if (maintenanceData.get(i).getName().equals(id)) {
+          maintenanceData.remove(i);
+          // labID.getItems().remove(i);
+        }
       }
+      // delete from hash map and database table
+      mainRequestImpl.deleteRequest(mainRequestImpl.getAllRequests().get(id));
+
+    } catch (NullPointerException e) {
+      mainTable.getSelectionModel().clearSelection();
     }
-
-    // delete from hash map and database table
-    mainRequestImpl.deleteRequest(mainRequestImpl.getAllRequests().get(id));
-
-    clear(event);
+    clear();
+    hidePopout();
   }
 
   @FXML
-  public void clear(ActionEvent event) {
-    mainID.setText("ID");
+  public void clear() {
+    mainIDLabel.setText("ID");
     mainLocation.setText("Location");
     mainEmployee.setText("Employee");
     mainStatus.setText("Status");
@@ -232,14 +224,9 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
   }
 
   @FXML
-  public void mainIDMenu(ActionEvent event) {
+  public void mainIDLabelMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
-    mainID.setText(button.getText());
-
-    // If editing or deleting an existing request:
-    if (!button.getText().equals("Add New Request")) {
-      populate(button.getText());
-    }
+    mainIDLabel.setText(button.getText());
   }
 
   @FXML
@@ -405,13 +392,11 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     return newList;
   }
 
-  /**
-   * Populates fields once a node id is chosen when editing an existing request.
-   *
-   * @param id Request ID
-   */
-  private void populate(String id) {
-    Request req = mainRequestImpl.getAllRequests().get(id);
+  /** Populates fields once a node id is chosen when editing an existing request. */
+  private void populate() {
+    showPopout();
+    Request req = ((Request) mainTable.getSelectionModel().getSelectedItem());
+    mainIDLabel.setText(req.getName());
     mainLocation.setText(req.getLocation().getLongName());
     mainEmployee.setText(req.getEmployee().getName());
     mainStatus.setText(req.getStatus());
@@ -452,5 +437,24 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
       statusComplete--;
     }
     setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  @FXML
+  public void loadRequest(MouseEvent mouseEvent) {
+    try {
+      if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+        populate();
+        deleteRequest.setVisible(true);
+      }
+    } catch (NullPointerException e) {
+      hidePopout();
+    }
+  }
+
+  public void newRequest(ActionEvent event) {
+    deleteRequest.setVisible(false);
+    showPopout();
+    clear();
+    mainIDLabel.setText("New Request");
   }
 }
