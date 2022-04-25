@@ -82,7 +82,13 @@ public class MapsController implements Initializable, PropertyChangeListener {
   @FXML private TextField locationName, addLocationName;
   @FXML Pane mapPane, locationEditPane, requestEditPane, locationAddPane, clickPane;
   @FXML AnchorPane anchor;
-  @FXML Label requestName, floorLabel, nodeIDField, addNodeIDField, sameLocationName;
+  @FXML
+  Label requestName,
+      floorLabel,
+      nodeIDField,
+      addNodeIDField,
+      sameLocationName,
+      sameLocationNameEdit;
   @FXML
   MenuButton locationTypeDropdown,
       requestTypeDropdown,
@@ -380,11 +386,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
       currentLocationNode = null;
       deselect();
     } else {
-      currentLocationNode.changeLocationType(type);
-      locationNodeManager.editNode(currentLocationNode, currentLocationNode.getName(), type);
-      currentLocationNode.resetLocation();
-      currentLocationNode = null;
-      deselect();
+      sameLocationNameEdit.setVisible(true);
     }
   }
 
@@ -684,6 +686,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     locationEditPane.setVisible(false);
     locationAddPane.setVisible(false);
     sameLocationName.setVisible(false);
+    sameLocationNameEdit.setVisible(false);
 
     clickPane.setVisible(false);
     locationFilterButton.setVisible(true);
