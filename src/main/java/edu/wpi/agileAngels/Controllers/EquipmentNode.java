@@ -40,10 +40,11 @@ public class EquipmentNode {
           isClicked();
         });
 
-    button.setStyle("-fx-background-color: #797979;-fx-font-size: 8");
+    button.setStyle("-fx-background-color: #b3b3b3;-fx-font-size: 8");
+    button.setPrefSize(30, 26);
 
     button.setStyle(
-        "-fx-font-size: 12; -fx-background-radius: 0 8 8 8; -fx-background-color: #434343; -fx-text-fill: white");
+        "-fx-font-size: 12; -fx-background-radius: 0 15 15 15; -fx-background-color: #b3b3b3; -fx-text-fill: white");
 
     button
         .hoverProperty()
@@ -51,7 +52,7 @@ public class EquipmentNode {
             l -> {
               button.setPrefSize(250, 50);
               button.setStyle(
-                  "-fx-font-size: 15; -fx-background-color: #434343; -fx-background-radius: 0 25 25 25; -fx-text-alignment: left; -fx-text-fill: white");
+                  "-fx-font-size: 15; -fx-background-color: #b3b3b3; -fx-background-radius: 0 25 25 25; -fx-text-alignment: left; -fx-text-fill: white");
               button.setAlignment(Pos.CENTER_LEFT);
               button.setText(getMedEquip().getType());
               button.setViewOrder(-1000);
@@ -59,9 +60,9 @@ public class EquipmentNode {
 
     button.setOnMouseExited(
         l -> {
-          button.setPrefSize(8, 8);
+          button.setPrefSize(30, 28);
           button.setStyle(
-              "-fx-font-size: 12; -fx-background-color: #434343 ;-fx-background-radius: 0 5 5 5; -fx-text-alignment: left; -fx-text-fill: white");
+              "-fx-font-size: 12; -fx-background-color: #b3b3b3 ;-fx-background-radius: 0 15 15 15; -fx-text-alignment: left; -fx-text-fill: white");
           button.setAlignment(Pos.CENTER);
           button.setText(String.valueOf(getMedEquip().getType().charAt(0)));
           button.setViewOrder(-100);
