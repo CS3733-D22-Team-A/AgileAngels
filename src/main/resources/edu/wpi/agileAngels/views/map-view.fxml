@@ -73,10 +73,10 @@
                   </Button>
                   <MenuButton id="floorMenu" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="37.0" prefWidth="51.0" style="-fx-background-color: F;" stylesheets="@stylesheets/maps-style.css" textAlignment="CENTER">
                     <items>
-                      <MenuItem fx:id="floorTwo" mnemonicParsing="false" onAction="#changeMap" text="Floor 2" />
-                        <MenuItem fx:id="floorThree" mnemonicParsing="false" onAction="#changeMap" text="Floor 3" />
-                        <MenuItem fx:id="floorFour" mnemonicParsing="false" onAction="#changeMap" text="Floor 4" />
                         <MenuItem fx:id="floorFive" mnemonicParsing="false" onAction="#changeMap" text="Floor 5" />
+                        <MenuItem fx:id="floorFour" mnemonicParsing="false" onAction="#changeMap" text="Floor 4" />
+                        <MenuItem fx:id="floorThree" mnemonicParsing="false" onAction="#changeMap" text="Floor 3" />
+                      <MenuItem fx:id="floorTwo" mnemonicParsing="false" onAction="#changeMap" text="Floor 2" />
                         <MenuItem fx:id="lowerLevelOne" mnemonicParsing="false" onAction="#changeMap" text="Floor L1" />
                         <MenuItem fx:id="lowerLevelTwo" mnemonicParsing="false" onAction="#changeMap" text="Floor L2" />
                     </items>

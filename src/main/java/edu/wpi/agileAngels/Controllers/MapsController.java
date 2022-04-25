@@ -342,6 +342,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     deselect();
     clickPane.setVisible(true);
     locationAddPane.setVisible(true);
+    hideFilter();
   }
 
   /**
