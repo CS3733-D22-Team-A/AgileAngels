@@ -128,6 +128,7 @@ public class LabController implements Initializable, PropertyChangeListener {
   @FXML
   public void newRequest() {
     deleteRequest.setVisible(false);
+    labStatus.setVisible(false);
     showPopout();
     clear();
     labID2.setText("New Request");
@@ -487,6 +488,7 @@ public class LabController implements Initializable, PropertyChangeListener {
       if (mouseEvent.getButton() == MouseButton.PRIMARY) {
         populate();
         deleteRequest.setVisible(true);
+        labStatus.setVisible(true);
       }
     } catch (NullPointerException e) {
       hidePopout();

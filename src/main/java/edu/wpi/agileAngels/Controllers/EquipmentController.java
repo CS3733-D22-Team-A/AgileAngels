@@ -31,7 +31,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   @FXML private TextField employeeFilterField, statusFilterField, mainDescription;
   @FXML private Label equipmentConfirmation, equipID;
   @FXML private TableView equipmentTable;
-  @FXML Button clear, submitFilters;
+  @FXML Button clear, submitFilters, delete;
   @FXML Pane drop, drop2;
   @FXML MenuButton equipLocation, equipmentType, equipmentStatus, equipmentEmployeeText;
   @FXML AnchorPane anchor;
@@ -101,9 +101,11 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     dashboardLoad();
 
     for (Location loc : locationsList) {
-      MenuItem item = new MenuItem(loc.getLongName());
-      item.setOnAction(this::locationMenu);
-      equipLocation.getItems().add(item);
+      if (loc.getFloor().equals("3") || loc.getFloor().equals("4") || loc.getFloor().equals("5")) {
+        MenuItem item = new MenuItem(loc.getLongName());
+        item.setOnAction(this::locationMenu);
+        equipLocation.getItems().add(item);
+      }
     }
 
     // Populates employees dropdown
@@ -287,7 +289,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     String dropDownString = equipmentType.getText();
     String locationString = locationIDsByLongName.get(equipLocation.getText());
     String employeeString = equipmentEmployeeText.getText();
-    String statusString = equipmentStatus.getText();
+    String statusString = "Not Started";
     String descriptionString = mainDescription.getText();
 
     if (dropDownString.equals("Equipment Type")
@@ -339,12 +341,12 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         updateDashAdding(statusString);
 
         // set the status and location of the medicalEquipment object corresponding to the request
-        if (statusString.equals("notStarted")) {
+        if (statusString.equals("Not Started")) {
           equipDAO.updateStatus(equip, "inUse");
-        } else if (statusString.equals("inProgress")) {
+        } else if (statusString.equals("In Progress")) {
           equipDAO.updateStatus(equip, "inUse");
           equipDAO.updateEquipmentLocation(equip, medDevice.getLocation());
-        } else if (statusString.equals("complete")) {
+        } else if (statusString.equals("Complete")) {
           equipDAO.updateMedicalCleanliness(equip, false);
           equipDAO.updateStatus(equip, "available");
           if (locationsHash.get(locationString).getFloor().equals("3")) {
@@ -486,9 +488,9 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         if (found.getAttribute2().equals("Clean")) {
           // if it's a request to clean equipment
           if (found.getMedicalEquip() != null) {
-            if (statusString.equals("notStarted")) {
+            if (statusString.equals("Not Started")) {
               equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
-            } else if (statusString.equals("inProgress")) {
+            } else if (statusString.equals("In Progress")) {
               equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
               if (found.getLocation().getFloor().equals("3")) {
                 equipDAO.updateEquipmentLocation(
@@ -500,7 +502,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
                 equipDAO.updateEquipmentLocation(
                     found.getMedicalEquip(), locationsHash.get("ADIRT00105"));
               }
-            } else if (statusString.equals("complete")) {
+            } else if (statusString.equals("Complete")) {
               equipDAO.updateMedicalCleanliness(found.getMedicalEquip(), true);
               equipDAO.updateStatus(found.getMedicalEquip(), "available");
               if (found.getType().equals("InfusionPump")) {
@@ -531,12 +533,12 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         } else {
           // if it's not a request to clean equipment
           if (found.getMedicalEquip() != null) {
-            if (statusString.equals("notStarted")) {
+            if (statusString.equals("Not Started")) {
               equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
-            } else if (statusString.equals("inProgress")) {
+            } else if (statusString.equals("In Progress")) {
               equipDAO.updateStatus(found.getMedicalEquip(), "inUse");
               equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
-            } else if (statusString.equals("complete")) {
+            } else if (statusString.equals("Complete")) {
               equipDAO.updateMedicalCleanliness(found.getMedicalEquip(), false);
               equipDAO.updateStatus(found.getMedicalEquip(), "available");
               if (found.getLocation().getFloor().equals("3")) {
@@ -656,10 +658,10 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       while (var3.hasNext()) {
         Map.Entry<String, Request> entry = (Map.Entry) var3.next();
         Request object = (Request) entry.getValue();
-        if (entry.getValue().getStatus().equals("inProgress")) {
+        if (entry.getValue().getStatus().equals("In Progress")) {
           statusInProgress++;
         }
-        if (entry.getValue().getStatus().equals("notStarted")) {
+        if (entry.getValue().getStatus().equals("Not Started")) {
           statusNotStarted++;
         }
         if (entry.getValue().getStatus().equals("Complete")
@@ -724,6 +726,8 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   @FXML
   public void newRequest() {
+    equipmentStatus.setVisible(false);
+    delete.setVisible(false);
     showPopout();
     clearFields();
     equipID.setText("New Request");
@@ -731,6 +735,8 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   public void loadRequest(MouseEvent mouseEvent) {
     // populate(((Request) labTable.getSelectionModel().getSelectedItem()).getName());
+    equipmentStatus.setVisible(true);
+    delete.setVisible(true);
     try {
       if (mouseEvent.getButton() == MouseButton.PRIMARY) {
         populate();

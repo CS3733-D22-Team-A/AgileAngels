@@ -147,6 +147,7 @@
                     </VBox>
                </children>
             </HBox>
+            <Label fx:id="sameLocationNameEdit" alignment="CENTER" layoutX="34.0" layoutY="74.0" prefHeight="22.0" prefWidth="206.0" style="-fx-font-size: 11;" text="Location Name Already Exists" textFill="RED" visible="false" />
          </children>
       </Pane>
       <Pane fx:id="requestEditPane" layoutX="10.0" layoutY="10.0" prefHeight="350.0" prefWidth="274.0" style="-fx-background-radius: 10; -fx-background-color: rgba(244, 244, 244, 1);" visible="false" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
@@ -166,9 +167,9 @@
                         <MenuButton fx:id="requestEmployeeDropdown" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Employee" />
                         <MenuButton fx:id="requestStatusDropdown" layoutX="10.0" layoutY="168.0" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Status">
                            <items>
-                              <MenuItem fx:id="complete" mnemonicParsing="false" onAction="#changeStatus" text="complete" />
-                              <MenuItem fx:id="inProgress" mnemonicParsing="false" onAction="#changeStatus" text="inProgress" />
-                              <MenuItem fx:id="notStarted" mnemonicParsing="false" onAction="#changeStatus" text="notStarted" />
+                              <MenuItem fx:id="complete" mnemonicParsing="false" onAction="#changeStatus" text="Complete" />
+                              <MenuItem fx:id="inProgress" mnemonicParsing="false" onAction="#changeStatus" text="In Progress" />
+                              <MenuItem fx:id="notStarted" mnemonicParsing="false" onAction="#changeStatus" text="Not Started" />
                            </items>
                         </MenuButton>
                         <HBox prefHeight="40.0" prefWidth="200.0" spacing="20.0">
@@ -227,6 +228,7 @@
                   </VBox>
                </children>
             </HBox>
+            <Label fx:id="sameLocationName" alignment="CENTER" layoutX="34.0" layoutY="74.0" prefHeight="22.0" prefWidth="206.0" style="-fx-font-size: 11;" text="Location Name Already Exists" textFill="RED" visible="false" />
          </children>
       </Pane>
         <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />

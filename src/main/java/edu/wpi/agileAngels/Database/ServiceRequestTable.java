@@ -26,7 +26,7 @@ public class ServiceRequestTable implements TableI {
       PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(add);
       preparedStatement.setString(1, request.getName());
       preparedStatement.setString(2, request.getEmployee().getName());
-      preparedStatement.setString(3, request.getLocation().getLongName());
+      preparedStatement.setString(3, request.getLocation().getNodeID());
       preparedStatement.setString(4, request.getType());
       preparedStatement.setString(5, request.getStatus());
       preparedStatement.setString(6, request.getDescription());

@@ -82,7 +82,13 @@ public class MapsController implements Initializable, PropertyChangeListener {
   @FXML private TextField locationName, addLocationName;
   @FXML Pane mapPane, locationEditPane, requestEditPane, locationAddPane, clickPane;
   @FXML AnchorPane anchor;
-  @FXML Label requestName, floorLabel, nodeIDField, addNodeIDField;
+  @FXML
+  Label requestName,
+      floorLabel,
+      nodeIDField,
+      addNodeIDField,
+      sameLocationName,
+      sameLocationNameEdit;
   @FXML
   MenuButton locationTypeDropdown,
       requestTypeDropdown,
@@ -380,11 +386,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
       currentLocationNode = null;
       deselect();
     } else {
-      currentLocationNode.changeLocationType(type);
-      locationNodeManager.editNode(currentLocationNode, currentLocationNode.getName(), type);
-      currentLocationNode.resetLocation();
-      currentLocationNode = null;
-      deselect();
+      sameLocationNameEdit.setVisible(true);
     }
   }
 
@@ -683,6 +685,8 @@ public class MapsController implements Initializable, PropertyChangeListener {
     requestEditPane.setVisible(false);
     locationEditPane.setVisible(false);
     locationAddPane.setVisible(false);
+    sameLocationName.setVisible(false);
+    sameLocationNameEdit.setVisible(false);
 
     clickPane.setVisible(false);
     locationFilterButton.setVisible(true);
@@ -708,44 +712,56 @@ public class MapsController implements Initializable, PropertyChangeListener {
   }
 
   public void locationAdd(ActionEvent event) {
+    String name = addLocationName.getText();
+    boolean flag = true;
+
+    for (Location e : locationsHash.values()) {
+      if (e.getLongName().equals(name)) {
+        flag = false;
+      }
+    }
 
     if (addLocationTypeDropdown.getText().equals("Node Type")
         || addLocationName.getText().isEmpty()) {
 
     } else {
-      int typeCount =
-          (locationNodeManager.getTypeCount(
-              addLocationTypeDropdown.getText(), appController.getCurrentFloor()));
+      if (flag) {
+        int typeCount =
+            (locationNodeManager.getTypeCount(
+                addLocationTypeDropdown.getText(), appController.getCurrentFloor()));
 
-      System.out.println(typeCount);
+        System.out.println(typeCount);
 
-      String nodeID =
-          "A"
-              + addLocationTypeDropdown.getText()
-              + String.format("%03d", typeCount)
-              + ((appController.getCurrentFloor().length() == 1)
-                  ? ("0" + appController.getCurrentFloor())
-                  : (appController.getCurrentFloor()));
+        String nodeID =
+            "A"
+                + addLocationTypeDropdown.getText()
+                + String.format("%03d", typeCount)
+                + ((appController.getCurrentFloor().length() == 1)
+                    ? ("0" + appController.getCurrentFloor())
+                    : (appController.getCurrentFloor()));
 
-      System.out.println(nodeID);
+        System.out.println(nodeID);
 
-      // check if long name is same
+        // check if long name is same
 
-      Location newLocation =
-          new Location(
-              nodeID,
-              (getMapXCoordFromClick(rightClick)),
-              (getMapYCoordFromClick(rightClick)),
-              appController.getCurrentFloor(),
-              "TOWER",
-              addLocationTypeDropdown.getText(),
-              addLocationName.getText(),
-              nodeID);
-      System.out.println("new Location");
-      displayLocationNode(
-          locationNodeManager.addNode(
-              newLocation, appController.getCurrentUser().getPermissionLevel()));
-      locationAddPane.setVisible(false);
+        Location newLocation =
+            new Location(
+                nodeID,
+                (getMapXCoordFromClick(rightClick)),
+                (getMapYCoordFromClick(rightClick)),
+                appController.getCurrentFloor(),
+                "TOWER",
+                addLocationTypeDropdown.getText(),
+                addLocationName.getText(),
+                nodeID);
+        System.out.println("new Location");
+        displayLocationNode(
+            locationNodeManager.addNode(
+                newLocation, appController.getCurrentUser().getPermissionLevel()));
+        deselect();
+      } else {
+        sameLocationName.setVisible(true);
+      }
     }
   }
 

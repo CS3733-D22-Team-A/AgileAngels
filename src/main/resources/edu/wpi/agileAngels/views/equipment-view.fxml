@@ -86,9 +86,9 @@
                   <MenuButton fx:id="equipmentEmployeeText" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
                   <MenuButton fx:id="equipmentStatus" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Status">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="notStarted" />
-                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="inProgress" />
-                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="complete" />
+                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="Not Started" />
+                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="In Progress" />
+                        <MenuItem mnemonicParsing="false" onAction="#statusMenu" text="Complete" />
                      </items>
                   </MenuButton>
                   <TextField fx:id="mainDescription" prefHeight="50.0" prefWidth="270.0" promptText="Description" />
@@ -132,6 +132,24 @@
                         </Button>
                      </children>
                   </HBox>
+                  <Button fx:id="delete" alignment="CENTER" mnemonicParsing="false" onAction="#deleteEquipRequest" prefHeight="50.0" prefWidth="270.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <graphic>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="119.0">
+                           <children>
+                              <Label text="Delete" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                     </graphic>
+                  </Button>
                </children>
                <padding>
                   <Insets left="15.0" right="15.0" />
