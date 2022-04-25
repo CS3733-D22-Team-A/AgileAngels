@@ -404,6 +404,7 @@ public class MealController implements Initializable, PropertyChangeListener {
   private void populate() {
     showPopout();
     Request req = ((Request) mealTable.getSelectionModel().getSelectedItem());
+    mealIDLabel.setText(req.getName());
     mealLocation.setText(req.getLocation().getLongName());
     mealEmployee.setText(req.getEmployee().getName());
     mealStatus.setText(req.getStatus());
@@ -444,7 +445,6 @@ public class MealController implements Initializable, PropertyChangeListener {
     }
     setDashboard(statusNotStarted, statusInProgress, statusComplete);
   }
-
 
   public void loadRequest(MouseEvent mouseEvent) {
     try {
