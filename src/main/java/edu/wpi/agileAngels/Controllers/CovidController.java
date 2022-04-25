@@ -9,14 +9,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class CovidController implements Initializable, PropertyChangeListener {
 
   @FXML Button covidButton, maskButton, vacButton, houseButton, distanceButton;
   @FXML Label maskDesc, vacDesc, houseDesc, distanceDesc;
+  @FXML Pane infoText;
 
   FadeTransition fade = new FadeTransition();
+  FadeTransition fade2 = new FadeTransition();
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {}
@@ -28,6 +31,9 @@ public class CovidController implements Initializable, PropertyChangeListener {
     vacDesc.setVisible(false);
     houseDesc.setVisible(false);
     distanceDesc.setVisible(false);
+    infoText.setVisible(false);
+
+    animateInfoText();
   }
 
   public void animateMaskText() {
@@ -68,5 +74,18 @@ public class CovidController implements Initializable, PropertyChangeListener {
     fade.setCycleCount(1);
     fade.setNode(distanceDesc);
     fade.play();
+  }
+
+  public void animateInfoText() {
+
+    infoText.setVisible(true);
+    fade2.setDuration(Duration.millis(1300));
+    fade2.setFromValue(0);
+    fade2.setToValue(10);
+    fade2.setCycleCount(1);
+    fade2.setNode(infoText);
+    fade2.play();
+
+    fade2.getOnFinished();
   }
 }
