@@ -24,7 +24,8 @@ public class MenuController implements Initializable {
       emergency,
       test,
       pageTitle,
-      aboutUs;
+      aboutUs,
+      covid;
 
   private @FXML Pane menuPane;
   private @FXML AnchorPane anchor;
@@ -64,6 +65,8 @@ public class MenuController implements Initializable {
       appController.loadPage("/edu/wpi/agileAngels/views/NEWdashboard.fxml");
     } else if (event.getSource() == aboutUs) {
       appController.loadPage("/edu/wpi/agileAngels/views/aboutUs-view.fxml");
+    } else if (event.getSource() == covid) {
+      appController.loadPage("/edu/wpi/agileAngels/views/covid-view.fxml");
     }
   }
 

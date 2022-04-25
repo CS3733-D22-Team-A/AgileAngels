@@ -12,7 +12,7 @@ mainClassName = 'edu.wpi.agileAngels.Main'
 jar {
 
     manifest {
-        attributes "Main-Class": "$mainClassName"
+        attributes 'Main-Class': mainClassName
     }
 
     from {
@@ -22,21 +22,14 @@ jar {
 
 // Include dependent libraries in archive.
 
-jar {
-    manifest {
-        attributes "Main-Class": "$mainClassName"
-    }
-
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-}
-
 repositories {
     mavenCentral()
     jcenter()
     maven {
         url 'https://apisite.crmyers.dev/maven'
+    }
+    flatDir{
+        dir 'APIJAR'
     }
 }
 
@@ -62,7 +55,9 @@ dependencies {
             'org.slf4j:slf4j-simple:1.7.30',
             "org.apache.commons:commons-csv:1.5",
             'org.controlsfx:controlsfx:11.1.1'
+
     )
+    implementation name: 'edu.wpi.cs3733.D22.teamA'
     implementation 'org.jetbrains:annotations:20.1.0'
 
     testCompile(

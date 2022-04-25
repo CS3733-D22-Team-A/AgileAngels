@@ -10,7 +10,9 @@ import javafx.scene.control.Button;
 
 public class CreditsController implements Initializable, PropertyChangeListener {
 
-  @FXML Button apiButton2, apiButton1, creditsButton;
+  @FXML Button apiButton2, apiButton1, creditsButton, mgbButton;
+
+  AppController appController = AppController.getInstance();
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {}
