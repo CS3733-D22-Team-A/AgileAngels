@@ -147,6 +147,7 @@
                     </VBox>
                </children>
             </HBox>
+            <Label fx:id="sameLocationNameEdit" alignment="CENTER" layoutX="34.0" layoutY="74.0" prefHeight="22.0" prefWidth="206.0" style="-fx-font-size: 11;" text="Location Name Already Exists" textFill="RED" visible="false" />
          </children>
       </Pane>
       <Pane fx:id="requestEditPane" layoutX="10.0" layoutY="10.0" prefHeight="350.0" prefWidth="274.0" style="-fx-background-radius: 10; -fx-background-color: rgba(244, 244, 244, 1);" visible="false" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
