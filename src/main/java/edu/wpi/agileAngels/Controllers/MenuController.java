@@ -74,9 +74,21 @@ public class MenuController implements Initializable {
     close.setVisible(false);
   }
 
-  public void profile(ActionEvent event) {}
+  public void profile(ActionEvent event) {
+    appController.loadPage("/edu/wpi/agileAngels/views/profile-view.fxml");
+  }
 
   public void goHome(ActionEvent event) {
-    appController.loadPage("/edu/wpi/agileAngels/views/home-view.fxml");
+    appController.loadPage("/edu/wpi/agileAngels/views/NEWdashboard.fxml");
+  }
+
+  public void setUserInitials(String initialsMaker) {
+    userButton.setText(initialsMaker);
+    System.out.println(initialsMaker);
+  }
+
+  public void logout() {
+    appController.setUser(null);
+    appController.loadPage("/edu/wpi/agileAngels/views/login.fxml");
   }
 }

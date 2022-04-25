@@ -39,6 +39,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
   private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
   private static ObservableList<Request> saniData = FXCollections.observableArrayList();
   AppController appController = AppController.getInstance();
+  HashMap<String, String> locationIDsByLongName = new HashMap<>();
 
   private int statusNotStarted, statusInProgress, statusComplete;
 
@@ -51,6 +52,10 @@ public class SanitationController implements Initializable, PropertyChangeListen
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
+
+    for (Location loc : locationsHash.values()) {
+      locationIDsByLongName.put(loc.getLongName(), loc.getNodeID());
+    }
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
     employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
@@ -82,7 +87,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
     if (saniLocation.getItems().size() == 0) {
       // Populates locations dropdown
       for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getNodeID());
+        MenuItem item = new MenuItem(loc.getLongName());
         item.setOnAction(this::mealLocationMenu);
         saniLocation.getItems().add(item);
       }
@@ -109,7 +114,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
 
   @FXML
   public void submit(ActionEvent event) {
-    String loc = saniLocation.getText();
+    String loc = locationIDsByLongName.get(saniLocation.getText());
     String emp = saniEmployee.getText();
     String stat = saniStatus.getText();
     String desc = saniDescription.getText();
@@ -163,6 +168,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
     }
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -187,6 +193,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
     saniRequestImpl.deleteRequest(saniRequestImpl.getAllRequests().get(id));
 
     clear(event);
+    popOut.setVisible(false);
   }
 
   @FXML
@@ -253,6 +260,8 @@ public class SanitationController implements Initializable, PropertyChangeListen
   @FXML
   public void clearFilters(ActionEvent event) {
     SaniTable.setItems(saniData);
+    employeeFilterField.clear();
+    statusFilterField.clear();
   }
 
   /**
@@ -405,7 +414,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
    */
   private void populate(String id) {
     Request req = saniRequestImpl.getAllRequests().get(id);
-    saniLocation.setText(req.getLocation().getNodeID());
+    saniLocation.setText(req.getLocation().getLongName());
     saniEmployee.setText(req.getEmployee().getName());
     saniStatus.setText(req.getStatus());
     saniDescription.setText(req.getDescription());

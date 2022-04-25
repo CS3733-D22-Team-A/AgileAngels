@@ -9,9 +9,8 @@
     -fx-font-family: "Roboto Light";
     -fx-background-color: linear-gradient(to bottom, #6Bb4B2, #355A70);
 
-
-
 }
+
 #title{
     -fx-font-family: "Roboto Thin";
 }
@@ -247,3 +246,25 @@ Note that these labels lock your font size.
 
 /* OTHER SHIT
  */
+
+/**
+This code right here removed the horizontal bars from the dashboard tables. It only (should only) affect them if they're
+in scrollpanes.
+ */
+.table-view *.scroll-bar:horizontal *.increment-button,
+.table-view *.scroll-bar:horizontal *.decrement-button {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-arrow,
+.table-view *.scroll-bar:horizontal *.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+
+}

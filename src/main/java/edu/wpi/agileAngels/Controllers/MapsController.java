@@ -19,9 +19,42 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
-import javax.swing.*;
 
 public class MapsController implements Initializable, PropertyChangeListener {
+
+  @FXML public MenuButton LocationFilter;
+  @FXML
+  public CheckMenuItem patiCheck,
+      storCheck,
+      dirtCheck,
+      hallCheck,
+      elevCheck,
+      restCheck,
+      staiCheck,
+      deptCheck,
+      labsCheck,
+      infoCheck,
+      confCheck,
+      exitCheck,
+      retlCheck,
+      servCheck,
+      equipCheck,
+      labCheck,
+      mealCheck,
+      giftCheck,
+      sanCheck,
+      maintCheck,
+      transCheck,
+      morgCheck,
+      laundryCheck,
+      xrayCheck,
+      pumpCheck,
+      bedCheck,
+      reclinerCheck;
+
+  HashMap<CheckMenuItem, String> locationFilterHash = new HashMap<CheckMenuItem, String>();
+  HashMap<CheckMenuItem, String> requestFilterHash = new HashMap<CheckMenuItem, String>();
+  HashMap<CheckMenuItem, String> equipFilterHash = new HashMap<CheckMenuItem, String>();
 
   @FXML
   private ImageView floorTwoMap,
@@ -34,6 +67,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
   @FXML private ScrollPane mapScroll;
   @FXML HBox addButtonBox;
 
+  @FXML CheckBox locationToggle, requestToggle, equipmentToggle;
   @FXML
   private Button locationEdit,
       locationDelete,
@@ -46,7 +80,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
       floorDown;
   @FXML private MenuItem floorTwo, floorThree, floorFour, floorFive, lowerLevelOne, lowerLevelTwo;
   @FXML private TextField locationName, addLocationName;
-  @FXML Pane mapPane, locationEditPane, requestEditPane, locationAddPane;
+  @FXML Pane mapPane, locationEditPane, requestEditPane, locationAddPane, clickPane;
   @FXML AnchorPane anchor;
   @FXML Label requestName, floorLabel, nodeIDField, addNodeIDField;
   @FXML
@@ -54,14 +88,16 @@ public class MapsController implements Initializable, PropertyChangeListener {
       requestTypeDropdown,
       requestStatusDropdown,
       requestEmployeeDropdown,
-      addLocationTypeDropdown;
+      addLocationTypeDropdown,
+      locationFilterButton,
+      requestFilterButton,
+      equipmentFilterButton;
 
-  public final ContextMenu contextMenu = new ContextMenu();
-  MenuItem addNode = new MenuItem("Add Node");
+  public ContextMenu contextMenu = new ContextMenu();
+  MenuItem addNode = new MenuItem("Add Location");
 
   LocationNode currentLocationNode = null;
   RequestNode currentRequestNode = null;
-  private String currentFloor = "2";
   EquipmentNode currentEquipmentNode = null;
 
   Pane pane2 = new Pane();
@@ -101,22 +137,6 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
   private double imagePaneWidth = 1400;
 
-  public double getCroppedMapXOffset() {
-    return croppedMapXOffset;
-  }
-
-  public double getCroppedMapYOffset() {
-    return croppedMapYOffset;
-  }
-
-  public double getCroppedMapWidth() {
-    return croppedMapWidth;
-  }
-
-  public double getImagePaneWidth() {
-    return imagePaneWidth;
-  }
-
   /**
    * Called on page load, creates panes for each map, adds the images for each map to its pane, and
    * sets their initial visibility
@@ -126,6 +146,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
     appController.addPropertyChangeListener(this);
 
     mapPane.getChildren().add(pane2);
@@ -148,7 +169,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     paneL2.setVisible(false);
 
     floors.add("L2");
-    floors.add("L2");
+    floors.add("L1");
     floors.add("2");
     floors.add("3");
     floors.add("4");
@@ -172,14 +193,6 @@ public class MapsController implements Initializable, PropertyChangeListener {
     contextMenu.getItems().addAll(addNode);
     addNode.setOnAction((ActionEvent event) -> addNode());
 
-    mapScroll.setOnMousePressed(
-        (MouseEvent event) -> {
-          if (event.isSecondaryButtonDown()) {
-            contextMenu.show(mapScroll, event.getScreenX(), event.getScreenY());
-            rightClick = event;
-          }
-        });
-
     locationNodeManager.createNodesFromDB();
     try {
       requestNodeManager.createNodesFromDB();
@@ -201,6 +214,56 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
       }
     }
+
+    locationFilterHash.put(patiCheck, "PATI");
+    locationFilterHash.put(storCheck, "STOR");
+    locationFilterHash.put(dirtCheck, "DIRT");
+    locationFilterHash.put(hallCheck, "HALL");
+    locationFilterHash.put(elevCheck, "ELEV");
+    locationFilterHash.put(restCheck, "REST");
+    locationFilterHash.put(staiCheck, "STAI");
+    locationFilterHash.put(deptCheck, "DEPT");
+    locationFilterHash.put(labsCheck, "LABS");
+    locationFilterHash.put(infoCheck, "INFO");
+    locationFilterHash.put(confCheck, "CONF");
+    locationFilterHash.put(exitCheck, "EXIT");
+    locationFilterHash.put(retlCheck, "RETL");
+    locationFilterHash.put(servCheck, "SERV");
+
+    requestFilterHash.put(equipCheck, "Med");
+    requestFilterHash.put(labCheck, "Lab");
+    requestFilterHash.put(mealCheck, "Meal");
+    requestFilterHash.put(giftCheck, "Gif");
+    requestFilterHash.put(sanCheck, "San");
+    requestFilterHash.put(maintCheck, "Mai");
+    requestFilterHash.put(transCheck, "Tra");
+    requestFilterHash.put(morgCheck, "Mor");
+    requestFilterHash.put(laundryCheck, "Lau");
+
+    equipFilterHash.put(xrayCheck, "XRayMachine");
+    equipFilterHash.put(pumpCheck, "InfusionPump");
+    equipFilterHash.put(bedCheck, "Bed");
+    equipFilterHash.put(reclinerCheck, "Recliner");
+
+    if (appController.getCurrentUser().getPermissionLevel() >= 4) {
+      mapScroll.setOnMousePressed(
+          (MouseEvent event) -> {
+            if (event.isSecondaryButtonDown()) {
+              contextMenu.show(mapScroll, event.getScreenX(), event.getScreenY());
+              rightClick = event;
+            }
+          });
+    } else if (appController.getCurrentUser().getPermissionLevel() == 1) {
+      labCheck.setSelected(false);
+      equipCheck.setSelected(false);
+      morgCheck.setSelected(false);
+      transCheck.setSelected(false);
+      requestFilter();
+      labCheck.setDisable(true);
+      equipCheck.setDisable(true);
+      morgCheck.setDisable(true);
+      transCheck.setDisable(true);
+    }
   }
 
   @Override
@@ -216,7 +279,9 @@ public class MapsController implements Initializable, PropertyChangeListener {
    * @param locationNode the node whose data is populated
    */
   public void populateLocationNodeData(LocationNode locationNode) {
-    requestEditPane.setVisible(false);
+    deselect();
+    hideFilter();
+    clickPane.setVisible(true);
     locationEditPane.setVisible(true);
     nodeIDField.setText(locationNode.getNodeID());
     locationName.setText(locationNode.getName());
@@ -236,14 +301,22 @@ public class MapsController implements Initializable, PropertyChangeListener {
   public void populateRequestNodeData(RequestNode requestNode) {
     requestTypeDropdown.getItems().clear();
 
-    for (String s : requestNodeManager.getTypes(requestNode)) {
-      requestTypeDropdown.getItems().add(new MenuItem(s));
+    try {
+      for (String s : requestNodeManager.getTypes(requestNode)) {
+        requestTypeDropdown.getItems().add(new MenuItem(s));
+      }
+    } catch (NullPointerException e) {
+      requestTypeDropdown.setText("N/A");
+      requestTypeDropdown.setDisable(true);
     }
+
     if (requestNode.getName().substring(0, 3).equals("Med")) {
       requestTypeDropdown.setDisable(true);
     }
+    deselect();
+    hideFilter();
+    clickPane.setVisible(true);
     requestEditPane.setVisible(true);
-    locationEditPane.setVisible(false);
     requestTypeDropdown.setText(requestNode.getRequest().getType());
     requestName.setText(requestNode.getName());
     requestEmployeeDropdown.setText(requestNode.getEmployee());
@@ -267,7 +340,9 @@ public class MapsController implements Initializable, PropertyChangeListener {
   @FXML
   private void addNode() {
     deselect();
+    clickPane.setVisible(true);
     locationAddPane.setVisible(true);
+    hideFilter();
   }
 
   /**
@@ -289,12 +364,28 @@ public class MapsController implements Initializable, PropertyChangeListener {
   public void locationEdit() {
     String name = locationName.getText();
     String type = locationTypeDropdown.getText();
-    currentLocationNode.changeLocationName(name);
-    currentLocationNode.changeLocationType(type);
-    locationNodeManager.editNode(currentLocationNode, name, type);
-    currentLocationNode.resetLocation();
-    currentLocationNode = null;
-    locationEditPane.setVisible(false);
+    boolean flag = true;
+
+    for (Location e : locationsHash.values()) {
+      if (e.getLongName().equals(name)) {
+        flag = false;
+      }
+    }
+
+    if (flag) {
+      currentLocationNode.changeLocationName(name);
+      currentLocationNode.changeLocationType(type);
+      locationNodeManager.editNode(currentLocationNode, name, type);
+      currentLocationNode.resetLocation();
+      currentLocationNode = null;
+      deselect();
+    } else {
+      currentLocationNode.changeLocationType(type);
+      locationNodeManager.editNode(currentLocationNode, currentLocationNode.getName(), type);
+      currentLocationNode.resetLocation();
+      currentLocationNode = null;
+      deselect();
+    }
   }
 
   @FXML
@@ -308,7 +399,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
           currentRequestNode.getRequest(), requestStatusDropdown.getText());
     }
     currentRequestNode = null;
-    requestEditPane.setVisible(false);
+    deselect();
   }
 
   public void updateEquipNode(String ID) {
@@ -441,18 +532,17 @@ public class MapsController implements Initializable, PropertyChangeListener {
     } else if (event.getSource() == lowerLevelOne) {
       paneL1.setVisible(true);
       appController.setCurrentFloor("L1");
-      floorLabel.setText("1");
+      floorLabel.setText("L1");
     } else if (event.getSource() == lowerLevelTwo) {
       paneL2.setVisible(true);
       appController.setCurrentFloor("L2");
-      floorLabel.setText("2");
-
+      floorLabel.setText("L2");
     } else if (event.getSource() == floorUp) {
-      if (appController.getCurrentFloor().equals("L1")) {
-        paneL2.setVisible(true);
-        appController.setCurrentFloor("L2");
-        floorLabel.setText("L2");
-      } else if (appController.getCurrentFloor().equals("L2")) {
+      if (appController.getCurrentFloor().equals("L2")) {
+        paneL1.setVisible(true);
+        appController.setCurrentFloor("L1");
+        floorLabel.setText("L1");
+      } else if (appController.getCurrentFloor().equals("L1")) {
         pane2.setVisible(true);
         appController.setCurrentFloor("2");
         floorLabel.setText("2");
@@ -475,9 +565,9 @@ public class MapsController implements Initializable, PropertyChangeListener {
       }
     } else if (event.getSource() == floorDown) {
       if (appController.getCurrentFloor().equals("2")) {
-        paneL2.setVisible(true);
-        appController.setCurrentFloor("L2");
-        floorLabel.setText("L2");
+        paneL1.setVisible(true);
+        appController.setCurrentFloor("L1");
+        floorLabel.setText("L1");
       } else if (appController.getCurrentFloor().equals("3")) {
         pane2.setVisible(true);
         appController.setCurrentFloor("2");
@@ -490,14 +580,14 @@ public class MapsController implements Initializable, PropertyChangeListener {
         pane4.setVisible(true);
         appController.setCurrentFloor("4");
         floorLabel.setText("4");
-      } else if (appController.getCurrentFloor().equals("L2")) {
-        paneL1.setVisible(true);
-        appController.setCurrentFloor("L1");
-        floorLabel.setText("L1");
       } else if (appController.getCurrentFloor().equals("L1")) {
-        paneL1.setVisible(true);
-        appController.setCurrentFloor("L1");
-        floorLabel.setText("L1");
+        paneL2.setVisible(true);
+        appController.setCurrentFloor("L2");
+        floorLabel.setText("L2");
+      } else if (appController.getCurrentFloor().equals("L2")) {
+        paneL2.setVisible(true);
+        appController.setCurrentFloor("L2");
+        floorLabel.setText("L2");
       }
     }
   }
@@ -593,6 +683,17 @@ public class MapsController implements Initializable, PropertyChangeListener {
     requestEditPane.setVisible(false);
     locationEditPane.setVisible(false);
     locationAddPane.setVisible(false);
+
+    clickPane.setVisible(false);
+    locationFilterButton.setVisible(true);
+    requestFilterButton.setVisible(true);
+    equipmentFilterButton.setVisible(true);
+  }
+
+  public void hideFilter() {
+    locationFilterButton.setVisible(false);
+    requestFilterButton.setVisible(false);
+    equipmentFilterButton.setVisible(false);
   }
 
   public void locationDelete(ActionEvent event) {
@@ -613,7 +714,8 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
     } else {
       int typeCount =
-          (locationNodeManager.getTypeCount(addLocationTypeDropdown.getText(), currentFloor));
+          (locationNodeManager.getTypeCount(
+              addLocationTypeDropdown.getText(), appController.getCurrentFloor()));
 
       System.out.println(typeCount);
 
@@ -621,22 +723,28 @@ public class MapsController implements Initializable, PropertyChangeListener {
           "A"
               + addLocationTypeDropdown.getText()
               + String.format("%03d", typeCount)
-              + ((currentFloor.length() == 1) ? ("0" + currentFloor) : (currentFloor));
+              + ((appController.getCurrentFloor().length() == 1)
+                  ? ("0" + appController.getCurrentFloor())
+                  : (appController.getCurrentFloor()));
 
       System.out.println(nodeID);
+
+      // check if long name is same
 
       Location newLocation =
           new Location(
               nodeID,
               (getMapXCoordFromClick(rightClick)),
               (getMapYCoordFromClick(rightClick)),
-              currentFloor,
+              appController.getCurrentFloor(),
               "TOWER",
               addLocationTypeDropdown.getText(),
               addLocationName.getText(),
               nodeID);
       System.out.println("new Location");
-      displayLocationNode(locationNodeManager.addNode(newLocation));
+      displayLocationNode(
+          locationNodeManager.addNode(
+              newLocation, appController.getCurrentUser().getPermissionLevel()));
       locationAddPane.setVisible(false);
     }
   }
@@ -644,5 +752,111 @@ public class MapsController implements Initializable, PropertyChangeListener {
   public void requestTypeDropdown(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     requestTypeDropdown.setText(button.getText());
+  }
+
+  public void toggleLocation(ActionEvent event) {
+    if (locationToggle.isSelected()) {
+      locationNodeManager.setVisibilityAll(true);
+      for (CheckMenuItem e : locationFilterHash.keySet()) {
+        e.setSelected(true);
+      }
+    }
+
+    if (!locationToggle.isSelected()) {
+      locationNodeManager.setVisibilityAll(false);
+      for (CheckMenuItem e : locationFilterHash.keySet()) {
+        e.setSelected(false);
+      }
+    } else {
+      for (CheckMenuItem e : locationFilterHash.keySet()) {
+        if (e.isSelected()) {
+          locationNodeManager.setVisibilityOfType(locationFilterHash.get(e), true);
+        }
+      }
+    }
+    locationFilterButton.hide();
+  }
+
+  public void toggleRequest(ActionEvent event) {
+    if (requestToggle.isSelected()) {
+      requestNodeManager.setVisibilityAll(true);
+      for (CheckMenuItem e : requestFilterHash.keySet()) {
+        e.setSelected(true);
+      }
+    }
+
+    if (!requestToggle.isSelected()) {
+      requestNodeManager.setVisibilityAll(false);
+      for (CheckMenuItem e : requestFilterHash.keySet()) {
+        e.setSelected(false);
+      }
+    } else {
+      for (CheckMenuItem e : requestFilterHash.keySet()) {
+        if (e.isSelected()) {
+          requestNodeManager.setVisibilityOfType(requestFilterHash.get(e), true);
+        }
+      }
+    }
+    requestFilterButton.hide();
+  }
+
+  public void toggleEquipment(ActionEvent event) {
+    if (equipmentToggle.isSelected()) {
+      equipmentNodeManager.setVisibilityAll(true);
+      for (CheckMenuItem e : equipFilterHash.keySet()) {
+        e.setSelected(true);
+      }
+    }
+
+    if (!equipmentToggle.isSelected()) {
+      equipmentNodeManager.setVisibilityAll(false);
+      for (CheckMenuItem e : equipFilterHash.keySet()) {
+        e.setSelected(false);
+      }
+    } else {
+      for (CheckMenuItem e : equipFilterHash.keySet()) {
+        if (e.isSelected()) {
+          equipmentNodeManager.setVisibilityOfType(equipFilterHash.get(e), true);
+        }
+      }
+    }
+    equipmentFilterButton.hide();
+  }
+
+  public void locationFilter() {
+    for (CheckMenuItem e : locationFilterHash.keySet()) {
+      locationNodeManager.setVisibilityOfType(locationFilterHash.get(e), e.isSelected());
+    }
+    locationFilterButton.show();
+  }
+
+  public void requestFilter() {
+    for (CheckMenuItem e : requestFilterHash.keySet()) {
+      requestNodeManager.setVisibilityOfType(requestFilterHash.get(e), e.isSelected());
+    }
+    requestFilterButton.show();
+  }
+
+  public void equipmentFilter() {
+    for (CheckMenuItem e : equipFilterHash.keySet()) {
+      equipmentNodeManager.setVisibilityOfType(equipFilterHash.get(e), e.isSelected());
+    }
+    equipmentFilterButton.show();
+  }
+
+  public double getCroppedMapXOffset() {
+    return croppedMapXOffset;
+  }
+
+  public double getCroppedMapYOffset() {
+    return croppedMapYOffset;
+  }
+
+  public double getCroppedMapWidth() {
+    return croppedMapWidth;
+  }
+
+  public double getImagePaneWidth() {
+    return imagePaneWidth;
   }
 }

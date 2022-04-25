@@ -29,12 +29,12 @@ public class LoginController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-
-    employeeManager.addEmployee("Admin", "Admin", "Off Duty");
-    employeeManager.addEmployee("Nurse", "Nurse", "Off Duty");
-    employeeManager.addEmployee("Justin", "Password", "L2");
-    employeeManager.addEmployee("Staff", "Staff", "Off Duty");
-    employeeManager.addEmployee("", "", "Off Duty");
+    //    employeeManager.addEmployee("wong", "wong", "Off Duty", 5);
+    //    employeeManager.addEmployee("Admin", "Admin", "Off Duty", 4);
+    //    employeeManager.addEmployee("Nurse", "Nurse", "Off Duty", 2);
+    //    employeeManager.addEmployee("Justin", "Password", "L2", 2);
+    //    employeeManager.addEmployee("Staff", "Staff", "Off Duty", 3);
+    //    employeeManager.addEmployee("Jakob Sperry", "", "Off Duty", 1);
   }
 
   /**
@@ -48,8 +48,9 @@ public class LoginController implements Initializable {
 
     if (employeeManager.getName(username.getText())
         && passwordBox.getText().equals(employeeManager.getPassword(username.getText()))) {
+      appController.setUser(employeeManager.getEmployee(username.getText()));
       appController.loadPage("/edu/wpi/agileAngels/views/NEWdashboard.fxml");
-      // appController.loadPage("/edu/wpi/agileAngels/views/aboutUs-view.fxml");
+
     } else {
       invalid.setTextFill(Color.rgb(220, 80, 80));
       invalid.setText("Invalid username or password.");
@@ -76,34 +77,6 @@ public class LoginController implements Initializable {
    *
    * @return The initial(s) of the given string
    */
-  public String initialsMaker(String name) {
-    String initials;
-
-    // Is this name empty? Initials ain't applicable...
-    if (name.isEmpty()) {
-      initials = "N/A";
-    }
-
-    // Not empty? Not illegal? Run the actual method.
-    else {
-
-      // If the name has a space, 2+ names were given and need to be broken up.
-      char firstInitial = name.charAt(0);
-      if (name.contains(" ")) {
-        int lastSpaceIndex = name.lastIndexOf(" ");
-        char secondInitial = name.charAt(lastSpaceIndex + 1);
-
-        initials = "" + firstInitial + secondInitial;
-      }
-
-      // Else, 1 name was given, throw the first character.
-      else {
-        initials = "" + firstInitial;
-      }
-    }
-    return initials;
-  }
-
   public void closeApp(ActionEvent event) {
     appController.closeApp();
   }

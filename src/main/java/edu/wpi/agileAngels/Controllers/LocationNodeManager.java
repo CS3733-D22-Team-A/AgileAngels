@@ -94,7 +94,8 @@ public class LocationNodeManager {
       typeCounts[floorsAndTypes.get(location.getNodeType())][
               floorsAndTypes.get(location.getFloor())] +=
           1;
-      mapsController.displayLocationNode(addNode(location));
+      mapsController.displayLocationNode(
+          addNode(location, mapsController.appController.getCurrentUser().getPermissionLevel()));
     }
   }
 
@@ -103,8 +104,8 @@ public class LocationNodeManager {
     return typeCounts[floorsAndTypes.get(type)][floorsAndTypes.get(floor)];
   }
 
-  LocationNode addNode(Location location) {
-    LocationNode locationNode = new LocationNode(location, this);
+  LocationNode addNode(Location location, int permission) {
+    LocationNode locationNode = new LocationNode(location, this, permission);
     nodes.put(locationNode.getNodeID(), locationNode);
 
     // add the new location to the database
@@ -134,5 +135,19 @@ public class LocationNodeManager {
 
   public double getScale() {
     return mapsController.getScale();
+  }
+
+  public void setVisibilityAll(boolean b) {
+    for (LocationNode node : nodes.values()) {
+      node.getButton().setVisible(b);
+    }
+  }
+
+  public void setVisibilityOfType(String type, Boolean b) {
+    for (LocationNode node : nodes.values()) {
+      if (node.getNodeType().equals(type)) {
+        node.getButton().setVisible(b);
+      }
+    }
   }
 }
