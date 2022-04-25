@@ -93,7 +93,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
       requestFilterButton,
       equipmentFilterButton;
 
-  public final ContextMenu contextMenu = new ContextMenu();
+  public ContextMenu contextMenu = new ContextMenu();
   MenuItem addNode = new MenuItem("Add Location");
 
   LocationNode currentLocationNode = null;
