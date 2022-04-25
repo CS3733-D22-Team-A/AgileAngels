@@ -227,6 +227,7 @@
                   </VBox>
                </children>
             </HBox>
+            <Label fx:id="sameLocationName" alignment="CENTER" layoutX="34.0" layoutY="74.0" prefHeight="22.0" prefWidth="206.0" style="-fx-font-size: 11;" text="Location Name Already Exists" textFill="RED" visible="false" />
          </children>
       </Pane>
         <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
