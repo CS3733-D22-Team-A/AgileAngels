@@ -68,7 +68,7 @@
                         <HBox prefHeight="100.0" prefWidth="200.0" />
                         <HBox prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <JFXToggleButton fx:id="clientToggle" onAction="#toggleStatus" prefHeight="60.0" prefWidth="150.0" style="-fx-font-size: 15;" text="Embedded" />
+                                <JFXToggleButton fx:id="clientToggle" onAction="#toggleStatus" prefHeight="60.0" prefWidth="150.0" style="-fx-font-size: 15;" text="Client" />
                             </children>
                         </HBox>
                     </children>
