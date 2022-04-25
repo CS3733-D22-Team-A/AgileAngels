@@ -150,7 +150,7 @@ public class PatientTransportController extends MainController
               employeeHash.get(emp),
               locationsHash.get(loc),
               type,
-              stat,
+              "Not Started",
               desc,
               "N/A",
               destLongName);
@@ -508,6 +508,7 @@ public class PatientTransportController extends MainController
       if (mouseEvent.getButton() == MouseButton.PRIMARY) {
         populate();
         deleteRequest.setVisible(true);
+        transportStatus.setVisible(true);
       }
     } catch (NullPointerException e) {
       hidePopout();

@@ -117,6 +117,7 @@ public class MealController implements Initializable, PropertyChangeListener {
   @FXML
   public void newRequest() {
     deleteRequest.setVisible(false);
+    mealStatus.setVisible(false);
     showPopout();
     clear();
     mealIDLabel.setText("New Request");
@@ -134,7 +135,14 @@ public class MealController implements Initializable, PropertyChangeListener {
     if (mealIDLabel.getText().equals("New Request")) {
       Request req =
           new Request(
-              "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, "N/A", "N/A");
+              "",
+              employeeHash.get(emp),
+              locationsHash.get(loc),
+              type,
+              "Not Started",
+              desc,
+              "N/A",
+              "N/A");
       mealData.add(req);
       mealRequestImpl.addRequest(req);
       updateDashAdding(stat);
@@ -451,6 +459,7 @@ public class MealController implements Initializable, PropertyChangeListener {
       if (mouseEvent.getButton() == MouseButton.PRIMARY) {
         populate();
         deleteRequest.setVisible(true);
+        mealStatus.setVisible(true);
       }
     } catch (NullPointerException e) {
       hidePopout();

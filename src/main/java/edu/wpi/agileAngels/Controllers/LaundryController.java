@@ -148,7 +148,7 @@ public class LaundryController implements Initializable {
               employeesHash.get(employee),
               locationsHash.get(location),
               type,
-              status,
+              "Not Started",
               description,
               "",
               "");
@@ -553,6 +553,7 @@ public class LaundryController implements Initializable {
       if (mouseEvent.getButton() == MouseButton.PRIMARY) {
         populate();
         deleteRequest.setVisible(true);
+        laundryStatus.setVisible(true);
       }
     } catch (NullPointerException e) {
       hidePopout();

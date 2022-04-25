@@ -385,6 +385,13 @@ public class MapsController implements Initializable, PropertyChangeListener {
       currentLocationNode.resetLocation();
       currentLocationNode = null;
       deselect();
+    } else if (!type.equals(currentLocationNode.getNodeType())
+        && name.equals(currentLocationNode.getName())) {
+      currentLocationNode.changeLocationType(type);
+      locationNodeManager.editNode(currentLocationNode, currentLocationNode.getName(), type);
+      currentLocationNode.resetLocation();
+      currentLocationNode = null;
+      deselect();
     } else {
       sameLocationNameEdit.setVisible(true);
     }
