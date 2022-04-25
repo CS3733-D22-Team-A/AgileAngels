@@ -31,7 +31,7 @@
                   <Font name="Arial" size="70.0" />
                </font>
             </Label>
-            <Label alignment="TOP_CENTER" layoutX="108.0" layoutY="12.0" prefHeight="105.0" prefWidth="315.0" text="We are doing our absolute best to slow the spread of the ongoing coronavirus pandemic. Here are some things you can do to help." textAlignment="CENTER" wrapText="true">
+            <Label fx:id="mainText" alignment="TOP_CENTER" layoutX="108.0" layoutY="12.0" prefHeight="105.0" prefWidth="315.0" text="We are doing our absolute best to slow the spread of the ongoing coronavirus pandemic. Here are some things you can do to help." textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Arial" size="70.0" />
                </font>
