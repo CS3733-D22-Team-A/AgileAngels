@@ -13,20 +13,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class PatientTransportController extends MainController
     implements Initializable, PropertyChangeListener {
 
   @FXML VBox popOut;
+  @FXML HBox tableHBox;
   @FXML
-  MenuButton transportID,
-      transportLocation,
+  MenuButton transportLocation,
       transportEmployee,
       transportStatus,
       transportType,
       transportDestination;
-  @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
+  @FXML Button cancelRequest, submitRequest, clearRequest, deleteRequest;
   @FXML TableView transportTable;
   @FXML
   private TableColumn nameColumn,
@@ -37,7 +40,7 @@ public class PatientTransportController extends MainController
       statusColumn,
       descriptionColumn;
   @FXML TextField transportDescription, employeeFilterField, statusFilterField;
-  @FXML Label notStartedNumber, inProgressNumber, completedNumber;
+  @FXML Label notStartedNumber, inProgressNumber, completedNumber, transportIDLabel;
 
   // DAOs, HashMaps, and Lists required for functionality
 
@@ -59,7 +62,7 @@ public class PatientTransportController extends MainController
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
-    popOut.setVisible(false);
+    hidePopout();
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
@@ -86,6 +89,27 @@ public class PatientTransportController extends MainController
     }
     dashboardLoad();
     transportTable.setItems(transportData);
+
+    // Populates locations dropdown
+    for (Location loc : locationsList) {
+      MenuItem item = new MenuItem(loc.getLongName());
+      item.setOnAction(this::mainLocationMenu);
+      transportLocation.getItems().add(item);
+    }
+    // Populates destinations dropdown
+    for (Location dest : locationsList) {
+      MenuItem item = new MenuItem(dest.getLongName());
+      item.setOnAction(this::mainDestinationMenu);
+      transportDestination.getItems().add(item);
+    }
+
+    // Populates employees dropdown
+    for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+      Employee emp = entry.getValue();
+      MenuItem item = new MenuItem(emp.getName());
+      item.setOnAction(this::mainEmployeeMenu);
+      transportEmployee.getItems().add(item);
+    }
   }
 
   @Override
@@ -95,41 +119,17 @@ public class PatientTransportController extends MainController
     appController.displayAlert();
   }
 
-  @FXML
-  public void modifyRequest(ActionEvent event) {
-    popOut.setVisible(true);
+  public void hidePopout() {
+    try {
+      tableHBox.getChildren().remove(popOut);
+    } catch (NullPointerException e) {
 
-    if (transportLocation.getItems().size() == 0) {
-      // Populates locations dropdown
-      for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getLongName());
-        item.setOnAction(this::mainLocationMenu);
-        transportLocation.getItems().add(item);
-      }
-      // Populates destinations dropdown
-      for (Location dest : locationsList) {
-        MenuItem item = new MenuItem(dest.getLongName());
-        item.setOnAction(this::mainDestinationMenu);
-        transportDestination.getItems().add(item);
-      }
+    }
+  }
 
-      // Populates employees dropdown
-      for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
-        Employee emp = entry.getValue();
-        MenuItem item = new MenuItem(emp.getName());
-        item.setOnAction(this::mainEmployeeMenu);
-        transportEmployee.getItems().add(item);
-      }
-
-      // Populates ID dropdown
-      for (Request req : transportData) {
-        MenuItem item = new MenuItem(req.getName());
-        item.setOnAction(this::mainIDMenu);
-        transportID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::mainIDMenu);
-      transportID.getItems().add(item1);
+  public void showPopout() {
+    if (tableHBox.getChildren().get(0) != popOut) {
+      tableHBox.getChildren().add(0, popOut);
     }
   }
 
@@ -143,7 +143,7 @@ public class PatientTransportController extends MainController
     String desc = transportDescription.getText();
     String type = transportType.getText();
     // Adding
-    if (transportID.getText().equals("Add New Request")) {
+    if (transportIDLabel.getText().equals("New Request")) {
       Request req =
           new Request(
               "",
@@ -157,23 +157,13 @@ public class PatientTransportController extends MainController
       transportData.add(req);
       transportDAOImpl.addRequest(req);
 
-      transportID.getItems().remove(0, transportID.getItems().size());
-      // Populates ID dropdown
-      for (Request request : transportData) {
-        MenuItem item = new MenuItem(request.getName());
-        item.setOnAction(this::mainIDMenu);
-        transportID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::mainIDMenu);
-      transportID.getItems().add(item1);
       updateDashAdding(stat);
 
       if (req.getStatus().equals("Complete")) {
         updateAssociatedRequests(loc, destID);
       }
     } else { // Editing
-      Request req = transportDAOImpl.getAllRequests().get(transportID.getText());
+      Request req = transportDAOImpl.getAllRequests().get(transportIDLabel.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
         Location newLoc = locationsHash.get(loc);
         transportDAOImpl.updateLocation(req, newLoc);
@@ -206,38 +196,42 @@ public class PatientTransportController extends MainController
       }
     }
 
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
   }
 
   @FXML
-  public void cancel(ActionEvent event) {
-    clear(event);
-    popOut.setVisible(false);
+  public void cancel() {
+    clear();
+    hidePopout();
   }
 
   @FXML
-  public void delete(ActionEvent event) {
-    String id = transportID.getText();
-    updateDashSubtracting(transportDAOImpl.getAllRequests().get(id).getStatus());
-    // removes the request from the table and dropdown
-    for (int i = 0; i < transportData.size(); i++) {
-      if (transportData.get(i).getName().equals(id)) {
-        transportData.remove(i);
-        transportID.getItems().remove(i);
+  public void delete() {
+
+    try {
+      String id = ((Request) transportTable.getSelectionModel().getSelectedItem()).getName();
+
+      // removes the request from the table and dropdown
+      for (int i = 0; i < transportData.size(); i++) {
+        if (transportData.get(i).getName().equals(id)) {
+          transportData.remove(i);
+        }
       }
+      updateDashSubtracting(transportDAOImpl.getAllRequests().get(id).getStatus());
+      // delete from hash map and database table
+      transportDAOImpl.deleteRequest(transportDAOImpl.getAllRequests().get(id));
+
+    } catch (NullPointerException e) {
+      transportTable.getSelectionModel().clearSelection();
     }
-
-    // delete from hash map and database table
-    transportDAOImpl.deleteRequest(transportDAOImpl.getAllRequests().get(id));
-
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
   }
 
   @FXML
-  public void clear(ActionEvent event) {
-    transportID.setText("ID");
+  public void clear() {
+    transportIDLabel.setText("ID");
     transportLocation.setText("Location");
     transportEmployee.setText("Employee");
     transportStatus.setText("Status");
@@ -268,16 +262,6 @@ public class PatientTransportController extends MainController
     transportTable.setItems(transportData);
     employeeFilterField.clear();
     statusFilterField.clear();
-  }
-
-  @FXML
-  public void mainIDMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    transportID.setText(button.getText());
-    // If editing or deleting an existing request:
-    if (!button.getText().equals("Add New Request")) {
-      populate(button.getText());
-    }
   }
 
   @FXML
@@ -455,13 +439,10 @@ public class PatientTransportController extends MainController
     return newList;
   }
 
-  /**
-   * Populates fields once a node id is chosen when editing an existing request.
-   *
-   * @param id Request ID
-   */
-  private void populate(String id) {
-    Request req = transportDAOImpl.getAllRequests().get(id);
+  /** Populates fields once a node id is chosen when editing an existing request. */
+  private void populate() {
+    showPopout();
+    Request req = ((Request) transportTable.getSelectionModel().getSelectedItem());
     transportLocation.setText(req.getLocation().getLongName());
     transportEmployee.setText(req.getEmployee().getName());
     transportStatus.setText(req.getStatus());
@@ -510,6 +491,26 @@ public class PatientTransportController extends MainController
       if (req.getLocation().getNodeID().equals(oldLocID)) {
         allReqDAO.updateLocation(req, locationsHash.get(newLocID));
       }
+    }
+  }
+
+  @FXML
+  public void newRequest() {
+    deleteRequest.setVisible(false);
+    transportStatus.setVisible(false);
+    showPopout();
+    clear();
+    transportIDLabel.setText("New Request");
+  }
+
+  public void loadRequest(MouseEvent mouseEvent) {
+    try {
+      if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+        populate();
+        deleteRequest.setVisible(true);
+      }
+    } catch (NullPointerException e) {
+      hidePopout();
     }
   }
 }

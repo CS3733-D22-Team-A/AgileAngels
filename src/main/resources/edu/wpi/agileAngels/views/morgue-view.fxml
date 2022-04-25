@@ -99,7 +99,7 @@
                   <Insets left="15.0" right="15.0" />
                </padding>
             </VBox>
-            <TableView fx:id="morgueTable" onMouseClicked="#loadRequest" prefHeight="451.0" prefWidth="1188.0">
+            <TableView fx:id="morgueTable" onMouseClicked="#loadRequest">
                <columns>
                   <TableColumn fx:id="nameColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Name" />
                   <TableColumn fx:id="descriptionColumn" maxWidth="150.0" minWidth="-1.0" prefWidth="150.0" resizable="false" text="Patient Name" />
