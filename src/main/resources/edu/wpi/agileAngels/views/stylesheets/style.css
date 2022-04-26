@@ -123,3 +123,18 @@ Note that these labels lock your font size.
     -fx-border-radius: 4;
     -fx-background-radius: 4;
 }
+
+#profile > .arrow-button {
+    -fx-padding: 0;
+    -fx-background-color: purple;
+}
+
+#profile > .arrow-button > .arrow {
+    -fx-padding: 0;
+}
+
+#profile {
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}

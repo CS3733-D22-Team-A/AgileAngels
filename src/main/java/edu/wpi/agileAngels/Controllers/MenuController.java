@@ -8,6 +8,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -20,15 +22,17 @@ public class MenuController implements Initializable {
       map,
       dashboard,
       homeImage,
-      userButton,
       emergency,
       test,
       pageTitle,
       aboutUs,
       covid;
 
+  @FXML MenuButton userButton;
+
   private @FXML Pane menuPane;
   private @FXML AnchorPane anchor;
+  @FXML ContextMenu contextMenu;
 
   AppController appController = AppController.getInstance();
 
@@ -113,4 +117,6 @@ public class MenuController implements Initializable {
           .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRed.css");
     }
   }
+
+  public void showContextMenu(ActionEvent event) {}
 }
