@@ -151,7 +151,13 @@ public class EquipmentNode {
   }
 
   public String getStatus() {
-    return medEquip.getStatus();
+    String status = medEquip.getStatus();
+    if (status.equals("available")) {
+      status = "Available";
+    } else if (status.equals("inUse")) {
+      status = "In Use";
+    }
+    return status;
   }
 
   public void updateLocation() {

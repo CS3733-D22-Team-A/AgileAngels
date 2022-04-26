@@ -90,6 +90,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
       addNodeIDField,
       sameLocationName,
       sameLocationNameEdit,
+      equipIDLabel,
       equipTypeLabel,
       equipStatusLabel,
       equipCleanLabel;
@@ -341,8 +342,9 @@ public class MapsController implements Initializable, PropertyChangeListener {
    * @param equipmentNode the node whose data is populated
    */
   public void populateEquipmentNodeData(EquipmentNode equipmentNode) {
+    equipIDLabel.setText(equipmentNode.getMedEquip().getID());
     equipTypeLabel.setText(equipmentNode.getMedEquip().getType());
-    equipStatusLabel.setText(equipmentNode.getMedEquip().getStatus());
+    equipStatusLabel.setText(equipmentNode.getStatus());
     equipCleanLabel.setText(equipmentNode.getClean());
     equipmentViewPane.setVisible(true);
     currentEquipmentNode = equipmentNode;
