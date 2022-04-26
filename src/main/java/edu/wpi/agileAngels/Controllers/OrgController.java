@@ -90,6 +90,8 @@ public class OrgController implements Initializable {
       button.setStyle("-fx-background-color: #50ae49");
     } else if (appController.color.equals("red")) {
       button.setStyle("-fx-background-color: #ae4949");
+    } else if (appController.color.equals("purple")) {
+      button.setStyle("-fx-background-color: #9149ae");
     }
   }
 }
