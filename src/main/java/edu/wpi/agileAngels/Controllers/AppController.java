@@ -80,7 +80,7 @@ public class AppController {
       this.dirtyBeds[floorInt] = this.dirtyBeds[floorInt] + increment;
       this.dirtyBeds[0] = this.dirtyBeds[0] + increment;
       support.firePropertyChange(
-          "dirtyBeds" + floor, this.dirtyBeds[floorInt], this.dirtyBeds[floorInt] + increment);
+          "dirtyBeds" + floor, this.dirtyBeds[floorInt] - increment, this.dirtyBeds[floorInt]);
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
@@ -93,8 +93,8 @@ public class AppController {
       this.dirtyInfusionPumps[0] = this.dirtyInfusionPumps[0] + increment;
       support.firePropertyChange(
           "dirtyPumps" + floor,
-          this.dirtyInfusionPumps[floorInt],
-          this.dirtyInfusionPumps[floorInt] + increment);
+          this.dirtyInfusionPumps[floorInt] - increment,
+          this.dirtyInfusionPumps[floorInt]);
 
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
@@ -116,8 +116,8 @@ public class AppController {
       this.dirtyRecliners[0] = this.dirtyRecliners[0] + increment;
       support.firePropertyChange(
           "dirtyRecliners" + floor,
-          this.dirtyRecliners[floorInt],
-          this.dirtyRecliners[floorInt] + increment);
+          this.dirtyRecliners[floorInt] - increment,
+          this.dirtyRecliners[floorInt]);
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
@@ -129,7 +129,7 @@ public class AppController {
       this.dirtyXRays[floorInt] = this.dirtyXRays[floorInt] + increment;
       this.dirtyXRays[0] = this.dirtyXRays[0] + increment;
       support.firePropertyChange(
-          "dirtyXRays" + floor, this.dirtyXRays[floorInt], this.dirtyXRays[floorInt] + increment);
+          "dirtyXRays" + floor, this.dirtyXRays[floorInt] - increment, this.dirtyXRays[floorInt]);
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     }
