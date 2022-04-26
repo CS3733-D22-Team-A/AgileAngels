@@ -51,18 +51,16 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   // only way to update the UI is ObservableList
   private static ObservableList<Request> medData =
       FXCollections.observableArrayList(); // list of requests
-  // hashmap and arrayList of all medical equipment
-  HashMap<String, MedicalEquip> equipHash;
-  ArrayList<MedicalEquip> allMedEquip;
-  // hashMap and arrayList of all locations
-  HashMap<String, Location> locationsHash = locDAO.getAllLocations();
-  ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
-  HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
+  private HashMap<String, MedicalEquip> equipHash = equipDAO.getAllMedicalEquipment();;
+  private ArrayList<MedicalEquip> allMedEquip = new ArrayList<>(equipHash.values());;
+  private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
+  private ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
+  private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
 
   HashMap<String, String> locationIDsByLongName = new HashMap<>();
 
-  ArrayList<String> equipTypes = new ArrayList<>();
-  HashMap<String, Integer> floorToFloorInt = new HashMap<>();
+  private ArrayList<String> equipTypes = new ArrayList<>();
+  private HashMap<String, Integer> floorToFloorInt = new HashMap<>();
   private boolean[][] availEquip = new boolean[3][4];
 
   @FXML Label notStartedNumber, inProgressNumber, completedNumber;
@@ -84,9 +82,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     appController.addPropertyChangeListener(this);
     hidePopout();
 
-    equipHash = equipDAO.getAllMedicalEquipment();
-    allMedEquip = new ArrayList<>(equipHash.values());
-
     locDAO.getAllLocations();
     empDAO.getAllEmployees();
 
@@ -102,7 +97,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
 
     medData.clear();
-    Iterator var3 = MedrequestImpl.getAllRequests().entrySet().iterator();
+
     for (Map.Entry<String, Request> entry : MedrequestImpl.getAllRequests().entrySet()) {
       Request req = entry.getValue();
       medData.add(req);
@@ -284,6 +279,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         || locationString.equals("Delivery Location")
         || statusString.equals("Status")
         || employeeString.equals("Employee")) {
+
     } else {
       MedicalEquip equip = null;
       Boolean foundEquip = false;
@@ -398,14 +394,16 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     for (int i = 0; i < medData.size(); i++) {
       Request device = medData.get(i);
       if (0 == equipID.getText().compareTo(device.getName())) {
-        found = device;
+        Request UIRequest = device;
         num = i;
       }
     }
 
     if (found != null) {
+
       if (!dropDownString.equals("Equipment Type")) {
         // String type = equipmentType.getText();
+        System.out.println("DROP DOWN CHANGE");
 
         MedicalEquip equip = null;
         Boolean foundEquip = false;
@@ -428,35 +426,49 @@ public class EquipmentController implements Initializable, PropertyChangeListene
           found.setType(dropDownString);
           found.setMedicalEquip(equip);
           MedrequestImpl.updateType(found, dropDownString);
+          System.out.println("Found Equip");
         }
       }
 
       if (!locationString.equals("Delivery Location")) {
+        System.out.println("LOCATION STRING CHANGE");
+        System.out.println("GETTING LOCATION BASED ON " + locationString);
         Location location = locDAO.getLocation(locationString);
         found.setLocation(location);
+        MedrequestImpl.updateLocation(found, location);
+        System.out.println("New LOCATION OF OBJECT " + found.getLocation().getLongName());
+
         // MedrequestImpl.updateLocation(found, location);
         if (found.getMedicalEquip() != null) {
+          System.out.println("New Med Equip " + found.getMedicalEquip().getType());
           equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
         }
       }
       if (!employeeString.equals("Employee")) {
         Employee employee = empDAO.getEmployee(employeeString);
-        found.setEmployee(employee);
+        System.out.println("FOUND EMPLOYEE");
+        // found.setEmployee(employee);
+        MedrequestImpl.updateEmployeeName(found, employee.getName());
         //        MedrequestImpl.updateEmployeeName(found, employee.getName());
       }
 
       if (!descriptionString.equals("Description")) {
-        found.setDescription(descriptionString);
+        System.out.println("NEW DESCRIPTION");
+        // found.setDescription(descriptionString);
+        MedrequestImpl.updateDescription(found, descriptionString);
         //        MedrequestImpl.updateDescription(found, descriptionString);
       }
 
       if (!statusString.equals("Status")) {
-        found.setStatus(statusString);
+        System.out.println("NEW STATUS");
+        // found.setStatus(statusString);
+        MedrequestImpl.updateStatus(found, statusString);
         //  MedrequestImpl.updateStatus(found, statusString);
 
         // set the status and location of the medicalEquipment object
         // corresponding to the request
         if (found.getAttribute2().equals("Clean")) {
+
           // if it's a request to clean equipment
           if (found.getMedicalEquip() != null) {
             if (statusString.equals("Not Started")) {
