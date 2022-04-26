@@ -146,6 +146,7 @@ public class ServiceRequestTable implements TableI {
   @Override
   public HashMap<String, Object> getData() {
     try {
+      DBconnection.getConnection().setAutoCommit(false);
       String sql = "SELECT * FROM ServiceRequests";
       HashMap<String, Employee> employeeHashmap = Adb.getEmployees();
       HashMap<String, Location> locationHashMap = Adb.getLocations();
@@ -198,7 +199,7 @@ public class ServiceRequestTable implements TableI {
           Adb.addTransportRequest(request);
         }
       }
-
+      DBconnection.getConnection().setAutoCommit(true);
       return null;
     } catch (SQLException sqlException) {
       return null;
