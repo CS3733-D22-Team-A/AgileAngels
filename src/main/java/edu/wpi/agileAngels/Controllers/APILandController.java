@@ -25,4 +25,9 @@ public class APILandController {
   public void languageAction(ActionEvent actionEvent) throws ServiceException {
     importAPI.LanguageInterp();
   }
+
+  public void transAction(ActionEvent actionEvent)
+      throws edu.wpi.cs3733.D22.teamZ.api.exception.ServiceException {
+    importAPI.externalTrans();
+  }
 }

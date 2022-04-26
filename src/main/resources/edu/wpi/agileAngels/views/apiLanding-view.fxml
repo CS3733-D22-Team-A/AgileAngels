@@ -115,7 +115,7 @@
                </HBox>
             </graphic>
          </Button>
-         <Button alignment="CENTER" mnemonicParsing="false" prefHeight="160.0" prefWidth="440.0" style="-fx-background-radius: 20 20;" stylesheets="@stylesheets/styleRequest.css" textAlignment="CENTER" GridPane.columnIndex="1">
+         <Button fx:id="externalTrans" alignment="CENTER" mnemonicParsing="false" onAction="#transAction" prefHeight="160.0" prefWidth="440.0" style="-fx-background-radius: 20 20;" stylesheets="@stylesheets/styleRequest.css" textAlignment="CENTER" GridPane.columnIndex="1">
             <font>
                <Font size="10.0" />
             </font>
@@ -125,7 +125,7 @@
             <graphic>
                <HBox alignment="CENTER" prefHeight="171.0" prefWidth="434.0" style="-fx-background-radius: 20 20;">
                   <children>
-                     <Label alignment="CENTER" prefHeight="95.0" prefWidth="158.0" text="API">
+                     <Label alignment="CENTER" prefHeight="95.0" prefWidth="158.0" text="External Transport API">
                         <font>
                            <Font size="24.0" />
                         </font>
