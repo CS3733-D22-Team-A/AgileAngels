@@ -121,7 +121,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
   public void submit(ActionEvent event) {
     String loc = locationIDsByLongName.get(saniLocation.getText());
     String emp = saniEmployee.getText();
-    String stat = "Not Started";
+    String stat = saniStatus.getText();
     String desc = saniDescription.getText();
     String type = saniType.getText();
 

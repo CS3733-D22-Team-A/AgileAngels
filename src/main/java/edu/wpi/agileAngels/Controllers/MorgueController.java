@@ -115,7 +115,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
   public void submit(ActionEvent event) throws SQLException {
     String loc = locationIDsByLongName.get(morgueLocation.getText());
     String emp = morgueEmployee.getText();
-    String stat = "Not Started";
+    String stat = morgueStatus.getText();
     String desc = morgueDescription.getText();
     ZoneId z = ZoneId.of("America/Montreal");
     LocalDate today = LocalDate.now(z);

@@ -139,7 +139,7 @@ public class LaundryController implements Initializable {
     String employee = laundryEmployee.getText();
     String location = locationIDsByLongName.get(laundryLocation.getText());
     String description = laundryDescription.getText();
-    String status = "Not Started";
+    String status = laundryStatus.getText();
 
     // Adding
     if (ID.equals("New Request")) {
