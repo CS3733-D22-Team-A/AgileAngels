@@ -197,7 +197,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
       MorguerequestImpl.addRequest(req);
       morgueData.add(req);
       morgueTable.setItems(morgueData);
-      updateDashAdding(stat);
+      updateDashAdding(req.getStatus());
 
     } else { // Editing
       Request req = MorguerequestImpl.getAllRequests().get(morgueIDLabel.getText());
@@ -408,6 +408,12 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     } else if (color.equals("blue")) {
       anchor.getStylesheets().removeAll();
       anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+
+    } else if (color.equals("purple")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestPurpleTest.css");
     }
   }
 }

@@ -218,7 +218,7 @@ public class LabController implements Initializable, PropertyChangeListener {
               "N/A");
       labData.add(req);
       labRequestImpl.addRequest(req);
-      updateDashAdding(stat);
+      updateDashAdding(req.getStatus());
     } else { // Editing
       Request req = labRequestImpl.getAllRequests().get(labID2.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
@@ -456,6 +456,12 @@ public class LabController implements Initializable, PropertyChangeListener {
     } else if (color.equals("blue")) {
       anchor.getStylesheets().removeAll();
       anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+
+    } else if (color.equals("purple")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestPurpleTest.css");
     }
   }
 }

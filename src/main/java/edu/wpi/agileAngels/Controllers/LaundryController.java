@@ -164,7 +164,7 @@ public class LaundryController implements Initializable {
       laundryRequestImpl.addRequest(laundry); // add to hashmap
       laundryData.add(laundry); // add to the UI
       laundryTable.setItems(laundryData);
-      updateDashAdding(status);
+      updateDashAdding(laundry.getStatus());
 
     } else { // Editing
       editLaundryRequest(ID, type, employee, location, description, status);
@@ -494,6 +494,12 @@ public class LaundryController implements Initializable {
     } else if (color.equals("blue")) {
       anchor.getStylesheets().removeAll();
       anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+
+    } else if (color.equals("purple")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestPurpleTest.css");
     }
   }
 }

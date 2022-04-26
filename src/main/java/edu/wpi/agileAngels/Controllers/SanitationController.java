@@ -140,6 +140,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
               "N/A");
       saniData.add(req);
       saniRequestImpl.addRequest(req);
+      updateDashAdding(req.getStatus());
     } else { // Editing
       Request req = saniRequestImpl.getAllRequests().get(sanIDLabel.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
@@ -424,6 +425,12 @@ public class SanitationController implements Initializable, PropertyChangeListen
     } else if (color.equals("blue")) {
       anchor.getStylesheets().removeAll();
       anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+
+    } else if (color.equals("purple")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestPurpleTest.css");
     }
   }
 }

@@ -194,7 +194,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
               "N/A");
       maintenanceData.add(req);
       mainRequestImpl.addRequest(req);
-      updateDashAdding(stat);
+      updateDashAdding(req.getStatus());
     } else { // Editing
       Request req = mainRequestImpl.getAllRequests().get(mainIDLabel.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
@@ -412,6 +412,12 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     } else if (color.equals("blue")) {
       anchor.getStylesheets().removeAll();
       anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+
+    } else if (color.equals("purple")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestPurpleTest.css");
     }
   }
 }

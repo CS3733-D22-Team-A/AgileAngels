@@ -206,7 +206,7 @@ public class MealController implements Initializable, PropertyChangeListener {
               "N/A");
       mealData.add(req);
       mealRequestImpl.addRequest(req);
-      updateDashAdding(stat);
+      updateDashAdding(req.getStatus());
 
     } else { // Editing
       Request req = mealRequestImpl.getAllRequests().get(mealIDLabel.getText());
@@ -425,6 +425,12 @@ public class MealController implements Initializable, PropertyChangeListener {
     } else if (color.equals("blue")) {
       anchor.getStylesheets().removeAll();
       anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+
+    } else if (color.equals("purple")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestPurpleTest.css");
     }
   }
 }
