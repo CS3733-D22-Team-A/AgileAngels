@@ -116,6 +116,8 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       item.setOnAction(this::employeeMenu);
       equipmentEmployeeText.getItems().add(item);
     }
+
+    setColor(appController.color);
   }
 
   public void hidePopout() {
@@ -749,6 +751,24 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       }
     } catch (NullPointerException e) {
       hidePopout();
+    }
+  }
+
+  public void setColor(String color) {
+    if (color.equals("green")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestGreenTest.css");
+    } else if (color.equals("red")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestRedTest.css");
+
+    } else if (color.equals("blue")) {
+      anchor.getStylesheets().removeAll();
+      anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
     }
   }
 }

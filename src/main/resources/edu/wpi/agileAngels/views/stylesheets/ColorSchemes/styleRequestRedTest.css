@@ -8,7 +8,7 @@
 /*
 .root{
     -fx-font-family: "Roboto Light";
-    -fx-background-color: linear-gradient(to bottom, #6Bb4B2, #355A70);
+    -fx-background-color: linear-gradient(to bottom, #d16969, #894949);
 
 }
  */
@@ -35,7 +35,7 @@ Note that these labels lock your font size.
 
 .text-field:focused{
     -fx-border-width: 2;
-    -fx-border-color: rgb(0, 156, 166);
+    -fx-border-color: rgb(166, 0, 0);
 }
 
 .button{
@@ -75,7 +75,7 @@ Note that these labels lock your font size.
     -fx-font-size: 19;
 }
 #topBar{
-    -fx-background-color: rgb(0, 156, 166);
+    -fx-background-color: rgb(166, 0, 0);
     -fx-border-width: 0 0 7 0;
     -fx-border-color: white;
     -fx-effect: dropShadow(gaussian, rgba(0,0,0,0.10), 16, 0, 4, 0);
@@ -201,7 +201,7 @@ Note that these labels lock your font size.
 }
 
 .table-view .column-header {
-    -fx-background-color: #49A3AE;
+    -fx-background-color: #b62828;
     -fx-background-radius: 7px 7px 0px 0px;
 }
 
@@ -213,7 +213,7 @@ Note that these labels lock your font size.
 }
 
 .table-view .column-header-background {
-    -fx-background-color: #49A3AE;
+    -fx-background-color: #b62828;
     -fx-background-radius: 7px 7px 0px 0px;
 }
 
@@ -236,7 +236,7 @@ Note that these labels lock your font size.
 
 
 .table-row-cell:odd{
-    -fx-background-color: #C2D5D8;
+    -fx-background-color: #e0a4a4;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 2;
 }
@@ -270,4 +270,3 @@ in scrollpanes.
     -fx-padding: 0;
 
 }
-
