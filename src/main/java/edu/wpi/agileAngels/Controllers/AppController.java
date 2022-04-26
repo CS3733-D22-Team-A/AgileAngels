@@ -28,6 +28,9 @@ public class AppController {
   private int[] dirtyXRays = new int[4];
   public boolean embeddedON = false;
 
+  // for color modes, this is defualt color
+  public String color = "blue";
+
   HashMap<String, String> pages = new HashMap<>();
 
   private String currentFloor = "2";
@@ -322,5 +325,9 @@ public class AppController {
 
   public MenuController getMenuController() {
     return menuController;
+  }
+
+  public void updateMenuColor() {
+    menuController.setColor(this.color);
   }
 }

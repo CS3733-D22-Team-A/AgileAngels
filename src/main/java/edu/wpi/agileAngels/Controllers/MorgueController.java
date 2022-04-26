@@ -18,12 +18,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class MorgueController implements Initializable, PropertyChangeListener {
   AppController appController = AppController.getInstance();
   // @FXML private Button addButton;
+  @FXML AnchorPane anchor;
   @FXML VBox popOut;
   @FXML HBox tableHBox;
   @FXML MenuButton morgueLocation, morgueEmployee, morgueStatus;
@@ -85,6 +87,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     }
     dashboardLoad();
     morgueTable.setItems(morgueData);
+    setColor(appController.color);
 
     morgueLocation.getItems().clear();
     for (Location loc : locationsList) {
@@ -412,5 +415,23 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     showPopout();
     clear();
     morgueIDLabel.setText("New Request");
+  }
+
+  public void setColor(String color) {
+    if (color.equals("green")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestGreenTest.css");
+    } else if (color.equals("red")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestRedTest.css");
+
+    } else if (color.equals("blue")) {
+      anchor.getStylesheets().removeAll();
+      anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+    }
   }
 }
