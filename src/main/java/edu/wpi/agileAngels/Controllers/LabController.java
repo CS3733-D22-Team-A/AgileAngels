@@ -35,7 +35,7 @@ public class LabController implements Initializable, PropertyChangeListener {
       employeeColumn,
       statusColumn,
       descriptionColumn;
-  @FXML TextField labDescription, employeeFilterField, statusFilterField;
+  @FXML TextField labDescription;
   @FXML Label notStartedNumber, inProgressNumber, completedNumber, labID2;
 
   private RequestDAOImpl labRequestImpl = RequestDAOImpl.getInstance("LabRequest");
@@ -50,6 +50,8 @@ public class LabController implements Initializable, PropertyChangeListener {
   HashMap<String, String> locationIDsByLongName = new HashMap<>();
 
   AppController appController = AppController.getInstance();
+
+  public Boolean filtered = false;
 
   public LabController() throws SQLException {}
 
@@ -124,12 +126,59 @@ public class LabController implements Initializable, PropertyChangeListener {
 
   void updateFilters() {
     employeeFilter.getItems().clear();
+    ArrayList<String> list = new ArrayList<>();
     for (Request r : labData) {
-      CheckMenuItem emp = new CheckMenuItem(r.getEmployee().getName());
-      emp.setSelected(true);
-      // emp.setOnAction();
-      employeeFilter.getItems().add(emp);
+      if (!list.contains(r.getEmployee().getName())) {
+        CheckMenuItem emp = new CheckMenuItem(r.getEmployee().getName());
+        emp.setSelected(true);
+        emp.setOnAction(
+            (ActionEvent event) -> {
+              submitFilter();
+            });
+        employeeFilter.getItems().add(emp);
+        list.add(r.getEmployee().getName());
+      }
     }
+    clearFilters();
+  }
+
+  @FXML
+  void submitFilter() {
+    ObservableList<Request> employeeFilteredList = FXCollections.observableArrayList();
+    ObservableList<Request> statusFilterdList = FXCollections.observableArrayList();
+
+    for (MenuItem menuItem : employeeFilter.getItems()) {
+      if (((CheckMenuItem) menuItem).isSelected()) {
+        for (Request r : labData) {
+          if (((CheckMenuItem) menuItem).getText().equals(r.getEmployee().getName())) {
+            employeeFilteredList.add(r);
+          }
+        }
+      }
+    }
+    for (MenuItem menuItem : statusFilter.getItems()) {
+      if (((CheckMenuItem) menuItem).isSelected()) {
+        for (Request r : employeeFilteredList) {
+          if (((CheckMenuItem) menuItem).getText().equals(r.getStatus())) {
+            statusFilterdList.add(r);
+          }
+        }
+      }
+    }
+    labTable.setItems(statusFilterdList);
+  }
+
+  /** Puts all of the requests back on the table, "clearing the requests." */
+  @FXML
+  public void clearFilters() {
+    // Puts everything back on table.
+    for (MenuItem e : employeeFilter.getItems()) {
+      ((CheckMenuItem) e).setSelected(true);
+    }
+    for (MenuItem e : statusFilter.getItems()) {
+      ((CheckMenuItem) e).setSelected(true);
+    }
+    labTable.setItems(labData);
   }
 
   @Override
@@ -300,140 +349,6 @@ public class LabController implements Initializable, PropertyChangeListener {
     // Should put the numbers of the completed statuses into dash.
     completedNumber.setText(comp);
   }
-
-  /* FILTER METHODS BEYOND HERE */
-
-  /** Does filterReqsTable methods when "Submit Filters" is clicked, or "onAction." */
-  @FXML
-  public void filterReqOnAction() {
-    if (!employeeFilterField.getText().isEmpty() && !statusFilterField.getText().isEmpty()) {
-      ObservableList<Request> empFilteredList = filterReqEmployee(employeeFilterField.getText());
-      ObservableList<Request> trueFilteredList =
-          filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
-
-      // Di-rectly touching equipment table in n-filter cases.
-      labTable.setItems(trueFilteredList);
-    } else if (!employeeFilterField.getText().isEmpty()) {
-      filterReqsTableEmployee(employeeFilterField.getText());
-    } else if (!statusFilterField.getText().isEmpty()) {
-      filterReqsTableStatus(statusFilterField.getText());
-    }
-  }
-
-  /** Puts all of the requests back on the table, "clearing the requests." */
-  @FXML
-  public void clearFilters() {
-    // Puts everything back on table.
-    labTable.setItems(labData);
-    employeeFilterField.clear();
-    statusFilterField.clear();
-  }
-
-  /* Employee-based */
-
-  /**
-   * Filters requests in the equipment table so only those with the given Employee remain.
-   *
-   * @param employeeName The Employee the requests must have to remain on the table.
-   */
-  private void filterReqsTableEmployee(String employeeName) {
-    ObservableList<Request> filteredList = filterReqEmployee(employeeName);
-
-    // Sets table to only have contents of the filtered list.
-    labTable.setItems(filteredList);
-  }
-
-  /**
-   * Filters out requests in labData based on the given Employee.
-   *
-   * @param employeeName The Employee that the requests must have to be in the new list.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterReqEmployee(String employeeName) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : labData) {
-      if (req.getEmployee().getName().equals(employeeName)) {
-        newList.add(req);
-      }
-    }
-
-    return newList;
-  }
-
-  // Status-based
-
-  /**
-   * Filters requests in the equipment table so only those with the given status remain.
-   *
-   * @param reqStatus The status the requests must have to remain on the table.
-   */
-  private void filterReqsTableStatus(String reqStatus) {
-    ObservableList<Request> filteredList = filterReqStatus(reqStatus);
-
-    // Sets table to only have contents of the filtered list.
-    labTable.setItems(filteredList);
-  }
-
-  /**
-   * Filters out requests in medData based on the given status.
-   *
-   * @param reqStatus The status that the requests must have to be in the new list.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterReqStatus(String reqStatus) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : labData) {
-      if (req.getStatus().equals(reqStatus)) {
-        newList.add(req);
-      }
-    }
-    return newList;
-  }
-
-  /* Methods to filter lists n times */
-
-  /**
-   * Filters out requests in medData based on the given status.
-   *
-   * @param reqStatus The status that the requests must have to be in the new list.
-   * @param filteredList The list that was presumably filtered.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterFilteredReqListStatus(
-      String reqStatus, ObservableList<Request> filteredList) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : filteredList) {
-      if (req.getStatus().equals(reqStatus)) {
-        newList.add(req);
-      }
-    }
-    return newList;
-  }
-
-  /**
-   * Filters out requests in medData based on the given Employee.
-   *
-   * @param employeeName The Employee that the requests must have to be in the new list.
-   * @param filteredList The list that was presumably filtered.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterFilteredReqListEmployee(
-      String employeeName, ObservableList<Request> filteredList) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : filteredList) {
-      if (req.getEmployee().getName().equals(employeeName)) {
-        newList.add(req);
-      }
-    }
-
-    return newList;
-  }
-
-  /* FILTER METHODS ABOVE HERE */
 
   public void clearPage(ActionEvent actionEvent) {
     appController.clearPage();

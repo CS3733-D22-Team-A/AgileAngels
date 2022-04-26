@@ -128,10 +128,10 @@
             </TableView>
          </children>
          <padding>
-            <Insets left="60.0" right="60.0" />
+            <Insets left="50.0" right="50.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER" layoutX="202.0" layoutY="58.0" mouseTransparent="true" prefHeight="100.0" prefWidth="1022.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+      <HBox alignment="CENTER" layoutY="60.0" mouseTransparent="true" prefHeight="100.0" prefWidth="1022.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
          <children>
             <GridPane prefWidth="408.0">
                <columnConstraints>
@@ -201,38 +201,42 @@
             </GridPane>
          </children>
       </HBox>
-      <Button alignment="CENTER" layoutX="701.0" layoutY="617.0" mnemonicParsing="false" onAction="#clearFilters" prefHeight="23.0" prefWidth="127.0" textAlignment="CENTER" AnchorPane.bottomAnchor="76.0" AnchorPane.rightAnchor="452.0">
-         <font>
-            <Font size="10.0" />
-         </font>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <graphic>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Clear Filters" />
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </HBox>
-         </graphic>
-      </Button>
       <Button fx:id="newRequest" layoutX="846.0" layoutY="79.0" mnemonicParsing="false" onAction="#newRequest" prefHeight="59.0" prefWidth="120.0" style="-fx-font-weight: bold;" text="New Request" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
       <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
-      <MenuButton fx:id="employeeFilter" layoutX="430.0" layoutY="614.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="117.0" text="Empoloyee" />
-      <MenuButton fx:id="statusFilter" layoutX="566.0" layoutY="615.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="117.0" text="Status">
-         <items>
-            <CheckMenuItem mnemonicParsing="false" selected="true" text="notStarted" />
-            <CheckMenuItem mnemonicParsing="false" selected="true" text="inProgress" />
-            <CheckMenuItem mnemonicParsing="false" selected="true" text="complete" />
-         </items>
-      </MenuButton>
+      <HBox alignment="TOP_RIGHT" layoutX="443.0" layoutY="633.0" prefHeight="31.0" spacing="10.0" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="50.0">
+         <children>
+            <MenuButton fx:id="employeeFilter" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Employee" />
+            <MenuButton fx:id="statusFilter" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Status">
+               <items>
+                  <CheckMenuItem mnemonicParsing="false" onAction="#submitFilter" selected="true" text="Not Started" />
+                  <CheckMenuItem mnemonicParsing="false" onAction="#submitFilter" selected="true" text="In Progress" />
+                  <CheckMenuItem mnemonicParsing="false" onAction="#submitFilter" selected="true" text="Complete" />
+               </items>
+            </MenuButton>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#clearFilters" prefHeight="30.0" prefWidth="120.0" textAlignment="CENTER">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Clear Filters" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
    </children>
    <stylesheets>
       <URL value="@stylesheets/styleRequest.css" />

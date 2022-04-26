@@ -19,8 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class PatientTransportController extends MainController
-    implements Initializable, PropertyChangeListener {
+public class PatientTransportController implements Initializable, PropertyChangeListener {
 
   @FXML AnchorPane anchor;
   @FXML VBox popOut;
