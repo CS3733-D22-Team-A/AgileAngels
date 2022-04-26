@@ -39,7 +39,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
   AppController appController = AppController.getInstance();
   ArrayList<Pane> panes = new ArrayList<>();
   @FXML private ScrollPane scrollPane = new ScrollPane();
-  @FXML private Pane cleanDirty, graphs;
+  @FXML private Pane cleanDirty, graphs, employeePane;
   @FXML private GridPane cleanDirtyGrid;
   @FXML private TableView requestTable, employeeTable;
   @FXML
@@ -112,6 +112,8 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
     populateRequestTable("All");
     populateEmployeeTable("All");
+
+    resizeEmployeeTable();
   }
 
   private void populateRequestTable(String floor) {
@@ -651,5 +653,14 @@ public class DashboardController implements Initializable, PropertyChangeListene
       requestGraph.getStylesheets().removeAll();
       requestGraph.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/DashCSS.css");
     }
+  }
+
+  // resize employee table
+  public void resizeEmployeeTable() {
+
+    double width = employeePane.getPrefWidth();
+
+    empEmployeeColumn.setPrefWidth(width / 2 - 15);
+    empFloorColumn.setPrefWidth(width / 2 - 15);
   }
 }
