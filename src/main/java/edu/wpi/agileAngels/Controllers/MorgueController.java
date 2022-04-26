@@ -49,8 +49,6 @@ public class MorgueController implements Initializable, PropertyChangeListener {
   HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
   private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
-  ArrayList<String> freeEmployees = MorguerequestImpl.getFreeEmployees();
-  ArrayList<Employee> employees = new ArrayList<>();
   private int statusNotStarted, statusInProgress, statusComplete;
   HashMap<String, String> locationIDsByLongName = new HashMap<>();
 
@@ -58,7 +56,6 @@ public class MorgueController implements Initializable, PropertyChangeListener {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    employees.addAll(empDAO.getAllEmployees().values());
     appController.addPropertyChangeListener(this);
     hidePopout();
     statusNotStarted = 0;
@@ -99,8 +96,6 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     }
     // Populates employees dropdown
     morgueEmployee.getItems().clear();
-    for (Employee emp : employees) {
-      MenuItem item = new MenuItem(emp.getName());
     for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
       Employee emp = entry.getValue();
       MenuItem item = new MenuItem(emp.getName());
