@@ -27,7 +27,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   @FXML VBox popOut;
   @FXML HBox tableHBox;
-  @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
+  @FXML private Button equipDropdown, equipDropdownButton;
   @FXML private TextField employeeFilterField, statusFilterField, mainDescription;
   @FXML private Label equipmentConfirmation, equipID;
   @FXML private TableView equipmentTable;
@@ -35,6 +35,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   @FXML Pane drop, drop2;
   @FXML MenuButton equipLocation, equipmentType, equipmentStatus, equipmentEmployeeText;
   @FXML AnchorPane anchor;
+  @FXML MenuItem xRay, infusionPump, recliner, bed;
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
@@ -573,6 +574,11 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   public void typeMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     equipmentType.setText(button.getText());
+  }
+
+  @FXML
+  public void checkTypeMenu() {
+    // xRay.setDisable(false);
   }
 
   @FXML
