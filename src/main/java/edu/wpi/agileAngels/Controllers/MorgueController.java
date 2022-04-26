@@ -28,7 +28,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
   @FXML AnchorPane anchor;
   @FXML VBox popOut;
   @FXML HBox tableHBox;
-  @FXML MenuButton morgueLocation, morgueEmployee, morgueStatus;
+  @FXML MenuButton morgueLocation, morgueEmployee, morgueStatus, employeeFilter, statusFilter;
   @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
   @FXML TableView morgueTable;
   @FXML
@@ -101,9 +101,70 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     morgueEmployee.getItems().clear();
     for (Employee emp : employees) {
       MenuItem item = new MenuItem(emp.getName());
+    for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+      Employee emp = entry.getValue();
+      MenuItem item = new MenuItem(emp.getName());
       item.setOnAction(this::employeeMenu);
       morgueEmployee.getItems().add(item);
     }
+    clear();
+  }
+
+  void updateFilters() {
+    employeeFilter.getItems().clear();
+    ArrayList<String> list = new ArrayList<>();
+    for (Request r : morgueData) {
+      if (!list.contains(r.getEmployee().getName())) {
+        CheckMenuItem emp = new CheckMenuItem(r.getEmployee().getName());
+        emp.setSelected(true);
+        emp.setOnAction(
+            (ActionEvent event) -> {
+              submitFilter();
+            });
+        employeeFilter.getItems().add(emp);
+        list.add(r.getEmployee().getName());
+      }
+    }
+    clearFilters();
+  }
+
+  @FXML
+  void submitFilter() {
+    ObservableList<Request> employeeFilteredList = FXCollections.observableArrayList();
+    ObservableList<Request> statusFilterdList = FXCollections.observableArrayList();
+
+    for (MenuItem menuItem : employeeFilter.getItems()) {
+      if (((CheckMenuItem) menuItem).isSelected()) {
+        for (Request r : morgueData) {
+          if (((CheckMenuItem) menuItem).getText().equals(r.getEmployee().getName())) {
+            employeeFilteredList.add(r);
+          }
+        }
+      }
+    }
+    for (MenuItem menuItem : statusFilter.getItems()) {
+      if (((CheckMenuItem) menuItem).isSelected()) {
+        for (Request r : employeeFilteredList) {
+          if (((CheckMenuItem) menuItem).getText().equals(r.getStatus())) {
+            statusFilterdList.add(r);
+          }
+        }
+      }
+    }
+    morgueTable.setItems(statusFilterdList);
+  }
+
+  /** Puts all of the requests back on the table, "clearing the requests." */
+  @FXML
+  public void clearFilters() {
+    // Puts everything back on table.
+    for (MenuItem e : employeeFilter.getItems()) {
+      ((CheckMenuItem) e).setSelected(true);
+    }
+    for (MenuItem e : statusFilter.getItems()) {
+      ((CheckMenuItem) e).setSelected(true);
+    }
+    morgueTable.setItems(morgueData);
   }
 
   @Override
@@ -137,10 +198,12 @@ public class MorgueController implements Initializable, PropertyChangeListener {
               desc,
               date,
               time);
-      morgueData.add(req);
-      MorguerequestImpl.addRequest(req);
 
+      MorguerequestImpl.addRequest(req);
+      morgueData.add(req);
+      morgueTable.setItems(morgueData);
       updateDashAdding(stat);
+
     } else { // Editing
       Request req = MorguerequestImpl.getAllRequests().get(morgueIDLabel.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
@@ -165,8 +228,6 @@ public class MorgueController implements Initializable, PropertyChangeListener {
         }
       }
     }
-    freeEmployees.clear();
-    freeEmployees = MorguerequestImpl.getFreeEmployees();
     clear();
     hidePopout();
   }
@@ -193,42 +254,16 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     morgueStatus.setText("Status");
     morgueDescription.setText("");
     morgueDescription.setPromptText("Patient Name");
+    //
+    //    System.out.println("-------------");
+    //    System.out.println(morgueData.get(0).getEmployee().getName());
+    updateFilters();
   }
 
   @FXML
   public void cancel(ActionEvent event) {
     clear();
     hidePopout();
-  }
-
-  @FXML
-  public void filterReqOnAction(ActionEvent event) {
-    if (!employeeFilterField.getText().isEmpty() && !statusFilterField.getText().isEmpty()) {
-
-      ObservableList<Request> empFilteredList = filterReqEmployee(employeeFilterField.getText());
-      ObservableList<Request> trueFilteredList =
-          filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
-
-      morgueTable.setItems(trueFilteredList);
-    } else if (!employeeFilterField.getText().isEmpty()) {
-      filterReqsTableEmployee(employeeFilterField.getText());
-    } else if (!statusFilterField.getText().isEmpty()) {
-      filterReqsTableStatus(statusFilterField.getText());
-    }
-  }
-
-  private void filterReqsTableEmployee(String employeeName) {
-    ObservableList<Request> filteredList = filterReqEmployee(employeeName);
-
-    // Sets table to only have contents of the filtered list.
-    morgueTable.setItems(filteredList);
-  }
-
-  @FXML
-  public void clearFilters(ActionEvent event) {
-    morgueTable.setItems(morgueData);
-    employeeFilterField.clear();
-    statusFilterField.clear();
   }
 
   @FXML
@@ -239,64 +274,8 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     // removes the request from the table and dropdown
     // delete from hash map and database table
     MorguerequestImpl.deleteRequest(MorguerequestImpl.getAllRequests().get(id));
-    freeEmployees.clear();
-    freeEmployees = MorguerequestImpl.getFreeEmployees();
     clear();
     hidePopout();
-  }
-
-  private ObservableList<Request> filterReqEmployee(String employeeName) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : morgueData) {
-      if (req.getEmployee().getName().equals(employeeName)) {
-        newList.add(req);
-      }
-    }
-
-    return newList;
-  }
-
-  private void filterReqsTableStatus(String reqStatus) {
-    ObservableList<Request> filteredList = filterReqStatus(reqStatus);
-    // Sets table to only have contents of the filtered list.
-    morgueTable.setItems(filteredList);
-  }
-
-  private ObservableList<Request> filterReqStatus(String reqStatus) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : morgueData) {
-      if (req.getStatus().equals(reqStatus)) {
-        newList.add(req);
-      }
-    }
-    return newList;
-  }
-
-  private ObservableList<Request> filterFilteredReqListStatus(
-      String reqStatus, ObservableList<Request> filteredList) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : filteredList) {
-      if (req.getStatus().equals(reqStatus)) {
-        newList.add(req);
-      }
-    }
-    return newList;
-  }
-
-  private ObservableList<Request> filterFilteredReqListEmployee(
-      String employeeName, ObservableList<Request> filteredList) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : filteredList) {
-      if (req.getEmployee().getName().equals(employeeName)) {
-        newList.add(req);
-      }
-    }
-
-    return newList;
   }
 
   @FXML
