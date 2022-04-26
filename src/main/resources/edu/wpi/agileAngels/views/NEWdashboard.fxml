@@ -67,36 +67,7 @@
                </font>
             </Label>
          </children></Pane>
-      <Pane fx:id="graphs" layoutX="20.0" layoutY="365.0" onMouseClicked="#changeDisplay" prefHeight="335.0" prefWidth="658.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@stylesheets/DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="365.0">
-         <children>
-            <BarChart fx:id="requestGraph" layoutY="-1.0" legendSide="TOP" prefHeight="342.0" prefWidth="658.0" stylesheets="@stylesheets/DashCSS.css">
-              <xAxis>
-                <CategoryAxis label="Requests" prefWidth="578.0" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis label="# of Requests" side="LEFT" upperBound="50.0" />
-              </yAxis>
-               <styleClass>
-                  <String fx:value="default-color0" />
-                  <String fx:value="default-color1" />
-               </styleClass>
-            </BarChart>
-            <MenuButton fx:id="graphType" layoutX="579.0" layoutY="5.0" mnemonicParsing="false" text="Type">
-              <items>
-                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Meal" />
-                <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Medical" />
-                <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Lab" />
-                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Gift" />
-                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Maintenence" />
-                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Morgue" />
-                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Transport" />
-                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Sanitation" />
-                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Laundry" />
-              </items>
-            </MenuButton>
-         </children>
-      </Pane>
-      <Pane fx:id="cleanDirty" layoutX="21.0" layoutY="365.0" onMouseClicked="#changeDisplay" prefHeight="335.0" prefWidth="658.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@stylesheets/DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="365.0">
+      <Pane fx:id="cleanDirty" layoutX="21.0" layoutY="365.0" prefHeight="335.0" prefWidth="658.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@stylesheets/DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="365.0">
          <children>
             <Label layoutX="20.0" layoutY="8.0" prefHeight="40.0" prefWidth="247.0" text="Equipment status">
                <font>
@@ -278,6 +249,22 @@
             </Pane>
          </children>
       </GridPane>
+      <Pane fx:id="graphs" layoutX="20.0" layoutY="365.0" prefHeight="335.0" prefWidth="658.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@stylesheets/DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="365.0">
+         <children>
+            <BarChart fx:id="requestGraph" legendSide="TOP" prefHeight="342.0" prefWidth="562.0" stylesheets="@stylesheets/DashCSS.css">
+              <xAxis>
+                <CategoryAxis label="Requests" prefWidth="578.0" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis label="# of Requests" side="LEFT" upperBound="50.0" />
+              </yAxis>
+               <styleClass>
+                  <String fx:value="default-color0" />
+                  <String fx:value="default-color1" />
+               </styleClass>
+            </BarChart>
+         </children>
+      </Pane>
       <Pane layoutX="443.0" layoutY="96.0" prefHeight="252.0" prefWidth="230.0" styleClass="pane" stylesheets="@stylesheets/DashCSS.css" AnchorPane.leftAnchor="443.0" AnchorPane.rightAnchor="605.0" AnchorPane.topAnchor="96.0">
          <children>
             <Label layoutX="16.0" layoutY="7.0" style="-fx-font-family: Roboto;" stylesheets="@stylesheets/DashCSS.css" text="Employees On Duty">
@@ -310,6 +297,20 @@
             </TableView>
          </children>
       </Pane>
+      <MenuButton fx:id="graphType" alignment="BOTTOM_RIGHT" mnemonicParsing="false" text="Type" AnchorPane.rightAnchor="615.0" AnchorPane.topAnchor="371.0">
+        <items>
+            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Meal" />
+          <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Medical" />
+          <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Lab" />
+            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Gift" />
+            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Maintenence" />
+            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Morgue" />
+            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Transport" />
+            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Sanitation" />
+            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Laundry" />
+        </items>
+      </MenuButton>
+      <Button fx:id="switchView" layoutX="474.0" layoutY="371.0" mnemonicParsing="false" onAction="#changeDisplay" prefHeight="25.0" prefWidth="110.0" text="Switch View" AnchorPane.rightAnchor="696.0" AnchorPane.topAnchor="371.0" />
       <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
    </children>
    <stylesheets>

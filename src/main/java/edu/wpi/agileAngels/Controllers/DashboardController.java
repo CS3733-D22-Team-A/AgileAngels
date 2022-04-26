@@ -94,6 +94,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
     scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     appController.addPropertyChangeListener(this);
+    graphType.setVisible(false);
 
     series1.setName("All Requests");
     series2.setName(graphType.getText());
@@ -485,8 +486,10 @@ public class DashboardController implements Initializable, PropertyChangeListene
       cleanDirty.setVisible(false);
       cleanDirtyGrid.setVisible(false);
       graphs.setVisible(true);
+      graphType.setVisible(true);
     } else if (graphs.isVisible()) {
       graphs.setVisible(false);
+      graphType.setVisible(false);
       cleanDirty.setVisible(true);
       cleanDirtyGrid.setVisible(true);
     }
