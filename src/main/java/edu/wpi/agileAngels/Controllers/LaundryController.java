@@ -446,10 +446,12 @@ public class LaundryController implements Initializable {
       while (var3.hasNext()) {
         Map.Entry<String, Request> entry = (Map.Entry) var3.next();
         Request object = (Request) entry.getValue();
-        if (entry.getValue().getStatus().equals("InProgress")) {
+        if (entry.getValue().getStatus().equals("InProgress")
+            || entry.getValue().getStatus().equals("In Progress")) {
           statusInProgress++;
         }
-        if (entry.getValue().getStatus().equals("NotStarted")) {
+        if (entry.getValue().getStatus().equals("NotStarted")
+            || entry.getValue().getStatus().equals("Not Started")) {
           statusNotStarted++;
         }
         if (entry.getValue().getStatus().equals("Complete")
