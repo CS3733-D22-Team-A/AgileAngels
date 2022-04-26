@@ -145,6 +145,7 @@ public class ServiceRequestTable implements TableI {
 
   @Override
   public HashMap<String, Object> getData() {
+    int maxMed = 0, maxLab = 0, maxMorgue = 0, maxMeal = 0, maxMain = 0, maxTran = 0;
     try {
       DBconnection.getConnection().setAutoCommit(false);
       String sql = "SELECT * FROM ServiceRequests";
@@ -184,22 +185,30 @@ public class ServiceRequestTable implements TableI {
                   attribute1,
                   attribute2,
                   equip);
+          maxMed = Integer.parseInt(request.getName().substring(3));
+          // System.out.println("MAX MED: " + maxMed);
           Adb.addMedRequest(request);
         }
 
         if (name.substring(0, 3).compareTo("Lab") == 0) {
+          maxLab = Integer.parseInt(request.getName().substring(3));
           Adb.addLabRequest(request);
         } else if (name.substring(0, 3).compareTo("Mor") == 0) {
+          maxMorgue = Integer.parseInt(request.getName().substring(6));
           Adb.addMorgueRequest(request);
         } else if (name.substring(0, 4).compareTo("Meal") == 0) {
+          maxMeal = Integer.parseInt(request.getName().substring(4));
           Adb.addMealRequest(request);
         } else if (name.substring(0, 4).compareTo("Main") == 0) {
+          maxMain = Integer.parseInt(request.getName().substring(4));
           Adb.addMainRequest(request);
         } else if (name.substring(0, 4).compareTo("Tran") == 0) {
+          maxTran = Integer.parseInt(request.getName().substring(4));
           Adb.addTransportRequest(request);
         }
       }
       DBconnection.getConnection().setAutoCommit(true);
+      resetCounts(maxMed, maxLab, maxMorgue, maxMeal, maxMain, maxTran);
       return null;
     } catch (SQLException sqlException) {
       return null;
@@ -216,5 +225,18 @@ public class ServiceRequestTable implements TableI {
       employees.add(rs.getString("Name"));
     }
     return employees;
+  }
+
+  private void resetCounts(
+      int medCount, int labCount, int morgueCount, int mealCount, int mainCount, int tranCount) {
+    try {
+      RequestDAOImpl.getInstance("MedRequest").setCount(medCount);
+      RequestDAOImpl.getInstance("LabRequest").setCount(labCount);
+      RequestDAOImpl.getInstance("MorgueRequest").setCount(morgueCount);
+      RequestDAOImpl.getInstance("MealRequest").setCount(mealCount);
+      RequestDAOImpl.getInstance("MaintenanceRequest").setCount(mainCount);
+      RequestDAOImpl.getInstance("TransportRequest").setCount(tranCount);
+    } catch (SQLException sqlException) {
+    }
   }
 }

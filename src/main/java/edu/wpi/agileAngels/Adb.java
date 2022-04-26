@@ -252,7 +252,7 @@ public class Adb {
    * @param request Medical equipment request
    */
   public static void addMedRequest(Request request) {
-    medRequestDAO.addRequest(request);
+    medRequestDAO.uploadRequest(request);
   }
 
   /**
@@ -261,7 +261,7 @@ public class Adb {
    * @param request Meal request
    */
   public static void addMealRequest(Request request) {
-    mealRequestImpl.addRequest(request);
+    mealRequestImpl.uploadRequest(request);
   }
 
   /**
@@ -270,7 +270,7 @@ public class Adb {
    * @param request Lab request
    */
   public static void addLabRequest(Request request) {
-    labRequestDAO.addRequest(request);
+    labRequestDAO.uploadRequest(request);
   }
 
   /**
@@ -279,7 +279,7 @@ public class Adb {
    * @param request Maintenance request
    */
   public static void addMainRequest(Request request) {
-    mainRequestImpl.addRequest(request);
+    mainRequestImpl.uploadRequest(request);
   }
 
   /**
@@ -288,7 +288,7 @@ public class Adb {
    * @param request Patient transport request
    */
   public static void addTransportRequest(Request request) {
-    transportRequestImpl.addRequest(request);
+    transportRequestImpl.uploadRequest(request);
   }
 
   /**
@@ -297,7 +297,7 @@ public class Adb {
    * @param request Morgue request
    */
   public static void addMorgueRequest(Request request) {
-    morgueRequestImpl.addRequest(request);
+    morgueRequestImpl.uploadRequest(request);
   }
 
   /**

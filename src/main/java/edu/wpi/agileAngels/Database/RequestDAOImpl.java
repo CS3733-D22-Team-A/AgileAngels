@@ -264,7 +264,7 @@ public class RequestDAOImpl implements RequestDAO {
     letter = letter + Integer.toString(this.count);
     request.setName(letter);
     this.reqData.put(letter, request);
-    System.out.println("ADDS A REQUEST: " + letter);
+    // System.out.println("ADDS A REQUEST: " + letter);
     try {
       RequestDAOImpl.getInstance("AllRequests").reqData.put(letter, request);
     } catch (SQLException sqlException) {
@@ -441,5 +441,13 @@ public class RequestDAOImpl implements RequestDAO {
 
   public void incrementCount() {
     this.count++;
+  }
+
+  public void uploadRequest(Request request) {
+    this.reqData.put(request.getName(), request);
+    try {
+      RequestDAOImpl.getInstance("AllRequests").reqData.put(request.getName(), request);
+    } catch (SQLException sqlException) {
+    }
   }
 }

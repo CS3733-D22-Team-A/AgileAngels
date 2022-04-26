@@ -403,7 +403,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
       if (!dropDownString.equals("Equipment Type")) {
         // String type = equipmentType.getText();
-        System.out.println("DROP DOWN CHANGE");
 
         MedicalEquip equip = null;
         Boolean foundEquip = false;
@@ -426,41 +425,38 @@ public class EquipmentController implements Initializable, PropertyChangeListene
           found.setType(dropDownString);
           found.setMedicalEquip(equip);
           MedrequestImpl.updateType(found, dropDownString);
-          System.out.println("Found Equip");
+          // System.out.println("Found Equip");
         }
       }
 
       if (!locationString.equals("Delivery Location")) {
-        System.out.println("LOCATION STRING CHANGE");
-        System.out.println("GETTING LOCATION BASED ON " + locationString);
+        // .out.println("LOCATION STRING CHANGE");
+        // System.out.println("GETTING LOCATION BASED ON " + locationString);
         Location location = locDAO.getLocation(locationString);
         found.setLocation(location);
         MedrequestImpl.updateLocation(found, location);
-        System.out.println("New LOCATION OF OBJECT " + found.getLocation().getLongName());
+        // System.out.println("New LOCATION OF OBJECT " + found.getLocation().getLongName());
 
         // MedrequestImpl.updateLocation(found, location);
         if (found.getMedicalEquip() != null) {
-          System.out.println("New Med Equip " + found.getMedicalEquip().getType());
+          // System.out.println("New Med Equip " + found.getMedicalEquip().getType());
           equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
         }
       }
       if (!employeeString.equals("Employee")) {
         Employee employee = empDAO.getEmployee(employeeString);
-        System.out.println("FOUND EMPLOYEE");
         // found.setEmployee(employee);
         MedrequestImpl.updateEmployeeName(found, employee.getName());
         //        MedrequestImpl.updateEmployeeName(found, employee.getName());
       }
 
       if (!descriptionString.equals("Description")) {
-        System.out.println("NEW DESCRIPTION");
         // found.setDescription(descriptionString);
         MedrequestImpl.updateDescription(found, descriptionString);
         //        MedrequestImpl.updateDescription(found, descriptionString);
       }
 
       if (!statusString.equals("Status")) {
-        System.out.println("NEW STATUS");
         // found.setStatus(statusString);
         MedrequestImpl.updateStatus(found, statusString);
         //  MedrequestImpl.updateStatus(found, statusString);
