@@ -162,7 +162,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       Boolean foundEquip = false;
       int j = 0;
       while (!foundEquip && j < allMedEquip.size()) {
-        MedicalEquip medEquip = allMedEquip.get(i);
+        MedicalEquip medEquip = allMedEquip.get(j);
         boolean typeMatches = medEquip.getType().equals(equipTypes.get(i));
         boolean available = medEquip.getStatus().equals("available");
         boolean clean = medEquip.isClean();
