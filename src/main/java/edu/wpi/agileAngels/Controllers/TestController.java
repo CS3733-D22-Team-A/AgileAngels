@@ -14,8 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 
 // test button on the front end
-public class TestController extends MainController
-    implements Initializable, PropertyChangeListener {
+public class TestController implements Initializable, PropertyChangeListener {
 
   @FXML Button button, button1, button2, button3, button4;
   @FXML Circle circle1, circle2, circle3;
