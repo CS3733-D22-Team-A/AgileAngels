@@ -15,11 +15,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class SanitationController implements Initializable, PropertyChangeListener {
 
+  @FXML AnchorPane anchor;
   @FXML VBox popOut;
   @FXML HBox tableHBox;
   @FXML MenuButton saniLocation, saniEmployee, saniStatus, saniType;
@@ -91,6 +93,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
       item.setOnAction(this::mealEmployeeMenu);
       saniEmployee.getItems().add(item);
     }
+    setColor(appController.color);
   }
 
   public void hidePopout() {
@@ -463,5 +466,23 @@ public class SanitationController implements Initializable, PropertyChangeListen
     showPopout();
     clear();
     sanIDLabel.setText("New Request");
+  }
+
+  public void setColor(String color) {
+    if (color.equals("green")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestGreenTest.css");
+    } else if (color.equals("red")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestRedTest.css");
+
+    } else if (color.equals("blue")) {
+      anchor.getStylesheets().removeAll();
+      anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+    }
   }
 }
