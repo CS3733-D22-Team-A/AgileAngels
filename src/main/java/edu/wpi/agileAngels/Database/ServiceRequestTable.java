@@ -145,7 +145,15 @@ public class ServiceRequestTable implements TableI {
 
   @Override
   public HashMap<String, Object> getData() {
-    int maxMed = 0, maxLab = 0, maxMorgue = 0, maxMeal = 0, maxMain = 0, maxTran = 0;
+    int maxMed = 0,
+        maxLab = 0,
+        maxMorgue = 0,
+        maxMeal = 0,
+        maxMain = 0,
+        maxTran = 0,
+        maxGift = 0,
+        maxSan = 0,
+        maxLaund = 0;
     try {
       DBconnection.getConnection().setAutoCommit(false);
       String sql = "SELECT * FROM ServiceRequests";
@@ -186,11 +194,12 @@ public class ServiceRequestTable implements TableI {
                   attribute2,
                   equip);
           maxMed = Integer.parseInt(request.getName().substring(3));
-          // System.out.println("MAX MED: " + maxMed);
           Adb.addMedRequest(request);
         }
-
-        if (name.substring(0, 3).compareTo("Lab") == 0) {
+        if (name.substring(0, 3).compareTo("San") == 0) {
+          maxSan = Integer.parseInt(request.getName().substring(3));
+          Adb.addSanitationRequest(request);
+        } else if (name.substring(0, 3).compareTo("Lab") == 0) {
           maxLab = Integer.parseInt(request.getName().substring(3));
           Adb.addLabRequest(request);
         } else if (name.substring(0, 3).compareTo("Mor") == 0) {
@@ -205,10 +214,16 @@ public class ServiceRequestTable implements TableI {
         } else if (name.substring(0, 4).compareTo("Tran") == 0) {
           maxTran = Integer.parseInt(request.getName().substring(4));
           Adb.addTransportRequest(request);
+        } else if (name.substring(0, 4).compareTo("Gift") == 0) {
+          maxGift = Integer.parseInt(request.getName().substring(4));
+          Adb.addGiftRequest(request);
+        } else if (name.substring(0, 4).compareTo("Laun") == 0) {
+          maxLaund = Integer.parseInt(request.getName().substring(7));
+          Adb.addLaundryRequest(request);
         }
       }
       DBconnection.getConnection().setAutoCommit(true);
-      resetCounts(maxMed, maxLab, maxMorgue, maxMeal, maxMain, maxTran);
+      resetCounts(maxMed, maxLab, maxMorgue, maxMeal, maxMain, maxTran, maxGift, maxSan, maxLaund);
       return null;
     } catch (SQLException sqlException) {
       return null;
@@ -228,7 +243,15 @@ public class ServiceRequestTable implements TableI {
   }
 
   private void resetCounts(
-      int medCount, int labCount, int morgueCount, int mealCount, int mainCount, int tranCount) {
+      int medCount,
+      int labCount,
+      int morgueCount,
+      int mealCount,
+      int mainCount,
+      int tranCount,
+      int giftCount,
+      int sanCount,
+      int laundCount) {
     try {
       RequestDAOImpl.getInstance("MedRequest").setCount(medCount);
       RequestDAOImpl.getInstance("LabRequest").setCount(labCount);
@@ -236,6 +259,9 @@ public class ServiceRequestTable implements TableI {
       RequestDAOImpl.getInstance("MealRequest").setCount(mealCount);
       RequestDAOImpl.getInstance("MaintenanceRequest").setCount(mainCount);
       RequestDAOImpl.getInstance("TransportRequest").setCount(tranCount);
+      RequestDAOImpl.getInstance("GiftRequest").setCount(giftCount);
+      RequestDAOImpl.getInstance("SanitationRequest").setCount(sanCount);
+      RequestDAOImpl.getInstance("LaundryRequest").setCount(laundCount);
     } catch (SQLException sqlException) {
     }
   }

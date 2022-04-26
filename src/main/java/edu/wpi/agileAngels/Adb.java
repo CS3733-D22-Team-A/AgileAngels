@@ -25,6 +25,7 @@ public class Adb {
   private static RequestDAOImpl mealRequestImpl = null;
   private static RequestDAOImpl giftRequestImpl = null;
   private static RequestDAOImpl sanitationRequestImpl = null;
+  private static RequestDAOImpl laundryRequestImpl = null;
 
   /**
    * Creates database tables if they do not exist already.
@@ -77,7 +78,6 @@ public class Adb {
    * @throws SQLException
    */
   private static void initializeHelper() throws SQLException {
-    System.out.println("Emmployee DAO Init");
     locationsTable.createTable();
     medicalEquipmentTable.createTable();
     serviceRequestTable.createTable();
@@ -96,6 +96,7 @@ public class Adb {
     medRequestDAO = RequestDAOImpl.getInstance("MedRequest");
     giftRequestImpl = RequestDAOImpl.getInstance("GiftRequest");
     sanitationRequestImpl = RequestDAOImpl.getInstance("SanitationRequest");
+    laundryRequestImpl = RequestDAOImpl.getInstance("LaundryRequest");
     resetServiceRequests();
 
     serviceRequestTable.getData();
@@ -300,6 +301,18 @@ public class Adb {
     morgueRequestImpl.uploadRequest(request);
   }
 
+  public static void addGiftRequest(Request request) {
+    giftRequestImpl.uploadRequest(request);
+  }
+
+  public static void addSanitationRequest(Request request) {
+    sanitationRequestImpl.uploadRequest(request);
+  }
+
+  public static void addLaundryRequest(Request request) {
+    laundryRequestImpl.uploadRequest(request);
+  }
+
   /**
    * Adds a new employee to the employee table
    *
@@ -328,11 +341,10 @@ public class Adb {
 
     labRequestDAO.setCount(0);
     labRequestDAO.resetData();
-    // san
+
     mealRequestImpl.setCount(0);
     mealRequestImpl.resetData();
 
-    // gift
     mainRequestImpl.setCount(0);
     mainRequestImpl.resetData();
 
@@ -341,6 +353,15 @@ public class Adb {
 
     morgueRequestImpl.setCount(0);
     morgueRequestImpl.resetData();
+
+    giftRequestImpl.setCount(0);
+    giftRequestImpl.resetData();
+
+    sanitationRequestImpl.setCount(0);
+    sanitationRequestImpl.resetData();
+
+    laundryRequestImpl.setCount(0);
+    laundryRequestImpl.resetData();
   }
 
   /**
