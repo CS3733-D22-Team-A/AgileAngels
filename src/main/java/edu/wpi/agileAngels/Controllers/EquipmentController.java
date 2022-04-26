@@ -27,7 +27,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
   @FXML VBox popOut;
   @FXML HBox tableHBox;
-  @FXML private Button equipDropdown, bed, recliner, xray, infusion, equipDropdownButton;
+  @FXML private Button equipDropdown, equipDropdownButton;
   @FXML private TextField employeeFilterField, statusFilterField, mainDescription;
   @FXML private Label equipID;
   @FXML private TableView equipmentTable;
@@ -35,6 +35,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   @FXML Pane drop, drop2;
   @FXML MenuButton equipLocation, equipmentType, equipmentStatus, equipmentEmployeeText;
   @FXML AnchorPane anchor;
+  @FXML MenuItem xRay, infusionPump, recliner, bed;
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
@@ -119,6 +120,8 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       item.setOnAction(this::employeeMenu);
       equipmentEmployeeText.getItems().add(item);
     }
+
+    setColor(appController.color);
 
     equipTypes.add("Bed");
     equipTypes.add("Recliner");
@@ -615,6 +618,11 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   }
 
   @FXML
+  public void checkTypeMenu() {
+    // xRay.setDisable(false);
+  }
+
+  @FXML
   public void statusMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     equipmentStatus.setText(button.getText());
@@ -784,6 +792,24 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       }
     } catch (NullPointerException e) {
       hidePopout();
+    }
+  }
+
+  public void setColor(String color) {
+    if (color.equals("green")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestGreenTest.css");
+    } else if (color.equals("red")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestRedTest.css");
+
+    } else if (color.equals("blue")) {
+      anchor.getStylesheets().removeAll();
+      anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
     }
   }
 }

@@ -221,37 +221,37 @@
                   </Label>
                   <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="1">
                      <GridPane.margin>
-                        <Insets left="10.0" />
+                        <Insets left="5.0" />
                      </GridPane.margin>
                   </Rectangle>
                   <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="3">
                      <GridPane.margin>
-                        <Insets left="20.0" />
+                        <Insets left="5.0" />
                      </GridPane.margin>
                   </Rectangle>
                   <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="2">
                      <GridPane.margin>
-                        <Insets left="15.0" />
+                        <Insets left="5.0" />
                      </GridPane.margin>
                   </Rectangle>
                   <Label fx:id="notStartedNumber" text="-" GridPane.columnIndex="1">
                      <GridPane.margin>
-                        <Insets bottom="25.0" left="40.0" />
+                        <Insets bottom="25.0" left="46.0" />
                      </GridPane.margin>
                   </Label>
                   <Label fx:id="inProgressNumber" text="-" GridPane.columnIndex="2">
                      <GridPane.margin>
-                        <Insets bottom="25.0" left="42.0" />
+                        <Insets bottom="25.0" left="46.0" />
                      </GridPane.margin>
                   </Label>
                   <Label fx:id="completedNumber" text="-" GridPane.columnIndex="3">
                      <GridPane.margin>
-                        <Insets bottom="25.0" left="47.0" />
+                        <Insets bottom="25.0" left="46.0" />
                      </GridPane.margin>
                   </Label>
                   <Label prefHeight="35.0" prefWidth="77.0" style="-fx-font-size: 15;" text="Not Started" textOverrun="CLIP" GridPane.columnIndex="1">
                      <GridPane.margin>
-                        <Insets left="19.0" top="40.0" />
+                        <Insets left="12.0" top="40.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="7.0" />
@@ -259,56 +259,18 @@
                   </Label>
                   <Label style="-fx-font-size: 15;" text="In Progress" textOverrun="CLIP" GridPane.columnIndex="2">
                      <GridPane.margin>
-                        <Insets left="25.0" top="40.0" />
+                        <Insets left="12.0" top="40.0" />
                      </GridPane.margin>
                   </Label>
                   <Label style="-fx-font-size: 15;" text="Completed" textOverrun="CLIP" GridPane.columnIndex="3">
                      <GridPane.margin>
-                        <Insets left="28.0" top="40.0" />
+                        <Insets left="12.0" top="40.0" />
                      </GridPane.margin>
                   </Label>
                </children>
             </GridPane>
          </children>
       </HBox>
-      <TextField fx:id="employeeFilterField" layoutX="444.0" layoutY="623.0" prefHeight="50.0" prefWidth="171.0" promptText="Filter by Employee" />
-      <Button alignment="CENTER" layoutX="842.0" layoutY="620.0" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-         <font>
-            <Font size="10.0" />
-         </font>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <graphic>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Submit Filter" />
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </HBox>
-         </graphic>
-      </Button>
-      <Button alignment="CENTER" layoutX="998.0" layoutY="620.0" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-         <font>
-            <Font size="10.0" />
-         </font>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <graphic>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Clear Filters" />
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </HBox>
-         </graphic>
-      </Button>
-      <TextField fx:id="statusFilterField" layoutX="657.0" layoutY="623.0" prefHeight="50.0" prefWidth="154.0" promptText="Filter by Status" />
       <Button layoutX="846.0" layoutY="79.0" mnemonicParsing="false" onAction="#newRequest" prefHeight="59.0" prefWidth="120.0" style="-fx-font-weight: bold;" text="New Request" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
          <font>
             <Font size="15.0" />
@@ -316,6 +278,48 @@
       </Button>
 
       <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
+      <HBox alignment="BOTTOM_RIGHT" layoutX="208.0" layoutY="630.0" prefHeight="56.0" prefWidth="905.0" spacing="30.0">
+         <children>
+            <TextField fx:id="employeeFilterField" prefHeight="50.0" prefWidth="200.0" promptText="Filter by Employee" />
+            <TextField fx:id="statusFilterField" prefHeight="50.0" prefWidth="200.0" promptText="Filter by Status" />
+            <Button fx:id="clearFilter" alignment="CENTER" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Clear Filters" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </graphic>
+            </Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Submit Filters" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
    </children>
    <stylesheets>
       <URL value="@stylesheets/styleRequest.css" />
