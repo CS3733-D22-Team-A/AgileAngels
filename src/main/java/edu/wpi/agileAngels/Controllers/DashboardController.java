@@ -5,10 +5,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -22,6 +19,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -42,6 +40,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
   ArrayList<Pane> panes = new ArrayList<>();
   @FXML private ScrollPane scrollPane = new ScrollPane();
   @FXML private Pane cleanDirty, graphs;
+  @FXML private GridPane cleanDirtyGrid;
   @FXML private TableView requestTable, employeeTable;
   @FXML
   private TableColumn typeColumn,
@@ -81,6 +80,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    requestGraph.setAnimated(false);
     cleanDirty.setVisible(true);
     graphs.setVisible(false);
     floor5.setPickOnBounds(false);
@@ -92,6 +92,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
     scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     appController.addPropertyChangeListener(this);
+    graphType.setVisible(false);
 
     series1.setName("All Requests");
     series2.setName(graphType.getText());
@@ -111,7 +112,6 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
     populateRequestTable("All");
     populateEmployeeTable("All");
-    graphRequests("All");
   }
 
   private void populateRequestTable(String floor) {
@@ -131,6 +131,8 @@ public class DashboardController implements Initializable, PropertyChangeListene
       }
     }
     requestTable.setItems(requestSummaries);
+
+    setColor(appController.color);
   }
 
   private void populateEmployeeTable(String floor) {
@@ -208,7 +210,9 @@ public class DashboardController implements Initializable, PropertyChangeListene
       displaySingleFloorCounts(3);
       populateRequestTable("5");
       populateEmployeeTable("5");
-      graphRequests("5");
+      if (graphs.isVisible()) {
+        graphRequests("5");
+      }
     }
 
     // floor 4
@@ -224,7 +228,9 @@ public class DashboardController implements Initializable, PropertyChangeListene
       displaySingleFloorCounts(2);
       populateRequestTable("4");
       populateEmployeeTable("4");
-      graphRequests("4");
+      if (graphs.isVisible()) {
+        graphRequests("4");
+      }
     }
 
     // floor 3
@@ -240,7 +246,9 @@ public class DashboardController implements Initializable, PropertyChangeListene
       displaySingleFloorCounts(1);
       populateRequestTable("3");
       populateEmployeeTable("3");
-      graphRequests("3");
+      if (graphs.isVisible()) {
+        graphRequests("3");
+      }
     }
 
     // floor 2
@@ -256,7 +264,9 @@ public class DashboardController implements Initializable, PropertyChangeListene
       displayZeroes();
       populateRequestTable("2");
       populateEmployeeTable("2");
-      graphRequests("2");
+      if (graphs.isVisible()) {
+        graphRequests("2");
+      }
     }
 
     // floor LL1
@@ -272,7 +282,9 @@ public class DashboardController implements Initializable, PropertyChangeListene
       displayZeroes();
       populateRequestTable("L1");
       populateEmployeeTable("L1");
-      graphRequests("L1");
+      if (graphs.isVisible()) {
+        graphRequests("L1");
+      }
     }
 
     // floor LL2
@@ -288,7 +300,9 @@ public class DashboardController implements Initializable, PropertyChangeListene
       displayZeroes();
       populateRequestTable("L2");
       populateEmployeeTable("L2");
-      graphRequests("L2");
+      if (graphs.isVisible()) {
+        graphRequests("L2");
+      }
     }
   }
 
@@ -369,7 +383,9 @@ public class DashboardController implements Initializable, PropertyChangeListene
     displayAllFloorsCounts();
     populateRequestTable("All");
     populateEmployeeTable("All");
-    graphRequests("All");
+    if (graphs.isVisible()) {
+      graphRequests("All");
+    }
   }
 
   @FXML
@@ -481,10 +497,15 @@ public class DashboardController implements Initializable, PropertyChangeListene
   public void changeDisplay() {
     if (cleanDirty.isVisible()) {
       cleanDirty.setVisible(false);
+      cleanDirtyGrid.setVisible(false);
       graphs.setVisible(true);
+      graphType.setVisible(true);
+      graphRequests("All");
     } else if (graphs.isVisible()) {
       graphs.setVisible(false);
+      graphType.setVisible(false);
       cleanDirty.setVisible(true);
+      cleanDirtyGrid.setVisible(true);
     }
   }
 
@@ -493,63 +514,142 @@ public class DashboardController implements Initializable, PropertyChangeListene
     int numNotStarted = 0;
     int numComplete = 0;
     int numInProg = 0;
+    int total = 0;
     int numNotStartedType = 0;
     int numCompleteType = 0;
     int numInProgType = 0;
+    int totalType = 0;
     String type = graphType.getText();
     if (floor.equals("All")) {
       for (Request request : requestsList) {
-        if (request.getStatus().equals("notStarted")) {
+        if (request.getStatus().equals("Not Started")) {
           numNotStarted++;
-        } else if (request.getStatus().equals("complete")) {
+        } else if (request.getStatus().equals("Complete")) {
           numComplete++;
-        } else if (request.getStatus().equals("inProgress")) {
+        } else if (request.getStatus().equals("In Progress")) {
           numInProg++;
         }
         if (request.getName().contains(type.substring(0, 3))) {
-          if (request.getStatus().equals("notStarted")) {
+          if (request.getStatus().equals("Not Started")) {
             numNotStartedType++;
-          } else if (request.getStatus().equals("complete")) {
+          } else if (request.getStatus().equals("Complete")) {
             numCompleteType++;
-          } else if (request.getStatus().equals("inProgress")) {
+          } else if (request.getStatus().equals("In Progress")) {
             numInProgType++;
           }
+          totalType++;
         }
+        total++;
       }
     } else {
       for (Request request : requestsList) {
         if (request.getLocation().getFloor().equals(floor)) {
-          if (request.getStatus().equals("notStarted")) {
+          if (request.getStatus().equals("Not Started")) {
             numNotStarted++;
-          } else if (request.getStatus().equals("complete")) {
+          } else if (request.getStatus().equals("Complete")) {
             numComplete++;
-          } else if (request.getStatus().equals("inProgress")) {
+          } else if (request.getStatus().equals("In Progress")) {
             numInProg++;
           }
           if (request.getName().contains(type.substring(0, 3))) {
-            if (request.getStatus().equals("notStarted")) {
+            if (request.getStatus().equals("Not Started")) {
               numNotStartedType++;
-            } else if (request.getStatus().equals("complete")) {
+            } else if (request.getStatus().equals("Complete")) {
               numCompleteType++;
-            } else if (request.getStatus().equals("inProgress")) {
+            } else if (request.getStatus().equals("In Progress")) {
               numInProgType++;
             }
+            totalType++;
           }
+          total++;
         }
       }
     }
+    series1.getData().clear();
+    series2.getData().clear();
     series1.getData().add(new XYChart.Data("Not Started", numNotStarted));
     series1.getData().add(new XYChart.Data("In Progress", numInProg));
     series1.getData().add(new XYChart.Data("Complete", numComplete));
+    series1.getData().add(new XYChart.Data("Total", total));
+
     series2.getData().add(new XYChart.Data("Not Started", numNotStartedType));
     series2.getData().add(new XYChart.Data("In Progress", numInProgType));
     series2.getData().add(new XYChart.Data("Complete", numCompleteType));
-    requestGraph.getData().addAll(series1, series2);
+    series2.getData().add(new XYChart.Data("Total", totalType));
+
+    requestGraph.setData(FXCollections.observableArrayList(series1, series2));
+    // requestGraph.setData(FXCollections.observableArrayList(series2));
+    // requestGraph.getData().addAll(series1, series2);
   }
 
   public void typeMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     graphType.setText(button.getText());
     graphRequests("All");
+  }
+
+  // for EXCLUSIVLY this page
+  public void setColor(String color) {
+    if (color.toLowerCase(Locale.ROOT).equals("green")) {
+      floor5.setStyle("-fx-background-color: #9DDD98; ");
+      floor4.setStyle("-fx-background-color: #71CC6F; ");
+      floor3.setStyle("-fx-background-color: #3EBB4B; ");
+      floor2.setStyle("-fx-background-color: #2AA327; ");
+      floorLL1.setStyle("-fx-background-color: #208A24; ");
+      floorLL2.setStyle("-fx-background-color: #0F711E; ");
+
+      requestTable.getStylesheets().removeAll();
+      requestTable
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestGreenTest.css");
+      employeeTable.getStylesheets().removeAll();
+      employeeTable
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestGreenTest.css");
+      requestGraph.getStylesheets().removeAll();
+      requestGraph
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/DashCSSGreen.css");
+    }
+
+    if (color.toLowerCase(Locale.ROOT).equals("red")) {
+      floor5.setStyle("-fx-background-color: #DD9898; ");
+      floor4.setStyle("-fx-background-color: #CC6F6F; ");
+      floor3.setStyle("-fx-background-color: #BB3E3E; ");
+      floor2.setStyle("-fx-background-color: #A32727; ");
+      floorLL1.setStyle("-fx-background-color: #8A2020; ");
+      floorLL2.setStyle("-fx-background-color: #710F0F; ");
+
+      requestTable.getStylesheets().removeAll();
+      requestTable
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestRedTest.css");
+      employeeTable.getStylesheets().removeAll();
+      employeeTable
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestRedTest.css");
+      requestGraph.getStylesheets().removeAll();
+      requestGraph
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/DashCSSRed.css");
+    }
+
+    // back to default
+    if (color.toLowerCase(Locale.ROOT).equals("blue")) {
+
+      floor5.setStyle("-fx-background-color: #98D5DD; ");
+      floor4.setStyle("-fx-background-color: #6FC2CC; ");
+      floor3.setStyle("-fx-background-color: #3EADBB; ");
+      floor2.setStyle("-fx-background-color: #2795A3; ");
+      floorLL1.setStyle("-fx-background-color: #207E8A; ");
+      floorLL2.setStyle("-fx-background-color: #0F6671; ");
+
+      requestTable.getStylesheets().removeAll();
+      requestTable.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+      employeeTable.getStylesheets().removeAll();
+      employeeTable.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+      requestGraph.getStylesheets().removeAll();
+      requestGraph.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/DashCSS.css");
+    }
   }
 }
