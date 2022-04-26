@@ -208,7 +208,9 @@ Note that these labels lock your font size.
 .table-view .column-header-background .label{
     -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-alignment: left;
+    -fx-alignment: center-left;
+
+
     -fx-font-alignment: left;
 }
 
