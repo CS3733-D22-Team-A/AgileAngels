@@ -106,12 +106,10 @@ public class MorgueController implements Initializable, PropertyChangeListener {
   }
 
   void updateFilters() {
-    morgueTable.getItems().clear();
+    employeeFilter.getItems().clear();
     ArrayList<String> list = new ArrayList<>();
     for (Request r : morgueData) {
       if (!list.contains(r.getEmployee().getName())) {
-        System.out.print("added employee to filter: ");
-        System.out.println(r.getEmployee().getName());
         CheckMenuItem emp = new CheckMenuItem(r.getEmployee().getName());
         emp.setSelected(true);
         emp.setOnAction(
@@ -195,10 +193,12 @@ public class MorgueController implements Initializable, PropertyChangeListener {
               desc,
               date,
               time);
-      morgueData.add(req);
-      updateFilters();
+
       MorguerequestImpl.addRequest(req);
+      morgueData.add(req);
+      morgueTable.setItems(morgueData);
       updateDashAdding(stat);
+
     } else { // Editing
       Request req = MorguerequestImpl.getAllRequests().get(morgueIDLabel.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
@@ -249,6 +249,9 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     morgueStatus.setText("Status");
     morgueDescription.setText("");
     morgueDescription.setPromptText("Patient Name");
+    //
+    //    System.out.println("-------------");
+    //    System.out.println(morgueData.get(0).getEmployee().getName());
     updateFilters();
   }
 
