@@ -19,6 +19,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -39,6 +40,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
   ArrayList<Pane> panes = new ArrayList<>();
   @FXML private ScrollPane scrollPane = new ScrollPane();
   @FXML private Pane cleanDirty, graphs;
+  @FXML private GridPane cleanDirtyGrid;
   @FXML private TableView requestTable, employeeTable;
   @FXML
   private TableColumn typeColumn,
@@ -90,6 +92,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
     scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     appController.addPropertyChangeListener(this);
+    graphType.setVisible(false);
 
     series1.setName("All Requests");
     series2.setName(graphType.getText());
@@ -494,11 +497,15 @@ public class DashboardController implements Initializable, PropertyChangeListene
   public void changeDisplay() {
     if (cleanDirty.isVisible()) {
       cleanDirty.setVisible(false);
+      cleanDirtyGrid.setVisible(false);
       graphs.setVisible(true);
+      graphType.setVisible(true);
       graphRequests("All");
     } else if (graphs.isVisible()) {
       graphs.setVisible(false);
+      graphType.setVisible(false);
       cleanDirty.setVisible(true);
+      cleanDirtyGrid.setVisible(true);
     }
   }
 
