@@ -142,11 +142,11 @@
             <Label fx:id="sameLocationName" alignment="CENTER" layoutX="34.0" layoutY="74.0" prefHeight="22.0" prefWidth="206.0" style="-fx-font-size: 11;" text="Location Name Already Exists" textFill="RED" visible="false" />
          </children>
       </Pane>
-      <Pane fx:id="equipmentViewPane" layoutX="23.0" layoutY="80.0" prefHeight="295.0" prefWidth="268.0" style="-fx-background-radius: 10; -fx-background-color: rgba(244, 244, 244, 1);">
+      <Pane fx:id="equipmentViewPane" layoutX="23.0" layoutY="80.0" prefHeight="213.0" prefWidth="268.0" style="-fx-background-radius: 10; -fx-background-color: rgba(244, 244, 244, 1);">
          <children>
-            <HBox alignment="CENTER" prefHeight="295.0" prefWidth="274.0">
+            <HBox alignment="CENTER" prefHeight="213.0" prefWidth="274.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="608.0" prefWidth="198.0" spacing="20.0">
+                  <VBox alignment="CENTER" prefHeight="213.0" prefWidth="198.0" spacing="20.0">
                      <children>
                         <Label fx:id="equipIDLabel" prefHeight="40.0" prefWidth="270.0" text="Equipment" />
                         <Label fx:id="equipTypeLabel" prefHeight="26.0" prefWidth="171.0" text="Type" textAlignment="CENTER" />

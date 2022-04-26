@@ -343,11 +343,15 @@ public class MapsController implements Initializable, PropertyChangeListener {
    */
   public void populateEquipmentNodeData(EquipmentNode equipmentNode) {
     equipIDLabel.setText(equipmentNode.getMedEquip().getID());
-    equipTypeLabel.setText(equipmentNode.getMedEquip().getType());
-    equipStatusLabel.setText(equipmentNode.getStatus());
-    equipCleanLabel.setText(equipmentNode.getClean());
-    equipmentViewPane.setVisible(true);
+    equipTypeLabel.setText("Type: " + equipmentNode.getMedEquip().getType());
+    equipStatusLabel.setText("Status: " + equipmentNode.getStatus());
+    equipCleanLabel.setText("Cleanliness: " + equipmentNode.getClean());
     currentEquipmentNode = equipmentNode;
+
+    deselect();
+    hideFilter();
+    clickPane.setVisible(true);
+    equipmentViewPane.setVisible(true);
   }
 
   @FXML
