@@ -226,6 +226,11 @@ public class ServiceRequestTable implements TableI {
       resetCounts(maxMed, maxLab, maxMorgue, maxMeal, maxMain, maxTran, maxGift, maxSan, maxLaund);
       return null;
     } catch (SQLException sqlException) {
+      try {
+        DBconnection.getConnection().setAutoCommit(true);
+      } catch (SQLException sqlException1) {
+        return null;
+      }
       return null;
     }
   }

@@ -396,7 +396,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
     equipHash = equipDAO.getAllMedicalEquipment();
 
     if (equipHash == null) {
-      //System.out.println("It's null");
+      // System.out.println("It's null");
     } else {
 
       for (Map.Entry<String, MedicalEquip> entry : equipHash.entrySet()) {

@@ -303,6 +303,7 @@ public class Adb {
 
   /**
    * Adds a gift request to the HashMap
+   *
    * @param request Gift request
    */
   public static void addGiftRequest(Request request) {
@@ -311,6 +312,7 @@ public class Adb {
 
   /**
    * Adds a sanitation request to the HashMap
+   *
    * @param request Sanitation request
    */
   public static void addSanitationRequest(Request request) {
@@ -319,6 +321,7 @@ public class Adb {
 
   /**
    * Adds a laundry request to the HashMap
+   *
    * @param request Laundry request
    */
   public static void addLaundryRequest(Request request) {
@@ -379,7 +382,7 @@ public class Adb {
   /**
    * Gets the HashMap of all the employees.
    *
-   * @return HashMap of employeees
+   * @return HashMap of employees
    */
   public static HashMap getEmployees() {
     return employeeManager.getAllEmployees();
