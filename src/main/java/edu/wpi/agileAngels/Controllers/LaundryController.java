@@ -415,7 +415,6 @@ public class LaundryController implements Initializable {
 
     try {
       String id = ((Request) laundryTable.getSelectionModel().getSelectedItem()).getName();
-
       // removes the request from the table and dropdown
       for (int i = 0; i < laundryData.size(); i++) {
         if (laundryData.get(i).getName().equals(id)) {
@@ -498,6 +497,7 @@ public class LaundryController implements Initializable {
   private void populate() {
     showPopout();
     Request req = ((Request) laundryTable.getSelectionModel().getSelectedItem());
+    laundryIDLabel.setText(req.getName());
     laundryLocation.setText(req.getLocation().getLongName());
     laundryEmployee.setText(req.getEmployee().getName());
     laundryStatus.setText(req.getStatus());

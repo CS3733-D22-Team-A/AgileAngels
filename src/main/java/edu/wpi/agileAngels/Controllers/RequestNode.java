@@ -50,8 +50,8 @@ public class RequestNode {
       button.setOnMouseDragged(
           (MouseEvent mouseEvent) -> {
             button.setStyle(
-                "-fx-font-size: 12; -fx-background-color: rgba(44, 217, 186, 1) ;-fx-background-radius: 0 5 5 5; -fx-text-alignment: left; -fx-text-fill: white");
-            button.setPrefSize(0, 0);
+                "-fx-font-size: 12; -fx-background-color:  #49A3AE; -fx-background-radius: 0 15 15 15; -fx-text-alignment: left; -fx-text-fill: white");
+            button.setPrefSize(30, 26);
             button.setAlignment(Pos.CENTER);
             button.setText(String.valueOf(request.getName().charAt(0)));
             button.setLayoutX(
@@ -81,16 +81,16 @@ public class RequestNode {
         (ActionEvent event2) -> {
           isClicked();
         });
-
+    button.setPrefSize(30, 26);
     button.setStyle(
-        "-fx-font-size: 12; -fx-background-radius: 0 8 8 8; -fx-background-color: rgba(44, 217, 186, 1); -fx-text-fill: white");
+        "-fx-font-size: 12; -fx-background-radius: 0 15 15 15; -fx-background-color:  #49A3AE; -fx-text-fill: white");
     button
         .hoverProperty()
         .addListener(
             l -> {
               button.setPrefSize(150, 50);
               button.setStyle(
-                  "-fx-font-size: 15; -fx-background-color: rgba(44, 217, 186, 1); -fx-background-radius: 0 25 25 25; -fx-text-alignment: left; -fx-text-fill: white");
+                  "-fx-font-size: 15; -fx-background-color: #3f8c96; -fx-background-radius: 0 25 25 25; -fx-text-alignment: left; -fx-text-fill: white");
               button.setAlignment(Pos.CENTER_LEFT);
               button.setText(request.getName());
               button.setViewOrder(-1000);
@@ -99,8 +99,8 @@ public class RequestNode {
     button.setOnMouseExited(
         l -> {
           button.setStyle(
-              "-fx-font-size: 12; -fx-background-color: rgba(44, 217, 186, 1) ;-fx-background-radius: 0 5 5 5; -fx-text-alignment: left; -fx-text-fill: white");
-          button.setPrefSize(0, 0);
+              "-fx-font-size: 12; -fx-background-color: #49A3AE; -fx-background-radius: 0 15 15 15; -fx-text-alignment: left; -fx-text-fill: white");
+          button.setPrefSize(30, 26);
           button.setAlignment(Pos.CENTER);
           button.setText(String.valueOf(request.getName().charAt(0)));
           button.setViewOrder(-100);

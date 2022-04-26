@@ -27,7 +27,7 @@
             <children>
               <VBox fx:id="popOut" alignment="CENTER" maxWidth="300.0" minWidth="300.0" prefHeight="657.0" prefWidth="300.0" spacing="15.0">
                   <children>
-                  <Label fx:id="transpoerIDLabel" prefHeight="20.0" prefWidth="451.0" text="Label" />
+                  <Label fx:id="transportIDLabel" prefHeight="20.0" prefWidth="451.0" text="Label" />
                         <MenuButton fx:id="transportType" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Type of Transport">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#mainTypeMenu" text="Move Room" />
