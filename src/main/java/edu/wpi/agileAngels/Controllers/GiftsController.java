@@ -291,10 +291,12 @@ public class GiftsController implements Initializable, PropertyChangeListener {
       while (var3.hasNext()) {
         Map.Entry<String, Request> entry = (Map.Entry) var3.next();
         Request object = (Request) entry.getValue();
-        if (entry.getValue().getStatus().equals("inProgress")) {
+        if (entry.getValue().getStatus().equals("inProgress")
+            || entry.getValue().getStatus().equals("In Progress")) {
           statusInProgress++;
         }
-        if (entry.getValue().getStatus().equals("notStarted")) {
+        if (entry.getValue().getStatus().equals("notStarted")
+            || entry.getValue().getStatus().equals("Not Started")) {
           statusNotStarted++;
         }
         if (entry.getValue().getStatus().equals("Complete")
