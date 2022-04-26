@@ -29,7 +29,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   @FXML HBox tableHBox;
   @FXML private Button equipDropdown, equipDropdownButton;
   @FXML private TextField employeeFilterField, statusFilterField, mainDescription;
-  @FXML private Label equipmentConfirmation, equipID;
+  @FXML private Label equipID;
   @FXML private TableView equipmentTable;
   @FXML Button clear, submitFilters, delete;
   @FXML Pane drop, drop2;
@@ -60,6 +60,10 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
 
   HashMap<String, String> locationIDsByLongName = new HashMap<>();
+
+  ArrayList<String> equipTypes = new ArrayList<>();
+  HashMap<String, Integer> floorToFloorInt = new HashMap<>();
+  private boolean[][] availEquip = new boolean[3][4];
 
   @FXML Label notStartedNumber, inProgressNumber, completedNumber;
   private int statusNotStarted, statusInProgress, statusComplete;
@@ -124,7 +128,59 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     }
 
     setColor(appController.color);
+
+    equipTypes.add("Bed");
+    equipTypes.add("Recliner");
+    equipTypes.add("InfusionPump");
+    equipTypes.add("XRayMachine");
+
+    floorToFloorInt.put("3", 0);
+    floorToFloorInt.put("4", 1);
+    floorToFloorInt.put("5", 2);
+
+    updateEquipAvail("3");
+    updateEquipAvail("4");
+    updateEquipAvail("5");
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 4; j++) {
+        System.out.println(availEquip[i][j]);
+      }
+    }
     clearFields();
+  }
+
+  public void updateTypeDropdown(String floor) {
+    equipmentType.setText("Type");
+    equipmentType.getItems().clear();
+    updateEquipAvail(floor);
+
+    // add back the ones that are avail on floor
+    for (int i = 0; i < 4; i++) {
+      if (availEquip[floorToFloorInt.get(floor)][i]) {
+        MenuItem item = new MenuItem(equipTypes.get(i));
+        item.setOnAction(this::typeMenu);
+        equipmentType.getItems().add(item);
+      }
+    }
+  }
+
+  public void updateEquipAvail(String floor) {
+    for (int i = 0; i < 4; i++) {
+      Boolean foundEquip = false;
+      int j = 0;
+      while (!foundEquip && j < allMedEquip.size()) {
+        MedicalEquip medEquip = allMedEquip.get(j);
+        boolean typeMatches = medEquip.getType().equals(equipTypes.get(i));
+        boolean available = medEquip.getStatus().equals("available");
+        boolean clean = medEquip.isClean();
+        boolean floorMatches = medEquip.getLocation().getFloor().equals(floor);
+        if (typeMatches && available && clean && floorMatches) {
+          foundEquip = true;
+        }
+        j++;
+      }
+      availEquip[floorToFloorInt.get(floor)][i] = foundEquip;
+    }
   }
 
   public void hidePopout() {
@@ -217,7 +273,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   }
 
   private void addEquipRequest() {
-    equipmentConfirmation.setText("");
     // gets all inputs and converts into string
     String dropDownString = equipmentType.getText();
     String locationString = locationIDsByLongName.get(equipLocation.getText());
@@ -229,7 +284,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         || locationString.equals("Delivery Location")
         || statusString.equals("Status")
         || employeeString.equals("Employee")) {
-      equipmentConfirmation.setText("One or more of the required fields is not filled in.");
     } else {
       MedicalEquip equip = null;
       Boolean foundEquip = false;
@@ -249,14 +303,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         i++;
       }
       if (foundEquip) {
-        equipmentConfirmation.setText(
-            "Thank you, the "
-                + dropDownString
-                + " you requested will be delivered shortly to "
-                + locationString
-                + " by "
-                + employeeString
-                + ".");
 
         String placeholder = "?";
         Request medDevice =
@@ -299,16 +345,12 @@ public class EquipmentController implements Initializable, PropertyChangeListene
 
         medData.add(medDevice); // add to the UI
         equipmentTable.setItems(medData);
-      } else {
-        equipmentConfirmation.setText(
-            "Sorry, there are currently no " + dropDownString + "s available. ");
       }
     }
   }
 
   @FXML
   private void deleteEquipRequest() {
-    equipmentConfirmation.setText("");
     // gets all inputs and converts into string
     try {
       String deleteString =
@@ -339,7 +381,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   }
 
   private void editEquipmentRequest() {
-    equipmentConfirmation.setText("");
     // gets all inputs and converts into string
     String editString = equipID.getText();
     String dropDownString = equipmentType.getText();
@@ -387,9 +428,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
           found.setType(dropDownString);
           found.setMedicalEquip(equip);
           MedrequestImpl.updateType(found, dropDownString);
-        } else {
-          equipmentConfirmation.setText(
-              "Sorry, there are currently no " + dropDownString + "s available.");
         }
       }
 
@@ -498,6 +536,9 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   public void locationMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     equipLocation.setText(button.getText());
+
+    updateTypeDropdown(
+        locationsHash.get(locationIDsByLongName.get(equipLocation.getText())).getFloor());
   }
 
   @FXML

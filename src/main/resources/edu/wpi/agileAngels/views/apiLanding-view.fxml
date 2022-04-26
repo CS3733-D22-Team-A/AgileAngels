@@ -81,7 +81,7 @@
             <graphic>
                <HBox alignment="CENTER" prefHeight="186.0" prefWidth="444.0" style="-fx-background-radius: 20 20;">
                   <children>
-                     <Label alignment="CENTER" prefHeight="95.0" prefWidth="158.0" text="Medical Aid">
+                     <Label fx:id="medAidButton" alignment="CENTER" onMouseClicked="#medAid" prefHeight="95.0" prefWidth="158.0" text="Medical Aid">
                         <font>
                            <Font size="24.0" />
                         </font>
