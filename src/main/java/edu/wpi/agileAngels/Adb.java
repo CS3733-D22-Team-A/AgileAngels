@@ -301,14 +301,26 @@ public class Adb {
     morgueRequestImpl.uploadRequest(request);
   }
 
+  /**
+   * Adds a gift request to the HashMap
+   * @param request Gift request
+   */
   public static void addGiftRequest(Request request) {
     giftRequestImpl.uploadRequest(request);
   }
 
+  /**
+   * Adds a sanitation request to the HashMap
+   * @param request Sanitation request
+   */
   public static void addSanitationRequest(Request request) {
     sanitationRequestImpl.uploadRequest(request);
   }
 
+  /**
+   * Adds a laundry request to the HashMap
+   * @param request Laundry request
+   */
   public static void addLaundryRequest(Request request) {
     laundryRequestImpl.uploadRequest(request);
   }

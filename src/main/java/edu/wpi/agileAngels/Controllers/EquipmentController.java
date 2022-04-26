@@ -136,11 +136,11 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     updateEquipAvail("3");
     updateEquipAvail("4");
     updateEquipAvail("5");
-    for (int i = 0; i < 3; i++) {
+    /*for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 4; j++) {
         System.out.println(availEquip[i][j]);
       }
-    }
+    }*/
     clearFields();
   }
 
@@ -435,11 +435,9 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         Location location = locDAO.getLocation(locationString);
         found.setLocation(location);
         MedrequestImpl.updateLocation(found, location);
-        // System.out.println("New LOCATION OF OBJECT " + found.getLocation().getLongName());
 
         // MedrequestImpl.updateLocation(found, location);
         if (found.getMedicalEquip() != null) {
-          // System.out.println("New Med Equip " + found.getMedicalEquip().getType());
           equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
         }
       }

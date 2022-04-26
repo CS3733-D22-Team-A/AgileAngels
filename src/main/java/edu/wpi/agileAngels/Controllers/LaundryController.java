@@ -151,7 +151,6 @@ public class LaundryController implements Initializable {
     // Adding
     if (ID.equals("New Request")) {
       String placeholder = "?";
-      System.out.println(employeesHash.get(employee) + " " + locationsHash.get(location));
       Request laundry =
           new Request(
               placeholder,
@@ -253,7 +252,6 @@ public class LaundryController implements Initializable {
       String locationString,
       String descriptionString,
       String statusString) {
-    System.out.println("EDIT REQUEST");
     Request found = null;
     int num = 0;
     for (int i = 0; i < laundryData.size(); i++) {
