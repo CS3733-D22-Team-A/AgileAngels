@@ -13,9 +13,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -79,7 +79,6 @@ public class MealController implements Initializable, PropertyChangeListener {
     dashboardLoad();
     mealTable.setItems(mealData);
     setColor(appController.color);
-  }
 
     // Populates locations dropdown
     for (Location loc : locationsList) {

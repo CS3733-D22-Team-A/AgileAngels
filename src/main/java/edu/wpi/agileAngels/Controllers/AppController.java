@@ -28,8 +28,8 @@ public class AppController {
   private int[] dirtyXRays = new int[4];
   public boolean embeddedON = false;
 
-  // for color modes
-  public String color = "red";
+  // for color modes, this is defualt color
+  public String color = "blue";
 
   HashMap<String, String> pages = new HashMap<>();
 
