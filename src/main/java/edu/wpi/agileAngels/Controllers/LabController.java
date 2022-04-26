@@ -218,7 +218,7 @@ public class LabController implements Initializable, PropertyChangeListener {
               "N/A");
       labData.add(req);
       labRequestImpl.addRequest(req);
-      updateDashAdding(stat);
+      updateDashAdding(req.getStatus());
     } else { // Editing
       Request req = labRequestImpl.getAllRequests().get(labID2.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {

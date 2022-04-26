@@ -219,7 +219,7 @@ public class PatientTransportController implements Initializable, PropertyChange
       transportData.add(req);
       transportDAOImpl.addRequest(req);
 
-      updateDashAdding(stat);
+      updateDashAdding(req.getStatus());
 
       if (req.getStatus().equals("Complete")) {
         updateAssociatedRequests(loc, destID);

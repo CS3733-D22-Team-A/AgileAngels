@@ -197,7 +197,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
       MorguerequestImpl.addRequest(req);
       morgueData.add(req);
       morgueTable.setItems(morgueData);
-      updateDashAdding(stat);
+      updateDashAdding(req.getStatus());
 
     } else { // Editing
       Request req = MorguerequestImpl.getAllRequests().get(morgueIDLabel.getText());

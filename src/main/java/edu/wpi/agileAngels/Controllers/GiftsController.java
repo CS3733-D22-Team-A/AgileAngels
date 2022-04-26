@@ -218,7 +218,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
               send);
       giftData.add(req);
       giftRequestImpl.addRequest(req);
-      updateDashAdding(stat);
+      updateDashAdding(req.getStatus());
     } else { // Editing
       Request req = giftRequestImpl.getAllRequests().get(giftIDLabel.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
