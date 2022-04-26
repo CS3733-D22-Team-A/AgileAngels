@@ -140,7 +140,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   public void submit(ActionEvent event) {
     String loc = locationIDsByLongName.get(giftLocation.getText());
     String emp = giftEmployee.getText();
-    String stat = giftStatus.getText();
+    String stat = "Not Started";
     String type = giftType.getText();
     String desc = giftDescription.getText();
     String send = giftSender.getText();

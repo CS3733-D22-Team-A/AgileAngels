@@ -141,7 +141,7 @@ public class LabController implements Initializable, PropertyChangeListener {
   public void submit(ActionEvent event) {
     String loc = locationIDsByLongName.get(labLocation.getText());
     String emp = labEmployee.getText();
-    String stat = labStatus.getText();
+    String stat = "Not Started";
     String desc = labDescription.getText();
     String type = labType.getText();
 

@@ -142,7 +142,7 @@ public class PatientTransportController extends MainController
     String destLongName = transportDestination.getText();
     String destID = locationIDsByLongName.get(destLongName);
     String emp = transportEmployee.getText();
-    String stat = transportStatus.getText();
+    String stat = "Not Started";
     String desc = transportDescription.getText();
     String type = transportType.getText();
     // Adding

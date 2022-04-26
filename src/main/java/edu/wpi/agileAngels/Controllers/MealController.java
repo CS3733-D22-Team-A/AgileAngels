@@ -130,7 +130,7 @@ public class MealController implements Initializable, PropertyChangeListener {
   public void submit(ActionEvent event) {
     String loc = locationIDsByLongName.get(mealLocation.getText());
     String emp = mealEmployee.getText();
-    String stat = mealStatus.getText();
+    String stat = "Not Started";
     String desc = mealDescription.getText();
     String type = mealType.getText();
 

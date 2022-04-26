@@ -124,7 +124,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
   public void submit(ActionEvent event) {
     String loc = locationIDsByLongName.get(mainLocation.getText());
     String emp = mainEmployee.getText();
-    String stat = mainStatus.getText();
+    String stat = "Not Started";
     String desc = mainDescription.getText();
 
     // Adding
