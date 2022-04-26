@@ -80,7 +80,8 @@ public class MapsController implements Initializable, PropertyChangeListener {
       floorDown;
   @FXML private MenuItem floorTwo, floorThree, floorFour, floorFive, lowerLevelOne, lowerLevelTwo;
   @FXML private TextField locationName, addLocationName;
-  @FXML Pane mapPane, locationEditPane, requestEditPane, locationAddPane, clickPane;
+  @FXML
+  Pane mapPane, locationEditPane, requestEditPane, locationAddPane, equipmentViewPane, clickPane;
   @FXML AnchorPane anchor;
   @FXML
   Label requestName,
@@ -88,7 +89,11 @@ public class MapsController implements Initializable, PropertyChangeListener {
       nodeIDField,
       addNodeIDField,
       sameLocationName,
-      sameLocationNameEdit;
+      sameLocationNameEdit,
+      equipIDLabel,
+      equipTypeLabel,
+      equipStatusLabel,
+      equipCleanLabel;
   @FXML
   MenuButton locationTypeDropdown,
       requestTypeDropdown,
@@ -100,6 +105,12 @@ public class MapsController implements Initializable, PropertyChangeListener {
       equipmentFilterButton;
 
   public ContextMenu contextMenu = new ContextMenu();
+
+  public ContextMenu getContextMenu() {
+    return contextMenu;
+  }
+
+  ContextMenu menu;
   MenuItem addNode = new MenuItem("Add Location");
 
   LocationNode currentLocationNode = null;
@@ -195,6 +206,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     locationAddPane.setVisible(false);
     locationEditPane.setVisible(false);
     requestEditPane.setVisible(false);
+    equipmentViewPane.setVisible(false);
 
     contextMenu.getItems().addAll(addNode);
     addNode.setOnAction((ActionEvent event) -> addNode());
@@ -255,10 +267,12 @@ public class MapsController implements Initializable, PropertyChangeListener {
       mapScroll.setOnMousePressed(
           (MouseEvent event) -> {
             if (event.isSecondaryButtonDown()) {
-              contextMenu.show(mapScroll, event.getScreenX(), event.getScreenY());
+              menu = getContextMenu();
+              menu.show(mapScroll, event.getScreenX(), event.getScreenY());
               rightClick = event;
             }
           });
+
     } else if (appController.getCurrentUser().getPermissionLevel() == 1) {
       labCheck.setSelected(false);
       equipCheck.setSelected(false);
@@ -336,11 +350,16 @@ public class MapsController implements Initializable, PropertyChangeListener {
    * @param equipmentNode the node whose data is populated
    */
   public void populateEquipmentNodeData(EquipmentNode equipmentNode) {
-    // clean.setVisible(true);
-    requestName.setText(equipmentNode.getID());
-    locationName.setText(equipmentNode.getClean());
-    requestTypeDropdown.setText(equipmentNode.getStatus());
+    equipIDLabel.setText(equipmentNode.getMedEquip().getID());
+    equipTypeLabel.setText("Type: " + equipmentNode.getMedEquip().getType());
+    equipStatusLabel.setText("Status: " + equipmentNode.getStatus());
+    equipCleanLabel.setText("Cleanliness: " + equipmentNode.getClean());
     currentEquipmentNode = equipmentNode;
+
+    deselect();
+    hideFilter();
+    clickPane.setVisible(true);
+    equipmentViewPane.setVisible(true);
   }
 
   @FXML
@@ -692,6 +711,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
     requestEditPane.setVisible(false);
     locationEditPane.setVisible(false);
     locationAddPane.setVisible(false);
+    equipmentViewPane.setVisible(false);
     sameLocationName.setVisible(false);
     sameLocationNameEdit.setVisible(false);
 

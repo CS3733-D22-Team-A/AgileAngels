@@ -3,6 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
@@ -275,48 +276,6 @@
             </children>
         </Pane>
         <HBox layoutX="397.0" layoutY="58.0" prefHeight="100.0" prefWidth="435.0" />
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="62.0" prefWidth="643.0" spacing="10.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="200.0">
-         <children>
-              <TextField fx:id="employeeFilterField" prefHeight="50.0" prefWidth="171.0" promptText="Filter by Employee" />
-              <TextField fx:id="statusFilterField" prefHeight="50.0" prefWidth="154.0" promptText="Filter by Status" />
-              <Button alignment="CENTER" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                  <font>
-                      <Font size="10.0" />
-                  </font>
-                  <opaqueInsets>
-                      <Insets />
-                  </opaqueInsets>
-                  <graphic>
-                      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                          <children>
-                              <Label text="Submit Filter" />
-                          </children>
-                          <opaqueInsets>
-                              <Insets />
-                          </opaqueInsets>
-                      </HBox>
-                  </graphic>
-              </Button>
-              <Button alignment="CENTER" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                  <font>
-                      <Font size="10.0" />
-                  </font>
-                  <opaqueInsets>
-                      <Insets />
-                  </opaqueInsets>
-                  <graphic>
-                      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                          <children>
-                              <Label text="Clear Filters" />
-                          </children>
-                          <opaqueInsets>
-                              <Insets />
-                          </opaqueInsets>
-                      </HBox>
-                  </graphic>
-              </Button>
-         </children>
-      </HBox>
         <Button fx:id="newRequestButton" mnemonicParsing="false" onAction="#newRequest" prefHeight="59.0" prefWidth="120.0" style="-fx-font-weight: bold;" text="New Request" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
             <font>
                 <Font size="15.0" />
@@ -324,6 +283,36 @@
         </Button>
 
         <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
+      <HBox alignment="TOP_RIGHT" layoutX="453.0" layoutY="643.0" prefHeight="31.0" spacing="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="50.0">
+         <children>
+            <MenuButton fx:id="employeeFilter" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Employee" />
+            <MenuButton fx:id="statusFilter" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Status">
+               <items>
+                  <CheckMenuItem mnemonicParsing="false" onAction="#submitFilter" selected="true" text="Not Started" />
+                  <CheckMenuItem mnemonicParsing="false" onAction="#submitFilter" selected="true" text="In Progress" />
+                  <CheckMenuItem mnemonicParsing="false" onAction="#submitFilter" selected="true" text="Complete" />
+               </items>
+            </MenuButton>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#clearFilters" prefHeight="30.0" prefWidth="120.0" textAlignment="CENTER">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <children>
+                        <Label text="Clear Filters" />
+                     </children>
+                  </HBox>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
     </children>
 
     <stylesheets>

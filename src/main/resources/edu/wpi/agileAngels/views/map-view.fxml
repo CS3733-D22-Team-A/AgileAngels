@@ -103,6 +103,62 @@
       </VBox>
         <Button fx:id="zoomIn" layoutX="1194.0" layoutY="558.0" mnemonicParsing="false" onAction="#zoomableMap" prefHeight="30.0" prefWidth="32.0" text="+" AnchorPane.bottomAnchor="132.0" AnchorPane.rightAnchor="20.0" />
         <Button fx:id="zoomOut" layoutX="1194.0" layoutY="588.0" mnemonicParsing="false" onAction="#zoomableMap" prefHeight="30.0" prefWidth="32.0" text="-" AnchorPane.bottomAnchor="102.0" AnchorPane.rightAnchor="20.0" />
+      <Pane fx:id="locationAddPane" layoutX="23.0" layoutY="80.0" prefHeight="295.0" prefWidth="268.0" style="-fx-background-radius: 10; -fx-background-color: rgba(244, 244, 244, 1);">
+         <children>
+            <HBox alignment="CENTER" prefHeight="295.0" prefWidth="274.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="608.0" prefWidth="198.0" spacing="20.0">
+                     <children>
+                        <Label fx:id="addNodeIDField" prefHeight="40.0" prefWidth="270.0" text="Add Location" />
+                        <TextField fx:id="addLocationName" prefHeight="40.0" prefWidth="270.0" promptText="name" />
+                        <MenuButton fx:id="addLocationTypeDropdown" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Node Type">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="PATI" />
+                              <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="STOR" />
+                              <MenuItem fx:id="dirt1" mnemonicParsing="false" onAction="#typeMenu" text="DIRT" />
+                              <MenuItem fx:id="bath1" mnemonicParsing="false" onAction="#typeMenu" text="BATH" />
+                              <MenuItem fx:id="hall1" mnemonicParsing="false" onAction="#typeMenu" text="HALL" />
+                              <MenuItem fx:id="elev1" mnemonicParsing="false" onAction="#typeMenu" text="ELEV" />
+                              <MenuItem fx:id="rest1" mnemonicParsing="false" onAction="#typeMenu" text="REST" />
+                              <MenuItem fx:id="stai1" mnemonicParsing="false" onAction="#typeMenu" text="STAI" />
+                              <MenuItem fx:id="dept1" mnemonicParsing="false" onAction="#typeMenu" text="DEPT" />
+                              <MenuItem fx:id="labs1" mnemonicParsing="false" onAction="#typeMenu" text="LABS" />
+                              <MenuItem fx:id="info1" mnemonicParsing="false" onAction="#typeMenu" text="INFO" />
+                              <MenuItem fx:id="conf1" mnemonicParsing="false" onAction="#typeMenu" text="CONF" />
+                              <MenuItem fx:id="exit1" mnemonicParsing="false" onAction="#typeMenu" text="EXIT" />
+                              <MenuItem fx:id="retl1" mnemonicParsing="false" onAction="#typeMenu" text="RETL" />
+                              <MenuItem fx:id="serv1" mnemonicParsing="false" onAction="#typeMenu" text="SERV" />
+                           </items>
+                        </MenuButton>
+                        <Button id="lowerLevelOne" mnemonicParsing="false" onAction="#locationAdd" prefHeight="40.0" prefWidth="296.0" text="Add Location">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label fx:id="sameLocationName" alignment="CENTER" layoutX="34.0" layoutY="74.0" prefHeight="22.0" prefWidth="206.0" style="-fx-font-size: 11;" text="Location Name Already Exists" textFill="RED" visible="false" />
+         </children>
+      </Pane>
+      <Pane fx:id="equipmentViewPane" layoutX="23.0" layoutY="80.0" prefHeight="213.0" prefWidth="268.0" style="-fx-background-radius: 10; -fx-background-color: rgba(244, 244, 244, 1);">
+         <children>
+            <HBox alignment="CENTER" prefHeight="213.0" prefWidth="274.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="213.0" prefWidth="198.0" spacing="20.0">
+                     <children>
+                        <Label fx:id="equipIDLabel" prefHeight="40.0" prefWidth="270.0" text="Equipment" />
+                        <Label fx:id="equipTypeLabel" prefHeight="26.0" prefWidth="171.0" text="Type" textAlignment="CENTER" />
+                        <Label fx:id="equipStatusLabel" prefHeight="26.0" prefWidth="169.0" text="Status" />
+                        <Label fx:id="equipCleanLabel" prefHeight="26.0" prefWidth="170.0" text="Cleanliness" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label fx:id="sameLocationName1" alignment="CENTER" layoutX="34.0" layoutY="74.0" prefHeight="22.0" prefWidth="206.0" style="-fx-font-size: 11;" text="Location Name Already Exists" textFill="RED" visible="false" />
+         </children>
+      </Pane>
       <Pane fx:id="locationEditPane" prefHeight="295.0" prefWidth="274.0" style="-fx-background-radius: 10; -fx-background-color: rgba(244, 244, 244, 1);" visible="false" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
          <children>
             <HBox alignment="CENTER" prefHeight="295.0" prefWidth="274.0">
@@ -191,45 +247,6 @@
                   </VBox>
                </children>
             </HBox>
-         </children>
-      </Pane>
-      <Pane fx:id="locationAddPane" layoutX="30.0" layoutY="90.0" prefHeight="295.0" prefWidth="274.0" style="-fx-background-radius: 10; -fx-background-color: rgba(244, 244, 244, 1);" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
-         <children>
-            <HBox alignment="CENTER" prefHeight="295.0" prefWidth="274.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="608.0" prefWidth="198.0" spacing="20.0">
-                     <children>
-                        <Label fx:id="addNodeIDField" prefHeight="40.0" prefWidth="270.0" text="Add Location" />
-                        <TextField fx:id="addLocationName" prefHeight="40.0" prefWidth="270.0" promptText="name" />
-                        <MenuButton fx:id="addLocationTypeDropdown" maxHeight="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Node Type">
-                           <items>
-                              <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="PATI" />
-                              <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="STOR" />
-                              <MenuItem fx:id="dirt1" mnemonicParsing="false" onAction="#typeMenu" text="DIRT" />
-                              <MenuItem fx:id="bath1" mnemonicParsing="false" onAction="#typeMenu" text="BATH" />
-                              <MenuItem fx:id="hall1" mnemonicParsing="false" onAction="#typeMenu" text="HALL" />
-                              <MenuItem fx:id="elev1" mnemonicParsing="false" onAction="#typeMenu" text="ELEV" />
-                              <MenuItem fx:id="rest1" mnemonicParsing="false" onAction="#typeMenu" text="REST" />
-                              <MenuItem fx:id="stai1" mnemonicParsing="false" onAction="#typeMenu" text="STAI" />
-                              <MenuItem fx:id="dept1" mnemonicParsing="false" onAction="#typeMenu" text="DEPT" />
-                              <MenuItem fx:id="labs1" mnemonicParsing="false" onAction="#typeMenu" text="LABS" />
-                              <MenuItem fx:id="info1" mnemonicParsing="false" onAction="#typeMenu" text="INFO" />
-                              <MenuItem fx:id="conf1" mnemonicParsing="false" onAction="#typeMenu" text="CONF" />
-                              <MenuItem fx:id="exit1" mnemonicParsing="false" onAction="#typeMenu" text="EXIT" />
-                              <MenuItem fx:id="retl1" mnemonicParsing="false" onAction="#typeMenu" text="RETL" />
-                              <MenuItem fx:id="serv1" mnemonicParsing="false" onAction="#typeMenu" text="SERV" />
-                           </items>
-                        </MenuButton>
-                        <Button id="lowerLevelOne" mnemonicParsing="false" onAction="#locationAdd" prefHeight="40.0" prefWidth="296.0" text="Add Location">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <Label fx:id="sameLocationName" alignment="CENTER" layoutX="34.0" layoutY="74.0" prefHeight="22.0" prefWidth="206.0" style="-fx-font-size: 11;" text="Location Name Already Exists" textFill="RED" visible="false" />
          </children>
       </Pane>
         <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />

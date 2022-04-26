@@ -73,15 +73,7 @@
                         </Button>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="44.0" prefWidth="593.0">
-                     <children>
-                        <Button mnemonicParsing="false" styleClass="forgotPassword">
-                           <graphic>
-                              <Label id="forgorPassword" stylesheets="@stylesheets/login_style.css" text="Forgot your password?" textFill="#49484a" />
-                           </graphic>
-                        </Button>
-                     </children>
-                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="44.0" prefWidth="593.0" />
                   <HBox alignment="CENTER" prefHeight="57.0" prefWidth="583.0">
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">

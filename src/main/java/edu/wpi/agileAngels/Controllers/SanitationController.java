@@ -24,7 +24,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
   @FXML AnchorPane anchor;
   @FXML VBox popOut;
   @FXML HBox tableHBox;
-  @FXML MenuButton saniLocation, saniEmployee, saniStatus, saniType;
+  @FXML MenuButton saniLocation, saniEmployee, saniStatus, saniType, employeeFilter, statusFilter;
   @FXML Button newRequestButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
   @FXML TableView saniTable;
   @FXML
@@ -93,6 +93,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
       item.setOnAction(this::mealEmployeeMenu);
       saniEmployee.getItems().add(item);
     }
+    clear();
     setColor(appController.color);
   }
 
@@ -201,6 +202,63 @@ public class SanitationController implements Initializable, PropertyChangeListen
     hidePopout();
   }
 
+  void updateFilters() {
+    employeeFilter.getItems().clear();
+    ArrayList<String> list = new ArrayList<>();
+    for (Request r : saniData) {
+      if (!list.contains(r.getEmployee().getName())) {
+        CheckMenuItem emp = new CheckMenuItem(r.getEmployee().getName());
+        emp.setSelected(true);
+        emp.setOnAction(
+            (ActionEvent event) -> {
+              submitFilter();
+            });
+        employeeFilter.getItems().add(emp);
+        list.add(r.getEmployee().getName());
+      }
+    }
+    clearFilters();
+  }
+
+  @FXML
+  void submitFilter() {
+    ObservableList<Request> employeeFilteredList = FXCollections.observableArrayList();
+    ObservableList<Request> statusFilterdList = FXCollections.observableArrayList();
+
+    for (MenuItem menuItem : employeeFilter.getItems()) {
+      if (((CheckMenuItem) menuItem).isSelected()) {
+        for (Request r : saniData) {
+          if (((CheckMenuItem) menuItem).getText().equals(r.getEmployee().getName())) {
+            employeeFilteredList.add(r);
+          }
+        }
+      }
+    }
+    for (MenuItem menuItem : statusFilter.getItems()) {
+      if (((CheckMenuItem) menuItem).isSelected()) {
+        for (Request r : employeeFilteredList) {
+          if (((CheckMenuItem) menuItem).getText().equals(r.getStatus())) {
+            statusFilterdList.add(r);
+          }
+        }
+      }
+    }
+    saniTable.setItems(statusFilterdList);
+  }
+
+  /** Puts all of the requests back on the table, "clearing the requests." */
+  @FXML
+  public void clearFilters() {
+    // Puts everything back on table.
+    for (MenuItem e : employeeFilter.getItems()) {
+      ((CheckMenuItem) e).setSelected(true);
+    }
+    for (MenuItem e : statusFilter.getItems()) {
+      ((CheckMenuItem) e).setSelected(true);
+    }
+    saniTable.setItems(saniData);
+  }
+
   @FXML
   public void clear() {
     sanIDLabel.setText("ID");
@@ -210,6 +268,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
     saniStatus.setText("Status");
     saniDescription.setText("");
     saniDescription.setPromptText("Description");
+    updateFilters();
   }
 
   @FXML
@@ -234,29 +293,6 @@ public class SanitationController implements Initializable, PropertyChangeListen
   public void saniTypeMenu(ActionEvent event) {
     MenuItem button = (MenuItem) event.getSource();
     saniType.setText(button.getText());
-  }
-
-  @FXML
-  public void filterReqOnAction(ActionEvent event) {
-    if (!employeeFilterField.getText().isEmpty() && !statusFilterField.getText().isEmpty()) {
-
-      ObservableList<Request> empFilteredList = filterReqEmployee(employeeFilterField.getText());
-      ObservableList<Request> trueFilteredList =
-          filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
-
-      saniTable.setItems(trueFilteredList);
-    } else if (!employeeFilterField.getText().isEmpty()) {
-      filterReqsTableEmployee(employeeFilterField.getText());
-    } else if (!statusFilterField.getText().isEmpty()) {
-      filterReqsTableStatus(statusFilterField.getText());
-    }
-  }
-
-  @FXML
-  public void clearFilters(ActionEvent event) {
-    saniTable.setItems(saniData);
-    employeeFilterField.clear();
-    statusFilterField.clear();
   }
 
   /**
@@ -305,103 +341,6 @@ public class SanitationController implements Initializable, PropertyChangeListen
     notStartedNumber.setText(notStart);
     inProgressNumber.setText(inProg);
     completedNumber.setText(comp);
-  }
-
-  /**
-   * Filters requests in the equipment table so only those with the given Employee remain.
-   *
-   * @param employeeName The Employee the requests must have to remain on the table.
-   */
-  private void filterReqsTableEmployee(String employeeName) {
-    ObservableList<Request> filteredList = filterReqEmployee(employeeName);
-
-    // Sets table to only have contents of the filtered list.
-    saniTable.setItems(filteredList);
-  }
-
-  /**
-   * Filters out requests in mealData based on the given Employee.
-   *
-   * @param employeeName The Employee that the requests must have to be in the new list.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterReqEmployee(String employeeName) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : saniData) {
-      if (req.getEmployee().getName().equals(employeeName)) {
-        newList.add(req);
-      }
-    }
-
-    return newList;
-  }
-
-  /**
-   * Filters requests in the maintenance table so only those with the given status remain.
-   *
-   * @param reqStatus The status the requests must have to remain on the table.
-   */
-  private void filterReqsTableStatus(String reqStatus) {
-    ObservableList<Request> filteredList = filterReqStatus(reqStatus);
-    // Sets table to only have contents of the filtered list.
-    saniTable.setItems(filteredList);
-  }
-
-  /**
-   * Filters out requests in mealData based on the given status.
-   *
-   * @param reqStatus The status that the requests must have to be in the new list.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterReqStatus(String reqStatus) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : saniData) {
-      if (req.getStatus().equals(reqStatus)) {
-        newList.add(req);
-      }
-    }
-    return newList;
-  }
-
-  /**
-   * Filters out requests in mealData based on the given status.
-   *
-   * @param reqStatus The status that the requests must have to be in the new list.
-   * @param filteredList The list that was presumably filtered.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterFilteredReqListStatus(
-      String reqStatus, ObservableList<Request> filteredList) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : filteredList) {
-      if (req.getStatus().equals(reqStatus)) {
-        newList.add(req);
-      }
-    }
-    return newList;
-  }
-
-  /**
-   * Filters out requests in mealData based on the given Employee.
-   *
-   * @param employeeName The Employee that the requests must have to be in the new list.
-   * @param filteredList The list that was presumably filtered.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterFilteredReqListEmployee(
-      String employeeName, ObservableList<Request> filteredList) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : filteredList) {
-      if (req.getEmployee().getName().equals(employeeName)) {
-        newList.add(req);
-      }
-    }
-
-    return newList;
   }
 
   /** Populates fields once a node id is chosen when editing an existing request. */

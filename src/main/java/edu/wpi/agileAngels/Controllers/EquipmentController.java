@@ -33,7 +33,13 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   @FXML private TableView equipmentTable;
   @FXML Button clear, submitFilters, delete;
   @FXML Pane drop, drop2;
-  @FXML MenuButton equipLocation, equipmentType, equipmentStatus, equipmentEmployeeText;
+  @FXML
+  MenuButton equipLocation,
+      equipmentType,
+      equipmentStatus,
+      equipmentEmployeeText,
+      employeeFilter,
+      statusFilter;
   @FXML AnchorPane anchor;
   @FXML MenuItem xRay, infusionPump, recliner, bed;
 
@@ -45,18 +51,16 @@ public class EquipmentController implements Initializable, PropertyChangeListene
   // only way to update the UI is ObservableList
   private static ObservableList<Request> medData =
       FXCollections.observableArrayList(); // list of requests
-  // hashmap and arrayList of all medical equipment
-  HashMap<String, MedicalEquip> equipHash;
-  ArrayList<MedicalEquip> allMedEquip;
-  // hashMap and arrayList of all locations
-  HashMap<String, Location> locationsHash = locDAO.getAllLocations();
-  ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
-  HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
+  private HashMap<String, MedicalEquip> equipHash = equipDAO.getAllMedicalEquipment();;
+  private ArrayList<MedicalEquip> allMedEquip = new ArrayList<>(equipHash.values());;
+  private HashMap<String, Location> locationsHash = locDAO.getAllLocations();
+  private ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
+  private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
 
   HashMap<String, String> locationIDsByLongName = new HashMap<>();
 
-  ArrayList<String> equipTypes = new ArrayList<>();
-  HashMap<String, Integer> floorToFloorInt = new HashMap<>();
+  private ArrayList<String> equipTypes = new ArrayList<>();
+  private HashMap<String, Integer> floorToFloorInt = new HashMap<>();
   private boolean[][] availEquip = new boolean[3][4];
 
   @FXML Label notStartedNumber, inProgressNumber, completedNumber;
@@ -78,9 +82,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     appController.addPropertyChangeListener(this);
     hidePopout();
 
-    equipHash = equipDAO.getAllMedicalEquipment();
-    allMedEquip = new ArrayList<>(equipHash.values());
-
     locDAO.getAllLocations();
     empDAO.getAllEmployees();
 
@@ -96,7 +97,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
 
     medData.clear();
-    Iterator var3 = MedrequestImpl.getAllRequests().entrySet().iterator();
+
     for (Map.Entry<String, Request> entry : MedrequestImpl.getAllRequests().entrySet()) {
       Request req = entry.getValue();
       medData.add(req);
@@ -140,6 +141,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         System.out.println(availEquip[i][j]);
       }
     }
+    clearFields();
   }
 
   public void updateTypeDropdown(String floor) {
@@ -190,146 +192,69 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     }
   }
 
-  @Override
-  public void propertyChange(PropertyChangeEvent evt) {
-    String changeType = evt.getPropertyName();
-    int newValue = (int) evt.getNewValue();
-    appController.displayAlert();
+  void updateFilters() {
+    employeeFilter.getItems().clear();
+    ArrayList<String> list = new ArrayList<>();
+    for (Request r : medData) {
+      if (!list.contains(r.getEmployee().getName())) {
+        CheckMenuItem emp = new CheckMenuItem(r.getEmployee().getName());
+        emp.setSelected(true);
+        emp.setOnAction(
+            (ActionEvent event) -> {
+              submitFilter();
+            });
+        employeeFilter.getItems().add(emp);
+        list.add(r.getEmployee().getName());
+      }
+    }
+    clearFilters();
   }
 
-  /* FILTER METHODS BEYOND HERE */
-
-  /** Does filterReqsTable methods when "Submit Filters" is clicked, or "onAction." */
   @FXML
-  public void filterReqOnAction() {
-    if (!employeeFilterField.getText().isEmpty() && !statusFilterField.getText().isEmpty()) {
-      ObservableList<Request> empFilteredList = filterReqEmployee(employeeFilterField.getText());
-      ObservableList<Request> trueFilteredList =
-          filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
+  void submitFilter() {
+    ObservableList<Request> employeeFilteredList = FXCollections.observableArrayList();
+    ObservableList<Request> statusFilterdList = FXCollections.observableArrayList();
 
-      // Directly touching equipment table in n-filter cases.
-      equipmentTable.setItems(trueFilteredList);
-    } else if (!employeeFilterField.getText().isEmpty()) {
-      filterReqsTableEmployee(employeeFilterField.getText());
-    } else if (!statusFilterField.getText().isEmpty()) {
-      filterReqsTableStatus(statusFilterField.getText());
+    for (MenuItem menuItem : employeeFilter.getItems()) {
+      if (((CheckMenuItem) menuItem).isSelected()) {
+        for (Request r : medData) {
+          if (((CheckMenuItem) menuItem).getText().equals(r.getEmployee().getName())) {
+            employeeFilteredList.add(r);
+          }
+        }
+      }
     }
+    for (MenuItem menuItem : statusFilter.getItems()) {
+      if (((CheckMenuItem) menuItem).isSelected()) {
+        for (Request r : employeeFilteredList) {
+          if (((CheckMenuItem) menuItem).getText().equals(r.getStatus())) {
+            statusFilterdList.add(r);
+          }
+        }
+      }
+    }
+    equipmentTable.setItems(statusFilterdList);
   }
 
   /** Puts all of the requests back on the table, "clearing the requests." */
   @FXML
   public void clearFilters() {
     // Puts everything back on table.
+    for (MenuItem e : employeeFilter.getItems()) {
+      ((CheckMenuItem) e).setSelected(true);
+    }
+    for (MenuItem e : statusFilter.getItems()) {
+      ((CheckMenuItem) e).setSelected(true);
+    }
     equipmentTable.setItems(medData);
-    employeeFilterField.clear();
-    statusFilterField.clear();
   }
 
-  // Employee-based
-
-  /**
-   * Filters requests in the equipment table so only those with the given Employee remain.
-   *
-   * @param employeeName The Employee the requests must have to remain on the table.
-   */
-  private void filterReqsTableEmployee(String employeeName) {
-    ObservableList<Request> filteredList = filterReqEmployee(employeeName);
-
-    // Sets table to only have contents of the filtered list.
-    equipmentTable.setItems(filteredList);
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    String changeType = evt.getPropertyName();
+    int newValue = (int) evt.getNewValue();
+    appController.displayAlert();
   }
-
-  /**
-   * Filters out requests in medData based on the given Employee.
-   *
-   * @param employeeName The Employee that the requests must have to be in the new list.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterReqEmployee(String employeeName) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : medData) {
-      if (req.getEmployee().getName().equals(employeeName)) {
-        newList.add(req);
-      }
-    }
-
-    return newList;
-  }
-
-  // Status-based
-
-  /**
-   * Filters requests in the equipment table so only those with the given status remain.
-   *
-   * @param reqStatus The status the requests must have to remain on the table.
-   */
-  private void filterReqsTableStatus(String reqStatus) {
-    ObservableList<Request> filteredList = filterReqStatus(reqStatus);
-
-    // Sets table to only have contents of the filtered list.
-    equipmentTable.setItems(filteredList);
-  }
-
-  /**
-   * Filters out requests in medData based on the given status.
-   *
-   * @param reqStatus The status that the requests must have to be in the new list.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterReqStatus(String reqStatus) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : medData) {
-      if (req.getStatus().equals(reqStatus)) {
-        newList.add(req);
-      }
-    }
-    return newList;
-  }
-
-  /* Methods to filter lists n times */
-
-  /**
-   * Filters out requests in medData based on the given status.
-   *
-   * @param reqStatus The status that the requests must have to be in the new list.
-   * @param filteredList The list that was presumably filtered.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterFilteredReqListStatus(
-      String reqStatus, ObservableList<Request> filteredList) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : filteredList) {
-      if (req.getStatus().equals(reqStatus)) {
-        newList.add(req);
-      }
-    }
-    return newList;
-  }
-
-  /**
-   * Filters out requests in medData based on the given Employee.
-   *
-   * @param employeeName The Employee that the requests must have to be in the new list.
-   * @param filteredList The list that was presumably filtered.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterFilteredReqListEmployee(
-      String employeeName, ObservableList<Request> filteredList) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : filteredList) {
-      if (req.getEmployee().getName().equals(employeeName)) {
-        newList.add(req);
-      }
-    }
-
-    return newList;
-  }
-
-  /* FILTER METHODS ABOVE HERE */
 
   @FXML
   public void submit() {
@@ -354,6 +279,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
         || locationString.equals("Delivery Location")
         || statusString.equals("Status")
         || employeeString.equals("Employee")) {
+
     } else {
       MedicalEquip equip = null;
       Boolean foundEquip = false;
@@ -468,14 +394,16 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     for (int i = 0; i < medData.size(); i++) {
       Request device = medData.get(i);
       if (0 == equipID.getText().compareTo(device.getName())) {
-        found = device;
+        Request UIRequest = device;
         num = i;
       }
     }
 
     if (found != null) {
+
       if (!dropDownString.equals("Equipment Type")) {
         // String type = equipmentType.getText();
+        System.out.println("DROP DOWN CHANGE");
 
         MedicalEquip equip = null;
         Boolean foundEquip = false;
@@ -498,35 +426,49 @@ public class EquipmentController implements Initializable, PropertyChangeListene
           found.setType(dropDownString);
           found.setMedicalEquip(equip);
           MedrequestImpl.updateType(found, dropDownString);
+          System.out.println("Found Equip");
         }
       }
 
       if (!locationString.equals("Delivery Location")) {
+        System.out.println("LOCATION STRING CHANGE");
+        System.out.println("GETTING LOCATION BASED ON " + locationString);
         Location location = locDAO.getLocation(locationString);
         found.setLocation(location);
+        MedrequestImpl.updateLocation(found, location);
+        System.out.println("New LOCATION OF OBJECT " + found.getLocation().getLongName());
+
         // MedrequestImpl.updateLocation(found, location);
         if (found.getMedicalEquip() != null) {
+          System.out.println("New Med Equip " + found.getMedicalEquip().getType());
           equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
         }
       }
       if (!employeeString.equals("Employee")) {
         Employee employee = empDAO.getEmployee(employeeString);
-        found.setEmployee(employee);
+        System.out.println("FOUND EMPLOYEE");
+        // found.setEmployee(employee);
+        MedrequestImpl.updateEmployeeName(found, employee.getName());
         //        MedrequestImpl.updateEmployeeName(found, employee.getName());
       }
 
       if (!descriptionString.equals("Description")) {
-        found.setDescription(descriptionString);
+        System.out.println("NEW DESCRIPTION");
+        // found.setDescription(descriptionString);
+        MedrequestImpl.updateDescription(found, descriptionString);
         //        MedrequestImpl.updateDescription(found, descriptionString);
       }
 
       if (!statusString.equals("Status")) {
-        found.setStatus(statusString);
+        System.out.println("NEW STATUS");
+        // found.setStatus(statusString);
+        MedrequestImpl.updateStatus(found, statusString);
         //  MedrequestImpl.updateStatus(found, statusString);
 
         // set the status and location of the medicalEquipment object
         // corresponding to the request
         if (found.getAttribute2().equals("Clean")) {
+
           // if it's a request to clean equipment
           if (found.getMedicalEquip() != null) {
             if (statusString.equals("Not Started")) {
@@ -681,6 +623,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     equipID.setText("ID");
     mainDescription.setText("");
     mainDescription.setPromptText("Description");
+    updateFilters();
   }
 
   @FXML

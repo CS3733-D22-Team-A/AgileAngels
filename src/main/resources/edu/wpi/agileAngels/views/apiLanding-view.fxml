@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="medAid" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.APILandController">
+<AnchorPane fx:id="medAid" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.APILandController">
     <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
    <Button fx:id="creditsButton" alignment="CENTER" layoutX="498.0" layoutY="593.0" mnemonicParsing="false" onAction="#loadCredits" prefHeight="87.0" prefWidth="303.0" style="-fx-background-radius: 20 20;" stylesheets="@stylesheets/styleRequest.css" textAlignment="CENTER">
       <font>
@@ -125,7 +125,7 @@
             <graphic>
                <HBox alignment="CENTER" prefHeight="171.0" prefWidth="434.0" style="-fx-background-radius: 20 20;">
                   <children>
-                     <Label alignment="CENTER" prefHeight="95.0" prefWidth="158.0" text="External Transport API">
+                     <Label alignment="CENTER" prefHeight="95.0" prefWidth="208.0" text="External Transport API">
                         <font>
                            <Font size="24.0" />
                         </font>
