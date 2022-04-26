@@ -171,7 +171,7 @@ public class ServiceRequestTable implements TableI {
               new Request(
                   name, employee, location, type, status, description, attribute1, attribute2);
         } else {
-          MedicalEquip equip = (MedicalEquip) Adb.getMedEquipment().get(medEquipID);
+          MedicalEquip equip = MedEquipImpl.getInstance().getAllMedicalEquipment().get(medEquipID);
           request =
               new Request(
                   name,
