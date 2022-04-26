@@ -82,10 +82,10 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
   public void showCreators(ActionEvent event) {
     if (toggleButton.isSelected()) {
       // Will turn off names.
-      erText.setText("Equipment Request: Harmoni");
+      erText.setText("Equip. Request: Harmoni");
       lrText.setText("Lab Request: Justin");
-      mrText.setText("Maintenance Request: Talia");
-      srText.setText("Sanitation Request: Daniel");
+      mrText.setText("Main. Request: Talia");
+      srText.setText("San. Request: Daniel");
       mealText.setText("Meal Request: Jakob");
       morText.setText("Morgue Request: Aaron");
       grText.setText("Gift Request: Bashar");
