@@ -9,6 +9,7 @@ import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -17,9 +18,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class MedAidController implements Initializable {
+  @FXML AnchorPane anchor;
   public Pane treatment1, treatment2, treatment3;
   public TextField Condition;
   public Label treatmentLabel1, treatmentLabel2, treatmentLabel3;
@@ -48,6 +51,7 @@ public class MedAidController implements Initializable {
     availableColumn.setCellValueFactory(
         new PropertyValueFactory<MedicalStaff, String>("Available"));
     sortEmployees();
+    setColor(appController.color);
   }
 
   public void submit(ActionEvent actionEvent) {
@@ -262,6 +266,30 @@ public class MedAidController implements Initializable {
       if (e.getDepartment().equals("Neurology")) Neurology.add(e);
       if (e.getDepartment().equals("Surgery")) Surgery.add(e);
       if (e.getDepartment().equals("Sanitation")) Sanitation.add(e);
+    }
+  }
+
+  public void setColor(String color) {
+    if (color.equals("green")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestGreenTest.css");
+    } else if (color.equals("red")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestRedTest.css");
+
+    } else if (color.equals("blue")) {
+      anchor.getStylesheets().removeAll();
+      anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+
+    } else if (color.equals("purple")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestPurpleTest.css");
     }
   }
 }
