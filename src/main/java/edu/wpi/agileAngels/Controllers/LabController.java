@@ -148,7 +148,14 @@ public class LabController implements Initializable, PropertyChangeListener {
     if (labID2.getText().equals("New Request")) {
       Request req =
           new Request(
-              "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, "N/A", "N/A");
+              "",
+              employeeHash.get(emp),
+              locationsHash.get(loc),
+              type,
+              "Not Started",
+              desc,
+              "N/A",
+              "N/A");
       labData.add(req);
       labRequestImpl.addRequest(req);
       updateDashAdding(stat);

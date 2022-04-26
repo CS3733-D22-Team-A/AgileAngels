@@ -46,6 +46,7 @@ public class ProfileController implements Initializable {
   public void updateColor() {
     appController.color = colorType.getText().toLowerCase(Locale.ROOT);
     appController.updateMenuColor();
+    appController.loadPage("/edu/wpi/agileAngels/views/profile-view.fxml");
   }
 
   @FXML
