@@ -81,6 +81,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    requestGraph.setAnimated(false);
     cleanDirty.setVisible(true);
     graphs.setVisible(false);
     floor5.setPickOnBounds(false);
@@ -111,7 +112,6 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
     populateRequestTable("All");
     populateEmployeeTable("All");
-    graphRequests("All");
   }
 
   private void populateRequestTable(String floor) {
@@ -208,7 +208,9 @@ public class DashboardController implements Initializable, PropertyChangeListene
       displaySingleFloorCounts(3);
       populateRequestTable("5");
       populateEmployeeTable("5");
-      graphRequests("5");
+      if (graphs.isVisible()) {
+        graphRequests("5");
+      }
     }
 
     // floor 4
@@ -224,7 +226,9 @@ public class DashboardController implements Initializable, PropertyChangeListene
       displaySingleFloorCounts(2);
       populateRequestTable("4");
       populateEmployeeTable("4");
-      graphRequests("4");
+      if (graphs.isVisible()) {
+        graphRequests("4");
+      }
     }
 
     // floor 3
@@ -240,7 +244,9 @@ public class DashboardController implements Initializable, PropertyChangeListene
       displaySingleFloorCounts(1);
       populateRequestTable("3");
       populateEmployeeTable("3");
-      graphRequests("3");
+      if (graphs.isVisible()) {
+        graphRequests("3");
+      }
     }
 
     // floor 2
@@ -256,7 +262,9 @@ public class DashboardController implements Initializable, PropertyChangeListene
       displayZeroes();
       populateRequestTable("2");
       populateEmployeeTable("2");
-      graphRequests("2");
+      if (graphs.isVisible()) {
+        graphRequests("2");
+      }
     }
 
     // floor LL1
@@ -272,7 +280,9 @@ public class DashboardController implements Initializable, PropertyChangeListene
       displayZeroes();
       populateRequestTable("L1");
       populateEmployeeTable("L1");
-      graphRequests("L1");
+      if (graphs.isVisible()) {
+        graphRequests("L1");
+      }
     }
 
     // floor LL2
@@ -288,7 +298,9 @@ public class DashboardController implements Initializable, PropertyChangeListene
       displayZeroes();
       populateRequestTable("L2");
       populateEmployeeTable("L2");
-      graphRequests("L2");
+      if (graphs.isVisible()) {
+        graphRequests("L2");
+      }
     }
   }
 
@@ -369,7 +381,9 @@ public class DashboardController implements Initializable, PropertyChangeListene
     displayAllFloorsCounts();
     populateRequestTable("All");
     populateEmployeeTable("All");
-    graphRequests("All");
+    if (graphs.isVisible()) {
+      graphRequests("All");
+    }
   }
 
   @FXML
@@ -482,6 +496,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
     if (cleanDirty.isVisible()) {
       cleanDirty.setVisible(false);
       graphs.setVisible(true);
+      graphRequests("All");
     } else if (graphs.isVisible()) {
       graphs.setVisible(false);
       cleanDirty.setVisible(true);
@@ -493,58 +508,72 @@ public class DashboardController implements Initializable, PropertyChangeListene
     int numNotStarted = 0;
     int numComplete = 0;
     int numInProg = 0;
+    int total = 0;
     int numNotStartedType = 0;
     int numCompleteType = 0;
     int numInProgType = 0;
+    int totalType = 0;
     String type = graphType.getText();
     if (floor.equals("All")) {
       for (Request request : requestsList) {
-        if (request.getStatus().equals("notStarted")) {
+        if (request.getStatus().equals("Not Started")) {
           numNotStarted++;
-        } else if (request.getStatus().equals("complete")) {
+        } else if (request.getStatus().equals("Complete")) {
           numComplete++;
-        } else if (request.getStatus().equals("inProgress")) {
+        } else if (request.getStatus().equals("In Progress")) {
           numInProg++;
         }
         if (request.getName().contains(type.substring(0, 3))) {
-          if (request.getStatus().equals("notStarted")) {
+          if (request.getStatus().equals("Not Started")) {
             numNotStartedType++;
-          } else if (request.getStatus().equals("complete")) {
+          } else if (request.getStatus().equals("Complete")) {
             numCompleteType++;
-          } else if (request.getStatus().equals("inProgress")) {
+          } else if (request.getStatus().equals("In Progress")) {
             numInProgType++;
           }
+          totalType++;
         }
+        total++;
       }
     } else {
       for (Request request : requestsList) {
         if (request.getLocation().getFloor().equals(floor)) {
-          if (request.getStatus().equals("notStarted")) {
+          if (request.getStatus().equals("Not Started")) {
             numNotStarted++;
-          } else if (request.getStatus().equals("complete")) {
+          } else if (request.getStatus().equals("Complete")) {
             numComplete++;
-          } else if (request.getStatus().equals("inProgress")) {
+          } else if (request.getStatus().equals("In Progress")) {
             numInProg++;
           }
           if (request.getName().contains(type.substring(0, 3))) {
-            if (request.getStatus().equals("notStarted")) {
+            if (request.getStatus().equals("Not Started")) {
               numNotStartedType++;
-            } else if (request.getStatus().equals("complete")) {
+            } else if (request.getStatus().equals("Complete")) {
               numCompleteType++;
-            } else if (request.getStatus().equals("inProgress")) {
+            } else if (request.getStatus().equals("In Progress")) {
               numInProgType++;
             }
+            totalType++;
           }
+          total++;
         }
       }
     }
+    series1.getData().clear();
+    series2.getData().clear();
     series1.getData().add(new XYChart.Data("Not Started", numNotStarted));
     series1.getData().add(new XYChart.Data("In Progress", numInProg));
     series1.getData().add(new XYChart.Data("Complete", numComplete));
+    series1.getData().add(new XYChart.Data("Total", total));
+
     series2.getData().add(new XYChart.Data("Not Started", numNotStartedType));
     series2.getData().add(new XYChart.Data("In Progress", numInProgType));
     series2.getData().add(new XYChart.Data("Complete", numCompleteType));
-    requestGraph.getData().addAll(series1, series2);
+    series2.getData().add(new XYChart.Data("Total", totalType));
+
+    requestGraph.setData(FXCollections.observableArrayList(series1, series2));
+    // requestGraph.setData(FXCollections.observableArrayList(series2));
+    // requestGraph.getData().addAll(series1, series2);
   }
 
   public void typeMenu(ActionEvent event) {
