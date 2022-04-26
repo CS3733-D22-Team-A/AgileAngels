@@ -40,9 +40,9 @@ public class LocationNode {
           });
       button.setOnMouseDragged(
           (MouseEvent mouseEvent) -> {
-            button.setPrefSize(8, 8);
+            button.setPrefSize(30, 26);
             button.setStyle(
-                "-fx-font-size: 12; -fx-background-color: rgba(73, 67, 112, 1) ;-fx-background-radius: 0 5 5 5; -fx-text-alignment: left; -fx-text-fill: white");
+                "-fx-font-size: 12; -fx-background-color:#916da1 ;-fx-background-radius: 0 15 15 15; -fx-text-alignment: left; -fx-text-fill: white");
             button.setAlignment(Pos.CENTER);
             button.setText(String.valueOf(location.getNodeType().charAt(0)));
             button.setLayoutX(
@@ -81,7 +81,7 @@ public class LocationNode {
             l -> {
               button.setPrefSize(250, 50);
               button.setStyle(
-                  "-fx-font-size: 15; -fx-background-color: rgba(73, 67, 112, 1); -fx-background-radius: 0 25 25 25; -fx-text-alignment: left; -fx-text-fill: white");
+                  "-fx-font-size: 15; -fx-background-color: #916da1; -fx-background-radius: 0 25 25 25; -fx-text-alignment: left; -fx-text-fill: white");
               button.setAlignment(Pos.CENTER_LEFT);
               button.setText(location.getLongName());
               button.setViewOrder(-1000);
@@ -89,9 +89,9 @@ public class LocationNode {
 
     button.setOnMouseExited(
         l -> {
-          button.setPrefSize(8, 8);
+          button.setPrefSize(30, 26);
           button.setStyle(
-              "-fx-font-size: 12; -fx-background-color: rgba(73, 67, 112, 1) ;-fx-background-radius: 0 5 5 5; -fx-text-alignment: left; -fx-text-fill: white");
+              "-fx-font-size: 12; -fx-background-color:#916da1; -fx-background-radius: 0 15 15 15; -fx-text-alignment: left; -fx-text-fill: white");
           button.setAlignment(Pos.CENTER);
           button.setText(String.valueOf(location.getNodeType().charAt(0)));
           button.setViewOrder(-100);
@@ -99,10 +99,11 @@ public class LocationNode {
     // button.setLayoutX((this.getXCoord() - croppedMapXOffset) / (croppedMapWidth /
     // imagePaneWidth));
     button.setLayoutX(getPaneXfromcoords(this.getXCoord()));
+    button.setPrefSize(30, 26);
     button.setLayoutY(getPaneYfromcoords(this.getYCoord()));
     button.setText(String.valueOf(location.getNodeType().charAt(0)));
     button.setStyle(
-        "-fx-font-size: 12; -fx-background-radius: 0 8 8 8; -fx-background-color: rgba(73, 67, 112, 1); -fx-text-fill: white");
+        "-fx-font-size: 12; -fx-background-radius: 0 15 15 15; -fx-background-color:#916da1; -fx-text-fill: white");
   }
 
   private double dist(double x1, double x2, double y1, double y2) {

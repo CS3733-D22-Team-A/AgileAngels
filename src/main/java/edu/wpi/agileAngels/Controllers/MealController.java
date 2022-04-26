@@ -14,13 +14,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class MealController implements Initializable, PropertyChangeListener {
 
   @FXML AnchorPane anchor;
   @FXML VBox popOut;
-  @FXML MenuButton mealID, mealLocation, mealEmployee, mealStatus, mealType;
+  @FXML HBox tableHBox;
+  @FXML MenuButton mealLocation, mealEmployee, mealStatus, mealType;
   @FXML Button modifyButton, cancelRequest, submitRequest, clearRequest, deleteRequest;
   @FXML TableView mealTable;
   @FXML
@@ -31,7 +35,7 @@ public class MealController implements Initializable, PropertyChangeListener {
       statusColumn,
       descriptionColumn; // , availableColumn,;
   @FXML TextField mealDescription, employeeFilterField, statusFilterField;
-  @FXML Label notStartedNumber, inProgressNumber, completedNumber;
+  @FXML Label notStartedNumber, inProgressNumber, completedNumber, mealIDLabel;
 
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private EmployeeManager empDAO = EmployeeManager.getInstance();
@@ -50,7 +54,7 @@ public class MealController implements Initializable, PropertyChangeListener {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     appController.addPropertyChangeListener(this);
-    popOut.setVisible(false);
+    hidePopout();
     statusNotStarted = 0;
     statusInProgress = 0;
     statusComplete = 0;
@@ -77,6 +81,22 @@ public class MealController implements Initializable, PropertyChangeListener {
     setColor(appController.color);
   }
 
+    // Populates locations dropdown
+    for (Location loc : locationsList) {
+      MenuItem item = new MenuItem(loc.getLongName());
+      item.setOnAction(this::mealLocationMenu);
+      mealLocation.getItems().add(item);
+    }
+
+    // Populates employees dropdown
+    for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
+      Employee emp = entry.getValue();
+      MenuItem item = new MenuItem(emp.getName());
+      item.setOnAction(this::mealEmployeeMenu);
+      mealEmployee.getItems().add(item);
+    }
+  }
+
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     String changeType = evt.getPropertyName();
@@ -84,35 +104,27 @@ public class MealController implements Initializable, PropertyChangeListener {
     appController.displayAlert();
   }
 
-  @FXML
-  public void modifyRequest(ActionEvent event) {
-    popOut.setVisible(true);
-    if (mealLocation.getItems().size() == 0) {
-      // Populates locations dropdown
-      for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getLongName());
-        item.setOnAction(this::mealLocationMenu);
-        mealLocation.getItems().add(item);
-      }
+  public void hidePopout() {
+    try {
+      tableHBox.getChildren().remove(popOut);
+    } catch (NullPointerException e) {
 
-      // Populates employees dropdown
-      for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
-        Employee emp = entry.getValue();
-        MenuItem item = new MenuItem(emp.getName());
-        item.setOnAction(this::mealEmployeeMenu);
-        mealEmployee.getItems().add(item);
-      }
-
-      // Populates ID dropdown
-      for (Request req : mealData) {
-        MenuItem item = new MenuItem(req.getName());
-        item.setOnAction(this::mealIDMenu);
-        mealID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::mealIDMenu);
-      mealID.getItems().add(item1);
     }
+  }
+
+  public void showPopout() {
+    if (tableHBox.getChildren().get(0) != popOut) {
+      tableHBox.getChildren().add(0, popOut);
+    }
+  }
+
+  @FXML
+  public void newRequest() {
+    deleteRequest.setVisible(false);
+    mealStatus.setVisible(false);
+    showPopout();
+    clear();
+    mealIDLabel.setText("New Request");
   }
 
   @FXML
@@ -124,27 +136,23 @@ public class MealController implements Initializable, PropertyChangeListener {
     String type = mealType.getText();
 
     // Adding
-    if (mealID.getText().equals("Add New Request")) {
+    if (mealIDLabel.getText().equals("New Request")) {
       Request req =
           new Request(
-              "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, "N/A", "N/A");
+              "",
+              employeeHash.get(emp),
+              locationsHash.get(loc),
+              type,
+              "Not Started",
+              desc,
+              "N/A",
+              "N/A");
       mealData.add(req);
       mealRequestImpl.addRequest(req);
-
-      mealID.getItems().remove(0, mealID.getItems().size());
-      // Populates ID dropdown
-      for (Request request : mealData) {
-        MenuItem item = new MenuItem(request.getName());
-        item.setOnAction(this::mealIDMenu);
-        mealID.getItems().add(item);
-      }
-      MenuItem item1 = new MenuItem("Add New Request");
-      item1.setOnAction(this::mealIDMenu);
-      mealID.getItems().add(item1);
       updateDashAdding(stat);
 
     } else { // Editing
-      Request req = mealRequestImpl.getAllRequests().get(mealID.getText());
+      Request req = mealRequestImpl.getAllRequests().get(mealIDLabel.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
         Location newLoc = locationsHash.get(loc);
         mealRequestImpl.updateLocation(req, newLoc);
@@ -171,54 +179,47 @@ public class MealController implements Initializable, PropertyChangeListener {
       }
     }
 
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
   }
 
   @FXML
   public void cancel(ActionEvent event) {
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
   }
 
   @FXML
   public void delete(ActionEvent event) {
-    String id = mealID.getText();
-    updateDashSubtracting(mealRequestImpl.getAllRequests().get(id).getStatus());
-    // removes the request from the table and dropdown
-    for (int i = 0; i < mealData.size(); i++) {
-      if (mealData.get(i).getName().equals(id)) {
-        mealData.remove(i);
-        mealID.getItems().remove(i);
+
+    try {
+      String id = ((Request) mealTable.getSelectionModel().getSelectedItem()).getName();
+      updateDashSubtracting(mealRequestImpl.getAllRequests().get(id).getStatus());
+      // removes the request from the table and dropdown
+      for (int i = 0; i < mealData.size(); i++) {
+        if (mealData.get(i).getName().equals(id)) {
+          mealData.remove(i);
+          mealEmployee.getItems().remove(i);
+        }
       }
+      mealRequestImpl.deleteRequest(mealRequestImpl.getAllRequests().get(id));
+    } catch (NullPointerException e) {
+      mealTable.getSelectionModel().clearSelection();
     }
 
-    // delete from hash map and database table
-    mealRequestImpl.deleteRequest(mealRequestImpl.getAllRequests().get(id));
-
-    clear(event);
-    popOut.setVisible(false);
+    clear();
+    hidePopout();
   }
 
   @FXML
-  public void clear(ActionEvent event) {
-    mealID.setText("ID");
+  public void clear() {
+    mealIDLabel.setText("ID");
     mealType.setText("Type");
     mealEmployee.setText("Employee");
     mealLocation.setText("Location");
     mealStatus.setText("Status");
     mealDescription.setText("");
     mealDescription.setPromptText("Description");
-  }
-
-  @FXML
-  public void mealIDMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    mealID.setText(button.getText());
-
-    if (!button.getText().equals("Add New Request")) {
-      populate(button.getText());
-    }
   }
 
   @FXML
@@ -411,13 +412,11 @@ public class MealController implements Initializable, PropertyChangeListener {
     return newList;
   }
 
-  /**
-   * Populates fields once a node id is chosen when editing an existing request.
-   *
-   * @param id Request ID
-   */
-  private void populate(String id) {
-    Request req = mealRequestImpl.getAllRequests().get(id);
+  /** Populates fields once a node id is chosen when editing an existing request. */
+  private void populate() {
+    showPopout();
+    Request req = ((Request) mealTable.getSelectionModel().getSelectedItem());
+    mealIDLabel.setText(req.getName());
     mealLocation.setText(req.getLocation().getLongName());
     mealEmployee.setText(req.getEmployee().getName());
     mealStatus.setText(req.getStatus());
@@ -457,6 +456,18 @@ public class MealController implements Initializable, PropertyChangeListener {
       statusComplete--;
     }
     setDashboard(statusNotStarted, statusInProgress, statusComplete);
+  }
+
+  public void loadRequest(MouseEvent mouseEvent) {
+    try {
+      if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+        populate();
+        deleteRequest.setVisible(true);
+        mealStatus.setVisible(true);
+      }
+    } catch (NullPointerException e) {
+      hidePopout();
+    }
   }
 
   public void setColor(String color) {

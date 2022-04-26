@@ -129,7 +129,14 @@ public class SanitationController implements Initializable, PropertyChangeListen
     if (sanIDLabel.getText().equals("New Request")) {
       Request req =
           new Request(
-              "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, "N/A", "N/A");
+              "",
+              employeeHash.get(emp),
+              locationsHash.get(loc),
+              type,
+              "Not Started",
+              desc,
+              "N/A",
+              "N/A");
       saniData.add(req);
       saniRequestImpl.addRequest(req);
     } else { // Editing
@@ -446,6 +453,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
       if (mouseEvent.getButton() == MouseButton.PRIMARY) {
         populate();
         deleteRequest.setVisible(true);
+        saniStatus.setVisible(true);
       }
     } catch (NullPointerException e) {
       hidePopout();
@@ -454,6 +462,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
 
   public void newRequest() {
     deleteRequest.setVisible(false);
+    saniStatus.setVisible(false);
     showPopout();
     clear();
     sanIDLabel.setText("New Request");

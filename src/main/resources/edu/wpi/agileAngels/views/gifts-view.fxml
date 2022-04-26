@@ -3,13 +3,13 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -24,9 +24,103 @@
     <children>
 
 
-        <HBox alignment="CENTER" layoutX="78.0" layoutY="160.0" prefHeight="451.0" prefWidth="1158.0" spacing="50.0">
+        <HBox fx:id="tableHBox" alignment="CENTER" layoutX="78.0" layoutY="160.0" prefHeight="451.0" prefWidth="1158.0" spacing="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
             <children>
-                <TableView fx:id="giftTable" prefHeight="451.0" prefWidth="1188.0">
+              <VBox fx:id="popOut" alignment="CENTER" maxWidth="300.0" minWidth="300.0" prefHeight="555.0" prefWidth="300.0" spacing="15.0">
+                  <children>
+                  <Label fx:id="giftIDLabel" prefHeight="20.0" prefWidth="315.0" text="Label" />
+                        <MenuButton fx:id="giftLocation" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Location" />
+                        <MenuButton fx:id="giftType" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Type">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#giftTypeMenu" text="Balloons" />
+                                <MenuItem mnemonicParsing="false" onAction="#giftTypeMenu" text="Flowers" />
+                                <MenuItem mnemonicParsing="false" onAction="#giftTypeMenu" text="Stuffed Animal" />
+                                <MenuItem mnemonicParsing="false" onAction="#giftTypeMenu" text="Chocolate" />
+                            </items>
+                        </MenuButton>
+                        <MenuButton fx:id="giftEmployee" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
+                        <MenuButton fx:id="giftStatus" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Status">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#giftStatusMenu" text="Not Started" />
+                                <MenuItem mnemonicParsing="false" onAction="#giftStatusMenu" text="In Progress" />
+                                <MenuItem mnemonicParsing="false" onAction="#giftStatusMenu" text="Complete" />
+                            </items>
+                        </MenuButton>
+                        <TextField fx:id="giftSender" prefHeight="50.0" prefWidth="270.0" promptText="Sender" />
+                        <TextField fx:id="giftRecipient" prefHeight="50.0" prefWidth="270.0" promptText="Recipient" />
+                        <TextField fx:id="giftDescription" prefHeight="50.0" prefWidth="270.0" promptText="Note" />
+                        <HBox prefHeight="59.0" prefWidth="270.0" spacing="16.0">
+                            <children>
+                                <Button fx:id="cancelRequest" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                    <graphic>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <Label text="Cancel" />
+                                            </children>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                        </HBox>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="submitRequest" alignment="CENTER" mnemonicParsing="false" onAction="#submit" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                    <graphic>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <Label text="Submit" />
+                                            </children>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                        </HBox>
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </HBox>
+                        <Button fx:id="deleteRequest" alignment="CENTER" mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="270.0" textAlignment="CENTER">
+                            <font>
+                                <Font size="10.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <graphic>
+                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="119.0">
+                                    <children>
+                                        <Label text="Delete" />
+                                    </children>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                </HBox>
+                            </graphic>
+                        </Button>
+                  </children>
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
+      
+            
+                        <!--
+      
+                        above is a VBox that includes text fields and a menu dropdown if implimenting a menu dropdown include the pane at the end
+            
+                              -->
+      
+                    </VBox>
+                <TableView fx:id="giftTable" onMouseClicked="#loadRequest" prefHeight="451.0" prefWidth="1188.0">
                     <columns>
                         <TableColumn fx:id="nameColumn" maxWidth="120.0" minWidth="-1.0" prefWidth="120.0" resizable="false" text="Name" />
                         <TableColumn fx:id="typeColumn" maxWidth="120.0" minWidth="-1.0" prefWidth="120.0" resizable="false" text="Type" />
@@ -37,10 +131,17 @@
                         <TableColumn fx:id="locationColumn" maxWidth="250.0" minWidth="-1.0" prefWidth="250.0" resizable="false" text="Location" />
                         <TableColumn fx:id="descriptionColumn" maxWidth="190.0" minWidth="-1.0" prefWidth="190.0" resizable="false" text="Description" />
                     </columns>
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Delete Request" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
                 </TableView>
             </children>
         </HBox>
-        <Label fx:id="labTestConfirmation" alignment="TOP_LEFT" layoutX="144.0" layoutY="598.0" prefHeight="100.0" prefWidth="523.0" wrapText="true">
+        <Label fx:id="labTestConfirmation" alignment="TOP_LEFT" layoutX="138.0" layoutY="634.0" prefHeight="71.0" prefWidth="291.0" wrapText="true">
             <font>
                 <Font size="16.0" />
             </font>
@@ -105,7 +206,7 @@
                 </Pane>
             </children>
         </Pane>
-        <HBox layoutX="397.0" layoutY="58.0" prefHeight="100.0" prefWidth="435.0">
+        <HBox alignment="CENTER" layoutX="397.0" layoutY="58.0" prefHeight="100.0" prefWidth="435.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="60.0">
             <children>
                 <GridPane prefWidth="408.0">
                     <columnConstraints>
@@ -175,165 +276,53 @@
                 </GridPane>
             </children>
         </HBox>
-        <TextField fx:id="employeeFilterField" layoutX="444.0" layoutY="623.0" prefHeight="50.0" prefWidth="171.0" promptText="Filter by Employee" />
-        <Button alignment="CENTER" layoutX="842.0" layoutY="620.0" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-            <font>
-                <Font size="10.0" />
-            </font>
-            <opaqueInsets>
-                <Insets />
-            </opaqueInsets>
-            <graphic>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                    <children>
-                        <Label text="Submit Filter" />
-                    </children>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                </HBox>
-            </graphic>
-        </Button>
-        <Button alignment="CENTER" layoutX="998.0" layoutY="620.0" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-            <font>
-                <Font size="10.0" />
-            </font>
-            <opaqueInsets>
-                <Insets />
-            </opaqueInsets>
-            <graphic>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                    <children>
-                        <Label text="Clear Filters" />
-                    </children>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                </HBox>
-            </graphic>
-        </Button>
-        <TextField fx:id="statusFilterField" layoutX="657.0" layoutY="623.0" prefHeight="50.0" prefWidth="154.0" promptText="Filter by Status" />
-        <Button fx:id="modifyButton" layoutX="846.0" layoutY="79.0" mnemonicParsing="false" onAction="#modifyRequest" prefHeight="59.0" prefWidth="120.0" style="-fx-font-weight: bold;" text="Modify" textAlignment="CENTER" wrapText="true">
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="56.0" prefWidth="613.0" spacing="10.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="150.0">
+         <children>
+              <TextField fx:id="employeeFilterField" prefHeight="50.0" prefWidth="171.0" promptText="Filter by Employee" />
+              <TextField fx:id="statusFilterField" prefHeight="50.0" prefWidth="154.0" promptText="Filter by Status" />
+              <Button alignment="CENTER" mnemonicParsing="false" onAction="#filterReqOnAction" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                  <font>
+                      <Font size="10.0" />
+                  </font>
+                  <opaqueInsets>
+                      <Insets />
+                  </opaqueInsets>
+                  <graphic>
+                      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                          <children>
+                              <Label text="Submit Filter" />
+                          </children>
+                          <opaqueInsets>
+                              <Insets />
+                          </opaqueInsets>
+                      </HBox>
+                  </graphic>
+              </Button>
+              <Button alignment="CENTER" mnemonicParsing="false" onAction="#clearFilters" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
+                  <font>
+                      <Font size="10.0" />
+                  </font>
+                  <opaqueInsets>
+                      <Insets />
+                  </opaqueInsets>
+                  <graphic>
+                      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                          <children>
+                              <Label text="Clear Filters" />
+                          </children>
+                          <opaqueInsets>
+                              <Insets />
+                          </opaqueInsets>
+                      </HBox>
+                  </graphic>
+              </Button>
+         </children>
+      </HBox>
+        <Button layoutX="846.0" layoutY="79.0" mnemonicParsing="false" onAction="#newRequest" prefHeight="59.0" prefWidth="120.0" style="-fx-font-weight: bold;" text="New Request" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
             <font>
                 <Font size="15.0" />
             </font>
         </Button>
-        <VBox fx:id="popOut" alignment="CENTER" layoutX="978.0" layoutY="82.0" prefHeight="555.0" prefWidth="294.0" spacing="15.0">
-            <children>
-                <Pane prefHeight="555.0" prefWidth="294.0" style="-fx-background-color: F3F5F7;">
-                    <children>
-                        <MenuButton fx:id="giftID" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="14.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="ID" />
-                        <MenuButton fx:id="giftLocation" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="64.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Location" />
-                        <MenuButton fx:id="giftEmployee" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="115.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
-                        <MenuButton fx:id="giftStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="213.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Status">
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#giftStatusMenu" text="Not Started" />
-                                <MenuItem mnemonicParsing="false" onAction="#giftStatusMenu" text="In Progress" />
-                                <MenuItem mnemonicParsing="false" onAction="#giftStatusMenu" text="Complete" />
-                            </items>
-                        </MenuButton>
-                        <TextField fx:id="giftDescription" layoutX="12.0" layoutY="376.0" prefHeight="50.0" prefWidth="270.0" promptText="Description" />
-                        <HBox layoutX="15.0" layoutY="432.0" prefHeight="59.0" prefWidth="270.0" spacing="16.0">
-                            <children>
-                                <Button fx:id="cancelRequest" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                                    <font>
-                                        <Font size="10.0" />
-                                    </font>
-                                    <opaqueInsets>
-                                        <Insets />
-                                    </opaqueInsets>
-                                    <graphic>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                            <children>
-                                                <Label text="Cancel" />
-                                            </children>
-                                            <opaqueInsets>
-                                                <Insets />
-                                            </opaqueInsets>
-                                        </HBox>
-                                    </graphic>
-                                </Button>
-                                <Button fx:id="submitRequest" alignment="CENTER" mnemonicParsing="false" onAction="#submit" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                                    <font>
-                                        <Font size="10.0" />
-                                    </font>
-                                    <opaqueInsets>
-                                        <Insets />
-                                    </opaqueInsets>
-                                    <graphic>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                            <children>
-                                                <Label text="Submit" />
-                                            </children>
-                                            <opaqueInsets>
-                                                <Insets />
-                                            </opaqueInsets>
-                                        </HBox>
-                                    </graphic>
-                                </Button>
-                                <Button fx:id="clearRequest" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#clear" prefHeight="50.0" prefWidth="127.0" textAlignment="CENTER">
-                                    <font>
-                                        <Font size="10.0" />
-                                    </font>
-                                    <opaqueInsets>
-                                        <Insets />
-                                    </opaqueInsets>
-                                    <graphic>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                            <children>
-                                                <Label text="Clear" />
-                                            </children>
-                                            <opaqueInsets>
-                                                <Insets />
-                                            </opaqueInsets>
-                                        </HBox>
-                                    </graphic>
-                                </Button>
-                            </children>
-                        </HBox>
-                        <Button fx:id="deleteRequest" alignment="CENTER" layoutX="15.0" layoutY="491.0" mnemonicParsing="false" onAction="#delete" prefHeight="50.0" prefWidth="270.0" textAlignment="CENTER">
-                            <font>
-                                <Font size="10.0" />
-                            </font>
-                            <opaqueInsets>
-                                <Insets />
-                            </opaqueInsets>
-                            <graphic>
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="119.0">
-                                    <children>
-                                        <Label text="Delete" />
-                                    </children>
-                                    <opaqueInsets>
-                                        <Insets />
-                                    </opaqueInsets>
-                                </HBox>
-                            </graphic>
-                        </Button>
-                        <TextField fx:id="giftSender" layoutX="12.0" layoutY="320.0" prefHeight="50.0" prefWidth="270.0" promptText="Sender" />
-                        <TextField fx:id="giftRecipient" layoutX="12.0" layoutY="262.0" prefHeight="50.0" prefWidth="270.0" promptText="Recipient" />
-                        <MenuButton fx:id="giftType" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="165.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Type">
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#giftTypeMenu" text="Balloons" />
-                                <MenuItem mnemonicParsing="false" onAction="#giftTypeMenu" text="Flowers" />
-                                <MenuItem mnemonicParsing="false" onAction="#giftTypeMenu" text="Stuffed Animal" />
-                                <MenuItem mnemonicParsing="false" onAction="#giftTypeMenu" text="Chocolate" />
-                            </items>
-                        </MenuButton>
-                    </children>
-                    <effect>
-                        <DropShadow />
-                    </effect>
-                </Pane>
-            </children>
-
-
-            <!--
-
-            above is a VBox that includes text fields and a menu dropdown if implimenting a menu dropdown include the pane at the end
-
-                  -->
-
-        </VBox>
 
         <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
     </children>

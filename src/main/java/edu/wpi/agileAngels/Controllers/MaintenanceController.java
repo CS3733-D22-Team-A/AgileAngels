@@ -131,7 +131,14 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     if (mainIDLabel.getText().equals("New Request")) {
       Request req =
           new Request(
-              "", employeeHash.get(emp), locationsHash.get(loc), "N/A", stat, desc, "N/A", "N/A");
+              "",
+              employeeHash.get(emp),
+              locationsHash.get(loc),
+              "N/A",
+              "Not Started",
+              desc,
+              "N/A",
+              "N/A");
       maintenanceData.add(req);
       mainRequestImpl.addRequest(req);
       updateDashAdding(stat);
@@ -448,6 +455,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
       if (mouseEvent.getButton() == MouseButton.PRIMARY) {
         populate();
         deleteRequest.setVisible(true);
+        mainStatus.setVisible(true);
       }
     } catch (NullPointerException e) {
       hidePopout();
@@ -456,6 +464,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
 
   public void newRequest(ActionEvent event) {
     deleteRequest.setVisible(false);
+    mainStatus.setVisible(false);
     showPopout();
     clear();
     mainIDLabel.setText("New Request");
