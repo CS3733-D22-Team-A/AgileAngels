@@ -100,6 +100,12 @@ public class MapsController implements Initializable, PropertyChangeListener {
       equipmentFilterButton;
 
   public ContextMenu contextMenu = new ContextMenu();
+
+  public ContextMenu getContextMenu() {
+    return contextMenu;
+  }
+
+  ContextMenu menu;
   MenuItem addNode = new MenuItem("Add Location");
 
   LocationNode currentLocationNode = null;
@@ -255,10 +261,12 @@ public class MapsController implements Initializable, PropertyChangeListener {
       mapScroll.setOnMousePressed(
           (MouseEvent event) -> {
             if (event.isSecondaryButtonDown()) {
-              contextMenu.show(mapScroll, event.getScreenX(), event.getScreenY());
+              menu = getContextMenu();
+              menu.show(mapScroll, event.getScreenX(), event.getScreenY());
               rightClick = event;
             }
           });
+
     } else if (appController.getCurrentUser().getPermissionLevel() == 1) {
       labCheck.setSelected(false);
       equipCheck.setSelected(false);
