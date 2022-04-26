@@ -39,7 +39,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
   AppController appController = AppController.getInstance();
   ArrayList<Pane> panes = new ArrayList<>();
   @FXML private ScrollPane scrollPane = new ScrollPane();
-  @FXML private Pane cleanDirty, graphs, employeePane;
+  @FXML private Pane cleanDirty, graphs;
   @FXML private GridPane cleanDirtyGrid;
   @FXML private TableView requestTable, employeeTable;
   @FXML
