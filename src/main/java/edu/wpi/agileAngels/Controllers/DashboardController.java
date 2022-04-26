@@ -112,8 +112,6 @@ public class DashboardController implements Initializable, PropertyChangeListene
 
     populateRequestTable("All");
     populateEmployeeTable("All");
-
-    resizeEmployeeTable();
   }
 
   private void populateRequestTable(String floor) {
@@ -653,14 +651,5 @@ public class DashboardController implements Initializable, PropertyChangeListene
       requestGraph.getStylesheets().removeAll();
       requestGraph.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/DashCSS.css");
     }
-  }
-
-  // resize employee table
-  public void resizeEmployeeTable() {
-
-    double width = employeePane.getPrefWidth();
-
-    empEmployeeColumn.setPrefWidth(width / 2 - 15);
-    empFloorColumn.setPrefWidth(width / 2 - 15);
   }
 }
