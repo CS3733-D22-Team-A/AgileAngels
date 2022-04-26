@@ -24,7 +24,13 @@ public class LaundryController implements Initializable {
   @FXML VBox popOut;
   @FXML HBox tableHBox;
   @FXML Label notStartedNumber, inProgressNumber, completedNumber, laundryIDLabel;
-  @FXML MenuButton laundryLocation, laundryType, laundryStatus, laundryEmployee;
+  @FXML
+  MenuButton laundryLocation,
+      laundryType,
+      laundryStatus,
+      laundryEmployee,
+      employeeFilter,
+      statusFilter;
   @FXML private TextField laundryDescription, employeeFilterField, statusFilterField;
   @FXML
   private TableColumn nameColumn,
@@ -126,6 +132,7 @@ public class LaundryController implements Initializable {
         laundryEmployee.getItems().add(item);
       }
     }
+    clear();
     dashboardLoad();
     laundryTable.setItems(laundryData);
     setColor(appController.color);
@@ -179,6 +186,63 @@ public class LaundryController implements Initializable {
     if (tableHBox.getChildren().get(0) != popOut) {
       tableHBox.getChildren().add(0, popOut);
     }
+  }
+
+  void updateFilters() {
+    employeeFilter.getItems().clear();
+    ArrayList<String> list = new ArrayList<>();
+    for (Request r : laundryData) {
+      if (!list.contains(r.getEmployee().getName())) {
+        CheckMenuItem emp = new CheckMenuItem(r.getEmployee().getName());
+        emp.setSelected(true);
+        emp.setOnAction(
+            (ActionEvent event) -> {
+              submitFilter();
+            });
+        employeeFilter.getItems().add(emp);
+        list.add(r.getEmployee().getName());
+      }
+    }
+    clearFilters();
+  }
+
+  @FXML
+  void submitFilter() {
+    ObservableList<Request> employeeFilteredList = FXCollections.observableArrayList();
+    ObservableList<Request> statusFilterdList = FXCollections.observableArrayList();
+
+    for (MenuItem menuItem : employeeFilter.getItems()) {
+      if (((CheckMenuItem) menuItem).isSelected()) {
+        for (Request r : laundryData) {
+          if (((CheckMenuItem) menuItem).getText().equals(r.getEmployee().getName())) {
+            employeeFilteredList.add(r);
+          }
+        }
+      }
+    }
+    for (MenuItem menuItem : statusFilter.getItems()) {
+      if (((CheckMenuItem) menuItem).isSelected()) {
+        for (Request r : employeeFilteredList) {
+          if (((CheckMenuItem) menuItem).getText().equals(r.getStatus())) {
+            statusFilterdList.add(r);
+          }
+        }
+      }
+    }
+    laundryTable.setItems(statusFilterdList);
+  }
+
+  /** Puts all of the requests back on the table, "clearing the requests." */
+  @FXML
+  public void clearFilters() {
+    // Puts everything back on table.
+    for (MenuItem e : employeeFilter.getItems()) {
+      ((CheckMenuItem) e).setSelected(true);
+    }
+    for (MenuItem e : statusFilter.getItems()) {
+      ((CheckMenuItem) e).setSelected(true);
+    }
+    laundryTable.setItems(laundryData);
   }
 
   @FXML
@@ -235,140 +299,6 @@ public class LaundryController implements Initializable {
     }
   }
 
-  /* FILTER METHODS BEYOND HERE */
-
-  /** Does filterReqsTable methods when "Submit Filters" is clicked, or "onAction." */
-  @FXML
-  public void filterReqOnAction() {
-    if (!employeeFilterField.getText().isEmpty() && !statusFilterField.getText().isEmpty()) {
-      ObservableList<Request> empFilteredList = filterReqEmployee(employeeFilterField.getText());
-      ObservableList<Request> trueFilteredList =
-          filterFilteredReqListStatus(statusFilterField.getText(), empFilteredList);
-
-      // Directly touching equipment table in n-filter cases.
-      laundryTable.setItems(trueFilteredList);
-    } else if (!employeeFilterField.getText().isEmpty()) {
-      filterReqsTableEmployee(employeeFilterField.getText());
-    } else if (!statusFilterField.getText().isEmpty()) {
-      filterReqsTableStatus(statusFilterField.getText());
-    }
-  }
-
-  /** Puts all of the requests back on the table, "clearing the requests." */
-  @FXML
-  public void clearFilters() {
-    // Puts everything back on table.
-    laundryTable.setItems(laundryData);
-    employeeFilterField.clear();
-    statusFilterField.clear();
-  }
-
-  // Employee-based
-
-  /**
-   * Filters requests in the equipment table so only those with the given Employee remain.
-   *
-   * @param employeeName The Employee the requests must have to remain on the table.
-   */
-  private void filterReqsTableEmployee(String employeeName) {
-    ObservableList<Request> filteredList = filterReqEmployee(employeeName);
-
-    // Sets table to only have contents of the filtered list.
-    laundryTable.setItems(filteredList);
-  }
-
-  /**
-   * Filters out requests in medData based on the given Employee.
-   *
-   * @param employeeName The Employee that the requests must have to be in the new list.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterReqEmployee(String employeeName) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : laundryData) {
-      if (req.getEmployee().getName().equals(employeeName)) {
-        newList.add(req);
-      }
-    }
-
-    return newList;
-  }
-
-  // Status-based
-
-  /**
-   * Filters requests in the equipment table so only those with the given status remain.
-   *
-   * @param reqStatus The status the requests must have to remain on the table.
-   */
-  private void filterReqsTableStatus(String reqStatus) {
-    ObservableList<Request> filteredList = filterReqStatus(reqStatus);
-
-    // Sets table to only have contents of the filtered list.
-    laundryTable.setItems(filteredList);
-  }
-
-  /**
-   * Filters out requests in medData based on the given status.
-   *
-   * @param reqStatus The status that the requests must have to be in the new list.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterReqStatus(String reqStatus) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : laundryData) {
-      if (req.getStatus().equals(reqStatus)) {
-        newList.add(req);
-      }
-    }
-    return newList;
-  }
-
-  /* Methods to filter lists n times */
-
-  /**
-   * Filters out requests in medData based on the given status.
-   *
-   * @param reqStatus The status that the requests must have to be in the new list.
-   * @param filteredList The list that was presumably filtered.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterFilteredReqListStatus(
-      String reqStatus, ObservableList<Request> filteredList) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : filteredList) {
-      if (req.getStatus().equals(reqStatus)) {
-        newList.add(req);
-      }
-    }
-    return newList;
-  }
-
-  /**
-   * Filters out requests in medData based on the given Employee.
-   *
-   * @param employeeName The Employee that the requests must have to be in the new list.
-   * @param filteredList The list that was presumably filtered.
-   * @return The new filtered list.
-   */
-  private ObservableList<Request> filterFilteredReqListEmployee(
-      String employeeName, ObservableList<Request> filteredList) {
-    ObservableList<Request> newList = FXCollections.observableArrayList();
-
-    for (Request req : filteredList) {
-      if (req.getEmployee().getName().equals(employeeName)) {
-        newList.add(req);
-      }
-    }
-
-    return newList;
-  }
-
-  /* FILTER METHODS ABOVE HERE */
-
   public void clearPage(ActionEvent event) {
     appController.clearPage();
   }
@@ -405,6 +335,7 @@ public class LaundryController implements Initializable {
     laundryStatus.setText("Status");
     laundryDescription.setText("");
     laundryDescription.setPromptText("Description");
+    updateFilters();
   }
 
   @FXML
@@ -481,21 +412,6 @@ public class LaundryController implements Initializable {
     notStartedNumber.setText(notStart);
     inProgressNumber.setText(inProg);
     completedNumber.setText(comp);
-  }
-
-  @FXML
-  public void clearFilters(ActionEvent event) {
-    laundryTable.setItems(laundryData);
-  }
-
-  @FXML
-  public void laundryIDMenu(ActionEvent event) {
-    MenuItem button = (MenuItem) event.getSource();
-    laundryIDLabel.setText(button.getText());
-
-    if (!button.getText().equals("Add New Request")) {
-      populate();
-    }
   }
 
   /** Populates fields once a node id is chosen when editing an existing request. */
