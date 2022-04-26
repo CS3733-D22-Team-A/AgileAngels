@@ -92,6 +92,7 @@ public class MedAidController implements Initializable {
     System.out.println("Before populate");
     populateTable(answer);
     System.out.println("After populate");
+    Condition.setText(answer);
   }
 
   public void clear(ActionEvent actionEvent) {
