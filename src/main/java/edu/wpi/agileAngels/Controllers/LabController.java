@@ -23,7 +23,7 @@ public class LabController implements Initializable, PropertyChangeListener {
 
   @FXML VBox popOut;
   @FXML HBox tableHBox;
-  @FXML MenuButton labLocation, labEmployee, labStatus, labType;
+  @FXML MenuButton labLocation, labEmployee, labStatus, labType, employeeFilter, statusFilter;
   @FXML Button newRequest, cancelRequest, submitRequest, deleteRequest;
   @FXML TableView labTable;
   @FXML
@@ -102,6 +102,7 @@ public class LabController implements Initializable, PropertyChangeListener {
       item.setOnAction(this::employeeMenu);
       labEmployee.getItems().add(item);
     }
+    clear();
   }
 
   public void hidePopout() {
@@ -115,6 +116,16 @@ public class LabController implements Initializable, PropertyChangeListener {
   public void showPopout() {
     if (tableHBox.getChildren().get(0) != popOut) {
       tableHBox.getChildren().add(0, popOut);
+    }
+  }
+
+  void updateFilters() {
+    employeeFilter.getItems().clear();
+    for (Request r : labData) {
+      CheckMenuItem emp = new CheckMenuItem(r.getEmployee().getName());
+      emp.setSelected(true);
+      // emp.setOnAction();
+      employeeFilter.getItems().add(emp);
     }
   }
 
@@ -221,6 +232,7 @@ public class LabController implements Initializable, PropertyChangeListener {
     labStatus.setText("Status");
     labDescription.setText("");
     labDescription.setPromptText("Description");
+    updateFilters();
   }
 
   /**
@@ -484,6 +496,7 @@ public class LabController implements Initializable, PropertyChangeListener {
   }
 
   public void loadRequest(MouseEvent mouseEvent) {
+    clear();
     try {
       if (mouseEvent.getButton() == MouseButton.PRIMARY) {
         populate();
