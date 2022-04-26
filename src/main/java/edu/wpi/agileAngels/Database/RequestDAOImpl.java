@@ -423,6 +423,10 @@ public class RequestDAOImpl implements RequestDAO {
     }
   }
 
+  public ArrayList<String> getFreeEmployees() throws SQLException {
+    return Adb.getFreeEmployees();
+  }
+
   public void resetData() {
     this.reqData = new HashMap<String, Request>();
   }

@@ -3,6 +3,7 @@ package edu.wpi.agileAngels;
 import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import edu.wpi.agileAngels.Database.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 // This class is the backend of the DAO method.
@@ -401,6 +402,10 @@ public class Adb {
    */
   public static boolean removeEmployee(String name) {
     return employeeTable.delete(name);
+  }
+
+  public static ArrayList<String> getFreeEmployees() throws SQLException {
+    return serviceRequestTable.freeEmployees();
   }
 
   /**

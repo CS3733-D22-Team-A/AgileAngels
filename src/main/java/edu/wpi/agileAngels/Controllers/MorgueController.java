@@ -48,6 +48,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
   private static ObservableList<Request> morgueData = FXCollections.observableArrayList();
   HashMap<String, Location> locationsHash = locDAO.getAllLocations();
   ArrayList<Location> locationsList = new ArrayList<>(locationsHash.values());
+  ArrayList<String> freeEmployees = MorguerequestImpl.getFreeEmployees();
   private HashMap<String, Employee> employeeHash = empDAO.getAllEmployees();
 
   private int statusNotStarted, statusInProgress, statusComplete;

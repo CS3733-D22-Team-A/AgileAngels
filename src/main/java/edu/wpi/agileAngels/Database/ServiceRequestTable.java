@@ -2,6 +2,7 @@ package edu.wpi.agileAngels.Database;
 
 import edu.wpi.agileAngels.Adb;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ServiceRequestTable implements TableI {
@@ -202,5 +203,17 @@ public class ServiceRequestTable implements TableI {
     } catch (SQLException sqlException) {
       return null;
     }
+  }
+
+  public static ArrayList<String> freeEmployees() throws SQLException {
+    Statement statement = DBconnection.getConnection().createStatement();
+    ArrayList<String> employees = new ArrayList<>();
+    String freeEmployee =
+        "(SELECT Employees.Name FROM Employees left outer join ServiceRequests on ServiceRequests.EmployeeName = Employees.Name WHERE ServiceRequests.EmployeeName IS NULL OR ServiceRequests.Status in ('complete') GROUP BY Employees.Name) EXCEPT (SELECT Employees.Name FROM ServiceRequests join Employees on ServiceRequests.EmployeeName = Employees.Name WHERE Status in ('notStarted','inProgress','Not Complete','In Progress','Not Started'))";
+    ResultSet rs = statement.executeQuery(freeEmployee);
+    while (rs.next()) {
+      employees.add(rs.getString("Name"));
+    }
+    return employees;
   }
 }
