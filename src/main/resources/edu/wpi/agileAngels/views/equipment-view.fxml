@@ -75,12 +75,12 @@
                <children>
                   <Label fx:id="equipID" prefHeight="20.0" prefWidth="579.0" text="Label" />
                   <MenuButton fx:id="equipLocation" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Location" />
-                  <MenuButton fx:id="equipmentType" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Type" textAlignment="CENTER">
+                  <MenuButton fx:id="equipmentType" alignment="CENTER" mnemonicParsing="false" onAction="#checkTypeMenu" prefHeight="40.0" prefWidth="270.0" text="Type" textAlignment="CENTER">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="XRayMachine" />
-                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="InfusionPump" />
-                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Recliner" />
-                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Bed" />
+                        <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="XRayMachine" fx:id="xRay" />
+                        <MenuItem fx:id="infusionPump" mnemonicParsing="false" onAction="#typeMenu" text="InfusionPump" />
+                        <MenuItem fx:id="recliner" mnemonicParsing="false" onAction="#typeMenu" text="Recliner" />
+                        <MenuItem fx:id="bed" mnemonicParsing="false" onAction="#typeMenu" text="Bed" />
                      </items>
                   </MenuButton>
                   <MenuButton fx:id="equipmentEmployeeText" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="270.0" text="Employee" />
@@ -197,37 +197,37 @@
                   </Label>
                   <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="1">
                      <GridPane.margin>
-                        <Insets left="10.0" />
+                        <Insets left="5.0" />
                      </GridPane.margin>
                   </Rectangle>
                   <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="3">
                      <GridPane.margin>
-                        <Insets left="20.0" />
+                        <Insets left="5.0" />
                      </GridPane.margin>
                   </Rectangle>
                   <Rectangle arcHeight="20.0" arcWidth="30.0" fill="WHITE" height="90.0" stroke="WHITE" strokeType="INSIDE" width="90.0" GridPane.columnIndex="2">
                      <GridPane.margin>
-                        <Insets left="15.0" />
+                        <Insets left="5.0" />
                      </GridPane.margin>
                   </Rectangle>
                   <Label fx:id="notStartedNumber" text="-" GridPane.columnIndex="1">
                      <GridPane.margin>
-                        <Insets bottom="25.0" left="40.0" />
+                        <Insets bottom="25.0" left="46.0" />
                      </GridPane.margin>
                   </Label>
                   <Label fx:id="inProgressNumber" text="-" GridPane.columnIndex="2">
                      <GridPane.margin>
-                        <Insets bottom="25.0" left="42.0" />
+                        <Insets bottom="25.0" left="46.0" />
                      </GridPane.margin>
                   </Label>
                   <Label fx:id="completedNumber" text="-" GridPane.columnIndex="3">
                      <GridPane.margin>
-                        <Insets bottom="25.0" left="47.0" />
+                        <Insets bottom="25.0" left="46.0" />
                      </GridPane.margin>
                   </Label>
                   <Label prefHeight="35.0" prefWidth="77.0" style="-fx-font-size: 15;" text="Not Started" textOverrun="CLIP" GridPane.columnIndex="1">
                      <GridPane.margin>
-                        <Insets left="19.0" top="40.0" />
+                        <Insets left="12.0" top="40.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="7.0" />
@@ -235,12 +235,12 @@
                   </Label>
                   <Label style="-fx-font-size: 15;" text="In Progress" textOverrun="CLIP" GridPane.columnIndex="2">
                      <GridPane.margin>
-                        <Insets left="25.0" top="40.0" />
+                        <Insets left="12.0" top="40.0" />
                      </GridPane.margin>
                   </Label>
                   <Label style="-fx-font-size: 15;" text="Completed" textOverrun="CLIP" GridPane.columnIndex="3">
                      <GridPane.margin>
-                        <Insets left="28.0" top="40.0" />
+                        <Insets left="12.0" top="40.0" />
                      </GridPane.margin>
                   </Label>
                </children>

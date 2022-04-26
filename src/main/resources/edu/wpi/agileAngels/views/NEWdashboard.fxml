@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -14,14 +15,17 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="background" stylesheets="@stylesheets/DashCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.agileAngels.Controllers.DashboardController">
    <children>
       <Pane layoutX="698.0" layoutY="97.0" prefHeight="603.0" prefWidth="523.0" styleClass="pane" stylesheets="@stylesheets/DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="97.0">
          <children>
-            <Button fx:id="floorLL2" layoutX="134.0" layoutY="370.0" mnemonicParsing="false" onAction="#goToFloor" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #0F6671;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
+            <Button fx:id="floorLL2" layoutX="134.0" layoutY="365.0" mnemonicParsing="false" onAction="#goToFloor" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #0F6671;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
             <Button fx:id="floorLL1" layoutX="134.0" layoutY="307.0" mnemonicParsing="false" onAction="#goToFloor" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #207E8A;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
             <Button fx:id="floor2" layoutX="134.0" layoutY="244.0" mnemonicParsing="false" onAction="#goToFloor" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #2795A3;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
             <Button fx:id="floor3" layoutX="134.0" layoutY="181.0" mnemonicParsing="false" onAction="#goToFloor" onMouseEntered="#bigFloor" onMouseExited="#unhover" prefHeight="202.0" prefWidth="293.0" style="-fx-background-color: #3EADBB;" styleClass="squareButton" stylesheets="@stylesheets/DashCSS.css" />
@@ -63,9 +67,44 @@
                </font>
             </Label>
          </children></Pane>
-      <Pane fx:id="cleanDirty" layoutX="21.0" layoutY="365.0" onMouseClicked="#changeDisplay" prefHeight="335.0" prefWidth="658.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@stylesheets/DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="365.0">
+      <Pane fx:id="graphs" layoutX="20.0" layoutY="365.0" prefHeight="335.0" prefWidth="658.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@stylesheets/DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="365.0">
          <children>
-            <Pane layoutX="497.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #AE986E; -fx-background-radius: 0 0 15 15;">
+            <BarChart fx:id="requestGraph" legendSide="TOP" prefHeight="342.0" prefWidth="658.0" stylesheets="@stylesheets/DashCSS.css">
+              <xAxis>
+                <CategoryAxis label="Requests" prefWidth="578.0" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis label="# of Requests" side="LEFT" upperBound="50.0" />
+              </yAxis>
+               <styleClass>
+                  <String fx:value="default-color0" />
+                  <String fx:value="default-color1" />
+               </styleClass>
+            </BarChart>
+         </children>
+      </Pane>
+      <Pane fx:id="cleanDirty" layoutX="21.0" layoutY="365.0" prefHeight="335.0" prefWidth="658.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@stylesheets/DashCSS.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="365.0">
+         <children>
+            <Label layoutX="20.0" layoutY="33.0" prefHeight="40.0" prefWidth="247.0" text="Equipment status">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <GridPane fx:id="cleanDirtyGrid" layoutY="461.0" prefHeight="239.0" prefWidth="658.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="602.0" AnchorPane.topAnchor="441.0">
+        <columnConstraints>
+          <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="ALWAYS" />
+            <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="ALWAYS" />
+        </rowConstraints>
+         <children>
+            <Pane prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #AE986E; -fx-background-radius: 0 0 15 15;" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="89.0" layoutY="60.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="dirty" textFill="#2f2f2f">
                      <font>
@@ -78,8 +117,11 @@
                      </font>
                   </Label>
                </children>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </Pane>
-            <Pane layoutX="497.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: EACF9D; -fx-background-radius: 15 15 0 0;">
+            <Pane layoutX="34.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: EACF9D; -fx-background-radius: 15 15 0 0;" GridPane.columnIndex="3">
                <children>
                   <Label layoutX="67.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="Recliner" textFill="WHITE">
                      <font>
@@ -102,8 +144,50 @@
                      </image>
                   </ImageView>
                </children>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </Pane>
-            <Pane layoutX="340.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #2C8A9E; -fx-background-radius: 0 0 15 15;">
+            <Pane prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #AD6673; -fx-background-radius: 0 0 15 15;" GridPane.rowIndex="1">
+               <children>
+                  <Label layoutX="89.0" layoutY="60.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="dirty" textFill="#2f2f2f">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="dirtyPump" alignment="CENTER_RIGHT" layoutX="89.0" layoutY="73.0" style="-fx-font-family: Roboto; -fx-font-weight: bold; -fx-font-size: 32;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+                  <Pane prefHeight="328.0" prefWidth="658.0" />
+               </children>
+            </Pane>
+            <Pane prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: DB8A96; -fx-background-radius: 15 15 0 0;">
+               <children>
+                  <Label layoutX="19.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="Infusion Pump" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="90.0" layoutY="34.0" opacity="0.6" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="clean" textFill="#47474e">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="cleanPump" alignment="CENTER_RIGHT" layoutX="90.0" style="-fx-font-family: Roboto; -fx-font-weight: bold; -fx-font-size: 32;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="27.0" fitWidth="25.0" layoutX="16.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/Infusion_Pump.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #2C8A9E; -fx-background-radius: 0 0 15 15;" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="89.0" layoutY="60.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="dirty" textFill="#2f2f2f">
                      <font>
@@ -117,7 +201,7 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="340.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #70CDE0; -fx-background-radius: 15 15 0 0;">
+            <Pane prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #70CDE0; -fx-background-radius: 15 15 0 0;" GridPane.columnIndex="2">
                <children>
                   <Label layoutX="85.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="X-Ray" textFill="WHITE">
                      <font>
@@ -141,7 +225,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="182.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #5A8F7C; -fx-background-radius: 0 0 15 15;">
+            <Pane prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #5A8F7C; -fx-background-radius: 0 0 15 15;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <Label layoutX="89.0" layoutY="60.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="dirty" textFill="#2f2f2f">
                      <font>
@@ -155,7 +239,7 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="182.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #8BCDB6; -fx-background-radius: 15 15 0 0;">
+            <Pane prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #8BCDB6; -fx-background-radius: 15 15 0 0;" GridPane.columnIndex="1">
                <children>
                   <Label layoutX="93.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="Beds" textFill="WHITE">
                      <font>
@@ -179,52 +263,8 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="24.0" layoutY="195.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: #AD6673; -fx-background-radius: 0 0 15 15;">
-               <children>
-                  <Label layoutX="89.0" layoutY="60.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="dirty" textFill="#2f2f2f">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="dirtyPump" alignment="CENTER_RIGHT" layoutX="89.0" layoutY="73.0" style="-fx-font-family: Roboto; -fx-font-weight: bold; -fx-font-size: 32;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
-                     <font>
-                        <Font size="32.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane layoutX="24.0" layoutY="75.0" prefHeight="120.0" prefWidth="135.0" style="-fx-background-color: DB8A96; -fx-background-radius: 15 15 0 0;">
-               <children>
-                  <Label layoutX="19.0" layoutY="100.0" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="Infusion Pump" textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="90.0" layoutY="34.0" opacity="0.6" style="-fx-font-family: Roboto; -fx-font-weight: bold;" stylesheets="@stylesheets/DashCSS.css" text="clean" textFill="#47474e">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="cleanPump" alignment="CENTER_RIGHT" layoutX="90.0" style="-fx-font-family: Roboto; -fx-font-weight: bold; -fx-font-size: 32;" stylesheets="@stylesheets/DashCSS.css" text="50" textFill="WHITE">
-                     <font>
-                        <Font size="32.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="27.0" fitWidth="25.0" layoutX="16.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/Infusion_Pump.png" />
-                     </image>
-                  </ImageView>
-                  <Pane layoutX="-26.0" layoutY="-76.0" prefHeight="328.0" prefWidth="658.0" />
-               </children>
-            </Pane>
-            <Label layoutX="20.0" layoutY="8.0" prefHeight="40.0" prefWidth="247.0" text="Equipment status">
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </Label>
          </children>
-      </Pane>
+      </GridPane>
       <Pane layoutX="443.0" layoutY="96.0" prefHeight="252.0" prefWidth="230.0" styleClass="pane" stylesheets="@stylesheets/DashCSS.css" AnchorPane.leftAnchor="443.0" AnchorPane.rightAnchor="605.0" AnchorPane.topAnchor="96.0">
          <children>
             <Label layoutX="16.0" layoutY="7.0" style="-fx-font-family: Roboto;" stylesheets="@stylesheets/DashCSS.css" text="Employees On Duty">
@@ -257,35 +297,20 @@
             </TableView>
          </children>
       </Pane>
-      <Pane fx:id="graphs" layoutX="20.0" layoutY="365.0" onMouseClicked="#changeDisplay" prefHeight="335.0" prefWidth="658.0" style="-fx-background-radius: 20;" styleClass="pane" stylesheets="@stylesheets/DashCSS.css">
-         <children>
-            <BarChart fx:id="requestGraph" layoutY="-1.0" legendSide="TOP" prefHeight="361.0" prefWidth="658.0" stylesheets="@stylesheets/DashCSS.css">
-              <xAxis>
-                <CategoryAxis label="Requests" side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis label="# of Requests" side="LEFT" upperBound="50.0" />
-              </yAxis>
-               <styleClass>
-                  <String fx:value="default-color0" />
-                  <String fx:value="default-color1" />
-               </styleClass>
-            </BarChart>
-            <MenuButton fx:id="graphType" layoutX="587.0" layoutY="-4.0" mnemonicParsing="false" text="Type">
-              <items>
-                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Meal" />
-                <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Medical" />
-                <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Lab" />
-                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Gift" />
-                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Maintenence" />
-                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Morgue" />
-                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Transport" />
-                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Sanitation" />
-                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Laundry" />
-              </items>
-            </MenuButton>
-         </children>
-      </Pane>
+      <MenuButton fx:id="graphType" alignment="BOTTOM_RIGHT" mnemonicParsing="false" text="Type" AnchorPane.rightAnchor="615.0" AnchorPane.topAnchor="371.0">
+        <items>
+            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Meal" />
+          <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Medical" />
+          <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Lab" />
+            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Gift" />
+            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Maintenence" />
+            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Morgue" />
+            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Transport" />
+            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Sanitation" />
+            <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Laundry" />
+        </items>
+      </MenuButton>
+      <Button fx:id="switchView" layoutX="467.0" layoutY="371.0" mnemonicParsing="false" onAction="#changeDisplay" prefHeight="25.0" prefWidth="110.0" text="Switch View" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="371.0" />
       <fx:include source="menu-bar.fxml" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
    </children>
    <stylesheets>

@@ -15,11 +15,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class MaintenanceController implements Initializable, PropertyChangeListener {
 
+  @FXML AnchorPane anchor;
   @FXML VBox popOut;
   @FXML HBox tableHBox;
   @FXML MenuButton mainLocation, mainEmployee, mainStatus;
@@ -89,6 +91,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
       item.setOnAction(this::mainEmployeeMenu);
       mainEmployee.getItems().add(item);
     }
+    setColor(appController.color);
   }
 
   public void hidePopout() {
@@ -268,10 +271,12 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
       while (var3.hasNext()) {
         Map.Entry<String, Request> entry = (Map.Entry) var3.next();
         Request object = (Request) entry.getValue();
-        if (entry.getValue().getStatus().equals("inProgress")) {
+        if (entry.getValue().getStatus().equals("inProgress")
+            || entry.getValue().getStatus().equals("In Progress")) {
           statusInProgress++;
         }
-        if (entry.getValue().getStatus().equals("notStarted")) {
+        if (entry.getValue().getStatus().equals("notStarted")
+            || entry.getValue().getStatus().equals("Not Started")) {
           statusNotStarted++;
         }
         if (entry.getValue().getStatus().equals("Complete")
@@ -465,5 +470,23 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
     showPopout();
     clear();
     mainIDLabel.setText("New Request");
+  }
+
+  public void setColor(String color) {
+    if (color.equals("green")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestGreenTest.css");
+    } else if (color.equals("red")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestRedTest.css");
+
+    } else if (color.equals("blue")) {
+      anchor.getStylesheets().removeAll();
+      anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+    }
   }
 }

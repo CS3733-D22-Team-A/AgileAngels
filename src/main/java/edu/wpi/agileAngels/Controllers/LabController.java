@@ -15,12 +15,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 // similar to equip controller
 public class LabController implements Initializable, PropertyChangeListener {
 
+  @FXML AnchorPane anchor;
   @FXML VBox popOut;
   @FXML HBox tableHBox;
   @FXML MenuButton labLocation, labEmployee, labStatus, labType, employeeFilter, statusFilter;
@@ -103,6 +105,7 @@ public class LabController implements Initializable, PropertyChangeListener {
       labEmployee.getItems().add(item);
     }
     clear();
+    setColor(appController.color);
   }
 
   public void hidePopout() {
@@ -156,7 +159,14 @@ public class LabController implements Initializable, PropertyChangeListener {
     if (labID2.getText().equals("New Request")) {
       Request req =
           new Request(
-              "", employeeHash.get(emp), locationsHash.get(loc), type, stat, desc, "N/A", "N/A");
+              "",
+              employeeHash.get(emp),
+              locationsHash.get(loc),
+              type,
+              "Not Started",
+              desc,
+              "N/A",
+              "N/A");
       labData.add(req);
       labRequestImpl.addRequest(req);
       updateDashAdding(stat);
@@ -249,11 +259,13 @@ public class LabController implements Initializable, PropertyChangeListener {
       while (var3.hasNext()) {
         Map.Entry<String, Request> entry = (Map.Entry) var3.next();
         Request object = (Request) entry.getValue();
-        if (entry.getValue().getStatus().equals("inProgress")) {
+        if (entry.getValue().getStatus().equals("inProgress")
+            || entry.getValue().getStatus().equals("In Progress")) {
           statusInProgress++;
           System.out.println("beep");
         }
-        if (entry.getValue().getStatus().equals("notStarted")) {
+        if (entry.getValue().getStatus().equals("notStarted")
+            || entry.getValue().getStatus().equals("Not Started")) {
           statusNotStarted++;
           System.out.println("boop");
         }
@@ -462,6 +474,7 @@ public class LabController implements Initializable, PropertyChangeListener {
   }
 
   private void updateDashAdding(String status) {
+    System.out.println(status);
     if (status.equals("not started")
         || status.equals("Not Started")
         || status.equals("notStarted")) {
@@ -492,6 +505,11 @@ public class LabController implements Initializable, PropertyChangeListener {
     if (status.equals("complete") || status.equals("Complete")) {
       statusComplete--;
     }
+    /*  if (statusComplete < 0){
+       statusComplete = 0;
+     }
+
+    */
     setDashboard(statusNotStarted, statusInProgress, statusComplete);
   }
 
@@ -505,6 +523,24 @@ public class LabController implements Initializable, PropertyChangeListener {
       }
     } catch (NullPointerException e) {
       hidePopout();
+    }
+  }
+
+  public void setColor(String color) {
+    if (color.equals("green")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestGreenTest.css");
+    } else if (color.equals("red")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestRedTest.css");
+
+    } else if (color.equals("blue")) {
+      anchor.getStylesheets().removeAll();
+      anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
     }
   }
 }

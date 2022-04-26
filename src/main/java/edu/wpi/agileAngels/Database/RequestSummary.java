@@ -8,12 +8,8 @@ public class RequestSummary {
   private String employee;
   private String floor;
   private HashMap<String, String> typeHash = new HashMap<>();
-  private HashMap<String, String> statusHash = new HashMap<>();
 
   public RequestSummary(Request request) {
-    statusHash.put("notStarted", "Not Started");
-    statusHash.put("inProgress", "In Progress");
-    statusHash.put("complete", "Complete");
 
     typeHash.put("Med", "Equipment");
     typeHash.put("Lab", "Lab");
@@ -26,7 +22,7 @@ public class RequestSummary {
     typeHash.put("Mor", "Morgue");
 
     this.type = typeHash.get(request.getName().substring(0, 3));
-    this.status = statusHash.get(request.getStatus());
+    this.status = request.getStatus();
     this.employee = request.getEmployee().getName();
     this.floor = request.getLocation().getFloor();
   }
