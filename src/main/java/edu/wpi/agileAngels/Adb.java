@@ -381,6 +381,12 @@ public class Adb {
 
     laundryRequestImpl.setCount(0);
     laundryRequestImpl.resetData();
+
+    try {
+      RequestDAOImpl.getInstance("AllRequests").setCount(0);
+      RequestDAOImpl.getInstance("AllRequests").resetData();
+    } catch (SQLException sqlException) {
+    }
   }
 
   /**
