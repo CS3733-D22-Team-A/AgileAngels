@@ -117,7 +117,7 @@
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" mouseTransparent="true" prefHeight="17.0" prefWidth="110.0" text="Back End Dev" wrapText="true">
+                  <Label alignment="TOP_LEFT" layoutX="54.0" layoutY="10.0" mouseTransparent="true" prefHeight="17.0" prefWidth="110.0" text="        Lead" wrapText="true">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
@@ -299,7 +299,7 @@
                   <Image url="@../OurPictures/TextBubble.png" />
                </image>
             </ImageView>
-            <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Finaly a diffrent error." textAlignment="CENTER" wrapText="true">
+            <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Finally a different error." textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>
@@ -313,7 +313,7 @@
                   <Image url="@../OurPictures/TextBubble.png" />
                </image>
             </ImageView>
-            <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Wong." textAlignment="CENTER" wrapText="true">
+            <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Lab. LAb. LaHb. Lhahb. Lap. Laaab. LaB. Lab. Lab. L@b. Laab. Lab. Lab. Ladder. Lab. Lab. LAB. Lab." textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>
@@ -355,7 +355,7 @@
                   <Image url="@../OurPictures/TextBubble.png" />
                </image>
             </ImageView>
-            <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="Whats backend?" textAlignment="CENTER" wrapText="true">
+            <Label alignment="TOP_LEFT" layoutX="13.0" layoutY="18.0" prefHeight="51.0" prefWidth="110.0" text="What's backend?" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>
