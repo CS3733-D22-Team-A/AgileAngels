@@ -76,14 +76,12 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
 
-    if (morgueData.isEmpty()) {
-      System.out.println("Filling Data");
-
-      for (Map.Entry<String, Request> entry : MorguerequestImpl.getAllRequests().entrySet()) {
-        Request req = entry.getValue();
-        morgueData.add(req);
-      }
+    morgueData.clear();
+    for (Map.Entry<String, Request> entry : MorguerequestImpl.getAllRequests().entrySet()) {
+      Request req = entry.getValue();
+      morgueData.add(req);
     }
+
     dashboardLoad();
     morgueTable.setItems(morgueData);
     setColor(appController.color);

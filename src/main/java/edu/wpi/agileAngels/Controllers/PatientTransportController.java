@@ -84,12 +84,12 @@ public class PatientTransportController implements Initializable, PropertyChange
         new PropertyValueFactory<>("attribute2")); // location 2 looks sus again
 
     // Populates the table from UI list
-    if (transportData.isEmpty()) {
-      for (Map.Entry<String, Request> entry : transportDAOImpl.getAllRequests().entrySet()) {
-        Request req = entry.getValue();
-        transportData.add(req);
-      }
+    transportData.clear();
+    for (Map.Entry<String, Request> entry : transportDAOImpl.getAllRequests().entrySet()) {
+      Request req = entry.getValue();
+      transportData.add(req);
     }
+
     dashboardLoad();
     transportTable.setItems(transportData);
 

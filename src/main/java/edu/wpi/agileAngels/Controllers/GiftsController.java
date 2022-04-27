@@ -59,7 +59,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     hidePopout();
-    System.out.println("uhhh: " + giftRequestImpl);
+    // System.out.println("uhhh: " + giftRequestImpl);
     appController.addPropertyChangeListener(this);
     hidePopout();
     statusNotStarted = 0;
@@ -79,14 +79,13 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     senderColumn.setCellValueFactory(new PropertyValueFactory<>("attribute2"));
 
-    // giftData.clear();
     // Populates the table from UI list
-    if (giftData.isEmpty()) {
-      for (Map.Entry<String, Request> entry : giftRequestImpl.getAllRequests().entrySet()) {
-        Request req = entry.getValue();
-        giftData.add(req);
-      }
+    giftData.clear();
+    for (Map.Entry<String, Request> entry : giftRequestImpl.getAllRequests().entrySet()) {
+      Request req = entry.getValue();
+      giftData.add(req);
     }
+
     dashboardLoad();
     giftTable.setItems(giftData);
 
