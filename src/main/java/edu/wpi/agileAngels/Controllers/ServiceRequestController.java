@@ -2,13 +2,12 @@ package edu.wpi.agileAngels.Controllers;
 
 import com.jfoenix.controls.JFXToggleButton;
 import edu.wpi.agileAngels.Database.DBconnection;
+import edu.wpi.agileAngels.MenuSpeech;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import edu.wpi.agileAngels.MenuSpeech;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -68,15 +67,27 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
     }
     setColor(appController.color);
 
-    String[] args = new String[50];
-    MenuSpeech speech = new MenuSpeech();
     try {
-      speech.main(args);
-    } catch (Exception e) {
+      listeningforCommands();
+    } catch (IOException e) {
       e.printStackTrace();
     }
+  }
 
-
+  public void listeningforCommands() throws IOException {
+    MenuSpeech speech = new MenuSpeech();
+    String res = speech.listen();
+    speech.startConfiguration();
+    while (res != null) {
+      res = speech.listen();
+      if (res.compareTo("lab") == 0) {
+        appController.loadPage("/edu/wpi/agileAngels/views/lab-view.fxml");
+      }
+    }
+    speech.closeRecognition();
+    if (res.compareTo("lab") == 0) {
+      appController.loadPage("/edu/wpi/agileAngels/views/lab-view.fxml");
+    }
   }
 
   @Override
