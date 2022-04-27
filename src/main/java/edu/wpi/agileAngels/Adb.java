@@ -456,4 +456,15 @@ public class Adb {
   public static void populateServiceRequests() {
     serviceRequestTable.getData();
   }
+
+  public static void resetMedEquipment() {
+    equipmentDAO.resetAllEquips();
+  }
+
+  public static void populateMedicalEquipment() {
+    try {
+      medicalEquipmentTable.getData();
+    } catch (SQLException sqlException) {
+    }
+  }
 }

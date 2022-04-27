@@ -60,7 +60,6 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   public void initialize(URL location, ResourceBundle resources) {
     hidePopout();
 
-
     appController.addPropertyChangeListener(this);
     hidePopout();
     statusNotStarted = 0;

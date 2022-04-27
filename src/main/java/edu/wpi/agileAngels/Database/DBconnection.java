@@ -34,6 +34,8 @@ public class DBconnection {
           connection =
               DriverManager.getConnection("jdbc:derby://localhost:1527/myCSDB;create=true");
           System.out.println("Switching to client-server.");
+          Adb.resetMedEquipment();
+          Adb.populateMedicalEquipment();
           Adb.resetServiceRequests();
           Adb.populateServiceRequests();
           break;
@@ -42,6 +44,8 @@ public class DBconnection {
           database = DBConnectionEnum.EMBEDDED;
           connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
           System.out.println("Switching to embedded.");
+          Adb.resetMedEquipment();
+          Adb.populateMedicalEquipment();
           Adb.resetServiceRequests();
           Adb.populateServiceRequests();
           break;
