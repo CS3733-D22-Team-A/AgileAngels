@@ -152,10 +152,9 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
     DBconnection.switchConnection();
     if (clientToggle.isSelected()) {
       appController.setEmbeddedON(true);
-      // System.out.println("oop gurl and i skr skr skr");
+
     } else {
       appController.setEmbeddedON(false);
-      // System.out.println("is false now gurl");
     }
   }
 
@@ -163,14 +162,13 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
   private void updateToggle() {
     if (appController.isEmbeddedON()) {
       clientToggle.setSelected(appController.isEmbeddedON());
-      // System.out.println("Justin's here");
+
       System.out.println(appController.isEmbeddedON());
     }
   }
 
   @FXML
   public void saveToCSV() {
-    System.out.println("Save to CSV");
     // do things here
   }
 

@@ -77,7 +77,6 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
 
     if (morgueData.isEmpty()) {
-      System.out.println("Filling Data");
 
       for (Map.Entry<String, Request> entry : MorguerequestImpl.getAllRequests().entrySet()) {
         Request req = entry.getValue();
@@ -249,9 +248,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     morgueStatus.setText("Status");
     morgueDescription.setText("");
     morgueDescription.setPromptText("Patient Name");
-    //
-    //    System.out.println("-------------");
-    //    System.out.println(morgueData.get(0).getEmployee().getName());
+
     updateFilters();
   }
 
