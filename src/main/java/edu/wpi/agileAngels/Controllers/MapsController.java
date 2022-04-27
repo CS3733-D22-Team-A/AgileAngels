@@ -728,8 +728,21 @@ public class MapsController implements Initializable, PropertyChangeListener {
   }
 
   public void locationDelete(ActionEvent event) {
-    locationNodeManager.deleteNode(currentLocationNode.getNodeID());
+    if (currentLocationNode.getFloor().equals("5")) {
+      pane5.getChildren().remove(currentLocationNode.getButton());
+    } else if (currentLocationNode.getFloor().equals("4")) {
+      pane4.getChildren().remove(currentLocationNode.getButton());
+    } else if (currentLocationNode.getFloor().equals("3")) {
+      pane3.getChildren().remove(currentLocationNode.getButton());
+    } else if (currentLocationNode.getFloor().equals("2")) {
+      pane2.getChildren().remove(currentLocationNode.getButton());
+    } else if (currentLocationNode.getFloor().equals("L1")) {
+      paneL1.getChildren().remove(currentLocationNode.getButton());
+    } else if (currentLocationNode.getFloor().equals("l2")) {
+      paneL2.getChildren().remove(currentLocationNode.getButton());
+    }
 
+    locationNodeManager.deleteNode(currentLocationNode.getNodeID());
     locationEditPane.setVisible(false);
   }
 
