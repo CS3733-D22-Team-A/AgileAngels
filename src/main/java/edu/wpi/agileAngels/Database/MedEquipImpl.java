@@ -35,22 +35,22 @@ public class MedEquipImpl implements MedEquipDAO {
   public void addEquipment(MedicalEquip medicalEquip) {
     MedEquipData.put(medicalEquip.getID(), medicalEquip);
     Adb.addMedicalEquipment(medicalEquip);
-    System.out.println("MedicalEquipment " + medicalEquip.getID() + " is added into the database.");
+    //System.out.println("MedicalEquipment " + medicalEquip.getID() + " is added into the database.");
   }
 
   @Override
   public void removeEquipment(MedicalEquip medicalEquip) {
     MedEquipData.remove(medicalEquip.getID());
     Adb.removeMedicalEquipment(medicalEquip.getID());
-    System.out.println(
-        "MedicalEquipment " + medicalEquip.getID() + " is removed from the database.");
+    //System.out.println(
+     //   "MedicalEquipment " + medicalEquip.getID() + " is removed from the database.");
   }
 
   @Override
   public void updateEquipmentLocation(MedicalEquip medicalEquip, Location location) {
     medicalEquip.setLocation(location);
     Adb.updateMedicalEquipment(medicalEquip);
-    System.out.println("MedicalEquipment " + medicalEquip.getID() + " location is updated");
+    //System.out.println("MedicalEquipment " + medicalEquip.getID() + " location is updated");
   }
 
   @Override
@@ -70,7 +70,7 @@ public class MedEquipImpl implements MedEquipDAO {
     }
     medicalEquip.setClean(clean);
     Adb.updateMedicalEquipment(medicalEquip);
-    System.out.println("MedicalEquipment " + medicalEquip.getID() + " cleanliness is updated");
+    //System.out.println("MedicalEquipment " + medicalEquip.getID() + " cleanliness is updated");
   }
 
   public void readCSV() {

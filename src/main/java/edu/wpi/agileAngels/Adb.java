@@ -79,7 +79,7 @@ public class Adb {
    */
   private static void initializeHelper() throws SQLException {
     locationsTable.createTable();
-    medicalEquipmentTable.createTable();
+    boolean medEquipEmpty = medicalEquipmentTable.createTable();
     serviceRequestTable.createTable();
     employeeTable.createTable();
     employeeManager = EmployeeManager.getInstance();
@@ -87,7 +87,11 @@ public class Adb {
     locationDAO = LocationDAOImpl.getInstance();
     locationDAO.csvRead();
     equipmentDAO = MedEquipImpl.getInstance();
-    equipmentDAO.readCSV();
+    if (medEquipEmpty) {
+      equipmentDAO.readCSV();
+    } else {
+      medicalEquipmentTable.getData();
+    }
     labRequestDAO = RequestDAOImpl.getInstance("LabRequest");
     mainRequestImpl = RequestDAOImpl.getInstance("MaintenanceRequest");
     transportRequestImpl = RequestDAOImpl.getInstance("TransportRequest");

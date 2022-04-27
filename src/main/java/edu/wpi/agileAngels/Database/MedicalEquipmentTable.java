@@ -28,7 +28,7 @@ public class MedicalEquipmentTable implements TableI {
       } else {
         preparedStatement.setString(3, "Dirty");
       }
-      preparedStatement.setString(4, medE.getLocation().getLongName());
+      preparedStatement.setString(4, medE.getLocation().getNodeID());
       preparedStatement.setString(5, medE.getStatus());
       preparedStatement.execute();
       return true;
@@ -78,7 +78,7 @@ public class MedicalEquipmentTable implements TableI {
       } else {
         preparedStatement.setString(2, "Dirty");
       }
-      preparedStatement.setString(3, medE.getLocation().getLongName());
+      preparedStatement.setString(3, medE.getLocation().getNodeID());
       preparedStatement.setString(4, medE.getStatus());
       preparedStatement.setString(5, medE.getID());
       preparedStatement.execute();
@@ -142,7 +142,7 @@ public class MedicalEquipmentTable implements TableI {
     HashMap<String, Object> empty = new HashMap<>();
 
     while (result.next()) {
-      String name = result.getString("Name");
+      String name = result.getString("ID");
       String type = result.getString("Type");
       boolean clean;
       if (result.getString("Clean").compareTo("false") == 0) {

@@ -82,9 +82,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     appController.addPropertyChangeListener(this);
     hidePopout();
 
-    locDAO.getAllLocations();
-    empDAO.getAllEmployees();
-
     for (Location loc : locationsHash.values()) {
       locationIDsByLongName.put(loc.getLongName(), loc.getNodeID());
     }
@@ -138,7 +135,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     updateEquipAvail("5");
     /*for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 4; j++) {
-        //  System.out.println(availEquip[i][j]);
+        System.out.println(availEquip[i][j]);
       }
     }*/
     clearFields();
