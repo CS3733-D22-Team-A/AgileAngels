@@ -46,7 +46,7 @@ public class PumpAlertController {
               employeeDAO.getEmployee("James"),
               medEquip.getLocation(),
               "InfusionPump",
-              "notStarted",
+              "Not Started",
               "describe",
               "something",
               "Clean",

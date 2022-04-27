@@ -261,11 +261,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     }
     clearFields();
     hidePopout();
-    for (MedicalEquip equip : equipHash.values()) {
-      if (equip.getType().equals("Bed") && equip.getLocation().getFloor().equals("3")) {
-        System.out.println(equip.getID() + " " + equip.isClean() + " " + equip.getStatus());
-      }
-    }
   }
 
   private void addEquipRequest() {
