@@ -49,6 +49,7 @@ public class RequestNodeManager {
     requestsList.addAll(MaintenanceRequestDAO.getAllRequests().values());
     requestsList.addAll(GiftRequestDAO.getAllRequests().values());
     requestsList.addAll(MorgueRequestDAO.getAllRequests().values());
+    requestsList.addAll(TransportRequestDAO.getAllRequests().values());
     for (Request request : requestsList) {
       mapsController.displayRequestNode(addNode(request));
     }
@@ -143,7 +144,26 @@ public class RequestNodeManager {
 
   public void deleteRequest(RequestNode request) {
     nodes.remove(request);
-    AllRequestDAO.deleteRequest(request.getRequest());
+    Request req = request.getRequest();
+    if (req.getName().startsWith("Med")) {
+      medRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("Lab")) {
+      labRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("Gif")) {
+      GiftRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("Lau")) {
+      LaundryRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("Mai")) {
+      MaintenanceRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("Mea")) {
+      MealRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("Mor")) {
+      MorgueRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("Tra")) {
+      TransportRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("San")) {
+      SanitationRequestDAO.deleteRequest(req);
+    }
   }
 
   public void setVisibilityOfType(String type, Boolean b) {
