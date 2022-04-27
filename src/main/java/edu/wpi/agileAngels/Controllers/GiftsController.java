@@ -79,14 +79,13 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     availableColumn.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
     senderColumn.setCellValueFactory(new PropertyValueFactory<>("attribute2"));
 
-    // giftData.clear();
     // Populates the table from UI list
-    if (giftData.isEmpty()) {
-      for (Map.Entry<String, Request> entry : giftRequestImpl.getAllRequests().entrySet()) {
-        Request req = entry.getValue();
-        giftData.add(req);
-      }
+    giftData.clear();
+    for (Map.Entry<String, Request> entry : giftRequestImpl.getAllRequests().entrySet()) {
+      Request req = entry.getValue();
+      giftData.add(req);
     }
+
     dashboardLoad();
     giftTable.setItems(giftData);
 
@@ -264,11 +263,17 @@ public class GiftsController implements Initializable, PropertyChangeListener {
 
   @FXML
   public void delete() {
+
     try {
       String id = ((Request) giftTable.getSelectionModel().getSelectedItem()).getName();
-      updateDashSubtracting(giftRequestImpl.getAllRequests().get(id).getStatus());
-      // removes the request from the table and dropdown
 
+      // removes the request from the table and dropdown
+      for (int i = 0; i < giftData.size(); i++) {
+        if (giftData.get(i).getName().equals(id)) {
+          giftData.remove(i);
+        }
+      }
+      updateDashSubtracting(giftRequestImpl.getAllRequests().get(id).getStatus());
       // delete from hash map and database table
       giftRequestImpl.deleteRequest(giftRequestImpl.getAllRequests().get(id));
 

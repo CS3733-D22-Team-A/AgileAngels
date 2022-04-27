@@ -18,6 +18,7 @@ public class RequestNodeManager {
   private RequestDAOImpl TransportRequestDAO = RequestDAOImpl.getInstance("TransportRequest");
   private RequestDAOImpl GiftRequestDAO = RequestDAOImpl.getInstance("GiftRequest");
   private RequestDAOImpl MorgueRequestDAO = RequestDAOImpl.getInstance("MorgueRequest");
+  private RequestDAOImpl AllRequestDAO = RequestDAOImpl.getInstance("AllRequests");
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private HashMap<String, RequestNode> nodes = new HashMap<>();
   private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
@@ -48,6 +49,7 @@ public class RequestNodeManager {
     requestsList.addAll(MaintenanceRequestDAO.getAllRequests().values());
     requestsList.addAll(GiftRequestDAO.getAllRequests().values());
     requestsList.addAll(MorgueRequestDAO.getAllRequests().values());
+    requestsList.addAll(TransportRequestDAO.getAllRequests().values());
     for (Request request : requestsList) {
       mapsController.displayRequestNode(addNode(request));
     }
@@ -131,22 +133,57 @@ public class RequestNodeManager {
   }
 
   public void updateRequest(RequestNode request) {
-    if (request.getName().substring(0, 3).equals("Lab")) {
+    if (request.getName().startsWith("Lab")) {
       labRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
       labRequestDAO.updateStatus(request.getRequest(), request.getStatus());
-    } else if (request.getName().substring(0, 3).equals("Med")) {
+    } else if (request.getName().startsWith("Med")) {
       medRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
       medRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().startsWith("Gif")) {
+      GiftRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      GiftRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().startsWith("Lau")) {
+      LaundryRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      LaundryRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().startsWith("Mai")) {
+      MaintenanceRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      MaintenanceRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().startsWith("Mea")) {
+      MealRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      MealRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().startsWith("Mor")) {
+      MorgueRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      MorgueRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().startsWith("Tra")) {
+      TransportRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      TransportRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().startsWith("San")) {
+      SanitationRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      SanitationRequestDAO.updateStatus(request.getRequest(), request.getStatus());
     }
   }
 
   public void deleteRequest(RequestNode request) {
     nodes.remove(request);
-    request.getButton().setVisible(false);
-    if (request.getName().substring(0, 3).equals("Lab")) {
-      labRequestDAO.deleteRequest(request.getRequest());
-    } else if (request.getName().substring(0, 3).equals("Med")) {
-      medRequestDAO.deleteRequest(request.getRequest());
+    Request req = request.getRequest();
+    if (req.getName().startsWith("Med")) {
+      medRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("Lab")) {
+      labRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("Gif")) {
+      GiftRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("Lau")) {
+      LaundryRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("Mai")) {
+      MaintenanceRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("Mea")) {
+      MealRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("Mor")) {
+      MorgueRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("Tra")) {
+      TransportRequestDAO.deleteRequest(req);
+    } else if (req.getName().startsWith("San")) {
+      SanitationRequestDAO.deleteRequest(req);
     }
   }
 

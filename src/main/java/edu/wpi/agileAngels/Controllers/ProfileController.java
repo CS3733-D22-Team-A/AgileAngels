@@ -5,10 +5,12 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 
 public class ProfileController implements Initializable {
 
@@ -49,7 +51,9 @@ public class ProfileController implements Initializable {
     appController.loadPage("/edu/wpi/agileAngels/views/orgChart-view.fxml");
   }
 
-  public void updateColor() {
+  public void updateColor(ActionEvent event) {
+    MenuItem button = (MenuItem) event.getSource();
+    colorType.setText(button.getText());
     appController.color = colorType.getText().toLowerCase(Locale.ROOT);
     appController.updateMenuColor();
     appController.loadPage("/edu/wpi/agileAngels/views/profile-view.fxml");

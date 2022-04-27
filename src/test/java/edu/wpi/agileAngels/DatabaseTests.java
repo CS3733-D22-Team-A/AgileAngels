@@ -8,34 +8,34 @@ public class DatabaseTests {
   private static Adb database;
 
   public static void main(String[] args) throws SQLException {
-    database = new Adb();
-    database.initialize();
-    //  DBconnection.switchConnection();
-    testMedicalEquipmentTable();
-    testEmployeesTable();
-    testLocationsTable();
-    testServiceRequestsTable();
-    // DBconnection.shutdown();
-  }
+    /*database = new Adb();
+      database.initialize();
+      //  DBconnection.switchConnection();
+      testMedicalEquipmentTable();
+      testEmployeesTable();
+      testLocationsTable();
+      testServiceRequestsTable();
+      // DBconnection.shutdown();
+    }
 
-  public static void testMedicalEquipmentTable() {
-    Location loc1 = new Location("TOW101", 90.8, 70.8, "Floor 3", "Tower", "??", "Hallway", "HALL");
-    Location loc2 =
-        new Location("TOW102", 95.7, 70.8, "Floor 3", "Tower", "??", "Room 34", "ROOM34");
-    Location loc3 =
-        new Location("TOW103", 100.8, 70.8, "Floor 3", "Tower", "??", "Room 35", "ROOM35");
-    MedicalEquip mE = new MedicalEquip("R1", "X-Ray Machine", true, loc1, "Complete");
-    MedicalEquip mE2 = new MedicalEquip("R2", "X-Ray Machine", false, loc1, "In Progress");
-    MedicalEquip mE3 = new MedicalEquip("R3", "Bed", true, loc3, "Not Started");
-    MedicalEquip mE4 = new MedicalEquip("R4", "Bed", false, loc3, "Complete");
-    MedicalEquip mE5 = new MedicalEquip("R5", "Recliner", false, loc2, "Complete");
+    public static void testMedicalEquipmentTable() {
+      Location loc1 = new Location("TOW101", 90.8, 70.8, "Floor 3", "Tower", "??", "Hallway", "HALL");
+      Location loc2 =
+          new Location("TOW102", 95.7, 70.8, "Floor 3", "Tower", "??", "Room 34", "ROOM34");
+      Location loc3 =
+          new Location("TOW103", 100.8, 70.8, "Floor 3", "Tower", "??", "Room 35", "ROOM35");
+      MedicalEquip mE = new MedicalEquip("R1", "X-Ray Machine", true, loc1, "Complete");
+      MedicalEquip mE2 = new MedicalEquip("R2", "X-Ray Machine", false, loc1, "In Progress");
+      MedicalEquip mE3 = new MedicalEquip("R3", "Bed", true, loc3, "Not Started");
+      MedicalEquip mE4 = new MedicalEquip("R4", "Bed", false, loc3, "Complete");
+      MedicalEquip mE5 = new MedicalEquip("R5", "Recliner", false, loc2, "Complete");
 
-    // Add
-    Adb.addMedicalEquipment(mE);
-    Adb.addMedicalEquipment(mE2);
-    Adb.addMedicalEquipment(mE3);
-    Adb.addMedicalEquipment(mE4);
-    Adb.addMedicalEquipment(mE5);
+      // Add
+      Adb.addMedicalEquipment(mE);
+      Adb.addMedicalEquipment(mE2);
+      Adb.addMedicalEquipment(mE3);
+      Adb.addMedicalEquipment(mE4);
+      Adb.addMedicalEquipment(mE5);
 
     // Remove
     Adb.removeMedicalEquipment(mE2.getID());
