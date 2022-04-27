@@ -4,6 +4,7 @@ import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import edu.wpi.agileAngels.Database.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 // This class is the backend of the DAO method.
 // The objects communicate with the DB here
@@ -13,6 +14,18 @@ public class Adb {
   private static MedicalEquipmentTable medicalEquipmentTable = null;
   private static ServiceRequestTable serviceRequestTable = null;
   private static EmployeeTable employeeTable = null;
+  private static EmployeeManager employeeManager = null;
+  private static LocationDAOImpl locationDAO = null;
+  private static RequestDAOImpl medRequestDAO = null;
+  private static RequestDAOImpl labRequestDAO = null;
+  private static MedEquipImpl equipmentDAO = null;
+  private static RequestDAOImpl mainRequestImpl = null;
+  private static RequestDAOImpl transportRequestImpl = null;
+  private static RequestDAOImpl morgueRequestImpl = null;
+  private static RequestDAOImpl mealRequestImpl = null;
+  private static RequestDAOImpl giftRequestImpl = null;
+  private static RequestDAOImpl sanitationRequestImpl = null;
+  private static RequestDAOImpl laundryRequestImpl = null;
 
   /**
    * Creates database tables if they do not exist already.
@@ -57,47 +70,40 @@ public class Adb {
     }
 
     System.out.println("Apache Derby connection established!");
-    // serviceRequestTable.sortRequests("Liam");
-    // serviceRequestTable.filterRequests();
-    // serviceRequestTable.freeEmployees();
   }
 
+  /**
+   * Helper method for the initialize function.
+   *
+   * @throws SQLException
+   */
   private static void initializeHelper() throws SQLException {
-    // Create all database tables
     locationsTable.createTable();
-    medicalEquipmentTable.createTable();
+    boolean medEquipEmpty = medicalEquipmentTable.createTable();
     serviceRequestTable.createTable();
     employeeTable.createTable();
-    EmployeeManager employeeManager = EmployeeManager.getInstance();
+    employeeManager = EmployeeManager.getInstance();
     employeeManager.readCSV();
-    LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
+    locationDAO = LocationDAOImpl.getInstance();
     locationDAO.csvRead();
-    RequestDAOImpl medRequestDAO = RequestDAOImpl.getInstance("MedRequest");
-    medRequestDAO.setCount(0);
-    medRequestDAO.csvRead();
-    RequestDAOImpl labRequestDAO = RequestDAOImpl.getInstance("LabRequest");
-    labRequestDAO.setCount(0);
-    labRequestDAO.csvRead();
-    MedEquipImpl equipmentDAO = MedEquipImpl.getInstance();
-    equipmentDAO.readCSV();
-    RequestDAOImpl mainRequestImpl = RequestDAOImpl.getInstance("MaintenanceRequest");
-    mainRequestImpl.setCount(0);
-    mainRequestImpl.csvRead();
-    RequestDAOImpl transportRequestImpl = RequestDAOImpl.getInstance("TransportRequest");
-    transportRequestImpl.setCount(0);
-    transportRequestImpl.csvRead();
-    RequestDAOImpl morgueRequestImpl = RequestDAOImpl.getInstance("MorgueRequest");
-    morgueRequestImpl.setCount(0);
-    morgueRequestImpl.csvRead();
-    RequestDAOImpl giftRequestImpl = RequestDAOImpl.getInstance("GiftRequest");
-    giftRequestImpl.setCount(0);
-    giftRequestImpl.csvRead();
-    RequestDAOImpl mealRequestImpl = RequestDAOImpl.getInstance("MealRequest");
-    mealRequestImpl.setCount(0);
-    mealRequestImpl.csvRead();
-    RequestDAOImpl sanitationRequestImpl = RequestDAOImpl.getInstance("SanitationRequest");
-    sanitationRequestImpl.setCount(0);
-    sanitationRequestImpl.csvRead();
+    equipmentDAO = MedEquipImpl.getInstance();
+    if (medEquipEmpty) {
+      equipmentDAO.readCSV();
+    } else {
+      medicalEquipmentTable.getData();
+    }
+    labRequestDAO = RequestDAOImpl.getInstance("LabRequest");
+    mainRequestImpl = RequestDAOImpl.getInstance("MaintenanceRequest");
+    transportRequestImpl = RequestDAOImpl.getInstance("TransportRequest");
+    morgueRequestImpl = RequestDAOImpl.getInstance("MorgueRequest");
+    mealRequestImpl = RequestDAOImpl.getInstance("MealRequest");
+    medRequestDAO = RequestDAOImpl.getInstance("MedRequest");
+    giftRequestImpl = RequestDAOImpl.getInstance("GiftRequest");
+    sanitationRequestImpl = RequestDAOImpl.getInstance("SanitationRequest");
+    laundryRequestImpl = RequestDAOImpl.getInstance("LaundryRequest");
+    resetServiceRequests();
+
+    serviceRequestTable.getData();
   }
 
   /**
@@ -246,6 +252,87 @@ public class Adb {
   }
 
   /**
+   * Adds a medical equipment request to the HashMap
+   *
+   * @param request Medical equipment request
+   */
+  public static void addMedRequest(Request request) {
+    medRequestDAO.uploadRequest(request);
+  }
+
+  /**
+   * Adds a meal request to the HashMap
+   *
+   * @param request Meal request
+   */
+  public static void addMealRequest(Request request) {
+    mealRequestImpl.uploadRequest(request);
+  }
+
+  /**
+   * Adds a lab request to the HashMap
+   *
+   * @param request Lab request
+   */
+  public static void addLabRequest(Request request) {
+    labRequestDAO.uploadRequest(request);
+  }
+
+  /**
+   * Adds a maintenance request to the HashMap
+   *
+   * @param request Maintenance request
+   */
+  public static void addMainRequest(Request request) {
+    mainRequestImpl.uploadRequest(request);
+  }
+
+  /**
+   * Adds a patient transport request to the HashMap
+   *
+   * @param request Patient transport request
+   */
+  public static void addTransportRequest(Request request) {
+    transportRequestImpl.uploadRequest(request);
+  }
+
+  /**
+   * Adds a morgue request to the HashMap
+   *
+   * @param request Morgue request
+   */
+  public static void addMorgueRequest(Request request) {
+    morgueRequestImpl.uploadRequest(request);
+  }
+
+  /**
+   * Adds a gift request to the HashMap
+   *
+   * @param request Gift request
+   */
+  public static void addGiftRequest(Request request) {
+    giftRequestImpl.uploadRequest(request);
+  }
+
+  /**
+   * Adds a sanitation request to the HashMap
+   *
+   * @param request Sanitation request
+   */
+  public static void addSanitationRequest(Request request) {
+    sanitationRequestImpl.uploadRequest(request);
+  }
+
+  /**
+   * Adds a laundry request to the HashMap
+   *
+   * @param request Laundry request
+   */
+  public static void addLaundryRequest(Request request) {
+    laundryRequestImpl.uploadRequest(request);
+  }
+
+  /**
    * Adds a new employee to the employee table
    *
    * @param employee Employee name
@@ -253,6 +340,103 @@ public class Adb {
    */
   public static boolean addEmployee(Employee employee) {
     return employeeTable.add(employee);
+  }
+
+  /**
+   * Reads employee csv file
+   *
+   * @return True if successful
+   */
+  public static boolean readCSVEmployees() {
+    employeeManager.resetAllEmployees();
+    employeeManager.readCSV();
+    return true;
+  }
+
+  /** Resets all service request HashMaps */
+  public static void resetServiceRequests() {
+    medRequestDAO.setCount(0);
+    medRequestDAO.resetData();
+
+    labRequestDAO.setCount(0);
+    labRequestDAO.resetData();
+
+    mealRequestImpl.setCount(0);
+    mealRequestImpl.resetData();
+
+    mainRequestImpl.setCount(0);
+    mainRequestImpl.resetData();
+
+    transportRequestImpl.setCount(0);
+    transportRequestImpl.resetData();
+
+    morgueRequestImpl.setCount(0);
+    morgueRequestImpl.resetData();
+
+    giftRequestImpl.setCount(0);
+    giftRequestImpl.resetData();
+
+    sanitationRequestImpl.setCount(0);
+    sanitationRequestImpl.resetData();
+
+    laundryRequestImpl.setCount(0);
+    laundryRequestImpl.resetData();
+
+    try {
+      RequestDAOImpl.getInstance("AllRequests").setCount(0);
+      RequestDAOImpl.getInstance("AllRequests").resetData();
+    } catch (SQLException sqlException) {
+    }
+  }
+
+  /**
+   * Gets the HashMap of all the employees.
+   *
+   * @return HashMap of employees
+   */
+  public static HashMap getEmployees() {
+    return employeeManager.getAllEmployees();
+  }
+
+  /**
+   * Resets DAO objects of equipment on hashmap and reads them from database table
+   *
+   * @return HashMap of medical equipment requests
+   * @throws SQLException
+   */
+  public static HashMap getMedEquipment() throws SQLException {
+    equipmentDAO.resetAllEquips();
+    medicalEquipmentTable.getData();
+    return equipmentDAO.getAllMedicalEquipment();
+  }
+
+  /**
+   * Adds a medical equipment object to the HashMap
+   *
+   * @param equip Medical equipment
+   */
+  public static void addMedEquip(MedicalEquip equip) {
+    equipmentDAO.addEquipment(equip);
+  }
+
+  /**
+   * Reads locations csv file
+   *
+   * @return True if successful
+   */
+  public static boolean readCSVLocations() {
+    locationDAO.resetAllLocations();
+    locationDAO.csvRead();
+    return true;
+  }
+
+  /**
+   * Gets the HashMap of locations
+   *
+   * @return Locations HashMap
+   */
+  public static HashMap getLocations() {
+    return locationDAO.getAllLocations();
   }
 
   /**
@@ -265,6 +449,10 @@ public class Adb {
     return employeeTable.delete(name);
   }
 
+  public static ArrayList<String> getFreeEmployees() throws SQLException {
+    return serviceRequestTable.freeEmployees();
+  }
+
   /**
    * Updates an employee's information in the employee table
    *
@@ -275,11 +463,18 @@ public class Adb {
     return employeeTable.update(employee);
   }
 
-  public static boolean updateRequest(Request request, String employeeName, String newName) {
-    return serviceRequestTable.update(request);
+  public static void populateServiceRequests() {
+    serviceRequestTable.getData();
   }
 
-  public static ArrayList<String> getFreeEmployees() throws SQLException {
-    return serviceRequestTable.freeEmployees();
+  public static void resetMedEquipment() {
+    equipmentDAO.resetAllEquips();
+  }
+
+  public static void populateMedicalEquipment() {
+    try {
+      medicalEquipmentTable.getData();
+    } catch (SQLException sqlException) {
+    }
   }
 }

@@ -37,6 +37,10 @@ public class EmployeeManager implements EmployeeDAO {
     return this.employeeHashMap;
   }
 
+  public void resetAllEmployees() {
+    employeeHashMap = new HashMap<>();
+  }
+
   /** Gets Employee from hash. */
   public Employee getEmployee(String name) {
     return employeeHashMap.get(name);

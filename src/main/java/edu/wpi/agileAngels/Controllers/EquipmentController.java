@@ -82,9 +82,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     appController.addPropertyChangeListener(this);
     hidePopout();
 
-    locDAO.getAllLocations();
-    empDAO.getAllEmployees();
-
     for (Location loc : locationsHash.values()) {
       locationIDsByLongName.put(loc.getLongName(), loc.getNodeID());
     }
@@ -302,7 +299,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
                 dropDownString,
                 statusString,
                 descriptionString,
-                "something",
+                "",
                 "",
                 equip);
 
@@ -416,7 +413,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       if (!found.getDescription().equals(descriptionString)) {
         // found.setDescription(descriptionString);
         MedrequestImpl.updateDescription(found, descriptionString);
-        //        MedrequestImpl.updateDescription(found, descriptionString);
       }
 
       // update status

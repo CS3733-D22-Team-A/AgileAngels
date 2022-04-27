@@ -1,8 +1,8 @@
 package edu.wpi.agileAngels.Database;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import edu.wpi.agileAngels.Adb;
+import java.sql.*;
+import java.util.HashMap;
 
 public class MedicalEquipmentTable implements TableI {
 
@@ -28,7 +28,7 @@ public class MedicalEquipmentTable implements TableI {
       } else {
         preparedStatement.setString(3, "Dirty");
       }
-      preparedStatement.setString(4, medE.getLocation().getLongName());
+      preparedStatement.setString(4, medE.getLocation().getNodeID());
       preparedStatement.setString(5, medE.getStatus());
       preparedStatement.execute();
       return true;
@@ -78,7 +78,7 @@ public class MedicalEquipmentTable implements TableI {
       } else {
         preparedStatement.setString(2, "Dirty");
       }
-      preparedStatement.setString(3, medE.getLocation().getLongName());
+      preparedStatement.setString(3, medE.getLocation().getNodeID());
       preparedStatement.setString(4, medE.getStatus());
       preparedStatement.setString(5, medE.getID());
       preparedStatement.execute();
@@ -127,6 +127,44 @@ public class MedicalEquipmentTable implements TableI {
       return true;
     } catch (SQLException e) {
       return false;
+    }
+  }
+
+  @Override
+  public HashMap<String, Object> getData() throws SQLException {
+    try {
+      DBconnection.getConnection().setAutoCommit(false);
+      String sql = "SELECT * FROM MedicalEquipment";
+      HashMap<String, Location> locationHashMap = Adb.getLocations();
+
+      Connection connection = DBconnection.getConnection();
+
+      Statement statement = connection.createStatement();
+      ResultSet result = statement.executeQuery(sql);
+      HashMap<String, Object> empty = new HashMap<>();
+
+      while (result.next()) {
+
+        String name = result.getString("ID");
+        String type = result.getString("Type");
+        boolean clean;
+        if (result.getString("Clean").compareTo("Dirty") == 0) {
+          clean = false;
+        } else {
+          clean = true;
+        }
+        Location location = locationHashMap.get(result.getString("Location"));
+        String status = result.getString("Status");
+
+        MedicalEquip medicalEquip = new MedicalEquip(name, type, clean, location, status);
+
+        Adb.addMedEquip(medicalEquip);
+      }
+      DBconnection.getConnection().setAutoCommit(true);
+      return empty;
+    } catch (SQLException sqlException) {
+      DBconnection.getConnection().setAutoCommit(true);
+      return null;
     }
   }
 }
