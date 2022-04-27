@@ -69,8 +69,8 @@ public class LaundryController implements Initializable {
 
   public LaundryController() throws SQLException {}
 
-  private String[] locations = new String[9999];
-  private String[] employees = new String[9999];
+  // private String[] locations = new String[9999];
+  // private String[] employees = new String[9999];
   private String[] types = {"Whites", "Colors", "Infected", "Towels/Blankets"};
   private String[] status = {"NotStarted", "InProgress", "Complete"};
 
@@ -96,7 +96,7 @@ public class LaundryController implements Initializable {
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-    int count = 0;
+    /*int count = 0;
     for (Map.Entry<String, Employee> entry : employeesHash.entrySet()) {
       Employee emp = entry.getValue();
       employees[count] = emp.getName();
@@ -106,32 +106,28 @@ public class LaundryController implements Initializable {
     for (Location loc : locationsList) {
       locations[count] = loc.getLongName();
       count++;
+    }*/
+
+    laundryData.clear();
+    for (Map.Entry<String, Request> entry : laundryRequestImpl.getAllRequests().entrySet()) {
+      Request req = entry.getValue();
+      laundryData.add(req);
     }
 
-    if (laundryData.isEmpty()) {
-      // System.out.println("THE TABLE IS CURRENTLY EMPTY I WILL POPuLATE");
-      laundryRequestImpl.csvRead();
-      Iterator var3 = laundryRequestImpl.getAllRequests().entrySet().iterator();
-
-      for (Map.Entry<String, Request> entry : laundryRequestImpl.getAllRequests().entrySet()) {
-        Request req = entry.getValue();
-        laundryData.add(req);
-      }
-
-      for (Location loc : locationsList) {
-        MenuItem item = new MenuItem(loc.getLongName());
-        item.setOnAction(this::locationMenu);
-        laundryLocation.getItems().add(item);
-      }
-
-      // Populates employees dropdown
-      for (Map.Entry<String, Employee> entry : employeesHash.entrySet()) {
-        Employee emp = entry.getValue();
-        MenuItem item = new MenuItem(emp.getName());
-        item.setOnAction(this::employeeMenu);
-        laundryEmployee.getItems().add(item);
-      }
+    for (Location loc : locationsList) {
+      MenuItem item = new MenuItem(loc.getLongName());
+      item.setOnAction(this::locationMenu);
+      laundryLocation.getItems().add(item);
     }
+
+    // Populates employees dropdown
+    for (Map.Entry<String, Employee> entry : employeesHash.entrySet()) {
+      Employee emp = entry.getValue();
+      MenuItem item = new MenuItem(emp.getName());
+      item.setOnAction(this::employeeMenu);
+      laundryEmployee.getItems().add(item);
+    }
+
     clear();
     dashboardLoad();
     laundryTable.setItems(laundryData);
