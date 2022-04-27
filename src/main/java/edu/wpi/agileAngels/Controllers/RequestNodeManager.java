@@ -133,12 +133,33 @@ public class RequestNodeManager {
   }
 
   public void updateRequest(RequestNode request) {
-    if (request.getName().substring(0, 3).equals("Lab")) {
+    if (request.getName().startsWith("Lab")) {
       labRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
       labRequestDAO.updateStatus(request.getRequest(), request.getStatus());
-    } else if (request.getName().substring(0, 3).equals("Med")) {
+    } else if (request.getName().startsWith("Med")) {
       medRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
       medRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().startsWith("Gif")) {
+      GiftRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      GiftRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().startsWith("Lau")) {
+      LaundryRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      LaundryRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().startsWith("Mai")) {
+      MaintenanceRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      MaintenanceRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().startsWith("Mea")) {
+      MealRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      MealRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().startsWith("Mor")) {
+      MorgueRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      MorgueRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().startsWith("Tra")) {
+      TransportRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      TransportRequestDAO.updateStatus(request.getRequest(), request.getStatus());
+    } else if (request.getName().startsWith("San")) {
+      SanitationRequestDAO.updateEmployeeName(request.getRequest(), request.getEmployee());
+      SanitationRequestDAO.updateStatus(request.getRequest(), request.getStatus());
     }
   }
 
