@@ -763,6 +763,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
 
     requestNodeManager.deleteRequest(currentRequestNode);
     requestEditPane.setVisible(false);
+    deselect();
   }
 
   public void locationAdd(ActionEvent event) {
