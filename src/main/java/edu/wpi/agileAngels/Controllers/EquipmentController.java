@@ -138,7 +138,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     updateEquipAvail("5");
     /*for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 4; j++) {
-        System.out.println(availEquip[i][j]);
+        //  System.out.println(availEquip[i][j]);
       }
     }*/
     clearFields();
@@ -752,6 +752,11 @@ public class EquipmentController implements Initializable, PropertyChangeListene
       anchor
           .getStylesheets()
           .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestPurpleTest.css");
+    } else if (color.equals("yellow")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestYellowTest.css");
     }
   }
 }

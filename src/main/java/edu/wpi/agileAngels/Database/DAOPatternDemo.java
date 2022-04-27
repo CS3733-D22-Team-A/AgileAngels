@@ -32,13 +32,6 @@ public class DAOPatternDemo {
       locationDao.updateLocationFloor(data.get("FHALL02401"), "UPDATED?");
       locationDao.updateLocationType(data.get("FHALL02401"), "UPDATED?");
       locationDao.updateLocationShortName(data.get("FHALL02401"), "UPDATED?");
-      System.out.println("updated Long Name " + data.get("FHALL02401").getLongName());
-      System.out.println("updated Building " + data.get("FHALL02401").getBuilding());
-      System.out.println("updated Y Coord " + data.get("FHALL02401").getYCoord());
-      System.out.println("updated X Coord " + data.get("FHALL02401").getXCoord());
-      System.out.println("updated Floor " + data.get("FHALL02401").getFloor());
-      System.out.println("updated Node Type " + data.get("FHALL02401").getNodeType());
-      System.out.println("updated Short Type " + data.get("FHALL02401").getShortName());
       locationDao.updateLocationLongName(loc1, backupOne);
       locationDao.updateLocationBuilding(loc1, backupTwo);
       // locationDao.updateLocationYCoord(loc1, backupThree);
@@ -46,13 +39,6 @@ public class DAOPatternDemo {
       locationDao.updateLocationFloor(loc1, backupFive);
       locationDao.updateLocationType(loc1, backupSix);
       locationDao.updateLocationShortName(loc1, backupSeven);
-      System.out.println("updated Long Name " + data.get("FHALL02401").getLongName());
-      System.out.println("updated Building " + data.get("FHALL02401").getBuilding());
-      System.out.println("updated Y Coord " + data.get("FHALL02401").getYCoord());
-      System.out.println("updated X Coord " + data.get("FHALL02401").getXCoord());
-      System.out.println("updated Floor " + data.get("FHALL02401").getFloor());
-      System.out.println("updated Node Type " + data.get("FHALL02401").getNodeType());
-      System.out.println("updated Short Name " + data.get("FHALL02401").getShortName());
     }
   }
 }

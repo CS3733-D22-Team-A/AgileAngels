@@ -147,6 +147,7 @@ public class LaundryController implements Initializable {
     // Adding
     if (ID.equals("New Request")) {
       String placeholder = "?";
+
       Request laundry =
           new Request(
               placeholder,
@@ -248,6 +249,7 @@ public class LaundryController implements Initializable {
       String locationString,
       String descriptionString,
       String statusString) {
+
     Request found = null;
     int num = 0;
     for (int i = 0; i < laundryData.size(); i++) {
@@ -496,6 +498,11 @@ public class LaundryController implements Initializable {
       anchor
           .getStylesheets()
           .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestPurpleTest.css");
+    } else if (color.equals("yellow")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestYellowTest.css");
     }
   }
 }

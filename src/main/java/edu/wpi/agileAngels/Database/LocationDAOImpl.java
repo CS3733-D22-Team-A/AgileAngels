@@ -81,7 +81,7 @@ public class LocationDAOImpl implements LocationDAO {
                     csvRecord.get(7));
             data.put(csvRecord.get(0), location);
           } catch (NumberFormatException nfe) {
-            System.out.println(nfe);
+
           }
 
           ((PreparedStatement) statement).execute();

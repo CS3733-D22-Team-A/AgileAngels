@@ -58,9 +58,10 @@
             </VBox>
             <MenuButton fx:id="colorType" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="132.0" text="App Color">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Blue" />
                   <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Red" />
+                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Yellow" />
                   <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Green" />
+                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Blue" />
                   <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Purple" />
                </items>
             </MenuButton>

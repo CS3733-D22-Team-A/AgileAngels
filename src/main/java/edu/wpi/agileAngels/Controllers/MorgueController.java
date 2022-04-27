@@ -247,9 +247,7 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     morgueStatus.setText("Status");
     morgueDescription.setText("");
     morgueDescription.setPromptText("Patient Name");
-    //
-    //    System.out.println("-------------");
-    //    System.out.println(morgueData.get(0).getEmployee().getName());
+
     updateFilters();
   }
 
@@ -412,6 +410,11 @@ public class MorgueController implements Initializable, PropertyChangeListener {
       anchor
           .getStylesheets()
           .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestPurpleTest.css");
+    } else if (color.equals("yellow")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestYellowTest.css");
     }
   }
 }

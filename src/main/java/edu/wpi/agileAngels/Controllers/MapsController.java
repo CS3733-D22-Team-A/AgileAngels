@@ -757,8 +757,6 @@ public class MapsController implements Initializable, PropertyChangeListener {
             (locationNodeManager.getTypeCount(
                 addLocationTypeDropdown.getText(), appController.getCurrentFloor()));
 
-        System.out.println(typeCount);
-
         String nodeID =
             "A"
                 + addLocationTypeDropdown.getText()
@@ -766,8 +764,6 @@ public class MapsController implements Initializable, PropertyChangeListener {
                 + ((appController.getCurrentFloor().length() == 1)
                     ? ("0" + appController.getCurrentFloor())
                     : (appController.getCurrentFloor()));
-
-        System.out.println(nodeID);
 
         // check if long name is same
 
@@ -781,7 +777,7 @@ public class MapsController implements Initializable, PropertyChangeListener {
                 addLocationTypeDropdown.getText(),
                 addLocationName.getText(),
                 nodeID);
-        System.out.println("new Location");
+
         displayLocationNode(
             locationNodeManager.addNode(
                 newLocation, appController.getCurrentUser().getPermissionLevel()));

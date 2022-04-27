@@ -93,7 +93,6 @@ public class MenuController implements Initializable {
 
   public void setUserInitials(String initialsMaker) {
     userButton.setText(initialsMaker);
-    System.out.println(initialsMaker);
   }
 
   public void logout() {
@@ -120,6 +119,11 @@ public class MenuController implements Initializable {
       anchor
           .getStylesheets()
           .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/stylePurple.css");
+    } else if (newColor.equals("yellow")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleYellow.css");
     }
   }
 

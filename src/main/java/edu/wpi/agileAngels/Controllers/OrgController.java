@@ -47,7 +47,6 @@ public class OrgController implements Initializable {
       person.setOnAction(
           event -> {
             createChart(employeeManager.getEmployee(person.getText()));
-            System.out.println(person.getText());
           });
       coworkers.getChildren().add(person);
     }
@@ -92,6 +91,8 @@ public class OrgController implements Initializable {
       button.setStyle("-fx-background-color: #ae4949");
     } else if (appController.color.equals("purple")) {
       button.setStyle("-fx-background-color: #9149ae");
+    } else if (appController.color.equals("yellow")) {
+      button.setStyle("-fx-background-color: #abae49");
     }
   }
 }

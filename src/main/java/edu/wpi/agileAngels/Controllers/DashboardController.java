@@ -396,7 +396,7 @@ public class DashboardController implements Initializable, PropertyChangeListene
     equipHash = equipDAO.getAllMedicalEquipment();
 
     if (equipHash == null) {
-      // System.out.println("It's null");
+
     } else {
 
       for (Map.Entry<String, MedicalEquip> entry : equipHash.entrySet()) {
@@ -654,6 +654,28 @@ public class DashboardController implements Initializable, PropertyChangeListene
       requestGraph
           .getStylesheets()
           .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/DashCSSPurple.css");
+    }
+
+    if (color.toLowerCase(Locale.ROOT).equals("yellow")) {
+      floor5.setStyle("-fx-background-color: #ddd798; ");
+      floor4.setStyle("-fx-background-color: #ccc46f; ");
+      floor3.setStyle("-fx-background-color: #b3bb3e; ");
+      floor2.setStyle("-fx-background-color: #a3a127; ");
+      floorLL1.setStyle("-fx-background-color: #7f8a20; ");
+      floorLL2.setStyle("-fx-background-color: #716f0f; ");
+
+      requestTable.getStylesheets().removeAll();
+      requestTable
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestYellowTest.css");
+      employeeTable.getStylesheets().removeAll();
+      employeeTable
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestYellowTest.css");
+      requestGraph.getStylesheets().removeAll();
+      requestGraph
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/DashCSSYellow.css");
     }
 
     // back to default
