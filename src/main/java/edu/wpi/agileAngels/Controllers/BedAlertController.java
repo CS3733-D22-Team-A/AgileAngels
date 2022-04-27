@@ -45,7 +45,7 @@ public class BedAlertController {
               employeeDAO.getEmployee("James"),
               medEquip.getLocation(),
               "Bed",
-              "notStarted",
+              "Not Started",
               "describe",
               "something",
               "Clean",
