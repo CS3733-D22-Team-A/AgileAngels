@@ -234,7 +234,7 @@
                                     <graphic>
                                         <VBox alignment="CENTER" prefHeight="0.0" prefWidth="28.0" spacing="20.0">
                                             <children>
-                                    <ImageView fitHeight="60.0" fitWidth="140.0">
+                                    <ImageView fitHeight="60.0" fitWidth="100.0">
                                        <image>
                                           <Image url="@../assets/icons/noun-stretcher-3050320.png" />
                                        </image>
