@@ -98,6 +98,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     for (Map.Entry<String, Request> entry : MedrequestImpl.getAllRequests().entrySet()) {
       Request req = entry.getValue();
       medData.add(req);
+      System.out.println("REQUEST IN HASH: " + req.getName());
     }
     equipmentTable.setItems(medData);
 

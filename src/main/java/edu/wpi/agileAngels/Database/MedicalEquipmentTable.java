@@ -132,32 +132,39 @@ public class MedicalEquipmentTable implements TableI {
 
   @Override
   public HashMap<String, Object> getData() throws SQLException {
-    String sql = "SELECT * FROM MedicalEquipment";
-    HashMap<String, Location> locationHashMap = Adb.getLocations();
+    try {
+      DBconnection.getConnection().setAutoCommit(false);
+      String sql = "SELECT * FROM MedicalEquipment";
+      HashMap<String, Location> locationHashMap = Adb.getLocations();
 
-    Connection connection = DBconnection.getConnection();
+      Connection connection = DBconnection.getConnection();
 
-    Statement statement = connection.createStatement();
-    ResultSet result = statement.executeQuery(sql);
-    HashMap<String, Object> empty = new HashMap<>();
+      Statement statement = connection.createStatement();
+      ResultSet result = statement.executeQuery(sql);
+      HashMap<String, Object> empty = new HashMap<>();
 
-    while (result.next()) {
-      String name = result.getString("ID");
-      String type = result.getString("Type");
-      boolean clean;
-      if (result.getString("Clean").compareTo("false") == 0) {
-        clean = false;
-      } else {
-        clean = true;
+      while (result.next()) {
+
+        String name = result.getString("ID");
+        String type = result.getString("Type");
+        boolean clean;
+        if (result.getString("Clean").compareTo("false") == 0) {
+          clean = false;
+        } else {
+          clean = true;
+        }
+        Location location = locationHashMap.get(result.getString("Location"));
+        String status = result.getString("Status");
+
+        MedicalEquip medicalEquip = new MedicalEquip(name, type, clean, location, status);
+
+        Adb.addMedEquip(medicalEquip);
       }
-      Location location = locationHashMap.get(result.getString("Location"));
-      String status = result.getString("Status");
-
-      MedicalEquip medicalEquip = new MedicalEquip(name, type, clean, location, status);
-
-      Adb.addMedEquip(medicalEquip);
+      DBconnection.getConnection().setAutoCommit(true);
+      return empty;
+    } catch (SQLException sqlException) {
+      DBconnection.getConnection().setAutoCommit(true);
+      return null;
     }
-
-    return empty;
   }
 }
