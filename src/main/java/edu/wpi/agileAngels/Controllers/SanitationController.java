@@ -140,6 +140,7 @@ public class SanitationController implements Initializable, PropertyChangeListen
               "N/A");
       saniData.add(req);
       saniRequestImpl.addRequest(req);
+      updateDashAdding(req.getStatus());
     } else { // Editing
       Request req = saniRequestImpl.getAllRequests().get(sanIDLabel.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {

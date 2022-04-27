@@ -47,7 +47,6 @@ public class OrgController implements Initializable {
       person.setOnAction(
           event -> {
             createChart(employeeManager.getEmployee(person.getText()));
-            System.out.println(person.getText());
           });
       coworkers.getChildren().add(person);
     }

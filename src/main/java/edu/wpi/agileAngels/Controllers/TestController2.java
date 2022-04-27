@@ -6,7 +6,5 @@ import javafx.fxml.FXML;
 public class TestController2 {
 
   @FXML
-  public void ThankYouNathan(ActionEvent event) {
-    System.out.println("hello");
-  }
+  public void ThankYouNathan(ActionEvent event) {}
 }

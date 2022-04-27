@@ -218,7 +218,7 @@ public class LabController implements Initializable, PropertyChangeListener {
               "N/A");
       labData.add(req);
       labRequestImpl.addRequest(req);
-      updateDashAdding(stat);
+      updateDashAdding(req.getStatus());
     } else { // Editing
       Request req = labRequestImpl.getAllRequests().get(labID2.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
@@ -229,7 +229,7 @@ public class LabController implements Initializable, PropertyChangeListener {
         labRequestImpl.updateEmployeeName(req, emp);
       }
       if (!req.getStatus().equals(stat)) {
-        System.out.println(stat + " " + req.getStatus());
+
         updateDashAdding(stat);
         updateDashSubtracting(req.getStatus());
         labRequestImpl.updateStatus(req, stat);
@@ -303,7 +303,7 @@ public class LabController implements Initializable, PropertyChangeListener {
     if (notStartedNumber.getText().equals("-")
         && inProgressNumber.getText().equals("-")
         && completedNumber.getText().equals("-")) {
-      System.out.println("THE NUMBERS ARE EMPTY, RELEASE THE HOUNDS");
+
       Iterator var3 = labRequestImpl.getAllRequests().entrySet().iterator();
       while (var3.hasNext()) {
         Map.Entry<String, Request> entry = (Map.Entry) var3.next();
@@ -311,19 +311,15 @@ public class LabController implements Initializable, PropertyChangeListener {
         if (entry.getValue().getStatus().equals("inProgress")
             || entry.getValue().getStatus().equals("In Progress")) {
           statusInProgress++;
-          System.out.println("beep");
         }
         if (entry.getValue().getStatus().equals("notStarted")
             || entry.getValue().getStatus().equals("Not Started")) {
           statusNotStarted++;
-          System.out.println("boop");
         }
         if (entry.getValue().getStatus().equals("Complete")
             || entry.getValue().getStatus().equals("complete")) {
           statusComplete++;
-          System.out.println("hi");
         }
-        System.out.println(entry.getValue().getStatus());
       }
       setDashboard(statusNotStarted, statusInProgress, statusComplete);
     }
@@ -389,7 +385,7 @@ public class LabController implements Initializable, PropertyChangeListener {
   }
 
   private void updateDashAdding(String status) {
-    System.out.println(status);
+
     if (status.equals("not started")
         || status.equals("Not Started")
         || status.equals("notStarted")) {

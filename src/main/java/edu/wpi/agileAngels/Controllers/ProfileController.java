@@ -28,7 +28,6 @@ public class ProfileController implements Initializable {
       userTitle.setText((appController.getCurrentUser().getSupervisor().getName()));
       for (Employee e : appController.getCurrentUser().getSupervisees()) {
         supervisees += e.getName() + ", ";
-        System.out.println(e.getName());
       }
 
       userSupervisees.setText(supervisees);

@@ -194,7 +194,7 @@ public class MaintenanceController implements Initializable, PropertyChangeListe
               "N/A");
       maintenanceData.add(req);
       mainRequestImpl.addRequest(req);
-      updateDashAdding(stat);
+      updateDashAdding(req.getStatus());
     } else { // Editing
       Request req = mainRequestImpl.getAllRequests().get(mainIDLabel.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {

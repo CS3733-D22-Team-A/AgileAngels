@@ -93,7 +93,6 @@ public class MenuController implements Initializable {
 
   public void setUserInitials(String initialsMaker) {
     userButton.setText(initialsMaker);
-    System.out.println(initialsMaker);
   }
 
   public void logout() {

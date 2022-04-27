@@ -59,7 +59,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     hidePopout();
-    System.out.println("uhhh: " + giftRequestImpl);
+
     appController.addPropertyChangeListener(this);
     hidePopout();
     statusNotStarted = 0;
@@ -203,7 +203,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     String desc = giftDescription.getText();
     String send = giftSender.getText();
     String rec = giftRecipient.getText();
-    System.out.println(send + " " + rec);
+
     // Adding
     if (giftIDLabel.getText().equals("New Request")) {
       Request req =
@@ -218,7 +218,7 @@ public class GiftsController implements Initializable, PropertyChangeListener {
               send);
       giftData.add(req);
       giftRequestImpl.addRequest(req);
-      updateDashAdding(stat);
+      updateDashAdding(req.getStatus());
     } else { // Editing
       Request req = giftRequestImpl.getAllRequests().get(giftIDLabel.getText());
       if (!req.getLocation().getNodeID().equals(loc)) {
@@ -247,7 +247,6 @@ public class GiftsController implements Initializable, PropertyChangeListener {
       }
       for (int i = 0; i < giftData.size(); i++) {
         if (giftData.get(i).getName().equals(req.getName())) {
-          System.out.println("Status: " + req.getStatus() + " Attr1: " + req.getAttribute1());
           giftData.set(i, req);
         }
       }
