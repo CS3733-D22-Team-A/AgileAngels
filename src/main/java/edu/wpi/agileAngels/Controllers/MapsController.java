@@ -747,6 +747,20 @@ public class MapsController implements Initializable, PropertyChangeListener {
   }
 
   public void requestDelete(ActionEvent event) {
+    if (currentRequestNode.getFloor().equals("5")) {
+      pane5.getChildren().remove(currentRequestNode.getButton());
+    } else if (currentRequestNode.getFloor().equals("4")) {
+      pane4.getChildren().remove(currentRequestNode.getButton());
+    } else if (currentRequestNode.getFloor().equals("3")) {
+      pane3.getChildren().remove(currentRequestNode.getButton());
+    } else if (currentRequestNode.getFloor().equals("2")) {
+      pane2.getChildren().remove(currentRequestNode.getButton());
+    } else if (currentRequestNode.getFloor().equals("L1")) {
+      paneL1.getChildren().remove(currentRequestNode.getButton());
+    } else if (currentRequestNode.getFloor().equals("l2")) {
+      paneL2.getChildren().remove(currentRequestNode.getButton());
+    }
+
     requestNodeManager.deleteRequest(currentRequestNode);
     requestEditPane.setVisible(false);
   }

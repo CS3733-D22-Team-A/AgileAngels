@@ -18,6 +18,7 @@ public class RequestNodeManager {
   private RequestDAOImpl TransportRequestDAO = RequestDAOImpl.getInstance("TransportRequest");
   private RequestDAOImpl GiftRequestDAO = RequestDAOImpl.getInstance("GiftRequest");
   private RequestDAOImpl MorgueRequestDAO = RequestDAOImpl.getInstance("MorgueRequest");
+  private RequestDAOImpl AllRequestDAO = RequestDAOImpl.getInstance("AllRequests");
   private EmployeeManager empDAO = EmployeeManager.getInstance();
   private HashMap<String, RequestNode> nodes = new HashMap<>();
   private LocationDAOImpl locationDAO = LocationDAOImpl.getInstance();
@@ -142,12 +143,7 @@ public class RequestNodeManager {
 
   public void deleteRequest(RequestNode request) {
     nodes.remove(request);
-    request.getButton().setVisible(false);
-    if (request.getName().substring(0, 3).equals("Lab")) {
-      labRequestDAO.deleteRequest(request.getRequest());
-    } else if (request.getName().substring(0, 3).equals("Med")) {
-      medRequestDAO.deleteRequest(request.getRequest());
-    }
+    AllRequestDAO.deleteRequest(request.getRequest());
   }
 
   public void setVisibilityOfType(String type, Boolean b) {
