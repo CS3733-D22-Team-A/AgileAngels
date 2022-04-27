@@ -66,49 +66,6 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       uploadButton.setDisable(true);
     }
     setColor(appController.color);
-
-    MenuSpeech thread = null;
-    try {
-      thread = new MenuSpeech();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    String[] args = new String[50];
-    try {
-      thread.main(args);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    String res = thread.checkString();
-    while (res.compareTo("None") == 0) {
-      res = thread.checkString();
-    }
-    if (res.compareTo("lab") == 0) {
-      appController.loadPage("/edu/wpi/agileAngels/views/lab-view.fxml");
-    }
-  }
-
-  public void requestMade(String req) {
-    if (req == "lab") {
-      System.out.println("MAKE A LAB REQUEST");
-      appController.loadPage("/edu/wpi/agileAngels/views/lab-view.fxml");
-    }
-  }
-
-  public void listeningforCommands() throws IOException {
-    MenuSpeech speech = new MenuSpeech();
-    String res = speech.listen();
-    speech.startConfiguration();
-    while (res != null) {
-      res = speech.listen();
-      if (res.compareTo("lab") == 0) {
-        appController.loadPage("/edu/wpi/agileAngels/views/lab-view.fxml");
-      }
-    }
-    speech.closeRecognition();
-    if (res.compareTo("lab") == 0) {
-      appController.loadPage("/edu/wpi/agileAngels/views/lab-view.fxml");
-    }
   }
 
   @Override
@@ -146,6 +103,18 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       grText.setText("Gift Request");
       launText.setText("Laundry Request");
       ptText.setText("Patient Transport");
+    }
+    MenuSpeech thread = null;
+    try {
+      thread = new MenuSpeech();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    String[] args = new String[50];
+    try {
+      thread.main(args);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 
@@ -213,6 +182,7 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
 
   @FXML
   public void saveToCSV() {
+
     // do things here
   }
 
