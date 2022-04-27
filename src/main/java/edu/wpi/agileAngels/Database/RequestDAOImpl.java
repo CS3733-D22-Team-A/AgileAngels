@@ -229,6 +229,11 @@ public class RequestDAOImpl implements RequestDAO {
 
   public void deleteRequest(Request request) {
     this.reqData.remove(request.getName());
+    try {
+      RequestDAOImpl.getInstance("AllRequests").reqData.remove(request.getName());
+    } catch (SQLException sqlException) {
+    }
+
     String name = request.getName();
     Adb.removeRequest(name);
   }

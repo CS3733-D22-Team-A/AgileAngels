@@ -148,7 +148,7 @@ public class MedicalEquipmentTable implements TableI {
         String name = result.getString("ID");
         String type = result.getString("Type");
         boolean clean;
-        if (result.getString("Clean").compareTo("false") == 0) {
+        if (result.getString("Clean").compareTo("Dirty") == 0) {
           clean = false;
         } else {
           clean = true;

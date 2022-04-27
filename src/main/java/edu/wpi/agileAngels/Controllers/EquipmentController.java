@@ -98,7 +98,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     for (Map.Entry<String, Request> entry : MedrequestImpl.getAllRequests().entrySet()) {
       Request req = entry.getValue();
       medData.add(req);
-      System.out.println("REQUEST IN HASH: " + req.getName());
     }
     equipmentTable.setItems(medData);
 
@@ -307,7 +306,7 @@ public class EquipmentController implements Initializable, PropertyChangeListene
                 dropDownString,
                 statusString,
                 descriptionString,
-                "something",
+                "",
                 "",
                 equip);
 
@@ -400,7 +399,6 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     if (found != null) {
 
       if (!dropDownString.equals("Equipment Type")) {
-        // String type = equipmentType.getText();
 
         MedicalEquip equip = null;
         Boolean foundEquip = false;
@@ -423,39 +421,30 @@ public class EquipmentController implements Initializable, PropertyChangeListene
           found.setType(dropDownString);
           found.setMedicalEquip(equip);
           MedrequestImpl.updateType(found, dropDownString);
-          // System.out.println("Found Equip");
         }
       }
 
       if (!locationString.equals("Delivery Location")) {
-        // .out.println("LOCATION STRING CHANGE");
         // System.out.println("GETTING LOCATION BASED ON " + locationString);
         Location location = locDAO.getLocation(locationString);
         found.setLocation(location);
         MedrequestImpl.updateLocation(found, location);
 
-        // MedrequestImpl.updateLocation(found, location);
         if (found.getMedicalEquip() != null) {
           equipDAO.updateEquipmentLocation(found.getMedicalEquip(), found.getLocation());
         }
       }
       if (!employeeString.equals("Employee")) {
         Employee employee = empDAO.getEmployee(employeeString);
-        // found.setEmployee(employee);
         MedrequestImpl.updateEmployeeName(found, employee.getName());
-        //        MedrequestImpl.updateEmployeeName(found, employee.getName());
       }
 
       if (!descriptionString.equals("Description")) {
-        // found.setDescription(descriptionString);
         MedrequestImpl.updateDescription(found, descriptionString);
-        //        MedrequestImpl.updateDescription(found, descriptionString);
       }
 
       if (!statusString.equals("Status")) {
-        // found.setStatus(statusString);
         MedrequestImpl.updateStatus(found, statusString);
-        //  MedrequestImpl.updateStatus(found, statusString);
 
         // set the status and location of the medicalEquipment object
         // corresponding to the request
