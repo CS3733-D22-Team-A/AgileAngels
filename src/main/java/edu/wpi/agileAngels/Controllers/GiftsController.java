@@ -263,11 +263,17 @@ public class GiftsController implements Initializable, PropertyChangeListener {
 
   @FXML
   public void delete() {
+
     try {
       String id = ((Request) giftTable.getSelectionModel().getSelectedItem()).getName();
-      updateDashSubtracting(giftRequestImpl.getAllRequests().get(id).getStatus());
-      // removes the request from the table and dropdown
 
+      // removes the request from the table and dropdown
+      for (int i = 0; i < giftData.size(); i++) {
+        if (giftData.get(i).getName().equals(id)) {
+          giftData.remove(i);
+        }
+      }
+      updateDashSubtracting(giftRequestImpl.getAllRequests().get(id).getStatus());
       // delete from hash map and database table
       giftRequestImpl.deleteRequest(giftRequestImpl.getAllRequests().get(id));
 
