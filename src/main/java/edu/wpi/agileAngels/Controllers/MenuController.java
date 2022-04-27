@@ -119,6 +119,11 @@ public class MenuController implements Initializable {
       anchor
           .getStylesheets()
           .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/stylePurple.css");
+    } else if (newColor.equals("yellow")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleYellow.css");
     }
   }
 

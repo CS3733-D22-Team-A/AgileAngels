@@ -431,6 +431,11 @@ public class SanitationController implements Initializable, PropertyChangeListen
       anchor
           .getStylesheets()
           .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestPurpleTest.css");
+    } else if (color.equals("yellow")) {
+      anchor.getStylesheets().removeAll();
+      anchor
+          .getStylesheets()
+          .add("/edu/wpi/agileAngels/views/stylesheets/ColorSchemes/styleRequestYellowTest.css");
     }
   }
 }

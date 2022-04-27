@@ -62,6 +62,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Red" />
                   <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Green" />
                   <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Purple" />
+                  <MenuItem mnemonicParsing="false" onAction="#typeMenu" text="Yellow" />
                </items>
             </MenuButton>
          </children>
