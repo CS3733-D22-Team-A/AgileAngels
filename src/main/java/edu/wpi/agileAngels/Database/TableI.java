@@ -1,5 +1,8 @@
 package edu.wpi.agileAngels.Database;
 
+import java.sql.SQLException;
+import java.util.HashMap;
+
 public interface TableI {
   boolean add(Object obj);
 
@@ -10,4 +13,6 @@ public interface TableI {
   boolean createTable();
 
   boolean dropTable();
+
+  HashMap<String, Object> getData() throws SQLException;
 }

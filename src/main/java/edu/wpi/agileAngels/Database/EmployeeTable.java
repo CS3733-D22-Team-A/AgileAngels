@@ -1,8 +1,10 @@
 package edu.wpi.agileAngels.Database;
 
+import edu.wpi.agileAngels.Adb;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 
 public class EmployeeTable implements TableI {
   /**
@@ -155,5 +157,11 @@ public class EmployeeTable implements TableI {
     } catch (SQLException sqlException) {
       return false;
     }
+  }
+
+  @Override
+  public HashMap<String, Object> getData() throws SQLException {
+    Adb.readCSVEmployees();
+    return Adb.getEmployees();
   }
 }

@@ -17,6 +17,7 @@ public class RequestDAOImpl implements RequestDAO {
   private int count;
   private String DAOtype;
 
+  // Implementations for each type of request, employees, and locations
   private static EmployeeManager empManager = null;
   private LocationDAOImpl locDAO = LocationDAOImpl.getInstance();
   private static RequestDAOImpl AllRequestsDAO = null;
@@ -32,6 +33,7 @@ public class RequestDAOImpl implements RequestDAO {
 
   HashMap<String, ArrayList> requestTypes = new HashMap<>();
 
+  // Arraylists of each request's types
   ArrayList labTypes = new ArrayList<String>();
   ArrayList equipTypes = new ArrayList<String>();
   ArrayList sanitationTypes = new ArrayList<String>();
@@ -106,6 +108,13 @@ public class RequestDAOImpl implements RequestDAO {
     return requestTypes;
   }
 
+  /**
+   * Ensures only one instance of each type of RequestDAOImpl is made for each type of request
+   *
+   * @param type Request type
+   * @return RequestDAOImpl of specified request type
+   * @throws SQLException
+   */
   public static RequestDAOImpl getInstance(String type) throws SQLException {
     HashMap<String, Request> data = new HashMap();
 
@@ -163,6 +172,11 @@ public class RequestDAOImpl implements RequestDAO {
     return null;
   }
 
+  /**
+   * Gets the HashMap of all requests
+   *
+   * @return HashMap of all requests
+   */
   public HashMap<String, Request> getAllRequests() {
     return this.reqData;
   }
@@ -191,13 +205,11 @@ public class RequestDAOImpl implements RequestDAO {
   public void updateLocation(Request request, Location newLocation) {
     request.setLocation(newLocation);
     Adb.updateRequest(request);
-    // Adb.updateRequest(request, "Location", newLocation);
   }
 
   public void updateDescription(Request request, String description) {
     request.setDescription(description);
     Adb.updateRequest(request);
-    // Adb.updateRequest(request, "Description", description);
   }
 
   public void updateStatus(Request request, String newStatus) {
@@ -217,10 +229,20 @@ public class RequestDAOImpl implements RequestDAO {
 
   public void deleteRequest(Request request) {
     this.reqData.remove(request.getName());
+    try {
+      RequestDAOImpl.getInstance("AllRequests").reqData.remove(request.getName());
+    } catch (SQLException sqlException) {
+    }
+
     String name = request.getName();
     Adb.removeRequest(name);
   }
 
+  /**
+   * Adds a new request to the HashMap and database table
+   *
+   * @param request Service request
+   */
   public void addRequest(Request request) {
     ++this.count;
     String letter = "";
@@ -247,6 +269,7 @@ public class RequestDAOImpl implements RequestDAO {
     letter = letter + Integer.toString(this.count);
     request.setName(letter);
     this.reqData.put(letter, request);
+    // System.out.println("ADDS A REQUEST: " + letter);
     try {
       RequestDAOImpl.getInstance("AllRequests").reqData.put(letter, request);
     } catch (SQLException sqlException) {
@@ -255,6 +278,7 @@ public class RequestDAOImpl implements RequestDAO {
     Adb.addRequest(request);
   }
 
+  /** Reads from the service request csv file. */
   public void csvRead() {
     String line = "";
     String splitBy = ",";
@@ -308,6 +332,12 @@ public class RequestDAOImpl implements RequestDAO {
     return;
   }
 
+  /**
+   * Adds a service request to the HashMap and database table depending on a string of values
+   *
+   * @param values
+   * @throws SQLException
+   */
   private void makeRequest(String[] values) throws SQLException {
     Request request =
         new Request(
@@ -402,6 +432,10 @@ public class RequestDAOImpl implements RequestDAO {
     return Adb.getFreeEmployees();
   }
 
+  public void resetData() {
+    this.reqData = new HashMap<String, Request>();
+  }
+
   public int getCount() {
     return count;
   }
@@ -412,5 +446,13 @@ public class RequestDAOImpl implements RequestDAO {
 
   public void incrementCount() {
     this.count++;
+  }
+
+  public void uploadRequest(Request request) {
+    this.reqData.put(request.getName(), request);
+    try {
+      RequestDAOImpl.getInstance("AllRequests").reqData.put(request.getName(), request);
+    } catch (SQLException sqlException) {
+    }
   }
 }

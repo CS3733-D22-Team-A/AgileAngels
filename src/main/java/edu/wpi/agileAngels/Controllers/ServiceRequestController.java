@@ -2,10 +2,12 @@ package edu.wpi.agileAngels.Controllers;
 
 import com.jfoenix.controls.JFXToggleButton;
 import edu.wpi.agileAngels.Database.DBconnection;
+import edu.wpi.agileAngels.Database.RequestDAOImpl;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +18,7 @@ import javafx.scene.layout.AnchorPane;
 
 // brings you to pages
 public class ServiceRequestController implements Initializable, PropertyChangeListener {
-
+  RequestDAOImpl req = RequestDAOImpl.getInstance("AllRequests");
   @FXML AnchorPane anchor;
 
   @FXML
@@ -49,6 +51,8 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       ptText;
 
   AppController appController = AppController.getInstance();
+
+  public ServiceRequestController() throws SQLException {}
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -170,12 +174,14 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
   @FXML
   public void saveToCSV() {
     // do things here
+    req.outputCSVFile();
   }
 
   @FXML
   public void uploadToCSV() {
     // do things here
     System.out.println("Upload to CSV");
+    req.csvRead();
   }
 
   public void setColor(String color) {
