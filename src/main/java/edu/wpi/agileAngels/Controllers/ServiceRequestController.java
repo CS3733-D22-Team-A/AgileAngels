@@ -67,10 +67,31 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
     }
     setColor(appController.color);
 
+    MenuSpeech thread = null;
     try {
-      listeningforCommands();
+      thread = new MenuSpeech();
     } catch (IOException e) {
       e.printStackTrace();
+    }
+    String[] args = new String[50];
+    try {
+      thread.main(args);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    String res = thread.checkString();
+    while (res.compareTo("None") == 0) {
+      res = thread.checkString();
+    }
+    if (res.compareTo("lab") == 0) {
+      appController.loadPage("/edu/wpi/agileAngels/views/lab-view.fxml");
+    }
+  }
+
+  public void requestMade(String req) {
+    if (req == "lab") {
+      System.out.println("MAKE A LAB REQUEST");
+      appController.loadPage("/edu/wpi/agileAngels/views/lab-view.fxml");
     }
   }
 

@@ -6,10 +6,7 @@ public class Main {
     // Men thread = new speechThread();
     // thread.run();
 
-    MenuSpeech thread = new MenuSpeech();
-    thread.main(args);
-
-    // Aapp.launch(Aapp.class, args);
+    Aapp.launch(Aapp.class, args);
   }
 
   // test
