@@ -7,6 +7,8 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import edu.wpi.agileAngels.MenuSpeech;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -65,6 +67,16 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
       uploadButton.setDisable(true);
     }
     setColor(appController.color);
+
+    String[] args = new String[50];
+    MenuSpeech speech = new MenuSpeech();
+    try {
+      speech.main(args);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+
   }
 
   @Override
