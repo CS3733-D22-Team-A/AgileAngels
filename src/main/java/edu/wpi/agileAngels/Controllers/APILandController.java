@@ -2,6 +2,7 @@ package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.cs3733.D22.teamA.*;
 import edu.wpi.teamW.ServiceException;
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
@@ -17,11 +18,10 @@ public class APILandController {
 
   public APILandController() throws SQLException {}
 
-  public void mgbAction(ActionEvent event) {
+  public void mgbAction(ActionEvent event) throws FileNotFoundException {
     // edu.wpi.cs3733.D22.teamA.API.run()
 
-    API.run(
-        0, 0, 900, 900, "/Test/AgileAngelsTest/AgileAngels/src/main/resources/MGBEmployees.csv");
+    API.run(0, 0, 900, 900, "/MGBEmployees.csv");
   }
 
   public void loadCredits() {

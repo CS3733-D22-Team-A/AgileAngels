@@ -70,7 +70,7 @@ dependencies {
 
     dependencies {
         implementation fileTree(dir: 'APIJAR', include: '*.jar')
-        implementation name: 'edu.wpi.cs3733.D22.teamA'
+        implementation name: 'MGNAPI'
         implementation name: 'LanguageInterpAPI'
         implementation name: 'ExternalTransportAPI'}
     implementation 'org.jetbrains:annotations:20.1.0'
