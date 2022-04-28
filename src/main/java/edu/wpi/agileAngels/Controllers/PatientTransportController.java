@@ -109,9 +109,11 @@ public class PatientTransportController implements Initializable, PropertyChange
     // Populates employees dropdown
     for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
       Employee emp = entry.getValue();
-      MenuItem item = new MenuItem(emp.getName());
-      item.setOnAction(this::mainEmployeeMenu);
-      transportEmployee.getItems().add(item);
+      if (!emp.getDepartment().equals("Staff")) {
+        MenuItem item = new MenuItem(emp.getName());
+        item.setOnAction(this::mainEmployeeMenu);
+        transportEmployee.getItems().add(item);
+      }
     }
     setColor(appController.color);
     clear();

@@ -2,6 +2,7 @@ package edu.wpi.agileAngels;
 
 import edu.wpi.agileAngels.Controllers.EmployeeManager;
 import edu.wpi.agileAngels.Database.*;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public class Adb {
    *
    * @throws SQLException
    */
-  public void initialize() throws SQLException {
+  public void initialize() throws SQLException, IOException {
 
     // Apache Derby and table creation
     System.out.println("-------Embedded Apache Derby Connection Testing --------");

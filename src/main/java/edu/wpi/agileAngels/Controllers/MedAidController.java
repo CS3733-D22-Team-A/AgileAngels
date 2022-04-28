@@ -59,9 +59,7 @@ public class MedAidController implements Initializable {
     String answer = Condition.getText();
 
     Condition con = data.get(answer);
-    // System.out.println(con);
 
-    //  System.out.println("answer " + con.treatments.size());
     int size = con.treatments.size();
     int count = 0;
     for (int i = 0; i < size; i++) {
@@ -113,7 +111,6 @@ public class MedAidController implements Initializable {
 
   private void populateTable(String condition) {
 
-    System.out.println(condition);
     if (condition.equals("Cancer")) {
       for (int i = 0; i < Radiology.size(); i++) {
         MedicalStaff a =
@@ -259,13 +256,15 @@ public class MedAidController implements Initializable {
   private void sortEmployees() {
     for (int i = 0; i < employees.size(); i++) {
       Employee e = employees.get(i);
-      if (e.getDepartment().equals("man")) Management.add(e);
-      if (e.getDepartment().equals("Nursing")) Nursing.add(e);
-      if (e.getDepartment().equals("Oncology")) Oncology.add(e);
-      if (e.getDepartment().equals("Radiology")) Radiology.add(e);
-      if (e.getDepartment().equals("Neurology")) Neurology.add(e);
-      if (e.getDepartment().equals("Surgery")) Surgery.add(e);
-      if (e.getDepartment().equals("Sanitation")) Sanitation.add(e);
+      if (!e.getDepartment().equals("Staff")) {
+        if (e.getDepartment().equals("man")) Management.add(e);
+        if (e.getDepartment().equals("Nursing")) Nursing.add(e);
+        if (e.getDepartment().equals("Oncology")) Oncology.add(e);
+        if (e.getDepartment().equals("Radiology")) Radiology.add(e);
+        if (e.getDepartment().equals("Neurology")) Neurology.add(e);
+        if (e.getDepartment().equals("Surgery")) Surgery.add(e);
+        if (e.getDepartment().equals("Sanitation")) Sanitation.add(e);
+      }
     }
   }
 

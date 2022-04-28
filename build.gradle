@@ -26,12 +26,18 @@ jar {
 repositories {
     mavenCentral()
     jcenter()
+    mavenLocal()
     maven {
         url 'https://apisite.crmyers.dev/maven'
+    }
+    maven{
+        url "https://oss.sonatype.org/content/repositories/snapshots"
     }
     flatDir{
         dir 'APIJAR'
     }
+
+
 
 }
 
@@ -44,6 +50,8 @@ run {
 }
 
 dependencies {
+    compile group: 'edu.cmu.sphinx', name: 'sphinx4-core', version:'5prealpha-SNAPSHOT'
+    compile group: 'edu.cmu.sphinx', name: 'sphinx4-data', version:'5prealpha-SNAPSHOT'
     implementation(
             'com.jfoenix:jfoenix:9.0.10',
 

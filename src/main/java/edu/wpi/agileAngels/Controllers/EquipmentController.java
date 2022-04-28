@@ -114,11 +114,12 @@ public class EquipmentController implements Initializable, PropertyChangeListene
     // Populates employees dropdown
     for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
       Employee emp = entry.getValue();
-      MenuItem item = new MenuItem(emp.getName());
-      item.setOnAction(this::employeeMenu);
-      equipmentEmployeeText.getItems().add(item);
+      if (!emp.getDepartment().equals("Staff")) {
+        MenuItem item = new MenuItem(emp.getName());
+        item.setOnAction(this::employeeMenu);
+        equipmentEmployeeText.getItems().add(item);
+      }
     }
-
     setColor(appController.color);
 
     equipTypes.add("Bed");

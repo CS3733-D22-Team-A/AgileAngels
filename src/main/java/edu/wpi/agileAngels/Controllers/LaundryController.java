@@ -96,18 +96,6 @@ public class LaundryController implements Initializable {
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-    /*int count = 0;
-    for (Map.Entry<String, Employee> entry : employeesHash.entrySet()) {
-      Employee emp = entry.getValue();
-      employees[count] = emp.getName();
-      count++;
-    }
-    count = 0;
-    for (Location loc : locationsList) {
-      locations[count] = loc.getLongName();
-      count++;
-    }*/
-
     laundryData.clear();
     for (Map.Entry<String, Request> entry : laundryRequestImpl.getAllRequests().entrySet()) {
       Request req = entry.getValue();
@@ -123,11 +111,12 @@ public class LaundryController implements Initializable {
     // Populates employees dropdown
     for (Map.Entry<String, Employee> entry : employeesHash.entrySet()) {
       Employee emp = entry.getValue();
-      MenuItem item = new MenuItem(emp.getName());
-      item.setOnAction(this::employeeMenu);
-      laundryEmployee.getItems().add(item);
+      if (!emp.getDepartment().equals("Staff")) {
+        MenuItem item = new MenuItem(emp.getName());
+        item.setOnAction(this::employeeMenu);
+        laundryEmployee.getItems().add(item);
+      }
     }
-
     clear();
     dashboardLoad();
     laundryTable.setItems(laundryData);

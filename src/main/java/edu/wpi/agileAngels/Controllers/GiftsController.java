@@ -98,9 +98,11 @@ public class GiftsController implements Initializable, PropertyChangeListener {
     // Populates employees dropdown
     for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
       Employee emp = entry.getValue();
-      MenuItem item = new MenuItem(emp.getName());
-      item.setOnAction(this::mainEmployeeMenu);
-      giftEmployee.getItems().add(item);
+      if (!emp.getDepartment().equals("Staff")) {
+        MenuItem item = new MenuItem(emp.getName());
+        item.setOnAction(this::mainEmployeeMenu);
+        giftEmployee.getItems().add(item);
+      }
     }
     clear();
     setColor(appController.color);
