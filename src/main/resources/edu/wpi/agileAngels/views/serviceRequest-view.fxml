@@ -48,7 +48,24 @@
                                 </VBox>
                             </graphic>
                         </Button>
-                        <HBox prefHeight="100.0" prefWidth="200.0" />
+                        <HBox prefHeight="76.0" prefWidth="52.0" />
+                  <Button fx:id="voiceCommandButton" mnemonicParsing="false" onAction="#voice" prefHeight="59.0" prefWidth="120.0">
+                     <graphic>
+                        <VBox alignment="CENTER" prefHeight="132.0" prefWidth="157.0" spacing="20.0">
+                           <padding>
+                              <Insets left="14.0" />
+                           </padding>
+                           <children>
+                              <ImageView fitHeight="45.0" fitWidth="45.0">
+                                 <image>
+                                    <Image url="@../assets/icons/mic-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                     </graphic>
+                  </Button>
+                  <HBox prefHeight="76.0" prefWidth="52.0" />
                         <Button fx:id="uploadButton" mnemonicParsing="false" onAction="#uploadToCSV" prefHeight="59.0" prefWidth="120.0">
                             <graphic>
                                 <VBox alignment="CENTER" prefHeight="132.0" prefWidth="157.0" spacing="20.0">
@@ -217,7 +234,7 @@
                                     <graphic>
                                         <VBox alignment="CENTER" prefHeight="0.0" prefWidth="28.0" spacing="20.0">
                                             <children>
-                                    <ImageView fitHeight="60.0" fitWidth="140.0">
+                                    <ImageView fitHeight="60.0" fitWidth="100.0">
                                        <image>
                                           <Image url="@../assets/icons/noun-stretcher-3050320.png" />
                                        </image>

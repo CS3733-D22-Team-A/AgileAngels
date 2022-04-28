@@ -3,6 +3,7 @@ package edu.wpi.agileAngels.Controllers;
 import com.jfoenix.controls.JFXToggleButton;
 import edu.wpi.agileAngels.Database.DBconnection;
 import edu.wpi.agileAngels.Database.RequestDAOImpl;
+import edu.wpi.agileAngels.MenuSpeech;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -199,6 +200,21 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
     } else if (color.equals("blue")) {
       anchor.getStylesheets().removeAll();
       anchor.getStylesheets().add("/edu/wpi/agileAngels/views/stylesheets/styleRequest.css");
+    }
+  }
+
+  public void voice(ActionEvent actionEvent) {
+    MenuSpeech thread = null;
+    try {
+      thread = new MenuSpeech();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    String[] args = new String[50];
+    try {
+      thread.main(args);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 }

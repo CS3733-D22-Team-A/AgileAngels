@@ -89,9 +89,11 @@ public class SanitationController implements Initializable, PropertyChangeListen
     // Populates employees dropdown
     for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
       Employee emp = entry.getValue();
-      MenuItem item = new MenuItem(emp.getName());
-      item.setOnAction(this::mealEmployeeMenu);
-      saniEmployee.getItems().add(item);
+      if (!emp.getDepartment().equals("Staff")) {
+        MenuItem item = new MenuItem(emp.getName());
+        item.setOnAction(this::mealEmployeeMenu);
+        saniEmployee.getItems().add(item);
+      }
     }
     clear();
     setColor(appController.color);
