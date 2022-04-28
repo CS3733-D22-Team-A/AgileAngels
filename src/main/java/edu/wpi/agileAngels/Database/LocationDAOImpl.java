@@ -1,9 +1,6 @@
 package edu.wpi.agileAngels.Database;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
 import org.apache.commons.csv.CSVFormat;
@@ -15,7 +12,7 @@ import org.apache.commons.csv.CSVRecord;
 // TODO export to CSV in LocationDAOImpl
 public class LocationDAOImpl implements LocationDAO {
   // List is working as a database
-  private final String CSV_FILE_PATH = "./TowerLocations.csv";
+  private final String CSV_FILE_PATH = "/TowerLocations.csv";
   private static HashMap<String, Location> data;
   private static LocationDAOImpl locationDAO = null;
 
@@ -33,8 +30,9 @@ public class LocationDAOImpl implements LocationDAO {
   }
 
   public void csvRead() { // error, maybe return void? doesn't in tutorial :(
+    InputStream in = this.getClass().getResourceAsStream(CSV_FILE_PATH);
     Connection connection = DBconnection.getConnection();
-    try (Reader reader = Files.newBufferedReader(Paths.get(CSV_FILE_PATH));
+    try (Reader reader = new BufferedReader(new InputStreamReader(in));
         CSVParser csvParser =
             new CSVParser(
                 reader,

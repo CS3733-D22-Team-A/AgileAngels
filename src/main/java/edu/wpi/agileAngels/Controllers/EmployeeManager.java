@@ -2,9 +2,7 @@ package edu.wpi.agileAngels.Controllers;
 
 import edu.wpi.agileAngels.Adb;
 import edu.wpi.agileAngels.Database.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -286,9 +284,9 @@ public class EmployeeManager implements EmployeeDAO {
   public void readCSV() {
     String line = "";
     String splitBy = ",";
-
+    InputStream employees = this.getClass().getResourceAsStream("/Employees.csv");
     try {
-      BufferedReader br = new BufferedReader(new FileReader("./Employees.csv"));
+      BufferedReader br = new BufferedReader(new InputStreamReader(employees));
       boolean OnHeader = false;
       line.split(splitBy);
 

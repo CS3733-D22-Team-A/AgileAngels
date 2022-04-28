@@ -92,7 +92,7 @@ public class RequestDAOImpl implements RequestDAO {
   public RequestDAOImpl(HashMap<String, Request> reqData, int count, String type)
       throws SQLException {
 
-    this.CSV_FILE_PATH = "./Requests.csv";
+    this.CSV_FILE_PATH = "/Requests.csv";
     this.reqData = reqData;
     this.count = count;
     this.DAOtype = type;
@@ -282,9 +282,10 @@ public class RequestDAOImpl implements RequestDAO {
   public void csvRead() {
     String line = "";
     String splitBy = ",";
+    InputStream in = this.getClass().getResourceAsStream(this.CSV_FILE_PATH);
 
     try {
-      BufferedReader br = new BufferedReader(new FileReader(this.CSV_FILE_PATH));
+      BufferedReader br = new BufferedReader(new InputStreamReader(in));
       boolean OnHeader = false;
       line.split(splitBy);
 

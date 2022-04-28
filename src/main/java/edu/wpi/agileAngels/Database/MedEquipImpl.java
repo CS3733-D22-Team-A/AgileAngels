@@ -2,9 +2,7 @@ package edu.wpi.agileAngels.Database;
 
 import edu.wpi.agileAngels.Adb;
 import edu.wpi.agileAngels.Controllers.AppController;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -77,9 +75,9 @@ public class MedEquipImpl implements MedEquipDAO {
   public void readCSV() {
     String line = "";
     String splitBy = ",";
-
+    InputStream in = this.getClass().getResourceAsStream("/MedEquip.csv");
     try {
-      BufferedReader br = new BufferedReader(new FileReader("./MedEquip.csv"));
+      BufferedReader br = new BufferedReader(new InputStreamReader(in));
       boolean OnHeader = false;
       line.split(splitBy);
 

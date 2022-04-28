@@ -20,7 +20,8 @@ public class APILandController {
   public void mgbAction(ActionEvent event) {
     // edu.wpi.cs3733.D22.teamA.API.run()
 
-    API.run(0, 0, 900, 900, "./MGBEmployees.csv");
+    API.run(
+        0, 0, 900, 900, "/Test/AgileAngelsTest/AgileAngels/src/main/resources/MGBEmployees.csv");
   }
 
   public void loadCredits() {
