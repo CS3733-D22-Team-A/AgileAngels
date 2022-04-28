@@ -280,6 +280,7 @@ public class RequestDAOImpl implements RequestDAO {
 
   /** Reads from the service request csv file. */
   public void csvRead() {
+
     String line = "";
     String splitBy = ",";
 
@@ -329,6 +330,10 @@ public class RequestDAOImpl implements RequestDAO {
         && DAOtype.compareTo("MorgueRequest") == 0) {
       makeRequest(values);
     }
+    if (DAOtype.compareTo("AllRequests") == 0) {
+      makeRequest(values);
+    }
+
     return;
   }
 

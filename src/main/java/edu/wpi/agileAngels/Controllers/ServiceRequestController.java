@@ -179,10 +179,17 @@ public class ServiceRequestController implements Initializable, PropertyChangeLi
   }
 
   @FXML
-  public void uploadToCSV() {
+  public void uploadToCSV() throws SQLException {
     // do things here
     System.out.println("Upload to CSV");
-    req.csvRead();
+    RequestDAOImpl.getInstance("MedRequest").csvRead();
+    RequestDAOImpl.getInstance("LabRequest").csvRead();
+    RequestDAOImpl.getInstance("MealRequest").csvRead();
+    RequestDAOImpl.getInstance("SanitationRequest").csvRead();
+    RequestDAOImpl.getInstance("LaundryRequest").csvRead();
+    RequestDAOImpl.getInstance("MaintenanceRequest").csvRead();
+    RequestDAOImpl.getInstance("TransportRequest").csvRead();
+    RequestDAOImpl.getInstance("MorgueRequest").csvRead();
   }
 
   public void setColor(String color) {
