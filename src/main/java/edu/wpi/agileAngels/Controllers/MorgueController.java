@@ -96,9 +96,11 @@ public class MorgueController implements Initializable, PropertyChangeListener {
     morgueEmployee.getItems().clear();
     for (Map.Entry<String, Employee> entry : employeeHash.entrySet()) {
       Employee emp = entry.getValue();
-      MenuItem item = new MenuItem(emp.getName());
-      item.setOnAction(this::employeeMenu);
-      morgueEmployee.getItems().add(item);
+      if (!emp.getDepartment().equals("Staff")) {
+        MenuItem item = new MenuItem(emp.getName());
+        item.setOnAction(this::employeeMenu);
+        morgueEmployee.getItems().add(item);
+      }
     }
     clear();
   }
